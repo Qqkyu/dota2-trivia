@@ -1,0 +1,164 @@
+"""Prepare a private smoke gate from current provider and GitHub read requests.
+
+This helper never changes the service or runs the smoke checks.
+"""
+import datetime
+import hashlib
+import hmac
+import importlib.util
+import json
+import os
+from pathlib import Path
+import re
+import signal
+import sys
+
+ROOT = Path('/home/kulmisiu/dev/dota2-trivia')
+BASE = Path('/tmp/queue-arcade-launch-checks/hosted-smoke-preparation')
+POLICY_HELPER = BASE.parent / 'ingress-helper-v2/enable-render-proxy.py'
+POLICY_HASH = 'b4b143e325a030497251bd8176629c0f7d1bfa97d5c8e1a9d7d7b02d1526f672'
+SMOKE = BASE / 'hosted-smoke.mjs'
+SMOKE_HASH = 'e0a09e4909016e3ee5dbefefafe9d7385401a6972294d10c8d5a92679b7bfc68'
+INPUTS = ('src/lib/arcade-games.mjs', 'scripts/image-assets.mjs')
+GATE = BASE / 'hosted-smoke-gate-v2.json'
+
+
+def require(condition):
+    if not condition:
+        raise RuntimeError('Smoke gate precondition failed.')
+
+
+def regular_bytes(path, limit=65_536):
+    require(path.is_file() and not path.is_symlink() and path.stat().st_size <= limit)
+    raw = path.read_bytes()
+    require(len(raw) <= limit)
+    return raw
+
+
+def reviewed_policy():
+    raw = regular_bytes(POLICY_HELPER)
+    require(hashlib.sha256(raw).hexdigest() == POLICY_HASH)
+    spec = importlib.util.spec_from_file_location('reviewed_proxy_policy', POLICY_HELPER)
+    module = importlib.util.module_from_spec(spec)
+    exec(compile(raw, str(POLICY_HELPER), 'exec'), module.__dict__)
+    # Fail closed if a future edit accidentally calls a mutation function.
+    original_api = module.api
+    def read_api(path, method='GET', body=None):
+        require(method == 'GET' and body is None)
+        return original_api(path, method, body)
+    module.api = read_api
+    return module
+
+
+def checked_inputs(helper, commit):
+    require(hashlib.sha256(regular_bytes(SMOKE)).hexdigest() == SMOKE_HASH)
+    result = []
+    env = {'PATH': '/usr/bin:/bin', 'GIT_CONFIG_NOSYSTEM': '1', 'GIT_CONFIG_GLOBAL': os.devnull,
+           'GIT_OPTIONAL_LOCKS': '0', 'GIT_TERMINAL_PROMPT': '0'}
+    for name in INPUTS:
+        raw = regular_bytes(ROOT / name)
+        saved = helper.run_bounded(['git', 'cat-file', 'blob', commit + ':' + name],
+                                  env=env, timeout=10, limit=65_536)
+        require(saved.returncode == 0 and not saved.stderr and saved.stdout == raw)
+        result.append({'path': name, 'sha256': hashlib.sha256(raw).hexdigest()})
+    return result
+
+
+def validate_v2_proof_contract(proof, operator_sha256):
+    require(type(proof.get('proofVersion')) is int and proof['proofVersion'] == 2)
+    require(proof.get('changedConfiguration') is False)
+    require(proof.get('operatorSecretLogged') is False and proof.get('rawAddressesLogged') is False)
+    operator = proof.get('operatorScript')
+    require(isinstance(operator, dict) and set(operator) == {'path', 'sha256'})
+    require(operator['path'] == 'ingress-helper-v2/check-ingress-proof.mjs')
+    require(isinstance(operator['sha256'], str) and re.fullmatch(r'[0-9a-f]{64}', operator['sha256']) is not None)
+    require(operator['sha256'] == operator_sha256)
+    names = ('baseline', 'cloudflare-header', 'real-ip-header', 'forwarded-chain', 'combined-headers')
+    rows = proof.get('checks')
+    require(isinstance(rows, list) and len(rows) == len(names))
+    keys = {'name', 'outcome', 'receivedVerifiedEgress', 'suppliedHeaderDidNotControlResult', 'httpStatus', 'edgeErrorCode'}
+    for name, row in zip(names, rows):
+        require(isinstance(row, dict) and set(row) == keys and row['name'] == name)
+        require(row['suppliedHeaderDidNotControlResult'] is True and type(row['httpStatus']) is int)
+        if row['outcome'] == 'verified_egress':
+            require(row['receivedVerifiedEgress'] is True and row['httpStatus'] == 200 and row['edgeErrorCode'] is None)
+        else:
+            require(name in ('cloudflare-header', 'combined-headers') and row['outcome'] == 'edge_rejected')
+            require(row['receivedVerifiedEgress'] is False and row['httpStatus'] == 403 and type(row['edgeErrorCode']) is int and row['edgeErrorCode'] == 1000)
+
+
+def checked_receipts(policy, candidate):
+    receipt = policy.read_json(policy.RECEIPT)
+    policy.validate_receipt(receipt, candidate)
+    require(receipt['externalHealthChecksAllowed'] is True and receipt['verification'] == 'new_candidate_live')
+    require(not any(receipt.get(key) for key in ['failure', 'errorType', 'suspendAttempted', 'serviceSuspended', 'suspendOutcomeUnknown']))
+    age = (policy.now() - policy.timestamp(receipt['checkedAt'])).total_seconds()
+    require(0 <= age <= 1800)
+    proof = policy.read_json(policy.PROOF_FILE)
+    validate_v2_proof_contract(proof, policy.OPERATOR_SCRIPT_SHA256)
+    require(policy.digest(proof) == receipt['proofDigest'])
+    require(proof['commit'] == candidate['commit'] and proof['ciRunId'] == candidate['ciRunId'])
+    require(proof['deployId'] == receipt['previousLiveDeployId'] and proof['checkedAt'] == receipt['proofCheckedAt'])
+    require(proof['ok'] is True and proof['policyDuringCheck'] == 'none')
+    require(proof['independentIpv4SourcesAgreed'] is True and proof['deploymentAndConfigurationStable'] is True)
+    age = (policy.now() - policy.timestamp(proof['checkedAt'])).total_seconds()
+    require(0 <= age <= 1800)
+    return receipt
+
+
+def prepare(policy):
+    helper = policy.verified_proof_helper()
+    candidate = policy.checked_candidate(helper)
+    inputs = checked_inputs(helper, candidate['commit'])
+    receipt = checked_receipts(policy, candidate)
+    configuration = policy.checked_configuration(candidate, policy.POLICY)
+    require(hmac.compare_digest(policy.configuration_binding(configuration, receipt), receipt['configurationBinding']))
+    live = policy.one_live(candidate, policy.deployments(), all_terminal=True)
+    require(live['id'] == receipt['newLiveDeployId'] and live['id'] not in receipt['previousDeployIds'])
+    response = helper.run_bounded(['curl', '--disable', '--ipv4', '--proto', '=https', '--fail', '--silent',
+        '--show-error', '--max-time', '10', '--write-out', '\n%{http_code}',
+        policy.ORIGIN + '/api/health?launch-gate=' + os.urandom(8).hex()],
+        env={'PATH': '/usr/bin:/bin'}, timeout=12, limit=32_768)
+    require(response.returncode == 0 and not response.stderr)
+    body, status = response.stdout.rsplit(b'\n', 1)
+    require(status == b'200')
+    health = json.loads(body)
+    require(health['status'] == 'ready' and health['content']['questions'] == 1517)
+    require(all(health[name]['ok'] is True and health[name]['backend'] == 'postgres' for name in ['storage', 'accounts', 'alpha']))
+    version = health['content']['version']
+    require(isinstance(version, str) and re.fullmatch(r'[a-zA-Z0-9._-]{8,240}', version) is not None)
+    require(policy.checked_configuration(candidate, policy.POLICY) == configuration)
+    require(policy.one_live(candidate, policy.deployments(), all_terminal=True)['id'] == live['id'])
+    require(policy.checked_candidate(helper) == candidate)
+    require(checked_receipts(policy, candidate) == receipt and checked_inputs(helper, candidate['commit']) == inputs)
+    return {'version': 1, 'checkedAt': policy.now().isoformat(), 'origin': policy.ORIGIN,
+            'serviceId': policy.SID, 'commit': candidate['commit'], 'deployId': live['id'],
+            'ciRunId': candidate['ciRunId'], 'ciConclusion': 'success', 'ingressVerified': True,
+            'proxyPolicy': policy.POLICY, 'contentVersion': version,
+            'ingressProofVersion': 2, 'ingressProofDigest': receipt['proofDigest'],
+            'operatorSha256': SMOKE_HASH, 'localInputs': inputs}
+
+
+def main():
+    require(len(sys.argv) == 1)
+    signal.signal(signal.SIGALRM, lambda *_: (_ for _ in ()).throw(TimeoutError()))
+    signal.alarm(120)
+    try:
+        gate = prepare(reviewed_policy())
+        require(BASE.is_dir() and not BASE.is_symlink())
+        os.chmod(BASE, 0o700)
+        descriptor = os.open(GATE, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        with os.fdopen(descriptor, 'w') as output:
+            json.dump(gate, output, indent=2)
+            output.write('\n')
+        print(json.dumps({'ok': True, 'gateFile': str(GATE), 'commit': gate['commit'], 'deployId': gate['deployId'], 'ciRunId': gate['ciRunId']}))
+    finally:
+        signal.alarm(0)
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except Exception as error:
+        print(json.dumps({'ok': False, 'errorType': type(error).__name__}))
+        sys.exit(1)

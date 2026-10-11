@@ -1,0 +1,3 @@
+#!/bin/sh
+cd /home/kulmisiu/dev/dota2-trivia
+APP_URL=http://127.0.0.1:3351 BROWSER_ENGINE=firefox A11Y_MODES=forced,forced-dark A11Y_PAGES=/,/party,/calibration A11Y_FIXTURES=shop-build A11Y_SKIP_KEYBOARD=1 A11Y_OUTPUT_DIR=/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green A11Y_RUN_NAME=firefox /tmp/queue-arcade-launch-checks/tools/node22/bin/node scripts/check-accessibility.mjs > /tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/run.log 2>&1

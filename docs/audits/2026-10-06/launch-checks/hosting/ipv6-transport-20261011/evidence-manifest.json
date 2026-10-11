@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-10-11T06:27:38.109106+00:00",
+  "applicationRequests": 0,
+  "networkRequests": 6,
+  "rawAddressesLogged": false,
+  "systemSettingsChanged": false,
+  "helperSha256": "fe1c62d1e08978f9f6f858b896dd0e3fee31083384764de5cea54356c07163e4",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1325,
+      "sha256": "41bbaf794c697ba354845f7fec07242c240946900de85a8e5e201d27073746d8"
+    },
+    {
+      "path": "exact-transport-result.json",
+      "bytes": 385,
+      "sha256": "27d13c983dbbae67b3ef292dd9f94f9d02478ce507561a3daaa68eca7d37d1eb"
+    },
+    {
+      "path": "exact-transport.mjs.txt",
+      "bytes": 1182,
+      "sha256": "af4e86dbecfb254d00f0821e5767870b9801fd4a4a0cec0c7a38f514069d148a"
+    },
+    {
+      "path": "transport-result.json",
+      "bytes": 1530,
+      "sha256": "286219c1036dcd905e6dd0fef9a6b5e05b0c5c9ad7068cb0a44382870c48aab9"
+    },
+    {
+      "path": "transport.py.txt",
+      "bytes": 3275,
+      "sha256": "d2078d0369f34d061ba5e773bdd64bb50337c58f9f62c0ade1ee5798343e296c"
+    }
+  ]
+}

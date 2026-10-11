@@ -1,0 +1,21 @@
+{
+  "scope": "Independent follow-ups in the owned diagnostic environment. These results do not make the failed GitHub workflow successful.",
+  "multiplayer": {
+    "exitCode": 0,
+    "persistenceBackend": "postgres",
+    "finalVotes": 2,
+    "deadlinesMatch": true,
+    "duplicateRejected": true,
+    "persisted": true,
+    "accountAndOpenIdScope": "Synthetic account records and protected provider-start/rejection boundaries. This was not an interactive login with the owner Steam account."
+  },
+  "cleanup": {
+    "exitCode": 0,
+    "ok": true,
+    "dryRun": true,
+    "rounds": 0,
+    "sessions": 0,
+    "alphaSessions": 0,
+    "steamNonces": 0
+  }
+}

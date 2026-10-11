@@ -1,0 +1,459 @@
+{
+  "reviewedAt": "2026-10-10T11:00:24.894840+00:00",
+  "scope": "Read-only visual review of 23 saved Chromium forced-color screenshots and their raw axe results. No app, browser, network or Docker run.",
+  "appSourceCommit": "da28a646479fab030e9b02b187e177c0f89555b9",
+  "sourcePinMethod": "The CI owner supplied the saved image provenance. The Chromium report has buildId null. Source excerpts were read directly from this Git commit.",
+  "unchangedAppCandidate": "6e1eace126e89341052dddbd76eeb4ad4de584e6",
+  "candidateDiffFiles": [
+    "docs/content-review.json",
+    "scripts/check-party-lobby.mjs",
+    "scripts/lib/reveal-entry.mjs",
+    "scripts/visual-smoke.mjs",
+    "tests/reveal-entry.test.mjs"
+  ],
+  "finalExactCi": "Pending. This review does not clear the release candidate.",
+  "capture": {
+    "engine": "chromium",
+    "version": "149.0.7827.55",
+    "startedAt": "2026-10-10T10:32:25.863Z",
+    "completedAt": "2026-10-10T10:34:46.300Z",
+    "completed": true,
+    "buildId": null
+  },
+  "rawReport": {
+    "file": "chromium.json",
+    "sha256": "0bc0418e7b76453a17322685863840174cc578734bea9bf0adc51596c8ced7e1",
+    "bytes": 3816369
+  },
+  "viewport": {
+    "width": 1280,
+    "height": 900,
+    "dpr": 1
+  },
+  "axe": {
+    "forcedStates": 23,
+    "excludedColorContrastRuleInstances": 22,
+    "excludedColorContrastNodeOccurrences": 221,
+    "incompleteColorContrastRuleInstances": 22,
+    "incompleteColorContrastNodeOccurrences": 1568,
+    "interpretation": "The checker retains but excludes forced-mode color-contrast violations from failures. Axe compares authored colors against white here. The exclusions are not a visual pass. Incomplete results are undetermined checks. The visual review found separate control visibility and selected-state defects.",
+    "relevantNodesFile": "axe-relevant-nodes.json"
+  },
+  "findings": [
+    {
+      "id": "FC-1",
+      "severity": "medium",
+      "status": "confirmed in saved screenshot; correction pending",
+      "title": "Muted volume controls remain faint",
+      "selectors": [
+        ".volumeControl[data-muted=\"true\"] .volumeValue",
+        ".volumeControl[data-muted=\"true\"] .volumeSlider"
+      ],
+      "source": "src/components/queue-arcade.module.css:303",
+      "screenshot": "chromium-forced-home.png",
+      "observation": "The 70% value is pale gray and the muted slider is faint against the white background. The mute icon remains visible.",
+      "cause": "The muted state applies opacity: 0.42 to both elements.",
+      "recommendedCheck": "Use opacity 1 in forced colors and retain the separate mute state cue. Recheck the actual muted and unmuted controls."
+    },
+    {
+      "id": "FC-2",
+      "severity": "medium",
+      "status": "confirmed in saved screenshot; correction pending",
+      "title": "Selected party checkmarks remain pale green",
+      "selectors": [
+        ".gameCard::after",
+        ".gameCard[data-on=\"false\"]::after"
+      ],
+      "source": "src/components/private-room-panel.module.css:959",
+      "screenshot": "chromium-forced-party-unchecked.png",
+      "observation": "The selected cards contain pale green marks inside black boxes. The unchecked Classic Trivia card has an empty box. The faint mark is the main selection difference.",
+      "cause": "A CSS background image contains the fixed SVG stroke #a4e3b7.",
+      "recommendedCheck": "Use a system-color mark in forced colors. Keep a visible mark for selected cards and an empty box for unselected cards. Recheck both states."
+    },
+    {
+      "id": "FC-3",
+      "severity": "medium",
+      "status": "confirmed in saved screenshot; correction pending",
+      "title": "Shop section selection is visually lost",
+      "selectors": [
+        ".shopkeeperStoreTabs button",
+        ".shopkeeperStoreTabs button[aria-pressed=\"true\"]"
+      ],
+      "source": "src/components/queue-arcade.module.css:2989",
+      "screenshot": "chromium-forced-shop-build.png",
+      "observation": "Basics and Upgrades have the same black text and bottom border. The active section cannot be identified from these controls.",
+      "cause": "The selected state changes authored border, text and background colors. The unselected transparent border also paints black in the saved forced-color output.",
+      "recommendedCheck": "Give pressed and unpressed tabs distinct system-color states and a non-color selected cue. Recheck both tabs after selection."
+    },
+    {
+      "id": "FC-4",
+      "severity": "medium",
+      "status": "confirmed in saved screenshot; correction pending",
+      "title": "Calibration filter selection is visually lost",
+      "selectors": [
+        ".controls button[aria-pressed=\"true\"]"
+      ],
+      "source": "src/components/calibration-dashboard.module.css:278",
+      "screenshot": "chromium-forced-calibration.png",
+      "observation": "All questions is the default selected filter, but its text, border and background look the same as the other four filter buttons.",
+      "cause": "The selected state changes authored border, background and text colors only.",
+      "recommendedCheck": "Give the pressed filter a visible system-color state and a non-color selected cue. Recheck each selected filter."
+    }
+  ],
+  "images": [
+    {
+      "file": "chromium-forced-home.png",
+      "sha256": "dc698d5317b33b83103ec730d3048c63a8173a3ef1a79e1e86fbeff91301aefc",
+      "bytes": 651934,
+      "size": [
+        1280,
+        932
+      ],
+      "visuallyInspected": true,
+      "observation": "Main text, links, round labels and play controls remain legible. The muted volume value is faint. Some statistic captions are truncated with ellipses.",
+      "axeViolationNodes": 7,
+      "axeIncompleteNodes": 37,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-party.png",
+      "sha256": "51e44ca01c3396be6e15957d846cb029fd5be8429e0f79968258775c26326f30",
+      "bytes": 766354,
+      "size": [
+        1280,
+        900
+      ],
+      "visuallyInspected": true,
+      "observation": "Create, join and back controls have visible text and boundaries. The muted volume value is faint.",
+      "axeViolationNodes": 8,
+      "axeIncompleteNodes": 1,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-party-unchecked.png",
+      "sha256": "5a1a404544b671631fb8a3fb2cee8e8e187fb3e2bc84c8b1868966d6aff3831b",
+      "bytes": 463590,
+      "size": [
+        1280,
+        1160
+      ],
+      "visuallyInspected": true,
+      "observation": "The Classic Trivia box is empty and selected boxes contain checkmarks. The selected marks are pale green. Card labels remain legible.",
+      "axeViolationNodes": 7,
+      "axeIncompleteNodes": 95,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-profile.png",
+      "sha256": "cca60767779762225b78c13881264debdc4cbf97c16802659498c2eb45375d93",
+      "bytes": 34764,
+      "size": [
+        1280,
+        900
+      ],
+      "visuallyInspected": true,
+      "observation": "The sign-in text, link and panel boundary remain legible. The brand artwork is blank, but its text label remains visible.",
+      "axeViolationNodes": 10,
+      "axeIncompleteNodes": 1,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-privacy.png",
+      "sha256": "183263a9c659cd7bfb914ff34d1823771f59fb4ed9bd11ba03082e5c46f30d06",
+      "bytes": 141479,
+      "size": [
+        1280,
+        1808
+      ],
+      "visuallyInspected": true,
+      "observation": "Body text, section rules and links remain legible. The brand artwork is blank, but its text label remains visible.",
+      "axeViolationNodes": 31,
+      "axeIncompleteNodes": 0,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-calibration.png",
+      "sha256": "2b13e75f3acea3cc9299979848b3c26898de7de3bd3fe15d78d140fe37bb1e88",
+      "bytes": 950105,
+      "size": [
+        1280,
+        9330
+      ],
+      "visuallyInspected": true,
+      "observation": "The page headings, search field, table rows and pagination remain legible in native-size top, middle and bottom samples. The active All questions filter has no visible distinction from the other filters.",
+      "axeViolationNodes": 0,
+      "axeIncompleteNodes": 926,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-ops.png",
+      "sha256": "3e9fb9f971e5d44bb9c93e86ed7e2945ac77d73de4980b07553c976ac132c9b0",
+      "bytes": 34718,
+      "size": [
+        1280,
+        900
+      ],
+      "visuallyInspected": true,
+      "observation": "The sign-in requirement and sign-in link remain legible. The decorative shield is pale green.",
+      "axeViolationNodes": 7,
+      "axeIncompleteNodes": 4,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-classic-ability.png",
+      "sha256": "63a295979984c1bbe6c83643072ce44bbf572a79aad03119dae51d93a5cf9be5",
+      "bytes": 393766,
+      "size": [
+        1280,
+        934
+      ],
+      "visuallyInspected": true,
+      "observation": "The prompt, ability image, answers and answer boundaries remain legible.",
+      "axeViolationNodes": 9,
+      "axeIncompleteNodes": 31,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-classic-hero.png",
+      "sha256": "64166d63af32f43b9270df1a3e38a5c66e10cc0d35f5621502fd52b3ea799c2c",
+      "bytes": 399281,
+      "size": [
+        1280,
+        934
+      ],
+      "visuallyInspected": true,
+      "observation": "The prompt, hero image, answers and answer boundaries remain legible.",
+      "axeViolationNodes": 9,
+      "axeIncompleteNodes": 31,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-classic-item.png",
+      "sha256": "4d02d700a681a0229b60be9a3664eca3a7228d98b8581aece5a0ccf6c4675ee6",
+      "bytes": 391461,
+      "size": [
+        1280,
+        934
+      ],
+      "visuallyInspected": true,
+      "observation": "The prompt, item image, answers and answer boundaries remain legible.",
+      "axeViolationNodes": 9,
+      "axeIncompleteNodes": 31,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-shop-recipe.png",
+      "sha256": "1532acfc6bc6f2a88543d28cd3d4c58876382f0d156057536602b9ea36761ea5",
+      "bytes": 591179,
+      "size": [
+        1280,
+        938
+      ],
+      "visuallyInspected": true,
+      "observation": "The item clue, component slots, recipe badge and Build control remain visible. The shop search placeholder is visible. Basics and Upgrades have the same text and underline treatment, so the active tab is unclear.",
+      "axeViolationNodes": 10,
+      "axeIncompleteNodes": 34,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-shop-build.png",
+      "sha256": "df7ba10e79e551de1762c0bf364904e2a19ebdf24838807cea5c5e25ab729050",
+      "bytes": 593464,
+      "size": [
+        1280,
+        934
+      ],
+      "visuallyInspected": true,
+      "observation": "Component images and labels remain legible. The shop search placeholder is visible. Basics and Upgrades have the same text and underline treatment, so the active tab is unclear.",
+      "axeViolationNodes": 9,
+      "axeIncompleteNodes": 34,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-shop-path.png",
+      "sha256": "995b118dbbe18fb39f12672a1cf47e709c67b30d9e784af6933d71662a18c5ab",
+      "bytes": 573220,
+      "size": [
+        1280,
+        934
+      ],
+      "visuallyInspected": true,
+      "observation": "The item clue remains visible. The shop search placeholder is visible. Basics and Upgrades have the same text and underline treatment, so the active tab is unclear.",
+      "axeViolationNodes": 9,
+      "axeIncompleteNodes": 32,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-spell-link.png",
+      "sha256": "dffe921dfdbb8e8517742087389931e4b467f4e1cc201cccb372c11902f020ee",
+      "bytes": 625281,
+      "size": [
+        1280,
+        1046
+      ],
+      "visuallyInspected": true,
+      "observation": "The available clue, search field and hero artwork remain visible. Locked clue text is gray and lighter than the available clue.",
+      "axeViolationNodes": 12,
+      "axeIncompleteNodes": 34,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-fogged-vision.png",
+      "sha256": "d10d2c05f0b459a777b50d44f3814b5c56e95a452b3ade78b6e3e90cda521413",
+      "bytes": 664700,
+      "size": [
+        1280,
+        1002
+      ],
+      "visuallyInspected": true,
+      "observation": "The clue image, fog stage text, search field and hero artwork remain visible. The saved normal-color comparison also shows the same unobscured fixture image.",
+      "axeViolationNodes": 9,
+      "axeIncompleteNodes": 31,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-echo-hunt.png",
+      "sha256": "e59dd487b26efee708a39a260fa91d07526e0f8c9464060ea98803277c4dd15d",
+      "bytes": 616608,
+      "size": [
+        1280,
+        1002
+      ],
+      "visuallyInspected": true,
+      "observation": "The Audio unavailable fallback, search field and hero artwork remain visible. This image does not show successful playback.",
+      "axeViolationNodes": 9,
+      "axeIncompleteNodes": 30,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-quote-hunt.png",
+      "sha256": "97dacf6a1f25dedaf2c52130b3f0a6370c3fb632948557d1317ef0c541a5f143",
+      "bytes": 622406,
+      "size": [
+        1280,
+        1002
+      ],
+      "visuallyInspected": true,
+      "observation": "The quote, clue slots, search field and hero artwork remain visible.",
+      "axeViolationNodes": 9,
+      "axeIncompleteNodes": 33,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-aghanim.png",
+      "sha256": "15e4efb74fb60a1f62094c5401a551b8e97a9aae775f0fd16f23b8f4c16fbdf8",
+      "bytes": 621773,
+      "size": [
+        1280,
+        1046
+      ],
+      "visuallyInspected": true,
+      "observation": "The available clue, search field and hero artwork remain visible. Locked clue text is gray and lighter than the available clue.",
+      "axeViolationNodes": 12,
+      "axeIncompleteNodes": 34,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-soundcheck.png",
+      "sha256": "21e181de3b527e5e082cfa776e4835390556005bd05fbd33c55afe3d8354a9ed",
+      "bytes": 384973,
+      "size": [
+        1280,
+        934
+      ],
+      "visuallyInspected": true,
+      "observation": "The Audio unavailable fallback, answer text, answer artwork and boundaries remain visible. This image does not show successful playback.",
+      "axeViolationNodes": 9,
+      "axeIncompleteNodes": 32,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-order-up.png",
+      "sha256": "6caa2886d612285a4b77be38d495d0d4231b2d36bb66147411d76fe0cd0ff01a",
+      "bytes": 406048,
+      "size": [
+        1280,
+        934
+      ],
+      "visuallyInspected": true,
+      "observation": "The empty sequence slots, item images, item labels and instructions remain visible. The inactive Undo control is pale.",
+      "axeViolationNodes": 9,
+      "axeIncompleteNodes": 31,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-flashback-year.png",
+      "sha256": "2daf3151fc4c4a8d77f12fca4139429ac93772e73503f868d05ad61e8b6ef12d",
+      "bytes": 365264,
+      "size": [
+        1280,
+        934
+      ],
+      "visuallyInspected": true,
+      "observation": "The selected year, range control, endpoints and Lock control remain visible. The framed decoration is blank.",
+      "axeViolationNodes": 9,
+      "axeIncompleteNodes": 26,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-flashback-choice.png",
+      "sha256": "9110a7cea4e250fcd82fdfeec126588b57ce0d2f1e12613de14ff3753273df63",
+      "bytes": 371718,
+      "size": [
+        1280,
+        934
+      ],
+      "visuallyInspected": true,
+      "observation": "The history artwork, prompt, answer text and answer boundaries remain visible.",
+      "axeViolationNodes": 9,
+      "axeIncompleteNodes": 30,
+      "browserErrors": []
+    },
+    {
+      "file": "chromium-forced-flashback-order.png",
+      "sha256": "86f16442b00fe127211df39dd418014b046c1b0bae751aa4c15465b5bc22e692",
+      "bytes": 392575,
+      "size": [
+        1280,
+        934
+      ],
+      "visuallyInspected": true,
+      "observation": "The history artwork, sequence slots, team labels and instructions remain visible. The inactive Undo control is pale.",
+      "axeViolationNodes": 9,
+      "axeIncompleteNodes": 30,
+      "browserErrors": []
+    }
+  ],
+  "limits": [
+    "No contrast ratio was measured from painted pixels. Authored-color axe ratios do not establish the ratio of the forced-color screenshot.",
+    "One Chromium engine, one emulated forced-color palette and one 1280 by 900 viewport were reviewed. This is not a physical Windows high-contrast test.",
+    "Screenshots establish only the saved states. They do not establish keyboard behavior, focus visibility across all controls, hover, answer selection, correct and incorrect results, or successful audio playback.",
+    "The calibration screenshot was reviewed as a whole and at native size in top, middle and bottom crops. Every table row was not individually read.",
+    "The source report does not include a forced-mode keyboard focus paint result.",
+    "Decorative logos and some icons become blank or pale. Visible text still names these elements. This review does not certify every image or every color palette."
+  ],
+  "representativeCrop": {
+    "file": "chromium-forced-calibration-top.png",
+    "source": "chromium-forced-calibration.png",
+    "box": [
+      0,
+      0,
+      1280,
+      950
+    ],
+    "operation": "Unscaled crop for native-size visual inspection; the source image was not changed."
+  },
+  "references": [
+    {
+      "title": "W3C CSS Color Adjustment Module Level 1, section 3.1",
+      "url": "https://www.w3.org/TR/css-color-adjust-1/#forced-colors-properties",
+      "version": "Candidate Recommendation Snapshot, 16 December 2025",
+      "reviewedAt": "2026-10-10T11:05:53.808569+00:00",
+      "supports": [
+        "System colors are preserved rather than replaced with another forced color.",
+        "Background images that contain a URL function are retained.",
+        "Opacity is not among the specified forced-color overrides. The need to reset the app muted opacity is an inference from those rules and the saved screenshot."
+      ]
+    }
+  ]
+}

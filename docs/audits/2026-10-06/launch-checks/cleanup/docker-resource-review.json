@@ -1,0 +1,186 @@
+{
+  "checked_at_utc": "2026-10-10T11:09:52.213617+00:00",
+  "status": "read-only review; no resource was removed",
+  "restore_fixture": {
+    "container": {
+      "id": "0f6a9b0963a0c01c52c7815a216e7f623249bf08870d42bf48cd6dd115324890",
+      "name": "/queue-arcade-launch-restore-pg17",
+      "status": "exited",
+      "running": false,
+      "mounts": [
+        {
+          "Destination": "/var/lib/postgresql/data",
+          "Driver": "local",
+          "Mode": "",
+          "Name": "b8a2f56da4718a3162e88b791b6791bb3b460d4c90abad59295ef374180789ae",
+          "Propagation": "",
+          "RW": true,
+          "Source": "/var/lib/docker/volumes/b8a2f56da4718a3162e88b791b6791bb3b460d4c90abad59295ef374180789ae/_data",
+          "Type": "volume"
+        }
+      ],
+      "imageId": "sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24"
+    },
+    "mount_origin": {
+      "id": "0f6a9b0963a0c01c52c7815a216e7f623249bf08870d42bf48cd6dd115324890",
+      "name": "/queue-arcade-launch-restore-pg17",
+      "created": "2026-10-06T12:33:18.361657258Z",
+      "binds": null,
+      "mountRequests": null,
+      "declaredVolumes": {
+        "/var/lib/postgresql/data": {}
+      }
+    },
+    "volume_users": [
+      {
+        "ID": "0f6a9b0963a0",
+        "Image": "postgres:17-alpine",
+        "Names": "queue-arcade-launch-restore-pg17",
+        "Status": "Exited (255) 2 hours ago"
+      }
+    ],
+    "ownership_evidence": "docs/audits/2026-10-06/launch-checks/infrastructure/cleanup.json records this exact fixture name as retained for another audit step on 2026-10-06.",
+    "recommendation": "After final checks and private backup retention, remove this exact stopped fixture with its one anonymous volume. Preserve the postgres:17-alpine base image.",
+    "conditions": [
+      "Container still has the exact full ID and name.",
+      "Container is still stopped.",
+      "Mounts still contain only the recorded PostgreSQL anonymous volume.",
+      "No other container uses that volume.",
+      "The private recovery export has been retained and verified."
+    ]
+  },
+  "images": [
+    {
+      "id": "sha256:691894e712d4c9c24abbe9d4be7776f03f996c6835d82453d96ddd02c43eed40",
+      "tags": [
+        "queue-arcade-launch:final"
+      ],
+      "created": "2026-10-06T13:27:49.543301081Z",
+      "size": 143821022,
+      "parent": ""
+    },
+    {
+      "id": "sha256:567f0e0417943577762b69a58a5a2a576b299d5011d1cf68b3f5d55899706163",
+      "tags": [
+        "queue-arcade-assistive:orca49"
+      ],
+      "created": "2026-10-06T13:19:36.043367121Z",
+      "size": 1053496682,
+      "parent": ""
+    },
+    {
+      "id": "sha256:ce9eca3d1cf89ec1d2ba245bdd54107373b95fdb80731a26fa04329bca3bb626",
+      "tags": [
+        "queue-arcade-launch:baseline"
+      ],
+      "created": "2026-10-06T12:58:28.529270544Z",
+      "size": 143812430,
+      "parent": ""
+    },
+    {
+      "id": "sha256:285cd0c0d0fd7be15e0900938d552db30bd6dcb92e4704d338e4d42f33e34d43",
+      "tags": [
+        "queue-arcade-ci-runner:20261006"
+      ],
+      "created": "2026-10-06T12:45:46.964240102Z",
+      "size": 862954767,
+      "parent": ""
+    },
+    {
+      "id": "sha256:cda0d9616bf2f605a04221fd43a6e695fa6e58ad52df145d654a4f694403a432",
+      "tags": [
+        "queue-arcade-launch-runtime-base:local"
+      ],
+      "created": "2026-10-06T12:42:12.398753618Z",
+      "size": 111392245,
+      "parent": ""
+    },
+    {
+      "id": "sha256:84459f933569aa8478d9c2c1bc87bf95922660b44f7bc05d79f2827bff0426e3",
+      "tags": [
+        "queue-arcade-launch-dependencies:local"
+      ],
+      "created": "2026-10-06T12:39:37.76903483Z",
+      "size": 252852045,
+      "parent": ""
+    }
+  ],
+  "individual_image_users": [
+    {
+      "imageIdPrefix": "691894e712d4",
+      "users": []
+    },
+    {
+      "imageIdPrefix": "567f0e041794",
+      "users": []
+    },
+    {
+      "imageIdPrefix": "ce9eca3d1cf8",
+      "users": []
+    },
+    {
+      "imageIdPrefix": "285cd0c0d0fd",
+      "users": []
+    },
+    {
+      "imageIdPrefix": "cda0d9616bf2",
+      "users": []
+    },
+    {
+      "imageIdPrefix": "84459f933569",
+      "users": []
+    }
+  ],
+  "local_build_log_bindings": [
+    {
+      "path": "/tmp/queue-arcade-launch-checks/infrastructure/dependencies-build.log",
+      "bytes": 8191,
+      "sha256": "7abfe8e9a35efa8dd76b3e134726255ad1294703570cf42740f2604fe63302bf",
+      "exact_tag_marker_present": true,
+      "current_image_id_prefix_present": false
+    },
+    {
+      "path": "/tmp/queue-arcade-launch-checks/infrastructure/dependencies-patched-build.log",
+      "bytes": 6521,
+      "sha256": "e0d4c75bdd7ecc848f09d548488038973c5845b703ffe6dcce1924e27401a4b8",
+      "exact_tag_marker_present": true,
+      "current_image_id_prefix_present": true
+    },
+    {
+      "path": "/tmp/queue-arcade-launch-checks/infrastructure/runtime-base-build.log",
+      "bytes": 7512,
+      "sha256": "36e1c2a0f2df49c0a7f774889be8baa198eafa6af455cf95216d27cd42ae9423",
+      "exact_tag_marker_present": true,
+      "current_image_id_prefix_present": true
+    },
+    {
+      "path": "/tmp/queue-arcade-launch-checks/infrastructure/final-build.log",
+      "bytes": 9004,
+      "sha256": "1f3aa8bd4bf1a264f9e491b6e367ccbb6f78b990126dee2fc6aee0430ef31182",
+      "exact_tag_marker_present": true,
+      "current_image_id_prefix_present": true
+    },
+    {
+      "path": "/tmp/queue-arcade-launch-checks/infrastructure/baseline-build.log",
+      "bytes": 5546,
+      "sha256": "64e6d3a4949aaf7d43ead1eeddf0958f2e180247a27e09c7a333ab183ab99e43",
+      "exact_tag_marker_present": true,
+      "current_image_id_prefix_present": true
+    }
+  ],
+  "recommendations": {
+    "queue-arcade-launch:final": "Remove after final CI and hosted checks. Its full ID matches archived final-preview/container-result.json.",
+    "queue-arcade-launch:baseline": "Remove after final CI and hosted checks. Its full ID matches archived baseline-preview/container-result.json.",
+    "queue-arcade-launch-runtime-base:local": "Remove after final CI and hosted checks. The exact current ID and tag appear in the local runtime-base-build.log.",
+    "queue-arcade-launch-dependencies:local": "Remove after final CI and hosted checks. The exact current ID and tag appear in dependencies-patched-build.log.",
+    "queue-arcade-ci-runner:20261006": "Keep through all CI and scans. Afterwards, remove only if the CI owner confirms there is no next job or planned reuse.",
+    "queue-arcade-assistive:orca49": "Recommend removal after final accessibility evidence is accepted. Its Dockerfile and runner source are archived. Cached Orca source and Chrome support rebuilding, but the portable tar is not a complete Orca runtime."
+  },
+  "safety": [
+    "Refresh exact tag-to-ID bindings and per-image container users immediately before removal.",
+    "Remove only these named tags without force. Do not prune Docker globally.",
+    "Preserve shared base-image tags, unrelated containers, volumes, and Docker configuration.",
+    "The listed image sizes do not state reclaimable disk space because layers are shared.",
+    "Docker environment values, command arguments, logs, database contents, and secret files were not read or printed during metadata inspection."
+  ]
+}

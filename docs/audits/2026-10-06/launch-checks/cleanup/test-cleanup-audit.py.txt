@@ -1,0 +1,290 @@
+#!/usr/bin/env python3
+"""Small local fixtures only. These tests never touch live tools or task files."""
+import importlib.util
+import io
+import json
+import os
+from pathlib import Path
+import stat
+import tarfile
+import tempfile
+import unittest
+from unittest.mock import patch
+
+HERE = Path(__file__).resolve().parent
+spec = importlib.util.spec_from_file_location('cleanup_audit', HERE / 'cleanup-audit.py')
+m = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(m)
+
+class CleanupTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory(prefix='unit-', dir=HERE)
+        self.root = Path(self.tmp.name)
+        self.addCleanup(self.tmp.cleanup)
+
+    def directory(self, name):
+        p = self.root / name
+        p.mkdir(parents=True)
+        return p
+
+    def test_tree_hash_detects_same_size_change(self):
+        p = self.directory('source')
+        (p / 'file').write_text('abc')
+        a = m.tree(p)
+        (p / 'file').write_text('abd')
+        self.assertNotEqual(m.fingerprint(a), m.fingerprint(m.tree(p)))
+
+    def test_symlink_ancestor_rejected(self):
+        p = self.directory('real')
+        (self.root / 'alias').symlink_to(p)
+        with self.assertRaises(m.Refusal):
+            m.no_symlink_ancestors(self.root / 'alias/file')
+
+    def test_private_symlink_rejected(self):
+        p = self.directory('private')
+        (p / 'link').symlink_to('missing')
+        with self.assertRaises(m.Refusal):
+            m.tree(p, private=True)
+
+    def test_private_hardlink_rejected(self):
+        p = self.directory('private')
+        original = self.root / 'outside'
+        original.write_text('fixture')
+        os.link(original, p / 'linked')
+        with self.assertRaises(m.Refusal):
+            m.tree(p, private=True)
+
+    def test_internal_tool_link_kept(self):
+        p = self.directory('tool')
+        (p / 'binary').write_text('x')
+        (p / 'link').symlink_to('binary')
+        self.assertEqual(m.tree(p)['link']['target'], 'binary')
+
+    def test_escaping_tool_link_rejected(self):
+        p = self.directory('tool')
+        (p / 'link').symlink_to('../outside')
+        with self.assertRaises(m.Refusal):
+            m.tree(p)
+
+    def test_known_android_link_allowed(self):
+        root = m.CHECKS / 'android-sdk'
+        m.check_link(root / 'platform-tools', root, '/home/kulmisiu/android-sdk/platform-tools')
+        with self.assertRaises(m.Refusal):
+            m.check_link(root / 'platform-tools', root, '/home/kulmisiu/other')
+
+    def test_known_python_link_allowed(self):
+        root = m.CHECKS / 'asr-venv'
+        m.check_link(root / 'bin/python3', root, '/usr/bin/python3')
+
+    def test_private_copy_has_exact_bytes_and_private_modes(self):
+        source = self.directory('source')
+        (source / 'nested').mkdir(mode=0o755)
+        (source / 'nested/file').write_text('synthetic private fixture')
+        dest = self.root / 'recovery/copied'
+        result = m.copy_private(source, dest)
+        self.assertEqual(result, m.fingerprint(m.tree(source, private=True)))
+        self.assertEqual(m.tree(source, private=True), m.tree(dest, private=True))
+        for p in [dest, *dest.rglob('*')]:
+            self.assertEqual(stat.S_IMODE(p.stat().st_mode), 0o700 if p.is_dir() else 0o600)
+        self.assertTrue(source.exists())
+
+    def test_private_copy_collision_same_size_rejected(self):
+        source = self.directory('source')
+        dest = self.directory('destination')
+        (source / 'a').write_text('aaa')
+        (dest / 'a').write_text('bbb')
+        with self.assertRaises(m.Refusal):
+            m.copy_private(source, dest)
+        self.assertEqual((dest / 'a').read_text(), 'bbb')
+
+    def test_private_staging_collision_rejected(self):
+        source = self.directory('source')
+        (source / 'a').write_text('a')
+        self.directory('recovery/.cleanup-copy-target')
+        with self.assertRaises(m.Refusal):
+            m.copy_private(source, self.root / 'recovery/target')
+
+    def wrapper_fixture(self):
+        source = self.directory('source')
+        (source / 'bin').mkdir()
+        for name in ('psql', 'pg_restore', 'pg_dump'):
+            (source / 'bin' / name).write_text('#!/bin/sh\n' + str(source) + '/loader ' + str(source) + '/binary\n')
+        return source
+
+    def test_prefix_repair_replaces_all_occurrences(self):
+        source = self.wrapper_fixture()
+        dest = self.root / 'destination'
+        expected = m.expected_relocation(source, dest, 'postgres', m.tree(source))
+        os.rename(source, dest)
+        m.repair_prefixes(dest, source, 'postgres')
+        self.assertEqual(m.tree(dest), expected)
+        self.assertNotIn(str(source), (dest / 'bin/psql').read_text())
+        m.repair_prefixes(dest, source, 'postgres')
+        self.assertEqual(m.tree(dest), expected)
+
+    def test_hardlinked_wrapper_rejected(self):
+        source = self.wrapper_fixture()
+        os.link(source / 'bin/psql', self.root / 'outside')
+        with self.assertRaises(m.Refusal):
+            m.expected_relocation(source, self.root / 'destination', 'postgres', m.tree(source))
+
+    def test_relocation_and_resume(self):
+        source = self.wrapper_fixture()
+        dest = self.root / 'destination'
+        state = {'moves': {}}
+        saves = []
+        with patch.object(m, 'validate_tool'):
+            m.relocate(source, dest, 'postgres', state, lambda: saves.append(1))
+            m.relocate(source, dest, 'postgres', state, lambda: saves.append(1))
+        self.assertFalse(source.exists())
+        self.assertTrue(state['moves'][str(source)]['complete'])
+        self.assertGreaterEqual(len(saves), 3)
+
+    def test_tool_collision_preserves_both(self):
+        source = self.directory('source')
+        dest = self.directory('destination')
+        (source / 'file').write_text('aaa')
+        (dest / 'file').write_text('bbb')
+        with patch.object(m, 'validate_tool'), self.assertRaises(m.Refusal):
+            m.relocate(source, dest, 'source', {'moves': {}}, lambda: None)
+        self.assertEqual((source / 'file').read_text(), 'aaa')
+        self.assertEqual((dest / 'file').read_text(), 'bbb')
+
+    def test_identical_tool_destination_reused_without_overwrite(self):
+        source = self.directory('source')
+        dest = self.directory('destination')
+        (source / 'file').write_text('same')
+        (dest / 'file').write_text('same')
+        before = (dest / 'file').stat().st_ino
+        with patch.object(m, 'validate_tool'):
+            m.relocate(source, dest, 'source', {'moves': {}}, lambda: None)
+        self.assertEqual(before, (dest / 'file').stat().st_ino)
+        self.assertTrue(source.exists())
+
+    def archive(self, extras=()):
+        data = io.BytesIO()
+        with tarfile.open(fileobj=data, mode='w') as tar:
+            c = tarfile.TarInfo('opt/chrome153/chrome')
+            c.size = 6
+            tar.addfile(c, io.BytesIO(b'chrome'))
+            for member in extras:
+                if isinstance(member, str):
+                    item = tarfile.TarInfo(member)
+                    item.size = 1
+                    tar.addfile(item, io.BytesIO(b'x'))
+                else:
+                    tar.addfile(member)
+        data.seek(0)
+        return tarfile.open(fileobj=data)
+
+    def test_chrome_ignores_workspace(self):
+        with self.archive(['workspace/source.txt']) as a:
+            self.assertEqual([r for _, r in m.chrome_members(a)], ['chrome'])
+
+    def test_chrome_traversal_rejected(self):
+        with self.archive(['opt/chrome153/../../escape']) as a, self.assertRaises(m.Refusal):
+            m.chrome_members(a)
+
+    def test_chrome_duplicate_rejected(self):
+        with self.archive(['opt/chrome153/chrome']) as a, self.assertRaises(m.Refusal):
+            m.chrome_members(a)
+
+    def test_chrome_absolute_link_rejected(self):
+        link = tarfile.TarInfo('opt/chrome153/link')
+        link.type = tarfile.SYMTYPE
+        link.linkname = '/tmp/outside'
+        with self.archive([link]) as a, self.assertRaises(m.Refusal):
+            m.chrome_members(a)
+
+    def test_chrome_link_ancestor_rejected(self):
+        link = tarfile.TarInfo('opt/chrome153/link')
+        link.type = tarfile.SYMTYPE
+        link.linkname = 'chrome'
+        with self.archive([link, 'opt/chrome153/link/file']) as a, self.assertRaises(m.Refusal):
+            m.chrome_members(a)
+
+    def test_chrome_hardlink_rejected(self):
+        link = tarfile.TarInfo('opt/chrome153/link')
+        link.type = tarfile.LNKTYPE
+        link.linkname = 'opt/chrome153/chrome'
+        with self.archive([link]) as a, self.assertRaises(m.Refusal):
+            m.chrome_members(a)
+
+    def test_mount_under_scratch_rejected(self):
+        info = self.root / 'mountinfo'
+        info.write_text('1 0 8:0 / ' + str(self.root / 'scratch/nested') + ' rw - ext4 /dev/a rw\n')
+        with self.assertRaises(m.Refusal):
+            m.mount_guard((self.root / 'scratch',), info)
+
+    def test_unrelated_mount_is_allowed(self):
+        info = self.root / 'mountinfo'
+        info.write_text('1 0 8:0 / /unrelated rw - ext4 /dev/a rw\n')
+        m.mount_guard((self.root / 'scratch',), info)
+
+    def test_cmdline_only_process_blocks_cleanup(self):
+        proc = self.directory('proc')
+        p = proc / '987654321'
+        p.mkdir()
+        (p / 'cmdline').write_bytes(b'python\0' + str(self.root / 'scratch/helper.py').encode() + b'\0')
+        with self.assertRaises(m.Refusal):
+            m.process_guard((self.root / 'scratch',), proc)
+
+    def test_unrelated_cmdline_is_allowed(self):
+        proc = self.directory('proc')
+        p = proc / '987654321'
+        p.mkdir()
+        (p / 'cmdline').write_bytes(b'python\0/unrelated/helper.py\0')
+        m.process_guard((self.root / 'scratch',), proc)
+
+    def test_exact_root_deletion_leaves_unrelated_directory(self):
+        one = self.directory('one')
+        two = self.directory('two')
+        unrelated = self.directory('unrelated')
+        (unrelated / 'keep').write_text('keep')
+        (one / 'escape-link').symlink_to(unrelated)
+        state = {'roots': {str(p): m.owned_directory(p) for p in (one, two)}, 'deleted': []}
+        with patch.object(m, 'ROOTS', (one, two)), patch.object(m, 'process_guard'), patch.object(m, 'mount_guard'):
+            m.delete_roots(state, lambda: None)
+        self.assertFalse(one.exists())
+        self.assertFalse(two.exists())
+        self.assertEqual((unrelated / 'keep').read_text(), 'keep')
+
+    def test_changed_root_identity_blocks_deletion(self):
+        one = self.directory('one')
+        identity = m.owned_directory(one)
+        identity[1] += 1
+        state = {'roots': {str(one): identity}, 'deleted': []}
+        with patch.object(m, 'ROOTS', (one,)), patch.object(m, 'process_guard'), patch.object(m, 'mount_guard'), self.assertRaises(m.Refusal):
+            m.delete_roots(state, lambda: None)
+        self.assertTrue(one.exists())
+
+    def test_interrupted_delete_receipt_can_resume(self):
+        one = self.root / 'removed'
+        state = {'roots': {str(one): [0, 0, 0]}, 'deleted': [], 'deletion_intent': str(one)}
+        with patch.object(m, 'ROOTS', (one,)), patch.object(m, 'process_guard'), patch.object(m, 'mount_guard'):
+            m.delete_roots(state, lambda: None)
+        self.assertEqual(state['deleted'], [str(one)])
+
+    def test_missing_root_without_intent_is_rejected(self):
+        one = self.root / 'missing'
+        state = {'roots': {str(one): [0, 0, 0]}, 'deleted': []}
+        with patch.object(m, 'ROOTS', (one,)), patch.object(m, 'process_guard'), patch.object(m, 'mount_guard'), self.assertRaises(m.Refusal):
+            m.delete_roots(state, lambda: None)
+
+    def test_scope_cannot_be_broadened_by_plan(self):
+        plan = json.loads((HERE / 'cleanup-plan.json').read_text())
+        plan['delete_after_all_retention_and_evidence_checks'].append('/tmp/unrelated')
+        with self.assertRaises(m.Refusal):
+            m.fixed_plan_check(plan)
+
+    def test_missing_completion_flags_block_execution(self):
+        with patch('sys.argv', ['cleanup-audit.py', '--execute']), self.assertRaises(m.Refusal):
+            m.main()
+
+    def test_dry_run_does_not_hash_or_write(self):
+        with patch('sys.argv', ['cleanup-audit.py']), patch.object(m, 'tree', side_effect=AssertionError('tree walk')), patch.object(m, 'digest_file', side_effect=AssertionError('hash')), patch.object(m, 'private_write', side_effect=AssertionError('write')), patch('sys.stdout', io.StringIO()) as output:
+            m.main()
+        self.assertFalse(json.loads(output.getvalue())['would_write'])
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)

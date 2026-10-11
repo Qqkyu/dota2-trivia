@@ -1,0 +1,133 @@
+{
+  "checkedAt": "2026-10-11T06:53:21.893Z",
+  "fixture": "Repeated synthetic hero-board mounts through the actual reviewed proxy and Chromium; immutable public cache headers; no hosted requests.",
+  "limits": {
+    "outboundBrowserRequests": 640,
+    "bytes": 33554432,
+    "wallMs": 90000
+  },
+  "operatorSha256": "5099efbe3e9ed03e766d4b2938f64170639feebcc01117df21d26c24a9bb902a",
+  "hostedRequests": 0,
+  "results": [
+    {
+      "cacheEnabled": false,
+      "stages": [
+        {
+          "name": "preload",
+          "mounted": 131,
+          "requested": 131,
+          "routes": 134,
+          "forwarded": 132
+        },
+        {
+          "name": "hidden-hero",
+          "mounted": 131,
+          "requested": 131,
+          "routes": 265,
+          "forwarded": 263
+        },
+        {
+          "name": "hidden-shop",
+          "mounted": 108,
+          "requested": 108,
+          "routes": 373,
+          "forwarded": 371
+        },
+        {
+          "name": "answering",
+          "mounted": 131,
+          "requested": 131,
+          "routes": 504,
+          "forwarded": 502
+        },
+        {
+          "name": "reveal",
+          "mounted": 131,
+          "requested": 131,
+          "routes": 635,
+          "forwarded": 633
+        }
+      ],
+      "extraAssets": 5,
+      "responseCookieStored": false,
+      "browserStopped": true,
+      "routes": 659,
+      "forwarded": 638,
+      "realLocalRequests": 638,
+      "bytes": 43181,
+      "blockedWrites": 1,
+      "blockedKinds": {
+        "REQUEST_ORIGIN": 1
+      },
+      "exceeded": true,
+      "elapsedMs": 832,
+      "credentialsForwarded": false,
+      "foreignRequestsForwarded": false,
+      "privateWrites": {
+        "create": 0,
+        "start": 0,
+        "leave": 0
+      }
+    },
+    {
+      "cacheEnabled": true,
+      "stages": [
+        {
+          "name": "preload",
+          "mounted": 131,
+          "requested": 131,
+          "routes": 134,
+          "forwarded": 132
+        },
+        {
+          "name": "hidden-hero",
+          "mounted": 131,
+          "requested": 131,
+          "routes": 265,
+          "forwarded": 263
+        },
+        {
+          "name": "hidden-shop",
+          "mounted": 108,
+          "requested": 108,
+          "routes": 373,
+          "forwarded": 371
+        },
+        {
+          "name": "answering",
+          "mounted": 131,
+          "requested": 131,
+          "routes": 504,
+          "forwarded": 502
+        },
+        {
+          "name": "reveal",
+          "mounted": 131,
+          "requested": 131,
+          "routes": 635,
+          "forwarded": 633
+        }
+      ],
+      "extraAssets": 5,
+      "responseCookieStored": false,
+      "browserStopped": true,
+      "routes": 659,
+      "forwarded": 638,
+      "realLocalRequests": 638,
+      "bytes": 43181,
+      "blockedWrites": 1,
+      "blockedKinds": {
+        "REQUEST_ORIGIN": 1
+      },
+      "exceeded": true,
+      "elapsedMs": 614,
+      "credentialsForwarded": false,
+      "foreignRequestsForwarded": false,
+      "privateWrites": {
+        "create": 0,
+        "start": 0,
+        "leave": 0
+      }
+    }
+  ]
+}

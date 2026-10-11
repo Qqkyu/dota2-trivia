@@ -1,0 +1,34 @@
+import assert from 'node:assert/strict';
+import { readFile, writeFile, mkdir, mkdtemp, chmod, stat, lstat, readdir, rename, symlink, rm } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { pathToFileURL } from 'node:url';
+import path from 'node:path';
+const original='/tmp/queue-arcade-launch-checks/hosted-smoke-preparation/hosted-smoke.mjs';
+const raw=await readFile(original,'utf8');
+const base=await mkdtemp('/tmp/queue-arcade-launch-checks/owned-guest-offline-');await chmod(base,0o700);
+const replacement=`const PRIVATE_BASE = ${JSON.stringify(base)};`;
+const marker='const PRIVATE_BASE = "/tmp/queue-arcade-launch-checks/hosted-smoke-preparation";';
+assert.equal(raw.split(marker).length,2);
+await writeFile(path.join(base,'helper.mjs'),raw.replace(marker,replacement),{mode:0o600});
+const {Check}=await import(pathToFileURL(path.join(base,'helper.mjs')));
+const origin='https://queue-arcade.onrender.com';
+const gate={commit:'a'.repeat(40),deployId:'dep-synthetic',contentVersion:'synthetic-content'};
+const owned={code:'LAUNCH0123456789',playerId:'00000000-0000-4000-8000-000000000001',roomId:''};
+const pending=path.join(base,'hosted-owned-guest.json');
+const results=[];
+async function test(name,fn){await fn();results.push({name,passed:true});}
+function check(){const c=new Check(origin,gate,false);c.owned={...owned};return c;}
+let instance;
+try {
+await test('private checkpoint uses exclusive creation and mode 0600',async()=>{instance=check();await instance.recordGuestState({},true);assert.equal((await stat(pending)).mode&0o777,0o600);assert.equal((await stat(base)).mode&0o777,0o700);const data=JSON.parse(await readFile(pending,'utf8'));assert.equal(data.createAttempted,true);assert.equal(data.voteAttempted,false);assert.deepEqual(data.owned,owned);});
+await test('a new hosted run refuses an unresolved checkpoint',async()=>{await assert.rejects(check().assertNoPendingGuest(),/OWNED_GUEST_RECOVERY_REQUIRED/);});
+await test('exclusive creation preserves an existing checkpoint',async()=>{const before=await readFile(pending);await assert.rejects(check().recordGuestState({},true),{code:'EEXIST'});assert.deepEqual(await readFile(pending),before);});
+await test('atomic vote checkpoint preserves mode and leaves no stage file',async()=>{await instance.recordGuestState({voteAttempted:true});assert.equal(JSON.parse(await readFile(pending,'utf8')).voteAttempted,true);assert.equal((await stat(pending)).mode&0o777,0o600);assert.equal((await readdir(base)).filter(name=>name.endsWith('.tmp')).length,0);});
+await test('recovery rejects a changed deployment before transport',async()=>{const c=check();c.gate={...gate,deployId:'dep-other'};c.request=()=>assert.fail('must not send');await assert.rejects(c.recoverOwnedGuest(),/OWNED_RECEIPT_SCOPE/);});
+await test('recovery rejects a symlink before reading capabilities',async()=>{const saved=path.join(base,'saved.json');await rename(pending,saved);await symlink(saved,pending);try{await assert.rejects(check().recoverOwnedGuest(),/OWNED_RECEIPT_FILE/);}finally{await rm(pending);await rename(saved,pending);}});
+await test('recovery rejects group-readable capability files',async()=>{await chmod(pending,0o640);try{await assert.rejects(check().recoverOwnedGuest(),/OWNED_RECEIPT_FILE/);}finally{await chmod(pending,0o600);}});
+await test('failed recovery retains the pending checkpoint after two leave attempts',async()=>{const c=check();let calls=0;c.request=async()=>{calls++;return{status:503};};await assert.rejects(c.recoverOwnedGuest(),/PRIVATE_CLEANUP_FAILED/);assert.equal(calls,2);assert.equal((await lstat(pending)).isFile(),true);assert.equal(c.output.privateRoomCleanupConfirmed,false);});
+await test('successful recovery leaves once, confirms absence, and removes the pending blocker',async()=>{const c=check();const calls=[];c.request=async(url,opts={})=>{calls.push({path:new URL(url,origin).pathname,method:opts.method??'GET',body:opts.body});return{status:opts.method==='POST'?200:404};};await c.recoverOwnedGuest();assert.deepEqual(calls.map(row=>[row.path,row.method]),[['/api/private-rooms/leave','POST'],['/api/private-rooms','GET']]);assert.deepEqual(calls[0].body,{code:owned.code,playerId:owned.playerId});await assert.rejects(lstat(pending),{code:'ENOENT'});await check().assertNoPendingGuest();assert.equal(c.output.checks.recovery.votesSent,0);assert.equal(c.output.privateRoomCleanupConfirmed,true);assert(!JSON.stringify(c.output).includes(owned.code));assert(!JSON.stringify(c.output).includes(owned.playerId));const completed=(await readdir(base)).filter(name=>name.startsWith('completed-owned-guest-'));assert.equal(completed.length,1);const file=path.join(base,completed[0]);assert.equal((await stat(file)).mode&0o777,0o600);assert.equal(JSON.parse(await readFile(file,'utf8')).cleanupConfirmed,true);});
+await test('a non-private directory blocks checkpoint creation',async()=>{await chmod(base,0o755);try{await assert.rejects(check().recordGuestState({},true),/OWNED_RECEIPT_DIRECTORY/);}finally{await chmod(base,0o700);}});
+console.log(JSON.stringify({checkedAt:new Date().toISOString(),passed:results.length,hostedRequests:0,sourceSha256:createHash('sha256').update(raw).digest('hex'),onlyTestCopyChange:'Private receipt directory replaced with a new isolated temporary directory.',fixtureDirectoryRemoved:true,cases:results},null,2));
+}finally{await rm(base,{recursive:true,force:true});}

@@ -1,0 +1,30 @@
+{
+  "checkedAt": "2026-10-10T12:45:56.236Z",
+  "checks": [
+    {
+      "path": "/api/health",
+      "authenticated": false,
+      "status": 200,
+      "contentType": "application/json",
+      "bodyBytes": 576,
+      "json": true,
+      "bodyClassifications": [],
+      "cloudflareChallenge": false
+    },
+    {
+      "path": "/api/health/ingress",
+      "authenticated": true,
+      "status": 200,
+      "contentType": "application/json",
+      "bodyBytes": 142,
+      "json": true,
+      "bodyClassifications": [],
+      "cloudflareChallenge": false
+    }
+  ],
+  "rawBodyLogged": false,
+  "rawHeadersLogged": false,
+  "commit": "31961cbd762587225b4b8a814828dc0829952978",
+  "deployId": "dep-db534k0473hc739n08rg",
+  "policyDuringCheck": "none"
+}

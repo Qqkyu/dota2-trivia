@@ -1,0 +1,13 @@
+--- create-gate.py
++++ create-gate-gh-path.py
+@@ -15,8 +15,8 @@
+ 
+ ROOT = Path('/home/kulmisiu/dev/dota2-trivia')
+ BASE = Path('/tmp/queue-arcade-launch-checks/hosted-smoke-preparation')
+-POLICY_HELPER = BASE.parent / 'ingress-helper-v2/enable-render-proxy.py'
+-POLICY_HASH = 'b4b143e325a030497251bd8176629c0f7d1bfa97d5c8e1a9d7d7b02d1526f672'
++POLICY_HELPER = BASE.parent / 'ingress-helper-v2/enable-render-proxy-gh-path.py'
++POLICY_HASH = '0d1400014b762b3592251f8e28eae334d41adbb1f527afda70a720dffa642b54'
+ SMOKE = BASE / 'hosted-smoke.mjs'
+ SMOKE_HASH = 'e0a09e4909016e3ee5dbefefafe9d7385401a6972294d10c8d5a92679b7bfc68'
+ INPUTS = ('src/lib/arcade-games.mjs', 'scripts/image-assets.mjs')

@@ -1,0 +1,300 @@
+{
+  "files": [
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-window-repro.log",
+      "archive": "reveal-window-repro.log",
+      "bytes": 673,
+      "sha256": "da2c8fa45f1b3256467780befa11302708bf9aa8a4ead71c151480b89bcb4680",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-window-repro-2.log",
+      "archive": "reveal-window-repro-2.log",
+      "bytes": 674,
+      "sha256": "77ff35a1abb7fc39a54ad6a3fcb5bc1e1f536ee78e51520da8a2cfe7022ac213",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-window-repro.mjs",
+      "archive": "reveal-window-repro.mjs.txt",
+      "bytes": 1263,
+      "sha256": "faa7aef33a956073e37795c1726936fa07793c082ce391e96199e8b86857d518",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-entry-legacy.mjs",
+      "archive": "reveal-entry-legacy.mjs.txt",
+      "bytes": 808,
+      "sha256": "3c9c2a0584f68316bd09c4f3d8c90f95526df793cc864e43f55c1b55eaf43f3a",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-entry-red.log",
+      "archive": "reveal-entry-red.log",
+      "bytes": 1819,
+      "sha256": "8530f50a5ac2f250a32aa766e578b6840eda7c4743321ec0af4f9385ab95a797",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-entry-green.log",
+      "archive": "reveal-entry-green.log",
+      "bytes": 193,
+      "sha256": "7ff8c70ceccab9f50ba8ee2d5a75132f3bc6a7016c8afab7b1229e16e3252da6",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-entry-lint.log",
+      "archive": "reveal-entry-lint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exactCopy": true
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/scripts/lib/reveal-entry.mjs",
+      "archive": "sources/scripts/lib/reveal-entry.mjs.txt",
+      "bytes": 2374,
+      "sha256": "5a157036ce50fcda939ba83c6a2e8a280750984a19e302addbab20a7d23350a2",
+      "exactCopy": true
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/scripts/visual-smoke.mjs",
+      "archive": "sources/scripts/visual-smoke-before-settings.mjs.txt",
+      "bytes": 79993,
+      "sha256": "3a2cd8b2b8b6447e624f9f8364c3c62f10bfe7cdb6dd757f5938372ebef4d681",
+      "exactCopy": true,
+      "stage": "Intermediate source after reveal helper fix, before settings fixture correction."
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/tests/reveal-entry.test.mjs",
+      "archive": "sources/tests/reveal-entry.test.mjs.txt",
+      "bytes": 5470,
+      "sha256": "005dc1bedee8f3f3da7e500cb0100f5b62bc6d59d6b5d598f9eb1d86888530e9",
+      "exactCopy": true
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/src/lib/round-timing.mjs",
+      "archive": "sources/src/lib/round-timing.mjs.txt",
+      "bytes": 280,
+      "sha256": "ee1c7759fa5d5ed422ba0dc8cac37ecbcfd7e29f69696ec177076927a8e7d9f8",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-diagnosis-results/browser-diagnosis-remaining/visual-smoke.log",
+      "archive": "initial-visual-smoke.log",
+      "bytes": 477,
+      "sha256": "41ffab29fdabc930b58ce4876133bcb8ae4c1c6d6f2866efaf9ee092c2c715c0",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-diagnosis-results/browser-diagnosis-remaining/visual-smoke.exit",
+      "archive": "initial-visual-smoke.exit",
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-diagnosis-results/browser-diagnosis-remaining/visual-smoke.started",
+      "archive": "initial-visual-smoke.started",
+      "bytes": 21,
+      "sha256": "5d8da160daf6c8bde2970b92cac2a1302004e11a4892462865bd6ebb2184f56c",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-diagnosis-results/browser-diagnosis-remaining/visual-smoke.finished",
+      "archive": "initial-visual-smoke.finished",
+      "bytes": 21,
+      "sha256": "234c09c558681d2b63fdae7f7df8816b0ad925b6577a947dbb5a83d4c694530b",
+      "exactCopy": true
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/scripts/visual-smoke.mjs",
+      "archive": "sources/scripts/visual-smoke.mjs.txt",
+      "bytes": 80154,
+      "sha256": "8e14f037726e255d606975d9b068a630a2b155b9c6801fcd176d3c03173eaa20",
+      "exactCopy": true,
+      "stage": "Final source including settings fixture correction."
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/lobby-metadata-repro.mjs",
+      "archive": "settings/lobby-metadata-repro.mjs.txt",
+      "bytes": 27086,
+      "sha256": "c2d79b7d9fde8b1f4bfe357a9c9adf812668848b89fd7427be81e6ffd923a6a5",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/lobby-metadata-red.log",
+      "archive": "settings/lobby-metadata-red.log",
+      "bytes": 2450,
+      "sha256": "ad7548a30bbae92c43bb8b1b34fdc65584a6e4b6fc105a0ba81e4787e57e15a7",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/lobby-metadata-green.mjs",
+      "archive": "settings/lobby-metadata-green.mjs.txt",
+      "bytes": 27258,
+      "sha256": "f01998935858d377cff0b338c802110db11e4b8d13461ad7d40b05a8ea37c27e",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/lobby-metadata-green.log",
+      "archive": "settings/lobby-metadata-green.log",
+      "bytes": 2026,
+      "sha256": "4d56628f3a211586bfdb5890d186f0fa045edd671839fe5ec24357df817d5683",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/lobby-metadata-invalid-step.mjs",
+      "archive": "settings/lobby-metadata-invalid-step.mjs.txt",
+      "bytes": 27258,
+      "sha256": "a6fff91e2cb38df4734b260afbff5b44604a97f5b33ec22235e3e39ae5709cd1",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/lobby-metadata-invalid-step.log",
+      "archive": "settings/lobby-metadata-invalid-step.log",
+      "bytes": 2419,
+      "sha256": "1189e4aec6f99f030bfa7dced4048ca95523344eaf6b9183fc119c956a216917",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-window-green.mjs",
+      "archive": "reveal-window-green.mjs.txt",
+      "bytes": 721,
+      "sha256": "8d9528c6d06e8a6e9284c20642c20ff40704bee61d8ece0978cfb3ab6e74789d",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-diagnosis-results/reveal-window-green.log",
+      "archive": "reveal-window-green.log",
+      "bytes": 222,
+      "sha256": "5dfea99dfad073b9124d507f416ca73709c8b4d5e1e4237dd7055a9c8d89850b",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-diagnosis-results/visual-reveal-fix-verification/visual-smoke.log",
+      "archive": "intermediate-visual-smoke.log",
+      "bytes": 14994,
+      "sha256": "afb9a15d74e47c8fb794d46072a6c55ac643c3444205a9a09d1e8f93e4ee81e3",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-diagnosis-results/visual-reveal-fix-verification/visual-smoke.exit",
+      "archive": "intermediate-visual-smoke.exit",
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-diagnosis-results/visual-reveal-fix-verification/visual-smoke.started",
+      "archive": "intermediate-visual-smoke.started",
+      "bytes": 21,
+      "sha256": "ac3e1d6a5c3b9196c9e61e4dc2bed456bac33a775f218756383ea846bcbd031b",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-diagnosis-results/visual-reveal-fix-verification/visual-smoke.finished",
+      "archive": "intermediate-visual-smoke.finished",
+      "bytes": 21,
+      "sha256": "6310d318b14838026397d062efe434611314158c0003c6ba4b3bfe4dacadde4d",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-diagnosis-results/independent-final-stages/multiplayer.log",
+      "archive": "completed-flows/multiplayer.log",
+      "bytes": 1569,
+      "sha256": "5a30711f34751ecb5c1ff007bae6c5bd92c461a50bca3b9f33e348f9e1e8ce2d",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-diagnosis-results/independent-final-stages/multiplayer.exit",
+      "archive": "completed-flows/multiplayer.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-diagnosis-results/independent-final-stages/multiplayer.started",
+      "archive": "completed-flows/multiplayer.started",
+      "bytes": 21,
+      "sha256": "16f06ec3c77db9c2d605f10db43148f7c521a48ea89706880b65125ecf90e62b",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-diagnosis-results/independent-final-stages/multiplayer.finished",
+      "archive": "completed-flows/multiplayer.finished",
+      "bytes": 21,
+      "sha256": "56188915387646c3d462534bc7f7da61c3f7d8393ca5476f11be3153703fd9ee",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-diagnosis-results/independent-final-stages/cleanup-dry-run.log",
+      "archive": "completed-flows/cleanup-dry-run.log",
+      "bytes": 84,
+      "sha256": "b8316e36966c6b1bf44c90337806c907f9ceda08a9424a8bc3aae248a075595f",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-diagnosis-results/independent-final-stages/cleanup-dry-run.exit",
+      "archive": "completed-flows/cleanup-dry-run.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-diagnosis-results/visual-final-verification/visual-smoke.log",
+      "archive": "final-visual/visual-smoke.log",
+      "bytes": 1469,
+      "sha256": "a01112afe694cc2083e026b81182d56069e9d8b9872c4357389f60b4fa18f142",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-diagnosis-results/visual-final-verification/visual-smoke.exit",
+      "archive": "final-visual/visual-smoke.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-diagnosis-results/visual-final-verification/visual-smoke.started",
+      "archive": "final-visual/visual-smoke.started",
+      "bytes": 21,
+      "sha256": "5560343afffd1d4100c66f110b14f0807cd720af715742e53013562df8523cf5",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-diagnosis-results/visual-final-verification/visual-smoke.finished",
+      "archive": "final-visual/visual-smoke.finished",
+      "bytes": 21,
+      "sha256": "7f569f6b8155232dd510c38f532b00bb2edd2cd6b5fbb81096fc160c961088fa",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-wait-source-freeze.json",
+      "archive": "browser-wait-source-freeze.json",
+      "bytes": 990,
+      "sha256": "824ac9e62f9745eeee8f08dfb56dbd0efd378a1fce377df8451b58c7fb23aab5",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-readiness-final-lint.log",
+      "archive": "browser-readiness-final-lint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exactCopy": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/browser-diagnosis-results/queue-arcade-lobby.png",
+      "archive": "final-visual/lobby.png",
+      "bytes": 755969,
+      "sha256": "afdaaacd80ab1d2eea6a594a24aa5c4485a3ec3bc421b421e48c03902434e01a",
+      "exactCopy": true
+    }
+  ],
+  "baselineVisualSmoke": {
+    "commit": "da28a646479fab030e9b02b187e177c0f89555b9",
+    "source": "scripts/visual-smoke.mjs",
+    "sha256": "4b38a2b53bcba85834e3cb31b8870bb64ab08131a0726f7794b1eb91cf10eddb"
+  },
+  "appCodeChangedForThisFix": false,
+  "appSettingsSourceUnchanged": true
+}

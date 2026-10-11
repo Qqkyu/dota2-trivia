@@ -1,0 +1,253 @@
+import path from "node:path";
+import sharp from "sharp";
+
+function luminance(rgb) {
+  const values = rgb.map((value) => {
+    const channel = value / 255;
+    return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+  });
+  return values[0] * 0.2126 + values[1] * 0.7152 + values[2] * 0.0722;
+}
+
+function contrast(first, second) {
+  const values = [luminance(first), luminance(second)].sort((a, b) => b - a);
+  return (values[0] + 0.05) / (values[1] + 0.05);
+}
+
+async function paintedPixels(buffer) {
+  const { data, info } = await sharp(buffer).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  const counts = new Map();
+  for (let index = 0; index < data.length; index += info.channels) {
+    const color = [...data.subarray(index, index + 3)];
+    const key = color.join(",");
+    const entry = counts.get(key) ?? { color, count: 0 };
+    entry.count += 1;
+    counts.set(key, entry);
+  }
+  const colors = [...counts.values()].sort((a, b) => b.count - a.count);
+  const background = colors[0].color;
+  return {
+    width: info.width,
+    height: info.height,
+    background,
+    maxContrast: Math.max(...colors.map(({ color }) => contrast(color, background))),
+    pixelsAtLeast3: colors.reduce((sum, entry) => sum + (contrast(entry.color, background) >= 3 ? entry.count : 0), 0),
+    pixelsAtLeast45: colors.reduce(
+      (sum, entry) => sum + (contrast(entry.color, background) >= 4.5 ? entry.count : 0),
+      0,
+    ),
+  };
+}
+
+async function differentPixels(first, second, area = "all", compareShape = false) {
+  const images = await Promise.all(
+    [first, second].map((buffer) => sharp(buffer).removeAlpha().raw().toBuffer({ resolveWithObject: true })),
+  );
+  if (images[0].info.width !== images[1].info.width || images[0].info.height !== images[1].info.height) {
+    return { changed: null, sameDimensions: false };
+  }
+  const { width, height, channels } = images[0].info;
+  const backgrounds = compareShape
+    ? await Promise.all([first, second].map(async (buffer) => (await paintedPixels(buffer)).background))
+    : null;
+  let changed = 0;
+  for (let y = 0; y < height; y += 1) {
+    for (let x = 0; x < width; x += 1) {
+      if (area === "bottom" && y < height - 3) continue;
+      if (area === "border" && x >= 3 && x < width - 3 && y >= 3 && y < height - 3) continue;
+      const index = (y * width + x) * channels;
+      const changedAtPixel = backgrounds
+        ? contrast([...images[0].data.subarray(index, index + 3)], backgrounds[0]) >= 3 !==
+          contrast([...images[1].data.subarray(index, index + 3)], backgrounds[1]) >= 3
+        : [0, 1, 2].some((offset) => Math.abs(images[0].data[index + offset] - images[1].data[index + offset]) > 10);
+      if (changedAtPixel) {
+        changed += 1;
+      }
+    }
+  }
+  return { changed, sameDimensions: true, compareShape };
+}
+
+async function neutralFocus(page) {
+  await page.evaluate(() => document.activeElement?.blur());
+  await page.mouse.move(0, 0);
+}
+
+async function capture(page, locator, filename, padding = 0, interiorPseudo = false) {
+  await locator.scrollIntoViewIfNeeded();
+  await page.evaluate(() => document.fonts.ready);
+  let clip;
+  if (interiorPseudo) {
+    clip = await locator.evaluate((node) => {
+      const rect = node.getBoundingClientRect();
+      const style = getComputedStyle(node);
+      const marker = getComputedStyle(node, "::after");
+      const number = (value) => Number.parseFloat(value) || 0;
+      const width = number(marker.width);
+      const height = number(marker.height);
+      // Exclude the checkbox border. Its contrast must not hide a faint mark.
+      return {
+        x: rect.right - number(style.borderRightWidth) - number(marker.right) - width + 4,
+        y: rect.bottom - number(style.borderBottomWidth) - number(marker.bottom) - height + 4,
+        width: width - 8,
+        height: height - 8,
+      };
+    });
+  } else {
+    const box = await locator.boundingBox();
+    clip = { x: box.x - padding, y: box.y - padding, width: box.width + 2 * padding, height: box.height + 2 * padding };
+  }
+  const left = Math.floor(Math.max(0, clip.x));
+  const top = Math.floor(Math.max(0, clip.y));
+  clip = {
+    x: left,
+    y: top,
+    width: Math.ceil(clip.x + clip.width) - left,
+    height: Math.ceil(clip.y + clip.height) - top,
+  };
+  const buffer = await page.screenshot({ path: filename, clip, animations: "disabled", caret: "hide", scale: "css" });
+  return { buffer, screenshot: filename, pixels: await paintedPixels(buffer) };
+}
+
+/** Check real browser paint. These checks supplement axe's authored-color results. */
+export async function checkControlPainting({ page, kind, mode, outputDir, runName }) {
+  const forced = mode.startsWith("forced");
+  const result = { kind, mode, forced, checks: [], captures: [] };
+  const check = (name, passed, detail) => result.checks.push({ name, passed: Boolean(passed), detail });
+  const shot = async (locator, name, padding = 0, interiorPseudo = false) => {
+    const capture = await captureControl(locator, name, padding, interiorPseudo);
+    result.captures.push({ name, screenshot: capture.screenshot, pixels: capture.pixels });
+    return capture;
+  };
+  const captureControl = (locator, name, padding, interiorPseudo) =>
+    capture(page, locator, path.join(outputDir, `${runName}-${mode}-${kind}-${name}.png`), padding, interiorPseudo);
+  result.media = await page.evaluate(() => ({
+    forcedColors: matchMedia("(forced-colors: active)").matches,
+    dark: matchMedia("(prefers-color-scheme: dark)").matches,
+  }));
+  check(
+    "requested color mode is active",
+    result.media.forcedColors === forced && (!forced || result.media.dark === (mode === "forced-dark")),
+    result.media,
+  );
+  await neutralFocus(page);
+
+  if (kind === "volume") {
+    const slider = page.getByTestId("game-volume");
+    const value = slider.locator("..").locator("output");
+    const mute = slider.locator("..").getByRole("button");
+    check("fixture starts muted", (await mute.getAttribute("aria-pressed")) === "false");
+    const mutedText = await shot(value, "muted-text");
+    const mutedSlider = await shot(slider, "muted-slider");
+    const mutedOpacity = await Promise.all(
+      [value, slider].map((locator) => locator.evaluate((node) => Number(getComputedStyle(node).opacity))),
+    );
+    await mute.click();
+    await neutralFocus(page);
+    const enabledText = await shot(value, "enabled-text");
+    const enabledSlider = await shot(slider, "enabled-slider");
+    if (forced) {
+      check("muted volume text has painted contrast", mutedText.pixels.pixelsAtLeast45 >= 6, mutedText.pixels);
+      check("muted slider has painted contrast", mutedSlider.pixels.pixelsAtLeast3 >= 6, mutedSlider.pixels);
+      check(
+        "muting does not fade high-contrast controls",
+        mutedOpacity.every((opacity) => opacity === 1),
+        { mutedOpacity },
+      );
+      check(
+        "muted and enabled text remain equally readable",
+        mutedText.pixels.maxContrast >= enabledText.pixels.maxContrast * 0.8,
+        { muted: mutedText.pixels, enabled: enabledText.pixels },
+      );
+      check(
+        "muted and enabled slider remain equally readable",
+        mutedSlider.pixels.maxContrast >= enabledSlider.pixels.maxContrast * 0.8,
+        { muted: mutedSlider.pixels, enabled: enabledSlider.pixels },
+      );
+    } else {
+      check(
+        "normal-color mute cue remains",
+        mutedOpacity.every((opacity) => opacity < 1),
+        { mutedOpacity },
+      );
+      check(
+        "normal-color volume paint changes when muted",
+        (await differentPixels(mutedText.buffer, enabledText.buffer)).changed >= 6,
+      );
+    }
+    await mute.click();
+    return result;
+  }
+
+  const groupName = kind === "party" ? "Games" : kind === "shop" ? "Shop section" : "Calibration filter";
+  const group = page.getByRole("group", { name: groupName, exact: true });
+  const buttons = group.getByRole("button");
+  const first = buttons.first();
+  const second = buttons.nth(1);
+  // Recipe fixtures can open either section. Establish the state through the UI.
+  if (kind === "shop") {
+    await first.click();
+    await neutralFocus(page);
+  }
+  check("first choice starts selected", (await first.getAttribute("aria-pressed")) === "true");
+  const selected = await shot(first, "selected", 0, kind === "party");
+  await (kind === "party" ? first : second).click();
+  await neutralFocus(page);
+  check("first choice becomes unselected", (await first.getAttribute("aria-pressed")) === "false");
+  const unselected = await shot(first, "unselected", 0, kind === "party");
+  const difference = await differentPixels(
+    selected.buffer,
+    unselected.buffer,
+    kind === "shop" ? "bottom" : kind === "calibration" ? "border" : "all",
+    forced,
+  );
+  check("selected state has a visible marker", difference.sameDimensions && difference.changed >= 8, difference);
+  if (kind === "party") {
+    check("selected checkmark has painted contrast", selected.pixels.pixelsAtLeast3 >= 6, selected.pixels);
+    check("unchecked box has no painted checkmark", unselected.pixels.pixelsAtLeast3 < 6, unselected.pixels);
+  }
+  const unfocused = await shot(first, "unselected-unfocused", 6);
+  await second.focus();
+  await page.keyboard.press("Shift+Tab");
+  const focus = await first.evaluate((node) => ({
+    active: document.activeElement === node,
+    visible: node.matches(":focus-visible"),
+    selected: node.getAttribute("aria-pressed"),
+  }));
+  const focused = await shot(first, "unselected-keyboard-focus", 6);
+  const focusDifference = await differentPixels(unfocused.buffer, focused.buffer);
+  check("keyboard focuses the unselected choice", focus.active && focus.visible && focus.selected === "false", focus);
+  check(
+    "keyboard focus paints without selecting",
+    focusDifference.sameDimensions && focusDifference.changed >= 8,
+    focusDifference,
+  );
+  check("other selected choice remains selected", (await second.getAttribute("aria-pressed")) === "true");
+  if (kind === "party") {
+    await page.keyboard.press("Space");
+    check("Space selects the focused game", (await first.getAttribute("aria-pressed")) === "true");
+    const keyboardSelected = await shot(first, "keyboard-selected", 0, true);
+    await page.keyboard.press("Space");
+    check("Space clears the focused game", (await first.getAttribute("aria-pressed")) === "false");
+    const keyboardUnselected = await shot(first, "keyboard-unselected", 0, true);
+    const keyboardDifference = await differentPixels(keyboardSelected.buffer, keyboardUnselected.buffer, "all", forced);
+    check(
+      "keyboard selection paints the checkmark",
+      keyboardDifference.sameDimensions && keyboardDifference.changed >= 8,
+      keyboardDifference,
+    );
+    check(
+      "keyboard-selected checkmark has painted contrast",
+      keyboardSelected.pixels.pixelsAtLeast3 >= 6,
+      keyboardSelected.pixels,
+    );
+    check(
+      "keyboard-cleared box has no checkmark",
+      keyboardUnselected.pixels.pixelsAtLeast3 < 6,
+      keyboardUnselected.pixels,
+    );
+  }
+  await first.click();
+  await neutralFocus(page);
+  return result;
+}

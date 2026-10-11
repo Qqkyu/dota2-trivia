@@ -1,0 +1,33 @@
+file:///opt/runner/_work/dota2-trivia/dota2-trivia/scripts/diagnose-missing-join.mjs:288
+    throw new Error(`Join of a missing code did not fail (${JSON.stringify(missingJoin)}).`);
+          ^
+
+Error: Join of a missing code did not fail ({"setup":true,"wait":false,"error":""}).
+    at file:///opt/runner/_work/dota2-trivia/dota2-trivia/scripts/diagnose-missing-join.mjs:288:11
+
+Node.js v22.23.3
+file:///opt/runner/_work/dota2-trivia/dota2-trivia/scripts/diagnose-missing-join.mjs:288
+    throw new Error(`Join of a missing code did not fail (${JSON.stringify(missingJoin)}).`);
+          ^
+
+Error: Join of a missing code did not fail ({"setup":true,"wait":false,"error":""}).
+    at file:///opt/runner/_work/dota2-trivia/dota2-trivia/scripts/diagnose-missing-join.mjs:288:11
+
+Node.js v22.23.3
+file:///opt/runner/_work/dota2-trivia/dota2-trivia/scripts/diagnose-missing-join.mjs:288
+    throw new Error(`Join of a missing code did not fail (${JSON.stringify(missingJoin)}).`);
+          ^
+
+Error: Join of a missing code did not fail ({"setup":true,"wait":false,"error":""}).
+    at file:///opt/runner/_work/dota2-trivia/dota2-trivia/scripts/diagnose-missing-join.mjs:288:11
+
+Node.js v22.23.3
+AT_ASSERTION [{"ms":97,"kind":"dom","error":""},{"ms":1236,"kind":"dom","disabled":false,"text":"JoinJoining…","error":""},{"ms":1246,"kind":"join-click"},{"ms":1247,"kind":"dispatch","route":"/api/private-rooms","method":"POST"},{"ms":1248,"kind":"dom","disabled":true,"text":"JoinJoining…","error":""},{"ms":1259,"kind":"response","status":404}]
+AFTER_SETTLE [{"ms":97,"kind":"dom","error":""},{"ms":1236,"kind":"dom","disabled":false,"text":"JoinJoining…","error":""},{"ms":1246,"kind":"join-click"},{"ms":1247,"kind":"dispatch","route":"/api/private-rooms","method":"POST"},{"ms":1248,"kind":"dom","disabled":true,"text":"JoinJoining…","error":""},{"ms":1259,"kind":"response","status":404},{"ms":1859,"kind":"released"},{"ms":1859,"kind":"body"},{"ms":1860,"kind":"dom","disabled":false,"text":"JoinJoining…","error":"No party with that code."}]
+attempt=1 exit=1
+AT_ASSERTION [{"ms":103,"kind":"dom","error":""},{"ms":1172,"kind":"dom","disabled":false,"text":"JoinJoining…","error":""},{"ms":1181,"kind":"join-click"},{"ms":1182,"kind":"dispatch","route":"/api/private-rooms","method":"POST"},{"ms":1183,"kind":"dom","disabled":true,"text":"JoinJoining…","error":""},{"ms":1198,"kind":"response","status":404}]
+AFTER_SETTLE [{"ms":103,"kind":"dom","error":""},{"ms":1172,"kind":"dom","disabled":false,"text":"JoinJoining…","error":""},{"ms":1181,"kind":"join-click"},{"ms":1182,"kind":"dispatch","route":"/api/private-rooms","method":"POST"},{"ms":1183,"kind":"dom","disabled":true,"text":"JoinJoining…","error":""},{"ms":1198,"kind":"response","status":404},{"ms":1798,"kind":"released"},{"ms":1798,"kind":"body"},{"ms":1799,"kind":"dom","disabled":false,"text":"JoinJoining…","error":"No party with that code."}]
+attempt=2 exit=1
+AT_ASSERTION [{"ms":94,"kind":"dom","error":""},{"ms":1162,"kind":"dom","disabled":false,"text":"JoinJoining…","error":""},{"ms":1170,"kind":"join-click"},{"ms":1170,"kind":"dispatch","route":"/api/private-rooms","method":"POST"},{"ms":1172,"kind":"dom","disabled":true,"text":"JoinJoining…","error":""},{"ms":1177,"kind":"response","status":404}]
+AFTER_SETTLE [{"ms":94,"kind":"dom","error":""},{"ms":1162,"kind":"dom","disabled":false,"text":"JoinJoining…","error":""},{"ms":1170,"kind":"join-click"},{"ms":1170,"kind":"dispatch","route":"/api/private-rooms","method":"POST"},{"ms":1172,"kind":"dom","disabled":true,"text":"JoinJoining…","error":""},{"ms":1177,"kind":"response","status":404},{"ms":1777,"kind":"released"},{"ms":1777,"kind":"body"},{"ms":1778,"kind":"dom","disabled":false,"text":"JoinJoining…","error":"No party with that code."}]
+attempt=3 exit=1

@@ -1,0 +1,36 @@
+import base64
+import datetime
+import json
+import subprocess
+from pathlib import Path
+
+script = r'''
+$ErrorActionPreference = 'Stop'
+$patterns = @('queue-arcade-launch-checks', 'queue-arcade-launch-ci', 'queue-arcade-deep-review', 'queue-arcade-health-wait-review', 'queue-arcade-launch-security', 'queue-arcade-voices-replay', 'queue-arcade-migrations.OfHbML', 'queue-arcade-audit-20261006', 'queue-arcade-pg-audit.3f4hCl', 'queue-arcade-content-freshness-20261010', 'queue-arcade-fixes')
+$hits = @()
+$toolProcesses = @()
+foreach ($p in Get-CimInstance Win32_Process) {
+  if ($p.ProcessId -eq $PID) { continue }
+  $matched = @($patterns | Where-Object { $p.CommandLine -like ('*' + $_ + '*') -or $p.ExecutablePath -like ('*' + $_ + '*') })
+  if ($matched.Count -gt 0) {
+    $hits += [pscustomobject]@{ processId=$p.ProcessId; name=$p.Name; taskNames=$matched }
+  }
+  if ($p.Name -match '^(emulator|qemu.*|adb|chromedriver|geckodriver|ffmpeg)\.exe$') {
+    $toolProcesses += [pscustomobject]@{ processId=$p.ProcessId; name=$p.Name; matchedTaskPath=($matched.Count -gt 0) }
+  }
+}
+[pscustomobject]@{ taskPathMatches=@($hits); deviceToolProcesses=@($toolProcesses); commandLinesLogged=$false; processesChanged=$false } | ConvertTo-Json -Depth 5 -Compress
+'''
+encoded = base64.b64encode(script.encode('utf-16le')).decode('ascii')
+process = subprocess.run(
+    ['/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe',
+     '-NoLogo', '-NoProfile', '-NonInteractive', '-EncodedCommand', encoded],
+    stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30,
+)
+if process.returncode:
+    raise SystemExit('Windows process metadata check failed; raw output withheld.')
+result = json.loads(process.stdout.decode('utf-8-sig'))
+result['checkedAt'] = datetime.datetime.now(datetime.timezone.utc).isoformat()
+result['scope'] = 'Process names and task-path matches. This is not a complete Windows file-handle inventory.'
+Path('/tmp/dota2-trivia-audit-close/windows-task-users.json').write_text(json.dumps(result, indent=2) + '\n')
+print(json.dumps(result))

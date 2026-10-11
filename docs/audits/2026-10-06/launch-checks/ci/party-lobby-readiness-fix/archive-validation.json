@@ -1,0 +1,39 @@
+{
+  "traceValidationPassed": true,
+  "sourceSnapshotMatchesSummary": true,
+  "syntaxChecks": [
+    {
+      "source": "missing-join-repro.mjs",
+      "sha256": "d86c0e729a5557f7ffc7dfd0a39364ca909513ac98e96cc3d4a5f89852d3067c",
+      "nodeSyntaxPassed": true
+    },
+    {
+      "source": "party-lobby-latency-red.mjs",
+      "sha256": "9bbb44cd9b972ac6e8125d5a62ec501ca384006e9005dbb9db5b55ed20907b07",
+      "nodeSyntaxPassed": true
+    },
+    {
+      "source": "check-party-lobby.mjs",
+      "sha256": "7b47ac77cdb2c65f4c284443a46797127c6ee356639ff00858573a96ae3b5946",
+      "nodeSyntaxPassed": true
+    }
+  ],
+  "fullUiBatch": "passed, exit 0; see ui-batch-result.json",
+  "remainingWorkflowChecks": "All saved-environment UI, accessibility, final visual, multiplayer and packaged cleanup preflight checks passed. Exact release candidate GitHub workflow pending.",
+  "accessibilitySummary": {
+    "file": "accessibility/summary.json",
+    "sha256": "9d66a357f4069708f3db3a2d2ae18fcff9c2c88dbd5480246feae4c848ce3993"
+  },
+  "completedIndependentFlows": {
+    "file": "../visual-entry-readiness-fix/completed-flows/result.json",
+    "sha256": "35057870c65bf92b9f63c12f36df56bdaea4727c92b1f3b1348d2a61d93979fe"
+  },
+  "finalVisualProof": {
+    "file": "../visual-entry-readiness-fix/final-visual/result.json",
+    "sha256": "54b25622bfdc0f7bda6bf74e82cc01125aef38f330db21557a4802d1834bccdb"
+  },
+  "finalSourceFreeze": {
+    "file": "../visual-entry-readiness-fix/browser-wait-source-freeze.json",
+    "sha256": "824ac9e62f9745eeee8f08dfb56dbd0efd378a1fce377df8451b58c7fb23aab5"
+  }
+}

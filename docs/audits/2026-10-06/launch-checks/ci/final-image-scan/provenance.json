@@ -1,0 +1,397 @@
+{
+  "sourceRoot": "/tmp/queue-arcade-launch-ci",
+  "copyRecords": [
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan/Dockerfile.txt",
+      "archiveFile": "Dockerfile.txt",
+      "sourceBytes": 2554,
+      "sourceSha256": "a190e4a390341fdff927df2b43e961f3b9e824eac2c00cc1932fbcd9ddb62ba9",
+      "archiveBytes": 2554,
+      "archiveSha256": "a190e4a390341fdff927df2b43e961f3b9e824eac2c00cc1932fbcd9ddb62ba9",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan/ci-container-result.json",
+      "archiveFile": "ci-container-result.json",
+      "sourceBytes": 4356,
+      "sourceSha256": "e86bf4c9b1e1f9e2efc4ac68e5d9273f13d988fa3a9e531a69a151f6ad03aeb8",
+      "archiveBytes": 4356,
+      "archiveSha256": "e86bf4c9b1e1f9e2efc4ac68e5d9273f13d988fa3a9e531a69a151f6ad03aeb8",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan/ci-tested-image-id.txt",
+      "archiveFile": "ci-tested-image-id.txt",
+      "sourceBytes": 72,
+      "sourceSha256": "9f9a579a120385c58cded09e942eef042e55228e36da1479c9979df74a49c963",
+      "archiveBytes": 72,
+      "archiveSha256": "9f9a579a120385c58cded09e942eef042e55228e36da1479c9979df74a49c963",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan/database-metadata.json",
+      "archiveFile": "database-metadata.json",
+      "sourceBytes": 153,
+      "sourceSha256": "c3b1afdadfea057745d346979cfffcf38d550747c3117cc72fc79261a084e4cf",
+      "archiveBytes": 153,
+      "archiveSha256": "c3b1afdadfea057745d346979cfffcf38d550747c3117cc72fc79261a084e4cf",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan/database-update.log",
+      "archiveFile": "database-update.log",
+      "sourceBytes": 0,
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archiveBytes": 0,
+      "archiveSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan/dockerfile-sha256.txt",
+      "archiveFile": "dockerfile-sha256.txt",
+      "sourceBytes": 77,
+      "sourceSha256": "d8c8dc030e821f9656b66331f6e7dd0739f1728fca75dc219472c6bb134ccde2",
+      "archiveBytes": 77,
+      "archiveSha256": "d8c8dc030e821f9656b66331f6e7dd0739f1728fca75dc219472c6bb134ccde2",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan/native-metadata.json",
+      "archiveFile": "native-metadata.json",
+      "sourceBytes": 1848,
+      "sourceSha256": "be123aa0f9724b335f308271c566264942fc132b63aef64290ef154b5e67f926",
+      "archiveBytes": 1848,
+      "archiveSha256": "be123aa0f9724b335f308271c566264942fc132b63aef64290ef154b5e67f926",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan/runtime-packages.log",
+      "archiveFile": "runtime-packages.log",
+      "sourceBytes": 1460,
+      "sourceSha256": "f1ee0d9896cda6357577aa09da118ad8ce9497b69f2011a270d92bd16c8054da",
+      "archiveBytes": 1460,
+      "archiveSha256": "f1ee0d9896cda6357577aa09da118ad8ce9497b69f2011a270d92bd16c8054da",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan/scanner-input-sha256.txt",
+      "archiveFile": "scanner-input-sha256.txt",
+      "sourceBytes": 381,
+      "sourceSha256": "438cc8ff2901f1738a54bced536643e0b8af23445712c7efd7760d9ef3b0f798",
+      "archiveBytes": 381,
+      "archiveSha256": "438cc8ff2901f1738a54bced536643e0b8af23445712c7efd7760d9ef3b0f798",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan/scanner-version.log",
+      "archiveFile": "scanner-version.log",
+      "sourceBytes": 16,
+      "sourceSha256": "ea3524df63e27041d6b4a85932a889aba8e3cd3cc2ee01404822111bb673e17c",
+      "archiveBytes": 16,
+      "archiveSha256": "ea3524df63e27041d6b4a85932a889aba8e3cd3cc2ee01404822111bb673e17c",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan/source-commit.txt",
+      "archiveFile": "source-commit.txt",
+      "sourceBytes": 41,
+      "sourceSha256": "e1e80a7a2cb9d784ebe7baab1714d1b8e5403b2d5bee62bd0684c967a97b9fcd",
+      "archiveBytes": 41,
+      "archiveSha256": "e1e80a7a2cb9d784ebe7baab1714d1b8e5403b2d5bee62bd0684c967a97b9fcd",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan/summary.json",
+      "archiveFile": "summary.json",
+      "sourceBytes": 2729,
+      "sourceSha256": "ff73d32f98e89e0cf1c3b52c9d7ed5a28c5485d9aad27694d3a77706c5cc0d66",
+      "archiveBytes": 2729,
+      "archiveSha256": "ff73d32f98e89e0cf1c3b52c9d7ed5a28c5485d9aad27694d3a77706c5cc0d66",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan/trivy-full.log",
+      "archiveFile": "trivy-full.log",
+      "sourceBytes": 478,
+      "sourceSha256": "2e99139a2babcbe34ef40f14cb2c3118a5b1c45ae760f71389ce9cd2b19a377a",
+      "archiveBytes": 478,
+      "archiveSha256": "2e99139a2babcbe34ef40f14cb2c3118a5b1c45ae760f71389ce9cd2b19a377a",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan/trivy-full.json",
+      "archiveFile": "trivy-full.json.gz",
+      "sourceBytes": 204629,
+      "sourceSha256": "9a1e3d8709e4dbf0715f583d9a3eca8f1ebee8ff73b742a70b92546249e1066c",
+      "archiveBytes": 24789,
+      "archiveSha256": "edafca62d13f6b2f4deee4759fdbafa31b1cc47f4d9f342992f14643aa7fc63b",
+      "transform": "lossless gzip with mtime 0"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan/image-metadata.json",
+      "archiveFile": "image-metadata-selected.json",
+      "sourceBytes": 3508,
+      "sourceSha256": "ac5a1e5826215357ee58e142ea43b4d4ee326234fec64fe0f8261f9035827219",
+      "archiveBytes": 2448,
+      "archiveSha256": "657bfedd0d153df8f5b8e9f62be8dec50be4813d7b66ecbc32c7397f4fbc0f4b",
+      "transform": "Selected image identity, platform, layers, and runtime configuration. Omitted Config.Env and other unused fields."
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan-attempt1/Dockerfile.txt",
+      "archiveFile": "attempt1/Dockerfile.txt",
+      "sourceBytes": 2554,
+      "sourceSha256": "a190e4a390341fdff927df2b43e961f3b9e824eac2c00cc1932fbcd9ddb62ba9",
+      "archiveBytes": 2554,
+      "archiveSha256": "a190e4a390341fdff927df2b43e961f3b9e824eac2c00cc1932fbcd9ddb62ba9",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan-attempt1/ci-container-result.json",
+      "archiveFile": "attempt1/ci-container-result.json",
+      "sourceBytes": 4356,
+      "sourceSha256": "e86bf4c9b1e1f9e2efc4ac68e5d9273f13d988fa3a9e531a69a151f6ad03aeb8",
+      "archiveBytes": 4356,
+      "archiveSha256": "e86bf4c9b1e1f9e2efc4ac68e5d9273f13d988fa3a9e531a69a151f6ad03aeb8",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan-attempt1/ci-tested-image-id.txt",
+      "archiveFile": "attempt1/ci-tested-image-id.txt",
+      "sourceBytes": 72,
+      "sourceSha256": "9f9a579a120385c58cded09e942eef042e55228e36da1479c9979df74a49c963",
+      "archiveBytes": 72,
+      "archiveSha256": "9f9a579a120385c58cded09e942eef042e55228e36da1479c9979df74a49c963",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan-attempt1/dockerfile-sha256.txt",
+      "archiveFile": "attempt1/dockerfile-sha256.txt",
+      "sourceBytes": 77,
+      "sourceSha256": "d8c8dc030e821f9656b66331f6e7dd0739f1728fca75dc219472c6bb134ccde2",
+      "archiveBytes": 77,
+      "archiveSha256": "d8c8dc030e821f9656b66331f6e7dd0739f1728fca75dc219472c6bb134ccde2",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan-attempt1/native-metadata.json",
+      "archiveFile": "attempt1/native-metadata.json",
+      "sourceBytes": 1848,
+      "sourceSha256": "be123aa0f9724b335f308271c566264942fc132b63aef64290ef154b5e67f926",
+      "archiveBytes": 1848,
+      "archiveSha256": "be123aa0f9724b335f308271c566264942fc132b63aef64290ef154b5e67f926",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan-attempt1/runtime-packages.log",
+      "archiveFile": "attempt1/runtime-packages.log",
+      "sourceBytes": 1124,
+      "sourceSha256": "d4bf81896b063783aceac7db01016bd96a1e93e17af623306b733612f7dd4f4e",
+      "archiveBytes": 1124,
+      "archiveSha256": "d4bf81896b063783aceac7db01016bd96a1e93e17af623306b733612f7dd4f4e",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan-attempt1/source-commit.txt",
+      "archiveFile": "attempt1/source-commit.txt",
+      "sourceBytes": 41,
+      "sourceSha256": "e1e80a7a2cb9d784ebe7baab1714d1b8e5403b2d5bee62bd0684c967a97b9fcd",
+      "archiveBytes": 41,
+      "archiveSha256": "e1e80a7a2cb9d784ebe7baab1714d1b8e5403b2d5bee62bd0684c967a97b9fcd",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-image-scan-attempt1/image-metadata.json",
+      "archiveFile": "attempt1/image-metadata-selected.json",
+      "sourceBytes": 3508,
+      "sourceSha256": "ac5a1e5826215357ee58e142ea43b4d4ee326234fec64fe0f8261f9035827219",
+      "archiveBytes": 2448,
+      "archiveSha256": "657bfedd0d153df8f5b8e9f62be8dec50be4813d7b66ecbc32c7397f4fbc0f4b",
+      "transform": "Selected image identity, platform, layers, and runtime configuration. Omitted Config.Env and other unused fields."
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/final-scan-initial-state.json",
+      "archiveFile": "attempt1/stopped-state.json",
+      "sourceBytes": 106,
+      "sourceSha256": "3efa11048d8b9724039c86523f80ab621699e3cb84a037cbba52a228a8af50be",
+      "archiveBytes": 106,
+      "archiveSha256": "3efa11048d8b9724039c86523f80ab621699e3cb84a037cbba52a228a8af50be",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/package-probe/ci-container-result.json",
+      "archiveFile": "package-probe/ci-container-result.json",
+      "sourceBytes": 4356,
+      "sourceSha256": "e86bf4c9b1e1f9e2efc4ac68e5d9273f13d988fa3a9e531a69a151f6ad03aeb8",
+      "archiveBytes": 4356,
+      "archiveSha256": "e86bf4c9b1e1f9e2efc4ac68e5d9273f13d988fa3a9e531a69a151f6ad03aeb8",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/package-probe/ci-tested-image-id.txt",
+      "archiveFile": "package-probe/ci-tested-image-id.txt",
+      "sourceBytes": 72,
+      "sourceSha256": "9f9a579a120385c58cded09e942eef042e55228e36da1479c9979df74a49c963",
+      "archiveBytes": 72,
+      "archiveSha256": "9f9a579a120385c58cded09e942eef042e55228e36da1479c9979df74a49c963",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/package-probe/package-probe.log",
+      "archiveFile": "package-probe/package-probe.log",
+      "sourceBytes": 2663,
+      "sourceSha256": "2d745cd75d2ef8d27c078648964b7121ea123b56f081d2c9713abf10f4606992",
+      "archiveBytes": 2663,
+      "archiveSha256": "2d745cd75d2ef8d27c078648964b7121ea123b56f081d2c9713abf10f4606992",
+      "transform": "exact copy"
+    },
+    {
+      "source": "evidence/queue-arcade-ci-20261010T115945Z/package-probe/source-commit.txt",
+      "archiveFile": "package-probe/source-commit.txt",
+      "sourceBytes": 41,
+      "sourceSha256": "e1e80a7a2cb9d784ebe7baab1714d1b8e5403b2d5bee62bd0684c967a97b9fcd",
+      "archiveBytes": 41,
+      "archiveSha256": "e1e80a7a2cb9d784ebe7baab1714d1b8e5403b2d5bee62bd0684c967a97b9fcd",
+      "transform": "exact copy"
+    },
+    {
+      "source": "full-image-scan-entrypoint.sh",
+      "archiveFile": "helpers/full-image-scan-entrypoint.sh.txt",
+      "sourceBytes": 3199,
+      "sourceSha256": "37e1f1d815370c6b0d52e9e390ba04ac6e13cdc1d89d120f5ea414774e29b5dd",
+      "archiveBytes": 3199,
+      "archiveSha256": "37e1f1d815370c6b0d52e9e390ba04ac6e13cdc1d89d120f5ea414774e29b5dd",
+      "transform": "exact copy"
+    },
+    {
+      "source": "full-image-scan-entrypoint-before-apk-fix.sh",
+      "archiveFile": "helpers/full-image-scan-entrypoint-before-apk-fix.sh.txt",
+      "sourceBytes": 3188,
+      "sourceSha256": "aa49f8c4f4c2949c85be42fabfb9ef3a631bee732ad82a6b7e50ecee37fe3c9b",
+      "archiveBytes": 3188,
+      "archiveSha256": "aa49f8c4f4c2949c85be42fabfb9ef3a631bee732ad82a6b7e50ecee37fe3c9b",
+      "transform": "exact copy"
+    },
+    {
+      "source": "start-final-scan.py",
+      "archiveFile": "helpers/start-final-scan.py.txt",
+      "sourceBytes": 2557,
+      "sourceSha256": "f70476dddbee8c810e2e22e814be178977f450990af2e61ca77e593333a4dfe8",
+      "archiveBytes": 2557,
+      "archiveSha256": "f70476dddbee8c810e2e22e814be178977f450990af2e61ca77e593333a4dfe8",
+      "transform": "exact copy"
+    },
+    {
+      "source": "collect-final-scan.py",
+      "archiveFile": "helpers/collect-final-scan.py.txt",
+      "sourceBytes": 2700,
+      "sourceSha256": "523f925953c9ccb36bde2aa95590d8d40fdbca976b5cd2e144c86690f2a5a18f",
+      "archiveBytes": 2700,
+      "archiveSha256": "523f925953c9ccb36bde2aa95590d8d40fdbca976b5cd2e144c86690f2a5a18f",
+      "transform": "exact copy"
+    },
+    {
+      "source": "package-probe-entrypoint.sh",
+      "archiveFile": "helpers/package-probe-entrypoint.sh.txt",
+      "sourceBytes": 2221,
+      "sourceSha256": "0719a537c5ad6f477bf2adf362860fdf8d7a60ab5598f0c1c2ded0f07f948a39",
+      "archiveBytes": 2221,
+      "archiveSha256": "0719a537c5ad6f477bf2adf362860fdf8d7a60ab5598f0c1c2ded0f07f948a39",
+      "transform": "exact copy"
+    },
+    {
+      "source": "start-package-probe.py",
+      "archiveFile": "helpers/start-package-probe.py.txt",
+      "sourceBytes": 2559,
+      "sourceSha256": "56f7271a6c929bd57544db26b93f3e902cb4268792c7b39b6ee3fb8ed3077137",
+      "archiveBytes": 2559,
+      "archiveSha256": "56f7271a6c929bd57544db26b93f3e902cb4268792c7b39b6ee3fb8ed3077137",
+      "transform": "exact copy"
+    },
+    {
+      "source": "runner-lifecycle.py",
+      "archiveFile": "helpers/runner-lifecycle.py.txt",
+      "sourceBytes": 11447,
+      "sourceSha256": "e51f03d8ddd01539011f07dbb0ccf920a7f9db62412a5fe9af51b6f1933fc4e9",
+      "archiveBytes": 11447,
+      "archiveSha256": "e51f03d8ddd01539011f07dbb0ccf920a7f9db62412a5fe9af51b6f1933fc4e9",
+      "transform": "exact copy"
+    },
+    {
+      "source": "runner-image/prepare-cgroup-v2.sh",
+      "archiveFile": "helpers/prepare-cgroup-v2.sh.txt",
+      "sourceBytes": 2386,
+      "sourceSha256": "ee9b3790d566e746fbf7710b1fdff53463ee69ed78e7c34cda10300c3ddd9bf1",
+      "archiveBytes": 2386,
+      "archiveSha256": "ee9b3790d566e746fbf7710b1fdff53463ee69ed78e7c34cda10300c3ddd9bf1",
+      "transform": "exact copy"
+    },
+    {
+      "source": "final-scan-review/README.md",
+      "archiveFile": "helper-review/earlier-review.md",
+      "sourceBytes": 1268,
+      "sourceSha256": "8c64c9452f2407dce6c195ab0a395dc6ada92ca97a30d7ac8b11e1ff43756446",
+      "archiveBytes": 1268,
+      "archiveSha256": "8c64c9452f2407dce6c195ab0a395dc6ada92ca97a30d7ac8b11e1ff43756446",
+      "transform": "exact copy"
+    },
+    {
+      "source": "final-scan-review/result.json",
+      "archiveFile": "helper-review/earlier-result.json",
+      "sourceBytes": 2048,
+      "sourceSha256": "e737a294223cffce644270bd617e15d5c58baf7f57aa31369e59cdf8f977b0d8",
+      "archiveBytes": 2048,
+      "archiveSha256": "e737a294223cffce644270bd617e15d5c58baf7f57aa31369e59cdf8f977b0d8",
+      "transform": "exact copy"
+    },
+    {
+      "source": "final-scan-review/starter-mock-results.json",
+      "archiveFile": "helper-review/starter-mock-results.json",
+      "sourceBytes": 6555,
+      "sourceSha256": "513a7304f18fcec066019a370af12056ce699b88a1584c3e9e29cfe93ef5ddd5",
+      "archiveBytes": 6555,
+      "archiveSha256": "513a7304f18fcec066019a370af12056ce699b88a1584c3e9e29cfe93ef5ddd5",
+      "transform": "exact copy"
+    },
+    {
+      "source": "final-scan-review/shell-mock-results.json",
+      "archiveFile": "helper-review/shell-mock-results.json",
+      "sourceBytes": 2587,
+      "sourceSha256": "acc5daf3f6c446b62d618983940bd1462b261cd5d546b1f7f12022069108afa7",
+      "archiveBytes": 2587,
+      "archiveSha256": "acc5daf3f6c446b62d618983940bd1462b261cd5d546b1f7f12022069108afa7",
+      "transform": "exact copy"
+    },
+    {
+      "source": "final-scan-review/test_shell.py",
+      "archiveFile": "helper-review/test_shell.py.txt",
+      "sourceBytes": 5612,
+      "sourceSha256": "3ecfa49864034c965b6eaa0343ade6a637364be04b55c9f0045d6c4a4650bb7a",
+      "archiveBytes": 5612,
+      "archiveSha256": "3ecfa49864034c965b6eaa0343ade6a637364be04b55c9f0045d6c4a4650bb7a",
+      "transform": "exact copy"
+    },
+    {
+      "source": "final-scan-review/test_start.py",
+      "archiveFile": "helper-review/test_start.py.txt",
+      "sourceBytes": 7410,
+      "sourceSha256": "108d6cd1304be81e37b0fb7150aa90d1200bd75dfc9276b58319ac65e0e4296a",
+      "archiveBytes": 7410,
+      "archiveSha256": "108d6cd1304be81e37b0fb7150aa90d1200bd75dfc9276b58319ac65e0e4296a",
+      "transform": "exact copy"
+    }
+  ],
+  "derivedFiles": [
+    "README.md",
+    "verified-bindings.json",
+    "attempt1/result.json",
+    "helper-review/final-amendment.json",
+    "helper-review/package-command.patch.txt"
+  ],
+  "excluded": [
+    "docker.log in both attempts and package probe",
+    "raw runner diagnostics and process logs",
+    "private environment files, tokens, and credentials",
+    "unused raw image inspection fields"
+  ],
+  "note": "The complete Trivy report is preserved losslessly, including its image build history and ordinary Dockerfile environment defaults. Its hash and compressed hash are in copyRecords. It contains no runtime environment file."
+}

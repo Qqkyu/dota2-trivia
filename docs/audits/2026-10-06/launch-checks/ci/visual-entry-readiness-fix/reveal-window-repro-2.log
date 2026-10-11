@@ -1,0 +1,13 @@
+file:///tmp/reveal-window-repro.mjs:25
+  throw new Error("Could not reach a reveal window for the first-entry smoke test.");
+        ^
+
+Error: Could not reach a reveal window for the first-entry smoke test.
+    at waitForRevealEntryWindow (file:///tmp/reveal-window-repro.mjs:25:9)
+    at async file:///tmp/reveal-window-repro.mjs:28:1
+
+Node.js v22.23.3
+{"attempt":0,"phase":"reveal","answerRemaining":-3264,"revealRemaining":3736}
+{"attempt":1,"phase":"answering","answerRemaining":14834,"revealRemaining":21834}
+{"attempt":2,"phase":"answering","answerRemaining":-167,"revealRemaining":6833}
+{"attempt":3,"phase":"answering","answerRemaining":-324,"revealRemaining":6676}

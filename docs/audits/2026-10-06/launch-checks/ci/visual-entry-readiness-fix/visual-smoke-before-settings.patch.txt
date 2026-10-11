@@ -1,0 +1,57 @@
+--- da28a646:scripts/visual-smoke.mjs
++++ scripts/visual-smoke.mjs
+@@ -4,6 +4,7 @@
+ import path from "node:path";
+ import { MIN_INITIAL_ANSWER_TIME_MS } from "../src/lib/arcade-entry.mjs";
+ import { valueOrderAnswerKey } from "../src/lib/value-order.mjs";
++import { waitForRevealEntryWindow } from "./lib/reveal-entry.mjs";
+ 
+ const debuggingUrl = process.env.CHROME_DEBUG_URL ?? "http://127.0.0.1:9222";
+ const appUrl = process.env.APP_URL ?? process.env.ARCADE_APP_URL ?? "http://localhost:3000";
+@@ -420,30 +421,6 @@
+   })()`);
+ }
+ 
+-async function waitForRevealEntryWindow() {
+-  const roomUrl = new URL("/api/rounds", appUrl);
+-  roomUrl.search = new URLSearchParams({
+-    gameId: "dota2",
+-    mode: "mixed",
+-    filter: "Mixed",
+-    playerId: `visual-entry-${Date.now()}`,
+-  });
+-
+-  for (let attempt = 0; attempt < 4; attempt += 1) {
+-    const snapshot = await fetch(roomUrl, { cache: "no-store" }).then((response) => response.json());
+-    const revealRemaining = snapshot.round.revealDeadline - snapshot.serverNow;
+-    if (snapshot.round.phase === "reveal" && revealRemaining >= 5_000) return;
+-
+-    const wait =
+-      snapshot.round.phase === "answering"
+-        ? snapshot.round.answerDeadline - snapshot.serverNow + 150
+-        : snapshot.round.revealDeadline - snapshot.serverNow + 150;
+-    await delay(Math.max(150, wait));
+-  }
+-
+-  throw new Error("Could not reach a reveal window for the first-entry smoke test.");
+-}
+-
+ await send("Page.enable");
+ await send("Runtime.enable");
+ await send("Page.addScriptToEvaluateOnNewDocument", {
+@@ -828,7 +805,14 @@
+ await waitFor(
+   `document.querySelector("main")?.dataset.clientReady === "true" && document.querySelector("main")?.dataset.accountReady === "true"`,
+ );
+-await waitForRevealEntryWindow();
++const entryRoomUrl = new URL("/api/rounds", appUrl);
++entryRoomUrl.search = new URLSearchParams({
++  gameId: "dota2",
++  mode: "mixed",
++  filter: "Mixed",
++  playerId: `visual-entry-${Date.now()}`,
++});
++await waitForRevealEntryWindow(entryRoomUrl);
+ await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
+ await waitFor(`Boolean(document.querySelector('[data-testid="round-entry-wait"][data-lessons="true"]')) ||
+   Boolean(document.querySelector('[data-testid="start-arcade"]')?.disabled) ||

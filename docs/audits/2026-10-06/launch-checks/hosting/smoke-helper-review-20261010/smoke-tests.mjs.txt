@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { createServer } from "node:http";
-import { Check, allowedUrl, validateGate, validateVote, safeFailure, browserProxyRoute, withDeadline, closeOwnedBrowser } from "./hosted-smoke.mjs";
+import { Check, allowedUrl, validateGate, validateVote, validateOwnedReceipt, safeFailure, browserProxyRoute, withDeadline, closeOwnedBrowser } from "./hosted-smoke.mjs";
 const origin = "https://queue-arcade.onrender.com";
 const serviceId = "srv-d9mqd1942hec73e9nlt0";
 const gate = { version: 1, origin, serviceId, commit: "a".repeat(40), deployId: "dep-synthetic123", ciRunId: 123, ciConclusion: "success", ingressVerified: true, proxyPolicy: "cf-connecting-ip", contentVersion: "synthetic-content-version", checkedAt: new Date().toISOString(), operatorSha256: "b".repeat(64), localInputs: ["src/lib/arcade-games.mjs", "scripts/image-assets.mjs"].map((path) => ({ path, sha256: "c".repeat(64) })) };
@@ -70,6 +70,7 @@ function response(status, value) { return { status, headers: { "content-type": "
 class GuestFixture extends Check {
   constructor(mode) { super("http://127.0.0.1:3334", gate, true); this.mode = mode; this.calls = []; this.roundReads = 0; this.leaves = 0; }
   async pause() {}
+  async recordGuestState(patch, initial = false) { this.recordedState = { ...this.recordedState, ...patch }; this.calls.push({ checkpoint: true, initial, patch }); }
   async request(raw, options = {}) {
     const pathname = new URL(raw, this.origin).pathname;
     this.calls.push({ pathname, method: options.method ?? "GET", body: options.body });
@@ -81,7 +82,7 @@ class GuestFixture extends Check {
     if (pathname === "/api/private-rooms/start") return response(200, { countdownMs: 0, privateRoom: { code: this.owned.code } });
     if (pathname === "/api/rounds") {
       this.roundReads++;
-      return response(200, { serverNow: Date.now(), room: { id: this.owned.roomId }, playerIdentity: { kind: "guest", id: this.owned.playerId }, round: { id: `${this.owned.roomId}:round:0:123`, phase: this.roundReads > 1 ? "reveal" : "answering", game: "trivia", answerDeadline: Date.now() + 10_000 }, question: { answers: ["A", "B", "C", "D"], reveal: this.roundReads > 1 ? { correctIndex: 0 } : null }, playerVote: this.roundReads > 1 ? {} : null });
+      return response(200, { serverNow: Date.now(), room: { id: this.owned.roomId }, playerIdentity: { kind: "guest", id: this.owned.playerId }, round: { id: `${this.owned.roomId}:round:0:123`, phase: this.roundReads > (this.mode === "grace-boundary" ? 2 : 1) ? "reveal" : "answering", game: "trivia", answerDeadline: Date.now() + 10_000 }, question: { answers: ["A", "B", "C", "D"], reveal: this.roundReads > (this.mode === "grace-boundary" ? 2 : 1) ? { correctIndex: 0 } : null }, playerVote: this.roundReads > (this.mode === "grace-boundary" ? 2 : 1) ? {} : null });
     }
     if (pathname === "/api/votes") {
       validateVote(options.body, this.owned);
@@ -108,9 +109,39 @@ for (const mode of ["ambiguous-create", "ambiguous-vote"]) {
     assert(check.calls.filter((call) => call.pathname === "/api/votes").length <= 1);
   });
 }
+await test("private reveal retries only a read at the vote-grace boundary", async () => {
+  const check = new GuestFixture("grace-boundary"); await check.guest();
+  assert.equal(check.roundReads, 3);
+  assert.equal(check.calls.filter((call) => call.pathname === "/api/votes").length, 1);
+  assert.equal(check.output.checks.privateRevealTiming.phase, "reveal");
+  assert.equal(check.output.privateRoomCleanupConfirmed, true);
+});
 await test("cleanup failure remains a failure after two attempts", async () => {
   const check = new GuestFixture("cleanup-failure"); await assert.rejects(check.guest(), /PRIVATE_CLEANUP_FAILED/);
   assert.equal(check.leaves, 2); assert.equal(check.output.privateRoomCleanupConfirmed, false);
+});
+const validOwnedReceipt = { version: 1, origin, rehearsal: false, commit: gate.commit, deployId: gate.deployId, contentVersion: gate.contentVersion, owned: { code: "LAUNCH0123456789", playerId: "00000000-0000-4000-8000-000000000001", roomId: "" }, createAttempted: true, voteAttempted: false, cleanupConfirmed: false };
+await test("recovery accepts only this deployment and owned guest", () => validateOwnedReceipt(validOwnedReceipt, gate, origin));
+for (const [name, delta] of Object.entries({ deployment: { deployId: "dep-other" }, revision: { commit: "d".repeat(40) }, origin: { origin: "https://other.test" }, local: { rehearsal: true }, publicRoom: { owned: { ...validOwnedReceipt.owned, roomId: "dota2:public" } }, account: { owned: { ...validOwnedReceipt.owned, playerId: "account:123" } }, unknownCreation: { createAttempted: false }, badVoteState: { voteAttempted: "yes" } })) {
+  await test(`recovery rejects ${name}`, () => assert.throws(() => validateOwnedReceipt({ ...validOwnedReceipt, ...delta }, gate, origin)));
+}
+await test("expired gate is accepted only for cleanup of the owned room", () => {
+  const old = { ...gate, checkedAt: new Date(Date.now() - 24 * 60 * 60_000).toISOString() };
+  assert.throws(() => validateGate(old)); validateGate(old, Date.now(), true);
+});
+await test("guest records ownership and vote attempts before sending each write", async () => {
+  const check = new GuestFixture("success"); await check.guest();
+  const create = check.calls.findIndex((call) => call.pathname === "/api/private-rooms" && call.method === "POST");
+  const voteAt = check.calls.findIndex((call) => call.pathname === "/api/votes");
+  assert.equal(check.calls[create - 1].initial, true);
+  assert.equal(check.calls[voteAt - 1].patch.voteAttempted, true);
+  assert.equal(check.recordedState.cleanupConfirmed, true);
+});
+await test("owned-room recovery sends only leave and absence reads", async () => {
+  const check = new GuestFixture("success"); check.owned = owned;
+  await check.cleanupOwnedGuest();
+  assert.deepEqual(check.calls.filter((call) => !call.checkpoint).map((call) => call.pathname), ["/api/private-rooms/leave", "/api/private-rooms"]);
+  assert.equal(check.output.privateRoomCleanupConfirmed, true);
 });
 let calls = 0;
 const server = createServer((request, response) => {

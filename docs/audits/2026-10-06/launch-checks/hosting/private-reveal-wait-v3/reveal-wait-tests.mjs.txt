@@ -1,0 +1,56 @@
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
+import { pathToFileURL } from 'node:url';
+import { privateRoundTiming } from '/home/kulmisiu/dev/dota2-trivia/src/lib/private-rooms.mjs';
+const file=process.argv[2];
+const {Check,validateVote}=await import(pathToFileURL(file));
+const originalNow=Object.getOwnPropertyDescriptor(performance,'now');
+const results=[];
+const gate={contentVersion:'controlled-private-timing'};
+const response=(status,body)=>({status,headers:{'content-type':'application/json'},bytes:Buffer.from(JSON.stringify(body))});
+class Fixture extends Check {
+ constructor(mode) {super('http://127.0.0.1:3334',gate,true);this.mode=mode;this.clock=100000;this.roundReads=0;this.voteCount=0;this.leaves=0;this.sleeps=[];this.observations=[];}
+ async pause(ms){assert(Number.isFinite(ms));this.sleeps.push(ms);this.clock+=Math.max(0,Math.min(ms,30000));}
+ async recordGuestState(patch){this.state={...this.state,...patch};}
+ async request(raw,options={}) {
+  const pathname=new URL(raw,this.origin).pathname;
+  if(pathname==='/api/me')return response(200,{authenticated:false});
+  if(pathname==='/api/private-rooms'&&options.method==='POST')return response(200,{privateRoom:{code:this.owned.code,isHost:true,players:[{}]},room:{id:`dota2:${gate.contentVersion}:private:${this.owned.code}`}});
+  if(pathname==='/api/private-rooms/start'){this.startedAt=this.clock+3000;return response(200,{countdownMs:3000,privateRoom:{code:this.owned.code}});}
+  if(pathname==='/api/rounds'){
+   if(this.mode==='delayed-before-snapshot'&&this.roundReads===1)this.clock+=2000;
+   const serverNow=this.clock;const round=privateRoundTiming(this.startedAt,serverNow);this.roundReads++;
+   if(this.mode==='never-reveal'&&this.voteCount){round.phase='answering';round.roundNumber=0;round.answerDeadline=serverNow-100;}
+   const id=`${this.owned.roomId}:round:${round.roundNumber}:${this.startedAt}`;
+   this.observations.push({serverNow,number:round.roundNumber,phase:round.phase,answerDeadline:round.answerDeadline});
+   const data={serverNow,room:{id:this.owned.roomId},playerIdentity:{kind:'guest',id:this.owned.playerId},round:{...round,id,game:'trivia'},question:{answers:['A','B','C','D'],reveal:round.phase==='reveal'?{correctIndex:0}:null},playerVote:this.voteCount&&round.roundNumber===0?{}:null};
+   if(this.mode==='delayed-active'&&this.roundReads===1)this.clock+=6500;
+   if(this.mode==='delayed-refresh'&&this.roundReads===2)this.clock+=6500;
+   if(this.mode==='missing-reveal'&&this.voteCount)data.question.reveal=null;
+   if(this.mode==='missing-vote'&&this.voteCount)data.playerVote=null;
+   return response(this.mode==='read-failure'&&this.voteCount?503:200,data);
+  }
+  if(pathname==='/api/votes'){
+   validateVote(options.body,this.owned);assert.equal(++this.voteCount,1);
+   if(this.mode==='delayed-vote')this.clock+=6500;
+   if(this.mode==='already-reveal')this.clock+=15500;
+   if(this.mode==='already-next-round')this.clock+=22500;
+   return response(200,{accepted:true,playerIdentity:{kind:'guest',id:this.owned.playerId},playerVote:{}});
+  }
+  if(pathname==='/api/private-rooms/leave'){this.leaves++;return response(200,{left:true});}
+  if(pathname==='/api/private-rooms')return response(404,{});
+  throw Error('Unexpected request');
+ }
+}
+for(const mode of ['normal','delayed-vote','delayed-active','delayed-refresh','delayed-before-snapshot','already-reveal','already-next-round','never-reveal','missing-reveal','missing-vote','read-failure']){
+ const check=new Fixture(mode);Object.defineProperty(performance,'now',{configurable:true,value:()=>check.clock});
+ let failure=null;try{await check.guest();}catch(error){failure=error.publicCode??error.message;}
+ assert.equal(check.voteCount,1);assert.equal(check.leaves,1);assert.equal(check.output.privateRoomCleanupConfirmed,true);assert.equal(check.state.cleanupConfirmed,true);assert(check.roundReads<=4);assert(check.sleeps.slice(1).reduce((sum,value)=>sum+Math.max(0,Math.min(value,30000)),0)<=30600);
+ results.push({mode,passed:failure===null,failure,roundReads:check.roundReads,votes:check.voteCount,cleanup:check.output.privateRoomCleanupConfirmed,sleeps:check.sleeps,observations:check.observations});
+}
+if(originalNow)Object.defineProperty(performance,'now',originalNow);else delete performance.now;
+const expectedPassing=['normal','delayed-vote','delayed-active','delayed-refresh','delayed-before-snapshot','already-reveal'];
+const matches=results.every(row=>row.passed===expectedPassing.includes(row.mode));
+console.log(JSON.stringify({operatorSha256:createHash('sha256').update(await readFile(file)).digest('hex'),expectedPassing,matchesExpected:matches,cases:results,hostedRequests:0},null,2));
+if(!matches)process.exitCode=1;

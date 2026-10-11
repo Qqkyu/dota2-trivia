@@ -1,0 +1,98 @@
+{
+  "checkedAt": "2026-10-10T12:48:18.588349+00:00",
+  "helperSha256": "724724857427caf1f02cb6523417acd7687fd339c5f793b6cc7cc3bd8e09cc47",
+  "independentReview": "Two safety findings fixed: reject orphan/recreated volumes and pass --no-prune when removing named image tags. Independent reviewer reran all 27 mocked guard tests with no remaining code blocker.",
+  "lastFormatFix": "Optional HostConfig.Mounts may be absent. Use Go template index lookup to return null. No guard or mutation changes. Metadata-only preflight then passed.",
+  "mockedCases": 27,
+  "realPreflight": {
+    "startedAt": "2026-10-10T12:48:09.611867+00:00",
+    "sourceSha256": "724724857427caf1f02cb6523417acd7687fd339c5f793b6cc7cc3bd8e09cc47",
+    "removed": [],
+    "problems": [],
+    "mode": "review-only",
+    "before": {
+      "container": {
+        "id": "0f6a9b0963a0c01c52c7815a216e7f623249bf08870d42bf48cd6dd115324890",
+        "name": "/queue-arcade-launch-restore-pg17",
+        "image": "sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24",
+        "status": "exited",
+        "running": false,
+        "mounts": [
+          {
+            "Destination": "/var/lib/postgresql/data",
+            "Driver": "local",
+            "Mode": "",
+            "Name": "b8a2f56da4718a3162e88b791b6791bb3b460d4c90abad59295ef374180789ae",
+            "Propagation": "",
+            "RW": true,
+            "Source": "/var/lib/docker/volumes/b8a2f56da4718a3162e88b791b6791bb3b460d4c90abad59295ef374180789ae/_data",
+            "Type": "volume"
+          }
+        ],
+        "binds": null,
+        "mountRequests": null,
+        "declaredVolumes": {
+          "/var/lib/postgresql/data": {}
+        }
+      },
+      "volume": {
+        "name": "b8a2f56da4718a3162e88b791b6791bb3b460d4c90abad59295ef374180789ae",
+        "driver": "local",
+        "scope": "local",
+        "options": null,
+        "createdAt": "2026-10-06T12:33:18Z",
+        "users": [
+          "0f6a9b0963a0c01c52c7815a216e7f623249bf08870d42bf48cd6dd115324890"
+        ]
+      },
+      "images": {
+        "queue-arcade-launch:final": {
+          "id": "sha256:691894e712d4c9c24abbe9d4be7776f03f996c6835d82453d96ddd02c43eed40",
+          "tags": [
+            "queue-arcade-launch:final"
+          ],
+          "users": []
+        },
+        "queue-arcade-assistive:orca49": {
+          "id": "sha256:567f0e0417943577762b69a58a5a2a576b299d5011d1cf68b3f5d55899706163",
+          "tags": [
+            "queue-arcade-assistive:orca49"
+          ],
+          "users": []
+        },
+        "queue-arcade-launch:baseline": {
+          "id": "sha256:ce9eca3d1cf89ec1d2ba245bdd54107373b95fdb80731a26fa04329bca3bb626",
+          "tags": [
+            "queue-arcade-launch:baseline"
+          ],
+          "users": []
+        },
+        "queue-arcade-ci-runner:20261006": {
+          "id": "sha256:285cd0c0d0fd7be15e0900938d552db30bd6dcb92e4704d338e4d42f33e34d43",
+          "tags": [
+            "queue-arcade-ci-runner:20261006"
+          ],
+          "users": []
+        },
+        "queue-arcade-launch-runtime-base:local": {
+          "id": "sha256:cda0d9616bf2f605a04221fd43a6e695fa6e58ad52df145d654a4f694403a432",
+          "tags": [
+            "queue-arcade-launch-runtime-base:local"
+          ],
+          "users": []
+        },
+        "queue-arcade-launch-dependencies:local": {
+          "id": "sha256:84459f933569aa8478d9c2c1bc87bf95922660b44f7bc05d79f2827bff0426e3",
+          "tags": [
+            "queue-arcade-launch-dependencies:local"
+          ],
+          "users": []
+        }
+      }
+    },
+    "completed": true,
+    "finishedAt": "2026-10-10T12:48:11.211595+00:00"
+  },
+  "removalAuthorized": false,
+  "next": "Wait for parent explicit hosted-check and verified-retention confirmation."
+}

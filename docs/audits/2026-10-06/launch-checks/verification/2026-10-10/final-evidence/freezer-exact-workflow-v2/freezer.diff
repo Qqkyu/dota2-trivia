@@ -1,0 +1,18 @@
+--- original/freeze-archive.py.txt
++++ corrected/freeze-archive.py.txt
+@@ -39,7 +39,14 @@
+     path = PurePosixPath(name)
+     if path.is_absolute() or str(path) != name or any(part in {".", ".."} for part in path.parts):
+         raise CheckError("Unsafe archive path")
+-    if any(part.startswith(".") or part.lower() in PRIVATE_PARTS for part in path.parts):
++    public_workflow_paths = {
++        "ci/forced-color-fix/after/.github",
++        "ci/forced-color-fix/after/.github/workflows",
++        "ci/forced-color-fix/after/.github/workflows/ci.yml.txt",
++    }
++    if any(part.lower() in PRIVATE_PARTS for part in path.parts) or (
++        name not in public_workflow_paths and any(part.startswith(".") for part in path.parts)
++    ):
+         raise CheckError("Private or cache path is excluded from release evidence")
+     if path.suffix.lower() in PRIVATE_SUFFIXES:
+         raise CheckError("Private or cache file type is excluded from release evidence")

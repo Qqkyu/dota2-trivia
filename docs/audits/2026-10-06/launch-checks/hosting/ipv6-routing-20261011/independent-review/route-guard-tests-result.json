@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-10-11T06:36:31.944Z",
+  "hostedRequests": 0,
+  "operatorSha256": "932be267c45efb0c3a262c1f6f9c0aa5eb556167ea1571b3cfd7867728dedd97",
+  "passed": 9,
+  "cases": [
+    {
+      "name": "both complete helper files match the review pins",
+      "passed": true
+    },
+    {
+      "name": "the complete change contains only the route and report metadata edits",
+      "passed": true
+    },
+    {
+      "name": "the independent address source keeps its original transport: https://api64.ipify.org/",
+      "passed": true
+    },
+    {
+      "name": "the independent address source keeps its original transport: https://www.cloudflare.com/cdn-cgi/trace",
+      "passed": true
+    },
+    {
+      "name": "only the exact auth URL receives one fixed route and keeps every original option",
+      "passed": true
+    },
+    {
+      "name": "path, port, scheme, credential, query and host variants remain forbidden",
+      "passed": true
+    },
+    {
+      "name": "invalid deadlines cannot widen the subprocess budget",
+      "passed": true
+    },
+    {
+      "name": "the route has no Host override, TLS bypass, redirects or credentials",
+      "passed": true
+    },
+    {
+      "name": "a passing result identifies the manual edge route without retaining addresses or cookies",
+      "passed": true
+    }
+  ]
+}

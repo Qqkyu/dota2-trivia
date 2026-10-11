@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+scan_dir=/runner-evidence/package-probe
+scanner=/home/runner/.local/bin/trivy-bin/trivy
+scanner_cache=/opt/runner/_work/dota2-trivia/dota2-trivia/.cache/trivy
+mkdir -p "$scan_dir"
+/usr/local/bin/prepare-cgroup-v2.sh
+cd /opt/runner/_work/dota2-trivia/dota2-trivia
+actual_commit=$(git -c safe.directory="$PWD" rev-parse HEAD)
+expected_commit=$(cat /run/expected-scan-commit)
+test "$actual_commit" = "$expected_commit"
+printf '%s\n' "$actual_commit" > "$scan_dir/source-commit.txt"
+dockerd --host=unix:///var/run/docker.sock --data-root=/var/lib/docker > "$scan_dir/docker.log" 2>&1 &
+daemon_pid=$!
+finish() { kill "$daemon_pid" 2>/dev/null || true; wait "$daemon_pid" 2>/dev/null || true; }
+trap finish EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+for attempt in {1..60}; do
+  if docker info >/dev/null 2>&1; then break; fi
+  if ! kill -0 "$daemon_pid" 2>/dev/null; then exit 1; fi
+  sleep 1
+done
+docker info >/dev/null
+test -x "$scanner"
+image_id=$(node -e 'const assert=require("node:assert/strict"),r=require("/tmp/queue-arcade-container-ci/container-result.json");assert.equal(r.ok,true);assert.equal(r.correctnessPassed,true);assert.equal(r.latency.met,true);assert.match(r.imageId,/^sha256:[0-9a-f]{64}$/);console.log(r.imageId)')
+test "$(docker image inspect queue-arcade:ci --format '{{.Id}}')" = "$image_id"
+printf '%s\n' "$image_id" > "$scan_dir/ci-tested-image-id.txt"
+cp /tmp/queue-arcade-container-ci/container-result.json "$scan_dir/ci-container-result.json"
+docker run --rm --entrypoint sh "$image_id" -c '
+set +e
+apk info --installed zlib > /tmp/apk-installed.out 2>/tmp/apk-installed.err
+printf "apk-installed exit %s\n" "$?"
+cat /tmp/apk-installed.out /tmp/apk-installed.err
+apk info --all zlib > /tmp/apk-all.out 2>/tmp/apk-all.err
+printf "apk-all exit %s\n" "$?"
+cat /tmp/apk-all.out /tmp/apk-all.err
+apk list --installed zlib > /tmp/apk-list.out 2>/tmp/apk-list.err
+printf "apk-list-installed exit %s\n" "$?"
+cat /tmp/apk-list.out /tmp/apk-list.err
+ffmpeg -version > /tmp/ffmpeg.out 2>/tmp/ffmpeg.err
+printf "ffmpeg-version exit %s\n" "$?"
+cat /tmp/ffmpeg.out /tmp/ffmpeg.err
+' > "$scan_dir/package-probe.log" 2>&1
+printf '%s\n' 'Scoped package probe complete.'

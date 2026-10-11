@@ -1,0 +1,107 @@
+#!/usr/bin/env python3
+"""Small offline checks for the evidence validator; no app files are changed."""
+from pathlib import Path
+import importlib.machinery
+import importlib.util
+import json
+import sys
+import tempfile
+
+sys.dont_write_bytecode = True
+
+path = Path(__file__).with_name("check-evidence.py.txt")
+loader = importlib.machinery.SourceFileLoader("evidence_check", str(path))
+spec = importlib.util.spec_from_loader(loader.name, loader)
+module = importlib.util.module_from_spec(spec)
+loader.exec_module(module)
+checks = []
+
+
+def record(name, condition):
+    if not condition:
+        raise AssertionError(name)
+    checks.append({"name": name, "passed": True})
+
+
+record("Year reveal refresh binds to the exact release revisions",
+       module.REFRESH_REVISIONS.get("verification/2026-10-10/year-reveal-smoke-manifest-refresh.json") ==
+       ("64046c2d198fcbfe556599e727ae0638423a3482", "31961cbd762587225b4b8a814828dc0829952978"))
+
+
+with tempfile.TemporaryDirectory(prefix="queue-arcade-evidence-validator-") as temp:
+    root = Path(temp)
+    module.REPO = root
+    source = root / "README.md"
+    target = root / "valid file.md"
+    target.write_text("# Example\n")
+    source.write_text("[present](<valid file.md>)\n[missing](missing.md)\n[web](https://example.test/)\n[ref]: valid%20file.md\n```sh\n[fenced](not-a-link.md)\n```\n")
+    links = module.markdown_links(source)
+    record("Existing file with a space resolves", links[0]["exists"])
+    record("Missing file is reported", not links[1]["exists"])
+    record("Reference link resolves", links[2]["exists"])
+    record("Web and fenced examples are excluded", len(links) == 3)
+    manifest = root / "manifest.json"
+    entry = {"path": target.name, "bytes": target.stat().st_size, "sha256": module.digest(target.read_bytes())}
+    manifest.write_text(json.dumps({"files": [entry]}))
+    record("Correct manifest passes", not module.check_manifest(manifest)["mismatches"])
+    target.write_text("# Changed\n")
+    record("Changed manifest bytes fail", bool(module.check_manifest(manifest)["mismatches"]))
+    manifest.write_text(json.dumps({"files": [{**entry, "path": "../outside.md"}]}))
+    record("Manifest path escape fails", "path escapes repository" in module.check_manifest(manifest)["mismatches"][0]["reasons"])
+    manifest.write_text(json.dumps({"files": [entry, entry]}))
+    record("Duplicate manifest path fails", any("duplicate manifest path" in item["reasons"] for item in module.check_manifest(manifest)["mismatches"]))
+    manifest.write_text(json.dumps({"files": [{"path": "missing.txt", "sha256": "malformed"}]}))
+    record("Malformed digest fails", bool(module.check_manifest(manifest)["mismatches"]))
+    manifest.write_text(json.dumps({"files": [None]}))
+    record("Malformed row fails", bool(module.check_manifest(manifest)["mismatches"]))
+    manifest.write_text(json.dumps({"files": []}))
+    record("Empty file manifest fails", bool(module.check_manifest(manifest)["mismatches"]))
+    evidence = root / "docs/audits/migration.log"
+    evidence.parent.mkdir(parents=True)
+    evidence.write_text("unchanged")
+    rows = [{"path": str(evidence.relative_to(root)), "sha256": module.digest(evidence.read_bytes())}, {"path": "src/historical.js", "sha256": "0" * 64}]
+    manifest.write_text(json.dumps({"files": rows}))
+    record("Mixed archive rows exclude old source drift", not module.check_manifest(manifest, True, True)["mismatches"])
+    evidence.write_text("changed")
+    record("Mixed archive evidence changes fail", bool(module.check_manifest(manifest, True, True)["mismatches"]))
+    synthetic = ("gh" + "p_" + "a" * 36).encode()
+    finding = module.sensitive_matches(synthetic, "synthetic.txt")
+    record("Credential rule finds synthetic token", len(finding) == 1)
+    record("Credential result never includes matched value", synthetic.decode() not in json.dumps(finding))
+    for name in ("responses/.env", "responses/.env.production", "private-render-backup/backup.txt", "responses/session.db"):
+        record("Private archived filename fails: " + name, module.prohibited_filename(name))
+    record("Public response archive filename passes", not module.prohibited_filename("responses/hero_axe.json"))
+    refresh = {"changedReviewInputs": [], "previousFileCount": 124, "currentFileCount": 127,
+               "previousManifestSha256": "0" * 64, "currentManifestSha256": "1" * 64}
+    record("Source manifest refresh metadata is separate", module.is_manifest_refresh_record(refresh))
+    record("A file inventory cannot hide as refresh metadata", not module.is_manifest_refresh_record({**refresh, "files": [{"path": "missing.txt", "sha256": "malformed"}]}))
+    record("Malformed refresh hash is not accepted as metadata", not module.is_manifest_refresh_record({**refresh, "currentManifestSha256": "malformed"}))
+    record("Malformed optional refresh list is not accepted", not module.is_manifest_refresh_record({**refresh, "addedReviewInputs": {}}))
+    evidence_raw = b"reviewed facts\n"
+    old_input, new_input = b"old helper\n", b"new helper\n"
+    old_manifest = {"files": {"scripts/check.mjs": module.digest(old_input)}, "reviewedAt": "old",
+                    "evidence": {"path": "docs/review.md", "sha256": module.digest(evidence_raw)}}
+    new_manifest = {**old_manifest, "files": {"scripts/check.mjs": module.digest(new_input)}, "reviewedAt": "new"}
+    before_raw, after_raw = json.dumps(old_manifest).encode(), json.dumps(new_manifest).encode()
+    blobs = {("before", "docs/content-review.json"): before_raw, ("after", "docs/content-review.json"): after_raw,
+             ("before", "scripts/check.mjs"): old_input, ("after", "scripts/check.mjs"): new_input,
+             ("before", "docs/review.md"): evidence_raw, ("after", "docs/review.md"): evidence_raw}
+    refresh = {"changedReviewInputs": ["scripts/check.mjs"], "addedReviewInputs": [], "missingReviewInputs": [],
+               "previousFileCount": 1, "currentFileCount": 1, "previousManifestSha256": module.digest(before_raw),
+               "currentManifestSha256": module.digest(after_raw), "currentReviewedAt": "new", "questionAndEvidenceHashesUnchanged": True}
+    refresh_path = root / "known-manifest-refresh.json"
+    refresh_path.write_text(json.dumps(refresh))
+    check_refresh = lambda: module.check_refresh_record(refresh_path, ("before", "after"), lambda commit, name: blobs[(commit, name)])
+    record("Refresh references and changed blob hashes pass", not check_refresh()["mismatches"])
+    refresh_path.write_text(json.dumps({**refresh, "currentManifestSha256": "0" * 64}))
+    record("Changed linked manifest hash fails", bool(check_refresh()["mismatches"]))
+    refresh_path.write_text(json.dumps({**refresh, "changedReviewInputs": []}))
+    record("Unlisted changed input fails", bool(check_refresh()["mismatches"]))
+    refresh_path.write_text(json.dumps(refresh))
+    blobs[("after", "scripts/check.mjs")] = b"unreviewed edit"
+    record("Changed source input bytes fail", bool(check_refresh()["mismatches"]))
+    blobs[("after", "scripts/check.mjs")] = new_input
+    blobs[("after", "docs/review.md")] = b"changed facts"
+    record("Changed review evidence bytes fail", bool(check_refresh()["mismatches"]))
+
+print(json.dumps({"tests": len(checks), "passed": True, "checks": checks}, indent=2))

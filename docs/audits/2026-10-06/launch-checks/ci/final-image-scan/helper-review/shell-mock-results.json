@@ -1,0 +1,113 @@
+{
+  "scope": "Path-confined Bash tests with synthetic Docker, Git, Trivy and cgroup commands. The Node image-report assertions run against synthetic local JSON. No real Docker, GitHub or network calls. These checks do not prove live image or kernel behavior.",
+  "sourceSha256": "37e1f1d815370c6b0d52e9e390ba04ac6e13cdc1d89d120f5ea414774e29b5dd",
+  "passed": true,
+  "testCount": 15,
+  "cases": [
+    {
+      "case": "accept",
+      "exitCode": 0,
+      "expectedSuccess": true,
+      "passed": true,
+      "scanInvoked": true
+    },
+    {
+      "case": "wrong_head",
+      "exitCode": 1,
+      "expectedSuccess": false,
+      "passed": true,
+      "scanInvoked": false
+    },
+    {
+      "case": "prepare_failure",
+      "exitCode": 1,
+      "expectedSuccess": false,
+      "passed": true,
+      "scanInvoked": false
+    },
+    {
+      "case": "missing_report",
+      "exitCode": 1,
+      "expectedSuccess": false,
+      "passed": true,
+      "scanInvoked": false
+    },
+    {
+      "case": "bad_ok",
+      "exitCode": 1,
+      "expectedSuccess": false,
+      "passed": true,
+      "scanInvoked": false
+    },
+    {
+      "case": "bad_correctness",
+      "exitCode": 1,
+      "expectedSuccess": false,
+      "passed": true,
+      "scanInvoked": false
+    },
+    {
+      "case": "bad_latency",
+      "exitCode": 1,
+      "expectedSuccess": false,
+      "passed": true,
+      "scanInvoked": false
+    },
+    {
+      "case": "malformed_image",
+      "exitCode": 1,
+      "expectedSuccess": false,
+      "passed": true,
+      "scanInvoked": false
+    },
+    {
+      "case": "tag_mismatch",
+      "exitCode": 1,
+      "expectedSuccess": false,
+      "passed": true,
+      "scanInvoked": false
+    },
+    {
+      "case": "inspect_failure",
+      "exitCode": 1,
+      "expectedSuccess": false,
+      "passed": true,
+      "scanInvoked": false
+    },
+    {
+      "case": "native_failure",
+      "exitCode": 1,
+      "expectedSuccess": false,
+      "passed": true,
+      "scanInvoked": false
+    },
+    {
+      "case": "packages_failure",
+      "exitCode": 1,
+      "expectedSuccess": false,
+      "passed": true,
+      "scanInvoked": false
+    },
+    {
+      "case": "database_failure",
+      "exitCode": 1,
+      "expectedSuccess": false,
+      "passed": true,
+      "scanInvoked": false
+    },
+    {
+      "case": "metadata_missing",
+      "exitCode": 1,
+      "expectedSuccess": false,
+      "passed": true,
+      "scanInvoked": false
+    },
+    {
+      "case": "scan_failure",
+      "exitCode": 1,
+      "expectedSuccess": false,
+      "passed": true,
+      "scanInvoked": true
+    }
+  ]
+}

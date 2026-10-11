@@ -1,0 +1,323 @@
+{
+  "ok": true,
+  "runId": "10b4904b",
+  "sourceSubnet": 100,
+  "appUrl": "http://127.0.0.1:3323",
+  "full": false,
+  "busyChat": false,
+  "requestedRounds": 2,
+  "membershipPollMs": 1000,
+  "roundPollMs": 5000,
+  "startedAt": 1791625867877,
+  "endedAt": 1791625922164,
+  "peakOutstandingHttp": 8,
+  "maximumOutstandingHttp": 256,
+  "scenarios": [
+    {
+      "name": "small-nat",
+      "size": 4,
+      "mode": "nat",
+      "groupNumber": 1,
+      "public": false,
+      "media": false,
+      "games": [
+        "trivia"
+      ],
+      "code": "CAP10B4904B1",
+      "statuses": {
+        "200": 203,
+        "204": 7,
+        "409": 2
+      },
+      "rounds": [
+        {
+          "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP10B4904B1:round:0:1791625871073",
+          "game": "trivia",
+          "accepted": 4,
+          "correct": 1,
+          "totalPoints": 472,
+          "skippedRevealPlayer": 3
+        },
+        {
+          "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP10B4904B1:round:1:1791625871073",
+          "game": "trivia",
+          "accepted": 4,
+          "correct": 1,
+          "totalPoints": 494,
+          "skippedRevealPlayer": -1
+        }
+      ],
+      "errors": [],
+      "mediaRequests": 0,
+      "mediaBytes": 0,
+      "maxMessageCount": 2,
+      "joined": 4,
+      "rejected101": false,
+      "membershipRequests": 130,
+      "chatTexts": [
+        "Round 1 from Player 1",
+        "Round 2 from Player 2"
+      ],
+      "membershipSkipped": 3,
+      "players": [
+        {
+          "name": "Player 1",
+          "score": 0,
+          "correct": 0,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP10B4904B1:round:1:1791625871073",
+            "points": 0,
+            "correct": false
+          }
+        },
+        {
+          "name": "Player 2",
+          "score": 494,
+          "correct": 1,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP10B4904B1:round:1:1791625871073",
+            "points": 494,
+            "correct": true
+          }
+        },
+        {
+          "name": "Player 3",
+          "score": 472,
+          "correct": 1,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP10B4904B1:round:1:1791625871073",
+            "points": 0,
+            "correct": false
+          }
+        },
+        {
+          "name": "Player 4",
+          "score": 0,
+          "correct": 0,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP10B4904B1:round:1:1791625871073",
+            "points": 0,
+            "correct": false
+          }
+        }
+      ],
+      "requests": {
+        "POST /api/private-rooms": {
+          "latencyMs": {
+            "count": 138,
+            "p50": 8.84,
+            "p95": 224.81,
+            "p99": 1970.28,
+            "max": 1970.67
+          },
+          "clientQueueMs": {
+            "count": 138,
+            "p50": 0.39,
+            "p95": 1,
+            "p99": 1.3,
+            "max": 1.36
+          },
+          "bytes": 150304
+        },
+        "POST /api/private-rooms/start": {
+          "latencyMs": {
+            "count": 1,
+            "p50": 8.19,
+            "p95": 8.19,
+            "p99": 8.19,
+            "max": 8.19
+          },
+          "clientQueueMs": {
+            "count": 1,
+            "p50": 0,
+            "p95": 0,
+            "p99": 0,
+            "max": 0
+          },
+          "bytes": 982
+        },
+        "POST /api/sessions": {
+          "latencyMs": {
+            "count": 8,
+            "p50": 222.06,
+            "p95": 323.5,
+            "p99": 323.5,
+            "max": 323.5
+          },
+          "clientQueueMs": {
+            "count": 8,
+            "p50": 0.31,
+            "p95": 0.99,
+            "p99": 0.99,
+            "max": 0.99
+          },
+          "bytes": 136
+        },
+        "GET /api/rounds": {
+          "latencyMs": {
+            "count": 40,
+            "p50": 94.92,
+            "p95": 1190.88,
+            "p99": 2400.81,
+            "max": 2400.81
+          },
+          "clientQueueMs": {
+            "count": 40,
+            "p50": 0.28,
+            "p95": 21.54,
+            "p99": 21.8,
+            "max": 21.8
+          },
+          "bytes": 96331
+        },
+        "POST /api/votes": {
+          "latencyMs": {
+            "count": 12,
+            "p50": 402.8,
+            "p95": 704.92,
+            "p99": 704.92,
+            "max": 704.92
+          },
+          "clientQueueMs": {
+            "count": 12,
+            "p50": 0.08,
+            "p95": 0.7,
+            "p99": 0.7,
+            "max": 0.7
+          },
+          "bytes": 2124
+        },
+        "POST /api/private-rooms/messages": {
+          "latencyMs": {
+            "count": 2,
+            "p50": 2.64,
+            "p95": 92.7,
+            "p99": 92.7,
+            "max": 92.7
+          },
+          "clientQueueMs": {
+            "count": 2,
+            "p50": 0.01,
+            "p95": 0.01,
+            "p99": 0.01,
+            "max": 0.01
+          },
+          "bytes": 2201
+        },
+        "HEAD /api/round-audio": {
+          "latencyMs": {
+            "count": 7,
+            "p50": 68.86,
+            "p95": 198.72,
+            "p99": 198.72,
+            "max": 198.72
+          },
+          "clientQueueMs": {
+            "count": 7,
+            "p50": 0.54,
+            "p95": 0.72,
+            "p99": 0.72,
+            "max": 0.72
+          },
+          "bytes": 0
+        },
+        "POST /api/private-rooms/leave": {
+          "latencyMs": {
+            "count": 4,
+            "p50": 74.12,
+            "p95": 171.4,
+            "p99": 171.4,
+            "max": 171.4
+          },
+          "clientQueueMs": {
+            "count": 4,
+            "p50": 0.43,
+            "p95": 0.59,
+            "p99": 0.59,
+            "max": 0.59
+          },
+          "bytes": 3028
+        }
+      }
+    },
+    {
+      "name": "expected-throttles",
+      "size": 1,
+      "mode": "nat",
+      "groupNumber": 240,
+      "public": true,
+      "media": false,
+      "games": [
+        "trivia"
+      ],
+      "code": "CAP10B4904B240",
+      "statuses": {
+        "200": 150,
+        "409": 12,
+        "429": 9
+      },
+      "rounds": [],
+      "errors": [],
+      "mediaRequests": 0,
+      "mediaBytes": 0,
+      "maxMessageCount": 0,
+      "joined": 0,
+      "rejected101": false,
+      "burst": {
+        "expiredVotesBeforeThrottle": 12,
+        "rejectedVoteBurst": 8,
+        "admittedIdentities": 150,
+        "rejectedIdentity": 151
+      },
+      "players": [
+        {
+          "name": "Player 1",
+          "score": 0,
+          "correct": 0,
+          "recovered": 0,
+          "last": null
+        }
+      ],
+      "requests": {
+        "POST /api/votes": {
+          "latencyMs": {
+            "count": 20,
+            "p50": 4.56,
+            "p95": 97.94,
+            "p99": 977.61,
+            "max": 977.61
+          },
+          "clientQueueMs": {
+            "count": 20,
+            "p50": 0,
+            "p95": 0.01,
+            "p99": 0.01,
+            "max": 0.01
+          },
+          "bytes": 1028
+        },
+        "GET /api/rounds": {
+          "latencyMs": {
+            "count": 151,
+            "p50": 93.21,
+            "p95": 192.57,
+            "p99": 239.05,
+            "max": 291.05
+          },
+          "clientQueueMs": {
+            "count": 151,
+            "p50": 0,
+            "p95": 0,
+            "p99": 0,
+            "max": 0.01
+          },
+          "bytes": 312595
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+browserType.launch: Target page, context or browser has been closed
+Browser logs:
+
+<launching> /home/kulmisiu/.cache/ms-playwright/webkit-2336/pw_run.sh --inspector-pipe --headless --no-startup-window
+<launched> pid=494539
+[pid=494539][err] /home/kulmisiu/.cache/ms-playwright/webkit-2336/minibrowser-wpe/bin/MiniBrowser: error while loading shared libraries: libavif.so.13: cannot open shared object file: No such file or directory
+Call log:
+[2m  - <launching> /home/kulmisiu/.cache/ms-playwright/webkit-2336/pw_run.sh --inspector-pipe --headless --no-startup-window[22m
+[2m  - <launched> pid=494539[22m
+[2m  - [pid=494539][err] /home/kulmisiu/.cache/ms-playwright/webkit-2336/minibrowser-wpe/bin/MiniBrowser: error while loading shared libraries: libavif.so.13: cannot open shared object file: No such file or directory[22m
+[2m  - [pid=494539] <gracefully close start>[22m
+[2m  - [pid=494539] <kill>[22m
+[2m  - [pid=494539] <will force kill>[22m
+[2m  - [pid=494539] exception while trying to kill process: Error: kill ESRCH[22m
+[2m  - [pid=494539] <process did exit: exitCode=127, signal=null>[22m
+[2m  - [pid=494539] starting temporary directories cleanup[22m
+[2m  - [pid=494539] finished temporary directories cleanup[22m
+[2m  - [pid=494539] <gracefully close end>[22m
+
+    at /home/kulmisiu/dev/dota2-trivia/scripts/check-accessibility.mjs:105:42 {
+  log: [
+    '  - <launching> /home/kulmisiu/.cache/ms-playwright/webkit-2336/pw_run.sh --inspector-pipe --headless --no-startup-window',
+    '  - <launched> pid=494539',
+    '  - [pid=494539][err] /home/kulmisiu/.cache/ms-playwright/webkit-2336/minibrowser-wpe/bin/MiniBrowser: error while loading shared libraries: libavif.so.13: cannot open shared object file: No such file or directory',
+    '  - [pid=494539] <gracefully close start>',
+    '  - [pid=494539] <kill>',
+    '  - [pid=494539] <will force kill>',
+    '  - [pid=494539] exception while trying to kill process: Error: kill ESRCH',
+    '  - [pid=494539] <process did exit: exitCode=127, signal=null>',
+    '  - [pid=494539] starting temporary directories cleanup',
+    '  - [pid=494539] finished temporary directories cleanup',
+    '  - [pid=494539] <gracefully close end>'
+  ]
+}
+
+Node.js v22.23.3

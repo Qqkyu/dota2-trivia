@@ -1,0 +1,70 @@
+{
+  "files": [
+    {
+      "source": "party-lobby-fix-summary.json",
+      "archive": "party-lobby-fix-summary.json",
+      "bytes": 964,
+      "sha256": "ea4da96d4ff39bebb4e74a8444b4e4ed0e06a31fe84d16c345cc9b17df8bd346",
+      "exactCopy": true
+    },
+    {
+      "source": "missing-join-baseline.log",
+      "archive": "missing-join-baseline.log",
+      "bytes": 36,
+      "sha256": "be608124e6fcd1c61c52fef3e9826f8e11350816ea4da99eb9ce0f7ea40bb77c",
+      "exactCopy": true
+    },
+    {
+      "source": "missing-join-delayed-red.log",
+      "archive": "missing-join-delayed-red.log",
+      "bytes": 3830,
+      "sha256": "49496571c1d997ad22e131985c0d92460eb64808c829dfbf4b612cee5f3ed372",
+      "exactCopy": true
+    },
+    {
+      "source": "party-lobby-latency-red.log",
+      "archive": "party-lobby-latency-red.log",
+      "bytes": 390,
+      "sha256": "418f419f983eae16703a650da368799402d7ea19979ae1717011b4faf05f8955",
+      "exactCopy": true
+    },
+    {
+      "source": "party-lobby-lint.log",
+      "archive": "party-lobby-lint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exactCopy": true
+    },
+    {
+      "source": "missing-join-repro.mjs",
+      "archive": "missing-join-repro.mjs.txt",
+      "bytes": 11810,
+      "sha256": "d86c0e729a5557f7ffc7dfd0a39364ca909513ac98e96cc3d4a5f89852d3067c",
+      "exactCopy": true
+    },
+    {
+      "source": "party-lobby-latency-red.mjs",
+      "archive": "party-lobby-latency-red.mjs.txt",
+      "bytes": 27619,
+      "sha256": "9bbb44cd9b972ac6e8125d5a62ec501ca384006e9005dbb9db5b55ed20907b07",
+      "exactCopy": true
+    },
+    {
+      "source": "scripts/check-party-lobby.mjs",
+      "archive": "check-party-lobby.mjs.txt",
+      "bytes": 27992,
+      "sha256": "7b47ac77cdb2c65f4c284443a46797127c6ee356639ff00858573a96ae3b5946",
+      "exactCopy": true
+    },
+    {
+      "source": "party-lobby-latency-green.log",
+      "archive": "party-lobby-latency-green.redacted.log",
+      "sourceSha256": "903cac771987ff3876b927aa6151a273370f6f13256f276835f3c3e66645875f",
+      "archiveSha256": "739f7b9b0417e832c226b49b2a1b7ebac365d60e2a18ff82f56adbfcd18a8285",
+      "exactCopy": false,
+      "redaction": "Replace the one synthetic room code and parenthesized display-name list. Preserve the completion statement."
+    }
+  ],
+  "sourceSnapshotMatchesSummary": true,
+  "originalFailureCauseKnown": false
+}

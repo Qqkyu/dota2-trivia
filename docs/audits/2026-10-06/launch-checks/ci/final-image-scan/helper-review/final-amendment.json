@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-10",
+  "status": "pass",
+  "earlierReview": "earlier-result.json",
+  "earlierShellSha256": "aa49f8c4f4c2949c85be42fabfb9ef3a631bee732ad82a6b7e50ecee37fe3c9b",
+  "finalShellSha256": "37e1f1d815370c6b0d52e9e390ba04ac6e13cdc1d89d120f5ea414774e29b5dd",
+  "unchangedStarterSha256": "f70476dddbee8c810e2e22e814be178977f450990af2e61ca77e593333a4dfe8",
+  "change": "Replace apk info --all zlib with apk list --installed zlib and capture package-probe stderr. No app source, Dockerfile, image rebuild, scan flags, or starter changes.",
+  "recordedFinalShellMockCasesPassed": 15,
+  "recordedUnchangedStarterMockCasesPassed": 36,
+  "independentReview": "A separate agent reviewed the current source, test assertions, actual scan evidence, database timestamps, and image binding. The archive author checked the recorded hashes and all case results. Neither reviewer reran the mock suite or used Docker, GitHub, or network commands.",
+  "resultMeaning": "The earlier review retains its original helper hash. The shell mock result binds the final amended helper. Both are preserved without rewriting the historical result.",
+  "limits": [
+    "Synthetic mocks check guard decisions and command order. They do not prove actual kernel isolation or scanner coverage.",
+    "Trivy uses exit-code 0 to preserve findings. The collector separately parses every result and asserts zero vulnerabilities."
+  ]
+}

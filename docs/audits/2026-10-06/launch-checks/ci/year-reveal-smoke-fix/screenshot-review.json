@@ -1,0 +1,56 @@
+{
+  "scope": "Visual inspection of all six selected screenshots. These images do not prove every state or physical-device behavior.",
+  "images": [
+    {
+      "file": "screenshots/year-smoke-1440-2011.png",
+      "bytes": 568487,
+      "sha256": "c72f568bac170a3a154c3829e2d5e02522f7348da4f28061d91ef639d89f1898",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "file": "screenshots/year-smoke-1440-2017.png",
+      "bytes": 564712,
+      "sha256": "baeebb069c47cce6254c4b6748d34bc53f2acf22a68762289f55a95c5c6312d7",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "file": "screenshots/year-smoke-320-2011.png",
+      "bytes": 203467,
+      "sha256": "33e184923bc4d202b394c9468de904d9c06957de78bfeb46cc6b5673ddc90e8d",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "file": "screenshots/year-smoke-320-2017.png",
+      "bytes": 109523,
+      "sha256": "419bcf6a668821cbc921478eda530505a9659d721b27457c6e34bdf13dffb440",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "file": "full-smoke-screenshots/queue-arcade-public-reveal.png",
+      "bytes": 631150,
+      "sha256": "6a225af8d1ecf7265cca04e29ad9f55509743b48a541fa1474623b72fa11a8bf",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "file": "full-smoke-screenshots/queue-arcade-public-round.png",
+      "bytes": 573459,
+      "sha256": "81aa9e228fefe1111dd7b1e5434ba554a41db9802018d269d3c195981fb0eced",
+      "width": 1440,
+      "height": 1000
+    }
+  ],
+  "observations": [
+    "The year images display correct year 2011 and retain the submitted 2011 or 2017 answer.",
+    "The 320x568 correct-answer frame includes the temporary first-blood animation over much of the question. The year readout remains visible, but this is not a clean unobstructed layout proof.",
+    "The 320x568 captures contain the viewport only. The report panel is below the captured area. Its measured bounds come from the focused logs.",
+    "Desktop year images show the report menu with four reasons.",
+    "Full-smoke images show Soundcheck answering and reveal. They do not add a full live year-format run.",
+    "The full-smoke answering frame shows a blank Glimmer Cape image slot. The reveal frame shows its image. These two frames do not establish a persistent missing-image fault.",
+    "Synthetic fixture point and crowd values are not scoring correctness evidence."
+  ]
+}

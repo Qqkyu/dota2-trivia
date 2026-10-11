@@ -1,0 +1,79 @@
+{
+  "checkedAt": "2026-10-11T06:35:49.431Z",
+  "hostedRequests": 0,
+  "passed": 18,
+  "cases": [
+    {
+      "name": "independent public source preserves the original transport at 1 seconds: https://api64.ipify.org/",
+      "passed": true
+    },
+    {
+      "name": "independent public source preserves the original transport at 1 seconds: https://www.cloudflare.com/cdn-cgi/trace",
+      "passed": true
+    },
+    {
+      "name": "only the exact application endpoint uses the fixed edge connection at 1 seconds",
+      "passed": true
+    },
+    {
+      "name": "independent public source preserves the original transport at 4 seconds: https://api64.ipify.org/",
+      "passed": true
+    },
+    {
+      "name": "independent public source preserves the original transport at 4 seconds: https://www.cloudflare.com/cdn-cgi/trace",
+      "passed": true
+    },
+    {
+      "name": "only the exact application endpoint uses the fixed edge connection at 4 seconds",
+      "passed": true
+    },
+    {
+      "name": "independent public source preserves the original transport at 8 seconds: https://api64.ipify.org/",
+      "passed": true
+    },
+    {
+      "name": "independent public source preserves the original transport at 8 seconds: https://www.cloudflare.com/cdn-cgi/trace",
+      "passed": true
+    },
+    {
+      "name": "only the exact application endpoint uses the fixed edge connection at 8 seconds",
+      "passed": true
+    },
+    {
+      "name": "reject a changed URL before a connection",
+      "passed": true
+    },
+    {
+      "name": "reject a changed URL before a connection",
+      "passed": true
+    },
+    {
+      "name": "reject a changed URL before a connection",
+      "passed": true
+    },
+    {
+      "name": "reject a changed URL before a connection",
+      "passed": true
+    },
+    {
+      "name": "reject a changed URL before a connection",
+      "passed": true
+    },
+    {
+      "name": "reject a changed URL before a connection",
+      "passed": true
+    },
+    {
+      "name": "reject a changed URL before a connection",
+      "passed": true
+    },
+    {
+      "name": "the edge path keeps certificate verification and sends no credentials, spoof headers, or redirects",
+      "passed": true
+    },
+    {
+      "name": "the result states the manual edge route and retains the original request and timing limits",
+      "passed": true
+    }
+  ]
+}

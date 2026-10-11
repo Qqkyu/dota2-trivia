@@ -1,0 +1,33 @@
+test_exact_workflow_directory_symlink_stays_rejected (__main__.WorkflowPathTests) ... ok
+test_exact_workflow_file_symlink_stays_rejected (__main__.WorkflowPathTests) ... ok
+test_exact_workflow_is_included_and_verified (__main__.WorkflowPathTests) ... ERROR
+test_other_hidden_or_private_names_stay_rejected (__main__.WorkflowPathTests) ... ok
+
+======================================================================
+ERROR: test_exact_workflow_is_included_and_verified (__main__.WorkflowPathTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/dota2-trivia-audit-close/freezer-exact-workflow-v2/test-workflow-path.py", line 27, in test_exact_workflow_is_included_and_verified
+    result = MODULE['write'](root, 'a' * 40)
+  File "/home/kulmisiu/dev/dota2-trivia/docs/audits/2026-10-06/launch-checks/verification/2026-10-10/final-evidence/freeze-archive.py.txt", line 171, in write
+    rows = stable_snapshot(root)
+  File "/home/kulmisiu/dev/dota2-trivia/docs/audits/2026-10-06/launch-checks/verification/2026-10-10/final-evidence/freeze-archive.py.txt", line 102, in stable_snapshot
+    first = snapshot(root)
+  File "/home/kulmisiu/dev/dota2-trivia/docs/audits/2026-10-06/launch-checks/verification/2026-10-10/final-evidence/freeze-archive.py.txt", line 97, in snapshot
+    walk(root)
+  File "/home/kulmisiu/dev/dota2-trivia/docs/audits/2026-10-06/launch-checks/verification/2026-10-10/final-evidence/freeze-archive.py.txt", line 88, in walk
+    walk(path)
+  File "/home/kulmisiu/dev/dota2-trivia/docs/audits/2026-10-06/launch-checks/verification/2026-10-10/final-evidence/freeze-archive.py.txt", line 88, in walk
+    walk(path)
+  File "/home/kulmisiu/dev/dota2-trivia/docs/audits/2026-10-06/launch-checks/verification/2026-10-10/final-evidence/freeze-archive.py.txt", line 88, in walk
+    walk(path)
+  File "/home/kulmisiu/dev/dota2-trivia/docs/audits/2026-10-06/launch-checks/verification/2026-10-10/final-evidence/freeze-archive.py.txt", line 84, in walk
+    safe_name(name)
+  File "/home/kulmisiu/dev/dota2-trivia/docs/audits/2026-10-06/launch-checks/verification/2026-10-10/final-evidence/freeze-archive.py.txt", line 43, in safe_name
+    raise CheckError("Private or cache path is excluded from release evidence")
+<run_path>.CheckError: Private or cache path is excluded from release evidence
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.003s
+
+FAILED (errors=1)

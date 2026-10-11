@@ -1,0 +1,176 @@
+#!/usr/bin/env python3
+"""Restore audit-user ownership on exactly 178 reviewed fixture directories.
+
+Run the default read-only check on the host. Execution requires WSL Ubuntu root.
+Files, modes, caches, recovery material and the frozen archive are not changed.
+"""
+import argparse
+import datetime
+import hashlib
+import json
+import os
+from pathlib import Path
+import stat
+import sys
+import types
+
+CLOSE = Path('/tmp/dota2-trivia-audit-close')
+ROOT = Path('/tmp/queue-arcade-launch-checks')
+PLAN = CLOSE / 'orca-directory-owner-plan.json'
+PLAN_HASH = 'c14363c1ffcd04b627670e895a2d678a24f269f44d0ecb3f88c49a43b4ae4151'
+BASE = CLOSE / 'cleanup-audit.py'
+BASE_HASH = 'b08f8bbe81d15102f125acf0c77177b669ff8b9106563c83a904c53506f26a94'
+STATE = Path('/home/kulmisiu/dev/dota2-trivia/.local-assets/operator-recovery-20261010/cleanup-state.json')
+WINDOWS = CLOSE / 'windows-task-users.json'
+ATTEMPTS = {'openbox-round', 'attempt2', 'control-recovered-generic', 'stock-recipe-autoread', 'control-external-generic-initial', 'generic-recipe', 'control-external-generic-late', 'control-external-status', 'attempt1', 'stock-recipe-control', 'final3333-combined', 'final3333-recipe'}
+FLAGS = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
+
+
+def require(value, message):
+    if not value:
+        raise RuntimeError(message)
+
+
+def no_links(path):
+    for part in (path, *path.parents):
+        require(not part.is_symlink(), 'A fixed path or ancestor is a symlink.')
+
+
+def private_json(path):
+    no_links(path)
+    value = path.stat()
+    require(stat.S_ISREG(value.st_mode) and value.st_uid == 1000 and value.st_nlink == 1 and value.st_size < 1024 * 1024, 'A control input has unexpected metadata.')
+    return json.loads(path.read_text())
+
+
+def load_inputs():
+    no_links(BASE)
+    source = BASE.read_bytes()
+    require(hashlib.sha256(source).hexdigest() == BASE_HASH, 'Pinned cleanup helper differs.')
+    base = types.ModuleType('reviewed_cleanup_guard')
+    exec(compile(source, str(BASE), 'exec'), base.__dict__)
+    no_links(PLAN)
+    value = PLAN.stat()
+    require(stat.S_ISREG(value.st_mode) and value.st_uid == 1000 and value.st_nlink == 1 and value.st_size < 1024 * 1024, 'Ownership plan metadata differs.')
+    plan_bytes = PLAN.read_bytes()
+    require(hashlib.sha256(plan_bytes).hexdigest() == PLAN_HASH, 'Reviewed ownership plan differs.')
+    plan = json.loads(plan_bytes)
+    require(plan['root'] == str(ROOT) and plan['old_uid'] == 0 and plan['target_uid'] == 1000, 'Ownership plan scope differs.')
+    rows = plan['entries']
+    require(len(rows) == 629 and len({r['path'] for r in rows}) == 629, 'Ownership entry count differs.')
+    require(sum(r['kind'] == 'directory' for r in rows) == 178 and sum(r['kind'] == 'file' for r in rows) == 451, 'Ownership entry types differ.')
+    for row in rows:
+        parts = Path(row['path']).parts
+        require(len(parts) >= 3 and parts[0] == 'assistive-modern' and parts[1] in ATTEMPTS and '..' not in parts and not Path(row['path']).is_absolute(), 'Entry leaves the reviewed fixture attempts.')
+        require(row['uid'] == row['gid'] == 0, 'An original owner differs.')
+        require(row['kind'] != 'directory' or row['mode'] == 0o755, 'A directory mode differs.')
+        require(row['kind'] != 'file' or row['nlink'] == 1, 'A fixture file is hard-linked.')
+    return base, plan
+
+
+def observed(path):
+    no_links(path)
+    s = path.lstat()
+    return {'uid': s.st_uid, 'gid': s.st_gid, 'mode': stat.S_IMODE(s.st_mode), 'kind': 'directory' if stat.S_ISDIR(s.st_mode) else 'file' if stat.S_ISREG(s.st_mode) else 'other', 'nlink': s.st_nlink, 'device': s.st_dev, 'inode': s.st_ino, 'bytes': s.st_size}
+
+
+def inspect_plan(plan):
+    no_links(ROOT)
+    s = ROOT.stat()
+    require([s.st_dev, s.st_ino, s.st_uid] == plan['root_identity'], 'Scratch root identity differs.')
+    expected_foreign = set()
+    pending = []
+    for row in plan['entries']:
+        current = observed(ROOT / row['path'])
+        expected = {k: v for k, v in row.items() if k != 'path'}
+        if row['kind'] == 'directory' and current['uid'] == 1000:
+            expected['uid'] = 1000
+        require(current == expected, 'A reviewed fixture identity, type, mode or owner changed.')
+        if current['uid'] == 0:
+            expected_foreign.add(row['path'])
+            if row['kind'] == 'directory':
+                pending.append(row)
+    actual_foreign = set()
+    for parent, dirs, files in os.walk(ROOT, followlinks=False, onerror=lambda error: (_ for _ in ()).throw(error)):
+        for name in dirs + files:
+            path = Path(parent) / name
+            value = path.lstat()
+            require(not stat.S_ISLNK(value.st_mode), 'A remaining scratch entry is a symlink.')
+            if value.st_uid != 1000:
+                require(value.st_uid == 0, 'A remaining entry has an unexpected owner.')
+                actual_foreign.add(path.relative_to(ROOT).as_posix())
+    require(actual_foreign == expected_foreign, 'Foreign-owned scratch entries differ from the exact plan.')
+    return pending
+
+
+def operational_guards(base):
+    state = private_json(STATE)
+    require(state.get('retention_complete') is True and state.get('deletion_intent') == str(ROOT), 'Cleanup is not at the reviewed interrupted deletion.')
+    require(state.get('deleted') == [str(p) for p in base.ROOTS[:-1]], 'The first ten deletion records differ.')
+    require(all(not p.exists() for p in base.ROOTS[:-1]), 'An earlier scratch root exists again.')
+    report = private_json(WINDOWS)
+    now = datetime.datetime.now(datetime.timezone.utc)
+    when = datetime.datetime.fromisoformat(report['checkedAt'])
+    require(when.tzinfo is not None and -10 <= (now - when).total_seconds() <= 300, 'Windows process receipt is stale.')
+    require(report.get('taskPathMatches') == [] and report.get('deviceToolProcesses') == [] and report.get('commandLinesLogged') is False and report.get('processesChanged') is False, 'Windows process receipt differs.')
+    base.mount_guard((ROOT,))
+    base.process_guard((ROOT,))
+
+
+def open_directory(row, root_fd):
+    fd = os.dup(root_fd)
+    try:
+        for name in Path(row['path']).parts:
+            next_fd = os.open(name, FLAGS, dir_fd=fd)
+            os.close(fd)
+            fd = next_fd
+        s = os.fstat(fd)
+        require(stat.S_ISDIR(s.st_mode) and (s.st_dev, s.st_ino, s.st_uid, s.st_gid, stat.S_IMODE(s.st_mode), s.st_nlink, s.st_size) == (row['device'], row['inode'], 0, 0, 0o755, row['nlink'], row['bytes']), 'Directory descriptor no longer matches the plan.')
+        return fd
+    except Exception:
+        os.close(fd)
+        raise
+
+
+def repair(base, plan, execute=False):
+    pending = inspect_plan(plan)
+    result = {'mode': 'execute' if execute else 'read-only', 'reviewed_directories': 178, 'pending_directories': len(pending), 'unchanged_regular_files': 451, 'directory_modes_changed': False, 'file_owners_changed': False, 'directories_changed': 0, 'plan_sha256': PLAN_HASH, 'pinned_cleanup_sha256': BASE_HASH}
+    if not execute:
+        return result
+    require(os.geteuid() == 0, 'Execution requires the reviewed WSL root command.')
+    operational_guards(base)
+    require(inspect_plan(plan) == pending, 'Fixture metadata changed before repair.')
+    root_fd = os.open(ROOT, FLAGS)
+    try:
+        s = os.fstat(root_fd)
+        require([s.st_dev, s.st_ino, s.st_uid] == plan['root_identity'], 'Opened scratch root differs.')
+        for row in pending:
+            fd = open_directory(row, root_fd)
+            try:
+                os.fchown(fd, 1000, -1)
+                s = os.fstat(fd)
+                require(s.st_uid == 1000 and s.st_gid == 0 and stat.S_IMODE(s.st_mode) == 0o755, 'Directory ownership result differs.')
+                result['directories_changed'] += 1
+            finally:
+                os.close(fd)
+    finally:
+        os.close(root_fd)
+    require(inspect_plan(plan) == [], 'Some reviewed directories remain unrepaired.')
+    result['completed_at_utc'] = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    return result
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--execute', action='store_true')
+    args = parser.parse_args()
+    base, plan = load_inputs()
+    print(json.dumps(repair(base, plan, args.execute)))
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except Exception:
+        print('Orca directory repair stopped; no private content or raw exception was logged.', file=sys.stderr)
+        sys.exit(1)

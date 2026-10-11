@@ -1,0 +1,17 @@
+{
+  "checkedAt": "2026-10-10T12:40:49.114896+00:00",
+  "serviceId": "srv-d9mqd1942hec73e9nlt0",
+  "commit": "31961cbd762587225b4b8a814828dc0829952978",
+  "ciRunId": 38050315807,
+  "plan": "free",
+  "buildPlan": "starter",
+  "trustedProxy": "none",
+  "httpStatus": 201,
+  "queued": false,
+  "deployId": "dep-db534k0473hc739n08rg",
+  "status": "build_in_progress",
+  "createdAt": "2026-10-10T12:40:48.86366Z",
+  "commitVerified": true,
+  "pollRequired": true,
+  "externalHealthChecksAllowed": false
+}

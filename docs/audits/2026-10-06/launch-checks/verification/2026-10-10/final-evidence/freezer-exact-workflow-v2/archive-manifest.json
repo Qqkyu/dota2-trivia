@@ -1,0 +1,101 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 2574,
+      "sha256": "a4012079908434016e3ff09bb41f371e65144f2053989b7e40ef1919782b7575"
+    },
+    {
+      "path": "committer-binding.diff",
+      "bytes": 829,
+      "sha256": "ae2e71391cf6a4689bc62c7931c94cce9c285d98131b304786e549ff0759d28f"
+    },
+    {
+      "path": "committer-independent-suite.log",
+      "bytes": 1077,
+      "sha256": "459e0f0547e9532c13bfb2c6443afa0cc668b63328454714f9843a95388eeaa4"
+    },
+    {
+      "path": "committer-review-harness.diff",
+      "bytes": 606,
+      "sha256": "2841b94fdb490ff24a8a6f9c5bba6b45debc275cb8cc39a1712f3d5094684fd5"
+    },
+    {
+      "path": "committer-suite.log",
+      "bytes": 1961,
+      "sha256": "3b1035102d443c1edd2c4568b3dea2700e23276bfc883145f5e4d963ec9da3f3"
+    },
+    {
+      "path": "create-evidence-commit.py.txt",
+      "bytes": 14440,
+      "sha256": "880fc9574fcf1d6c95ad7104deb5667bb8267f4fd6e129a47be85d92635b7d19"
+    },
+    {
+      "path": "focused-after.log",
+      "bytes": 437,
+      "sha256": "ec6c8fe90bd51a577a4c30d2f5fbb093ca8a8913aceb1e5ee481d7d520958107"
+    },
+    {
+      "path": "focused-before.log",
+      "bytes": 2482,
+      "sha256": "841a4bb7edde472badca15b0d2c968a90c6102e66bca5be91070716e4f00bcc5"
+    },
+    {
+      "path": "freeze-archive.py.txt",
+      "bytes": 10618,
+      "sha256": "4852cc57ecc3bd77b87467be51bdb639da35bd32f7eab4cee0e1c7800ff358af"
+    },
+    {
+      "path": "freezer.diff",
+      "bytes": 968,
+      "sha256": "65606be3da0731f79e4d0291cfead025bca74e51e6ac797c0ec08cd93e42c2cd"
+    },
+    {
+      "path": "independent-committer-review.py.txt",
+      "bytes": 9062,
+      "sha256": "dc816aeaa4632917d41334cd7e501e26ca2f0cf26a4f0aaa06ecbb0709d466c9"
+    },
+    {
+      "path": "independent-review.json",
+      "bytes": 3250,
+      "sha256": "82a7deacad4484a3457139160c97f9b6196467a02c21b01f616694fa50a5a2fa"
+    },
+    {
+      "path": "independent-tests.log",
+      "bytes": 772,
+      "sha256": "dbd1b3b88800117a609f19ee4840b4ff22384086bea0f33c36daf613dd18dab4"
+    },
+    {
+      "path": "independent-tests.py.txt",
+      "bytes": 6530,
+      "sha256": "26b931820c1fd26976fdd7b9bbe17352e8bcb24ac8d7c49321da2632a1f9e5d8"
+    },
+    {
+      "path": "initial-freeze-refusal.json",
+      "bytes": 555,
+      "sha256": "ad96bbbc252b7afb4a9e6b88ceedf7de8f603b75deeecadf75b4a71f4b39abe9"
+    },
+    {
+      "path": "original-suite.log",
+      "bytes": 2405,
+      "sha256": "e691dea862e6a8e10176697e25622eb3f5bec2078bbcd947b243f69632f3ce5d"
+    },
+    {
+      "path": "test-evidence-commit.py.txt",
+      "bytes": 13682,
+      "sha256": "974f5a1ad9dfeb9bfdc147715902932e585e4bdfdf0f4950f56e52ecc444e0f1"
+    },
+    {
+      "path": "test-freeze-archive.py.txt",
+      "bytes": 9314,
+      "sha256": "513d6e2256c13ec8026c358924b091bf74452bf09db51b952c7beca8612b213a"
+    },
+    {
+      "path": "test-workflow-path.py.txt",
+      "bytes": 2816,
+      "sha256": "0e2622413791514e2705bbb98adb668daeaca2da2c4f8af6e6061740a141f74e"
+    }
+  ],
+  "count": 19,
+  "totalBytes": 84378
+}

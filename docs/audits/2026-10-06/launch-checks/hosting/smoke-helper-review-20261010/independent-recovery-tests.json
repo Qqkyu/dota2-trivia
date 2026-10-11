@@ -1,0 +1,65 @@
+{
+  "checkedAt": "2026-10-10T09:35:17.218Z",
+  "passed": 14,
+  "hostedRequests": 0,
+  "operatorSha256": "e0a09e4909016e3ee5dbefefafe9d7385401a6972294d10c8d5a92679b7bfc68",
+  "sourceAdjustment": "The private checkpoint directory alone was replaced with an isolated temporary directory.",
+  "cases": [
+    {
+      "name": "ownership record is private and precedes any app request",
+      "passed": true
+    },
+    {
+      "name": "exclusive creation preserves a previous unresolved record",
+      "passed": true
+    },
+    {
+      "name": "an unresolved record blocks a new hosted run",
+      "passed": true
+    },
+    {
+      "name": "vote intent update preserves private file mode",
+      "passed": true
+    },
+    {
+      "name": "reject recovery record origin",
+      "passed": true
+    },
+    {
+      "name": "reject recovery record rehearsal",
+      "passed": true
+    },
+    {
+      "name": "reject recovery record commit",
+      "passed": true
+    },
+    {
+      "name": "reject recovery record deployId",
+      "passed": true
+    },
+    {
+      "name": "reject recovery record contentVersion",
+      "passed": true
+    },
+    {
+      "name": "reject recovery record createAttempted",
+      "passed": true
+    },
+    {
+      "name": "reject recovery record voteAttempted",
+      "passed": true
+    },
+    {
+      "name": "reject recovery record cleanupConfirmed",
+      "passed": true
+    },
+    {
+      "name": "recovery after an attempted vote sends only leave and absence checks",
+      "passed": true
+    },
+    {
+      "name": "a cleaned record permits a new run",
+      "passed": true
+    }
+  ]
+}

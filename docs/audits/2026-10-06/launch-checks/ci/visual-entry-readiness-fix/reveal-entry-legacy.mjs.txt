@@ -1,0 +1,14 @@
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+export async function waitForRevealEntryWindow(roomUrl, { fetchImpl = fetch, sleep = delay } = {}) {
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    const snapshot = await fetchImpl(roomUrl, { cache: "no-store" }).then((response) => response.json());
+    const revealRemaining = snapshot.round.revealDeadline - snapshot.serverNow;
+    if (snapshot.round.phase === "reveal" && revealRemaining >= 5_000) return;
+    const wait = snapshot.round.phase === "answering"
+      ? snapshot.round.answerDeadline - snapshot.serverNow + 150
+      : snapshot.round.revealDeadline - snapshot.serverNow + 150;
+    await sleep(Math.max(150, wait));
+  }
+  throw new Error("Could not reach a reveal window for the first-entry smoke test.");
+}

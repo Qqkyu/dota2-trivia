@@ -1,0 +1,86 @@
+#!/usr/bin/env python3
+"""Exercise scan shell control flow using synthetic local commands and files."""
+import hashlib,json,os,pathlib,subprocess,tempfile
+BASE=pathlib.Path('/tmp/queue-arcade-launch-ci')
+SOURCE=(BASE/'full-image-scan-entrypoint.sh').read_text()
+COMMIT='a'*40;IMAGE='sha256:'+'b'*64
+MOCK=r'''#!/usr/bin/python3
+import json,os,pathlib,signal,sys,time
+base=pathlib.Path(os.environ['SCAN_MOCK_BASE']);case=os.environ['SCAN_MOCK_CASE'];name=pathlib.Path(sys.argv[0]).name;args=sys.argv[1:]
+with (base/'calls.jsonl').open('a') as f:f.write(json.dumps({'name':name,'args':args})+'\n')
+image='sha256:'+'b'*64
+if name=='git':
+ print('c'*40 if case=='wrong_head' else 'a'*40)
+elif name=='dockerd':
+ while True:time.sleep(1)
+elif name=='prepare-cgroup-v2.sh':
+ sys.exit(1 if case=='prepare_failure' else 0)
+elif name=='docker':
+ if args==['info']:sys.exit(0)
+ if args[:2]==['image','inspect']:
+  if case=='inspect_failure':sys.exit(1)
+  if len(args)>3:print('sha256:'+'c'*64 if case=='tag_mismatch' else image)
+  else:
+   assert args[2]==image;print(json.dumps([{'Id':image}]))
+ elif args[:2]==['run','--rm']:
+  assert args[4]==image
+  if args[3]=='node':
+   if case=='native_failure':sys.exit(1)
+   print(json.dumps({'synthetic':True}))
+  elif args[3]=='sh':
+   assert args[5]=='-ec' and '| head' not in args[6]
+   if case=='packages_failure':sys.exit(1)
+   print('Synthetic package metadata')
+  else:raise AssertionError('Unexpected container executable')
+ else:raise AssertionError('Unexpected Docker command')
+elif name=='trivy':
+ if args==['--version']:print('Synthetic Trivy version');sys.exit(0)
+ cache=pathlib.Path(args[args.index('--cache-dir')+1]);cache.mkdir(parents=True,exist_ok=True)
+ if '--download-db-only' in args:
+  if case=='database_failure':sys.exit(1)
+  (cache/'db').mkdir(exist_ok=True)
+  if case!='metadata_missing':(cache/'db/metadata.json').write_text(json.dumps({'synthetic':True}))
+  (cache/'db/trivy.db').write_bytes(b'synthetic fixture database')
+ else:
+  assert args[-1]==image
+  for flag in ['--skip-db-update','--skip-java-db-update','--offline-scan','--ignore-unfixed=false']:assert flag in args
+  assert args[args.index('--severity')+1]=='UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL'
+  assert args[args.index('--scanners')+1]=='vuln'
+  assert args[args.index('--exit-code')+1]=='0'
+  if case=='scan_failure':sys.exit(1)
+  pathlib.Path(args[args.index('--output')+1]).write_text(json.dumps({'Results':[]}))
+else:raise AssertionError('Unexpected mock command')
+'''
+CASES=['accept','wrong_head','prepare_failure','missing_report','bad_ok','bad_correctness','bad_latency','malformed_image','tag_mismatch','inspect_failure','native_failure','packages_failure','database_failure','metadata_missing','scan_failure']
+rows=[]
+for case in CASES:
+ with tempfile.TemporaryDirectory(prefix='shell-case-',dir=BASE/'final-scan-review') as temp:
+  p=pathlib.Path(temp);bins=p/'bin';bins.mkdir();repo=p/'checkout';repo.mkdir();reportdir=p/'report';reportdir.mkdir()
+  (repo/'Dockerfile').write_text('FROM scratch\n')
+  (p/'expected-commit').write_text(COMMIT+'\n')
+  report={'ok':case!='bad_ok','correctnessPassed':case!='bad_correctness','latency':{'met':case!='bad_latency'},'imageId':'bad' if case=='malformed_image' else IMAGE}
+  if case!='missing_report':(reportdir/'container-result.json').write_text(json.dumps(report))
+  for command in ['git','dockerd','docker','trivy','prepare-cgroup-v2.sh']:
+   f=bins/command;f.write_text(MOCK);f.chmod(0o755)
+  patched=SOURCE
+  mapping={'/runner-evidence/final-image-scan':str(p/'evidence'),'/home/runner/.local/bin/trivy-bin/trivy':str(bins/'trivy'),'/opt/runner/_work/dota2-trivia/dota2-trivia':str(repo),'/usr/local/bin/prepare-cgroup-v2.sh':str(bins/'prepare-cgroup-v2.sh'),'/run/expected-scan-commit':str(p/'expected-commit'),'/tmp/queue-arcade-container-ci':str(reportdir)}
+  for original,replacement in mapping.items():patched=patched.replace(original,replacement)
+  script=p/'probe.sh';script.write_text(patched)
+  env={'PATH':str(bins)+':/tmp/queue-arcade-launch-checks/tools/node22/bin:/usr/bin:/bin','SCAN_MOCK_BASE':str(p),'SCAN_MOCK_CASE':case}
+  result=subprocess.run(['/bin/bash',str(script)],env=env,capture_output=True,timeout=12)
+  calls=[json.loads(line) for line in (p/'calls.jsonl').read_text().splitlines()]
+  scans=[c for c in calls if c['name']=='trivy' and '--output' in c['args']]
+  expected=case=='accept'
+  assert (result.returncode==0)==expected,(case,result.returncode,result.stderr.decode())
+  assert not any(c['name']=='docker' and c['args'][0] in ('build','pull','push','login') for c in calls)
+  if expected:
+   assert len(scans)==1 and (p/'evidence/trivy-full.json').is_file()
+   update=next(i for i,c in enumerate(calls) if c['name']=='trivy' and '--download-db-only' in c['args'])
+   scan=next(i for i,c in enumerate(calls) if c['name']=='trivy' and '--output' in c['args'])
+   assert update<scan
+  else:
+   assert b'Final image scan completed' not in result.stdout
+  rows.append({'case':case,'exitCode':result.returncode,'expectedSuccess':expected,'passed':True,'scanInvoked':bool(scans)})
+report={'scope':'Path-confined Bash tests with synthetic Docker, Git, Trivy and cgroup commands. The Node image-report assertions run against synthetic local JSON. No real Docker, GitHub or network calls. These checks do not prove live image or kernel behavior.','sourceSha256':hashlib.sha256(SOURCE.encode()).hexdigest(),'passed':True,'testCount':len(rows),'cases':rows}
+(BASE/'final-scan-review/shell-mock-results.json').write_text(json.dumps(report,indent=2)+'\n')
+print(json.dumps({'passed':True,'testCount':len(rows)}))

@@ -1,0 +1,43 @@
+{
+  "scope": "Independent review of the four-line HTTP status adaptation and offline rerun only. No provider calls or real credential reads.",
+  "tests": 27,
+  "passed": true,
+  "networkAndUnmockedSubprocessesBlocked": true,
+  "changedLines": 4,
+  "originalHelperSha256": "b0412f544f4097ede355e2cd471ca51088de9437b3d6f830b00105227325137a",
+  "findings": [],
+  "preservedGates": [
+    "Only HTTP 400 and 409 enter the unchanged bounded suspension parser.",
+    "The receipt records the actual HTTP status.",
+    "Resume still requires the matching service, exact commit, passing CI run, confirmed user suspension and receipt age of 0 through 900 seconds.",
+    "Branch, free plan, starter build plan, database role, proxy policy, wrong-commit suspension and exact live-deployment checks are unchanged."
+  ],
+  "redLogSummary": "FAILED (failures=1, errors=3)",
+  "files": [
+    {
+      "file": "deploy-render-candidate.py",
+      "bytes": 12367,
+      "sha256": "14cd3b0da65a39c49304308ad0d34a0d796d6b53b7ca8390171346927a00ff0c"
+    },
+    {
+      "file": "create-candidate.py",
+      "bytes": 2685,
+      "sha256": "00a119a4cb09f763d3c8b338b153937c38d1683fbd8b54cc02c1aab10fedf01a"
+    },
+    {
+      "file": "test-deploy-helpers.py",
+      "bytes": 22280,
+      "sha256": "a482cf9fdbac8cf3c856374a0bde4ca9e09d5175c0762a4d09ba6d6106ceae00"
+    },
+    {
+      "file": "independent-tests.log",
+      "bytes": 2183,
+      "sha256": "4c4ec6a66ccef67031cb2b54b819da57d68290b52cd5e47ab79d07289e1a5c4c"
+    },
+    {
+      "file": "independent-diff.patch",
+      "bytes": 1935,
+      "sha256": "4e32936c5235289e53da7e46a92365a00699833c460ac2e54942afc6e06c3651"
+    }
+  ]
+}

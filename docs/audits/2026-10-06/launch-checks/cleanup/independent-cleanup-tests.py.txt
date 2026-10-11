@@ -1,0 +1,96 @@
+import importlib.util, tempfile, pathlib, tarfile, io, json, os
+base=pathlib.Path(__file__).resolve().parent
+spec=importlib.util.spec_from_file_location('cleanup_reviewed',base/'cleanup-audit.py'); m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+results=[]
+def check(name,fn,refuse=False):
+ try:
+  fn()
+  results.append({'case':name,'passed':not refuse,'result':'accepted'})
+ except (m.Refusal, OSError):
+  results.append({'case':name,'passed':refuse,'result':'refused'})
+def tar_case(entries):
+ b=io.BytesIO()
+ with tarfile.open(fileobj=b,mode='w') as t:
+  c=tarfile.TarInfo('opt/chrome153/chrome');c.size=1;t.addfile(c,io.BytesIO(b'x'))
+  for name,kind,target in entries:
+   p=tarfile.TarInfo(name)
+   if kind=='link':p.type=tarfile.SYMTYPE;p.linkname=target;t.addfile(p)
+   elif kind=='hard':p.type=tarfile.LNKTYPE;p.linkname=target;t.addfile(p)
+   else:p.size=1;t.addfile(p,io.BytesIO(b'z'))
+ b.seek(0)
+ with tarfile.open(fileobj=b) as t:m.chrome_members(t)
+with tempfile.TemporaryDirectory(prefix='independent-review-',dir=base) as d:
+ root=pathlib.Path(d);source=root/'source';source.mkdir();(source/'nested').mkdir();(source/'nested'/'file').write_text('synthetic')
+ check('private normal copy',lambda:m.copy_private(source,root/'retained'))
+ check('private modes accepted',lambda:m.assert_private_modes(root/'retained',m.tree(root/'retained',private=True)))
+ (root/'retained/nested/file').chmod(0o644)
+ check('changed private file mode refuses',lambda:m.assert_private_modes(root/'retained',m.tree(root/'retained',private=True)),True)
+ (root/'retained/nested/file').chmod(0o600)
+ (root/'retained/nested').chmod(0o755)
+ check('changed private directory mode refuses',lambda:m.assert_private_modes(root/'retained',m.tree(root/'retained',private=True)),True)
+ (root/'retained/nested').chmod(0o700)
+ check('private copy mode',lambda:m.require((root/'retained').stat().st_mode&0o777==0o700 and (root/'retained/nested/file').stat().st_mode&0o777==0o600,'mode'))
+ (root/'retained/nested/file').write_text('different')
+ check('private destination collision',lambda:m.copy_private(source,root/'retained'),True)
+ (root/'external').mkdir();(root/'ancestor-link').symlink_to(root/'external',target_is_directory=True)
+ check('symlink ancestor',lambda:m.no_symlink_ancestors(root/'ancestor-link/file'),True)
+ (source/'link').symlink_to('nested/file')
+ check('private symlink',lambda:m.tree(source,private=True),True);(source/'link').unlink()
+ check('tool relative safe link',lambda:m.check_link(source/'link',source,'nested/file'))
+ check('tool relative escaping link',lambda:m.check_link(source/'link',source,'../external'),True)
+ check('tool absolute escaping link',lambda:m.check_link(source/'link',source,'/etc/passwd'),True)
+ for name,entries in [
+ ('tar parent traversal',[('opt/chrome153/../outside','file','')]),
+ ('tar absolute link',[('opt/chrome153/a','link','/etc/passwd')]),
+ ('tar relative escaping link',[('opt/chrome153/a','link','../../outside')]),
+ ('tar member below link',[('opt/chrome153/a','link','b'),('opt/chrome153/a/file','file','')]),
+ ('tar hard link',[('opt/chrome153/a','hard','workspace/private')]),
+ ('tar duplicate',[('opt/chrome153/chrome','file','')]),
+ ]:check(name,lambda entries=entries:tar_case(entries),True)
+ check('tar outside prefix ignored',lambda:tar_case([('workspace/private','file','')]))
+ proc=root/'proc';(proc/'987654').mkdir(parents=True);(proc/'987654/cmdline').write_bytes(b'node\0'+str(source/'helper.js').encode()+b'\0')
+ check('active helper found from cmdline',lambda:m.process_guard((source,),proc=proc),True)
+ hidden=source/'nested';hidden.chmod(0)
+ try:check('unreadable directory fails closed',lambda:m.tree(source),True)
+ finally:hidden.chmod(0o700)
+ hard=root/'hard-retained';hard.mkdir();(hard/'nested').mkdir();outside=root/'outside-file';outside.write_text('synthetic');outside.chmod(0o644);os.link(outside,hard/'nested/file')
+ check('private hard-link collision refuses',lambda:m.copy_private(source,hard),True)
+ results.append({'case':'unrelated hard-link permissions unchanged','passed':outside.stat().st_mode&0o777==0o644,'result':oct(outside.stat().st_mode&0o777)})
+with tempfile.TemporaryDirectory(prefix='independent-review-extra-',dir=base) as d:
+ root=pathlib.Path(d)
+ plan={'delete_after_all_retention_and_evidence_checks':[str(p) for p in m.ROOTS], 'cache_moves':[{'source':str(a),'destination':str(b)} for a,b,_ in m.MOVES], 'private_retention':[{'source':str(m.CHECKS/n),'destination':str(m.RECOVERY/n)} for n in m.PRIVATE_NAMES], 'cache_extraction':{'source':str(m.CHROME_TAR),'destination':str(m.CHROME_DEST),'member_prefix':m.CHROME_PREFIX}}
+ check('fixed eleven roots and launch last',lambda:m.require(len(m.ROOTS)==11 and m.ROOTS[-1]==m.CHECKS,'root order'))
+ check('fixed plan accepts exact paths',lambda:m.fixed_plan_check(plan))
+ bad=json.loads(json.dumps(plan));bad['delete_after_all_retention_and_evidence_checks'].append('/tmp/unrelated')
+ check('fixed plan rejects extra deletion root',lambda:m.fixed_plan_check(bad),True)
+ info=root/'mountinfo';info.write_text('1 2 0:1 / '+str(root/'scratch/mounted')+' rw - ext4 /dev/sda rw\n')
+ check('nested mount refusal',lambda:m.mount_guard((root/'scratch',),info),True)
+ source=root/'tool';source.mkdir();(source/'file').write_text('synthetic tool');dest=root/'cache/tool';state={'moves':{}}
+ check('tool move validates exact bytes',lambda:m.relocate(source,dest,'source',state,lambda:None))
+ check('tool move receipt and source state',lambda:m.require(not source.exists() and state['moves'][str(source)]['complete'] and (dest/'file').read_text()=='synthetic tool','move'))
+ state['moves'][str(source)]['complete']=False
+ check('tool move resumes after rename',lambda:m.relocate(source,dest,'source',state,lambda:None))
+ other=root/'other';other.mkdir();(other/'file').write_text('other')
+ check('tool cache collision refuses',lambda:m.relocate(other,dest,'source',{'moves':{}},lambda:None),True)
+ venv=root/'venv';(venv/'bin').mkdir(parents=True);(venv/'pyvenv.cfg').write_text('home = /usr/bin\n');(venv/'bin/pip').write_text('#!'+str(venv)+'/bin/python\n')
+ (venv/'bin/pip').chmod(0o755)
+ moved=root/'moved-venv';expected=m.expected_relocation(venv,moved,'venv',m.tree(venv));os.rename(venv,moved)
+ check('venv prefix rewrite',lambda:m.repair_prefixes(moved,venv,'venv'))
+ check('wrapper executable mode preserved',lambda:m.require((moved/'bin/pip').stat().st_mode&0o777==0o755,'wrapper mode'))
+ check('venv relocated fingerprint',lambda:m.require(m.fingerprint(m.tree(moved))==m.fingerprint(expected),'venv'))
+ os.link(moved/'bin/pip',root/'outside-wrapper')
+ check('wrapper hard-link refusal',lambda:m.repair_prefixes(moved,venv,'venv'),True)
+ archive=root/'evidence';(archive/'cleanup').mkdir(parents=True);scratchplan=root/'plan.json';scratchplan.write_text('{}\n');(archive/'cleanup/cleanup-plan.json').write_bytes(scratchplan.read_bytes());(archive/'cleanup/cleanup-audit.py.txt').write_bytes(pathlib.Path(m.__file__).read_bytes())
+ m.EVIDENCE=archive;m.PLAN=scratchplan
+ def manifest():
+  (archive/'archive-manifest.json').write_text(json.dumps({'files':[{'path':str(p.relative_to(archive)),'sha256':m.digest_file(p)} for p in sorted(archive.rglob('*')) if p.is_file() and p.name!='archive-manifest.json']}))
+ manifest()
+ check('archive matches running script and plan',lambda:m.verify_evidence(archive/'archive-manifest.json'))
+ (archive/'cleanup/cleanup-audit.py.txt').write_text('different script');manifest()
+ check('archive rejects different running script',lambda:m.verify_evidence(archive/'archive-manifest.json'),True)
+ (archive/'cleanup/cleanup-audit.py.txt').write_bytes(pathlib.Path(m.__file__).read_bytes());manifest();scratchplan.write_text('{"changed":true}\n')
+ check('archive rejects different plan',lambda:m.verify_evidence(archive/'archive-manifest.json'),True)
+ scratchplan.write_text('{}\n');(archive/'extra').write_text('unlisted')
+ check('archive rejects omitted file',lambda:m.verify_evidence(archive/'archive-manifest.json'),True)
+print(json.dumps({'passed':sum(x['passed'] for x in results),'total':len(results),'cases':results},indent=2))
+raise SystemExit(0 if all(x['passed'] for x in results) else 1)

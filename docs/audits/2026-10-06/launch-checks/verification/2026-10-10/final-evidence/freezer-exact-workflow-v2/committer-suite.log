@@ -1,0 +1,35 @@
+test_cas_preserves_competing_dangling_symbolic_ref (__main__.CommitTests) ... ok
+test_cli_requires_exact_release_and_explicit_create (__main__.CommitTests) ... ok
+test_compare_and_swap_ref_creation_preserves_competing_ref (__main__.CommitTests) ... ok
+test_deleted_archive_file_is_removed_only_inside_subtree (__main__.CommitTests) ... ok
+test_expired_prepared_transaction_aborts_before_commit (__main__.CommitTests) ... ok
+test_fsmonitor_command_cannot_run (__main__.CommitTests) ... ok
+test_ignores_filters_and_ignore_rules_when_storing_frozen_bytes (__main__.CommitTests) ... ok
+test_preserves_main_dirty_index_worktree_and_candidate (__main__.CommitTests) ... ok
+test_preserves_raw_binary_and_existing_executable_modes (__main__.CommitTests) ... ok
+test_reference_transaction_hook_cannot_run (__main__.CommitTests) ... ok
+test_rejects_archive_symlink (__main__.CommitTests) ... ok
+test_rejects_changed_frozen_bytes (__main__.CommitTests) ... ok
+test_rejects_changed_reviewed_freezer (__main__.CommitTests) ... ok
+test_rejects_dangling_symbolic_evidence_ref (__main__.CommitTests) ... ok
+test_rejects_existing_evidence_ref (__main__.CommitTests) ... ok
+test_rejects_extra_file (__main__.CommitTests) ... ok
+test_rejects_moved_candidate_ref (__main__.CommitTests) ... ok
+test_rejects_output_inside_repository (__main__.CommitTests) ... ok
+test_rejects_traversal_manifest (__main__.CommitTests) ... ok
+test_rejects_wrong_release_manifest (__main__.CommitTests) ... ok
+test_requires_valid_frozen_manifest (__main__.CommitTests) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 1.079s
+
+OK
+{
+  "passed": true,
+  "tests": 21,
+  "failures": 0,
+  "errors": 0,
+  "helperSha256": "880fc9574fcf1d6c95ad7104deb5667bb8267f4fd6e129a47be85d92635b7d19",
+  "testSha256": "974f5a1ad9dfeb9bfdc147715902932e585e4bdfdf0f4950f56e52ecc444e0f1",
+  "scope": "Disposable temporary Git repositories only. No real repository Git writes."
+}

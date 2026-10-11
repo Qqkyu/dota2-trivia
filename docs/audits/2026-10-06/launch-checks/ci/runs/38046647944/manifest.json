@@ -1,0 +1,55 @@
+{
+  "run": 38046647944,
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 1340,
+      "sha256": "feb327873e1ecd1d5e02513951fff658e98e6a01c048635057bc8ad4253a363a"
+    },
+    {
+      "file": "cleanup-result.json",
+      "bytes": 97,
+      "sha256": "c64c04a18a92a228b6749828d5c95b386c5793150c5ec24a04acb88e8328a0bd"
+    },
+    {
+      "file": "evidence-secret-scan.json",
+      "bytes": 153,
+      "sha256": "1af416af98faa09dfa4581669cc83146c40996f010397136b91302a860df6fa7"
+    },
+    {
+      "file": "ownership-record.json",
+      "bytes": 580,
+      "sha256": "9bbc17fd3eed23306ca226f9e065377d209d5eaa8ecf30cbaab2271b3af6aba2"
+    },
+    {
+      "file": "provenance.json",
+      "bytes": 1568,
+      "sha256": "1faaf63544b35413c5584190ec1daf1a4b778ac8b794ee192fff364569edce6d"
+    },
+    {
+      "file": "runners-after-cleanup.json",
+      "bytes": 40,
+      "sha256": "0a37990c04105f6d4c2c21388345c6326e3d61bcd8733ff58d79c28bc80f52a3"
+    },
+    {
+      "file": "runtime-metadata.json",
+      "bytes": 867,
+      "sha256": "bac2a0baed79ea833d1c0337ff94d7cb5d150e6a0a359567785a1419922fa6f0"
+    },
+    {
+      "file": "summary.json",
+      "bytes": 909,
+      "sha256": "8c34d13978ec294e56b160f56af6246ac89b8a068aa145e89e74170ef33186e6"
+    },
+    {
+      "file": "token-lifecycle.json",
+      "bytes": 122,
+      "sha256": "132054c5a836ca46a31d4528ffe780d207cb58ad12dfaca716a80346dfbb787c"
+    },
+    {
+      "file": "workflow-final.json",
+      "bytes": 7400,
+      "sha256": "f0055c6af2291fe71a7cac243ce1c79ba04b22eb8a91c80c8aedc72a52650492"
+    }
+  ]
+}

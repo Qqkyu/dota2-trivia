@@ -1,0 +1,246 @@
+#!/usr/bin/env python3
+"""Run isolated archive fixtures. Never freeze or edit the real launch archive."""
+import copy
+import hashlib
+import json
+import os
+from pathlib import Path
+import runpy
+import subprocess
+import sys
+import tempfile
+import unittest
+from unittest import mock
+
+sys.dont_write_bytecode = True
+HERE = Path(__file__).resolve().parent
+SCRIPT = HERE / "freeze-archive.py.txt"
+MODULE = runpy.run_path(str(SCRIPT))
+GLOBALS = MODULE["main"].__globals__
+RELEASE = MODULE["DEFAULT_RELEASE"]
+ERROR = MODULE["CheckError"]
+
+
+class FreezeTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory(prefix="freeze-fixture-", dir=HERE)
+        self.repo = Path(self.temp.name)
+        self.root = self.repo / MODULE["ARCHIVE_PATH"]
+        self.root.mkdir(parents=True)
+        (self.repo / "package.json").write_text("{}\n")
+        (self.root / "a.txt").write_text("evidence\n")
+        (self.root / "nested").mkdir()
+        (self.root / "nested/archive-manifest.json").write_text("{}\n")
+        self.manifest = self.root / MODULE["MANIFEST"]
+
+    def tearDown(self):
+        self.temp.cleanup()
+
+    def freeze(self):
+        return MODULE["write"](self.root, RELEASE)
+
+    def verify(self):
+        return MODULE["verify"](self.root, RELEASE)
+
+    def tamper(self, change):
+        document = self.freeze()
+        change(document)
+        self.manifest.write_text(json.dumps(document))
+        with self.assertRaises(ERROR):
+            self.verify()
+
+    def cli(self, *args):
+        return subprocess.run([sys.executable, "-B", str(SCRIPT), *args], cwd=self.repo,
+                              capture_output=True, text=True, timeout=10)
+
+    def test_round_trip_and_nested_manifest(self):
+        document = self.freeze()
+        self.assertEqual(document, self.verify())
+        self.assertEqual(document["count"], 2)
+        self.assertEqual(document["totalBytes"], 12)
+        self.assertEqual([row["path"] for row in document["files"]], ["a.txt", "nested/archive-manifest.json"])
+
+    def test_existing_manifest_is_preserved(self):
+        self.freeze()
+        before = self.manifest.read_bytes()
+        with self.assertRaises(ERROR):
+            self.freeze()
+        self.assertEqual(before, self.manifest.read_bytes())
+
+    def test_explicit_replace(self):
+        self.freeze()
+        (self.root / "new.txt").write_text("new")
+        document = MODULE["write"](self.root, RELEASE, replace=True)
+        self.assertEqual(document["count"], 3)
+        self.assertEqual(document, self.verify())
+
+    def test_missing_file(self):
+        self.freeze()
+        (self.root / "a.txt").unlink()
+        with self.assertRaises(ERROR):
+            self.verify()
+
+    def test_extra_file(self):
+        self.freeze()
+        (self.root / "new.txt").write_text("new")
+        with self.assertRaises(ERROR):
+            self.verify()
+
+    def test_changed_same_length_file(self):
+        self.freeze()
+        (self.root / "a.txt").write_text("Evidence\n")
+        with self.assertRaises(ERROR):
+            self.verify()
+
+    def test_wrong_release(self):
+        self.freeze()
+        with self.assertRaises(ERROR):
+            MODULE["verify"](self.root, "a" * 40)
+
+    def test_bad_count(self):
+        self.tamper(lambda document: document.update(count=3))
+
+    def test_bad_total(self):
+        self.tamper(lambda document: document.update(totalBytes=0))
+
+    def test_bad_digest(self):
+        self.tamper(lambda document: document["files"][0].update(sha256="bad"))
+
+    def test_duplicate_file(self):
+        self.tamper(lambda document: document["files"].append(copy.copy(document["files"][0])))
+
+    def test_unsorted_files(self):
+        self.tamper(lambda document: document["files"].reverse())
+
+    def test_manifest_cannot_include_itself(self):
+        self.tamper(lambda document: document["files"][0].update(path=MODULE["MANIFEST"]))
+
+    def test_boolean_size_rejected(self):
+        self.tamper(lambda document: document["files"][0].update(bytes=True))
+
+    def test_empty_manifest_rejected(self):
+        self.tamper(lambda document: document.update(files=[], count=0, totalBytes=0))
+
+    def test_unknown_schema_field(self):
+        self.tamper(lambda document: document.update(extra=True))
+
+    def test_non_utc_timestamp(self):
+        self.tamper(lambda document: document.update(createdAt="2026-10-10T12:00:00+02:00"))
+
+    def test_file_symlink(self):
+        (self.root / "link.txt").symlink_to(self.root / "a.txt")
+        with self.assertRaises(ERROR):
+            self.freeze()
+
+    def test_dangling_symlink(self):
+        (self.root / "link.txt").symlink_to(self.repo / "absent")
+        with self.assertRaises(ERROR):
+            self.freeze()
+
+    def test_directory_symlink(self):
+        (self.root / "linked").symlink_to(self.root / "nested", target_is_directory=True)
+        with self.assertRaises(ERROR):
+            self.freeze()
+
+    def test_manifest_symlink(self):
+        self.manifest.symlink_to(self.root / "a.txt")
+        with self.assertRaises(ERROR):
+            self.freeze()
+
+    def test_root_symlink(self):
+        linked = self.repo / "linked"
+        linked.symlink_to(self.root, target_is_directory=True)
+        with self.assertRaises(ERROR):
+            MODULE["snapshot"](linked)
+
+    def test_private_names(self):
+        for name in [".env", "nested/.env.example", "private-render-backup/file.txt", "node_modules/pkg.json",
+                     "__pycache__/file.pyc", "browser-profile/file.txt", "database.dump", "key.pem", "state.sqlite"]:
+            with self.subTest(name=name), self.assertRaises(ERROR):
+                MODULE["safe_name"](name)
+
+    def test_unsafe_names(self):
+        for name in ["/absolute", "../outside", "nested/../outside", "a//b", "./a", "a/", "a\\b", "C:/a", "a\n"]:
+            with self.subTest(name=name), self.assertRaises(ERROR):
+                MODULE["safe_name"](name)
+
+    def test_private_file_in_inventory(self):
+        (self.root / ".env").write_text("FAKE_FIXTURE=1")
+        with self.assertRaises(ERROR):
+            self.freeze()
+
+    def test_special_file(self):
+        os.mkfifo(self.root / "pipe")
+        with self.assertRaises(ERROR):
+            self.freeze()
+
+    def test_concurrent_change(self):
+        original = MODULE["snapshot"](self.root)
+        changed = copy.deepcopy(original)
+        changed[0]["sha256"] = "0" * 64
+        with mock.patch.dict(GLOBALS, snapshot=mock.Mock(side_effect=[original, changed])):
+            with self.assertRaises(ERROR):
+                self.freeze()
+        self.assertFalse(self.manifest.exists())
+
+    def test_invalid_json(self):
+        self.manifest.write_text("{")
+        with self.assertRaises(ERROR):
+            self.verify()
+
+    def test_duplicate_json_key(self):
+        self.freeze()
+        original = self.manifest.read_text()
+        self.manifest.write_text('{"count": 2,' + original[1:])
+        with self.assertRaises(ERROR):
+            self.verify()
+
+    def test_concurrent_manifest_creation_does_not_overwrite(self):
+        real_link = os.link
+        def competing_link(source, target):
+            Path(target).write_text("competing manifest")
+            real_link(source, target)
+        with mock.patch.object(os, "link", side_effect=competing_link):
+            with self.assertRaises(FileExistsError):
+                self.freeze()
+        self.assertEqual(self.manifest.read_text(), "competing manifest")
+        self.assertEqual(list(self.root.parent.glob(".launch-manifest-*")), [])
+
+    def test_missing_manifest(self):
+        with self.assertRaises(OSError):
+            self.verify()
+
+    def test_cli_requires_explicit_mode(self):
+        self.assertEqual(self.cli().returncode, 2)
+        self.assertFalse(self.manifest.exists())
+
+    def test_cli_rejects_both_modes(self):
+        self.assertEqual(self.cli("--write", "--verify").returncode, 2)
+
+    def test_cli_rejects_replace_with_verify(self):
+        self.assertEqual(self.cli("--verify", "--replace").returncode, 2)
+
+    def test_cli_rejects_bad_release(self):
+        self.assertEqual(self.cli("--write", "--release", "main").returncode, 2)
+
+    def test_cli_success_and_failure(self):
+        written = self.cli("--write")
+        self.assertEqual(written.returncode, 0, written.stderr)
+        self.assertEqual(json.loads(written.stdout)["release"], RELEASE)
+        self.assertEqual(self.cli("--verify").returncode, 0)
+        (self.root / "a.txt").write_text("changed")
+        failed = self.cli("--verify")
+        self.assertEqual(failed.returncode, 1)
+        self.assertFalse(json.loads(failed.stdout)["passed"])
+
+
+if __name__ == "__main__":
+    suite = unittest.defaultTestLoader.loadTestsFromTestCase(FreezeTests)
+    result = unittest.TextTestRunner(verbosity=2).run(suite)
+    record = {"passed": result.wasSuccessful(), "tests": result.testsRun,
+              "failures": len(result.failures), "errors": len(result.errors),
+              "helperSha256": hashlib.sha256(SCRIPT.read_bytes()).hexdigest(),
+              "testSha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+              "scope": "Isolated temporary fixtures inside final-evidence. No writer ran on the real archive."}
+    print(json.dumps(record, indent=2))
+    sys.exit(0 if result.wasSuccessful() else 1)

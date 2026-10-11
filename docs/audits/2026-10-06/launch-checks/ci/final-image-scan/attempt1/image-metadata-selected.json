@@ -1,0 +1,64 @@
+{
+  "Id": "sha256:3bfdaf12795a02f03a4f0bbb990bb762a2c80c895546ee88102b802a39a1b5ab",
+  "RepoTags": [
+    "queue-arcade:ci"
+  ],
+  "RepoDigests": [
+    "queue-arcade@sha256:3bfdaf12795a02f03a4f0bbb990bb762a2c80c895546ee88102b802a39a1b5ab"
+  ],
+  "Created": "2026-10-10T12:05:25.071309518Z",
+  "Architecture": "amd64",
+  "Os": "linux",
+  "Size": 143969440,
+  "RootFS": {
+    "Type": "layers",
+    "Layers": [
+      "sha256:74d97c428c51a828f9051a7a40a53ff1fc99e54fc30323ce36760701b0b7f711",
+      "sha256:ba3263475f993ce3855e4edf69b59a64716f9b4f4b43c369113a33f0c6a1b114",
+      "sha256:50a35fcbb91b0a6dd3821fb8ee87c3e44743f5f57c4337c1721280ff811f2d2a",
+      "sha256:ff5db628aec4eaf74f091c36d7fc5f855481dfa4de3cb6c0b05b0684bfcea637",
+      "sha256:d61853b0d59d50206aa3639bdda29242fdde4c3e4c2e857b3795face4b835975",
+      "sha256:970a8eaf8062d2f45847bbd0cd336047519b1765987fa5b65c694b376e2dd6fc",
+      "sha256:eec210e974758d5d2e5d98e8cd65765d2244f23a4d36ad9f2415c824356f5ccf",
+      "sha256:00f0f5a07ec327463d51ee031c9060de4e84ee1a6b63af189219ea4a61972f6e",
+      "sha256:58ac61b75c49c893c08bd8e842d17f499ebc602ce57ebf32deb946f07cc02857",
+      "sha256:c941de3027644304f982fc919900000cf7d2f798ee633c1216bc6ed8590ca248",
+      "sha256:3acc96777f24e712744112076ef11793e87779ea2806936cd47f05f12cd158e8",
+      "sha256:e24d0dca78b1989ba18833d31c1f8721d432ccd74cc895c995b26f3b0dc7e6c4",
+      "sha256:f090d59d5c1a0228e1d0adf3e1934dabe39e4ff5bb2a81bfa34706cb7876bf9c",
+      "sha256:9ac4ad0adb4950da258c2f285f75098de366c6a18d6ee5ba0a052df57379003b",
+      "sha256:7375d9ff2da03730929e2ffc16991e779ad39e4647381896f53d22fc3a5a8eb9",
+      "sha256:5e70d9523cc3167fbf50df021889e29caea5aace6c3f17ee8412324f01e13907"
+    ]
+  },
+  "Descriptor": {
+    "mediaType": "application/vnd.oci.image.index.v1+json",
+    "digest": "sha256:3bfdaf12795a02f03a4f0bbb990bb762a2c80c895546ee88102b802a39a1b5ab",
+    "size": 856
+  },
+  "Config": {
+    "User": "nextjs",
+    "Entrypoint": [
+      "docker-entrypoint.sh"
+    ],
+    "Cmd": [
+      "node",
+      "scripts/start-production.mjs",
+      "--standalone"
+    ],
+    "WorkingDir": "/app",
+    "ExposedPorts": {
+      "3000/tcp": {}
+    },
+    "Healthcheck": {
+      "Test": [
+        "CMD-SHELL",
+        "wget --quiet --tries=1 --spider http://127.0.0.1:${PORT:-3000}/api/health || exit 1"
+      ],
+      "Interval": 30000000000,
+      "Timeout": 5000000000,
+      "StartPeriod": 15000000000,
+      "Retries": 3
+    }
+  }
+}

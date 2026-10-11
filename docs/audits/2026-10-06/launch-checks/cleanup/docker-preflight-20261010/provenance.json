@@ -1,0 +1,51 @@
+{
+  "archivedAt": "2026-10-10T12:52:40.421721+00:00",
+  "sourceDirectory": "/tmp/dota2-trivia-audit-close",
+  "sourceCopies": [
+    {
+      "source": "cleanup-reviewed-docker.py",
+      "archive": "cleanup-reviewed-docker.py.txt",
+      "bytes": 6964,
+      "sha256": "724724857427caf1f02cb6523417acd7687fd339c5f793b6cc7cc3bd8e09cc47"
+    },
+    {
+      "source": "test_cleanup_guards.py",
+      "archive": "test_cleanup_guards.py.txt",
+      "bytes": 6742,
+      "sha256": "bacf417e462edfa168db62defef6902b51d5cf341440b3deff833d47c80db196"
+    },
+    {
+      "source": "cleanup-guard-tests.log",
+      "archive": "cleanup-guard-tests.log",
+      "bytes": 1477,
+      "sha256": "3fd036eb30732285b741b880c20291f196130776bcbd0ad4de352860e98d418d"
+    },
+    {
+      "source": "docker-cleanup-preflight.json",
+      "archive": "docker-cleanup-preflight.json",
+      "bytes": 2897,
+      "sha256": "65aaf8501274f73ab67b7e10de7ee28d380d95aa90d05bdcc9544627d8b6ab16"
+    },
+    {
+      "source": "docker-cleanup-review.json",
+      "archive": "docker-cleanup-review.json",
+      "bytes": 3770,
+      "sha256": "446e5ccb65879e4264988507bff4e110407129dc98b5e309100ba1d8b1a11323"
+    },
+    {
+      "source": "docker-preflight-format-error.json",
+      "archive": "docker-preflight-format-error.json",
+      "bytes": 259,
+      "sha256": "f9bd6ba3dfff84d9e58a206ad64ded4e4b56d5967ced0d7bfa704c2700f8bf68"
+    }
+  ],
+  "archiveReplay": {
+    "exitCode": 0,
+    "tests": 27,
+    "log": "archive-replay.log",
+    "method": "Copied exact helper source into a temporary directory. Changed only the absolute helper import path in a temporary copy of the test source. All Docker calls were replaced by test fixtures. The archived sources were unchanged."
+  },
+  "dockerResourcesRemoved": false,
+  "ciManifestSha256": "bf73dcef74e29b1e923ce60b748db9b94acfb3cd42753b15b74ee72c173dd80a",
+  "scope": "Prepared cleanup source and metadata-only preflight. No removal command was executed."
+}

@@ -1,0 +1,44 @@
+{
+  "status": "focused settings proof and full final visual preflight passed",
+  "failedOriginalPredicates": [
+    "defaultVolume",
+    "migratedVolume",
+    "muted"
+  ],
+  "invalidIntermediateFixture": {
+    "volumePercent": 43,
+    "sliderStepPercent": 5,
+    "observedRangeValue": "45",
+    "failedPredicates": [
+      "volume"
+    ]
+  },
+  "finalChecks": {
+    "startButtons": true,
+    "defaultVolume": true,
+    "migratedVolume": true,
+    "migratedMuted": true,
+    "shareButtons": true,
+    "canonical": true,
+    "openGraphImage": true,
+    "modeCards": true,
+    "roundFamilies": true,
+    "classic": true,
+    "flashback": true,
+    "tenGames": true,
+    "noOldChoice": true,
+    "muted": true,
+    "volume": true
+  },
+  "finalSettings": {
+    "defaultVolume": "70",
+    "migratedVolume": "70",
+    "migratedMuted": true,
+    "muted": true,
+    "volume": "45"
+  },
+  "appSourceSha256": "b5ca0cb670a2fa52e86316a9b12fc6ab1e19908a547585d73d2a8c00aaa710ad",
+  "appSourceMatchesCommit": "da28a646479fab030e9b02b187e177c0f89555b9",
+  "appSourceChanged": false,
+  "fullVisualResult": "../final-visual/result.json"
+}

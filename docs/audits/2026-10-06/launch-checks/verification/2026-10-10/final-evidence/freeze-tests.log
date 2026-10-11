@@ -1,0 +1,41 @@
+test_bad_count (__main__.FreezeTests) ... ok
+test_bad_digest (__main__.FreezeTests) ... ok
+test_bad_total (__main__.FreezeTests) ... ok
+test_boolean_size_rejected (__main__.FreezeTests) ... ok
+test_changed_same_length_file (__main__.FreezeTests) ... ok
+test_cli_rejects_bad_release (__main__.FreezeTests) ... ok
+test_cli_rejects_both_modes (__main__.FreezeTests) ... ok
+test_cli_rejects_replace_with_verify (__main__.FreezeTests) ... ok
+test_cli_requires_explicit_mode (__main__.FreezeTests) ... ok
+test_cli_success_and_failure (__main__.FreezeTests) ... ok
+test_concurrent_change (__main__.FreezeTests) ... ok
+test_concurrent_manifest_creation_does_not_overwrite (__main__.FreezeTests) ... ok
+test_dangling_symlink (__main__.FreezeTests) ... ok
+test_directory_symlink (__main__.FreezeTests) ... ok
+test_duplicate_file (__main__.FreezeTests) ... ok
+test_duplicate_json_key (__main__.FreezeTests) ... ok
+test_empty_manifest_rejected (__main__.FreezeTests) ... ok
+test_existing_manifest_is_preserved (__main__.FreezeTests) ... ok
+test_explicit_replace (__main__.FreezeTests) ... ok
+test_extra_file (__main__.FreezeTests) ... ok
+test_file_symlink (__main__.FreezeTests) ... ok
+test_invalid_json (__main__.FreezeTests) ... ok
+test_manifest_cannot_include_itself (__main__.FreezeTests) ... ok
+test_manifest_symlink (__main__.FreezeTests) ... ok
+test_missing_file (__main__.FreezeTests) ... ok
+test_missing_manifest (__main__.FreezeTests) ... ok
+test_non_utc_timestamp (__main__.FreezeTests) ... ok
+test_private_file_in_inventory (__main__.FreezeTests) ... ok
+test_private_names (__main__.FreezeTests) ... ok
+test_root_symlink (__main__.FreezeTests) ... ok
+test_round_trip_and_nested_manifest (__main__.FreezeTests) ... ok
+test_special_file (__main__.FreezeTests) ... ok
+test_unknown_schema_field (__main__.FreezeTests) ... ok
+test_unsafe_names (__main__.FreezeTests) ... ok
+test_unsorted_files (__main__.FreezeTests) ... ok
+test_wrong_release (__main__.FreezeTests) ... ok
+
+----------------------------------------------------------------------
+Ran 36 tests in 0.615s
+
+OK

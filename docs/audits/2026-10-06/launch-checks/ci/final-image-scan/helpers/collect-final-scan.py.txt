@@ -1,0 +1,50 @@
+import importlib.util, pathlib, json, time, datetime, hashlib
+b = pathlib.Path('/tmp/queue-arcade-launch-ci')
+sp = importlib.util.spec_from_file_location('life', b / 'runner-lifecycle.py')
+m = importlib.util.module_from_spec(sp)
+sp.loader.exec_module(m)
+s = json.loads(m.STATE.read_text())
+assert s['name'] == 'queue-arcade-ci-20261010T115945Z'
+d = m.docker_binary()
+for _ in range(60):
+    c = m.resource(d, 'container', s['name'])
+    m.assert_owned(c, 'container', s)
+    if not c['State']['Running']:
+        break
+    time.sleep(10)
+else:
+    raise RuntimeError('Final scan exceeded the ten-minute observation limit')
+out = b / 'evidence' / s['name']
+m.copy_out(d, s['name'], '/runner-evidence/final-image-scan', out)
+q = out / 'final-image-scan'
+assert c['State']['ExitCode'] == 0
+report = json.loads((q / 'trivy-full.json').read_text())
+assert report['Metadata']['ImageID'] == 'sha256:3bfdaf12795a02f03a4f0bbb990bb762a2c80c895546ee88102b802a39a1b5ab'
+results = report['Results']
+assert results and any(r['Type'] == 'alpine' for r in results) and any(r['Type'] == 'node-pkg' for r in results)
+findings = [v for r in results for v in r.get('Vulnerabilities', [])]
+database = json.loads((q / 'database-metadata.json').read_text())
+native = json.loads((q / 'native-metadata.json').read_text())
+summary = {
+    'finishedAt': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+    'sourceCommit': (q / 'source-commit.txt').read_text().strip(),
+    'imageId': report['Metadata']['ImageID'],
+    'scannerExitCode': c['State']['ExitCode'],
+    'allSeverities': True,
+    'includesUnfixed': True,
+    'vulnerabilityCount': len(findings),
+    'results': [{k: r.get(k) for k in ['Target', 'Class', 'Type']} for r in results],
+    'database': database,
+    'node': native['node'],
+    'sharp': native['sharp'],
+    'dockerfileSha256': hashlib.sha256((q / 'Dockerfile.txt').read_bytes()).hexdigest(),
+    'nativeLibraryHashes': native['libraries'],
+}
+assert summary['sourceCommit'] == '31961cbd762587225b4b8a814828dc0829952978'
+(q / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
+assert not findings
+p = b / 'checkpoint.json'
+x = json.loads(p.read_text())
+x.update(updatedAt=datetime.datetime.now(datetime.timezone.utc).isoformat(), phase='exact-ci-and-full-image-scan-passed', finalImageScan={'vulnerabilityCount': 0, 'allSeverities': True, 'includesUnfixed': True, 'imageId': summary['imageId'], 'database': database}, unitTests=1302, unitTestFiles=66)
+p.write_text(json.dumps(x, indent=2) + '\n')
+print(json.dumps({k: summary[k] for k in ['finishedAt', 'sourceCommit', 'imageId', 'vulnerabilityCount', 'database', 'sharp', 'dockerfileSha256', 'nativeLibraryHashes']}, indent=2))

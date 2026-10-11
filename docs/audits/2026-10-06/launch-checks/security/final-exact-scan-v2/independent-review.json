@@ -1,0 +1,52 @@
+{
+  "scope": "Independent implementation review and isolated tests only. No real credential reads, target scan, network calls or target Git writes by this reviewer.",
+  "tests": 28,
+  "passed": true,
+  "confirmedAndFixed": [
+    "The raw Git archive method could omit or substitute blobs. The replacement enumerates and validates raw Git blobs.",
+    "Known values in tar PAX metadata could escape member-only scanning. The replacement includes decoded container bytes.",
+    "Gitleaks exit 1 with an empty report could pass. The replacement rejects inconsistent status and report results.",
+    "The blob reader did not close its stdout pipe. Cleanup now closes both handles."
+  ],
+  "files": [
+    {
+      "file": "final-exact-scan.py",
+      "bytes": 22283,
+      "sha256": "33e6801c2adfa7adc191408d7462f4d78727c09b4c90eb5f8ff4db26212b156f"
+    },
+    {
+      "file": "review-tests.py",
+      "bytes": 19808,
+      "sha256": "622befa6cb446d2fe1416d37f33134c7f3cddb8598d1165d750bd1b6729b5778"
+    },
+    {
+      "file": "steam-key-tests.log",
+      "bytes": 2292,
+      "sha256": "7d68389183f246343a933235fffeaef54c309c3a0eddbdce9043f6d1d06a97f9"
+    },
+    {
+      "file": "independent-review-before-optional-steam.json",
+      "bytes": 1692,
+      "sha256": "8e8b565a4e950f79ed6b81a99dfc1a11e0bf479ffcb4e5c17996f2e157c2a7d6"
+    }
+  ],
+  "additionalCheck": "A recovery directory owned by another user is rejected before its JSON files are read.",
+  "portableTests": "The test script loads the helper beside it. It uses only disposable synthetic inputs under /tmp.",
+  "steamKeyCoverage": {
+    "canonicalRequiredKey": "STEAM_WEB_API_KEY",
+    "optionalLegacyAlias": "STEAM_API_KEY",
+    "aliasCanReplaceCanonicalKey": false,
+    "defaultExpectedAppValues": 7,
+    "checks": [
+      "The canonical key value is included in known-value patterns.",
+      "A present legacy alias value is also included.",
+      "An absent legacy alias is accepted when the canonical key is present.",
+      "Each required key is checked separately. The legacy alias cannot satisfy the canonical key requirement."
+    ]
+  },
+  "priorReview": {
+    "file": "independent-review-before-optional-steam.json",
+    "sha256": "8e8b565a4e950f79ed6b81a99dfc1a11e0bf479ffcb4e5c17996f2e157c2a7d6",
+    "status": "Superseded for Steam key coverage. The previous implementation required the legacy key name and missed the canonical key."
+  }
+}

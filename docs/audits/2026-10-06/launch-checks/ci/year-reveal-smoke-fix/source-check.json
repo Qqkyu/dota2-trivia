@@ -1,0 +1,7 @@
+{
+  "path": "scripts/visual-smoke.mjs",
+  "sha256": "0064ae5cee65d0da37fe6597d8418c421967a51c4b8a475fc269ede1f3a3d010",
+  "predicate": "!reveal.flashbackYear.visible ||\n              reveal.flashbackYear.phase !== \"reveal\" ||\n              !/^\\d{4}$/.test(reveal.flashbackYear.correctYear) ||\n              reveal.flashbackYear.readout !== reveal.flashbackYear.correctYear ||\n              reveal.flashbackYear.label !== \"Correct year\" ||\n              !Number.isInteger(answering.flashbackYearSubmittedYear) ||\n              reveal.flashbackYear.yourAnswer !== `Your answer: ${answering.flashbackYearSubmittedYear}.` ||\n              reveal.flashbackYearSlider ||\n              reveal.flashbackYear.lock ||\n              reveal.openShopReveal",
+  "captureCopiedExactly": true,
+  "generatorCorrection": "Two initial private generator attempts selected an answering branch and a result-output branch. Both failed syntax parsing before any browser or app access. Final extraction is bounded to the shared reveal assertion and passes syntax validation."
+}

@@ -1,0 +1,992 @@
+[
+  {
+    "state": "forced-home",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__brand > span:nth-child(2) > strong"
+    ],
+    "html": "<strong>Queue Arcade</strong>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.14 (foreground color: #f1f0ea, background color: #ffffff, font size: 12.0pt (16px), font weight: bold). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-home",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__brand > span:nth-child(2) > small"
+    ],
+    "html": "<small>Side quests, between matches</small>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-home",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__patchBadge"
+    ],
+    "html": "<span class=\"queue-arcade-module__ZwN2dq__patchBadge\">Dota 2<!-- --> \u00b7 <!-- -->Patch 7.41f</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.93 (foreground color: #d8b66f, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-home",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "output"
+    ],
+    "html": "<output class=\"queue-arcade-module__ZwN2dq__volumeValue\">70<!-- -->%</output>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-home",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__previewHeader > span"
+    ],
+    "html": "<span>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-home",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__previewHeader > strong"
+    ],
+    "html": "<strong>00:<!-- -->15</strong>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+  },
+  {
+    "state": "forced-party",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__patchBadge"
+    ],
+    "html": "<span class=\"queue-arcade-module__ZwN2dq__patchBadge\">Dota 2<!-- --> \u00b7 <!-- -->Patch 7.41f</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.93 (foreground color: #d8b66f, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-party",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "output"
+    ],
+    "html": "<output class=\"queue-arcade-module__ZwN2dq__volumeValue\">70<!-- -->%</output>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-party-unchecked",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__brand > span:nth-child(2) > strong"
+    ],
+    "html": "<strong>Queue Arcade</strong>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.14 (foreground color: #f1f0ea, background color: #ffffff, font size: 12.0pt (16px), font weight: bold). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-party-unchecked",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__brand > span:nth-child(2) > small"
+    ],
+    "html": "<small>Side quests, between matches</small>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-party-unchecked",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__patchBadge"
+    ],
+    "html": "<span class=\"queue-arcade-module__ZwN2dq__patchBadge\">Dota 2<!-- --> \u00b7 <!-- -->Patch 7.41f</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.93 (foreground color: #d8b66f, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-party-unchecked",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      "label"
+    ],
+    "html": "<label for=\"party-code-input\" data-testid=\"private-room-code-label\">Party code</label>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.1 (foreground color: #777f7c, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-party-unchecked",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "output"
+    ],
+    "html": "<output class=\"queue-arcade-module__ZwN2dq__volumeValue\">70<!-- -->%</output>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-party-unchecked",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__spellArtwork > span"
+    ],
+    "html": "<span>Clue 1<small>/ 3</small></span>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+  },
+  {
+    "state": "forced-party-unchecked",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__spellArtwork > span > small"
+    ],
+    "html": "<small>/ 3</small>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+  },
+  {
+    "state": "forced-party-unchecked",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__fogArtwork > span"
+    ],
+    "html": "<span>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+  },
+  {
+    "state": "forced-party-unchecked",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__fogArtwork > span > small"
+    ],
+    "html": "<small>/ 03</small>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+  },
+  {
+    "state": "forced-party-unchecked",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "#party-code-input"
+    ],
+    "html": "<input id=\"party-code-input\" class=\"private-room-panel-module__-cw0Ga__codeInput\" maxlength=\"16\" placeholder=\"ABC12\" autocapitalize=\"characters\" autocorrect=\"off\" spellcheck=\"false\" aria-invalid=\"false\" data-testid=\"private-room-join-code\" value=\"\">",
+    "summary": "Fix any of the following:\n  Element has no value; test color contrast with a value entered"
+  },
+  {
+    "state": "forced-calibration",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      ".calibration-dashboard-module__MqIWjG__brand > span:nth-child(2) > strong"
+    ],
+    "html": "<strong>Queue Arcade</strong>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-calibration",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      ".calibration-dashboard-module__MqIWjG__brand > span:nth-child(2) > small"
+    ],
+    "html": "<small>Calibration lab</small>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-classic-ability",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__patchBadge"
+    ],
+    "html": "<span class=\"queue-arcade-module__ZwN2dq__patchBadge\">Dota 2<!-- --> \u00b7 <!-- -->Patch 7.41f</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.93 (foreground color: #d8b66f, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-classic-ability",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__cardTitle > span"
+    ],
+    "html": "<span>Recent rounds</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-classic-ability",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__progressActions > strong"
+    ],
+    "html": "<strong>Round 1</strong>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.77 (foreground color: #7e8583, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-classic-ability",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "output"
+    ],
+    "html": "<output class=\"queue-arcade-module__ZwN2dq__volumeValue\">70<!-- -->%</output>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-classic-hero",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__patchBadge"
+    ],
+    "html": "<span class=\"queue-arcade-module__ZwN2dq__patchBadge\">Dota 2<!-- --> \u00b7 <!-- -->Patch 7.41f</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.93 (foreground color: #d8b66f, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-classic-hero",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__cardTitle > span"
+    ],
+    "html": "<span>Recent rounds</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-classic-hero",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__progressActions > strong"
+    ],
+    "html": "<strong>Round 1</strong>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.77 (foreground color: #7e8583, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-classic-hero",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "output"
+    ],
+    "html": "<output class=\"queue-arcade-module__ZwN2dq__volumeValue\">70<!-- -->%</output>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-classic-item",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__patchBadge"
+    ],
+    "html": "<span class=\"queue-arcade-module__ZwN2dq__patchBadge\">Dota 2<!-- --> \u00b7 <!-- -->Patch 7.41f</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.93 (foreground color: #d8b66f, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-classic-item",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__cardTitle > span"
+    ],
+    "html": "<span>Recent rounds</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-classic-item",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__progressActions > strong"
+    ],
+    "html": "<strong>Round 1</strong>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.77 (foreground color: #7e8583, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-classic-item",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "output"
+    ],
+    "html": "<output class=\"queue-arcade-module__ZwN2dq__volumeValue\">70<!-- -->%</output>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-shop-recipe",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__patchBadge"
+    ],
+    "html": "<span class=\"queue-arcade-module__ZwN2dq__patchBadge\">Dota 2<!-- --> \u00b7 <!-- -->Patch 7.41f</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.93 (foreground color: #d8b66f, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-shop-recipe",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__recipeTarget > span"
+    ],
+    "html": "<span>Target item</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.92 (foreground color: #d8b76f, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-shop-recipe",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__cardTitle > span"
+    ],
+    "html": "<span>Recent rounds</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-shop-recipe",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__progressActions > strong"
+    ],
+    "html": "<strong>Round 1</strong>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.77 (foreground color: #7e8583, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-shop-recipe",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "output"
+    ],
+    "html": "<output class=\"queue-arcade-module__ZwN2dq__volumeValue\">70<!-- -->%</output>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-shop-recipe",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "input[data-testid=\"shopkeeper-search-field\"]"
+    ],
+    "html": "<input data-testid=\"shopkeeper-search-field\" aria-label=\"Search shop items\" placeholder=\"Search Items\" autocomplete=\"off\" spellcheck=\"false\" type=\"text\" value=\"\">",
+    "summary": "Fix any of the following:\n  Element has a 1:1 contrast ratio with the background"
+  },
+  {
+    "state": "forced-shop-build",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__brand > span:nth-child(2) > strong"
+    ],
+    "html": "<strong>Queue Arcade</strong>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.14 (foreground color: #f1f0ea, background color: #ffffff, font size: 12.0pt (16px), font weight: bold). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-shop-build",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__patchBadge"
+    ],
+    "html": "<span class=\"queue-arcade-module__ZwN2dq__patchBadge\">Dota 2<!-- --> \u00b7 <!-- -->Patch 7.41f</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.93 (foreground color: #d8b66f, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-shop-build",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__cardTitle > span"
+    ],
+    "html": "<span>Recent rounds</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-shop-build",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__progressActions > strong"
+    ],
+    "html": "<strong>Round 1</strong>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.77 (foreground color: #7e8583, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-shop-build",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "output"
+    ],
+    "html": "<output class=\"queue-arcade-module__ZwN2dq__volumeValue\">70<!-- -->%</output>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-shop-build",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "input[data-testid=\"shopkeeper-search-field\"]"
+    ],
+    "html": "<input data-testid=\"shopkeeper-search-field\" aria-label=\"Search shop items\" placeholder=\"Search Items\" autocomplete=\"off\" spellcheck=\"false\" type=\"text\" value=\"\">",
+    "summary": "Fix any of the following:\n  Element has a 1:1 contrast ratio with the background"
+  },
+  {
+    "state": "forced-shop-path",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__patchBadge"
+    ],
+    "html": "<span class=\"queue-arcade-module__ZwN2dq__patchBadge\">Dota 2<!-- --> \u00b7 <!-- -->Patch 7.41f</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.93 (foreground color: #d8b66f, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-shop-path",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__cardTitle > span"
+    ],
+    "html": "<span>Recent rounds</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-shop-path",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__progressActions > strong"
+    ],
+    "html": "<strong>Round 1</strong>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.77 (foreground color: #7e8583, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-shop-path",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "output"
+    ],
+    "html": "<output class=\"queue-arcade-module__ZwN2dq__volumeValue\">70<!-- -->%</output>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-shop-path",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "input[data-testid=\"shopkeeper-search-field\"]"
+    ],
+    "html": "<input data-testid=\"shopkeeper-search-field\" aria-label=\"Search shop items\" placeholder=\"Search Items\" autocomplete=\"off\" spellcheck=\"false\" type=\"text\" value=\"\">",
+    "summary": "Fix any of the following:\n  Element has a 1:1 contrast ratio with the background"
+  },
+  {
+    "state": "forced-spell-link",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__brand > span:nth-child(2) > small"
+    ],
+    "html": "<small>Side quests, between matches</small>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-spell-link",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__patchBadge"
+    ],
+    "html": "<span class=\"queue-arcade-module__ZwN2dq__patchBadge\">Dota 2<!-- --> \u00b7 <!-- -->Patch 7.41f</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.93 (foreground color: #d8b66f, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-spell-link",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__spellArtwork > span"
+    ],
+    "html": "<span>Clue 1<small>/ 3</small></span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.66 (foreground color: #9ed0e6, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-spell-link",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__spellArtwork > span > small"
+    ],
+    "html": "<small>/ 3</small>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.59 (foreground color: #8ea4b0, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-spell-link",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__cardTitle > span"
+    ],
+    "html": "<span>Recent rounds</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-spell-link",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__progressActions > strong"
+    ],
+    "html": "<strong>Round 1</strong>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.77 (foreground color: #7e8583, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-spell-link",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "output"
+    ],
+    "html": "<output class=\"queue-arcade-module__ZwN2dq__volumeValue\">70<!-- -->%</output>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-spell-link",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "div[data-testid=\"spell-clue-2\"] > strong"
+    ],
+    "html": "<strong>02</strong>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-spell-link",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "div[data-testid=\"spell-clue-2\"] > span"
+    ],
+    "html": "<span>Ability name unlocks at 10s</span>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+  },
+  {
+    "state": "forced-fogged-vision",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__brand > span:nth-child(2) > small"
+    ],
+    "html": "<small>Side quests, between matches</small>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-fogged-vision",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__patchBadge"
+    ],
+    "html": "<span class=\"queue-arcade-module__ZwN2dq__patchBadge\">Dota 2<!-- --> \u00b7 <!-- -->Patch 7.41f</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.93 (foreground color: #d8b66f, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-fogged-vision",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__cardTitle > span"
+    ],
+    "html": "<span>Recent rounds</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-fogged-vision",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__progressActions > strong"
+    ],
+    "html": "<strong>Round 1</strong>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.77 (foreground color: #7e8583, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-fogged-vision",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "output"
+    ],
+    "html": "<output class=\"queue-arcade-module__ZwN2dq__volumeValue\">70<!-- -->%</output>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-fogged-vision",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__fogArtwork > span"
+    ],
+    "html": "<span>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+  },
+  {
+    "state": "forced-fogged-vision",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__fogArtwork > span > small"
+    ],
+    "html": "<small>/ 03</small>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+  },
+  {
+    "state": "forced-echo-hunt",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__patchBadge"
+    ],
+    "html": "<span class=\"queue-arcade-module__ZwN2dq__patchBadge\">Dota 2<!-- --> \u00b7 <!-- -->Patch 7.41f</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.93 (foreground color: #d8b66f, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-echo-hunt",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__cardTitle > span"
+    ],
+    "html": "<span>Recent rounds</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-echo-hunt",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__progressActions > strong"
+    ],
+    "html": "<strong>Round 1</strong>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.77 (foreground color: #7e8583, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-echo-hunt",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "output"
+    ],
+    "html": "<output class=\"queue-arcade-module__ZwN2dq__volumeValue\">70<!-- -->%</output>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-quote-hunt",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__patchBadge"
+    ],
+    "html": "<span class=\"queue-arcade-module__ZwN2dq__patchBadge\">Dota 2<!-- --> \u00b7 <!-- -->Patch 7.41f</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.93 (foreground color: #d8b66f, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-quote-hunt",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__cardTitle > span"
+    ],
+    "html": "<span>Recent rounds</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-quote-hunt",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__progressActions > strong"
+    ],
+    "html": "<strong>Round 1</strong>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.77 (foreground color: #7e8583, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-quote-hunt",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "output"
+    ],
+    "html": "<output class=\"queue-arcade-module__ZwN2dq__volumeValue\">70<!-- -->%</output>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-aghanim",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__brand > span:nth-child(2) > small"
+    ],
+    "html": "<small>Side quests, between matches</small>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-aghanim",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__patchBadge"
+    ],
+    "html": "<span class=\"queue-arcade-module__ZwN2dq__patchBadge\">Dota 2<!-- --> \u00b7 <!-- -->Patch 7.41f</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.93 (foreground color: #d8b66f, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-aghanim",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__cardTitle > span"
+    ],
+    "html": "<span>Recent rounds</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-aghanim",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__progressActions > strong"
+    ],
+    "html": "<strong>Round 1</strong>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.77 (foreground color: #7e8583, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-aghanim",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "output"
+    ],
+    "html": "<output class=\"queue-arcade-module__ZwN2dq__volumeValue\">70<!-- -->%</output>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-soundcheck",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__patchBadge"
+    ],
+    "html": "<span class=\"queue-arcade-module__ZwN2dq__patchBadge\">Dota 2<!-- --> \u00b7 <!-- -->Patch 7.41f</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.93 (foreground color: #d8b66f, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-soundcheck",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__cardTitle > span"
+    ],
+    "html": "<span>Recent rounds</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-soundcheck",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__progressActions > strong"
+    ],
+    "html": "<strong>Round 1</strong>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.77 (foreground color: #7e8583, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-soundcheck",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "output"
+    ],
+    "html": "<output class=\"queue-arcade-module__ZwN2dq__volumeValue\">70<!-- -->%</output>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-order-up",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__brand > span:nth-child(2) > strong"
+    ],
+    "html": "<strong>Queue Arcade</strong>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.14 (foreground color: #f1f0ea, background color: #ffffff, font size: 12.0pt (16px), font weight: bold). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-order-up",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__patchBadge"
+    ],
+    "html": "<span class=\"queue-arcade-module__ZwN2dq__patchBadge\">Dota 2<!-- --> \u00b7 <!-- -->Patch 7.41f</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.93 (foreground color: #d8b66f, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-order-up",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__cardTitle > span"
+    ],
+    "html": "<span>Recent rounds</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-order-up",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__progressActions > strong"
+    ],
+    "html": "<strong>Round 1</strong>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.77 (foreground color: #7e8583, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-order-up",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "output"
+    ],
+    "html": "<output class=\"queue-arcade-module__ZwN2dq__volumeValue\">70<!-- -->%</output>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-flashback-year",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__patchBadge"
+    ],
+    "html": "<span class=\"queue-arcade-module__ZwN2dq__patchBadge\">Dota 2<!-- --> \u00b7 <!-- -->Patch 7.41f</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.93 (foreground color: #d8b66f, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-flashback-year",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__cardTitle > span"
+    ],
+    "html": "<span>Recent rounds</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-flashback-year",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__progressActions > strong"
+    ],
+    "html": "<strong>Round 1</strong>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.77 (foreground color: #7e8583, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-flashback-year",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "output"
+    ],
+    "html": "<output class=\"queue-arcade-module__ZwN2dq__volumeValue\">70<!-- -->%</output>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-flashback-choice",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__patchBadge"
+    ],
+    "html": "<span class=\"queue-arcade-module__ZwN2dq__patchBadge\">Dota 2<!-- --> \u00b7 <!-- -->Patch 7.41f</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.93 (foreground color: #d8b66f, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-flashback-choice",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__cardTitle > span"
+    ],
+    "html": "<span>Recent rounds</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-flashback-choice",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__progressActions > strong"
+    ],
+    "html": "<strong>Round 1</strong>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.77 (foreground color: #7e8583, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-flashback-choice",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "output"
+    ],
+    "html": "<output class=\"queue-arcade-module__ZwN2dq__volumeValue\">70<!-- -->%</output>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  },
+  {
+    "state": "forced-flashback-order",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__patchBadge"
+    ],
+    "html": "<span class=\"queue-arcade-module__ZwN2dq__patchBadge\">Dota 2<!-- --> \u00b7 <!-- -->Patch 7.41f</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.93 (foreground color: #d8b66f, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-flashback-order",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__cardTitle > span"
+    ],
+    "html": "<span>Recent rounds</span>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #969d9c, background color: #ffffff, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-flashback-order",
+    "category": "axe",
+    "rule": "color-contrast",
+    "target": [
+      ".queue-arcade-module__ZwN2dq__progressActions > strong"
+    ],
+    "html": "<strong>Round 1</strong>",
+    "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.77 (foreground color: #7e8583, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "state": "forced-flashback-order",
+    "category": "axeIncomplete",
+    "rule": "color-contrast",
+    "target": [
+      "output"
+    ],
+    "html": "<output class=\"queue-arcade-module__ZwN2dq__volumeValue\">70<!-- -->%</output>",
+    "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background image"
+  }
+]

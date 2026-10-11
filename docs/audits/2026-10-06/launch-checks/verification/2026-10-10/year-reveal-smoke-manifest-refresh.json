@@ -1,0 +1,15 @@
+{
+  "checkedAt": "2026-10-10T11:57:08.175Z",
+  "review": "Reviewed the real-browser year reveal smoke assertions against the existing labeled correct year, retained player choice, absent answering controls and unchanged report-menu geometry. No app behavior, question, answer, generator, or source fact changed.",
+  "changedReviewInputs": [
+    "scripts/visual-smoke.mjs"
+  ],
+  "addedReviewInputs": [],
+  "missingReviewInputs": [],
+  "previousFileCount": 127,
+  "currentFileCount": 127,
+  "previousManifestSha256": "831cdc07fd9664c86ca90ce1204bc5b4935ea5f722201d4d90fbfb36d86e4755",
+  "currentManifestSha256": "e79e03944f762513e40359ce10fe779afa90d75df1e0138f7e5189b7e99fb6f1",
+  "questionAndEvidenceHashesUnchanged": true,
+  "currentReviewedAt": "2026-10-10T11:57:08.146Z"
+}

@@ -1,0 +1,46 @@
+{
+  "checkedAt": "2026-10-11T06:31:41.218570+00:00",
+  "appRequests": 0,
+  "rawAddressesLogged": false,
+  "providerBodiesLogged": false,
+  "eachClientIndependentSourcesAgreed": true,
+  "clientsHaveDifferentIpv4Addresses": false,
+  "rows": [
+    {
+      "client": "linux",
+      "source": "ipify",
+      "exitCode": 0,
+      "stderrBytes": 0,
+      "stdoutBytes": 24,
+      "httpStatus": 200,
+      "globalIpv4Validated": true
+    },
+    {
+      "client": "linux",
+      "source": "cloudflare",
+      "exitCode": 0,
+      "stderrBytes": 0,
+      "stdoutBytes": 219,
+      "httpStatus": 200,
+      "globalIpv4Validated": true
+    },
+    {
+      "client": "windows",
+      "source": "ipify",
+      "exitCode": 0,
+      "stderrBytes": 0,
+      "stdoutBytes": 24,
+      "httpStatus": 200,
+      "globalIpv4Validated": true
+    },
+    {
+      "client": "windows",
+      "source": "cloudflare",
+      "exitCode": 0,
+      "stderrBytes": 0,
+      "stdoutBytes": 221,
+      "httpStatus": 200,
+      "globalIpv4Validated": true
+    }
+  ]
+}

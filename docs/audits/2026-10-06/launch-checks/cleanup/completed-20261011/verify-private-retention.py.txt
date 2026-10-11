@@ -1,0 +1,223 @@
+#!/usr/bin/env python3
+"""Read-only private recovery check. Output contains counts and fixed labels only."""
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import stat
+import subprocess
+import sys
+
+REPO = Path('/home/kulmisiu/dev/dota2-trivia')
+SOURCE = Path('/tmp/queue-arcade-launch-checks')
+RETAINED = REPO / '.local-assets/operator-recovery-20261010'
+NAMES = ('private-render-backup', 'render-productionize-private', 'debug-backup')
+ORIGINAL_HASH = '6a16d2668dc231a0b947e7e1917b6936a7bcdabd8ac3036ed641cf11c3fac76a'
+ORIGINAL_BYTES = 6702
+MAX_FILES = 250000
+MAX_BYTES = 40 * 1024 ** 3
+
+
+class Refusal(Exception):
+    pass
+
+
+def need(ok, code):
+    if not ok:
+        raise Refusal(code)
+
+
+def ancestors(path):
+    need(path.is_absolute(), 'absolute_path')
+    for entry in reversed((path,) + tuple(path.parents)):
+        meta = entry.lstat()
+        need(not stat.S_ISLNK(meta.st_mode), 'symlink')
+        if entry != path:
+            need(stat.S_ISDIR(meta.st_mode), 'directory_ancestor')
+
+
+def stable_key(meta):
+    return (meta.st_dev, meta.st_ino, meta.st_mode, meta.st_uid, meta.st_gid,
+            meta.st_nlink, meta.st_size, meta.st_mtime_ns, meta.st_ctime_ns)
+
+
+def read_file(path, limit=None):
+    ancestors(path)
+    before = path.lstat()
+    need(stat.S_ISREG(before.st_mode), 'regular_file')
+    need(before.st_uid == os.getuid(), 'file_owner')
+    need(before.st_nlink == 1, 'hardlink')
+    if limit is not None:
+        need(before.st_size <= limit, 'file_bound')
+    descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_CLOEXEC)
+    with os.fdopen(descriptor, 'rb') as stream:
+        need(stable_key(os.fstat(stream.fileno())) == stable_key(before), 'file_changed')
+        content = stream.read()
+        need(stable_key(os.fstat(stream.fileno())) == stable_key(before), 'file_changed')
+    ancestors(path)
+    need(stable_key(path.lstat()) == stable_key(before), 'file_changed')
+    need(len(content) == before.st_size, 'file_changed')
+    return content
+
+
+def file_hash(path, before):
+    ancestors(path)
+    descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_CLOEXEC)
+    count = 0
+    digest = hashlib.sha256()
+    with os.fdopen(descriptor, 'rb') as stream:
+        need(stable_key(os.fstat(stream.fileno())) == stable_key(before), 'file_changed')
+        for block in iter(lambda: stream.read(1024 * 1024), b''):
+            count += len(block)
+            need(count <= before.st_size, 'file_changed')
+            digest.update(block)
+        need(stable_key(os.fstat(stream.fileno())) == stable_key(before), 'file_changed')
+    ancestors(path)
+    need(stable_key(path.lstat()) == stable_key(before), 'file_changed')
+    need(count == before.st_size, 'file_changed')
+    return digest.hexdigest()
+
+
+def snapshot(root, private_modes):
+    ancestors(root)
+    base = root.lstat()
+    need(stat.S_ISDIR(base.st_mode), 'directory')
+    need(base.st_uid == os.getuid(), 'directory_owner')
+    if private_modes:
+        need(stat.S_IMODE(base.st_mode) == 0o700, 'directory_mode')
+    rows = {}
+    observed = {'.': stable_key(base)}
+    total = 0
+    for parent, directories, files in os.walk(root, followlinks=False,
+                                              onerror=lambda exc: (_ for _ in ()).throw(exc)):
+        for name in sorted(directories + files):
+            path = Path(parent) / name
+            relative = path.relative_to(root).as_posix()
+            meta = path.lstat()
+            need(len(rows) < MAX_FILES, 'tree_count_bound')
+            need(meta.st_uid == os.getuid(), 'entry_owner')
+            need(meta.st_dev == base.st_dev, 'nested_filesystem')
+            observed[relative] = stable_key(meta)
+            if stat.S_ISDIR(meta.st_mode):
+                if private_modes:
+                    need(stat.S_IMODE(meta.st_mode) == 0o700, 'directory_mode')
+                rows[relative] = {'type': 'directory'}
+            else:
+                need(not stat.S_ISLNK(meta.st_mode), 'symlink')
+                need(stat.S_ISREG(meta.st_mode), 'regular_file')
+                need(meta.st_nlink == 1, 'hardlink')
+                if private_modes:
+                    need(stat.S_IMODE(meta.st_mode) == 0o600, 'file_mode')
+                total += meta.st_size
+                need(total <= MAX_BYTES, 'tree_byte_bound')
+                rows[relative] = {'type': 'file', 'bytes': meta.st_size,
+                                  'sha256': file_hash(path, meta)}
+    current = {'.': stable_key(root.lstat())}
+    for parent, directories, files in os.walk(root, followlinks=False,
+                                              onerror=lambda exc: (_ for _ in ()).throw(exc)):
+        for name in directories + files:
+            path = Path(parent) / name
+            current[path.relative_to(root).as_posix()] = stable_key(path.lstat())
+    need(current == observed, 'tree_changed')
+    return rows
+
+
+def fingerprint(rows):
+    return hashlib.sha256(json.dumps(rows, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+
+
+def exclusion_check():
+    relative = RETAINED.relative_to(REPO).as_posix()
+    git = ['/usr/bin/git', '-c', 'core.fsmonitor=false', '-C', str(REPO)]
+    environment = {'PATH': '/usr/bin:/bin', 'LANG': 'C.UTF-8',
+                   'GIT_CONFIG_NOSYSTEM': '1', 'GIT_CONFIG_SYSTEM': '/dev/null',
+                   'GIT_CONFIG_GLOBAL': '/dev/null', 'GIT_OPTIONAL_LOCKS': '0',
+                   'GIT_TERMINAL_PROMPT': '0'}
+    check = subprocess.run(git + ['check-ignore', '--no-index', '--quiet',
+                                  '--', relative + '/'], capture_output=True,
+                           timeout=20, env=environment)
+    need(check.returncode == 0, 'git_ignore')
+    tracked = subprocess.run(git + ['ls-files', '-z', '--', relative],
+                             capture_output=True, timeout=20, env=environment)
+    need(tracked.returncode == 0 and not tracked.stdout, 'git_tracking')
+    patterns = [line.strip() for line in (REPO / '.dockerignore').read_text().splitlines()
+                if line.strip() and not line.lstrip().startswith('#')]
+    need(any(line in ('.local-assets', '.local-assets/', '/.local-assets', '/.local-assets/')
+             for line in patterns), 'docker_ignore')
+    # The current policy has no negation. A later policy must be reviewed before reuse.
+    need(not any(line.startswith('!') for line in patterns), 'docker_negation_review')
+
+
+def verify():
+    need(RETAINED.exists(), 'retention_missing')
+    ancestors(RETAINED)
+    meta = RETAINED.lstat()
+    need(stat.S_ISDIR(meta.st_mode) and meta.st_uid == os.getuid(), 'retention_root')
+    need(stat.S_IMODE(meta.st_mode) == 0o700, 'directory_mode')
+    exclusion_check()
+    receipt_path = RETAINED / 'cleanup-state.json'
+    receipt_bytes = read_file(receipt_path, 1024 * 1024)
+    need(stat.S_IMODE(receipt_path.lstat().st_mode) == 0o600, 'file_mode')
+    receipt = json.loads(receipt_bytes)
+    need(receipt['version'] == 1 and receipt.get('retention_complete') is True, 'retention_incomplete')
+    need(receipt.get('deleted') == [] and not receipt.get('deletion_intent'), 'deletion_started')
+    need(set(receipt['private']) == set(NAMES), 'receipt_scope')
+    need(set(p.name for p in RETAINED.iterdir()) == set(NAMES) | {'cleanup-state.json'}, 'retention_scope')
+    files = directories = total_bytes = original_source = original_retained = 0
+    for name in NAMES:
+        source_rows = snapshot(SOURCE / name, private_modes=False)
+        retained_rows = snapshot(RETAINED / name, private_modes=True)
+        need(source_rows == retained_rows, 'copy_mismatch')
+        need(fingerprint(source_rows) == receipt['private'][name], 'receipt_mismatch')
+        for row in source_rows.values():
+            if row['type'] == 'file':
+                files += 1
+                total_bytes += row['bytes']
+            else:
+                directories += 1
+        if name == NAMES[0]:
+            original_source = sum(row.get('sha256') == ORIGINAL_HASH and row.get('bytes') == ORIGINAL_BYTES
+                                  for row in source_rows.values())
+            original_retained = sum(row.get('sha256') == ORIGINAL_HASH and row.get('bytes') == ORIGINAL_BYTES
+                                    for row in retained_rows.values())
+    need(original_source == 1 and original_retained == 1, 'original_backup_mismatch')
+    need(receipt_bytes == read_file(receipt_path, 1024 * 1024), 'receipt_changed')
+    return {'verified': True, 'retention_present': True,
+            'private_directory_count': len(NAMES), 'file_count': files,
+            'directory_count_including_private_roots': directories + len(NAMES),
+            'byte_count': total_bytes, 'source_and_copy_full_hashes_match': True,
+            'retained_private_modes_valid': True, 'no_symlinks_or_file_hardlinks': True,
+            'owner_and_filesystem_checks_pass': True, 'git_and_docker_excluded': True,
+            'receipt_matches': True, 'original_backup_count_per_location': 1,
+            'original_backup_sha256': ORIGINAL_HASH, 'original_backup_bytes': ORIGINAL_BYTES,
+            'wrote_files': False, 'deleted_files': False}
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--metadata', action='store_true')
+    args = parser.parse_args()
+    if args.metadata:
+        result = {'retention_present': RETAINED.exists(),
+                  'source_directory_count': sum((SOURCE / name).is_dir() for name in NAMES),
+                  'retained_directory_count': sum((RETAINED / name).is_dir() for name in NAMES),
+                  'retention_receipt_present': (RETAINED / 'cleanup-state.json').is_file(),
+                  'read_private_file_contents': False, 'wrote_files': False, 'deleted_files': False}
+    else:
+        result = verify()
+    print(json.dumps(result, sort_keys=True))
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except Refusal as exc:
+        print(json.dumps({'verified': False, 'reason_code': str(exc),
+                          'wrote_files': False, 'deleted_files': False}, sort_keys=True))
+        sys.exit(1)
+    except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError):
+        # Exceptions may contain private paths or values. Never print them.
+        print(json.dumps({'verified': False, 'reason_code': 'read_or_schema_error',
+                          'wrote_files': False, 'deleted_files': False}, sort_keys=True))
+        sys.exit(1)

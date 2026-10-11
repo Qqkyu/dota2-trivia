@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+"""Restart only the stopped, owned successful-CI container to scan its saved image."""
+import importlib.util, io, json, pathlib, re, tarfile
+b=pathlib.Path('/tmp/queue-arcade-launch-ci')
+spec=importlib.util.spec_from_file_location('life',b/'runner-lifecycle.py')
+life=importlib.util.module_from_spec(spec);spec.loader.exec_module(life)
+checkpoint=json.loads((b/'checkpoint.json').read_text())
+commit=checkpoint['candidate'];run=checkpoint['workflowRun']
+assert re.fullmatch('[0-9a-f]{40}',commit) and isinstance(run,int)
+workflow=life.json_call(['gh','api',f'repos/Qqkyu/dota2-trivia/actions/runs/{run}'])
+assert workflow['head_sha']==commit and workflow['status']=='completed' and workflow['conclusion']=='success'
+assert workflow['event']=='push' and workflow['path']=='.github/workflows/ci.yml'
+s=json.loads(life.STATE.read_text());life.check_state(s)
+assert s['name']==checkpoint['container'] and s['volume']==checkpoint['volume'] and not s.get('cleanedAt')
+jobs=life.json_call(['gh','api',f'repos/Qqkyu/dota2-trivia/actions/runs/{run}/jobs'])['jobs']
+assert len(jobs)==1 and jobs[0]['runner_name']==s['name'] and jobs[0]['conclusion']=='success'
+d=life.docker_binary();m=life.resource(d,'container',s['name']);life.assert_owned(m,'container',s)
+assert not m['State']['Running']
+h=m['HostConfig'];assert h['CgroupnsMode']=='private' and h['NanoCpus']==2000000000 and h['Memory']==h['MemorySwap']==5368709120
+assert h.get('PidMode') in ('',None) and h.get('IpcMode') in ('private','') and h.get('NetworkMode') in ('default','bridge') and h.get('UTSMode') in ('',None) and not h.get('Binds') and not h.get('VolumesFrom')
+assert len(m['Mounts'])==1 and m['Mounts'][0]['Type']=='volume' and m['Mounts'][0]['Name']==s['volume'] and m['Mounts'][0]['Destination']=='/var/lib/docker'
+v=life.resource(d,'volume',s['volume']);life.assert_owned(v,'volume',s);assert v['Driver']=='local' and not v.get('Options')
+files={'usr/local/bin/entrypoint.sh':(b/'package-probe-entrypoint.sh').read_bytes(),'usr/local/bin/prepare-cgroup-v2.sh':(b/'runner-image/prepare-cgroup-v2.sh').read_bytes(),'run/expected-scan-commit':(commit+'\n').encode()}
+stream=io.BytesIO()
+with tarfile.open(fileobj=stream,mode='w') as tar:
+ for target,data in files.items():
+  i=tarfile.TarInfo(target);i.size=len(data);i.mode=0o755 if target.endswith('.sh') else 0o600;tar.addfile(i,io.BytesIO(data))
+life.call([d,'cp','-',s['name']+':/'],data=stream.getvalue())
+life.call([d,'start',s['name']])
+print('Started the scoped package probe in the existing owned CI container.')

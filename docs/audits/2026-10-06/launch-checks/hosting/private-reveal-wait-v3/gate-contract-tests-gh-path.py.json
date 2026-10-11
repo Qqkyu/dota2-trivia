@@ -1,0 +1,124 @@
+{
+  "checkedAt": "2026-10-11T06:36:47.269651+00:00",
+  "passed": 29,
+  "hostedRequests": 0,
+  "gateSha256": "b03614c4c333b9f67551f55bebab37fbcd93b83a21af384a07c2d397b32d346f",
+  "cases": [
+    {
+      "name": "all five authenticated egress results are valid",
+      "passed": true
+    },
+    {
+      "name": "both CF-supplied cases can have exact edge rejection",
+      "passed": true
+    },
+    {
+      "name": "reject edge outcome for baseline",
+      "passed": true
+    },
+    {
+      "name": "reject edge outcome for real-ip-header",
+      "passed": true
+    },
+    {
+      "name": "reject edge outcome for forwarded-chain",
+      "passed": true
+    },
+    {
+      "name": "reject proof field proofVersion=1",
+      "passed": true
+    },
+    {
+      "name": "reject proof field proofVersion=None",
+      "passed": true
+    },
+    {
+      "name": "reject proof field proofVersion=2.0",
+      "passed": true
+    },
+    {
+      "name": "reject proof field changedConfiguration=True",
+      "passed": true
+    },
+    {
+      "name": "reject proof field operatorSecretLogged=True",
+      "passed": true
+    },
+    {
+      "name": "reject proof field rawAddressesLogged=True",
+      "passed": true
+    },
+    {
+      "name": "reject operator path",
+      "passed": true
+    },
+    {
+      "name": "reject operator sha256",
+      "passed": true
+    },
+    {
+      "name": "reject operator sha256",
+      "passed": true
+    },
+    {
+      "name": "reject extra operator field",
+      "passed": true
+    },
+    {
+      "name": "reject missing row",
+      "passed": true
+    },
+    {
+      "name": "reject reordered rows",
+      "passed": true
+    },
+    {
+      "name": "reject extra row field",
+      "passed": true
+    },
+    {
+      "name": "reject invalid verified field outcome",
+      "passed": true
+    },
+    {
+      "name": "reject invalid verified field receivedVerifiedEgress",
+      "passed": true
+    },
+    {
+      "name": "reject invalid verified field suppliedHeaderDidNotControlResult",
+      "passed": true
+    },
+    {
+      "name": "reject invalid verified field httpStatus",
+      "passed": true
+    },
+    {
+      "name": "reject invalid verified field httpStatus",
+      "passed": true
+    },
+    {
+      "name": "reject invalid verified field edgeErrorCode",
+      "passed": true
+    },
+    {
+      "name": "reject invalid edge field receivedVerifiedEgress",
+      "passed": true
+    },
+    {
+      "name": "reject invalid edge field httpStatus",
+      "passed": true
+    },
+    {
+      "name": "reject invalid edge field edgeErrorCode",
+      "passed": true
+    },
+    {
+      "name": "reject invalid edge field edgeErrorCode",
+      "passed": true
+    },
+    {
+      "name": "reject invalid edge field suppliedHeaderDidNotControlResult",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+file:///opt/runner/_work/dota2-trivia/dota2-trivia/scripts/check-party-lobby.mjs:279
+    throw new Error(`Join of a missing code did not fail (${JSON.stringify(missingJoin)}).`);
+          ^
+
+Error: Join of a missing code did not fail ({"setup":true,"wait":false,"error":""}).
+    at file:///opt/runner/_work/dota2-trivia/dota2-trivia/scripts/check-party-lobby.mjs:279:11
+
+Node.js v22.23.3

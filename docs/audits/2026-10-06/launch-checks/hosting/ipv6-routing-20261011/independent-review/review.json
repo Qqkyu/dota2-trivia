@@ -1,0 +1,28 @@
+{
+  "checkedAt": "2026-10-11T06:36:56.758902+00:00",
+  "reviewer": "/root/ipv6_oct11/edge_review",
+  "decision": "no blocking findings",
+  "hostedRequests": 0,
+  "implementationModified": false,
+  "hashes": {
+    "original": "fe1c62d1e08978f9f6f858b896dd0e3fee31083384764de5cea54356c07163e4",
+    "reviewed": "932be267c45efb0c3a262c1f6f9c0aa5eb556167ea1571b3cfd7867728dedd97"
+  },
+  "tests": {
+    "priorIndependentPassed": 16,
+    "newRouteGuardPassed": 9,
+    "totalPassed": 25
+  },
+  "review": [
+    "The change adds one fixed connect-to route only for the exact application auth URL. Both independent IPv6 address sources keep their original transport options.",
+    "The original URL, TLS verification, SNI, HTTPS-only rule, disabled curl configuration, response-size bound and deadlines remain intact. No redirect, credential, cookie storage or Host override option was added.",
+    "All original implementation bytes are unchanged except the fixed route, version 3 route disclosure fields and separate output basename. Gate checks, deployment checks, IPv4 transport and the 131 IPv4 plus one IPv6 control budget remain unchanged.",
+    "The local curl manual states that connect-to changes only the network connection and does not change TLS hostname verification, SNI or application protocol hostname.",
+    "Offline success and rejection tests cover mixed source addresses, blocked controls, changed rate windows, bypass after blocking, slow probes, foreign redirects and private output suppression."
+  ],
+  "evidenceLimits": [
+    "This helper tests an explicit Cloudflare IPv6 edge route while retaining the Render application hostname. A passing result does not prove that the Render hostname publishes an AAAA record or supports ordinary DNS-based IPv6 access.",
+    "The helper tests address-bucket isolation for one IPv4 address and one IPv6 address. It does not establish a multi-user capacity limit.",
+    "This independent review made no network requests. The parent must inspect the actual hosted result, its deployment stability checks and the separate health-route evidence before claiming a hosted pass."
+  ]
+}

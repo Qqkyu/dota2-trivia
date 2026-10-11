@@ -1,0 +1,29 @@
+import datetime
+import ipaddress
+import json
+import subprocess
+from pathlib import Path
+
+URL = 'https://queue-arcade.onrender.com/api/health'
+gate = json.loads(Path('/tmp/queue-arcade-launch-checks/hosted-smoke-preparation/hosted-smoke-gate-v2.json').read_text())
+args = ['/mnt/c/Windows/System32/curl.exe', '--disable', '--ipv6', '--proto', '=https', '--silent', '--show-error', '--max-time', '8', '--connect-timeout', '4', '--max-filesize', '16384', '--connect-to', 'queue-arcade.onrender.com:443:www.cloudflare.com:443', '--write-out', '\nMETA:%{http_code}|%{remote_ip}|%{ssl_verify_result}|%{url_effective}|%{num_redirects}', URL]
+env = {'PATH': '/usr/bin:/bin', 'SystemRoot': r'C:\Windows', 'WINDIR': r'C:\Windows'}
+report = {'checkedAt': datetime.datetime.now(datetime.timezone.utc).isoformat(), 'appReadRequests': 1, 'appDataWrites': 0, 'rawAddressesLogged': False, 'providerBodiesLogged': False, 'originHostAndSniUnchanged': True, 'tlsVerificationEnabled': True, 'spoofedHeaders': False, 'connectToHostname': 'www.cloudflare.com', 'ok': False}
+try:
+    result = subprocess.run(args, env=env, capture_output=True, timeout=10)
+    report.update(exitCode=result.returncode, stdoutBytes=len(result.stdout), stderrBytes=len(result.stderr))
+    body, meta = result.stdout.decode().rsplit('\nMETA:', 1)
+    status, remote, verify, effective, redirects = meta.split('|')
+    address = ipaddress.ip_address(remote)
+    report.update(httpStatus=int(status), remoteAddressVersion=address.version, remoteAddressGlobal=address.is_global, certificateVerified=result.returncode == 0 and verify == '0', effectiveUrlUnchanged=effective == URL, redirectsFollowed=int(redirects))
+    data = json.loads(body)
+    report['contentVersionMatchesGate'] = data.get('content', {}).get('version') == gate['contentVersion']
+    report['questionCountMatchesGate'] = data.get('content', {}).get('questions') == 1517
+    report['allStoresReady'] = data.get('status') == 'ready' and all(data.get(store, {}).get('ok') is True and data.get(store, {}).get('backend') == 'postgres' for store in ('storage', 'accounts', 'alpha'))
+    report['ok'] = result.returncode == 0 and not result.stderr and int(status) == 200 and address.version == 6 and address.is_global and verify == '0' and effective == URL and redirects == '0' and report['contentVersionMatchesGate'] and report['questionCountMatchesGate'] and report['allStoresReady']
+except Exception as error:
+    report['exceptionType'] = type(error).__name__
+path = Path('/tmp/queue-arcade-launch-checks/ipv6-oct11-diagnosis/edge-health-result.json')
+path.write_text(json.dumps(report, indent=2) + '\n')
+path.chmod(0o600)
+print(json.dumps(report))

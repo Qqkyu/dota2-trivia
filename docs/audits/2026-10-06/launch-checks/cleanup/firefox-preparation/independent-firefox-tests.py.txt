@@ -1,0 +1,170 @@
+#!/usr/bin/env python3
+"""Small synthetic Firefox cleanup checks. No host probes or real cache changes."""
+import datetime
+import hashlib
+import importlib.util
+import json
+import os
+from pathlib import Path
+import shutil
+import tempfile
+import types
+import unittest
+from unittest.mock import patch
+
+HERE = Path(__file__).resolve().parent
+spec = importlib.util.spec_from_file_location('firefox_cleanup', HERE / 'prepare-firefox-cache.py')
+m = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(m)
+base = m.load_base()
+
+class IndependentFirefoxTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory(prefix='firefox-independent-', dir=HERE)
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name)
+        self.source = self.root / 'source'
+        self.dest = self.root / 'cache'
+        for root in (self.source, self.dest):
+            (root / 'firefox').mkdir(parents=True)
+            (root / 'firefox/firefox').write_bytes(b'synthetic browser')
+            (root / 'INSTALLATION_COMPLETE').touch()
+        (self.source / 'firefox/.parentlock').touch()
+        for leaf in ('0', 'downloading'):
+            (self.source / 'firefox/updates' / leaf).mkdir(parents=True)
+        for key, value in [('SOURCE', self.source), ('DESTINATION', self.dest), ('RECEIPT', self.root / 'receipt.json'), ('WINDOWS_REPORT', self.root / 'windows.json')]:
+            p = patch.object(m, key, value)
+            p.start()
+            self.addCleanup(p.stop)
+
+    def test_fixed_scope(self):
+        self.assertEqual(m.RUNTIME, ('firefox/.parentlock', 'firefox/updates/0', 'firefox/updates/downloading', 'firefox/updates'))
+
+    def test_default_does_not_hash_probe_or_remove(self):
+        with patch.object(base, 'tree', side_effect=AssertionError('hash')), patch.object(m, 'windows_exact_paths', side_effect=AssertionError('host probe')):
+            result = m.prepare(base)
+        self.assertFalse(result['content_hashes_checked'])
+        self.assertEqual(result['removed_entries'], 0)
+        self.assertTrue((self.source / m.RUNTIME[0]).exists())
+
+    def test_complete_source_minus_runtime_matches_cache(self):
+        self.assertEqual(m.compare_trees(base), base.fingerprint(base.tree(self.dest)))
+
+    def test_same_size_cache_change_refuses(self):
+        (self.dest / 'firefox/firefox').write_bytes(b'Synthetic browser')
+        with self.assertRaises(m.Refusal): m.compare_trees(base)
+
+    def test_extra_source_file_refuses(self):
+        (self.source / 'firefox/extra').write_bytes(b'keep')
+        with self.assertRaises(m.Refusal): m.compare_trees(base)
+        self.assertEqual((self.source / 'firefox/extra').read_bytes(), b'keep')
+
+    def test_nonempty_lock_refuses(self):
+        (self.source / m.RUNTIME[0]).write_bytes(b'keep')
+        with self.assertRaises(m.Refusal): m.runtime_guard(base)
+
+    def test_hardlinked_lock_refuses(self):
+        os.link(self.source / m.RUNTIME[0], self.root / 'external-lock')
+        with self.assertRaises(m.Refusal): m.runtime_guard(base)
+
+    def test_symlink_lock_refuses(self):
+        p = self.source / m.RUNTIME[0]
+        p.unlink();p.symlink_to(self.dest / 'firefox/firefox')
+        with self.assertRaises(base.Refusal): m.runtime_guard(base)
+
+    def test_nonempty_update_leaf_refuses(self):
+        (self.source / 'firefox/updates/0/file').write_bytes(b'keep')
+        with self.assertRaises(m.Refusal): m.runtime_guard(base)
+
+    def test_extra_update_leaf_refuses(self):
+        (self.source / 'firefox/updates/other').mkdir()
+        with self.assertRaises(m.Refusal): m.runtime_guard(base)
+
+    def test_symlink_destination_refuses(self):
+        moved = self.root / 'moved-cache';self.dest.rename(moved);self.dest.symlink_to(moved, target_is_directory=True)
+        with self.assertRaises(base.Refusal): m.runtime_guard(base)
+
+    def test_root_replacement_refuses_before_removal(self):
+        snapshot = m.runtime_guard(base)
+        moved = self.root / 'old-source';self.source.rename(moved);shutil.copytree(moved, self.source)
+        with self.assertRaises(m.Refusal): m.remove_runtime(snapshot)
+        self.assertTrue((self.source / m.RUNTIME[0]).exists())
+
+    def test_lock_replacement_refuses_before_removal(self):
+        snapshot = m.runtime_guard(base)
+        lock = self.source / m.RUNTIME[0];lock.rename(self.root / 'old-lock');lock.touch()
+        with self.assertRaises(m.Refusal): m.remove_runtime(snapshot)
+        self.assertTrue(lock.exists())
+
+    def test_new_nonempty_update_leaf_is_never_recursive(self):
+        snapshot = m.runtime_guard(base)
+        target = self.source / 'firefox/updates/0/new-file';target.write_bytes(b'keep')
+        with self.assertRaises(OSError): m.remove_runtime(snapshot)
+        self.assertEqual(target.read_bytes(), b'keep')
+
+    def test_both_completion_flags_required(self):
+        for hosted, ci in [(False, False), (True, False), (False, True)]:
+            with self.subTest(hosted=hosted, ci=ci), patch.object(m, 'windows_exact_paths', side_effect=AssertionError('host probe')):
+                with self.assertRaises(m.Refusal): m.prepare(base, execute=True, hosted_complete=hosted, ci_complete=ci)
+        self.assertTrue((self.source / m.RUNTIME[0]).exists())
+
+    def test_execute_removes_exact_four_and_preserves_cache(self):
+        before = base.tree(self.dest)
+        with patch.object(m, 'windows_guard') as receipt, patch.object(m, 'windows_exact_paths') as windows, patch.object(base, 'mount_guard') as mounts, patch.object(base, 'process_guard') as processes:
+            result = m.prepare(base, execute=True, hosted_complete=True, ci_complete=True)
+        self.assertEqual(result['removed_entries'], 4)
+        self.assertEqual(base.tree(self.source), before)
+        self.assertEqual(base.tree(self.dest), before)
+        for probe in (receipt, windows, mounts, processes): self.assertEqual(probe.call_count, 2)
+        for call in processes.call_args_list: self.assertEqual(call.args, ((self.source, self.dest),))
+        self.assertEqual(m.RECEIPT.stat().st_mode & 0o777, 0o600)
+
+    def test_process_guard_failure_preserves_all_entries(self):
+        with patch.object(m, 'windows_guard'), patch.object(m, 'windows_exact_paths'), patch.object(base, 'mount_guard'), patch.object(base, 'process_guard', side_effect=base.Refusal('active')):
+            with self.assertRaises(base.Refusal): m.prepare(base, execute=True, hosted_complete=True, ci_complete=True)
+        for rel in m.RUNTIME: self.assertTrue((self.source / rel).exists())
+
+    def report(self, delta=0, **overrides):
+        now = datetime.datetime(2026, 10, 11, tzinfo=datetime.timezone.utc)
+        value = {'checkedAt': (now + datetime.timedelta(seconds=delta)).isoformat(), 'taskPathMatches': [], 'deviceToolProcesses': [], 'commandLinesLogged': False, 'processesChanged': False}
+        value.update(overrides);m.WINDOWS_REPORT.write_text(json.dumps(value));return now
+
+    def test_fresh_clean_windows_receipt(self):
+        m.windows_guard(base, now=self.report(delta=-1))
+
+    def test_stale_windows_receipt_refuses(self):
+        with self.assertRaises(m.Refusal): m.windows_guard(base, now=self.report(delta=-301))
+
+    def test_future_windows_receipt_refuses(self):
+        with self.assertRaises(m.Refusal): m.windows_guard(base, now=self.report(delta=11))
+
+    def test_active_windows_receipt_refuses(self):
+        with self.assertRaises(m.Refusal): m.windows_guard(base, now=self.report(taskPathMatches=[{'processId': 123}]))
+
+    def test_wrong_windows_receipt_scope_refuses(self):
+        with self.assertRaises(m.Refusal): m.windows_guard(base, now=self.report(commandLinesLogged=True))
+
+    def exact_report(self, **overrides):
+        report = {'checkedRoots': [str(self.source), str(self.dest)], 'matches': [], 'commandLinesLogged': False, 'processesChanged': False}
+        report.update(overrides)
+        return types.SimpleNamespace(returncode=0, stdout=json.dumps(report).encode(), stderr=b'')
+
+    def test_exact_windows_paths_clean_response(self):
+        with patch.object(m.subprocess, 'run', return_value=self.exact_report()) as run:
+            m.windows_exact_paths()
+        self.assertEqual(run.call_args.kwargs['timeout'], 30)
+
+    def test_exact_windows_paths_rejects_wrong_roots(self):
+        with patch.object(m.subprocess, 'run', return_value=self.exact_report(checkedRoots=[str(self.source)])):
+            with self.assertRaises(m.Refusal): m.windows_exact_paths()
+
+    def test_exact_windows_paths_rejects_active_cache_user(self):
+        with patch.object(m.subprocess, 'run', return_value=self.exact_report(matches=[{'processId': 123, 'matchedRoots': [str(self.dest)]}])):
+            with self.assertRaises(m.Refusal): m.windows_exact_paths()
+
+    def test_exact_windows_paths_rejects_probe_failure(self):
+        with patch.object(m.subprocess, 'run', return_value=types.SimpleNamespace(returncode=1, stdout=b'private output', stderr=b'')):
+            with self.assertRaisesRegex(m.Refusal, '^Exact Windows path check failed; raw output withheld\\.$'): m.windows_exact_paths()
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)

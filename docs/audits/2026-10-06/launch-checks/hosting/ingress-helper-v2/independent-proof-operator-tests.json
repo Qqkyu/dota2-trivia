@@ -1,0 +1,37 @@
+{
+  "checkedAt": "2026-10-10T12:53:53.843Z",
+  "hostedRequests": 0,
+  "networkRequests": 0,
+  "passed": 7,
+  "operatorSha256": "4cce1ac678ecfd86036cf647196b846029bc9ba01e83dada29c8c5e7c1c73c14",
+  "cases": [
+    {
+      "name": "invalid origins stop before transport",
+      "passed": true
+    },
+    {
+      "name": "invalid egress addresses stop before transport",
+      "passed": true
+    },
+    {
+      "name": "a blocked baseline cannot be reported as an edge-proof success",
+      "passed": true
+    },
+    {
+      "name": "edge rejection requires the bounded exact body bytes",
+      "passed": true
+    },
+    {
+      "name": "the transport rejects an oversized body without requiring an end event",
+      "passed": true
+    },
+    {
+      "name": "socket timeout rejects with a fixed code and destroys the request",
+      "passed": true
+    },
+    {
+      "name": "a response that sends data every 100 ms still ends at the absolute ten-second deadline",
+      "passed": true
+    }
+  ]
+}

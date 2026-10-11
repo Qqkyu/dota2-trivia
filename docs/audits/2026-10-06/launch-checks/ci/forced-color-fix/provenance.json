@@ -1,0 +1,1369 @@
+{
+  "copiedInputs": [
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/before/calibration-dashboard.module.css",
+      "archive": "before/calibration-dashboard.module.css.txt",
+      "bytes": 13309,
+      "sha256": "95c2671403db42157ef79ae74228c5765140e7a3e7af442919c307ccfab60e47"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/before/private-room-panel.module.css",
+      "archive": "before/private-room-panel.module.css.txt",
+      "bytes": 15976,
+      "sha256": "1a53bf39552f77c54eee465405dd4b8173fc175c27f952663fb91c3b873f0327"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/before/queue-arcade.module.css",
+      "archive": "before/queue-arcade.module.css.txt",
+      "bytes": 131332,
+      "sha256": "f15aa01e2b069817eae1b305cd35592ecb3d7f86c810e4af70dcff132fabd815"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/before/source-hashes.json",
+      "archive": "before/source-hashes.json",
+      "bytes": 597,
+      "sha256": "1032ee89d0f0bcd598147765cc220b5d76a1e62abfc0732e032e6ec8d7b508c4"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/summary.json",
+      "archive": "red/summary.json",
+      "bytes": 9933,
+      "sha256": "e08d331d60b792cb234f061337b3cc53afc40453aca1ac25d8dbf0be1fba938c"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/run.log",
+      "archive": "red/run.log",
+      "bytes": 1339,
+      "sha256": "4c35d3262d137ae13f619554e6417fc01105c4cfa5e248386ff3049f406d3ed1"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/command.sh",
+      "archive": "red/command.sh.txt",
+      "bytes": 537,
+      "sha256": "7685c0ddf5f4329577a5557c90af264f325567f7de34f9ec7bac70cb670ec107"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/forced-color-checks.mjs",
+      "archive": "red/forced-color-checks.mjs.txt",
+      "bytes": 11125,
+      "sha256": "c84b3ee225d15fed0dc2acbb046fb64293609107a37c15737201fceb87796493"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-desktop-calibration-selected.png",
+      "archive": "red/crops/chromium-desktop-calibration-selected.png",
+      "bytes": 1831,
+      "sha256": "def927b6a9d28bba1ea5d3108e594981e76c6d976109f9a1bbbab0a730747fbb"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-desktop-calibration-unselected-keyboard-focus.png",
+      "archive": "red/crops/chromium-desktop-calibration-unselected-keyboard-focus.png",
+      "bytes": 1226,
+      "sha256": "91da31b2516953954c71c115d46229b0c26eeb318d7abc5598312cf877af3dee"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-desktop-calibration-unselected-unfocused.png",
+      "archive": "red/crops/chromium-desktop-calibration-unselected-unfocused.png",
+      "bytes": 1224,
+      "sha256": "6b14439ae63588cf66c346286a207c2ebda70f4c8bf0e262a55500f50aa8ba75"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-desktop-calibration-unselected.png",
+      "archive": "red/crops/chromium-desktop-calibration-unselected.png",
+      "bytes": 1161,
+      "sha256": "9078964c595d897d3469bb13b46e29e32fa0aac3b9f50992c5becd581413f8ef"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-desktop-party-keyboard-selected.png",
+      "archive": "red/crops/chromium-desktop-party-keyboard-selected.png",
+      "bytes": 338,
+      "sha256": "bb006a57a6b1c2a606a5beca40ac0bc7e47cb8a54284d73d84160f9912d41d41"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-desktop-party-keyboard-unselected.png",
+      "archive": "red/crops/chromium-desktop-party-keyboard-unselected.png",
+      "bytes": 203,
+      "sha256": "5fbd8db930ac9b6444ae343ff106456febef4254188a0d914c56ce921dbb977b"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-desktop-party-selected.png",
+      "archive": "red/crops/chromium-desktop-party-selected.png",
+      "bytes": 338,
+      "sha256": "bb006a57a6b1c2a606a5beca40ac0bc7e47cb8a54284d73d84160f9912d41d41"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-desktop-party-unselected-keyboard-focus.png",
+      "archive": "red/crops/chromium-desktop-party-unselected-keyboard-focus.png",
+      "bytes": 30006,
+      "sha256": "be19928fb02a958a9c128752b11d3154316b8c020b34564178b663484f47102a"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-desktop-party-unselected-unfocused.png",
+      "archive": "red/crops/chromium-desktop-party-unselected-unfocused.png",
+      "bytes": 30855,
+      "sha256": "5c6091f8aff7893a43f1b6a83106414f00cfcd4dac66aefa333a6fea13c6b3be"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-desktop-party-unselected.png",
+      "archive": "red/crops/chromium-desktop-party-unselected.png",
+      "bytes": 203,
+      "sha256": "5fbd8db930ac9b6444ae343ff106456febef4254188a0d914c56ce921dbb977b"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-desktop-shop-selected.png",
+      "archive": "red/crops/chromium-desktop-shop-selected.png",
+      "bytes": 2273,
+      "sha256": "7d05026da77c1bd5e0e0293281cccdedbef0e2921e750899e0732e5d3c89eec3"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-desktop-shop-unselected-keyboard-focus.png",
+      "archive": "red/crops/chromium-desktop-shop-unselected-keyboard-focus.png",
+      "bytes": 2103,
+      "sha256": "abfec1b47f48b26cf856b13dbf2c61eb0e89cd12fbe341e5863de22051d68288"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-desktop-shop-unselected-unfocused.png",
+      "archive": "red/crops/chromium-desktop-shop-unselected-unfocused.png",
+      "bytes": 2093,
+      "sha256": "eb6058401117937faec7eddc9df7929994641b4ecfdb8821dd98dd2c1d411625"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-desktop-shop-unselected.png",
+      "archive": "red/crops/chromium-desktop-shop-unselected.png",
+      "bytes": 1522,
+      "sha256": "654021c8d62cdcefe2454d0fb2b33de3681f7bf22df7018e0ee4faef18177bf9"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-desktop-volume-enabled-slider.png",
+      "archive": "red/crops/chromium-desktop-volume-enabled-slider.png",
+      "bytes": 1061,
+      "sha256": "f65d3336e0b25ae36ac158dc420e0ac85a19ba82453a2c559de109dfee165e09"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-desktop-volume-enabled-text.png",
+      "archive": "red/crops/chromium-desktop-volume-enabled-text.png",
+      "bytes": 731,
+      "sha256": "fbba17bc68ff11aa5abf52a6033f011941b39520f1fb0cbd9cedf0b432b7821e"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-desktop-volume-muted-slider.png",
+      "archive": "red/crops/chromium-desktop-volume-muted-slider.png",
+      "bytes": 1186,
+      "sha256": "e5fb55fffd56b654fd220db4969393320935209ba1cb20052aa8589313369e29"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-desktop-volume-muted-text.png",
+      "archive": "red/crops/chromium-desktop-volume-muted-text.png",
+      "bytes": 640,
+      "sha256": "aa04e71e828f9b29e921fea2cb9c191e5ebbf22910900f26bf103ab85559e6f5"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-calibration-selected.png",
+      "archive": "red/crops/chromium-forced-calibration-selected.png",
+      "bytes": 974,
+      "sha256": "a6b189e7695f9ccb82b6febae7b3eebb195308227572c2d87fb5e5bd7ed93a99"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-calibration-unselected-keyboard-focus.png",
+      "archive": "red/crops/chromium-forced-calibration-unselected-keyboard-focus.png",
+      "bytes": 1066,
+      "sha256": "cd2ee4f39bb9a2838c6acc16073f808baccc52d8ce6c4cc8353f8412b2a1475c"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-calibration-unselected-unfocused.png",
+      "archive": "red/crops/chromium-forced-calibration-unselected-unfocused.png",
+      "bytes": 1030,
+      "sha256": "7f3fe9033f389fc5dae239143ab939df2a1abdabbcb279c40468beab8794d6f0"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-calibration-unselected.png",
+      "archive": "red/crops/chromium-forced-calibration-unselected.png",
+      "bytes": 974,
+      "sha256": "a6b189e7695f9ccb82b6febae7b3eebb195308227572c2d87fb5e5bd7ed93a99"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-dark-calibration-selected.png",
+      "archive": "red/crops/chromium-forced-dark-calibration-selected.png",
+      "bytes": 967,
+      "sha256": "85bf3f98a330ddd84e78ec9a15c0b60b16d44f50661e7ad5a9955dfd850f7768"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-dark-calibration-unselected-keyboard-focus.png",
+      "archive": "red/crops/chromium-forced-dark-calibration-unselected-keyboard-focus.png",
+      "bytes": 1060,
+      "sha256": "d8df166df154c478e286e143de7694349ee0615748dc404967179e1996b3efe8"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-dark-calibration-unselected-unfocused.png",
+      "archive": "red/crops/chromium-forced-dark-calibration-unselected-unfocused.png",
+      "bytes": 1027,
+      "sha256": "da15026f2b4b31a1638bdd8e49bc126529496773fdd03beff36c251989670887"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-dark-calibration-unselected.png",
+      "archive": "red/crops/chromium-forced-dark-calibration-unselected.png",
+      "bytes": 967,
+      "sha256": "85bf3f98a330ddd84e78ec9a15c0b60b16d44f50661e7ad5a9955dfd850f7768"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-dark-party-keyboard-selected.png",
+      "archive": "red/crops/chromium-forced-dark-party-keyboard-selected.png",
+      "bytes": 306,
+      "sha256": "71d9a4aee6cd9d9850898843bc2b1b1a30b0bcb614615ccbbf2e7db2877485c8"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-dark-party-keyboard-unselected.png",
+      "archive": "red/crops/chromium-forced-dark-party-keyboard-unselected.png",
+      "bytes": 182,
+      "sha256": "9385c9b17edcc7a133f5406a9718c508f806136b0766234c502bae50d480450c"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-dark-party-selected.png",
+      "archive": "red/crops/chromium-forced-dark-party-selected.png",
+      "bytes": 306,
+      "sha256": "71d9a4aee6cd9d9850898843bc2b1b1a30b0bcb614615ccbbf2e7db2877485c8"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-dark-party-unselected-keyboard-focus.png",
+      "archive": "red/crops/chromium-forced-dark-party-unselected-keyboard-focus.png",
+      "bytes": 27569,
+      "sha256": "3b350aa0f81491a258803b74e9c75df91fd87d9efe2635012482e643dda06cfd"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-dark-party-unselected-unfocused.png",
+      "archive": "red/crops/chromium-forced-dark-party-unselected-unfocused.png",
+      "bytes": 28272,
+      "sha256": "99cbb20ec5c3f3d9389722710b62115d856b3d81b6936ee31a110b38c50d2d82"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-dark-party-unselected.png",
+      "archive": "red/crops/chromium-forced-dark-party-unselected.png",
+      "bytes": 182,
+      "sha256": "9385c9b17edcc7a133f5406a9718c508f806136b0766234c502bae50d480450c"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-dark-shop-selected.png",
+      "archive": "red/crops/chromium-forced-dark-shop-selected.png",
+      "bytes": 746,
+      "sha256": "eab9b06440bf8665938948416dac0e5c4f6333be8cfed68c4b5bf0ee62bb472e"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-dark-shop-unselected-keyboard-focus.png",
+      "archive": "red/crops/chromium-forced-dark-shop-unselected-keyboard-focus.png",
+      "bytes": 831,
+      "sha256": "faa3e123c3b48fea61aefdcf90928b0b125e264377e2e7217803705182c98c0c"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-dark-shop-unselected-unfocused.png",
+      "archive": "red/crops/chromium-forced-dark-shop-unselected-unfocused.png",
+      "bytes": 796,
+      "sha256": "a1adfde9fd8d5f88ce79ded15f5f4932350f16c2a7085d4866180c2e1ec54606"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-dark-shop-unselected.png",
+      "archive": "red/crops/chromium-forced-dark-shop-unselected.png",
+      "bytes": 743,
+      "sha256": "143d3f70b9e607058c5b7aa18d793e53480e07705619d4563f528feec2aa606f"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-dark-volume-enabled-slider.png",
+      "archive": "red/crops/chromium-forced-dark-volume-enabled-slider.png",
+      "bytes": 1282,
+      "sha256": "240169923a7e6c62f707c998a3b79b8b13f833a5f0bef0cc51af3461d658c820"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-dark-volume-enabled-text.png",
+      "archive": "red/crops/chromium-forced-dark-volume-enabled-text.png",
+      "bytes": 643,
+      "sha256": "ffafdc89fafb1648226f969cf48ee50ce4a5fbabd00bb92154cfc9bb5efed468"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-dark-volume-muted-slider.png",
+      "archive": "red/crops/chromium-forced-dark-volume-muted-slider.png",
+      "bytes": 1425,
+      "sha256": "32dddbfd05978e00e9f05337344de1cac61d26c973e5eee8f9871fb91eb9de63"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-dark-volume-muted-text.png",
+      "archive": "red/crops/chromium-forced-dark-volume-muted-text.png",
+      "bytes": 685,
+      "sha256": "7377b9a87d02a99814900412bc134e62c9e09e003ae4b9f2a4c73342007866f4"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-party-keyboard-selected.png",
+      "archive": "red/crops/chromium-forced-party-keyboard-selected.png",
+      "bytes": 256,
+      "sha256": "553fb9fef8548d0f8709bd8c0ce6f3cd76b05c5dcc217a6313ef4d47cab8ebe5"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-party-keyboard-unselected.png",
+      "archive": "red/crops/chromium-forced-party-keyboard-unselected.png",
+      "bytes": 106,
+      "sha256": "6929feca4be8f2414418ca69449b981db0830b5ee32861d95c6fd5acca4febb9"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-party-selected.png",
+      "archive": "red/crops/chromium-forced-party-selected.png",
+      "bytes": 256,
+      "sha256": "553fb9fef8548d0f8709bd8c0ce6f3cd76b05c5dcc217a6313ef4d47cab8ebe5"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-party-unselected-keyboard-focus.png",
+      "archive": "red/crops/chromium-forced-party-unselected-keyboard-focus.png",
+      "bytes": 20444,
+      "sha256": "a70ca423cd39424d232178efd0edcba1fb5eac9cd4595501bc1fe88e6d3cd5f4"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-party-unselected-unfocused.png",
+      "archive": "red/crops/chromium-forced-party-unselected-unfocused.png",
+      "bytes": 21975,
+      "sha256": "98af1df017142058eda6589e5213022794d81fc3039b32015954199d5b4094a7"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-party-unselected.png",
+      "archive": "red/crops/chromium-forced-party-unselected.png",
+      "bytes": 106,
+      "sha256": "6929feca4be8f2414418ca69449b981db0830b5ee32861d95c6fd5acca4febb9"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-shop-selected.png",
+      "archive": "red/crops/chromium-forced-shop-selected.png",
+      "bytes": 740,
+      "sha256": "5f6e9eae0f48ebf33357f6c36b296d34482940be15b8274f89d89645e466c4d3"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-shop-unselected-keyboard-focus.png",
+      "archive": "red/crops/chromium-forced-shop-unselected-keyboard-focus.png",
+      "bytes": 830,
+      "sha256": "1bdd01dd1aefab45fe78ce52c7e49299e88e5966fefe6a86175365f56e09f268"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-shop-unselected-unfocused.png",
+      "archive": "red/crops/chromium-forced-shop-unselected-unfocused.png",
+      "bytes": 795,
+      "sha256": "8147de1712599b699b5a7a663a8c9005e53475be52e82611c02df21c3f7e2629"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-shop-unselected.png",
+      "archive": "red/crops/chromium-forced-shop-unselected.png",
+      "bytes": 735,
+      "sha256": "264dc917056c23df4057ba331d62dfb3f0c00b6053e74dcb32eccdaa516ac2f0"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-volume-enabled-slider.png",
+      "archive": "red/crops/chromium-forced-volume-enabled-slider.png",
+      "bytes": 1334,
+      "sha256": "b5990bfdfda8710c67139ec41bd64366432c2ded898e9896fab2a679f5bbd44c"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-volume-enabled-text.png",
+      "archive": "red/crops/chromium-forced-volume-enabled-text.png",
+      "bytes": 639,
+      "sha256": "3a3c86bdcf799c5099979918c26da39122949bd2f688bcb016193f34d2955818"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-volume-muted-slider.png",
+      "archive": "red/crops/chromium-forced-volume-muted-slider.png",
+      "bytes": 1405,
+      "sha256": "8bc4112aa6b1ae29b58625f85ad07616853f2e0c129a00bd3ef5f144f3c49dc9"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium-forced-volume-muted-text.png",
+      "archive": "red/crops/chromium-forced-volume-muted-text.png",
+      "bytes": 671,
+      "sha256": "7660432e34052d50eabf1bab6b5cf16567690fdcbb0bd185bd71bdaccfde4e07"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/normal-volume-red/summary.json",
+      "archive": "normal-volume-red/summary.json",
+      "bytes": 6578,
+      "sha256": "5ba0bd6416541e404620073946e7c5ae30eba8c150bb8fb707735c3997de5e2b"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/normal-volume-red/run.log",
+      "archive": "normal-volume-red/run.log",
+      "bytes": 512,
+      "sha256": "18e9b0e6a53c9de39c731157be89981be02dfe91722a02dadfad835c955d376e"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/normal-volume-red/command.sh",
+      "archive": "normal-volume-red/command.sh.txt",
+      "bytes": 503,
+      "sha256": "86c2cd35795457c1f4120e123d5bf3d27a9ce7c0532cb31ff21de26f0ae6206e"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/normal-volume-red/forced-color-checks.mjs",
+      "archive": "normal-volume-red/forced-color-checks.mjs.txt",
+      "bytes": 11235,
+      "sha256": "8a6900d8b4658c2f679f5508948662e9c198719e5aaf517b7ffe3a590a365256"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/normal-volume-red/chromium-desktop-volume-enabled-slider.png",
+      "archive": "normal-volume-red/crops/chromium-desktop-volume-enabled-slider.png",
+      "bytes": 1061,
+      "sha256": "f65d3336e0b25ae36ac158dc420e0ac85a19ba82453a2c559de109dfee165e09"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/normal-volume-red/chromium-desktop-volume-enabled-text.png",
+      "archive": "normal-volume-red/crops/chromium-desktop-volume-enabled-text.png",
+      "bytes": 731,
+      "sha256": "fbba17bc68ff11aa5abf52a6033f011941b39520f1fb0cbd9cedf0b432b7821e"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/normal-volume-red/chromium-desktop-volume-muted-slider.png",
+      "archive": "normal-volume-red/crops/chromium-desktop-volume-muted-slider.png",
+      "bytes": 1186,
+      "sha256": "e5fb55fffd56b654fd220db4969393320935209ba1cb20052aa8589313369e29"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/normal-volume-red/chromium-desktop-volume-muted-text.png",
+      "archive": "normal-volume-red/crops/chromium-desktop-volume-muted-text.png",
+      "bytes": 640,
+      "sha256": "aa04e71e828f9b29e921fea2cb9c191e5ebbf22910900f26bf103ab85559e6f5"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/summary.json",
+      "archive": "green/summary.json",
+      "bytes": 6615,
+      "sha256": "97fd39528d833f1db9f7058c9ec34dc33ff704565abfa7e96bab1683fd7cb003"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/run.log",
+      "archive": "green/run.log",
+      "bytes": 369,
+      "sha256": "3dbc02c00538e6d7345d1cd4194a63f12bb514834c5838f8fd2681358421ba30"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/command.sh",
+      "archive": "green/command.sh.txt",
+      "bytes": 541,
+      "sha256": "fb47e710ec55c527fc10b2f4b9979706d829f11dfe5ad70c936dfa4d62b3ee87"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/forced-color-checks.mjs",
+      "archive": "green/forced-color-checks.mjs.txt",
+      "bytes": 11625,
+      "sha256": "0b9ef695d3e1f1be74640f2409c5bb1832487a1952d9cf3af33ea6faea02eabb"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/check-accessibility.mjs",
+      "archive": "green/check-accessibility.mjs.txt",
+      "bytes": 26917,
+      "sha256": "72dee694777e5fb7d561c238e78f2748a0a2c46388bf51d559b973292dc95668"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/eslint.log",
+      "archive": "green/eslint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-desktop-calibration-selected.png",
+      "archive": "green/crops/chromium-desktop-calibration-selected.png",
+      "bytes": 1831,
+      "sha256": "def927b6a9d28bba1ea5d3108e594981e76c6d976109f9a1bbbab0a730747fbb"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-desktop-calibration-unselected-keyboard-focus.png",
+      "archive": "green/crops/chromium-desktop-calibration-unselected-keyboard-focus.png",
+      "bytes": 1226,
+      "sha256": "91da31b2516953954c71c115d46229b0c26eeb318d7abc5598312cf877af3dee"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-desktop-calibration-unselected-unfocused.png",
+      "archive": "green/crops/chromium-desktop-calibration-unselected-unfocused.png",
+      "bytes": 1224,
+      "sha256": "6b14439ae63588cf66c346286a207c2ebda70f4c8bf0e262a55500f50aa8ba75"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-desktop-calibration-unselected.png",
+      "archive": "green/crops/chromium-desktop-calibration-unselected.png",
+      "bytes": 1161,
+      "sha256": "9078964c595d897d3469bb13b46e29e32fa0aac3b9f50992c5becd581413f8ef"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-desktop-party-keyboard-selected.png",
+      "archive": "green/crops/chromium-desktop-party-keyboard-selected.png",
+      "bytes": 338,
+      "sha256": "bb006a57a6b1c2a606a5beca40ac0bc7e47cb8a54284d73d84160f9912d41d41"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-desktop-party-keyboard-unselected.png",
+      "archive": "green/crops/chromium-desktop-party-keyboard-unselected.png",
+      "bytes": 203,
+      "sha256": "5fbd8db930ac9b6444ae343ff106456febef4254188a0d914c56ce921dbb977b"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-desktop-party-selected.png",
+      "archive": "green/crops/chromium-desktop-party-selected.png",
+      "bytes": 338,
+      "sha256": "bb006a57a6b1c2a606a5beca40ac0bc7e47cb8a54284d73d84160f9912d41d41"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-desktop-party-unselected-keyboard-focus.png",
+      "archive": "green/crops/chromium-desktop-party-unselected-keyboard-focus.png",
+      "bytes": 29997,
+      "sha256": "2745f5c38dcb8a6151299de13b187a3e10e0434b3559790fdf3cc5594c22ced9"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-desktop-party-unselected-unfocused.png",
+      "archive": "green/crops/chromium-desktop-party-unselected-unfocused.png",
+      "bytes": 30872,
+      "sha256": "93b7c5d0e74d75855ac32d665069ef4d5863a4e19e038511b50c2f8b66c0867d"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-desktop-party-unselected.png",
+      "archive": "green/crops/chromium-desktop-party-unselected.png",
+      "bytes": 203,
+      "sha256": "5fbd8db930ac9b6444ae343ff106456febef4254188a0d914c56ce921dbb977b"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-desktop-shop-selected.png",
+      "archive": "green/crops/chromium-desktop-shop-selected.png",
+      "bytes": 2273,
+      "sha256": "7d05026da77c1bd5e0e0293281cccdedbef0e2921e750899e0732e5d3c89eec3"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-desktop-shop-unselected-keyboard-focus.png",
+      "archive": "green/crops/chromium-desktop-shop-unselected-keyboard-focus.png",
+      "bytes": 2103,
+      "sha256": "abfec1b47f48b26cf856b13dbf2c61eb0e89cd12fbe341e5863de22051d68288"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-desktop-shop-unselected-unfocused.png",
+      "archive": "green/crops/chromium-desktop-shop-unselected-unfocused.png",
+      "bytes": 2093,
+      "sha256": "eb6058401117937faec7eddc9df7929994641b4ecfdb8821dd98dd2c1d411625"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-desktop-shop-unselected.png",
+      "archive": "green/crops/chromium-desktop-shop-unselected.png",
+      "bytes": 1522,
+      "sha256": "654021c8d62cdcefe2454d0fb2b33de3681f7bf22df7018e0ee4faef18177bf9"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-desktop-volume-enabled-button.png",
+      "archive": "green/crops/chromium-desktop-volume-enabled-button.png",
+      "bytes": 1316,
+      "sha256": "ebc1c5d542805f1825101c40cfb84235e3cd2ff64c9074b2e1b3b85a1b3ce334"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-desktop-volume-enabled-slider.png",
+      "archive": "green/crops/chromium-desktop-volume-enabled-slider.png",
+      "bytes": 1061,
+      "sha256": "f65d3336e0b25ae36ac158dc420e0ac85a19ba82453a2c559de109dfee165e09"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-desktop-volume-enabled-text.png",
+      "archive": "green/crops/chromium-desktop-volume-enabled-text.png",
+      "bytes": 731,
+      "sha256": "fbba17bc68ff11aa5abf52a6033f011941b39520f1fb0cbd9cedf0b432b7821e"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-desktop-volume-muted-button.png",
+      "archive": "green/crops/chromium-desktop-volume-muted-button.png",
+      "bytes": 1264,
+      "sha256": "0fb0a21b9f346189d75b7cf8539c1e3ee582e8f2c25ab1657fccbb006ada9443"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-desktop-volume-muted-slider.png",
+      "archive": "green/crops/chromium-desktop-volume-muted-slider.png",
+      "bytes": 1061,
+      "sha256": "f65d3336e0b25ae36ac158dc420e0ac85a19ba82453a2c559de109dfee165e09"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-desktop-volume-muted-text.png",
+      "archive": "green/crops/chromium-desktop-volume-muted-text.png",
+      "bytes": 731,
+      "sha256": "fbba17bc68ff11aa5abf52a6033f011941b39520f1fb0cbd9cedf0b432b7821e"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-calibration-selected.png",
+      "archive": "green/crops/chromium-forced-calibration-selected.png",
+      "bytes": 998,
+      "sha256": "391cd9921743a8f37e9b4454fd3559fe5956280e768c7b8b40d8e0d328019feb"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-calibration-unselected-keyboard-focus.png",
+      "archive": "green/crops/chromium-forced-calibration-unselected-keyboard-focus.png",
+      "bytes": 1072,
+      "sha256": "a86cc1af577d24391c7fbe28428a1ba07be681961f726800e7105183402dbc41"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-calibration-unselected-unfocused.png",
+      "archive": "green/crops/chromium-forced-calibration-unselected-unfocused.png",
+      "bytes": 1033,
+      "sha256": "3be1ab6f4593118bc4e1b0b41686a86754f07a08869155fe319df2cea30c490a"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-calibration-unselected.png",
+      "archive": "green/crops/chromium-forced-calibration-unselected.png",
+      "bytes": 981,
+      "sha256": "e4cacc0cb9327881f77b13210bad27efd1b276ac27aca5f7840f6615342c94ad"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-dark-calibration-selected.png",
+      "archive": "green/crops/chromium-forced-dark-calibration-selected.png",
+      "bytes": 995,
+      "sha256": "63c06e28a7da215881c7379fe1bea7a09fd269bfe07eaff144af6375e1f75c64"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-dark-calibration-unselected-keyboard-focus.png",
+      "archive": "green/crops/chromium-forced-dark-calibration-unselected-keyboard-focus.png",
+      "bytes": 1070,
+      "sha256": "b3d24eabc3cf278db274299696b34d54c0424a4e391b706b7a9bcdf053bf949e"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-dark-calibration-unselected-unfocused.png",
+      "archive": "green/crops/chromium-forced-dark-calibration-unselected-unfocused.png",
+      "bytes": 1030,
+      "sha256": "6361ab5f83aa9f589507e6b02c9edb90e2d91f9573dc1b03c7eeae639c595b47"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-dark-calibration-unselected.png",
+      "archive": "green/crops/chromium-forced-dark-calibration-unselected.png",
+      "bytes": 979,
+      "sha256": "9547d9bb0d421133d657fce1cea43cc0df77472071b46399c1b443aa623bf433"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-dark-party-keyboard-selected.png",
+      "archive": "green/crops/chromium-forced-dark-party-keyboard-selected.png",
+      "bytes": 289,
+      "sha256": "fdebba3735876d4f2c00ead610193f58fe211833d14914b498fd7a313e341063"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-dark-party-keyboard-unselected.png",
+      "archive": "green/crops/chromium-forced-dark-party-keyboard-unselected.png",
+      "bytes": 104,
+      "sha256": "95bbd7c724349b94ae8c85d7703e302d1497c0c7bffcfe85ab3425f81a19c24f"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-dark-party-selected.png",
+      "archive": "green/crops/chromium-forced-dark-party-selected.png",
+      "bytes": 289,
+      "sha256": "fdebba3735876d4f2c00ead610193f58fe211833d14914b498fd7a313e341063"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-dark-party-unselected-keyboard-focus.png",
+      "archive": "green/crops/chromium-forced-dark-party-unselected-keyboard-focus.png",
+      "bytes": 27391,
+      "sha256": "f56e1c6251eea0ee6e186d3bd509e60cb4e773b51084a17b750191bbd1d16099"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-dark-party-unselected-unfocused.png",
+      "archive": "green/crops/chromium-forced-dark-party-unselected-unfocused.png",
+      "bytes": 28075,
+      "sha256": "48f0606caf94045845c717733f3178bc4cad581669ce27bc6a8a490fa39ab472"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-dark-party-unselected.png",
+      "archive": "green/crops/chromium-forced-dark-party-unselected.png",
+      "bytes": 104,
+      "sha256": "95bbd7c724349b94ae8c85d7703e302d1497c0c7bffcfe85ab3425f81a19c24f"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-dark-shop-selected.png",
+      "archive": "green/crops/chromium-forced-dark-shop-selected.png",
+      "bytes": 743,
+      "sha256": "143d3f70b9e607058c5b7aa18d793e53480e07705619d4563f528feec2aa606f"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-dark-shop-unselected-keyboard-focus.png",
+      "archive": "green/crops/chromium-forced-dark-shop-unselected-keyboard-focus.png",
+      "bytes": 828,
+      "sha256": "a1eecfb94bf90219e6c397c9b6927c676bed88bcac9c47b5382bffe550461aa8"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-dark-shop-unselected-unfocused.png",
+      "archive": "green/crops/chromium-forced-dark-shop-unselected-unfocused.png",
+      "bytes": 792,
+      "sha256": "21671cdeb2dace4c621e5f657bfe35c0ddbc509ceab1cf42ba17bbb09d2ac775"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-dark-shop-unselected.png",
+      "archive": "green/crops/chromium-forced-dark-shop-unselected.png",
+      "bytes": 739,
+      "sha256": "e0a896bbc539a826c2d7d1939641760a78575f428ec8de5f105abdf4cd75f8bc"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-dark-volume-enabled-button.png",
+      "archive": "green/crops/chromium-forced-dark-volume-enabled-button.png",
+      "bytes": 1308,
+      "sha256": "e17121bf8486ebbc68d1482641bce0729caada5987edf7efe88acd42531f1554"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-dark-volume-enabled-slider.png",
+      "archive": "green/crops/chromium-forced-dark-volume-enabled-slider.png",
+      "bytes": 1282,
+      "sha256": "240169923a7e6c62f707c998a3b79b8b13f833a5f0bef0cc51af3461d658c820"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-dark-volume-enabled-text.png",
+      "archive": "green/crops/chromium-forced-dark-volume-enabled-text.png",
+      "bytes": 643,
+      "sha256": "ffafdc89fafb1648226f969cf48ee50ce4a5fbabd00bb92154cfc9bb5efed468"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-dark-volume-muted-button.png",
+      "archive": "green/crops/chromium-forced-dark-volume-muted-button.png",
+      "bytes": 1287,
+      "sha256": "80b7cce2fe21c28f33ac0cd067ca51627dbf77886a6de0cea441e792b309f7b7"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-dark-volume-muted-slider.png",
+      "archive": "green/crops/chromium-forced-dark-volume-muted-slider.png",
+      "bytes": 1282,
+      "sha256": "240169923a7e6c62f707c998a3b79b8b13f833a5f0bef0cc51af3461d658c820"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-dark-volume-muted-text.png",
+      "archive": "green/crops/chromium-forced-dark-volume-muted-text.png",
+      "bytes": 643,
+      "sha256": "ffafdc89fafb1648226f969cf48ee50ce4a5fbabd00bb92154cfc9bb5efed468"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-party-keyboard-selected.png",
+      "archive": "green/crops/chromium-forced-party-keyboard-selected.png",
+      "bytes": 289,
+      "sha256": "d0fa7291325565942b389e42e1a0bdb8165415f7bde04e52590df23358c2a9b1"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-party-keyboard-unselected.png",
+      "archive": "green/crops/chromium-forced-party-keyboard-unselected.png",
+      "bytes": 106,
+      "sha256": "6929feca4be8f2414418ca69449b981db0830b5ee32861d95c6fd5acca4febb9"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-party-selected.png",
+      "archive": "green/crops/chromium-forced-party-selected.png",
+      "bytes": 289,
+      "sha256": "d0fa7291325565942b389e42e1a0bdb8165415f7bde04e52590df23358c2a9b1"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-party-unselected-keyboard-focus.png",
+      "archive": "green/crops/chromium-forced-party-unselected-keyboard-focus.png",
+      "bytes": 20385,
+      "sha256": "f9472bfe94b8577426e2b61de94eeb7d046272f2fb541433fe9b40f7c65b63c5"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-party-unselected-unfocused.png",
+      "archive": "green/crops/chromium-forced-party-unselected-unfocused.png",
+      "bytes": 21904,
+      "sha256": "d2b0decd8c6bba7eb486670e01a80b13beb1e06ef74f6663ad5b577d6a9cf156"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-party-unselected.png",
+      "archive": "green/crops/chromium-forced-party-unselected.png",
+      "bytes": 106,
+      "sha256": "6929feca4be8f2414418ca69449b981db0830b5ee32861d95c6fd5acca4febb9"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-shop-selected.png",
+      "archive": "green/crops/chromium-forced-shop-selected.png",
+      "bytes": 735,
+      "sha256": "264dc917056c23df4057ba331d62dfb3f0c00b6053e74dcb32eccdaa516ac2f0"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-shop-unselected-keyboard-focus.png",
+      "archive": "green/crops/chromium-forced-shop-unselected-keyboard-focus.png",
+      "bytes": 827,
+      "sha256": "e2ff0aabf65e849ef25b2ab2ce4021d1f6bd69b86c43eb9450b5454b3bb8f305"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-shop-unselected-unfocused.png",
+      "archive": "green/crops/chromium-forced-shop-unselected-unfocused.png",
+      "bytes": 790,
+      "sha256": "544bf3d9237e5efff3a19429e347dfd7271a10022916306070aca0a302a13881"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-shop-unselected.png",
+      "archive": "green/crops/chromium-forced-shop-unselected.png",
+      "bytes": 735,
+      "sha256": "f5f0036bf4dbacf1f45b06b3a846056f88d41b435930e4b22ddfcf6babbb4f03"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-volume-enabled-button.png",
+      "archive": "green/crops/chromium-forced-volume-enabled-button.png",
+      "bytes": 1306,
+      "sha256": "6128a0007761e415ec8cf79f6dae6d15cb23c50476a72dda026507006573c5cb"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-volume-enabled-slider.png",
+      "archive": "green/crops/chromium-forced-volume-enabled-slider.png",
+      "bytes": 1334,
+      "sha256": "b5990bfdfda8710c67139ec41bd64366432c2ded898e9896fab2a679f5bbd44c"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-volume-enabled-text.png",
+      "archive": "green/crops/chromium-forced-volume-enabled-text.png",
+      "bytes": 639,
+      "sha256": "3a3c86bdcf799c5099979918c26da39122949bd2f688bcb016193f34d2955818"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-volume-muted-button.png",
+      "archive": "green/crops/chromium-forced-volume-muted-button.png",
+      "bytes": 1254,
+      "sha256": "2140cac55e26b3bb07320db2bf6fd9358a08e193316b76bde0cf2252065b9cbd"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-volume-muted-slider.png",
+      "archive": "green/crops/chromium-forced-volume-muted-slider.png",
+      "bytes": 1334,
+      "sha256": "b5990bfdfda8710c67139ec41bd64366432c2ded898e9896fab2a679f5bbd44c"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium-forced-volume-muted-text.png",
+      "archive": "green/crops/chromium-forced-volume-muted-text.png",
+      "bytes": 639,
+      "sha256": "3a3c86bdcf799c5099979918c26da39122949bd2f688bcb016193f34d2955818"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-red.log",
+      "archive": "initial-fixture-diagnostic/run.log",
+      "bytes": 1352,
+      "sha256": "f2147d1e93900673d0bbdbf855e7f506af4c541872cf556972fa5f090a9cc750"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-red/chromium-desktop-shop-selected.png",
+      "archive": "initial-fixture-diagnostic/crops/chromium-desktop-shop-selected.png",
+      "bytes": 1522,
+      "sha256": "654021c8d62cdcefe2454d0fb2b33de3681f7bf22df7018e0ee4faef18177bf9"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-red/chromium-desktop-shop-unselected.png",
+      "archive": "initial-fixture-diagnostic/crops/chromium-desktop-shop-unselected.png",
+      "bytes": 1522,
+      "sha256": "654021c8d62cdcefe2454d0fb2b33de3681f7bf22df7018e0ee4faef18177bf9"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-red/chromium-forced-shop-selected.png",
+      "archive": "initial-fixture-diagnostic/crops/chromium-forced-shop-selected.png",
+      "bytes": 735,
+      "sha256": "264dc917056c23df4057ba331d62dfb3f0c00b6053e74dcb32eccdaa516ac2f0"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-red/chromium-forced-shop-unselected.png",
+      "archive": "initial-fixture-diagnostic/crops/chromium-forced-shop-unselected.png",
+      "bytes": 735,
+      "sha256": "264dc917056c23df4057ba331d62dfb3f0c00b6053e74dcb32eccdaa516ac2f0"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-red/chromium-forced-party-selected.png",
+      "archive": "initial-fixture-diagnostic/crops/chromium-forced-party-selected.png",
+      "bytes": 256,
+      "sha256": "553fb9fef8548d0f8709bd8c0ce6f3cd76b05c5dcc217a6313ef4d47cab8ebe5"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-red/chromium-forced-party-unselected.png",
+      "archive": "initial-fixture-diagnostic/crops/chromium-forced-party-unselected.png",
+      "bytes": 106,
+      "sha256": "6929feca4be8f2414418ca69449b981db0830b5ee32861d95c6fd5acca4febb9"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red-rgb-comparison/run.log",
+      "archive": "rgb-comparison-diagnostic/run.log",
+      "bytes": 1058,
+      "sha256": "8bb24c119d98e599bdcf4998f12f84e85dde6c3dd488d69cb0bee5184b518d5e"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red-rgb-comparison/chromium-desktop-shop-selected.png",
+      "archive": "rgb-comparison-diagnostic/crops/chromium-desktop-shop-selected.png",
+      "bytes": 2273,
+      "sha256": "7d05026da77c1bd5e0e0293281cccdedbef0e2921e750899e0732e5d3c89eec3"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red-rgb-comparison/chromium-desktop-shop-unselected.png",
+      "archive": "rgb-comparison-diagnostic/crops/chromium-desktop-shop-unselected.png",
+      "bytes": 1522,
+      "sha256": "654021c8d62cdcefe2454d0fb2b33de3681f7bf22df7018e0ee4faef18177bf9"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red-rgb-comparison/chromium-forced-shop-selected.png",
+      "archive": "rgb-comparison-diagnostic/crops/chromium-forced-shop-selected.png",
+      "bytes": 740,
+      "sha256": "5f6e9eae0f48ebf33357f6c36b296d34482940be15b8274f89d89645e466c4d3"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red-rgb-comparison/chromium-forced-shop-unselected.png",
+      "archive": "rgb-comparison-diagnostic/crops/chromium-forced-shop-unselected.png",
+      "bytes": 735,
+      "sha256": "264dc917056c23df4057ba331d62dfb3f0c00b6053e74dcb32eccdaa516ac2f0"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red-rgb-comparison/chromium-forced-party-selected.png",
+      "archive": "rgb-comparison-diagnostic/crops/chromium-forced-party-selected.png",
+      "bytes": 256,
+      "sha256": "553fb9fef8548d0f8709bd8c0ce6f3cd76b05c5dcc217a6313ef4d47cab8ebe5"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red-rgb-comparison/chromium-forced-party-unselected.png",
+      "archive": "rgb-comparison-diagnostic/crops/chromium-forced-party-unselected.png",
+      "bytes": 106,
+      "sha256": "6929feca4be8f2414418ca69449b981db0830b5ee32861d95c6fd5acca4febb9"
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/scripts/check-accessibility.mjs",
+      "archive": "after/scripts/check-accessibility.mjs.txt",
+      "bytes": 26917,
+      "sha256": "72dee694777e5fb7d561c238e78f2748a0a2c46388bf51d559b973292dc95668"
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/scripts/lib/forced-color-checks.mjs",
+      "archive": "after/scripts/lib/forced-color-checks.mjs.txt",
+      "bytes": 11625,
+      "sha256": "0b9ef695d3e1f1be74640f2409c5bb1832487a1952d9cf3af33ea6faea02eabb"
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/src/components/queue-arcade.module.css",
+      "archive": "after/src/components/queue-arcade.module.css.txt",
+      "bytes": 131624,
+      "sha256": "cc274adee55eb2bc79e4db7d162c62ab3075521af12436f0465611ede35ea507"
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/src/components/private-room-panel.module.css",
+      "archive": "after/src/components/private-room-panel.module.css.txt",
+      "bytes": 16340,
+      "sha256": "b278310aeb677d7bec7c453ff20321d76b93c1b5c612bf1ae131efcadc738b28"
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/src/components/calibration-dashboard.module.css",
+      "archive": "after/src/components/calibration-dashboard.module.css.txt",
+      "bytes": 13716,
+      "sha256": "059aba0a3aba0324afd84055e81cdd102669bca701564f6b57a73682393e649a"
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/.github/workflows/ci.yml",
+      "archive": "after/.github/workflows/ci.yml.txt",
+      "bytes": 8741,
+      "sha256": "28ff89df3f7916693e2b308a66f5c76ca6a229ad61756393b72b3d6da3f531c8"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/party-decoration.json",
+      "archive": "party-accessible-name/party-decoration.json",
+      "bytes": 998,
+      "sha256": "e2d436253116db209c03315dc6271f95b326482cff8a83b51891814b973663c5"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/party-decoration.log",
+      "archive": "party-accessible-name/party-decoration.log",
+      "bytes": 751,
+      "sha256": "012ed39b84e9555d8860a4771a9581105c31dc53620c2277b899b5859e5eef07"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/check-party-decoration.mjs",
+      "archive": "party-accessible-name/check-party-decoration.mjs.txt",
+      "bytes": 2059,
+      "sha256": "1c23383988b47bfa8f00fa20e74c03c499c09dd74b79467b8679f4bfc1ad334c"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/cross-engine-support.json",
+      "archive": "cross-engine-support.json",
+      "bytes": 889,
+      "sha256": "023123bde820218cfa514450c41bc3e8de1ac4ce9f42493156cf260f892aa562"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/source-freeze.json",
+      "archive": "source-freeze.json",
+      "bytes": 1317,
+      "sha256": "af7adfefee2d010e899bbdccada79fae217a3f57409f0b6a9bfbaf188ff82b7c"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/server-cleanup.json",
+      "archive": "server-cleanup.json",
+      "bytes": 370,
+      "sha256": "713fd2293a14633988cecbd9c3a5c88906ad919f5b5cead1f40d58bb6a0f29d6"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/summary.json",
+      "archive": "firefox-green/summary.json",
+      "bytes": 1882,
+      "sha256": "c9ced2f134458f356e3cf39d62bd6292f5b021aba59c73fb4f9e62a8e6fbcb5d"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/command.sh",
+      "archive": "firefox-green/command.sh.txt",
+      "bytes": 464,
+      "sha256": "8af4490743e69845651d3114e97acd66062e3d496b5efbb3f6770197cf13d9dd"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/run.log",
+      "archive": "firefox-green/run.log",
+      "bytes": 295,
+      "sha256": "1c1346007ac1a0dab1257ffc95cfdae998765dd9889c67e3362b2b17f800ddf7"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/old-browser-protocol-failure.json",
+      "archive": "firefox-green/old-browser-protocol-failure.json",
+      "bytes": 453,
+      "sha256": "426ac42fd36ea64be63596034b71d23dcf0234e2151b59c58000750611eb80db"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/old-browser-protocol-failure.log",
+      "archive": "firefox-green/old-browser-protocol-failure.log",
+      "bytes": 740,
+      "sha256": "34a3f1a06db9c41b9d30c927d3c240871f93a0a90e346716892fb687f71b5bce"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/missing-matching-browser.log",
+      "archive": "firefox-green/missing-matching-browser.log",
+      "bytes": 1088,
+      "sha256": "b7dd43546bd1e2e49cf30a69a43e37ebfe22f8d2d337e22cc9ba529a2460b7f4"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/install-matching-browser.log",
+      "archive": "firefox-green/install-matching-browser.log",
+      "bytes": 2262,
+      "sha256": "5bfea1a0a49d0a84549cecb23aa5e8ce4e9f40b7a84e7c70c6aec77eba601444"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-calibration-selected.png",
+      "archive": "firefox-green/crops/firefox-forced-calibration-selected.png",
+      "bytes": 1399,
+      "sha256": "397df53c40a531dafcb1d02bc9075c9388e7292684cf9820796456a512e76f19"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-calibration-unselected-keyboard-focus.png",
+      "archive": "firefox-green/crops/firefox-forced-calibration-unselected-keyboard-focus.png",
+      "bytes": 1473,
+      "sha256": "b55cdfb5835b3dcc8b168055c0dd663211ba56086244ad22f1c412831e89ee7b"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-calibration-unselected-unfocused.png",
+      "archive": "firefox-green/crops/firefox-forced-calibration-unselected-unfocused.png",
+      "bytes": 1442,
+      "sha256": "5f72c6449b2859132210a6fa04cb9943d2f5af590f9194f0000039b5cfdb0102"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-calibration-unselected.png",
+      "archive": "firefox-green/crops/firefox-forced-calibration-unselected.png",
+      "bytes": 1384,
+      "sha256": "e215167a196741d1c71dae92212fd7c2d10e5dc2b8ac0c2664ae9f4dd2964145"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-dark-calibration-selected.png",
+      "archive": "firefox-green/crops/firefox-forced-dark-calibration-selected.png",
+      "bytes": 1399,
+      "sha256": "397df53c40a531dafcb1d02bc9075c9388e7292684cf9820796456a512e76f19"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-dark-calibration-unselected-keyboard-focus.png",
+      "archive": "firefox-green/crops/firefox-forced-dark-calibration-unselected-keyboard-focus.png",
+      "bytes": 1473,
+      "sha256": "b55cdfb5835b3dcc8b168055c0dd663211ba56086244ad22f1c412831e89ee7b"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-dark-calibration-unselected-unfocused.png",
+      "archive": "firefox-green/crops/firefox-forced-dark-calibration-unselected-unfocused.png",
+      "bytes": 1442,
+      "sha256": "5f72c6449b2859132210a6fa04cb9943d2f5af590f9194f0000039b5cfdb0102"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-dark-calibration-unselected.png",
+      "archive": "firefox-green/crops/firefox-forced-dark-calibration-unselected.png",
+      "bytes": 1384,
+      "sha256": "e215167a196741d1c71dae92212fd7c2d10e5dc2b8ac0c2664ae9f4dd2964145"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-dark-party-keyboard-selected.png",
+      "archive": "firefox-green/crops/firefox-forced-dark-party-keyboard-selected.png",
+      "bytes": 326,
+      "sha256": "04e7b2f77f9a0094d41c627c75787b4f5173458e43d9ab80b72e27c156dee31d"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-dark-party-keyboard-unselected.png",
+      "archive": "firefox-green/crops/firefox-forced-dark-party-keyboard-unselected.png",
+      "bytes": 85,
+      "sha256": "ffba372d7a05f417885ed7a3cf909b0d31910a631faa44022fdf4a8f6b31fe74"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-dark-party-selected.png",
+      "archive": "firefox-green/crops/firefox-forced-dark-party-selected.png",
+      "bytes": 326,
+      "sha256": "04e7b2f77f9a0094d41c627c75787b4f5173458e43d9ab80b72e27c156dee31d"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-dark-party-unselected-keyboard-focus.png",
+      "archive": "firefox-green/crops/firefox-forced-dark-party-unselected-keyboard-focus.png",
+      "bytes": 30314,
+      "sha256": "5d2cfa3c9acef75aecf6ad4ef576e66fa81d6ed78b02ee91a1aa1abb76a378d3"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-dark-party-unselected-unfocused.png",
+      "archive": "firefox-green/crops/firefox-forced-dark-party-unselected-unfocused.png",
+      "bytes": 31762,
+      "sha256": "9c896a5885a8f72bad29bf9d57fed910f52b9005f7af26458910bda998a6a8c3"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-dark-party-unselected.png",
+      "archive": "firefox-green/crops/firefox-forced-dark-party-unselected.png",
+      "bytes": 85,
+      "sha256": "ffba372d7a05f417885ed7a3cf909b0d31910a631faa44022fdf4a8f6b31fe74"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-dark-shop-selected.png",
+      "archive": "firefox-green/crops/firefox-forced-dark-shop-selected.png",
+      "bytes": 925,
+      "sha256": "c5fb75a39763e2f2e92416657d6d5c1d40e99620f1eac05847ff3e2625c6e6e3"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-dark-shop-unselected-keyboard-focus.png",
+      "archive": "firefox-green/crops/firefox-forced-dark-shop-unselected-keyboard-focus.png",
+      "bytes": 1296,
+      "sha256": "8507f6449a68613c14f8e53c75056ebf72f78545711e5e272cd51071e51b4938"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-dark-shop-unselected-unfocused.png",
+      "archive": "firefox-green/crops/firefox-forced-dark-shop-unselected-unfocused.png",
+      "bytes": 1254,
+      "sha256": "45b6858092ab78c0bf8bcd52cba770f9b2ea6997d5477f1bd09cfb14b4c91388"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-dark-shop-unselected.png",
+      "archive": "firefox-green/crops/firefox-forced-dark-shop-unselected.png",
+      "bytes": 921,
+      "sha256": "70e245e13c46d4cd58b0e4ea554a8d1d16f393f1fd134c480eb83a8f7514e648"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-dark-volume-enabled-button.png",
+      "archive": "firefox-green/crops/firefox-forced-dark-volume-enabled-button.png",
+      "bytes": 1855,
+      "sha256": "b8ac3cd6da83b75c5c5c0ce4b7e4786b91a1d412f334de0a7239b6ddca16a720"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-dark-volume-enabled-slider.png",
+      "archive": "firefox-green/crops/firefox-forced-dark-volume-enabled-slider.png",
+      "bytes": 2037,
+      "sha256": "e25dbcc68242558b2b3ab2f0baba691398ea3d0e5c18305f88f59948961896a4"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-dark-volume-enabled-text.png",
+      "archive": "firefox-green/crops/firefox-forced-dark-volume-enabled-text.png",
+      "bytes": 810,
+      "sha256": "e3062f9618e48c67a20017783fd01f0b784cf1522196a81c7c26d5545ad8c54b"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-dark-volume-muted-button.png",
+      "archive": "firefox-green/crops/firefox-forced-dark-volume-muted-button.png",
+      "bytes": 1780,
+      "sha256": "b9a58fef85596844b1d0c609de8769421b22fe3e935a58c749cc6211b0587bff"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-dark-volume-muted-slider.png",
+      "archive": "firefox-green/crops/firefox-forced-dark-volume-muted-slider.png",
+      "bytes": 2037,
+      "sha256": "e25dbcc68242558b2b3ab2f0baba691398ea3d0e5c18305f88f59948961896a4"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-dark-volume-muted-text.png",
+      "archive": "firefox-green/crops/firefox-forced-dark-volume-muted-text.png",
+      "bytes": 810,
+      "sha256": "e3062f9618e48c67a20017783fd01f0b784cf1522196a81c7c26d5545ad8c54b"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-party-keyboard-selected.png",
+      "archive": "firefox-green/crops/firefox-forced-party-keyboard-selected.png",
+      "bytes": 326,
+      "sha256": "04e7b2f77f9a0094d41c627c75787b4f5173458e43d9ab80b72e27c156dee31d"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-party-keyboard-unselected.png",
+      "archive": "firefox-green/crops/firefox-forced-party-keyboard-unselected.png",
+      "bytes": 85,
+      "sha256": "ffba372d7a05f417885ed7a3cf909b0d31910a631faa44022fdf4a8f6b31fe74"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-party-selected.png",
+      "archive": "firefox-green/crops/firefox-forced-party-selected.png",
+      "bytes": 326,
+      "sha256": "04e7b2f77f9a0094d41c627c75787b4f5173458e43d9ab80b72e27c156dee31d"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-party-unselected-keyboard-focus.png",
+      "archive": "firefox-green/crops/firefox-forced-party-unselected-keyboard-focus.png",
+      "bytes": 30314,
+      "sha256": "5d2cfa3c9acef75aecf6ad4ef576e66fa81d6ed78b02ee91a1aa1abb76a378d3"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-party-unselected-unfocused.png",
+      "archive": "firefox-green/crops/firefox-forced-party-unselected-unfocused.png",
+      "bytes": 31762,
+      "sha256": "9c896a5885a8f72bad29bf9d57fed910f52b9005f7af26458910bda998a6a8c3"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-party-unselected.png",
+      "archive": "firefox-green/crops/firefox-forced-party-unselected.png",
+      "bytes": 85,
+      "sha256": "ffba372d7a05f417885ed7a3cf909b0d31910a631faa44022fdf4a8f6b31fe74"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-shop-selected.png",
+      "archive": "firefox-green/crops/firefox-forced-shop-selected.png",
+      "bytes": 925,
+      "sha256": "c5fb75a39763e2f2e92416657d6d5c1d40e99620f1eac05847ff3e2625c6e6e3"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-shop-unselected-keyboard-focus.png",
+      "archive": "firefox-green/crops/firefox-forced-shop-unselected-keyboard-focus.png",
+      "bytes": 1296,
+      "sha256": "8507f6449a68613c14f8e53c75056ebf72f78545711e5e272cd51071e51b4938"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-shop-unselected-unfocused.png",
+      "archive": "firefox-green/crops/firefox-forced-shop-unselected-unfocused.png",
+      "bytes": 1254,
+      "sha256": "45b6858092ab78c0bf8bcd52cba770f9b2ea6997d5477f1bd09cfb14b4c91388"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-shop-unselected.png",
+      "archive": "firefox-green/crops/firefox-forced-shop-unselected.png",
+      "bytes": 921,
+      "sha256": "70e245e13c46d4cd58b0e4ea554a8d1d16f393f1fd134c480eb83a8f7514e648"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-volume-enabled-button.png",
+      "archive": "firefox-green/crops/firefox-forced-volume-enabled-button.png",
+      "bytes": 1855,
+      "sha256": "b8ac3cd6da83b75c5c5c0ce4b7e4786b91a1d412f334de0a7239b6ddca16a720"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-volume-enabled-slider.png",
+      "archive": "firefox-green/crops/firefox-forced-volume-enabled-slider.png",
+      "bytes": 2037,
+      "sha256": "e25dbcc68242558b2b3ab2f0baba691398ea3d0e5c18305f88f59948961896a4"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-volume-enabled-text.png",
+      "archive": "firefox-green/crops/firefox-forced-volume-enabled-text.png",
+      "bytes": 810,
+      "sha256": "e3062f9618e48c67a20017783fd01f0b784cf1522196a81c7c26d5545ad8c54b"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-volume-muted-button.png",
+      "archive": "firefox-green/crops/firefox-forced-volume-muted-button.png",
+      "bytes": 1780,
+      "sha256": "b9a58fef85596844b1d0c609de8769421b22fe3e935a58c749cc6211b0587bff"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-volume-muted-slider.png",
+      "archive": "firefox-green/crops/firefox-forced-volume-muted-slider.png",
+      "bytes": 2037,
+      "sha256": "e25dbcc68242558b2b3ab2f0baba691398ea3d0e5c18305f88f59948961896a4"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox-forced-volume-muted-text.png",
+      "archive": "firefox-green/crops/firefox-forced-volume-muted-text.png",
+      "bytes": 810,
+      "sha256": "e3062f9618e48c67a20017783fd01f0b784cf1522196a81c7c26d5545ad8c54b"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/webkit-green/run.log",
+      "archive": "webkit-launch-failure/run.log",
+      "bytes": 2310,
+      "sha256": "f17743c92e8144611612b22d0b1a2d0c003baa24aa18118e881638d1d0aaff8c"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-party-decoration.json",
+      "archive": "party-accessible-name/firefox-party-decoration.json",
+      "bytes": 1045,
+      "sha256": "f66777a0450e047ec831371741c96b1e3062c9f7e12f0c2ea931b29aa67d5f1d"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-party-decoration.log",
+      "archive": "party-accessible-name/firefox-party-decoration.log",
+      "bytes": 794,
+      "sha256": "87812f5434b76ceebe2c7d393a1c607f444c0637fd0de26b3349b80a3625e0da"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/check-firefox-party-decoration.mjs",
+      "archive": "party-accessible-name/check-firefox-party-decoration.mjs.txt",
+      "bytes": 1582,
+      "sha256": "25f32a9e41321bf808aeebc71109cecafec02403053b5f1399496cb78f6aaf38"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/normal-volume-red/queue-arcade.module.css",
+      "archive": "normal-volume-red/queue-arcade.module.css.txt",
+      "bytes": 131853,
+      "sha256": "def46b9efef80b630b607f73998317791f0433e44aff01f472d646494ca8fb52"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/normal-volume-red/calibration-dashboard.module.css",
+      "archive": "normal-volume-red/calibration-dashboard.module.css.txt",
+      "bytes": 13665,
+      "sha256": "85ac4806d0a9dce03264b59f93ce8086d82309d52071aa0d4967e78a48805a7a"
+    }
+  ],
+  "compressedReports": [
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red/chromium.json",
+      "archive": "red/chromium.json.gz",
+      "sourceBytes": 1642577,
+      "sourceSha256": "2a30f4c812f77521fcb1f22efcf298fc917ec0022352272f11555214b98a50f8",
+      "archiveBytes": 42257,
+      "archiveSha256": "089d52719c1c738c790cb2a6925f6e54eb4a90c24102db7d585c7b3759ac4eb8",
+      "losslessGzip": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/normal-volume-red/chromium.json",
+      "archive": "normal-volume-red/chromium.json.gz",
+      "sourceBytes": 20081,
+      "sourceSha256": "0fe41eaca59334c09be2c5f04f58021c919f461a141518c7d898c71296743c2a",
+      "archiveBytes": 2565,
+      "archiveSha256": "0b94046207fe2c46287a5840bd5eae5f3aebf36710898fd892fef19af2f31cbd",
+      "losslessGzip": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/green/chromium.json",
+      "archive": "green/chromium.json.gz",
+      "sourceBytes": 1640129,
+      "sourceSha256": "3a14fb369df56b8f756035dd6df364a29de948513744dbb19aac97e59893217a",
+      "archiveBytes": 41978,
+      "archiveSha256": "2095a8739c551190a5f2cef0c330508f100fec8c673828a2ba01717bc071ca22",
+      "losslessGzip": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-red/chromium.json",
+      "archive": "initial-fixture-diagnostic/chromium.json.gz",
+      "sourceBytes": 1635146,
+      "sourceSha256": "265669e1c58b79c5a2a810f975a68735ee992618b4a588ab87e8b68b28b0aeaf",
+      "archiveBytes": 42004,
+      "archiveSha256": "fab1f80af56f56982bca4a5296a3a7001876984781963997321cbe53931a511a",
+      "losslessGzip": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/red-rgb-comparison/chromium.json",
+      "archive": "rgb-comparison-diagnostic/chromium.json.gz",
+      "sourceBytes": 1635073,
+      "sourceSha256": "6cfc184945f5c063d408da7a9b25b23732485348476553960fa3d0efc300a9a5",
+      "archiveBytes": 42022,
+      "archiveSha256": "c8ab9f11046298ea98d69f2cc0f3fb22f0ec700910daaf3615f2f6204cc9e2d8",
+      "losslessGzip": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-green/firefox.json",
+      "archive": "firefox-green/firefox.json.gz",
+      "sourceBytes": 148007,
+      "sourceSha256": "9ec3c800a348bfe8e86f0417841b2c8baf2e25caf3c4cfe5dc2ba883ddf30d8e",
+      "archiveBytes": 6887,
+      "archiveSha256": "299d2ea902825c49ce0da1aaf94ec97fce1864f01e0efbc59ce6d60bf2769e98",
+      "losslessGzip": true
+    }
+  ],
+  "privateFilesExcluded": [
+    "accounts.json",
+    "alpha.json",
+    "votes.json",
+    "server.log",
+    "server-ownership.json",
+    "start-app.sh",
+    "browser profiles",
+    "environment and credential files"
+  ],
+  "fullPageScreenshots": "Not copied. Reports retain original private screenshot paths. All crops used by the baseline red, normal-volume red, and final green painted control checks are retained. Initial fixture and RGB diagnostic runs retain selected shop and party crops.",
+  "sourceSnapshots": "Code and commands are archived as .txt; the complete final six-file change is diffed against the cancelled candidate 6e1eace.",
+  "historicalReview": "The separate forced-colors-review archive remains unchanged.",
+  "independentVisualReview": {
+    "manifest": "visual-review/manifest.json",
+    "sha256": "b580d2c2ac6c67dc2af597ffc7a960f17e4e10e83d8a13820bd1935e13f4a093",
+    "source": "Independent reviewer /root/ci_finish/forced_colors",
+    "reviewedFiles": 17
+  }
+}

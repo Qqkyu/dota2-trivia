@@ -1,0 +1,30 @@
+{
+  "version": 3,
+  "ipv6ApplicationRoute": "cloudflare-shared-edge-connect-to",
+  "ipv6ConnectionHostname": "www.cloudflare.com",
+  "originHostAndSniPreserved": true,
+  "tlsVerificationEnabled": true,
+  "spoofHeadersTested": [
+    "x-real-ip",
+    "x-forwarded-for"
+  ],
+  "checkedAt": "2026-10-11T06:38:19.027Z",
+  "ok": true,
+  "independentIpv6SourcesAgreed": true,
+  "deploymentAndConfigurationStable": true,
+  "ipv4Requests": 131,
+  "ipv6LoginRequests": 1,
+  "allowed": 120,
+  "blocked": 10,
+  "rawAddressesLogged": false,
+  "cookiesRetained": false,
+  "redirectsFollowed": 0,
+  "appDataWrites": 0,
+  "headerFreeIpv4Blocked": true,
+  "independentIpv6Allowed": true,
+  "sameWindowConfirmed": true,
+  "elapsedMs": 15213,
+  "commit": "31961cbd762587225b4b8a814828dc0829952978",
+  "deployId": "dep-db5imrt9fdbs73d19570",
+  "ciRunId": 38050315807
+}

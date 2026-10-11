@@ -1,7 +1,7 @@
 {
   "parser": "@actions/workflow-parser 0.3.61",
   "schemaErrors": [],
-  "workflowSha256": "972c1c83f1525d4f2d347c9a4cdfa383205d260d616690d7ac25ca22d4e547b3",
+  "workflowSha256": "28ff89df3f7916693e2b308a66f5c76ca6a229ad61756393b72b3d6da3f531c8",
   "databaseChecks": {
     "launchSuiteEnabled": true,
     "launchDatabaseIsLoopback": true,
@@ -15,6 +15,15 @@
     "CONTAINER_DATABASE_CPUS": "0.1",
     "CONTAINER_DATABASE_MEMORY_MIB": "256"
   },
+  "chromiumAccessibilityModes": [
+    "desktop",
+    "mobile",
+    "zoom200",
+    "zoom400",
+    "reduced",
+    "forced",
+    "forced-dark"
+  ],
   "containerVulnerabilityGate": {
     "severity": "CRITICAL,HIGH,MEDIUM",
     "ignoreUnfixed": true

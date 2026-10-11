@@ -1,0 +1,23 @@
+{
+  "commit": "31961cbd762587225b4b8a814828dc0829952978",
+  "parent": "64046c2d198fcbfe556599e727ae0638423a3482",
+  "exactRawBlobFilesVerified": 1657,
+  "gitArchiveBytesMatchRawBlobs": true,
+  "unchangedExactReviewedFindings": 64,
+  "contentManifestFindingsRechecked": 3,
+  "contentManifestFileDigestsVerified": 127,
+  "contentEvidenceDigestVerified": true,
+  "unreviewedFindings": 0,
+  "reviewedBaselineSha256": "7da3a62a30e2ae928ed6979fe695d71ec3babc35f378975dfb798d06293badbb",
+  "extendedReviewedTuples": 76,
+  "extendedReviewedBaselineSha256": "09c17ee1f1c5dbc6be2aab34d3ea9351650e529cab2ea607f592e6de60a1ff8a",
+  "appCredentialValuesChecked": 7,
+  "operatorCredentialValuesChecked": 2,
+  "steamWebApiKeyChecked": true,
+  "knownValueMatchedFiles": [],
+  "auditJsonFilesParsed": 519,
+  "mainIndexAndReleaseRefUnchanged": true,
+  "passed": true,
+  "oldScannerLimit": "The old scanner summary reports six app values and omits STEAM_WEB_API_KEY. corrected-known-values.json is the authoritative seven-app plus two-operator known-value result.",
+  "scope": "Pre-push source candidate using existing Gitleaks configuration plus exact raw-blob equality, exact prior finding review, and the corrected known-value scan. Full all-path and expanded-payload final evidence scan remains separate."
+}

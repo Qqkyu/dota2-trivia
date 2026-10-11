@@ -1,0 +1,32 @@
+test_all_absent_is_idempotent (__main__.Guards) ... ok
+test_container_host_bind (__main__.Guards) ... ok
+test_container_id_changed (__main__.Guards) ... ok
+test_container_image_changed (__main__.Guards) ... ok
+test_container_mount_request (__main__.Guards) ... ok
+test_container_name_changed (__main__.Guards) ... ok
+test_container_other_state (__main__.Guards) ... ok
+test_container_running (__main__.Guards) ... ok
+test_exact_execute (__main__.Guards) ... ok
+test_extra_mount (__main__.Guards) ... ok
+test_extra_tag_is_preserved (__main__.Guards) ... ok
+test_image_id_changed (__main__.Guards) ... ok
+test_incomplete_hosted_gate (__main__.Guards) ... ok
+test_incomplete_retention_gate (__main__.Guards) ... ok
+test_last_image_user_stops_all_removal (__main__.Guards) ... ok
+test_missing_authorization (__main__.Guards) ... ok
+test_missing_volume_with_container (__main__.Guards) ... ok
+test_name_reused (__main__.Guards) ... ok
+test_new_image_user_before_mutation (__main__.Guards) ... ok
+test_orphan_volume_refused (__main__.Guards) ... ok
+test_other_volume (__main__.Guards) ... ok
+test_recreated_volume_refused (__main__.Guards) ... ok
+test_remote_volume_driver (__main__.Guards) ... ok
+test_review_is_read_only (__main__.Guards) ... ok
+test_volume_options (__main__.Guards) ... ok
+test_volume_other_user (__main__.Guards) ... ok
+test_wrong_parent (__main__.Guards) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 0.008s
+
+OK

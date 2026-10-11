@@ -1,0 +1,27 @@
+{
+  "checkedAt": "2026-10-10T12:40:51.695054+00:00",
+  "helperSha256": "14cd3b0da65a39c49304308ad0d34a0d796d6b53b7ca8390171346927a00ff0c",
+  "originalHelperSha256": "b0412f544f4097ede355e2cd471ca51088de9437b3d6f830b00105227325137a",
+  "exactChangedHelperLines": 4,
+  "otherHelperBytesUnchanged": true,
+  "originalHelperAndArchiveUnchanged": true,
+  "offlineOnly": true,
+  "providerRequestsByThisReview": 0,
+  "redTestResult": {
+    "tests": 27,
+    "failures": 1,
+    "errors": 3
+  },
+  "greenTestResult": {
+    "tests": 27,
+    "failures": 0,
+    "errors": 0
+  },
+  "rootIndependentReview": {
+    "reportedBy": "root agent",
+    "sourceSha256": "14cd3b0da65a39c49304308ad0d34a0d796d6b53b7ca8390171346927a00ff0c",
+    "fourLineDiffReviewed": true,
+    "testsPassed": 27
+  },
+  "scope": "Accept an explicitly verified user-suspension condition for HTTP 400 or 409. No deployment outcome is claimed."
+}

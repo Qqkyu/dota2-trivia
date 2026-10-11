@@ -1,0 +1,23 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+browser.newContext: Protocol error (Browser.setDefaultViewport): ERROR: failed to call method 'Browser.setDefaultViewport' with parameters {
+  "browserContextId": "56947130-a236-4d46-bc4f-06a52ca835bb",
+  "viewport": {
+    "viewportSize": {
+      "width": 1280,
+      "height": 900
+    },
+    "deviceScaleFactor": 1,
+    "isMobile": false
+  }
+}
+Found property "<root>.viewport.isMobile" - false which is not described in this scheme
+    at async makePage (/home/kulmisiu/dev/dota2-trivia/scripts/check-accessibility.mjs:114:19)
+    at async file:///home/kulmisiu/dev/dota2-trivia/scripts/check-accessibility.mjs:373:25 {
+  log: [],
+  name: 'Error'
+}
+
+Node.js v22.23.3

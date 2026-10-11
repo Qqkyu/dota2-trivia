@@ -1,0 +1,1086 @@
+{
+  "reviewedAt": "2026-10-10T11:50:02.879287+00:00",
+  "result": "The four corrected UI states remain visible in the inspected production CI screenshots. No visible regression was found in this targeted review.",
+  "overallRunStatus": "Failed later in the separate visual-smoke shared-reveal/report assertion. This report does not mark release CI passed.",
+  "provenance": {
+    "workflowRun": "38047885476",
+    "sourceCommit": "64046c2d198fcbfe556599e727ae0638423a3482",
+    "imageId": "sha256:2805e11a91f951c2b316c290068566f2cd759ef5cd10086e6a5c4ed12d658600",
+    "associationMethod": "The CI owner supplied this exact source/run/image association for screenshots copied from the runner after all three accessibility steps passed. The raw reports have buildId null and do not independently identify their source or image.",
+    "sourceHashesMatchEarlierCorrectedCapture": {
+      "scripts/check-accessibility.mjs": "72dee694777e5fb7d561c238e78f2748a0a2c46388bf51d559b973292dc95668",
+      "scripts/lib/forced-color-checks.mjs": "0b9ef695d3e1f1be74640f2409c5bb1832487a1952d9cf3af33ea6faea02eabb",
+      "src/components/queue-arcade.module.css": "cc274adee55eb2bc79e4db7d162c62ab3075521af12436f0465611ede35ea507",
+      "src/components/private-room-panel.module.css": "b278310aeb677d7bec7c453ff20321d76b93c1b5c612bf1ae131efcadc738b28",
+      "src/components/calibration-dashboard.module.css": "059aba0a3aba0324afd84055e81cdd102669bca701564f6b57a73682393e649a",
+      ".github/workflows/ci.yml": "28ff89df3f7916693e2b308a66f5c76ca6a229ad61756393b72b3d6da3f531c8"
+    },
+    "baselineReview": "../../../forced-color-fix/visual-review/review.json"
+  },
+  "scope": "Read-only spot review of the two Chromium forced-color palettes. Compared 40 final control crops with 40 earlier corrected local crops. Inspected six final full-page images and two calibration top crops. No app changes or new browser runs.",
+  "expectedResult": "Muted controls remain visible, selected states have distinct marks or borders, and keyboard focus remains separate from selection.",
+  "findings": [
+    {
+      "id": "FC-1",
+      "result": "remains corrected",
+      "observation": "Muted volume text and slider match the visible enabled rendering in both palettes. The mute icon still changes between cross and sound waves."
+    },
+    {
+      "id": "FC-2",
+      "result": "remains corrected",
+      "observation": "Selected party cards have visible checkmarks and unchecked interiors are empty. Space-toggle captures show the mark appearing and disappearing."
+    },
+    {
+      "id": "FC-3",
+      "result": "remains corrected",
+      "observation": "Only the selected shop tab has an underline in both palettes."
+    },
+    {
+      "id": "FC-4",
+      "result": "remains corrected",
+      "observation": "The selected calibration filter has a double border, distinct from the solid unselected borders."
+    }
+  ],
+  "focus": "The tested unselected party card, shop tab and calibration filter each have a separate outline when keyboard-focused. The selection mark remains distinct.",
+  "otherObservation": "Some font-edge pixels differ between local and production rendering. Text and control states remain legible in the inspected captures.",
+  "browserMetadata": [
+    {
+      "engine": "chromium",
+      "version": "149.0.7827.55",
+      "startedAt": "2026-10-10T11:39:18.131Z",
+      "completedAt": "2026-10-10T11:42:12.100Z",
+      "completed": true,
+      "buildId": null,
+      "pages": 49,
+      "fixtures": 112,
+      "paintingChecks": 117,
+      "paintingChecksPassed": 117,
+      "failures": [],
+      "rawSha256": "562451306e70cb4709250e5d215f5c9512f4884e379dcf692fd33c44878f9372"
+    },
+    {
+      "engine": "firefox",
+      "version": "151.0",
+      "startedAt": "2026-10-10T11:42:12.663Z",
+      "completedAt": "2026-10-10T11:42:59.908Z",
+      "completed": true,
+      "buildId": null,
+      "pages": 7,
+      "fixtures": 16,
+      "paintingChecks": 0,
+      "paintingChecksPassed": 0,
+      "failures": [],
+      "rawSha256": "75c6baf6d5cacdf30fbeffb996bf19adde7233e2ab59df9df0fab904695dcc14"
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "startedAt": "2026-10-10T11:43:00.456Z",
+      "completedAt": "2026-10-10T11:44:45.980Z",
+      "completed": true,
+      "buildId": null,
+      "pages": 7,
+      "fixtures": 16,
+      "paintingChecks": 0,
+      "paintingChecksPassed": 0,
+      "failures": [],
+      "rawSha256": "5462375fb65826b5634add379ef68ac34b27c0f287c513b23869d88388bdba2b"
+    }
+  ],
+  "chromiumForcedAxe": [
+    {
+      "mode": "forced",
+      "states": 23,
+      "violationRuleInstances": 22,
+      "violationNodeOccurrences": 240,
+      "incompleteNodeOccurrences": 1538
+    },
+    {
+      "mode": "forced-dark",
+      "states": 23,
+      "violationRuleInstances": 0,
+      "violationNodeOccurrences": 0,
+      "incompleteNodeOccurrences": 1534
+    }
+  ],
+  "limits": [
+    "This is a targeted Chromium screenshot review, not a whole-page accessibility or contrast certification.",
+    "The forced-light color-contrast violations remain excluded from the failure gate because axe reads authored colors rather than final forced-color painting. Incomplete checks are unresolved automated checks.",
+    "The final report records 117 passing targeted painting checks, including 78 forced-color checks. These do not resolve all raw axe entries.",
+    "Firefox and WebKit reports passed their mobile checks, but this review did not inspect their screenshots and those runs did not test forced-color painting.",
+    "This review does not establish physical Windows high-contrast behavior, other palettes, all screen sizes, or a screen-reader pass.",
+    "No new pixel ratio was measured by this reviewer. The existing pixel helper uses a crop reference color and maximum sampled contrast, not minimum contrast over all text.",
+    "The calibration review covers its top 950 pixels and selected/focused controls, not every table row."
+  ],
+  "sourceImages": [
+    {
+      "phase": "local",
+      "file": "chromium-forced-volume-muted-button.png",
+      "sha256": "2140cac55e26b3bb07320db2bf6fd9358a08e193316b76bde0cf2252065b9cbd",
+      "bytes": 1254,
+      "size": [
+        36,
+        37
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-volume-enabled-button.png",
+      "sha256": "6128a0007761e415ec8cf79f6dae6d15cb23c50476a72dda026507006573c5cb",
+      "bytes": 1306,
+      "size": [
+        36,
+        37
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-volume-muted-text.png",
+      "sha256": "3a3c86bdcf799c5099979918c26da39122949bd2f688bcb016193f34d2955818",
+      "bytes": 639,
+      "size": [
+        34,
+        11
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-volume-enabled-text.png",
+      "sha256": "3a3c86bdcf799c5099979918c26da39122949bd2f688bcb016193f34d2955818",
+      "bytes": 639,
+      "size": [
+        34,
+        11
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-volume-muted-slider.png",
+      "sha256": "b5990bfdfda8710c67139ec41bd64366432c2ded898e9896fab2a679f5bbd44c",
+      "bytes": 1334,
+      "size": [
+        72,
+        21
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-volume-enabled-slider.png",
+      "sha256": "b5990bfdfda8710c67139ec41bd64366432c2ded898e9896fab2a679f5bbd44c",
+      "bytes": 1334,
+      "size": [
+        72,
+        21
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-party-selected.png",
+      "sha256": "d0fa7291325565942b389e42e1a0bdb8165415f7bde04e52590df23358c2a9b1",
+      "bytes": 289,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-party-unselected.png",
+      "sha256": "6929feca4be8f2414418ca69449b981db0830b5ee32861d95c6fd5acca4febb9",
+      "bytes": 106,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-party-keyboard-selected.png",
+      "sha256": "d0fa7291325565942b389e42e1a0bdb8165415f7bde04e52590df23358c2a9b1",
+      "bytes": 289,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-party-keyboard-unselected.png",
+      "sha256": "6929feca4be8f2414418ca69449b981db0830b5ee32861d95c6fd5acca4febb9",
+      "bytes": 106,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-shop-selected.png",
+      "sha256": "264dc917056c23df4057ba331d62dfb3f0c00b6053e74dcb32eccdaa516ac2f0",
+      "bytes": 735,
+      "size": [
+        88,
+        36
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-shop-unselected.png",
+      "sha256": "f5f0036bf4dbacf1f45b06b3a846056f88d41b435930e4b22ddfcf6babbb4f03",
+      "bytes": 735,
+      "size": [
+        88,
+        36
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-calibration-selected.png",
+      "sha256": "391cd9921743a8f37e9b4454fd3559fe5956280e768c7b8b40d8e0d328019feb",
+      "bytes": 998,
+      "size": [
+        95,
+        39
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-calibration-unselected.png",
+      "sha256": "e4cacc0cb9327881f77b13210bad27efd1b276ac27aca5f7840f6615342c94ad",
+      "bytes": 981,
+      "size": [
+        95,
+        39
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-party-unselected-unfocused.png",
+      "sha256": "d2b0decd8c6bba7eb486670e01a80b13beb1e06ef74f6663ad5b577d6a9cf156",
+      "bytes": 21904,
+      "size": [
+        376,
+        200
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-party-unselected-keyboard-focus.png",
+      "sha256": "f9472bfe94b8577426e2b61de94eeb7d046272f2fb541433fe9b40f7c65b63c5",
+      "bytes": 20385,
+      "size": [
+        376,
+        200
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-shop-unselected-unfocused.png",
+      "sha256": "544bf3d9237e5efff3a19429e347dfd7271a10022916306070aca0a302a13881",
+      "bytes": 790,
+      "size": [
+        100,
+        48
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-shop-unselected-keyboard-focus.png",
+      "sha256": "e2ff0aabf65e849ef25b2ab2ce4021d1f6bd69b86c43eb9450b5454b3bb8f305",
+      "bytes": 827,
+      "size": [
+        100,
+        48
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-calibration-unselected-unfocused.png",
+      "sha256": "3be1ab6f4593118bc4e1b0b41686a86754f07a08869155fe319df2cea30c490a",
+      "bytes": 1033,
+      "size": [
+        107,
+        51
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-calibration-unselected-keyboard-focus.png",
+      "sha256": "a86cc1af577d24391c7fbe28428a1ba07be681961f726800e7105183402dbc41",
+      "bytes": 1072,
+      "size": [
+        107,
+        51
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-dark-volume-muted-button.png",
+      "sha256": "80b7cce2fe21c28f33ac0cd067ca51627dbf77886a6de0cea441e792b309f7b7",
+      "bytes": 1287,
+      "size": [
+        36,
+        37
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-dark-volume-enabled-button.png",
+      "sha256": "e17121bf8486ebbc68d1482641bce0729caada5987edf7efe88acd42531f1554",
+      "bytes": 1308,
+      "size": [
+        36,
+        37
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-dark-volume-muted-text.png",
+      "sha256": "ffafdc89fafb1648226f969cf48ee50ce4a5fbabd00bb92154cfc9bb5efed468",
+      "bytes": 643,
+      "size": [
+        34,
+        11
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-dark-volume-enabled-text.png",
+      "sha256": "ffafdc89fafb1648226f969cf48ee50ce4a5fbabd00bb92154cfc9bb5efed468",
+      "bytes": 643,
+      "size": [
+        34,
+        11
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-dark-volume-muted-slider.png",
+      "sha256": "240169923a7e6c62f707c998a3b79b8b13f833a5f0bef0cc51af3461d658c820",
+      "bytes": 1282,
+      "size": [
+        72,
+        21
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-dark-volume-enabled-slider.png",
+      "sha256": "240169923a7e6c62f707c998a3b79b8b13f833a5f0bef0cc51af3461d658c820",
+      "bytes": 1282,
+      "size": [
+        72,
+        21
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-dark-party-selected.png",
+      "sha256": "fdebba3735876d4f2c00ead610193f58fe211833d14914b498fd7a313e341063",
+      "bytes": 289,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-dark-party-unselected.png",
+      "sha256": "95bbd7c724349b94ae8c85d7703e302d1497c0c7bffcfe85ab3425f81a19c24f",
+      "bytes": 104,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-dark-party-keyboard-selected.png",
+      "sha256": "fdebba3735876d4f2c00ead610193f58fe211833d14914b498fd7a313e341063",
+      "bytes": 289,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-dark-party-keyboard-unselected.png",
+      "sha256": "95bbd7c724349b94ae8c85d7703e302d1497c0c7bffcfe85ab3425f81a19c24f",
+      "bytes": 104,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-dark-shop-selected.png",
+      "sha256": "143d3f70b9e607058c5b7aa18d793e53480e07705619d4563f528feec2aa606f",
+      "bytes": 743,
+      "size": [
+        88,
+        36
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-dark-shop-unselected.png",
+      "sha256": "e0a896bbc539a826c2d7d1939641760a78575f428ec8de5f105abdf4cd75f8bc",
+      "bytes": 739,
+      "size": [
+        88,
+        36
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-dark-calibration-selected.png",
+      "sha256": "63c06e28a7da215881c7379fe1bea7a09fd269bfe07eaff144af6375e1f75c64",
+      "bytes": 995,
+      "size": [
+        95,
+        39
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-dark-calibration-unselected.png",
+      "sha256": "9547d9bb0d421133d657fce1cea43cc0df77472071b46399c1b443aa623bf433",
+      "bytes": 979,
+      "size": [
+        95,
+        39
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-dark-party-unselected-unfocused.png",
+      "sha256": "48f0606caf94045845c717733f3178bc4cad581669ce27bc6a8a490fa39ab472",
+      "bytes": 28075,
+      "size": [
+        376,
+        200
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-dark-party-unselected-keyboard-focus.png",
+      "sha256": "f56e1c6251eea0ee6e186d3bd509e60cb4e773b51084a17b750191bbd1d16099",
+      "bytes": 27391,
+      "size": [
+        376,
+        200
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-dark-shop-unselected-unfocused.png",
+      "sha256": "21671cdeb2dace4c621e5f657bfe35c0ddbc509ceab1cf42ba17bbb09d2ac775",
+      "bytes": 792,
+      "size": [
+        100,
+        48
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-dark-shop-unselected-keyboard-focus.png",
+      "sha256": "a1eecfb94bf90219e6c397c9b6927c676bed88bcac9c47b5382bffe550461aa8",
+      "bytes": 828,
+      "size": [
+        100,
+        48
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-dark-calibration-unselected-unfocused.png",
+      "sha256": "6361ab5f83aa9f589507e6b02c9edb90e2d91f9573dc1b03c7eeae639c595b47",
+      "bytes": 1030,
+      "size": [
+        107,
+        51
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "local",
+      "file": "chromium-forced-dark-calibration-unselected-keyboard-focus.png",
+      "sha256": "b3d24eabc3cf278db274299696b34d54c0424a4e391b706b7a9bcdf053bf949e",
+      "bytes": 1070,
+      "size": [
+        107,
+        51
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-volume-muted-button.png",
+      "sha256": "2140cac55e26b3bb07320db2bf6fd9358a08e193316b76bde0cf2252065b9cbd",
+      "bytes": 1254,
+      "size": [
+        36,
+        37
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-volume-enabled-button.png",
+      "sha256": "6128a0007761e415ec8cf79f6dae6d15cb23c50476a72dda026507006573c5cb",
+      "bytes": 1306,
+      "size": [
+        36,
+        37
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-volume-muted-text.png",
+      "sha256": "cc5d3ce1b6b5d3fa22f4b9b7011f07ed49f95ef4f2f51a039c7d287329e62f88",
+      "bytes": 614,
+      "size": [
+        34,
+        11
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-volume-enabled-text.png",
+      "sha256": "cc5d3ce1b6b5d3fa22f4b9b7011f07ed49f95ef4f2f51a039c7d287329e62f88",
+      "bytes": 614,
+      "size": [
+        34,
+        11
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-volume-muted-slider.png",
+      "sha256": "b5990bfdfda8710c67139ec41bd64366432c2ded898e9896fab2a679f5bbd44c",
+      "bytes": 1334,
+      "size": [
+        72,
+        21
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-volume-enabled-slider.png",
+      "sha256": "b5990bfdfda8710c67139ec41bd64366432c2ded898e9896fab2a679f5bbd44c",
+      "bytes": 1334,
+      "size": [
+        72,
+        21
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-party-selected.png",
+      "sha256": "66b336eeae4eda6672c5735d4af10e7b3e246d6a38c14191d57f41040ffad1e6",
+      "bytes": 264,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-party-unselected.png",
+      "sha256": "6929feca4be8f2414418ca69449b981db0830b5ee32861d95c6fd5acca4febb9",
+      "bytes": 106,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-party-keyboard-selected.png",
+      "sha256": "66b336eeae4eda6672c5735d4af10e7b3e246d6a38c14191d57f41040ffad1e6",
+      "bytes": 264,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-party-keyboard-unselected.png",
+      "sha256": "6929feca4be8f2414418ca69449b981db0830b5ee32861d95c6fd5acca4febb9",
+      "bytes": 106,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-shop-selected.png",
+      "sha256": "d8926bb50b707ced8497bc0f7e40d0667868beacfdad57f84d44614426d56bd3",
+      "bytes": 692,
+      "size": [
+        88,
+        36
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-shop-unselected.png",
+      "sha256": "6a77ed17947aa059eeb3f59dd0145b7fcd68bba556c74b0588c6f64824cee365",
+      "bytes": 691,
+      "size": [
+        88,
+        36
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-calibration-selected.png",
+      "sha256": "cda582a9fa8befc80d30cf70deb79bdc6589b67ce6cf23cacaec9b5cb10f3eff",
+      "bytes": 906,
+      "size": [
+        97,
+        39
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-calibration-unselected.png",
+      "sha256": "2a56263fa7762c06be8f5a18f1ca416fc604f65c0a0833e8b510ff5b2a4a869a",
+      "bytes": 880,
+      "size": [
+        97,
+        39
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-party-unselected-unfocused.png",
+      "sha256": "696fd669da8885917a06f861c26744467cd78e86a88cab4d12c4de12f59dce24",
+      "bytes": 20989,
+      "size": [
+        376,
+        200
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-party-unselected-keyboard-focus.png",
+      "sha256": "559ce1c237c343bb38d344d8fbee300772159404cd1bb04fd0c442c9b5f43cac",
+      "bytes": 19342,
+      "size": [
+        376,
+        200
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-shop-unselected-unfocused.png",
+      "sha256": "9a7ade9457be7e5d40ea9b537a9eb8f8f16f0156b1c41c95bfe08c2b022ab8fd",
+      "bytes": 752,
+      "size": [
+        100,
+        48
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-shop-unselected-keyboard-focus.png",
+      "sha256": "40ca44748a8453a29d958307735ad482813a282d4efe1fcdbd706accbed18f86",
+      "bytes": 789,
+      "size": [
+        100,
+        48
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-calibration-unselected-unfocused.png",
+      "sha256": "12199bebc7c80f62cecf5123d1267f0b5eef46191853be8ac2f0ea4c61160231",
+      "bytes": 951,
+      "size": [
+        109,
+        51
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-calibration-unselected-keyboard-focus.png",
+      "sha256": "7f2ccdec2bc37ff1b7142818f9555ffb2f53d69d0f207a3b42aaf5ede88a68ab",
+      "bytes": 990,
+      "size": [
+        109,
+        51
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-home.png",
+      "sha256": "f712198525885a6ec8bccc63c9bd09b9c0dc33d0684f580cfe43a4cd225656fb",
+      "bytes": 651611,
+      "size": [
+        1280,
+        932
+      ],
+      "inspection": "Direct full-page view"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-party-unchecked.png",
+      "sha256": "ce7f57d675cb02bb4c2e62fb7c3ce5357cfd1d5b889ff700fe8fc485ef8b15ec",
+      "bytes": 465701,
+      "size": [
+        1280,
+        1160
+      ],
+      "inspection": "Direct full-page view"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-shop-build.png",
+      "sha256": "b7fc9f54c363814e43148f78cb40a4a7e03677c89f05754ff56ca7de805d9895",
+      "bytes": 593316,
+      "size": [
+        1280,
+        934
+      ],
+      "inspection": "Direct full-page view"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-calibration.png",
+      "sha256": "e11e791fb5746924b4dbbf9ea0ba610f06e5aaf120ac2765733069440fa3dc9d",
+      "bytes": 949591,
+      "size": [
+        1280,
+        9330
+      ],
+      "inspection": "Top 950-pixel crop only"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-volume-muted-button.png",
+      "sha256": "80b7cce2fe21c28f33ac0cd067ca51627dbf77886a6de0cea441e792b309f7b7",
+      "bytes": 1287,
+      "size": [
+        36,
+        37
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-volume-enabled-button.png",
+      "sha256": "e17121bf8486ebbc68d1482641bce0729caada5987edf7efe88acd42531f1554",
+      "bytes": 1308,
+      "size": [
+        36,
+        37
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-volume-muted-text.png",
+      "sha256": "64895136af771a448f41ba64d5b889fd8f82cdbac1c22e71a1d2938f6a471be4",
+      "bytes": 610,
+      "size": [
+        34,
+        11
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-volume-enabled-text.png",
+      "sha256": "64895136af771a448f41ba64d5b889fd8f82cdbac1c22e71a1d2938f6a471be4",
+      "bytes": 610,
+      "size": [
+        34,
+        11
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-volume-muted-slider.png",
+      "sha256": "240169923a7e6c62f707c998a3b79b8b13f833a5f0bef0cc51af3461d658c820",
+      "bytes": 1282,
+      "size": [
+        72,
+        21
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-volume-enabled-slider.png",
+      "sha256": "240169923a7e6c62f707c998a3b79b8b13f833a5f0bef0cc51af3461d658c820",
+      "bytes": 1282,
+      "size": [
+        72,
+        21
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-party-selected.png",
+      "sha256": "6c2272345c40d4ba7d3d95ec9c7866ddafa490d3887c56ff3518ebb34a19548e",
+      "bytes": 294,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-party-unselected.png",
+      "sha256": "95bbd7c724349b94ae8c85d7703e302d1497c0c7bffcfe85ab3425f81a19c24f",
+      "bytes": 104,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-party-keyboard-selected.png",
+      "sha256": "6c2272345c40d4ba7d3d95ec9c7866ddafa490d3887c56ff3518ebb34a19548e",
+      "bytes": 294,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-party-keyboard-unselected.png",
+      "sha256": "95bbd7c724349b94ae8c85d7703e302d1497c0c7bffcfe85ab3425f81a19c24f",
+      "bytes": 104,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-shop-selected.png",
+      "sha256": "76cd43d50e6fe4eabf3e68bb49591e9c99ac1261002abf2e070e3cf2c81fc3df",
+      "bytes": 742,
+      "size": [
+        88,
+        36
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-shop-unselected.png",
+      "sha256": "f1b7ba7f9343b38dd8f274b1cae9ef3565e2b5b16b4cc74da1cbd5bb033f2380",
+      "bytes": 737,
+      "size": [
+        88,
+        36
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-calibration-selected.png",
+      "sha256": "806962050867b63ea232cd076ea588d853b818146a1904b6080278df460b64b3",
+      "bytes": 1014,
+      "size": [
+        97,
+        39
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-calibration-unselected.png",
+      "sha256": "69429b9f33573a863428e7a2df4dc593453c6ac4938f3bcc0e8d487b5b9c4533",
+      "bytes": 996,
+      "size": [
+        97,
+        39
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-party-unselected-unfocused.png",
+      "sha256": "6e75e2096eb2602b5bb363fc6612af598b61c94e89f8d51bab7a43081f7353d8",
+      "bytes": 27060,
+      "size": [
+        376,
+        200
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-party-unselected-keyboard-focus.png",
+      "sha256": "044fbe7ecad899e39ddcd10c8b74dbcfdb3460a41250b6cbb0032b76a94cf2ad",
+      "bytes": 26343,
+      "size": [
+        376,
+        200
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-shop-unselected-unfocused.png",
+      "sha256": "6859f9d3733c8a0f0ecb765a40e41b1ea31f97ad37b6b723ee7d2359c19b6a86",
+      "bytes": 795,
+      "size": [
+        100,
+        48
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-shop-unselected-keyboard-focus.png",
+      "sha256": "b3d032fa0f2a1ae378ec6399d73325bc7cbd9fe43dd5472601063331d078cd1e",
+      "bytes": 838,
+      "size": [
+        100,
+        48
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-calibration-unselected-unfocused.png",
+      "sha256": "b8a6dc697a0d25733153ec615f210a0f532529661b127b3eb336a41834c35372",
+      "bytes": 1057,
+      "size": [
+        109,
+        51
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-calibration-unselected-keyboard-focus.png",
+      "sha256": "ea2a2bbe58f3e638a7dc91871790c98279932c1b25078a57a5168ced13afad28",
+      "bytes": 1096,
+      "size": [
+        109,
+        51
+      ],
+      "inspection": "Local/final comparison sheet"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-home.png",
+      "sha256": "d729181ae57c0a6be084c53f404230eeb678057540cbf6707bbaccb7d92582bb",
+      "bytes": 652976,
+      "size": [
+        1280,
+        932
+      ],
+      "inspection": "Direct full-page view"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-party-unchecked.png",
+      "sha256": "e1242ab72048367c28f6335788fc7052a85a8335b4ed9ec0486d281588a8607e",
+      "bytes": 512449,
+      "size": [
+        1280,
+        1160
+      ],
+      "inspection": "Direct full-page view"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-shop-build.png",
+      "sha256": "34bb541533b3cfb71492d79c6029bfcc55daa12a9a0041c044620381a2f0aaa7",
+      "bytes": 594505,
+      "size": [
+        1280,
+        934
+      ],
+      "inspection": "Direct full-page view"
+    },
+    {
+      "phase": "production",
+      "file": "chromium-forced-dark-calibration.png",
+      "sha256": "a2def7f0868c0f98d017fe955063c16d17bf657db0a8ff851fd36b2d42860792",
+      "bytes": 1017524,
+      "size": [
+        1280,
+        9330
+      ],
+      "inspection": "Top 950-pixel crop only"
+    }
+  ],
+  "derivation": "Comparison sheets put the corrected local crop left and final production crop right. Crops narrower than 200 pixels use 3x nearest-neighbor scaling; larger crops keep native size. The calibration images are unscaled [0,0,1280,950] crops. Source files were not changed."
+}

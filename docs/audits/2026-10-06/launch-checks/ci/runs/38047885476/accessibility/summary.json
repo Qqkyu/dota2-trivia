@@ -1,0 +1,1534 @@
+{
+  "run": 38047885476,
+  "sourceCommit": "64046c2d198fcbfe556599e727ae0638423a3482",
+  "reports": [
+    {
+      "engine": "chromium",
+      "version": "149.0.7827.55",
+      "appUrl": "http://127.0.0.1:3000",
+      "startedAt": "2026-10-10T11:39:18.131Z",
+      "completedAt": "2026-10-10T11:42:12.100Z",
+      "completed": true,
+      "buildId": null,
+      "reviewerFixture": false,
+      "requestedModes": [
+        "desktop",
+        "mobile",
+        "zoom200",
+        "zoom400",
+        "reduced",
+        "forced",
+        "forced-dark"
+      ],
+      "fixtureModes": [
+        "desktop",
+        "mobile",
+        "zoom200",
+        "zoom400",
+        "reduced",
+        "forced",
+        "forced-dark"
+      ],
+      "failures": [],
+      "pageStates": 49,
+      "fixtures": 112,
+      "generalKeyboardScenarios": 6,
+      "browserErrors": [],
+      "paintingAssertions": 117,
+      "paintingFailures": [],
+      "paintingGroups": [
+        {
+          "kind": "volume",
+          "mode": "desktop",
+          "assertions": 11
+        },
+        {
+          "kind": "party",
+          "mode": "desktop",
+          "assertions": 14
+        },
+        {
+          "kind": "calibration",
+          "mode": "desktop",
+          "assertions": 7
+        },
+        {
+          "kind": "shop",
+          "mode": "desktop",
+          "assertions": 7
+        },
+        {
+          "kind": "volume",
+          "mode": "forced",
+          "assertions": 11
+        },
+        {
+          "kind": "party",
+          "mode": "forced",
+          "assertions": 14
+        },
+        {
+          "kind": "calibration",
+          "mode": "forced",
+          "assertions": 7
+        },
+        {
+          "kind": "shop",
+          "mode": "forced",
+          "assertions": 7
+        },
+        {
+          "kind": "volume",
+          "mode": "forced-dark",
+          "assertions": 11
+        },
+        {
+          "kind": "party",
+          "mode": "forced-dark",
+          "assertions": 14
+        },
+        {
+          "kind": "calibration",
+          "mode": "forced-dark",
+          "assertions": 7
+        },
+        {
+          "kind": "shop",
+          "mode": "forced-dark",
+          "assertions": 7
+        }
+      ],
+      "rawAxeViolations": {
+        "ruleRecords": 22,
+        "nodeOccurrences": 240,
+        "excludedRuleRecords": 22,
+        "excludedNodeOccurrences": 240,
+        "records": [
+          {
+            "state": "forced-home",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 8,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-party",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 9,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-party-unchecked",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 8,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-profile",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 10,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-privacy",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 31,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-ops",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 7,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-classic-ability",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 10,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-classic-hero",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 10,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-classic-item",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 10,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-shop-recipe",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 11,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-shop-build",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 10,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-shop-path",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 10,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-spell-link",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 13,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-fogged-vision",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 10,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-echo-hunt",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 10,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-quote-hunt",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 10,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-aghanim",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 13,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-soundcheck",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 10,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-order-up",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 10,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-flashback-year",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 10,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-flashback-choice",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 10,
+            "excludedByForcedColorRule": true
+          },
+          {
+            "state": "forced-flashback-order",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 10,
+            "excludedByForcedColorRule": true
+          }
+        ]
+      },
+      "rawAxeIncomplete": {
+        "ruleRecords": 152,
+        "nodeOccurrences": 9334,
+        "records": [
+          {
+            "state": "desktop-home",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 36
+          },
+          {
+            "state": "desktop-party",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 2
+          },
+          {
+            "state": "desktop-party-unchecked",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 94
+          },
+          {
+            "state": "desktop-profile",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 1
+          },
+          {
+            "state": "desktop-calibration",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 926
+          },
+          {
+            "state": "desktop-ops",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 4
+          },
+          {
+            "state": "mobile-home",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 24
+          },
+          {
+            "state": "mobile-party",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 2
+          },
+          {
+            "state": "mobile-party-unchecked",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 8
+          },
+          {
+            "state": "mobile-profile",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 1
+          },
+          {
+            "state": "mobile-calibration",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 678
+          },
+          {
+            "state": "mobile-ops",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 4
+          },
+          {
+            "state": "zoom200-home",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 23
+          },
+          {
+            "state": "zoom200-party",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 2
+          },
+          {
+            "state": "zoom200-party-unchecked",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 63
+          },
+          {
+            "state": "zoom200-profile",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 1
+          },
+          {
+            "state": "zoom200-calibration",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 678
+          },
+          {
+            "state": "zoom200-ops",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 4
+          },
+          {
+            "state": "zoom400-home",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 22
+          },
+          {
+            "state": "zoom400-party",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 3
+          },
+          {
+            "state": "zoom400-party-unchecked",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 3
+          },
+          {
+            "state": "zoom400-profile",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 1
+          },
+          {
+            "state": "zoom400-calibration",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 678
+          },
+          {
+            "state": "zoom400-ops",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 4
+          },
+          {
+            "state": "reduced-home",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 36
+          },
+          {
+            "state": "reduced-party",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 2
+          },
+          {
+            "state": "reduced-party-unchecked",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 94
+          },
+          {
+            "state": "reduced-profile",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 1
+          },
+          {
+            "state": "reduced-calibration",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 926
+          },
+          {
+            "state": "reduced-ops",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 4
+          },
+          {
+            "state": "forced-home",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 36
+          },
+          {
+            "state": "forced-party-unchecked",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 94
+          },
+          {
+            "state": "forced-profile",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 1
+          },
+          {
+            "state": "forced-calibration",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 921
+          },
+          {
+            "state": "forced-ops",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 4
+          },
+          {
+            "state": "forced-dark-home",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 36
+          },
+          {
+            "state": "forced-dark-party-unchecked",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 93
+          },
+          {
+            "state": "forced-dark-profile",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 1
+          },
+          {
+            "state": "forced-dark-calibration",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 921
+          },
+          {
+            "state": "forced-dark-ops",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 4
+          },
+          {
+            "state": "desktop-classic-ability",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "desktop-classic-hero",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "desktop-classic-item",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "desktop-shop-recipe",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 32
+          },
+          {
+            "state": "desktop-shop-build",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 32
+          },
+          {
+            "state": "desktop-shop-path",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "desktop-spell-link",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 33
+          },
+          {
+            "state": "desktop-fogged-vision",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "desktop-echo-hunt",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 29
+          },
+          {
+            "state": "desktop-quote-hunt",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 32
+          },
+          {
+            "state": "desktop-aghanim",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 33
+          },
+          {
+            "state": "desktop-soundcheck",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 31
+          },
+          {
+            "state": "desktop-order-up",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "desktop-flashback-year",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 25
+          },
+          {
+            "state": "desktop-flashback-choice",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 29
+          },
+          {
+            "state": "desktop-flashback-order",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 29
+          },
+          {
+            "state": "mobile-classic-ability",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-classic-hero",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-classic-item",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-shop-recipe",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-shop-build",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 22
+          },
+          {
+            "state": "mobile-shop-path",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-spell-link",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 24
+          },
+          {
+            "state": "mobile-fogged-vision",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-echo-hunt",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 19
+          },
+          {
+            "state": "mobile-quote-hunt",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 22
+          },
+          {
+            "state": "mobile-aghanim",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 26
+          },
+          {
+            "state": "mobile-soundcheck",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 21
+          },
+          {
+            "state": "mobile-order-up",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-flashback-year",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 15
+          },
+          {
+            "state": "mobile-flashback-choice",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 19
+          },
+          {
+            "state": "mobile-flashback-order",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 19
+          },
+          {
+            "state": "zoom200-classic-ability",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "zoom200-classic-hero",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "zoom200-classic-item",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "zoom200-shop-recipe",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 16
+          },
+          {
+            "state": "zoom200-shop-build",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 18
+          },
+          {
+            "state": "zoom200-shop-path",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 16
+          },
+          {
+            "state": "zoom200-spell-link",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 24
+          },
+          {
+            "state": "zoom200-fogged-vision",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "zoom200-echo-hunt",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 19
+          },
+          {
+            "state": "zoom200-quote-hunt",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 22
+          },
+          {
+            "state": "zoom200-aghanim",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 24
+          },
+          {
+            "state": "zoom200-soundcheck",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 21
+          },
+          {
+            "state": "zoom200-order-up",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "zoom200-flashback-year",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 15
+          },
+          {
+            "state": "zoom200-flashback-choice",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 19
+          },
+          {
+            "state": "zoom200-flashback-order",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 19
+          },
+          {
+            "state": "zoom400-classic-ability",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "zoom400-classic-hero",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "zoom400-classic-item",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "zoom400-shop-recipe",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "zoom400-shop-build",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 22
+          },
+          {
+            "state": "zoom400-shop-path",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "zoom400-spell-link",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 24
+          },
+          {
+            "state": "zoom400-fogged-vision",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "zoom400-echo-hunt",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 19
+          },
+          {
+            "state": "zoom400-quote-hunt",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 22
+          },
+          {
+            "state": "zoom400-aghanim",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 26
+          },
+          {
+            "state": "zoom400-soundcheck",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 21
+          },
+          {
+            "state": "zoom400-order-up",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "zoom400-flashback-year",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 15
+          },
+          {
+            "state": "zoom400-flashback-choice",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 19
+          },
+          {
+            "state": "zoom400-flashback-order",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 19
+          },
+          {
+            "state": "reduced-classic-ability",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "reduced-classic-hero",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "reduced-classic-item",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "reduced-shop-recipe",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 32
+          },
+          {
+            "state": "reduced-shop-build",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 32
+          },
+          {
+            "state": "reduced-shop-path",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "reduced-spell-link",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 33
+          },
+          {
+            "state": "reduced-fogged-vision",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "reduced-echo-hunt",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 29
+          },
+          {
+            "state": "reduced-quote-hunt",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 32
+          },
+          {
+            "state": "reduced-aghanim",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 33
+          },
+          {
+            "state": "reduced-soundcheck",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 31
+          },
+          {
+            "state": "reduced-order-up",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "reduced-flashback-year",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 25
+          },
+          {
+            "state": "reduced-flashback-choice",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 29
+          },
+          {
+            "state": "reduced-flashback-order",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 29
+          },
+          {
+            "state": "forced-classic-ability",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "forced-classic-hero",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "forced-classic-item",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "forced-shop-recipe",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 31
+          },
+          {
+            "state": "forced-shop-build",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 31
+          },
+          {
+            "state": "forced-shop-path",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 29
+          },
+          {
+            "state": "forced-spell-link",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 33
+          },
+          {
+            "state": "forced-fogged-vision",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "forced-echo-hunt",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 29
+          },
+          {
+            "state": "forced-quote-hunt",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 32
+          },
+          {
+            "state": "forced-aghanim",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 33
+          },
+          {
+            "state": "forced-soundcheck",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 31
+          },
+          {
+            "state": "forced-order-up",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "forced-flashback-year",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 25
+          },
+          {
+            "state": "forced-flashback-choice",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 29
+          },
+          {
+            "state": "forced-flashback-order",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 29
+          },
+          {
+            "state": "forced-dark-classic-ability",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "forced-dark-classic-hero",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "forced-dark-classic-item",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "forced-dark-shop-recipe",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "forced-dark-shop-build",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "forced-dark-shop-path",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 28
+          },
+          {
+            "state": "forced-dark-spell-link",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 33
+          },
+          {
+            "state": "forced-dark-fogged-vision",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "forced-dark-echo-hunt",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 29
+          },
+          {
+            "state": "forced-dark-quote-hunt",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 32
+          },
+          {
+            "state": "forced-dark-aghanim",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 33
+          },
+          {
+            "state": "forced-dark-soundcheck",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 31
+          },
+          {
+            "state": "forced-dark-order-up",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 30
+          },
+          {
+            "state": "forced-dark-flashback-year",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 25
+          },
+          {
+            "state": "forced-dark-flashback-choice",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 29
+          },
+          {
+            "state": "forced-dark-flashback-order",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 29
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "version": "151.0",
+      "appUrl": "http://127.0.0.1:3000",
+      "startedAt": "2026-10-10T11:42:12.663Z",
+      "completedAt": "2026-10-10T11:42:59.908Z",
+      "completed": true,
+      "buildId": null,
+      "reviewerFixture": false,
+      "requestedModes": [
+        "mobile"
+      ],
+      "fixtureModes": [
+        "mobile"
+      ],
+      "failures": [],
+      "pageStates": 7,
+      "fixtures": 16,
+      "generalKeyboardScenarios": 6,
+      "browserErrors": [],
+      "paintingAssertions": 0,
+      "paintingFailures": [],
+      "paintingGroups": [],
+      "rawAxeViolations": {
+        "ruleRecords": 0,
+        "nodeOccurrences": 0,
+        "excludedRuleRecords": 0,
+        "excludedNodeOccurrences": 0,
+        "records": []
+      },
+      "rawAxeIncomplete": {
+        "ruleRecords": 22,
+        "nodeOccurrences": 1044,
+        "records": [
+          {
+            "state": "mobile-home",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 24
+          },
+          {
+            "state": "mobile-party",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 2
+          },
+          {
+            "state": "mobile-party-unchecked",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 8
+          },
+          {
+            "state": "mobile-profile",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 1
+          },
+          {
+            "state": "mobile-calibration",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 678
+          },
+          {
+            "state": "mobile-ops",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 4
+          },
+          {
+            "state": "mobile-classic-ability",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-classic-hero",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-classic-item",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-shop-recipe",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-shop-build",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 22
+          },
+          {
+            "state": "mobile-shop-path",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-spell-link",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 24
+          },
+          {
+            "state": "mobile-fogged-vision",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-echo-hunt",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 19
+          },
+          {
+            "state": "mobile-quote-hunt",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 22
+          },
+          {
+            "state": "mobile-aghanim",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 26
+          },
+          {
+            "state": "mobile-soundcheck",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 21
+          },
+          {
+            "state": "mobile-order-up",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-flashback-year",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 15
+          },
+          {
+            "state": "mobile-flashback-choice",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 19
+          },
+          {
+            "state": "mobile-flashback-order",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 19
+          }
+        ]
+      }
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "appUrl": "http://127.0.0.1:3000",
+      "startedAt": "2026-10-10T11:43:00.456Z",
+      "completedAt": "2026-10-10T11:44:45.980Z",
+      "completed": true,
+      "buildId": null,
+      "reviewerFixture": false,
+      "requestedModes": [
+        "mobile"
+      ],
+      "fixtureModes": [
+        "mobile"
+      ],
+      "failures": [],
+      "pageStates": 7,
+      "fixtures": 16,
+      "generalKeyboardScenarios": 6,
+      "browserErrors": [],
+      "paintingAssertions": 0,
+      "paintingFailures": [],
+      "paintingGroups": [],
+      "rawAxeViolations": {
+        "ruleRecords": 0,
+        "nodeOccurrences": 0,
+        "excludedRuleRecords": 0,
+        "excludedNodeOccurrences": 0,
+        "records": []
+      },
+      "rawAxeIncomplete": {
+        "ruleRecords": 22,
+        "nodeOccurrences": 1044,
+        "records": [
+          {
+            "state": "mobile-home",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 24
+          },
+          {
+            "state": "mobile-party",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 2
+          },
+          {
+            "state": "mobile-party-unchecked",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 8
+          },
+          {
+            "state": "mobile-profile",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 1
+          },
+          {
+            "state": "mobile-calibration",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 678
+          },
+          {
+            "state": "mobile-ops",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 4
+          },
+          {
+            "state": "mobile-classic-ability",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-classic-hero",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-classic-item",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-shop-recipe",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-shop-build",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 22
+          },
+          {
+            "state": "mobile-shop-path",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-spell-link",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 24
+          },
+          {
+            "state": "mobile-fogged-vision",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-echo-hunt",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 19
+          },
+          {
+            "state": "mobile-quote-hunt",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 22
+          },
+          {
+            "state": "mobile-aghanim",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 26
+          },
+          {
+            "state": "mobile-soundcheck",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 21
+          },
+          {
+            "state": "mobile-order-up",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 20
+          },
+          {
+            "state": "mobile-flashback-year",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 15
+          },
+          {
+            "state": "mobile-flashback-choice",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 19
+          },
+          {
+            "state": "mobile-flashback-order",
+            "rule": "color-contrast",
+            "impact": "serious",
+            "nodeOccurrences": 19
+          }
+        ]
+      }
+    }
+  ],
+  "totals": {
+    "pageStates": 63,
+    "fixtures": 144,
+    "generalKeyboardScenarios": 18,
+    "paintingAssertions": 117
+  },
+  "limitations": [
+    "The raw reports have buildId null. The copy provenance ties them to the exact workflow and runner; separate container-result.json records the tested image ID and runtime build ID.",
+    "Reviewer-authenticated UI fixture coverage is false in these reports.",
+    "The suite excludes raw forced-color axe color-contrast violations. All raw violations and incomplete findings remain in the reports.",
+    "Counts are repeated assertions, states and node occurrences, not unique controls or unique affected users.",
+    "This browser automation does not certify physical devices, screen readers, every color palette, or full WCAG compliance."
+  ]
+}

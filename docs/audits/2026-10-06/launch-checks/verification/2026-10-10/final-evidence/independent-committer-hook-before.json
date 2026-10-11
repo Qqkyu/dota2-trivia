@@ -1,0 +1,16 @@
+{
+  "scope": "Isolated temporary Git fixture. No real repository Git writes.",
+  "finding": "The helper returned success while a repository reference-transaction hook wrote a marker outside the evidence subtree.",
+  "reproduced": true,
+  "helperSha256": "b1ece2282a5f0396e387362d864e71a3221ce731dc29938aa1dd031d99ae9544",
+  "testSha256": "0b56987531e563cda0e9c4bcd55cb772e5bc9d96fa0438e974ac83af1b648c80",
+  "fixtureArgument": "--expect-hook-invoked",
+  "otherChecksPassed": [
+    "dirty real index, main HEAD and candidate ref preserved",
+    "one exact release parent",
+    "unrelated working edit excluded",
+    "ignored evidence included without filter or newline transformations",
+    "existing executable mode preserved",
+    "receipt stays outside frozen archive"
+  ]
+}

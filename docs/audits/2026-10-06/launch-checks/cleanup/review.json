@@ -1,0 +1,17 @@
+{
+  "script_sha256": "b08f8bbe81d15102f125acf0c77177b669ff8b9106563c83a904c53506f26a94",
+  "main_tests_passed": 33,
+  "independent_tests_passed": 38,
+  "reviewed_findings_fixed": [
+    "Reject private hard links before changing modes.",
+    "Reject symlink ancestors and unexpected external tool links.",
+    "Stop on unreadable tree entries.",
+    "Detect active helper path arguments as well as open files and mapped files.",
+    "Bind the running cleanup script and plan to their archived copies.",
+    "Repair wrapper files by atomic replacement.",
+    "Check private file and directory modes again before deleting sources.",
+    "Limit removal to the fixed eleven task roots.",
+    "Keep the original repository environment file unchanged."
+  ],
+  "scope": "Only metadata dry runs and small synthetic fixtures ran. No cache moves, task deletions, Docker changes, hosted changes, or real secret reads occurred."
+}

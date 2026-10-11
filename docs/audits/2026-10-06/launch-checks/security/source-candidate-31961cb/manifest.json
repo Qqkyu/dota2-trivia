@@ -1,0 +1,53 @@
+{
+  "archivedAt": "2026-10-10T11:59:17.794928+00:00",
+  "commit": "31961cbd762587225b4b8a814828dc0829952978",
+  "scope": "Pre-push source-candidate checks. The final evidence scan remains pending.",
+  "safeReportKnownValueCheck": {
+    "appValues": 7,
+    "operatorValues": 2,
+    "matchedFiles": []
+  },
+  "sourceHashes": {
+    "existingCandidateScanner": "b7e1145c0c78c6fb976014883957101cb222f0aa2a84af44a6e124c0477e519e",
+    "correctedKnownValueWrapper": "0e636d495adc772417131db35706a5e4a8a6ed8cda0a86a7f33cdce8000d4168",
+    "correctedFinalHelper": "33e6801c2adfa7adc191408d7462f4d78727c09b4c90eb5f8ff4db26212b156f",
+    "privateCandidateInventory": "261af92e3a2ac17bfcf2ef3ec59af45011f5db0e3a9b9de7939b04a5812408d0"
+  },
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 2216,
+      "sha256": "df0595953dfce7d32492201a3dc134ba712ec5111dedcbae74decf6ce1d927ef"
+    },
+    {
+      "file": "additional-review.json",
+      "bytes": 1292,
+      "sha256": "687ef8535b4bba0613577145fca513d326cf7eb453a7132cf33c2d208649b770"
+    },
+    {
+      "file": "corrected-known-values.json",
+      "bytes": 576,
+      "sha256": "2e19df49abba257840d5a7b98cb717c6b1405bffd3991d39cdd2e2342f62da6e"
+    },
+    {
+      "file": "findings-metadata.json",
+      "bytes": 16187,
+      "sha256": "b6260cd2f8b1dc7979264cb90ecce107eb9f1fd9ff82327248854f8c31a53212"
+    },
+    {
+      "file": "new-reviewed-findings.json",
+      "bytes": 1021,
+      "sha256": "402f89073678be8b5a4d3a998bda05c0d16d6214b7342c12369dac0d7c524e9a"
+    },
+    {
+      "file": "reviewed-findings-through-31961cb.json",
+      "bytes": 26631,
+      "sha256": "09c17ee1f1c5dbc6be2aab34d3ea9351650e529cab2ea607f592e6de60a1ff8a"
+    },
+    {
+      "file": "summary.json",
+      "bytes": 700,
+      "sha256": "94290fb09553b0777b68cd4c009b1d81b32678bdda3240f56610b5350d96d90c"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "checkedAt": "2026-10-11T06:37:48.138203+00:00",
+  "originalHelperSha256": "fe1c62d1e08978f9f6f858b896dd0e3fee31083384764de5cea54356c07163e4",
+  "reviewedHelperSha256": "932be267c45efb0c3a262c1f6f9c0aa5eb556167ea1571b3cfd7867728dedd97",
+  "offlineTestsPassed": 83,
+  "newHelperHostedExecutionPerformed": false,
+  "systemSettingsChanged": false,
+  "rawAddressesLogged": false,
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 4360,
+      "sha256": "11175b0257e5afc50926f3079f1423fbdaacba17e6efda377565e522ddeefee3"
+    },
+    {
+      "path": "address-isolation-edge-tests.json",
+      "bytes": 3680,
+      "sha256": "f9145df87837fe73092e8dd40d973ab0bfd31a09a3ebac533a37048cf7606d90"
+    },
+    {
+      "path": "address-isolation-edge-tests.mjs.txt",
+      "bytes": 6332,
+      "sha256": "5c5a77a3dd3e5606af2ad653187b11498abba1d6a6d0730d9810db37db27e703"
+    },
+    {
+      "path": "check-address-isolation-edge-v3.mjs.txt",
+      "bytes": 10382,
+      "sha256": "932be267c45efb0c3a262c1f6f9c0aa5eb556167ea1571b3cfd7867728dedd97"
+    },
+    {
+      "path": "compare-ipv4-result.json",
+      "bytes": 1030,
+      "sha256": "12ba9e551a4c225ea5ed02a45211cdad3534bd17b26a7c983c5e6d51fb21f34f"
+    },
+    {
+      "path": "compare-ipv4.py.txt",
+      "bytes": 2321,
+      "sha256": "0f961695c93505f521b2aa988218af692312ce72715f0a274b5c2624cdfd03a6"
+    },
+    {
+      "path": "dns-result.json",
+      "bytes": 798,
+      "sha256": "dfbb66c109c6a3062b615ee221596b8eff1121fef52727608e419e5b8386e634"
+    },
+    {
+      "path": "dns.mjs.txt",
+      "bytes": 2032,
+      "sha256": "3f28e10262c17dbac046244fdc6605a0d273ec9e1b6868384c1d7a3064d92650"
+    },
+    {
+      "path": "edge-health-result.json",
+      "bytes": 650,
+      "sha256": "04e56a844e54e7acb3069737e2ea3bb9a2d08dcca4f7ff2f328eb536434221b2"
+    },
+    {
+      "path": "edge-health.py.txt",
+      "bytes": 2670,
+      "sha256": "ea5f1de3b54b553eaa776b2d6b5abbc8f76302e258c2ce7b9d3dab1da9632eb8"
+    },
+    {
+      "path": "edge-route-tests.json",
+      "bytes": 2373,
+      "sha256": "bd0e06e749600593b23738d137f2c4fa941b5d456e71920b9ece5cd7c6e85e0c"
+    },
+    {
+      "path": "edge-route-tests.mjs.txt",
+      "bytes": 3957,
+      "sha256": "e39a7c486c1fe5dae9363957e5fcf891ec07696fa89878cb0f8d3701769da25e"
+    },
+    {
+      "path": "independent-review/manifest.json",
+      "bytes": 818,
+      "sha256": "4ce7770c6469857f491d93f90aa28859c00de9a62abebd84a63fd714ed03861d"
+    },
+    {
+      "path": "independent-review/prior-independent-tests-result.json",
+      "bytes": 1875,
+      "sha256": "6b3ac62ebdc9d6d96da78d0820b0c33de0b62e6f7afb229560bc7ebb51f9611e"
+    },
+    {
+      "path": "independent-review/prior-independent-tests.mjs",
+      "bytes": 5666,
+      "sha256": "d2b10a32d8ebc763b8f3bb5c67549d92da71ec482d67519c9cf45befaf69d02b"
+    },
+    {
+      "path": "independent-review/review.json",
+      "bytes": 2133,
+      "sha256": "89a95a24be601c1c43b3382c8c5d2aecff46501ac8ce09645656f9abb0054949"
+    },
+    {
+      "path": "independent-review/route-guard-tests-result.json",
+      "bytes": 1320,
+      "sha256": "0e4c566e025526eb28d748e09cef67d3c3c434cc930710ea0a4ec02342aaf630"
+    },
+    {
+      "path": "independent-review/route-guard-tests.mjs",
+      "bytes": 6052,
+      "sha256": "ea241e0b38ea27965b82cf33826e1cc24ddcbcc254279944a061c415b7fbceaf"
+    },
+    {
+      "path": "main-transport-result.json",
+      "bytes": 1179,
+      "sha256": "9b1bd24175d98dd93104513cbf15f5050b05089827eb4a40ae0746e0b820d179"
+    },
+    {
+      "path": "preload.mjs.txt",
+      "bytes": 3249,
+      "sha256": "4543437f959ca3fa30059cb5f87d570eef3b66f9fa3bb023a9c7f43687c6034b"
+    }
+  ]
+}

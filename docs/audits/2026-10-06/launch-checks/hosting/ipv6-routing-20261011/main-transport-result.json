@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "originalPromisesReturned": true,
+  "argumentsChanged": false,
+  "childEnvironmentChanged": false,
+  "rawAddressesLogged": false,
+  "providerBodiesLogged": false,
+  "rows": [
+    {
+      "checkedAt": "2026-10-11T06:29:45.772Z",
+      "source": "ipify",
+      "success": true,
+      "exitCode": 0,
+      "errno": null,
+      "killed": false,
+      "signal": null,
+      "stdoutBytes": 50,
+      "stderrBytes": 0,
+      "httpStatus": 200,
+      "curlError": null,
+      "errorKinds": []
+    },
+    {
+      "checkedAt": "2026-10-11T06:29:45.929Z",
+      "source": "cloudflare",
+      "success": true,
+      "exitCode": 0,
+      "errno": null,
+      "killed": false,
+      "signal": null,
+      "stdoutBytes": 247,
+      "stderrBytes": 0,
+      "httpStatus": 200,
+      "curlError": null,
+      "errorKinds": []
+    },
+    {
+      "checkedAt": "2026-10-11T06:29:53.493Z",
+      "source": "app-login",
+      "success": false,
+      "exitCode": 6,
+      "errno": null,
+      "killed": false,
+      "signal": null,
+      "stdoutBytes": 11,
+      "stderrBytes": 61,
+      "httpStatus": 0,
+      "curlError": 6,
+      "errorKinds": [
+        "DNS"
+      ]
+    }
+  ]
+}

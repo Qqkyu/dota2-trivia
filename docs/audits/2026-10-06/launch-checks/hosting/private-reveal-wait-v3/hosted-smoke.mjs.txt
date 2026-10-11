@@ -1,0 +1,494 @@
+import { request as httpsRequest } from "node:https";
+import { request as httpRequest } from "node:http";
+import { randomBytes, randomUUID, createHash } from "node:crypto";
+import { readFile, writeFile, mkdir, lstat, chmod, rename } from "node:fs/promises";
+import { createRequire } from "node:module";
+import path from "node:path";
+import { pathToFileURL } from "node:url";
+
+const ROOT = "/home/kulmisiu/dev/dota2-trivia";
+const ORIGIN = "https://queue-arcade.onrender.com";
+const PRIVATE_BASE = "/tmp/queue-arcade-launch-checks/hosted-smoke-preparation";
+const PENDING_GUEST = path.join(PRIVATE_BASE, "hosted-owned-guest.json");
+const SERVICE = "srv-d9mqd1942hec73e9nlt0";
+const LOCAL_INPUTS = ["src/lib/arcade-games.mjs", "scripts/image-assets.mjs"];
+const API = `https://api.render.com/v1/services/${SERVICE}`;
+const require = createRequire(path.join(ROOT, "package.json"));
+const { chromium } = require("playwright");
+const { PUBLIC_ROUND_FORMATS, roundFormatForQuestion } = await import(pathToFileURL(path.join(ROOT, "src/lib/arcade-games.mjs")));
+const { questionImageUrls } = await import(pathToFileURL(path.join(ROOT, "scripts/image-assets.mjs")));
+const FRAMEWORK_HEADERS = ["rsc", "next-router-state-tree", "next-router-prefetch", "next-router-segment-prefetch", "next-url", "x-nextjs-data", "x-middleware-prefetch"];
+const MEDIA_HOSTS = new Set(["cdn.cloudflare.steamstatic.com", "cdn.steamstatic.com", "cdn.akamai.steamstatic.com", "media.steampowered.com", "steamcdn-a.akamaihd.net", "www.dota2.com"]);
+const LIMITS = Object.freeze({ wallMs: 15 * 60_000, requests: 140, bytes: 32 * 1024 * 1024, requestMs: 15_000, rounds: 26, browserRequests: 640, browserMs: 90_000 });
+const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
+export function ensure(value, code) {
+  if (!value) throw Object.assign(new Error(code), { publicCode: code });
+}
+export function allowedUrl(raw, origin, provider = false) {
+  const url = new URL(raw, origin);
+  ensure(!url.username && !url.password && !url.hash, "URL_COMPONENTS");
+  if (provider) ensure(url.origin === "https://api.render.com" && (url.pathname === `/v1/services/${SERVICE}` || url.pathname.startsWith(`/v1/services/${SERVICE}/`)), "PROVIDER_URL");
+  else ensure(url.origin === origin || (url.protocol === "https:" && !url.port && MEDIA_HOSTS.has(url.hostname)), "REQUEST_ORIGIN");
+  return url;
+}
+export function validateGate(gate, now = Date.now(), cleanupOnly = false) {
+  ensure(gate && gate.version === 1 && gate.origin === ORIGIN && gate.serviceId === SERVICE, "GATE_SERVICE");
+  ensure(/^[0-9a-f]{40}$/.test(gate.commit) && /^dep-[a-z0-9]{1,80}$/.test(gate.deployId), "GATE_REVISION");
+  ensure(Number.isSafeInteger(gate.ciRunId) && gate.ciRunId > 0 && gate.ciConclusion === "success", "GATE_CI");
+  ensure(gate.ingressVerified === true && gate.proxyPolicy === "cf-connecting-ip", "GATE_INGRESS");
+  ensure(typeof gate.contentVersion === "string" && /^[a-zA-Z0-9._-]{8,240}$/.test(gate.contentVersion), "GATE_CONTENT");
+  ensure(/^[0-9a-f]{64}$/.test(gate.operatorSha256) && Array.isArray(gate.localInputs) && gate.localInputs.length === LOCAL_INPUTS.length, "GATE_INPUTS");
+  for (const [index, row] of gate.localInputs.entries()) ensure(row.path === LOCAL_INPUTS[index] && /^[0-9a-f]{64}$/.test(row.sha256), "GATE_INPUTS");
+  const age = now - Date.parse(gate.checkedAt);
+  ensure(Number.isFinite(age) && age >= 0 && (cleanupOnly || age < 2 * 60 * 60_000), "GATE_FRESHNESS");
+}
+export async function validateLocalInputs(gate) {
+  ensure(hash(await readFile(new URL(import.meta.url))) === gate.operatorSha256, "OPERATOR_CHANGED");
+  for (const row of gate.localInputs) {
+    const file = path.join(ROOT, row.path);
+    const info = await lstat(file);
+    ensure(info.isFile() && !info.isSymbolicLink() && info.size <= 65_536 && hash(await readFile(file)) === row.sha256, "LOCAL_INPUT_CHANGED");
+  }
+}
+export function validateVote(body, owned) {
+  ensure(Object.keys(body).sort().join(",") === "answerIndex,gameId,privateCode,roundId,voterId", "VOTE_FIELDS");
+  ensure(body.gameId === "dota2" && body.privateCode === owned.code && body.voterId === owned.playerId && body.answerIndex === 0, "VOTE_SCOPE");
+  ensure(body.roundId.startsWith(`${owned.roomId}:round:`) && owned.roomId.includes(`:private:${owned.code}`), "VOTE_PRIVATE_ROUND");
+}
+export function validateOwnedReceipt(receipt, gate, origin) {
+  ensure(receipt?.version === 1 && receipt.origin === origin && receipt.rehearsal === false && receipt.commit === gate.commit && receipt.deployId === gate.deployId && receipt.contentVersion === gate.contentVersion, "OWNED_RECEIPT_SCOPE");
+  const owned = receipt.owned;
+  ensure(owned && /^LAUNCH[0-9A-F]{10}$/.test(owned.code) && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(owned.playerId), "OWNED_RECEIPT_IDENTITY");
+  ensure(owned.roomId === "" || owned.roomId === `dota2:${gate.contentVersion}:private:${owned.code}`, "OWNED_RECEIPT_ROOM");
+  ensure(receipt.createAttempted === true && typeof receipt.voteAttempted === "boolean" && typeof receipt.cleanupConfirmed === "boolean", "OWNED_RECEIPT_STATE");
+}
+export function safeFailure(error) {
+  return /^[A-Z][A-Z0-9_]{1,80}$/.test(error?.publicCode ?? "") ? error.publicCode : "UNCLASSIFIED_FAILURE";
+}
+export async function withDeadline(ms, operation, onTimeout) {
+  let timer;
+  const deadline = new Promise((_, reject) => {
+    timer = setTimeout(() => {
+      Promise.resolve(onTimeout()).catch(() => undefined);
+      reject(Object.assign(new Error("BROWSER_DEADLINE"), { publicCode: "BROWSER_DEADLINE" }));
+    }, ms);
+  });
+  try { return await Promise.race([operation(), deadline]); }
+  finally { clearTimeout(timer); }
+}
+export async function closeOwnedBrowser(close, kill, isStopped, graceMs = 5000, killMs = 5000) {
+  let timer;
+  const completed = await Promise.race([
+    Promise.resolve().then(close).then(() => true, () => false),
+    new Promise((resolve) => { timer = setTimeout(() => resolve(false), graceMs); }),
+  ]);
+  clearTimeout(timer);
+  if (completed && isStopped()) return;
+  if (!isStopped()) kill();
+  const until = Date.now() + killMs;
+  while (!isStopped() && Date.now() < until) await new Promise((resolve) => setTimeout(resolve, 20));
+  ensure(isStopped(), "BROWSER_CLEANUP_FAILED");
+  ensure(completed, "BROWSER_FORCED_TERMINATION");
+}
+export async function browserProxyRoute(route, check, blocked) {
+  const request = route.request();
+  if (!["GET", "HEAD"].includes(request.method())) { blocked(); return route.abort(); }
+  const url = allowedUrl(request.url(), check.origin);
+  if (url.origin === check.origin && url.pathname.startsWith("/api/auth/")) return route.abort();
+  const original = request.headers();
+  const headers = Object.fromEntries(["accept", "accept-language", "range", ...FRAMEWORK_HEADERS].filter((key) => typeof original[key] === "string").map((key) => [key, original[key]]));
+  const response = await check.request(url, { method: request.method(), headers, browser: true, maxBytes: 3 * 1024 * 1024 });
+  ensure(response.status >= 200 && response.status < 300, response.status >= 300 && response.status < 400 ? "BROWSER_REDIRECT" : "BROWSER_HTTP_STATUS");
+  const safeHeaders = Object.fromEntries(Object.entries(response.headers).filter(([key, value]) => !/^(set-cookie|set-cookie2|connection|transfer-encoding|content-length)$/i.test(key) && typeof value === "string"));
+  return route.fulfill({ status: response.status, headers: safeHeaders, body: response.bytes });
+}
+
+class Check {
+  constructor(origin, gate, rehearsal) {
+    this.origin = origin;
+    this.gate = gate;
+    this.rehearsal = rehearsal;
+    this.started = Date.now();
+    this.requests = 0;
+    this.cleanupRequests = 0;
+    this.bytes = 0;
+    this.cleanupBytes = 0;
+    this.voteRequests = 0;
+    this.owned = null;
+    this.guestReceipt = null;
+    this.guestReceiptPath = null;
+    this.providerCalls = 0;
+    this.browserRequests = 0;
+    this.browserPathCounts = {};
+    this.frameworkHeadersSeen = new Set();
+    this.writeCounts = { create: 0, start: 0, leave: 0 };
+    this.configDigest = null;
+    this.output = { version: 1, checkedAt: new Date().toISOString(), origin, rehearsal, ok: false, limits: LIMITS, checks: {}, accountHolderSteamLoginVerified: false };
+  }
+  async pause(ms) {
+    ensure(Date.now() - this.started + ms < LIMITS.wallMs, "WALL_LIMIT");
+    await new Promise((resolve) => setTimeout(resolve, Math.max(0, Math.min(ms, 30_000))));
+  }
+  async request(raw, { method = "GET", body, provider = false, cleanup = false, browser = false, maxBytes = 1_048_576, headers = {} } = {}) {
+    ensure(cleanup || Date.now() - this.started < LIMITS.wallMs, "WALL_LIMIT");
+    if (browser) ensure(++this.browserRequests <= LIMITS.browserRequests && !provider && !cleanup && ["GET", "HEAD"].includes(method), "BROWSER_REQUEST_LIMIT");
+    else if (cleanup) ensure(++this.cleanupRequests <= 4, "CLEANUP_REQUEST_LIMIT");
+    else ensure(++this.requests <= LIMITS.requests, "REQUEST_LIMIT");
+    const url = allowedUrl(raw, this.origin, provider);
+    if (browser) {
+      const category = url.origin !== this.origin ? "public-game-cdn" : url.pathname.startsWith("/_next/") ? "next-static" : ["/api/rounds", "/api/me", "/api/presence"].includes(url.pathname) ? url.pathname : url.pathname.startsWith("/api/") ? "other-app-api" : "app-page-or-asset";
+      this.browserPathCounts[category] = (this.browserPathCounts[category] ?? 0) + 1;
+      for (const key of FRAMEWORK_HEADERS) if (typeof headers[key] === "string") this.frameworkHeadersSeen.add(key);
+    }
+    ensure(provider ? method === "GET" : ["GET", "HEAD", "POST"].includes(method), "METHOD");
+    const outgoing = { "user-agent": "queue-arcade-hosted-smoke/1.0", ...headers };
+    if (provider) {
+      ensure(++this.providerCalls <= 8 && process.env.RENDER_API_KEY, "PROVIDER_BUDGET");
+      outgoing.Authorization = `Bearer ${process.env.RENDER_API_KEY}`;
+    } else {
+      ensure(!Object.keys(outgoing).some((key) => /^(cookie|authorization)$/i.test(key)), "NO_APP_CREDENTIALS");
+      if (method === "POST") {
+        ensure(url.origin === this.origin && this.owned, "MUTATION_ORIGIN");
+        ensure(["/api/private-rooms", "/api/private-rooms/start", "/api/private-rooms/leave", "/api/votes"].includes(url.pathname) && !url.search, "MUTATION_PATH");
+        if (url.pathname === "/api/votes") { ensure(++this.voteRequests === 1, "ONE_VOTE_ONLY"); validateVote(body, this.owned); }
+        else {
+          ensure(body.playerId === this.owned.playerId && body.code === this.owned.code && !body.sessionId, "PRIVATE_MUTATION_SCOPE");
+          if (url.pathname === "/api/private-rooms") {
+            ensure(++this.writeCounts.create === 1 && body.action === "create" && JSON.stringify(body.games) === '["trivia"]' && body.name === "Launch smoke" && Object.keys(body).sort().join(",") === "action,code,games,name,playerId", "ONE_CREATE_ONLY");
+          } else {
+            const kind = url.pathname.endsWith("/start") ? "start" : "leave";
+            ensure(++this.writeCounts[kind] <= (kind === "leave" ? 2 : 1) && Object.keys(body).sort().join(",") === "code,playerId", "PRIVATE_ACTION_BUDGET");
+          }
+        }
+        outgoing.Origin = this.origin;
+        outgoing["Content-Type"] = "application/json";
+      } else ensure(body === undefined, "READ_BODY");
+    }
+    const encoded = body === undefined ? undefined : Buffer.from(JSON.stringify(body));
+    if (encoded) { ensure(encoded.length <= 2048, "WRITE_SIZE"); outgoing["Content-Length"] = String(encoded.length); }
+    const transport = url.protocol === "https:" ? httpsRequest : httpRequest;
+    ensure(url.protocol === "https:" || (this.rehearsal && url.origin === this.origin), "TLS_REQUIRED");
+    return new Promise((resolve, reject) => {
+      let settled = false;
+      const finish = (error, value) => { if (settled) return; settled = true; clearTimeout(timer); error ? reject(error) : resolve(value); };
+      const request = transport(url, { method, headers: outgoing, family: 4, rejectUnauthorized: true }, (response) => {
+        const chunks = []; let length = 0;
+        response.on("data", (chunk) => {
+          length += chunk.length; this.bytes += chunk.length;
+          if (cleanup) this.cleanupBytes += chunk.length;
+          if (length > (cleanup ? Math.min(maxBytes, 32_768) : maxBytes) || (cleanup ? this.cleanupBytes > 131_072 : this.bytes > LIMITS.bytes)) {
+            const error = Object.assign(new Error("RESPONSE_SIZE"), { publicCode: "RESPONSE_SIZE" });
+            response.destroy(error); request.destroy(error); finish(error); return;
+          }
+          chunks.push(chunk);
+        });
+        response.on("end", () => finish(null, { status: response.statusCode, headers: response.headers, bytes: Buffer.concat(chunks) }));
+        response.on("error", () => finish(Object.assign(new Error("RESPONSE_IO"), { publicCode: "RESPONSE_IO" })));
+      });
+      const timer = setTimeout(() => { const error = Object.assign(new Error("REQUEST_DEADLINE"), { publicCode: "REQUEST_DEADLINE" }); request.destroy(error); finish(error); }, LIMITS.requestMs);
+      request.on("error", () => finish(Object.assign(new Error("REQUEST_IO"), { publicCode: "REQUEST_IO" })));
+      request.end(encoded);
+    });
+  }
+  async json(raw, options) {
+    const response = await this.request(raw, options);
+    ensure(response.status === 200, "JSON_STATUS");
+    ensure(String(response.headers["content-type"]).includes("application/json"), "JSON_TYPE");
+    return JSON.parse(response.bytes.toString("utf8"));
+  }
+  async deployment() {
+    if (this.rehearsal) return;
+    const service = await this.json(API, { provider: true });
+    ensure(service.id === SERVICE && service.suspended === "not_suspended" && service.serviceDetails?.plan === "free" && service.autoDeployTrigger === "off", "DEPLOY_SERVICE");
+    const rows = await this.json(`${API}/deploys?limit=5`, { provider: true });
+    const live = rows.map((row) => row.deploy).filter((deploy) => deploy.status === "live");
+    ensure(live.length === 1 && live[0].id === this.gate.deployId && live[0].commit?.id === this.gate.commit, "DEPLOY_EXACT_REVISION");
+    const terminal = new Set(["live", "deactivated", "canceled", "build_failed", "update_failed", "pre_deploy_failed"]);
+    ensure(rows.every((row) => terminal.has(row.deploy.status)), "DEPLOY_TRANSITION");
+    const entries = await this.json(`${API}/env-vars?limit=100`, { provider: true });
+    ensure(entries.length < 100, "ENV_PAGINATION");
+    const env = Object.fromEntries(entries.map((entry) => [entry.envVar.key, entry.envVar.value]));
+    const db = new URL(env.DATABASE_URL);
+    ensure(db.username === "queue_arcade_runtime_20261006" && db.hostname === "dpg-d9mqc4taeets73aiclsg-a" && ["", "5432"].includes(db.port) && db.pathname === "/queue_arcade_db" && db.search === "?sslmode=require", "RESTRICTED_DATABASE_CONFIG");
+    ensure(env.ARCADE_APP_URL === ORIGIN && env.ARCADE_AUTO_MIGRATE === "false" && env.ARCADE_ALLOW_FILE_STORE === "false" && env.ARCADE_TRUST_PROXY === "cf-connecting-ip", "DEPLOY_CONFIG");
+    ensure(typeof env.ARCADE_AUTH_SECRET === "string" && env.ARCADE_AUTH_SECRET.length >= 32 && typeof env.ARCADE_VOTER_SALT === "string" && env.ARCADE_VOTER_SALT.length >= 32, "DEPLOY_SECRETS_CONFIGURED");
+    const digest = hash(JSON.stringify([env.DATABASE_URL, env.ARCADE_AUTH_SECRET, env.ARCADE_VOTER_SALT, env.ARCADE_TRUST_PROXY, env.ARCADE_APP_URL, env.ARCADE_AUTO_MIGRATE, env.ARCADE_ALLOW_FILE_STORE]));
+    ensure(this.configDigest === null || this.configDigest === digest, "DEPLOY_CONFIG_CHANGED");
+    this.configDigest = digest;
+    this.output.deployment = { serviceId: SERVICE, deployId: live[0].id, commit: live[0].commit.id, ciRunId: this.gate.ciRunId, plan: "free", runtimeRoleMatchesVerifiedRole: true, proxyPolicy: "cf-connecting-ip" };
+  }
+  async health() {
+    const response = await this.request(`/api/health?launch=${randomBytes(8).toString("hex")}`);
+    ensure(response.status === 200 && response.headers["cache-control"]?.includes("no-store"), "HEALTH_RESPONSE");
+    const data = JSON.parse(response.bytes.toString("utf8"));
+    const backend = this.rehearsal ? "file" : "postgres";
+    ensure(data.status === "ready" && [data.storage, data.accounts, data.alpha].every((store) => store?.ok === true && store.backend === backend), "HEALTH_STORES");
+    ensure(data.content?.version === this.gate.contentVersion && data.content.questions === 1517, "HEALTH_CONTENT");
+    ensure(Math.abs(Date.now() - data.serverNow) < 20_000, "HEALTH_FRESHNESS");
+    ensure(data.maintenance?.lastSucceededAt > Date.now() - 180_000, "HEALTH_MAINTENANCE");
+    this.output.checks.health = { ready: true, durableStores: 3, backend, questionCount: 1517, currentContentVersion: true, maintenanceRecent: true };
+  }
+  async pages() {
+    const nonces = new Set(); const checked = [];
+    for (const route of ["/", "/party", "/play", "/profile", "/privacy", "/missing-hosted-smoke-page"]) {
+      const response = await this.request(route);
+      ensure(response.status === (route.startsWith("/missing-") ? 404 : 200), "PAGE_STATUS");
+      const headers = response.headers;
+      ensure(headers["x-frame-options"] === "DENY" && headers["x-content-type-options"] === "nosniff" && headers["referrer-policy"] === "strict-origin-when-cross-origin" && !headers["x-powered-by"], "PAGE_HEADERS");
+      if (!this.rehearsal) ensure(/max-age=[1-9][0-9]+/.test(headers["strict-transport-security"] ?? ""), "PAGE_HSTS");
+      const policy = headers["content-security-policy"] ?? "";
+      const script = policy.split(";").find((part) => part.trim().startsWith("script-src")) ?? "";
+      const nonce = /'nonce-([^']+)'/.exec(script)?.[1];
+      ensure(nonce && !nonces.has(nonce) && !script.includes("unsafe-inline") && !script.includes("unsafe-eval") && policy.includes("frame-ancestors 'none'") && policy.includes("object-src 'none'"), "PAGE_CSP");
+      nonces.add(nonce);
+      const html = response.bytes.toString("utf8");
+      for (const tag of html.matchAll(/<script\b([^>]*)>/g)) ensure(tag[1].includes(`nonce="${nonce}"`), "PAGE_SCRIPT_NONCE");
+      if (!route.startsWith("/missing-")) ensure(html.includes(`property="og:url" content="${this.origin}`), "PAGE_CANONICAL_ORIGIN");
+      checked.push({ path: route, status: response.status, headersPassed: true });
+    }
+    const me = await this.json("/api/me"); ensure(me.authenticated === false, "ANONYMOUS_IDENTITY");
+    this.output.checks.pages = checked;
+  }
+  async asset(source, format) {
+    const url = allowedUrl(source, this.origin);
+    const response = await this.request(url, { maxBytes: 3 * 1024 * 1024 });
+    ensure(response.status === 200, "ASSET_STATUS");
+    const type = String(response.headers["content-type"] ?? "").split(";")[0];
+    ensure(/^(image|audio)\//.test(type) && response.bytes.length > 20, "ASSET_TYPE");
+    if (url.pathname === "/api/round-image") ensure(type === "image/png" && response.bytes.subarray(0, 8).equals(Buffer.from([137,80,78,71,13,10,26,10])), "NATIVE_IMAGE_OUTPUT");
+    if (url.pathname === "/api/round-audio") ensure(type.startsWith("audio/") && (response.bytes.subarray(0,3).toString() === "ID3" || response.bytes.subarray(0,4).toString() === "RIFF" || response.bytes[0] === 255), "NATIVE_AUDIO_OUTPUT");
+    return { format, originKind: url.origin === this.origin ? "app" : "public-game-cdn", type, bytes: response.bytes.length, sha256: hash(response.bytes) };
+  }
+  async formats() {
+    const found = new Map(); const assets = [];
+    for (let sample = 0; sample < LIMITS.rounds && found.size < PUBLIC_ROUND_FORMATS.length; sample++) {
+      let data = await this.json("/api/rounds?gameId=dota2");
+      ensure(data.playerIdentity === null && data.room.contentVersion === this.gate.contentVersion, "PUBLIC_READ_SCOPE");
+      if (data.round.phase !== "answering" || data.round.answerDeadline - data.serverNow < 9500) { await this.pause(data.round.revealDeadline - data.serverNow + 700); continue; }
+      const format = roundFormatForQuestion(data.question);
+      ensure(PUBLIC_ROUND_FORMATS.includes(format) && data.question.reveal === null, "FORMAT_ANSWER_BOUNDARY");
+      if (!found.has(format)) {
+        if (format === "spell-link") { await this.pause(data.round.answerDeadline - data.serverNow - 4300); data = await this.json("/api/rounds?gameId=dota2"); ensure(roundFormatForQuestion(data.question) === format && data.round.phase === "answering", "SPELL_STAGE_BOUNDARY"); }
+        const sources = data.question.audio?.clips ?? (data.question.audio?.src ? [data.question.audio.src] : questionImageUrls(data.question).slice(0, 2));
+        for (const source of [...new Set(sources)].slice(0, 2)) assets.push(await this.asset(source, format));
+        found.set(format, { format, promptPresent: typeof data.question.prompt === "string" && data.question.prompt.length > 0, assetsChecked: Math.min(new Set(sources).size, 2), answeringDataHidden: true });
+      }
+      if (found.size < PUBLIC_ROUND_FORMATS.length) await this.pause(Math.max(500, data.round.revealDeadline - data.serverNow + 700 - 1000));
+    }
+    ensure(found.size === 13 && [...found.values()].every((row) => row.promptPresent), "FORMAT_COVERAGE");
+    ensure(assets.some((asset) => asset.format === "fogged-vision" && asset.originKind === "app") && assets.some((asset) => asset.format === "echo-hunt" && asset.originKind === "app") && assets.some((asset) => asset.format === "soundcheck" && asset.originKind === "app"), "NATIVE_ROUTE_COVERAGE");
+    this.output.checks.formats = [...found.values()]; this.output.checks.assets = assets;
+  }
+  async assertNoPendingGuest() {
+    if (this.rehearsal) return;
+    try { await lstat(PENDING_GUEST); }
+    catch (error) { if (error.code === "ENOENT") return; throw error; }
+    ensure(false, "OWNED_GUEST_RECOVERY_REQUIRED");
+  }
+  async recordGuestState(patch, initial = false) {
+    const directory = await lstat(PRIVATE_BASE);
+    ensure(directory.isDirectory() && !directory.isSymbolicLink() && (directory.mode & 0o077) === 0, "OWNED_RECEIPT_DIRECTORY");
+    if (initial) {
+      this.guestReceiptPath = this.rehearsal ? path.join(PRIVATE_BASE, `rehearsal-owned-guest-${randomBytes(12).toString("hex")}.json`) : PENDING_GUEST;
+      this.guestReceipt = { version: 1, origin: this.origin, rehearsal: this.rehearsal, commit: this.gate.commit ?? null, deployId: this.gate.deployId ?? null, contentVersion: this.gate.contentVersion, owned: { ...this.owned }, createAttempted: true, voteAttempted: false, cleanupConfirmed: false, createdAt: new Date().toISOString(), ...patch };
+      await writeFile(this.guestReceiptPath, JSON.stringify(this.guestReceipt) + "\n", { mode: 0o600, flag: "wx" });
+      return;
+    }
+    ensure(this.guestReceipt && this.guestReceiptPath, "OWNED_RECEIPT_REQUIRED");
+    const info = await lstat(this.guestReceiptPath);
+    ensure(info.isFile() && !info.isSymbolicLink() && (info.mode & 0o077) === 0 && info.size < 8192, "OWNED_RECEIPT_FILE");
+    this.guestReceipt = { ...this.guestReceipt, ...patch, owned: { ...this.owned }, checkedAt: new Date().toISOString() };
+    const stage = this.guestReceiptPath + "." + randomBytes(12).toString("hex") + ".tmp";
+    await writeFile(stage, JSON.stringify(this.guestReceipt) + "\n", { mode: 0o600, flag: "wx" });
+    await rename(stage, this.guestReceiptPath);
+  }
+  async cleanupOwnedGuest() {
+    let closed = false;
+    for (let attempt = 0; attempt < 2 && !closed; attempt++) {
+      try {
+        const { code, playerId } = this.owned;
+        const leave = await this.request("/api/private-rooms/leave", { method: "POST", cleanup: true, body: { code, playerId } });
+        ensure([200,404].includes(leave.status), "PRIVATE_LEAVE_STATUS");
+        const probe = await this.request(`/api/private-rooms?${new URLSearchParams({ code, peek: "1" })}`, { cleanup: true });
+        closed = probe.status === 404;
+      } catch { /* One bounded repeat is reserved for cleanup. */ }
+    }
+    this.output.privateRoomCleanupConfirmed = closed;
+    ensure(closed, "PRIVATE_CLEANUP_FAILED");
+    await this.recordGuestState({ cleanupConfirmed: true });
+    if (this.guestReceiptPath) {
+      const completed = path.join(PRIVATE_BASE, `completed-owned-guest-${randomBytes(12).toString("hex")}.json`);
+      await rename(this.guestReceiptPath, completed);
+      this.guestReceiptPath = completed;
+    }
+  }
+  async recoverOwnedGuest() {
+    ensure(!this.rehearsal, "RECOVERY_HOSTED_ONLY");
+    const info = await lstat(PENDING_GUEST);
+    ensure(info.isFile() && !info.isSymbolicLink() && (info.mode & 0o077) === 0 && info.size < 8192, "OWNED_RECEIPT_FILE");
+    const receipt = JSON.parse(await readFile(PENDING_GUEST, "utf8"));
+    validateOwnedReceipt(receipt, this.gate, this.origin);
+    this.owned = { ...receipt.owned }; this.guestReceipt = receipt; this.guestReceiptPath = PENDING_GUEST;
+    await this.cleanupOwnedGuest();
+    this.output.checks.recovery = { votesSent: 0, createsSent: 0, startsSent: 0, cleanupConfirmed: true };
+  }
+  async guest() {
+    const code = `LAUNCH${randomBytes(5).toString("hex").toUpperCase()}`;
+    this.owned = { code, playerId: randomUUID(), roomId: "" };
+    let attempted = false;
+    try {
+      ensure((await this.json("/api/me")).authenticated === false, "GUEST_ACCOUNT_GUARD");
+      await this.recordGuestState({}, true);
+      attempted = true;
+      const created = await this.json("/api/private-rooms", { method: "POST", body: { action: "create", code, playerId: this.owned.playerId, name: "Launch smoke", games: ["trivia"] } });
+      ensure(created.privateRoom?.code === code && created.privateRoom.isHost && created.privateRoom.players?.length === 1 && created.room?.id === `dota2:${this.gate.contentVersion}:private:${code}`, "PRIVATE_CREATE");
+      this.owned.roomId = created.room.id;
+      await this.recordGuestState({ created: true });
+      const started = await this.json("/api/private-rooms/start", { method: "POST", body: { code, playerId: this.owned.playerId } });
+      ensure(started.privateRoom.code === code && Number.isFinite(started.countdownMs) && started.countdownMs <= 5000, "PRIVATE_START");
+      await this.pause(started.countdownMs + 700);
+      const query = `/api/rounds?${new URLSearchParams({ gameId: "dota2", privateCode: code, playerId: this.owned.playerId })}`;
+      const activeRequestStarted = performance.now();
+      const active = await this.json(query);
+      const activeReceivedAt = performance.now();
+      ensure(active.playerIdentity?.kind === "guest" && active.playerIdentity.id === this.owned.playerId && active.room.id === this.owned.roomId && active.round.phase === "answering" && active.round.game === "trivia" && !active.question.answerMode && active.question.reveal === null && active.question.answers.length === 4 && active.round.answerDeadline - active.serverNow > 5000, "PRIVATE_VOTE_PRECONDITIONS");
+      await this.recordGuestState({ voteAttempted: true });
+      const voteRequestStarted = performance.now();
+      const vote = await this.json("/api/votes", { method: "POST", body: { gameId: "dota2", privateCode: code, roundId: active.round.id, answerIndex: 0, voterId: this.owned.playerId } });
+      const voteReceivedAt = performance.now();
+      ensure(vote.accepted === true && vote.playerIdentity?.kind === "guest" && vote.playerIdentity.id === this.owned.playerId && vote.playerVote, "PRIVATE_VOTE_ACCEPTED");
+      const roundedMs = (value) => Math.round(value * 100) / 100;
+      const timing = {
+        activeRequestMs: roundedMs(activeReceivedAt - activeRequestStarted),
+        voteRequestMs: roundedMs(voteReceivedAt - voteRequestStarted),
+        activeResponseToVoteResponseMs: roundedMs(voteReceivedAt - activeReceivedAt),
+        activeAnswerRemainingMs: active.round.answerDeadline - active.serverNow,
+        waitMs: 0,
+        samples: [],
+      };
+      this.output.checks.privateRevealTiming = timing;
+      let reveal;
+      for (let attempt = 0; attempt < 3; attempt++) {
+        const readStartedAt = performance.now();
+        reveal = await this.json(query);
+        const receivedAt = performance.now();
+        const readMs = receivedAt - readStartedAt;
+        ensure(Number.isFinite(reveal.serverNow) && Number.isFinite(reveal.round.answerDeadline) && Number.isFinite(reveal.round.revealDeadline), "PRIVATE_REVEAL_TIMING");
+        timing.samples.push({
+          requestMs: roundedMs(readMs),
+          sinceVoteResponseMs: roundedMs(receivedAt - voteReceivedAt),
+          answerRemainingMs: reveal.round.answerDeadline - reveal.serverNow,
+          revealRemainingMs: reveal.round.revealDeadline - reveal.serverNow,
+          sameRound: reveal.round.id === active.round.id,
+          phase: ["answering", "reveal"].includes(reveal.round.phase) ? reveal.round.phase : "invalid",
+        });
+        if (reveal.round.id !== active.round.id || reveal.round.phase !== "answering") break;
+        if (attempt < 2) {
+          // Keep the original total sleep ceiling while refreshing every deadline.
+          const waitMs = Math.max(0, Math.min(30_000, 30_600 - timing.waitMs, reveal.round.answerDeadline - reveal.serverNow - readMs + 1200));
+          await this.pause(waitMs);
+          timing.waitMs += waitMs;
+        }
+      }
+      Object.assign(timing, { elapsedSinceActiveResponseMs: roundedMs(performance.now() - activeReceivedAt), sameRound: reveal.round.id === active.round.id, phase: reveal.round.phase, answerPresent: Boolean(reveal.question.reveal), playerVotePresent: Boolean(reveal.playerVote) });
+      ensure(reveal.round.id === active.round.id && reveal.round.phase === "reveal" && reveal.question.reveal && reveal.playerVote, "PRIVATE_REVEAL");
+      this.output.checks.privateGuest = { created: true, started: true, votesSent: 1, accepted: true, revealConfirmed: true, authenticated: false, alphaSessionSent: false, publicCalibrationEligible: false, reportsSent: 0, rawPrivateVoteExpiresUnderNormalRetention: true };
+    } finally {
+      if (attempted) await this.cleanupOwnedGuest();
+    }
+  }
+  async browser() {
+    let browser; let server; let browserRequests = 0; let blockedWrites = 0; let exceeded = false; let pageErrors = 0; let proxyFailure = null;
+    const browserStart = Date.now();
+    try {
+      return await withDeadline(LIMITS.browserMs, async () => {
+      const env = Object.fromEntries(["PATH", "DISPLAY", "XDG_RUNTIME_DIR", "LD_LIBRARY_PATH", "LANG"].filter((key) => process.env[key]).map((key) => [key, process.env[key]]));
+      server = await chromium.launchServer({ executablePath: process.env.CHROME_BIN ?? "/usr/bin/google-chrome", host: "127.0.0.1", headless: true, env, args: ["--mute-audio", "--disable-background-networking", "--disable-sync"] });
+      browser = await chromium.connect(server.wsEndpoint(), { timeout: 15_000 });
+      const context = await browser.newContext({ viewport: { width: 320, height: 568 }, serviceWorkers: "block" });
+      await context.route("**/*", async (route) => {
+        const request = route.request();
+        if (++browserRequests > LIMITS.browserRequests || Date.now() - browserStart > LIMITS.browserMs) { exceeded = true; return route.abort(); }
+        try {
+          return await browserProxyRoute(route, this, () => blockedWrites++);
+        } catch (error) { proxyFailure ??= safeFailure(error); await route.abort().catch(() => undefined); }
+      });
+      const page = await context.newPage(); page.setDefaultTimeout(15_000); page.on("pageerror", () => pageErrors++);
+      await page.goto(this.origin, { waitUntil: "domcontentloaded", timeout: 30_000 });
+      await page.waitForFunction(() => document.querySelector("main")?.dataset.clientReady === "true");
+      await page.getByTestId("start-arcade").click();
+      await page.waitForFunction(() => document.querySelector("main")?.dataset.phase === "answering", null, { timeout: 35_000 });
+      const views = [];
+      for (const size of [{ width: 320, height: 568 }, { width: 1440, height: 1000 }]) {
+        await page.setViewportSize(size); await page.waitForTimeout(200);
+        const layout = await page.evaluate(() => ({ noHorizontalOverflow: document.documentElement.scrollWidth <= innerWidth + 1, hasPrompt: Boolean(document.querySelector('[data-testid="round-prompt"] h2')), hasTimer: Boolean(document.querySelector('[data-testid="round-timer"]')), hasAnswerControl: Boolean(document.querySelector('[data-testid="arcade-answer"], [data-testid="hero-search-input"], [data-testid="shopkeeper-search-field"], [data-testid="flashback-year-slider"], [data-testid="value-order-card"], [data-testid="flashback-order-card"]')) }));
+        ensure(layout.noHorizontalOverflow && layout.hasPrompt && layout.hasTimer && layout.hasAnswerControl, "BROWSER_ROUND_LAYOUT");
+        views.push({ ...size, ...layout });
+      }
+      await page.waitForFunction(() => document.querySelector("main")?.dataset.phase === "reveal", null, { timeout: 22_000 });
+      ensure(await page.getByTestId("reveal-panel").count() > 0, "BROWSER_REVEAL");
+      ensure(!exceeded && pageErrors === 0 && proxyFailure === null, proxyFailure ?? "BROWSER_RUNTIME");
+      this.output.checks.browser = { views, liveAnsweringAndReveal: true, votesSent: 0, mutationRequestsBlocked: blockedWrites, requests: browserRequests, requestCategories: this.browserPathCounts, frameworkHeadersForwarded: [...this.frameworkHeadersSeen].sort(), pageErrors, freshContext: true, allCookiesStripped: true, transport: "bounded Node proxy with browser rendering", redirectsFollowed: 0 };
+      }, () => browser?.close());
+    } finally {
+      if (server) {
+        const child = server.process();
+        await closeOwnedBrowser(
+          () => Promise.all([browser?.close(), server.close()]),
+          () => child.kill("SIGKILL"),
+          () => child.exitCode !== null || child.signalCode !== null,
+        );
+      }
+    }
+  }
+  async run({ skipFormats = false, skipBrowser = false } = {}) {
+    await this.assertNoPendingGuest();
+    await this.deployment(); await this.health(); await this.pages();
+    if (!skipFormats) await this.formats();
+    await this.guest();
+    if (!skipBrowser) await this.browser();
+    await this.health(); await this.deployment();
+    this.output.ok = true; this.output.finishedAt = new Date().toISOString();
+    this.output.httpRequests = this.requests; this.output.httpBytes = this.bytes;
+    this.output.cleanupHttpRequests = this.cleanupRequests;
+    this.output.browserHttpRequests = this.browserRequests;
+    return this.output;
+  }
+}
+
+export { Check };
+async function main() {
+  const args = process.argv.slice(2); const rehearsal = ["--rehearse", "--rehearse-all"].includes(args[0]); const recovery = args[0] === "--cleanup-owned";
+  ensure(rehearsal ? args.length === 1 : recovery ? args.length === 3 && args[1] === "--gate" : args.length === 2 && args[0] === "--gate", "USAGE");
+  const gatePath = recovery ? args[2] : args[1];
+  let gate;
+  if (rehearsal) {
+    const response = await fetch("http://127.0.0.1:3334/api/health", { signal: AbortSignal.timeout(5000), redirect: "error" });
+    const health = await response.json(); ensure(health.storage?.backend === "file", "REHEARSAL_ISOLATION");
+    gate = { contentVersion: health.content.version };
+  } else {
+    const info = await lstat(gatePath); ensure(info.isFile() && !info.isSymbolicLink() && (info.mode & 0o077) === 0 && info.size < 16_384, "GATE_FILE");
+    gate = JSON.parse(await readFile(gatePath, "utf8")); validateGate(gate, Date.now(), recovery); await validateLocalInputs(gate);
+  }
+  const check = new Check(rehearsal ? "http://127.0.0.1:3334" : ORIGIN, gate, rehearsal);
+  try {
+    if (recovery) { await check.deployment(); await check.recoverOwnedGuest(); await check.deployment(); check.output.ok = true; }
+    else await check.run({ skipFormats: args[0] === "--rehearse" });
+    if (!rehearsal) await validateLocalInputs(gate);
+  }
+  catch (error) { check.output.ok = false; check.output.failure = safeFailure(error); process.exitCode = 1; }
+  finally {
+    check.output.httpRequests = check.requests; check.output.httpBytes = check.bytes;
+    check.output.cleanupHttpRequests = check.cleanupRequests;
+    check.output.browserHttpRequests = check.browserRequests;
+    const base = "/tmp/queue-arcade-launch-checks/hosted-smoke-preparation";
+    await mkdir(base, { recursive: true, mode: 0o700 });
+    await chmod(base, 0o700);
+    const name = `${rehearsal ? "rehearsal" : "hosted"}-${Date.now()}.json`;
+    await writeFile(path.join(base, name), `${JSON.stringify(check.output, null, 2)}\n`, { mode: 0o600, flag: "wx" });
+    console.log(JSON.stringify({ ok: check.output.ok, rehearsal, failure: check.output.failure ?? null, privateRoomCleanupConfirmed: check.output.privateRoomCleanupConfirmed ?? null, resultFile: path.join(base, name) }));
+  }
+}
+if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
+  main().catch((error) => { console.error(JSON.stringify({ ok: false, failure: safeFailure(error) })); process.exitCode = 1; });
+}

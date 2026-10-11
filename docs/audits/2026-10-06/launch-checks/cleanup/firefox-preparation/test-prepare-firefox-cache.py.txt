@@ -1,0 +1,159 @@
+#!/usr/bin/env python3
+"""Small fixture checks. Never hash or change a real Firefox bundle."""
+import base64
+import datetime
+import importlib.util
+import io
+import json
+import os
+from pathlib import Path
+import subprocess
+import tempfile
+import unittest
+from unittest.mock import patch
+
+CLOSE = Path(__file__).resolve().parent
+spec = importlib.util.spec_from_file_location('prepare_firefox', CLOSE / 'prepare-firefox-cache.py')
+m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+base = m.load_base()
+
+class FirefoxTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory(prefix='firefox-fixture-', dir=CLOSE)
+        self.root = Path(self.tmp.name)
+        self.addCleanup(self.tmp.cleanup)
+        self.source = self.root / 'source'; self.source.mkdir()
+        self.dest = self.root / 'cache'; self.dest.mkdir()
+        for p in (self.source, self.dest):
+            (p / 'firefox').mkdir()
+            (p / 'firefox/program').write_bytes(b'fake browser')
+            (p / 'INSTALLATION_COMPLETE').write_bytes(b'')
+        (self.source / 'firefox/.parentlock').write_bytes(b'')
+        (self.source / 'firefox/updates/0').mkdir(parents=True)
+        (self.source / 'firefox/updates/downloading').mkdir()
+        report = self.root / 'windows.json'
+        report.write_text(json.dumps({'checkedAt':datetime.datetime.now(datetime.timezone.utc).isoformat(),'taskPathMatches':[],'deviceToolProcesses':[],'commandLinesLogged':False,'processesChanged':False}))
+        for name,value in [('SOURCE',self.source),('DESTINATION',self.dest),('WINDOWS_REPORT',report),('RECEIPT',self.root/'receipt.json')]:
+            manager = patch.object(m,name,value); manager.start(); self.addCleanup(manager.stop)
+        manager = patch.object(m,'windows_exact_paths'); manager.start(); self.addCleanup(manager.stop)
+
+    def execute(self):
+        with patch.object(base,'mount_guard'),patch.object(base,'process_guard'):
+            return m.prepare(base,execute=True,hosted_complete=True,ci_complete=True)
+
+    def test_default_is_metadata_only(self):
+        with patch.object(base,'tree',side_effect=AssertionError('No real hashes')):
+            result=m.prepare(base)
+        self.assertEqual(result['removed_entries'],0)
+        self.assertFalse(result['content_hashes_checked'])
+        self.assertTrue((self.source/'firefox/.parentlock').exists())
+
+    def test_read_only_hash_check_does_not_remove(self):
+        result=m.prepare(base,check_hashes=True)
+        self.assertTrue(result['content_hashes_checked'])
+        self.assertEqual(result['removed_entries'],0)
+        self.assertTrue((self.source/'firefox/updates/0').exists())
+
+    def test_success_removes_only_four_empty_entries(self):
+        unrelated=self.root/'unrelated';unrelated.write_bytes(b'keep')
+        before=base.tree(self.dest)
+        result=self.execute()
+        self.assertEqual(result['removed_entries'],4)
+        self.assertEqual(base.tree(self.source),before)
+        self.assertEqual(base.tree(self.dest),before)
+        self.assertEqual(unrelated.read_bytes(),b'keep')
+        self.assertTrue((self.root/'receipt.json').is_file())
+
+    def test_completion_flags_required(self):
+        with self.assertRaises(m.Refusal):m.prepare(base,execute=True)
+        self.assertTrue((self.source/'firefox/.parentlock').exists())
+
+    def test_changed_bytes_same_size_block_before_removal(self):
+        (self.dest/'firefox/program').write_bytes(b'fake browseX')
+        with self.assertRaises(m.Refusal):self.execute()
+        self.assertTrue((self.source/'firefox/.parentlock').exists())
+
+    def test_destination_extra_file_blocks(self):
+        (self.dest/'other').write_bytes(b'x')
+        with self.assertRaises(m.Refusal):self.execute()
+        self.assertTrue((self.source/'firefox/.parentlock').exists())
+
+    def test_nonempty_lock_blocks(self):
+        (self.source/'firefox/.parentlock').write_bytes(b'x')
+        with self.assertRaises(m.Refusal):m.prepare(base)
+
+    def test_lock_hard_link_blocks(self):
+        os.link(self.source/'firefox/.parentlock',self.root/'outside')
+        with self.assertRaises(m.Refusal):m.prepare(base)
+        self.assertTrue((self.root/'outside').exists())
+
+    def test_lock_symlink_blocks(self):
+        (self.source/'firefox/.parentlock').unlink()
+        (self.source/'firefox/.parentlock').symlink_to(self.root/'outside')
+        with self.assertRaises(base.Refusal):m.prepare(base)
+
+    def test_unexpected_update_leaf_blocks(self):
+        (self.source/'firefox/updates/0/keep').write_bytes(b'x')
+        with self.assertRaises(m.Refusal):m.prepare(base)
+
+    def test_unexpected_update_sibling_blocks(self):
+        (self.source/'firefox/updates/extra').mkdir()
+        with self.assertRaises(m.Refusal):m.prepare(base)
+
+    def test_stale_windows_receipt_blocks(self):
+        report=json.loads(m.WINDOWS_REPORT.read_text());report['checkedAt']=(datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(minutes=6)).isoformat();m.WINDOWS_REPORT.write_text(json.dumps(report))
+        with self.assertRaises(m.Refusal):self.execute()
+        self.assertTrue((self.source/'firefox/.parentlock').exists())
+
+    def test_future_windows_receipt_blocks(self):
+        report=json.loads(m.WINDOWS_REPORT.read_text());report['checkedAt']=(datetime.datetime.now(datetime.timezone.utc)+datetime.timedelta(minutes=1)).isoformat();m.WINDOWS_REPORT.write_text(json.dumps(report))
+        with self.assertRaises(m.Refusal):self.execute()
+
+    def test_windows_task_match_blocks(self):
+        report=json.loads(m.WINDOWS_REPORT.read_text());report['taskPathMatches']=[{'processId':123}];m.WINDOWS_REPORT.write_text(json.dumps(report))
+        with self.assertRaises(m.Refusal):self.execute()
+
+    def test_linux_task_user_blocks(self):
+        with patch.object(base,'mount_guard'),patch.object(base,'process_guard',side_effect=base.Refusal('Fixture active')):
+            with self.assertRaises(base.Refusal):m.prepare(base,execute=True,hosted_complete=True,ci_complete=True)
+        self.assertTrue((self.source/'firefox/.parentlock').exists())
+
+    def test_changed_inode_before_removal_blocks(self):
+        snapshot=m.runtime_guard(base)
+        p=self.source/'firefox/.parentlock';old=p.with_name('.old-lock');p.rename(old);p.write_bytes(b'')
+        with self.assertRaises(m.Refusal):m.remove_runtime(snapshot)
+        self.assertTrue(p.exists())
+
+    def test_nonempty_directory_race_is_not_recursively_removed(self):
+        snapshot=m.runtime_guard(base)
+        keep=self.source/'firefox/updates/0/keep';keep.write_bytes(b'keep')
+        with self.assertRaises(OSError):m.remove_runtime(snapshot)
+        self.assertEqual(keep.read_bytes(),b'keep')
+
+class WindowsProbeTests(unittest.TestCase):
+    def response(self,**changes):
+        value={'checkedRoots':[str(m.SOURCE),str(m.DESTINATION)],'matches':[],'commandLinesLogged':False,'processesChanged':False};value.update(changes)
+        return subprocess.CompletedProcess([],0,stdout=json.dumps(value).encode(),stderr=b'')
+
+    def test_exact_roots_and_separator_normalization(self):
+        with patch.object(m.subprocess,'run',return_value=self.response()) as run:
+            m.windows_exact_paths()
+        argv=run.call_args.args[0];script=base64.b64decode(argv[-1]).decode('utf-16le')
+        self.assertIn(str(m.SOURCE),script);self.assertIn(str(m.DESTINATION),script)
+        self.assertIn(".Replace('\\','/')",script)
+        self.assertEqual(run.call_args.kwargs['timeout'],30)
+
+    def test_active_windows_cache_user_blocks(self):
+        with patch.object(m.subprocess,'run',return_value=self.response(matches=[{'processId':123}])):
+            with self.assertRaises(m.Refusal):m.windows_exact_paths()
+
+    def test_wrong_windows_scope_blocks(self):
+        with patch.object(m.subprocess,'run',return_value=self.response(checkedRoots=['/different'])):
+            with self.assertRaises(m.Refusal):m.windows_exact_paths()
+
+    def test_windows_failure_uses_fixed_error(self):
+        value=subprocess.CompletedProcess([],1,stdout=b'',stderr=b'fixture private diagnostic')
+        with patch.object(m.subprocess,'run',return_value=value):
+            with self.assertRaisesRegex(m.Refusal,'raw output withheld'):m.windows_exact_paths()
+
+if __name__=='__main__':unittest.main(verbosity=2)

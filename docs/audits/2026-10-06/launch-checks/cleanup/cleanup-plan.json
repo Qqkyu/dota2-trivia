@@ -1,0 +1,158 @@
+{
+  "status": "inventory only; no file moves or deletions have occurred",
+  "recorded_at_utc": "2026-10-10T10:03:54.538707+00:00",
+  "private_retention": [
+    {
+      "source": "/tmp/queue-arcade-launch-checks/private-render-backup",
+      "destination": "/home/kulmisiu/dev/dota2-trivia/.local-assets/operator-recovery-20261010/private-render-backup",
+      "reason": "Render logical export and restore material. Preserve for recovery.",
+      "required_directory_mode": "0700",
+      "required_regular_file_mode": "0600",
+      "condition": "No active reader or writer; reject symlinks; copy with private permissions, verify bytes privately, then remove the source. Never include file contents or hashes of credential files in public evidence."
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-checks/render-productionize-private",
+      "destination": "/home/kulmisiu/dev/dota2-trivia/.local-assets/operator-recovery-20261010/render-productionize-private",
+      "reason": "Render migration and application configuration recovery material.",
+      "required_directory_mode": "0700",
+      "required_regular_file_mode": "0600",
+      "condition": "No active reader or writer; reject symlinks; copy with private permissions, verify bytes privately, then remove the source. Never include file contents or hashes of credential files in public evidence."
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-checks/debug-backup",
+      "destination": "/home/kulmisiu/dev/dota2-trivia/.local-assets/operator-recovery-20261010/debug-backup",
+      "reason": "Small private backup directory. Preserve until root identifies whether the data is synthetic.",
+      "required_directory_mode": "0700",
+      "required_regular_file_mode": "0600",
+      "condition": "No active reader or writer; reject symlinks; copy with private permissions, verify bytes privately, then remove the source. Never include file contents or hashes of credential files in public evidence."
+    }
+  ],
+  "cache_moves": [
+    {
+      "source": "/tmp/queue-arcade-launch-checks/android-sdk",
+      "destination": "/home/kulmisiu/.cache/android-sdk",
+      "verification": "Compare the complete relative path and size/hash manifest; run emulator -version and adb version.",
+      "note": "Preserve the platform-tools symlink to /home/kulmisiu/android-sdk/platform-tools. Do not move or change that existing user SDK. Delete task AVD state only after final device evidence is archived.",
+      "condition": "All audit jobs using this path have finished. Destination must be absent or the existing files must be proven identical. Never overwrite an unrelated cache."
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-checks/models",
+      "destination": "/home/kulmisiu/.cache/faster-whisper/models",
+      "verification": "Compare relative file hashes. Check the small.en, medium.en, and large-v3 model directories are intact.",
+      "note": "The existing Hugging Face cache has base, small, and tiny models. It has no exact matching English small/medium or large-v3 cache entry. Do not substitute multilingual small for small.en.",
+      "condition": "All audit jobs using this path have finished. Destination must be absent or the existing files must be proven identical. Never overwrite an unrelated cache."
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-checks/asr-venv",
+      "destination": "/home/kulmisiu/.cache/faster-whisper/venv-python3.10",
+      "verification": "Update the old absolute prefix in all 23 script shebangs and activation files; check no old prefix remains in those scripts; run pip check and import faster_whisper and ctranslate2.",
+      "note": "A plain directory move breaks 23 entry points. The attached requirements list records 32 package versions. Recreate from those versions if relocation checks fail.",
+      "condition": "All audit jobs using this path have finished. Destination must be absent or the existing files must be proven identical. Never overwrite an unrelated cache."
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-checks/tools/trivy",
+      "destination": "/home/kulmisiu/.cache/trivy",
+      "verification": "Verify binary hash/version and DB metadata; set TRIVY_CACHE_DIR to the relocated cache child.",
+      "note": "1.445 GB is the database/cache child. The binary is 172.8 MB and its downloadable archive is 51.7 MB. Retain the reusable cache; do not confuse it with a Docker layer.",
+      "condition": "All audit jobs using this path have finished. Destination must be absent or the existing files must be proven identical. Never overwrite an unrelated cache."
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-checks/tools/node22",
+      "destination": "/home/kulmisiu/.cache/node/22.23.3",
+      "verification": "Verify the node executable SHA-256 fde6a4bf8d0562f7751d1a2d6cb9b417c4cfe107bbcb0aa3e9a24e125e348f48 and node --version.",
+      "note": "No matching nvm installation or target cache exists. Keep this source path until all hosted checks finish.",
+      "condition": "All audit jobs using this path have finished. Destination must be absent or the existing files must be proven identical. Never overwrite an unrelated cache."
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-checks/tools/postgres17",
+      "destination": "/home/kulmisiu/.cache/postgresql/17-audit-clients",
+      "verification": "Update the old prefix in pg_dump, pg_restore, and psql wrappers. Run each --version.",
+      "note": "The separate pg17-clients/pg-client.py adapter also embeds a scratch path. It is task code, not a portable PostgreSQL installation; archive needed operator code before deleting it.",
+      "condition": "All audit jobs using this path have finished. Destination must be absent or the existing files must be proven identical. Never overwrite an unrelated cache."
+    },
+    {
+      "source": "/tmp/queue-arcade-deep-review/browser-cache/firefox-1532",
+      "destination": "/home/kulmisiu/.cache/ms-playwright/firefox-1532",
+      "verification": "Verify complete relative file hashes and keep Playwright installation markers.",
+      "note": "The cache target does not exist. Do not move the old browser-cache/.links directory. Its entries can refer to temporary package locations.",
+      "condition": "All audit jobs using this path have finished. Destination must be absent or the existing files must be proven identical. Never overwrite an unrelated cache."
+    },
+    {
+      "source": "/tmp/queue-arcade-deep-review/browser-cache/webkit-2311",
+      "destination": "/home/kulmisiu/.cache/ms-playwright/webkit-2311",
+      "verification": "Verify complete relative file hashes and keep Playwright installation markers.",
+      "note": "The cache target does not exist. Do not move the old browser-cache/.links directory. Its entries can refer to temporary package locations.",
+      "condition": "All audit jobs using this path have finished. Destination must be absent or the existing files must be proven identical. Never overwrite an unrelated cache."
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-checks/assistive-modern/orca-gnome-49",
+      "destination": "/home/kulmisiu/.cache/orca/49/source",
+      "verification": "Verify complete relative file hashes; retain the archived instructions for its required runtime libraries.",
+      "note": "Retain source separately from task screenshots and temporary browser profiles.",
+      "condition": "All audit jobs using this path have finished. Destination must be absent or the existing files must be proven identical. Never overwrite an unrelated cache."
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/secret-scan/tools",
+      "destination": "/home/kulmisiu/.cache/gitleaks/queue-arcade-audit",
+      "verification": "Compare the complete file hashes; run gitleaks version and require 8.30.1.",
+      "note": "Keep gitleaks.toml beside the binary for the final exact-commit secret scan.",
+      "condition": "All audit jobs using this path have finished. Destination must be absent or every existing file must be proven identical."
+    }
+  ],
+  "cache_extraction": {
+    "source": "/tmp/queue-arcade-launch-checks/assistive-modern/portable-reader.tar",
+    "member_prefix": "opt/chrome153/",
+    "destination": "/home/kulmisiu/.cache/google-chrome-for-testing/audit-chrome153",
+    "condition": "After all assistive checks finish. Validate member paths and symlink targets; extract only this browser prefix, never workspace/.",
+    "verification": "Compare extracted file hashes with the selected tar members; run chrome --version.",
+    "note": "The 432 MB tar also includes workspace source and node_modules. Do not cache the whole archive."
+  },
+  "delete_after_all_retention_and_evidence_checks": [
+    "/tmp/queue-arcade-launch-checks",
+    "/tmp/queue-arcade-deep-review",
+    "/tmp/queue-arcade-health-wait-review",
+    "/tmp/queue-arcade-voices-replay",
+    "/tmp/queue-arcade-launch-security",
+    "/tmp/queue-arcade-migrations.OfHbML",
+    "/tmp/queue-arcade-audit-20261006",
+    "/tmp/queue-arcade-pg-audit.3f4hCl",
+    "/tmp/queue-arcade-content-freshness-20261010",
+    "/tmp/queue-arcade-launch-ci",
+    "/tmp/queue-arcade-fixes"
+  ],
+  "preserve_without_changes": [
+    "/home/kulmisiu/dev/dota2-trivia/.local-assets/flashback-originals",
+    "/home/kulmisiu/android-sdk",
+    "/home/kulmisiu/.cache/huggingface",
+    "/home/kulmisiu/.cache/queue-arcade/sound-tools",
+    "All 814 other matched /tmp entries unless separate task ownership is established.",
+    "All unrelated files and all agent/user processes.",
+    "/home/kulmisiu/dev/dota2-trivia/.env.local"
+  ],
+  "preconditions": [
+    "The root agent confirms all audit and hosted tests are complete.",
+    "The CI agent removes only its named Docker runner/container/volume resources and reports the result.",
+    "Archive final reports, scripts, manifests, screenshots needed to support conclusions, and this cleanup report in the project. Verify committed evidence before deleting its only remaining source.",
+    "Securely retain the private recovery directories under the existing Git- and Docker-ignored .local-assets root.",
+    "Perform cache moves with the required filesystem permission and validate each tool.",
+    "Refresh process, open-file, and mount checks immediately before removal; never kill a process from a saved PID alone.",
+    "Use the exact reviewed path list. Reject symlink roots, unexpected owners, and changed ownership. Do not use a wildcard or a whole-/tmp cleanup.",
+    "Delete /tmp/queue-arcade-launch-checks last because it contains this inventory and current operator helpers."
+  ],
+  "unresolved": [
+    "Final hosted and CI work is active; nothing is eligible for deletion yet.",
+    "The safe host process scan found the current shell/Codex session only. It did not prove Docker or Windows processes are absent.",
+    "Docker lifecycle ownership stays with the CI agent. No Docker resource was inspected or changed by this inventory.",
+    "The repository confirms the listed October audit paths. Name matches alone do not establish ownership for old July-September folders.",
+    "The private debug-backup directory is retained conservatively because its contents were not read."
+  ],
+  "docker_cleanup": {
+    "owner": "/root/ci_finish",
+    "task_image_candidate": "queue-arcade-ci-runner:20261006",
+    "condition": "Only after all CI jobs and final image scans finish. Remove the task image if there is no planned reuse.",
+    "preserve": "Shared base images, unrelated containers, unrelated volumes, and Docker configuration.",
+    "inventory_scope": "No Docker calls were made. Runner IDs and registration cleanup remain with the CI agent."
+  },
+  "final_close_directory": "/tmp/dota2-trivia-audit-close",
+  "final_close_condition": "Preserve final-evidence helpers and exact-commit secret scanner here through the final commit scan and push; root deletes this small folder afterwards."
+}

@@ -1,0 +1,55 @@
+{
+  "scope": "Narrow HTTP 400/409 suspension handling review. Original helper and archive are preserved. No provider calls by this review.",
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 2197,
+      "sha256": "457929024305aa54a29fb49e2e66bf25ade04803901421e64711910260ae0596"
+    },
+    {
+      "file": "create-candidate.py",
+      "bytes": 2685,
+      "sha256": "00a119a4cb09f763d3c8b338b153937c38d1683fbd8b54cc02c1aab10fedf01a"
+    },
+    {
+      "file": "deploy-render-candidate.py",
+      "bytes": 12367,
+      "sha256": "14cd3b0da65a39c49304308ad0d34a0d796d6b53b7ca8390171346927a00ff0c"
+    },
+    {
+      "file": "green-tests.log",
+      "bytes": 2183,
+      "sha256": "18cbf07118cd8505c8edda5f5093c6a3afbd63023ee04f28bb82ac05a8bf8eb2"
+    },
+    {
+      "file": "independent-diff.patch",
+      "bytes": 1935,
+      "sha256": "4e32936c5235289e53da7e46a92365a00699833c460ac2e54942afc6e06c3651"
+    },
+    {
+      "file": "independent-review.json",
+      "bytes": 1664,
+      "sha256": "0d622476800179942a15293201a2f6bd35498ed40af76bb51993f690225e2de1"
+    },
+    {
+      "file": "independent-tests.log",
+      "bytes": 2183,
+      "sha256": "4c4ec6a66ccef67031cb2b54b819da57d68290b52cd5e47ab79d07289e1a5c4c"
+    },
+    {
+      "file": "red-tests.log",
+      "bytes": 7801,
+      "sha256": "bce330bea5e7dfd9b52469e54fbf2489978607f2ab606fcd055b6a3b2a4958df"
+    },
+    {
+      "file": "review.json",
+      "bytes": 901,
+      "sha256": "6f3d39f76a1c84d9e84937d29ea87cc159bfbaa25ea50dec9343aa2878e22da0"
+    },
+    {
+      "file": "test-deploy-helpers.py",
+      "bytes": 22280,
+      "sha256": "a482cf9fdbac8cf3c856374a0bde4ca9e09d5175c0762a4d09ba6d6106ceae00"
+    }
+  ]
+}

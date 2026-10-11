@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-10-11T06:26:49.812Z",
+  "appRequests": 0,
+  "rawAddressesLogged": false,
+  "providerBodiesLogged": false,
+  "rows": [
+    {
+      "source": "ipify",
+      "status": 200,
+      "globalIpv6Parsed": true
+    },
+    {
+      "source": "cloudflare",
+      "status": 200,
+      "globalIpv6Parsed": true
+    }
+  ],
+  "independentIpv6SourcesAgreed": true,
+  "ok": true
+}

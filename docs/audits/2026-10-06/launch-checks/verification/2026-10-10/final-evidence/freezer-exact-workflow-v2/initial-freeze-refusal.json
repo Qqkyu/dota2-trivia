@@ -1,0 +1,14 @@
+{
+  "operator": "../freeze-archive.py.txt",
+  "operatorSha256": "a32a216c44143e1fb8c49864fb8e680a3d018652d0d227d92150cba367fff106",
+  "passed": false,
+  "stage": "path-validation-before-manifest-write",
+  "reason": "Private or cache path is excluded from release evidence",
+  "rejectedKnownPublicPaths": [
+    "ci/forced-color-fix/after/.github",
+    "ci/forced-color-fix/after/.github/workflows",
+    "ci/forced-color-fix/after/.github/workflows/ci.yml.txt"
+  ],
+  "globalManifestWritten": false,
+  "precedingStructuralCheckAt": "2026-10-11T07:01:10Z"
+}

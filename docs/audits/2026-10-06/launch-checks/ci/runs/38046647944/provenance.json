@@ -1,0 +1,48 @@
+{
+  "files": [
+    {
+      "source": "workflow-final.json",
+      "archive": "workflow-final.json",
+      "bytes": 7400,
+      "sha256": "f0055c6af2291fe71a7cac243ce1c79ba04b22eb8a91c80c8aedc72a52650492",
+      "exactCopy": true
+    },
+    {
+      "source": "runtime-metadata.json",
+      "archive": "runtime-metadata.json",
+      "bytes": 867,
+      "sha256": "bac2a0baed79ea833d1c0337ff94d7cb5d150e6a0a359567785a1419922fa6f0",
+      "exactCopy": true
+    },
+    {
+      "source": "token-lifecycle.json",
+      "archive": "token-lifecycle.json",
+      "bytes": 122,
+      "sha256": "132054c5a836ca46a31d4528ffe780d207cb58ad12dfaca716a80346dfbb787c",
+      "exactCopy": true
+    },
+    {
+      "source": "cleanup-result.json",
+      "archive": "cleanup-result.json",
+      "bytes": 97,
+      "sha256": "c64c04a18a92a228b6749828d5c95b386c5793150c5ec24a04acb88e8328a0bd",
+      "exactCopy": true
+    },
+    {
+      "source": "runners-after-cleanup.json",
+      "archive": "runners-after-cleanup.json",
+      "bytes": 40,
+      "sha256": "0a37990c04105f6d4c2c21388345c6326e3d61bcd8733ff58d79c28bc80f52a3",
+      "exactCopy": true
+    }
+  ],
+  "runtimeMetadataScope": "Saved startup state only; not the final container state.",
+  "privateFilesExcluded": true,
+  "ownershipRecord": {
+    "source": "evidence/active-runner.json",
+    "archive": "ownership-record.json",
+    "sourceSha256": "d4b547ca3be5ab955340ad5a23e8bfd17d4a187f5459b21227b26056828cfe75",
+    "exactCopy": false,
+    "selection": "Runner, volume, repository, ownership label and cleanup time only."
+  }
+}

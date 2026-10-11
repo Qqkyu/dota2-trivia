@@ -1,0 +1,10 @@
+test_changed_inode_refused (__main__.Checks) ... ok
+test_dry_run_cannot_chown (__main__.Checks) ... ok
+test_execute_only_calls_directory_owner_change (__main__.Checks) ... ok
+test_regular_file_refused_as_directory (__main__.Checks) ... ok
+test_symlink_refused_as_directory (__main__.Checks) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.003s
+
+OK

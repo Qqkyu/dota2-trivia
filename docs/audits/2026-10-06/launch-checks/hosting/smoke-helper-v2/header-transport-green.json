@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-10-10T12:57:21.663Z",
+  "sourceSha256": "fe1c62d1e08978f9f6f858b896dd0e3fee31083384764de5cea54356c07163e4",
+  "hostedRequests": 0,
+  "transport": "Node HTTPS request replaced with an in-memory fixture.",
+  "passed": 4,
+  "failed": 0,
+  "cases": [
+    {
+      "name": "IPv4 probe 0 rotates only X-Real-IP and X-Forwarded-For",
+      "passed": true
+    },
+    {
+      "name": "IPv4 probe 129 rotates only X-Real-IP and X-Forwarded-For",
+      "passed": true
+    },
+    {
+      "name": "plain IPv4 probe has no forwarded headers or credentials",
+      "passed": true
+    },
+    {
+      "name": "unexpected edge rejection is not accepted by a login budget probe",
+      "passed": true
+    }
+  ]
+}

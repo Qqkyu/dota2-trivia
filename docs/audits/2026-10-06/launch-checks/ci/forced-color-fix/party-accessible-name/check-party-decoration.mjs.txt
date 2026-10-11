@@ -1,0 +1,31 @@
+import { chromium } from "/home/kulmisiu/dev/dota2-trivia/node_modules/playwright/index.mjs";
+import { writeFile } from "node:fs/promises";
+const browser = await chromium.launch({ executablePath: "/home/kulmisiu/.cache/ms-playwright/chromium-1228/chrome-linux64/chrome", args: ["--no-sandbox"] });
+const result = { browser: browser.version(), controls: [] };
+try {
+  for (const colorScheme of ["light", "dark"]) {
+    const context = await browser.newContext({ forcedColors: "active", colorScheme });
+    const page = await context.newPage();
+    await page.goto("http://127.0.0.1:3351/party");
+    await page.getByTestId("private-room-choose-create").click();
+    const first = page.getByRole("group", { name: "Games", exact: true }).getByRole("button").first();
+    const cdp = await context.newCDPSession(page);
+    const { root } = await cdp.send("DOM.getDocument");
+    const { nodeId } = await cdp.send("DOM.querySelector", { nodeId: root.nodeId, selector: '[role="group"][aria-label="Games"] button' });
+    for (const state of ["selected", "unselected"]) {
+      if (state === "unselected") await first.click();
+      const { nodes } = await cdp.send("Accessibility.getPartialAXTree", { nodeId, fetchRelatives: false });
+      const node = nodes.find((node) => node.role?.value === "button");
+      const snapshot = await first.ariaSnapshot();
+      const pressed = node.properties.find((property) => property.name === "pressed")?.value.value;
+      result.controls.push({ colorScheme, state, snapshot, name: node.name.value, pressed, passed: !/[✓✔☑]/u.test(node.name.value) && !/[✓✔☑]/u.test(snapshot) && pressed === (state === "selected" ? "true" : "false") });
+    }
+    await context.close();
+  }
+} finally {
+  await browser.close();
+}
+result.passed = result.controls.length === 4 && result.controls.every((control) => control.passed);
+await writeFile("/tmp/queue-arcade-launch-ci/forced-color-fix/party-decoration.json", JSON.stringify(result, null, 2));
+console.log(JSON.stringify(result));
+if (!result.passed) process.exitCode = 1;

@@ -1,0 +1,66 @@
+{
+  "checkedAt": "2026-10-11T06:26:14.971081+00:00",
+  "rawAddressesLogged": false,
+  "providerBodiesLogged": false,
+  "appRequests": 0,
+  "rows": [
+    {
+      "name": "version-exact-environment",
+      "exitCode": 0,
+      "stdoutBytes": 366,
+      "stderrBytes": 0,
+      "errorKinds": [],
+      "curlVersionResponse": true,
+      "ipv6FeatureListed": true
+    },
+    {
+      "name": "version-inherited-environment",
+      "exitCode": 0,
+      "stdoutBytes": 366,
+      "stderrBytes": 0,
+      "errorKinds": [],
+      "curlVersionResponse": true,
+      "ipv6FeatureListed": true
+    },
+    {
+      "name": "ipify-ipv6",
+      "exitCode": 0,
+      "stdoutBytes": 50,
+      "stderrBytes": 0,
+      "errorKinds": [],
+      "httpStatus": 200,
+      "returnedAddressVersion": 6,
+      "returnedAddressGlobal": true
+    },
+    {
+      "name": "ipify-ipv4",
+      "exitCode": 0,
+      "stdoutBytes": 24,
+      "stderrBytes": 0,
+      "errorKinds": [],
+      "httpStatus": 200,
+      "returnedAddressVersion": 4,
+      "returnedAddressGlobal": true
+    },
+    {
+      "name": "cloudflare-ipv6",
+      "exitCode": 0,
+      "stdoutBytes": 247,
+      "stderrBytes": 0,
+      "errorKinds": [],
+      "httpStatus": 200,
+      "returnedAddressVersion": 6,
+      "returnedAddressGlobal": true
+    },
+    {
+      "name": "cloudflare-ipv4",
+      "exitCode": 0,
+      "stdoutBytes": 220,
+      "stderrBytes": 0,
+      "errorKinds": [],
+      "httpStatus": 200,
+      "returnedAddressVersion": 4,
+      "returnedAddressGlobal": true
+    }
+  ]
+}

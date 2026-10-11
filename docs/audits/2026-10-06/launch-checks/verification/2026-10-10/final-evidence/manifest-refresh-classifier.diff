@@ -1,0 +1,131 @@
+--- a/check-evidence.py.txt
++++ b/check-evidence.py.txt
+@@ -12,6 +12,8 @@
+ import hashlib
+ import json
+ import re
++import os
++import subprocess
+ import sys
+ import tarfile
+ 
+@@ -21,6 +23,11 @@
+ HERE = Path(__file__).resolve()
+ HEX = re.compile(r"[0-9a-f]{64}\Z")
+ PROHIBITED_PARTS = {".git", ".aws", ".ssh", ".data", ".local-assets", "node_modules", ".next", "__pycache__", "browser-profile", "private-render-backup"}
++REFRESH_REVISIONS = {
++    "verification/2026-10-10/health-readiness-manifest-refresh.json": ("15617dcaf2a495418c163398732d5f57b1add238", "da28a646479fab030e9b02b187e177c0f89555b9"),
++    "verification/2026-10-10/browser-waits-manifest-refresh.json": ("da28a646479fab030e9b02b187e177c0f89555b9", "6e1eace126e89341052dddbd76eeb4ad4de584e6"),
++    "verification/2026-10-10/contrast-manifest-refresh.json": ("6e1eace126e89341052dddbd76eeb4ad4de584e6", "64046c2d198fcbfe556599e727ae0638423a3482"),
++}
+ 
+ 
+ def prohibited_filename(name):
+@@ -42,6 +49,78 @@
+         return [{"path": p, **(m if isinstance(m, dict) else {"sha256": m})}
+                 for p, m in data.items()]
+     return data if isinstance(data, list) else []
++
++
++def is_manifest_refresh_record(document):
++    """Source-review change records contain hashes, but no file inventory."""
++    if not isinstance(document, dict) or "files" in document or not isinstance(document.get("changedReviewInputs"), list):
++        return False
++    for key in ("changedReviewInputs", "addedReviewInputs", "missingReviewInputs"):
++        if key in document:
++            values = document[key]
++            if not isinstance(values, list) or any(not isinstance(value, str) for value in values) or len(values) != len(set(values)):
++                return False
++    for key in ("previousFileCount", "currentFileCount"):
++        if type(document.get(key)) is not int or document[key] < 0:
++            return False
++    return all(isinstance(document.get(key), str) and HEX.fullmatch(document[key])
++               for key in ("previousManifestSha256", "currentManifestSha256"))
++
++
++def revision_blob(commit, path):
++    name = PurePosixPath(path)
++    if name.is_absolute() or ".." in name.parts or ":" in path or "\\" in path:
++        raise ValueError("Unsafe revision file path")
++    env = {key: value for key, value in os.environ.items() if not key.startswith("GIT_")}
++    env.update(GIT_OPTIONAL_LOCKS="0", GIT_NO_REPLACE_OBJECTS="1")
++    result = subprocess.run(["git", "-c", "core.hooksPath=/dev/null", "-c", "core.fsmonitor=false", "cat-file", "blob", commit + ":" + path],
++                            cwd=REPO, env=env, capture_output=True, timeout=10, check=False)
++    if result.returncode:
++        raise ValueError("Revision file is unavailable")
++    return result.stdout
++
++
++def check_refresh_record(path, revisions, read_blob=revision_blob):
++    document = json.loads(path.read_text())
++    result = {"path": label(path), "sha256": digest(path.read_bytes()), "previousCommit": revisions[0],
++              "currentCommit": revisions[1], "checkedBlobs": [], "mismatches": [],
++              "scope": "Historical source-review change record. Verify exact manifest blobs, input change lists and changed input/evidence blobs."}
++    try:
++        if not is_manifest_refresh_record(document):
++            raise ValueError("Invalid manifest refresh record shape")
++        manifests = []
++        for revision, key, count_key in zip(revisions, ("previousManifestSha256", "currentManifestSha256"), ("previousFileCount", "currentFileCount")):
++            raw = read_blob(revision, "docs/content-review.json")
++            manifest = json.loads(raw)
++            if digest(raw) != document[key] or len(manifest["files"]) != document[count_key]:
++                raise ValueError("Linked source manifest hash or file count differs")
++            manifests.append(manifest)
++            result["checkedBlobs"].append({"commit": revision, "path": "docs/content-review.json", "sha256": digest(raw)})
++        before, after = manifests
++        changed = sorted(name for name in set(before["files"]) | set(after["files"]) if before["files"].get(name) != after["files"].get(name))
++        added = sorted(set(after["files"]) - set(before["files"]))
++        missing = sorted(set(before["files"]) - set(after["files"]))
++        if sorted(document["changedReviewInputs"]) != changed or document.get("missingReviewInputs") != missing:
++            raise ValueError("Recorded input changes differ from linked manifests")
++        if "addedReviewInputs" in document and sorted(document["addedReviewInputs"]) != added:
++            raise ValueError("Recorded added inputs differ from linked manifests")
++        if after["reviewedAt"] != document.get("currentReviewedAt"):
++            raise ValueError("Recorded review time differs from linked manifest")
++        if document.get("questionAndEvidenceHashesUnchanged") is not True or any(not name.startswith("scripts/") for name in changed) or before["evidence"] != after["evidence"]:
++            raise ValueError("Unchanged question or evidence hash claim differs")
++        for revision, manifest in zip(revisions, manifests):
++            inputs = [(name, manifest["files"][name]) for name in changed if name in manifest["files"]]
++            inputs.append((manifest["evidence"]["path"], manifest["evidence"]["sha256"]))
++            for name, expected in inputs:
++                raw = read_blob(revision, name)
++                if digest(raw) != expected:
++                    raise ValueError("Linked changed input or evidence bytes differ")
++                result["checkedBlobs"].append({"commit": revision, "path": name, "sha256": digest(raw)})
++        result["changedInputs"] = changed
++        result["unchangedQuestionHashesCompared"] = True
++    except (ValueError, KeyError, TypeError, OSError, subprocess.SubprocessError) as error:
++        result["mismatches"].append({"errorType": type(error).__name__, "reason": str(error) if type(error) is ValueError else "Cannot validate linked revision inputs"})
++    return result
+ 
+ 
+ def check_manifest(path, source=False, evidence_rows_only=False):
+@@ -140,7 +219,7 @@
+               "inventory": [], "symlinks": [label(p) for p in paths if p.is_symlink()], "prohibitedFiles": [], "jsonFailures": [],
+               "jsonFiles": 0, "jsonLines": 0, "markdownFiles": 0, "localLinks": 0,
+               "brokenLinks": [], "archiveChecks": [], "narrowCredentialPatternMatches": [],
+-              "evidenceManifests": [], "sourceSnapshotManifests": []}
++              "evidenceManifests": [], "sourceSnapshotManifests": [], "manifestRefreshRecords": []}
+     for path in files:
+         raw = path.read_bytes()
+         name = label(path)
+@@ -190,7 +269,9 @@
+             relative = str(path.relative_to(ROOT))
+             source = relative in {"database/migrations/source-manifest.json", "performance/source-manifest.json", "second-opinion/final-source-manifest.json", "second-opinion/reviewed-source-manifest.json"}
+             excluded = {"echo/model-manifests.json", "database/backup/synthetic-backup-manifest.json", "infrastructure/final-build-manifest.json", "infrastructure/node22-tool-manifest.json", "infrastructure/scanner-manifest.json", "rights/quarantine-manifest.json", "soundcheck/route-output-manifest.json"}
+-            if relative not in excluded:
++            if relative in REFRESH_REVISIONS:
++                result["manifestRefreshRecords"].append(check_refresh_record(path, REFRESH_REVISIONS[relative]))
++            elif relative not in excluded:
+                 checked = check_manifest(path, source)
+                 result["sourceSnapshotManifests" if source else "evidenceManifests"].append(checked)
+                 if relative == "database/migrations/source-manifest.json":
+@@ -202,7 +283,7 @@
+     initial_files = {item["path"] for item in result["inventory"]}
+     changed = [item["path"] for item in result["inventory"] if not (REPO / item["path"]).is_file() or digest((REPO / item["path"]).read_bytes()) != item["sha256"]]
+     result["concurrentChanges"] = {"added": sorted(final_files - initial_files), "removed": sorted(initial_files - final_files), "changed": changed}
+-    result["structuralChecksPassed"] = not any(result[k] for k in ("symlinks", "prohibitedFiles", "jsonFailures", "brokenLinks")) and not any(m["mismatches"] for m in result["evidenceManifests"]) and not result["historicalArchive"]["mismatches"] and all(a["passed"] for a in result["archiveChecks"]) and not any(result["concurrentChanges"].values())
++    result["structuralChecksPassed"] = not any(result[k] for k in ("symlinks", "prohibitedFiles", "jsonFailures", "brokenLinks")) and not any(m["mismatches"] for m in result["evidenceManifests"] + result["manifestRefreshRecords"]) and not result["historicalArchive"]["mismatches"] and all(a["passed"] for a in result["archiveChecks"]) and not any(result["concurrentChanges"].values())
+     result["limits"] = ["Markdown file destinations checked; heading anchors and web links are not checked.",
+                         "Manifest checks verify listed bytes. They do not prove that a scoped manifest lists every file.",
+                         "Credential patterns are narrow. Exact candidate Gitleaks and known-secret scans are separate evidence.",

@@ -1,0 +1,35 @@
+import assert from 'node:assert/strict';
+import { ipv6, curlArgs, parseCurl, loginResponse, parseLoginHeaders, runIsolation, failure, probe4, validateV2GateBinding } from './check-address-isolation-edge-v3.mjs';
+const results=[];
+async function test(name, fn){await fn();results.push({name,passed:true});}
+await test('v2 gate binding accepts a reviewed proof digest',()=>validateV2GateBinding({ingressProofVersion:2,ingressProofDigest:'a'.repeat(64)}));
+for(const value of [{},{ingressProofVersion:1,ingressProofDigest:'a'.repeat(64)},{ingressProofVersion:2,ingressProofDigest:'bad'}])await test('v2 gate binding rejects missing or old proof',()=>assert.throws(()=>validateV2GateBinding(value)));
+for (const value of ['127.0.0.1','::1','fe80::1','fc00::1','::ffff:192.0.2.1','2001:db8::1%eth0','not-an-address']) await test('reject non-global or invalid IPv6: '+value,()=>assert.throws(()=>ipv6(value)));
+await test('canonical IPv6 comparison',()=>assert.equal(ipv6('2001:db8::1'),ipv6('2001:0db8:0000:0000:0000:0000:0000:0001')));
+for(const url of ['http://api64.ipify.org/','https://evil.test/','https://person:secret@api64.ipify.org/','https://api64.ipify.org/?secret=x'])await test('reject foreign curl target',()=>assert.throws(()=>curlArgs(url)));
+await test('curl uses IPv6 with no redirects, cookie files or configuration',()=>{const args=curlArgs('https://queue-arcade.onrender.com/api/auth/steam',true,4);assert.equal(args[0],'--disable');assert(args.includes('--ipv6'));assert(!args.some(x=>['--location','-L','--cookie','-b','--cookie-jar','-c','--insecure','-k'].includes(x)));assert(args.includes('NUL'));});
+await test('parse curl status without retaining headers',()=>assert.deepEqual(parseCurl('safe\nSTATUS:200'),{body:'safe',status:200}));
+await test('reject oversized curl output',()=>assert.throws(()=>parseCurl('x'.repeat(16385)+'\nSTATUS:200')));
+await test('require final curl status',()=>assert.throws(()=>parseCurl('HTTP/2 302\n')));
+await test('reject redirect outside Steam',()=>assert.throws(()=>loginResponse(302,{location:'https://evil.test/openid/login'})));
+await test('reject basic-auth redirect',()=>assert.throws(()=>loginResponse(302,{location:'https://person:secret@steamcommunity.com/openid/login'})));
+await test('reject unexpected status',()=>assert.throws(()=>loginResponse(500,{})));
+await test('reject malformed 429 headers',()=>assert.throws(()=>loginResponse(429,{'ratelimit-limit':'999','ratelimit-remaining':'0','ratelimit-reset':'1791624567'})));
+await test('ignore cookie headers in IPv6 result',()=>assert.deepEqual(parseLoginHeaders('HTTP/2 302\r\nlocation: https://steamcommunity.com/openid/login?x=y\r\nset-cookie: private=value\r\n'),{location:'https://steamcommunity.com/openid/login?x=y'}));
+await test('reject duplicate IPv6 redirect headers',()=>assert.throws(()=>parseLoginHeaders('HTTP/2 302\r\nlocation: https://a.test/\r\nlocation: https://b.test/\r\n')));
+await test('error output excludes arbitrary private text',()=>assert.equal(failure(new Error('cookie=private')),'ISOLATION_CHECK_FAILED'));
+await test('IPv4 transport rejects invalid index before network',()=>assert.throws(()=>probe4(130,null,Date.now()+30000)));
+await test('IPv4 transport rejects expired deadline before network',()=>assert.throws(()=>probe4(0,null,0)));
+function fixture(mode='success'){
+ let time=Date.parse('2026-10-10T09:00:00Z');const start=time;const calls=[];let checkpoint;
+ const resetAt=start+60000;
+ return {calls,get saved(){return checkpoint},
+  inputs:{now:()=>time, checkpoint:async r=>{checkpoint=structuredClone(r)},
+   source:async(url,headers,seconds)=>{calls.push({kind:'source',url,headers,seconds}); if(url.includes('ipify'))return{status:200,body:'2001:db8::1'};if(url.includes('trace'))return{status:200,body:'ip='+(mode==='different-ipv6'?'2001:db8::2':'2001:db8::1')+'\n'};if(mode==='late-control')time=start+60000;return {status:mode==='blocked-control'?429:302,body:mode==='blocked-control'?'HTTP/2 429\r\nratelimit-limit: 120\r\nratelimit-remaining: 0\r\nratelimit-reset: '+String(resetAt/1000)+'\r\n':'HTTP/2 302\r\nlocation: https://steamcommunity.com/openid/login?synthetic=value\r\nset-cookie: private=discard\r\n'};},
+   probe:async(index,_agent,deadline)=>{calls.push({kind:'probe',index,deadline});time+=10;if(mode==='slow')time+=1000;if(index===undefined)return{status:mode==='plain-bypass'?302:429,resetAt};if(mode==='spoof-bypass'&&index===125)return{status:302};if(mode==='no-limit')return{status:302};if(mode==='no-allowance')return{status:429,resetAt};if(index>=120)return{status:429,resetAt:mode==='reset-moved'&&index===129?resetAt+60000:mode==='nearly-expired'?time+1000:resetAt};return{status:302};}
+  }};
+}
+await test('success uses 131 IPv4 reads and exactly one independent IPv6 control',async()=>{const f=fixture();const report=await runIsolation(f.inputs);assert.equal(report.ok,true);assert.equal(report.version,3);assert.deepEqual(report.spoofHeadersTested,['x-real-ip','x-forwarded-for']);assert.equal(report.ipv4Requests,131);assert.equal(report.ipv6LoginRequests,1);assert.equal(report.allowed,120);assert.equal(report.blocked,10);assert.equal(f.calls.filter(x=>x.kind==='source').length,3);assert.equal(f.calls.filter(x=>x.kind==='probe').length,131);assert.equal(report.sameWindowConfirmed,true);assert(!JSON.stringify(report).includes('2001:'));assert(!JSON.stringify(report).includes('synthetic=value'));assert.equal(f.saved.ok,true);});
+await test('an existing IPv4 bucket can remain fully blocked while IPv6 is allowed',async()=>{const f=fixture('no-allowance');const report=await runIsolation(f.inputs);assert.equal(report.allowed,0);assert.equal(report.blocked,130);});
+for(const mode of ['different-ipv6','spoof-bypass','plain-bypass','no-limit','reset-moved','nearly-expired','slow','blocked-control','late-control'])await test('fail closed for '+mode,async()=>{const f=fixture(mode);await assert.rejects(runIsolation(f.inputs));assert(f.calls.filter(x=>x.kind==='probe').length<=131);assert(f.calls.filter(x=>x.kind==='source'&&x.url.includes('/api/auth')).length<=1);if(f.saved)assert.equal(f.saved.ok,false);if(mode==='different-ipv6')assert.equal(f.calls.filter(x=>x.kind==='probe').length,0);});
+console.log(JSON.stringify({checkedAt:new Date().toISOString(),hostedRequests:0,passed:results.length,cases:results},null,2));

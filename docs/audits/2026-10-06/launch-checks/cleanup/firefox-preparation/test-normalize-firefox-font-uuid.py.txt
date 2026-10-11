@@ -1,0 +1,94 @@
+import hashlib
+import importlib.util
+import os
+from pathlib import Path
+import stat
+import tempfile
+import unittest
+
+CLOSE = Path('/tmp/dota2-trivia-audit-close')
+spec = importlib.util.spec_from_file_location('normalizer', CLOSE / 'normalize-firefox-font-uuid.py')
+n = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(n)
+
+class Checks(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory(prefix='uuid-check-', dir=CLOSE)
+        self.root = Path(self.tmp.name)
+        self.prep, self.base = n.load_helpers()
+        self.source = self.root / 'source'
+        self.cache = self.root / 'cache'
+        self.original = b'00000000-0000-4000-8000-000000000001'
+        self.retained = b'00000000-0000-4000-8000-000000000002'
+        for root, value in ((self.source, self.original), (self.cache, self.retained)):
+            (root / 'firefox/fonts').mkdir(parents=True)
+            (root / n.RELATIVE).write_bytes(value)
+            for i in range(60):
+                (root / 'firefox' / ('fixture-%02d' % i)).write_bytes(b'fixture')
+        (self.source / 'firefox/.parentlock').touch()
+        (self.source / 'firefox/updates/0').mkdir(parents=True)
+        (self.source / 'firefox/updates/downloading').mkdir()
+        self.prep.SOURCE = self.source
+        self.prep.DESTINATION = self.cache
+        self.original_globals = {key: getattr(n, key) for key in ('SOURCE_HASH', 'CACHE_HASH', 'SOURCE_TREE', 'CACHE_TREE', 'BACKUP', 'RECEIPT', 'process_checks')}
+        n.SOURCE_HASH = n.sha(self.original)
+        n.CACHE_HASH = n.sha(self.retained)
+        rows = self.base.tree(self.source)
+        for relative in self.prep.RUNTIME:
+            del rows[relative]
+        n.SOURCE_TREE = self.base.fingerprint(rows)
+        n.CACHE_TREE = self.base.fingerprint(self.base.tree(self.cache))
+        n.BACKUP = self.root / 'private/original.bin'
+        n.BACKUP.parent.mkdir(mode=0o700)
+        n.RECEIPT = self.root / 'receipt.json'
+        n.process_checks = lambda prep, base: None
+    def tearDown(self):
+        for key, value in self.original_globals.items():
+            setattr(n, key, value)
+        self.tmp.cleanup()
+    def execute(self):
+        return n.normalize(self.prep, self.base, True, True, True)
+    def test_read_only(self):
+        before = self.base.tree(self.source)
+        result = n.normalize(self.prep, self.base)
+        self.assertFalse(result['source_changed'])
+        self.assertFalse(n.BACKUP.exists())
+        self.assertEqual(before, self.base.tree(self.source))
+    def test_execute_preserves_cache_and_original(self):
+        before = self.base.tree(self.cache)
+        result = self.execute()
+        self.assertTrue(result['source_changed'])
+        self.assertEqual(before, self.base.tree(self.cache))
+        self.assertEqual(n.BACKUP.read_bytes(), self.original)
+        self.assertEqual(stat.S_IMODE(n.BACKUP.stat().st_mode), 0o600)
+        self.assertEqual((self.source / n.RELATIVE).read_bytes(), self.retained)
+        self.assertEqual(self.prep.compare_trees(self.base), n.CACHE_TREE)
+    def test_changed_other_file_stops(self):
+        (self.source / 'firefox/fixture-00').write_bytes(b'changed')
+        with self.assertRaises(Exception): self.execute()
+        self.assertFalse(n.BACKUP.exists())
+    def test_hardlinked_uuid_stops(self):
+        os.link(self.source / n.RELATIVE, self.root / 'extra-link')
+        with self.assertRaises(Exception): self.execute()
+        self.assertFalse(n.BACKUP.exists())
+    def test_symlinked_uuid_stops(self):
+        path = self.source / n.RELATIVE
+        path.rename(self.root / 'moved-uuid')
+        path.symlink_to(self.root / 'moved-uuid')
+        with self.assertRaises(Exception): self.execute()
+        self.assertFalse(n.BACKUP.exists())
+    def test_existing_backup_collision_stops(self):
+        n.BACKUP.write_bytes(self.retained)
+        n.BACKUP.chmod(0o600)
+        with self.assertRaises(Exception): self.execute()
+        self.assertEqual((self.source / n.RELATIVE).read_bytes(), self.original)
+    def test_completion_flags_required(self):
+        with self.assertRaises(Exception): n.normalize(self.prep, self.base, True, True, False)
+        self.assertFalse(n.BACKUP.exists())
+    def test_invalid_uuid_stops(self):
+        path = self.source / n.RELATIVE
+        path.write_bytes(b'x' * 36)
+        with self.assertRaises(Exception): n.read_uuid(self.base, path, n.sha(b'x' * 36))
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)

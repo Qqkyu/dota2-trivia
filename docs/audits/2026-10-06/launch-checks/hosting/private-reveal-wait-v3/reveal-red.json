@@ -1,0 +1,315 @@
+{
+  "operatorSha256": "e0a09e4909016e3ee5dbefefafe9d7385401a6972294d10c8d5a92679b7bfc68",
+  "expectedPassing": [
+    "normal",
+    "delayed-vote",
+    "delayed-active",
+    "delayed-refresh",
+    "delayed-before-snapshot",
+    "already-reveal"
+  ],
+  "matchesExpected": false,
+  "cases": [
+    {
+      "mode": "normal",
+      "passed": true,
+      "failure": null,
+      "roundReads": 2,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700,
+        15500
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 119200,
+          "number": 0,
+          "phase": "reveal",
+          "answerDeadline": 118000
+        }
+      ]
+    },
+    {
+      "mode": "delayed-vote",
+      "passed": false,
+      "failure": "PRIVATE_REVEAL",
+      "roundReads": 2,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700,
+        15500
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 125700,
+          "number": 1,
+          "phase": "answering",
+          "answerDeadline": 140000
+        }
+      ]
+    },
+    {
+      "mode": "delayed-active",
+      "passed": false,
+      "failure": "PRIVATE_REVEAL",
+      "roundReads": 2,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700,
+        15500
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 125700,
+          "number": 1,
+          "phase": "answering",
+          "answerDeadline": 140000
+        }
+      ]
+    },
+    {
+      "mode": "delayed-refresh",
+      "passed": true,
+      "failure": null,
+      "roundReads": 2,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700,
+        15500
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 119200,
+          "number": 0,
+          "phase": "reveal",
+          "answerDeadline": 118000
+        }
+      ]
+    },
+    {
+      "mode": "delayed-before-snapshot",
+      "passed": true,
+      "failure": null,
+      "roundReads": 2,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700,
+        15500
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 121200,
+          "number": 0,
+          "phase": "reveal",
+          "answerDeadline": 118000
+        }
+      ]
+    },
+    {
+      "mode": "already-reveal",
+      "passed": false,
+      "failure": "PRIVATE_REVEAL",
+      "roundReads": 2,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700,
+        15500
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 134700,
+          "number": 1,
+          "phase": "answering",
+          "answerDeadline": 140000
+        }
+      ]
+    },
+    {
+      "mode": "already-next-round",
+      "passed": false,
+      "failure": "PRIVATE_REVEAL",
+      "roundReads": 2,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700,
+        15500
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 141700,
+          "number": 1,
+          "phase": "reveal",
+          "answerDeadline": 140000
+        }
+      ]
+    },
+    {
+      "mode": "never-reveal",
+      "passed": false,
+      "failure": "PRIVATE_REVEAL",
+      "roundReads": 4,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700,
+        15500,
+        300,
+        300
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 119200,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 119100
+        },
+        {
+          "serverNow": 119500,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 119400
+        },
+        {
+          "serverNow": 119800,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 119700
+        }
+      ]
+    },
+    {
+      "mode": "missing-reveal",
+      "passed": false,
+      "failure": "PRIVATE_REVEAL",
+      "roundReads": 2,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700,
+        15500
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 119200,
+          "number": 0,
+          "phase": "reveal",
+          "answerDeadline": 118000
+        }
+      ]
+    },
+    {
+      "mode": "missing-vote",
+      "passed": false,
+      "failure": "PRIVATE_REVEAL",
+      "roundReads": 2,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700,
+        15500
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 119200,
+          "number": 0,
+          "phase": "reveal",
+          "answerDeadline": 118000
+        }
+      ]
+    },
+    {
+      "mode": "read-failure",
+      "passed": false,
+      "failure": "JSON_STATUS",
+      "roundReads": 2,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700,
+        15500
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 119200,
+          "number": 0,
+          "phase": "reveal",
+          "answerDeadline": 118000
+        }
+      ]
+    }
+  ],
+  "hostedRequests": 0
+}

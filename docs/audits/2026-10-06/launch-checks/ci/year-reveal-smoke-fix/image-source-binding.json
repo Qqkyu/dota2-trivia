@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-10-10T11:57:27.931689+00:00",
+  "baseCommit": "64046c2d198fcbfe556599e727ae0638423a3482",
+  "imageId": "sha256:2805e11a91f951c2b316c290068566f2cd759ef5cd10086e6a5c4ed12d658600",
+  "runtimeBuildId": "tzY0qWu2D63ePle_kOR2l",
+  "scriptSha256": "0064ae5cee65d0da37fe6597d8418c421967a51c4b8a475fc269ede1f3a3d010",
+  "onlyCheckoutChange": "scripts/visual-smoke.mjs",
+  "outerNanoCpus": 2000000000,
+  "outerMemory": 5368709120,
+  "outerMemorySwap": 5368709120,
+  "productionImageRebuilt": false,
+  "registrationCreatedForDiagnosis": false,
+  "fixtureDatabase": "isolated disposable PostgreSQL inside existing private runner"
+}

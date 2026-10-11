@@ -1,0 +1,29 @@
+--- original/deploy-render-candidate.py
++++ v2/deploy-render-candidate.py
+@@ -179,14 +179,14 @@
+         try:
+             status, deploy = api('/deploys', 'POST', {'commitId': sha, 'clearCache': 'do_not_clear'}, with_status=True)
+         except urllib.error.HTTPError as error:
+-            if error.code != 409:
++            if error.code not in (400, 409):
+                 raise
+             suspended_reason = suspension_conflict(error)
+             current = checked_service()
+             still_paused = current['suspended'] == 'suspended' and current['suspenders'] == ['user']
+-            record('paused-deploy-attempt.json', {**base, 'httpStatus': 409,
++            record('paused-deploy-attempt.json', {**base, 'httpStatus': error.code,
+                    'suspensionConflictConfirmed': suspended_reason, 'serviceStillPaused': still_paused})
+-            assert suspended_reason and still_paused, '409 was not a verified user-suspension conflict.'
++            assert suspended_reason and still_paused, 'Deploy error was not a verified user-suspension conflict.'
+             return
+         assert status in [201, 202]
+         if deploy is not None:
+@@ -203,7 +203,7 @@
+     elif phase == '--resume':
+         prior = json.loads((EVIDENCE / 'paused-deploy-attempt.json').read_text())
+         assert prior['serviceId'] == SID and prior['commit'] == sha and prior['ciRunId'] == run_id
+-        assert prior['httpStatus'] == 409 and prior['serviceStillPaused'] and prior['suspensionConflictConfirmed']
++        assert prior['httpStatus'] in (400, 409) and prior['serviceStillPaused'] and prior['suspensionConflictConfirmed']
+         age = (utc_now() - parsed_time(prior['checkedAt'])).total_seconds()
+         assert 0 <= age <= 900, 'Suspension evidence expired; repeat the paused deploy attempt.'
+         assert service['branch'] == BRANCH and service['suspended'] == 'suspended' and service['suspenders'] == ['user']

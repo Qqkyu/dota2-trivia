@@ -1,0 +1,123 @@
+{
+  "scope": "Three accessibility follow-up commands against an isolated local app. These are manual diagnostic follow-ups, not a completed GitHub Actions workflow.",
+  "runs": [
+    {
+      "engine": "chromium",
+      "version": "149.0.7827.55",
+      "startedAt": "2026-10-10T10:32:25.863Z",
+      "completedAt": "2026-10-10T10:34:46.300Z",
+      "exitCode": 0,
+      "completed": true,
+      "buildId": null,
+      "reviewerFixture": false,
+      "modes": [
+        "desktop",
+        "mobile",
+        "zoom200",
+        "zoom400",
+        "reduced",
+        "forced"
+      ],
+      "pageInspections": 42,
+      "fixtureInspections": 96,
+      "keyboardScenarios": 6,
+      "keyboardScenarioNames": [
+        "classic-ability",
+        "shop-build",
+        "fogged-vision",
+        "order-up",
+        "flashback-year",
+        "mobile-next-round"
+      ],
+      "failureCount": 0,
+      "browserErrorCount": 0,
+      "horizontalOverflowCount": 0,
+      "axeRecordedViolations": {
+        "color-contrast": 22
+      },
+      "axeRecordedViolationNodes": 221,
+      "axeExcludedViolationCount": 22,
+      "axeIncompleteRuleOccurrences": {
+        "color-contrast": 132
+      },
+      "axeIncompleteNodeOccurrences": 7868
+    },
+    {
+      "engine": "firefox",
+      "version": "151.0",
+      "startedAt": "2026-10-10T10:34:46.571Z",
+      "completedAt": "2026-10-10T10:35:32.123Z",
+      "exitCode": 0,
+      "completed": true,
+      "buildId": null,
+      "reviewerFixture": false,
+      "modes": [
+        "mobile"
+      ],
+      "pageInspections": 7,
+      "fixtureInspections": 16,
+      "keyboardScenarios": 6,
+      "keyboardScenarioNames": [
+        "classic-ability",
+        "shop-build",
+        "fogged-vision",
+        "order-up",
+        "flashback-year",
+        "mobile-next-round"
+      ],
+      "failureCount": 0,
+      "browserErrorCount": 0,
+      "horizontalOverflowCount": 0,
+      "axeRecordedViolations": {},
+      "axeRecordedViolationNodes": 0,
+      "axeExcludedViolationCount": 0,
+      "axeIncompleteRuleOccurrences": {
+        "color-contrast": 22
+      },
+      "axeIncompleteNodeOccurrences": 1044
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "startedAt": "2026-10-10T10:35:32.392Z",
+      "completedAt": "2026-10-10T10:37:09.930Z",
+      "exitCode": 0,
+      "completed": true,
+      "buildId": null,
+      "reviewerFixture": false,
+      "modes": [
+        "mobile"
+      ],
+      "pageInspections": 7,
+      "fixtureInspections": 16,
+      "keyboardScenarios": 6,
+      "keyboardScenarioNames": [
+        "classic-ability",
+        "shop-build",
+        "fogged-vision",
+        "order-up",
+        "flashback-year",
+        "mobile-next-round"
+      ],
+      "failureCount": 0,
+      "browserErrorCount": 0,
+      "horizontalOverflowCount": 0,
+      "axeRecordedViolations": {},
+      "axeRecordedViolationNodes": 0,
+      "axeExcludedViolationCount": 0,
+      "axeIncompleteRuleOccurrences": {
+        "color-contrast": 22
+      },
+      "axeIncompleteNodeOccurrences": 1044
+    }
+  ],
+  "totals": {
+    "pageInspections": 56,
+    "fixtureInspections": 128,
+    "keyboardScenarios": 18,
+    "failureCount": 0,
+    "axeExcludedViolationCount": 22,
+    "axeIncompleteRuleOccurrences": 176,
+    "privateScreenshots": 190
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "checkedAt": "2026-10-11T06:35:49.399Z",
+  "hostedRequests": 0,
+  "passed": 40,
+  "cases": [
+    {
+      "name": "v2 gate binding accepts a reviewed proof digest",
+      "passed": true
+    },
+    {
+      "name": "v2 gate binding rejects missing or old proof",
+      "passed": true
+    },
+    {
+      "name": "v2 gate binding rejects missing or old proof",
+      "passed": true
+    },
+    {
+      "name": "v2 gate binding rejects missing or old proof",
+      "passed": true
+    },
+    {
+      "name": "reject non-global or invalid IPv6: 127.0.0.1",
+      "passed": true
+    },
+    {
+      "name": "reject non-global or invalid IPv6: ::1",
+      "passed": true
+    },
+    {
+      "name": "reject non-global or invalid IPv6: fe80::1",
+      "passed": true
+    },
+    {
+      "name": "reject non-global or invalid IPv6: fc00::1",
+      "passed": true
+    },
+    {
+      "name": "reject non-global or invalid IPv6: ::ffff:192.0.2.1",
+      "passed": true
+    },
+    {
+      "name": "reject non-global or invalid IPv6: 2001:db8::1%eth0",
+      "passed": true
+    },
+    {
+      "name": "reject non-global or invalid IPv6: not-an-address",
+      "passed": true
+    },
+    {
+      "name": "canonical IPv6 comparison",
+      "passed": true
+    },
+    {
+      "name": "reject foreign curl target",
+      "passed": true
+    },
+    {
+      "name": "reject foreign curl target",
+      "passed": true
+    },
+    {
+      "name": "reject foreign curl target",
+      "passed": true
+    },
+    {
+      "name": "reject foreign curl target",
+      "passed": true
+    },
+    {
+      "name": "curl uses IPv6 with no redirects, cookie files or configuration",
+      "passed": true
+    },
+    {
+      "name": "parse curl status without retaining headers",
+      "passed": true
+    },
+    {
+      "name": "reject oversized curl output",
+      "passed": true
+    },
+    {
+      "name": "require final curl status",
+      "passed": true
+    },
+    {
+      "name": "reject redirect outside Steam",
+      "passed": true
+    },
+    {
+      "name": "reject basic-auth redirect",
+      "passed": true
+    },
+    {
+      "name": "reject unexpected status",
+      "passed": true
+    },
+    {
+      "name": "reject malformed 429 headers",
+      "passed": true
+    },
+    {
+      "name": "ignore cookie headers in IPv6 result",
+      "passed": true
+    },
+    {
+      "name": "reject duplicate IPv6 redirect headers",
+      "passed": true
+    },
+    {
+      "name": "error output excludes arbitrary private text",
+      "passed": true
+    },
+    {
+      "name": "IPv4 transport rejects invalid index before network",
+      "passed": true
+    },
+    {
+      "name": "IPv4 transport rejects expired deadline before network",
+      "passed": true
+    },
+    {
+      "name": "success uses 131 IPv4 reads and exactly one independent IPv6 control",
+      "passed": true
+    },
+    {
+      "name": "an existing IPv4 bucket can remain fully blocked while IPv6 is allowed",
+      "passed": true
+    },
+    {
+      "name": "fail closed for different-ipv6",
+      "passed": true
+    },
+    {
+      "name": "fail closed for spoof-bypass",
+      "passed": true
+    },
+    {
+      "name": "fail closed for plain-bypass",
+      "passed": true
+    },
+    {
+      "name": "fail closed for no-limit",
+      "passed": true
+    },
+    {
+      "name": "fail closed for reset-moved",
+      "passed": true
+    },
+    {
+      "name": "fail closed for nearly-expired",
+      "passed": true
+    },
+    {
+      "name": "fail closed for slow",
+      "passed": true
+    },
+    {
+      "name": "fail closed for blocked-control",
+      "passed": true
+    },
+    {
+      "name": "fail closed for late-control",
+      "passed": true
+    }
+  ]
+}

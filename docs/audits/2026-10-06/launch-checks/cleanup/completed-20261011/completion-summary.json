@@ -1,0 +1,31 @@
+{
+  "checked_at_utc": "2026-10-11T07:19:30.432036+00:00",
+  "scratch_roots_deleted": 11,
+  "scratch_paths": [
+    "/tmp/queue-arcade-health-wait-review",
+    "/tmp/queue-arcade-content-freshness-20261010",
+    "/tmp/queue-arcade-voices-replay",
+    "/tmp/queue-arcade-migrations.OfHbML",
+    "/tmp/queue-arcade-pg-audit.3f4hCl",
+    "/tmp/queue-arcade-audit-20261006",
+    "/tmp/queue-arcade-fixes",
+    "/tmp/queue-arcade-launch-security",
+    "/tmp/queue-arcade-deep-review",
+    "/tmp/queue-arcade-launch-ci",
+    "/tmp/queue-arcade-launch-checks"
+  ],
+  "all_reviewed_scratch_roots_absent": true,
+  "retained_tool_directories_present": 11,
+  "private_file_count": 24,
+  "private_file_bytes": 109052,
+  "private_modes": "0700 directories, 0600 files",
+  "remaining_close_folder": "/tmp/dota2-trivia-audit-close",
+  "close_folder_purpose": "Final evidence validation, exact secret scan, commit and push. Remove after the final push and preserve required safe receipts first.",
+  "docker_cleanup_status": "Automatic approval review rejected deletion before execution. Exact reviewed resources remain pending user approval.",
+  "pinned_cleanup_helper_sha256": "b08f8bbe81d15102f125acf0c77177b669ff8b9106563c83a904c53506f26a94",
+  "pinned_cleanup_helper_unchanged": true,
+  "ownership_repair_helper_sha256": "00fa15d644c0fd5e2830f71443a66909b2a2febb4b467f967d1a20acaa9f1ad0",
+  "ownership_repair_primary_tests": 5,
+  "ownership_repair_independent_tests": 3,
+  "unrelated_tmp_paths_in_cleanup_scope": false
+}

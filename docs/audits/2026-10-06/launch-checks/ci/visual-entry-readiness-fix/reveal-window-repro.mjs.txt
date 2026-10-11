@@ -1,0 +1,29 @@
+const appUrl=process.env.APP_URL;
+const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+async function waitForRevealEntryWindow() {
+  const roomUrl = new URL("/api/rounds", appUrl);
+  roomUrl.search = new URLSearchParams({
+    gameId: "dota2",
+    mode: "mixed",
+    filter: "Mixed",
+    playerId: `visual-entry-${Date.now()}`,
+  });
+
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    const snapshot = await fetch(roomUrl, { cache: "no-store" }).then((response) => response.json());
+    console.log(JSON.stringify({attempt,phase:snapshot.round?.phase,answerRemaining:snapshot.round?.answerDeadline-snapshot.serverNow,revealRemaining:snapshot.round?.revealDeadline-snapshot.serverNow}));
+    const revealRemaining = snapshot.round.revealDeadline - snapshot.serverNow;
+    if (snapshot.round.phase === "reveal" && revealRemaining >= 5_000) return;
+
+    const wait =
+      snapshot.round.phase === "answering"
+        ? snapshot.round.answerDeadline - snapshot.serverNow + 150
+        : snapshot.round.revealDeadline - snapshot.serverNow + 150;
+    await delay(Math.max(150, wait));
+  }
+
+  throw new Error("Could not reach a reveal window for the first-entry smoke test.");
+}
+
+await waitForRevealEntryWindow();
+console.log("Reveal window available");

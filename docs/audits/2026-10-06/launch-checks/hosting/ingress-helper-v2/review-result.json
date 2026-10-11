@@ -1,0 +1,49 @@
+{
+  "checkedAt": "2026-10-10T12:59:39.604877+00:00",
+  "releaseCommit": "31961cbd762587225b4b8a814828dc0829952978",
+  "sourceChanges": false,
+  "originalHelpersAndArchivesUnchanged": true,
+  "localReview": {
+    "operatorCases": 8,
+    "independentOperatorCases": 7,
+    "proofWrapperCases": 29,
+    "independentInvalidSchemaVariantsRejected": 75,
+    "policyCases": 39,
+    "independentPolicyRegressions": 3,
+    "providerCalls": 0,
+    "realCredentialsRead": false,
+    "findings": []
+  },
+  "rootIndependentPolicyRerun": {
+    "tests": 39,
+    "passed": true,
+    "reportedBy": "root"
+  },
+  "initialHostedProof": {
+    "checkedAt": "2026-10-10T12:57:17.812000+00:00",
+    "operator": "root",
+    "passed": true,
+    "deployId": "dep-db534k0473hc739n08rg",
+    "policyDuringCheck": "none",
+    "verifiedEgressCases": 3,
+    "edgeRejectedCases": 2,
+    "independentIpv4SourcesAgreed": true,
+    "deploymentAndConfigurationStable": true,
+    "receipt": "hosted-ingress-proof-v2-initial.json"
+  },
+  "policyMutation": {
+    "executionOwner": "root",
+    "notExecutedByThisReview": true,
+    "outcomeOutsideThisArchive": true,
+    "automaticApprovalRejectedBeforeExecution": true,
+    "policyStillNoneAsReportedByRoot": true,
+    "awaitingExactUserApproval": true
+  },
+  "provenance": {
+    "diagnose-ingress-proof.py.txt": "Exact wrapper used for the original proof failure classification.",
+    "diagnose-ingress-response.py.txt": "Final five-case error1000 snapshot. Earlier baseline and five-case metadata passes used earlier source bytes that were edited in place.",
+    "diagnose-ingress-response.mjs.txt": "Final five-case error1000 snapshot. Do not infer byte identity with the first two response diagnostics.",
+    "operator-before-edge.mjs.txt": "V2 operator with only the edge-rejection branch removed for red testing. This is not the original app script.",
+    "enable-independent-frozen-tests.log": "Failed reviewer attempt whose mock also blocked fake redirect fixtures. The corrected mock rerun passes; no helper code changed."
+  }
+}

@@ -1,0 +1,276 @@
+#!/usr/bin/env python3
+"""Exercise the evidence committer only in disposable local Git repositories."""
+import hashlib
+import json
+import os
+from pathlib import Path
+import runpy
+import subprocess
+import sys
+import tempfile
+import unittest
+from unittest import mock
+
+sys.dont_write_bytecode = True
+SCRIPT = Path(__file__).with_name('create-evidence-commit.py')
+if not SCRIPT.exists():
+    SCRIPT = Path(__file__).with_name('create-evidence-commit.py.txt')
+M = runpy.run_path(str(SCRIPT))
+FROZEN_SOURCE = Path('/home/kulmisiu/dev/dota2-trivia') / M['FREEZER']
+FROZEN_BYTES = FROZEN_SOURCE.read_bytes()
+ENV = M['clean_environment']()
+
+
+class CommitTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory(prefix='evidence-commit-fixture-')
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        self.repo = self.root / 'repo'
+        self.out = self.root / 'output'
+        self.repo.mkdir()
+        self.out.mkdir()
+        self.g('init', '--quiet', '-b', 'main')
+        self.g('config', 'user.name', 'Audit Fixture')
+        self.g('config', 'user.email', 'fixture@example.invalid')
+        self.g('config', 'core.autocrlf', 'false')
+        (self.repo / 'app.txt').write_bytes(b'original app\n')
+        (self.repo / 'package.json').write_text('{}\n')
+        self.g('add', '--all')
+        self.g('commit', '--quiet', '-m', 'Original checkout')
+        self.base = self.g('rev-parse', 'HEAD')
+        self.archive = self.repo / M['PREFIX']
+        self.archive.mkdir(parents=True)
+        freezer = self.repo / M['FREEZER']
+        freezer.parent.mkdir(parents=True)
+        freezer.write_bytes(FROZEN_BYTES)
+        (self.archive / 'existing.txt').write_text('release evidence\n')
+        executable = self.archive / 'run-check.txt'
+        executable.write_bytes(b'#!/bin/sh\necho fixture\n')
+        executable.chmod(0o755)
+        (self.repo / 'app.txt').write_bytes(b'released app\n')
+        self.g('add', '--all')
+        self.g('commit', '--quiet', '-m', 'Release')
+        self.release = self.g('rev-parse', 'HEAD')
+        self.g('update-ref', M['CANDIDATE_REF'], self.release)
+        self.g('reset', '--soft', self.base)
+        # Leave a deliberately dirty, staged real index and a separate worktree edit.
+        (self.repo / 'app.txt').write_bytes(b'private pending work\n')
+        (self.archive / 'existing.txt').write_bytes(b'final evidence\r\n')
+        (self.archive / 'new-binary.dat').write_bytes(b'\x00\xff\r\nexact\x00bytes\n')
+        self.freezer = M['load_freezer'](self.repo)
+        self.freeze()
+
+    def g(self, *args):
+        result = subprocess.run(['git', *args], cwd=self.repo, env=ENV,
+                                stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if result.returncode:
+            raise AssertionError('Fixture Git setup failed: ' + args[0])
+        return result.stdout.decode().strip()
+
+    def freeze(self):
+        return self.freezer['write'](self.archive, self.release, replace=(self.archive / 'archive-manifest.json').exists())
+
+    def state(self):
+        return M['preservation_state'](self.repo, ENV)
+
+    def create(self):
+        return M['create_evidence_commit'](self.repo, self.out, self.release, self.base)
+
+    def assert_ref_absent(self):
+        result = subprocess.run(['git', 'show-ref', '--verify', '--quiet', M['EVIDENCE_REF']], cwd=self.repo, env=ENV)
+        self.assertEqual(result.returncode, 1)
+
+    def test_preserves_main_dirty_index_worktree_and_candidate(self):
+        before = self.state()
+        work = (self.repo / 'app.txt').read_bytes()
+        result = self.create()
+        self.assertEqual(self.state(), before)
+        self.assertEqual((self.repo / 'app.txt').read_bytes(), work)
+        self.assertTrue(result['passed'])
+        self.assertEqual(self.g('rev-list', '--parents', '-n', '1', result['commit']).split(), [result['commit'], self.release])
+        self.assertEqual(self.g('show', result['commit'] + ':app.txt'), 'released app')
+        changes = self.g('diff-tree', '--no-commit-id', '--name-only', '-r', self.release, result['commit']).splitlines()
+        self.assertTrue(changes)
+        self.assertTrue(all(x.startswith(M['PREFIX']) for x in changes))
+        self.assertEqual(json.loads((self.out / 'evidence-commit-result.json').read_text())['commit'], result['commit'])
+
+    def test_preserves_raw_binary_and_existing_executable_modes(self):
+        result = self.create()
+        entries = M['tree_entries'](self.repo, result['commit'], ENV)
+        self.assertEqual(entries[M['PREFIX'] + 'run-check.txt'][0], '100755')
+        self.assertEqual(entries[M['PREFIX'] + 'new-binary.dat'][0], '100644')
+        raw = M['git'](self.repo, ['show', result['commit'] + ':' + M['PREFIX'] + 'new-binary.dat']).stdout
+        self.assertEqual(raw, (self.archive / 'new-binary.dat').read_bytes())
+        raw = M['git'](self.repo, ['show', result['commit'] + ':' + M['PREFIX'] + 'existing.txt']).stdout
+        self.assertEqual(raw, b'final evidence\r\n')
+
+    def test_ignores_filters_and_ignore_rules_when_storing_frozen_bytes(self):
+        (self.repo / '.gitattributes').write_text('*.txt filter=destroy text eol=lf\n*.dat filter=destroy\n')
+        (self.repo / '.gitignore').write_text('*.dat\n')
+        self.g('config', 'filter.destroy.clean', 'false')
+        self.g('config', 'filter.destroy.required', 'true')
+        result = self.create()
+        self.assertEqual(M['git'](self.repo, ['show', result['commit'] + ':' + M['PREFIX'] + 'existing.txt']).stdout, b'final evidence\r\n')
+        self.assertEqual(M['git'](self.repo, ['show', result['commit'] + ':' + M['PREFIX'] + 'new-binary.dat']).stdout, b'\x00\xff\r\nexact\x00bytes\n')
+
+    def test_deleted_archive_file_is_removed_only_inside_subtree(self):
+        (self.archive / 'existing.txt').unlink()
+        self.freeze()
+        result = self.create()
+        entries = M['tree_entries'](self.repo, result['commit'], ENV)
+        self.assertNotIn(M['PREFIX'] + 'existing.txt', entries)
+        self.assertIn('app.txt', entries)
+
+    def test_requires_valid_frozen_manifest(self):
+        before = self.state()
+        (self.archive / 'archive-manifest.json').unlink()
+        with self.assertRaises(Exception): self.create()
+        self.assertEqual(self.state(), before)
+        self.assert_ref_absent()
+
+    def test_rejects_changed_frozen_bytes(self):
+        (self.archive / 'existing.txt').write_text('changed after freeze')
+        with self.assertRaises(Exception): self.create()
+        self.assert_ref_absent()
+
+    def test_rejects_extra_file(self):
+        (self.archive / 'extra.txt').write_text('extra')
+        with self.assertRaises(Exception): self.create()
+        self.assert_ref_absent()
+
+    def test_rejects_wrong_release_manifest(self):
+        p = self.archive / 'archive-manifest.json'
+        record = json.loads(p.read_text())
+        record['release'] = self.base
+        p.write_text(json.dumps(record))
+        with self.assertRaises(Exception): self.create()
+        self.assert_ref_absent()
+
+    def test_rejects_archive_symlink(self):
+        (self.archive / 'new-binary.dat').unlink()
+        (self.archive / 'new-binary.dat').symlink_to(self.repo / 'app.txt')
+        with self.assertRaises(Exception): self.create()
+        self.assert_ref_absent()
+
+    def test_rejects_traversal_manifest(self):
+        p = self.archive / 'archive-manifest.json'
+        record = json.loads(p.read_text())
+        record['files'][0]['path'] = '../outside.txt'
+        p.write_text(json.dumps(record))
+        with self.assertRaises(Exception): self.create()
+        self.assert_ref_absent()
+
+    def test_rejects_existing_evidence_ref(self):
+        self.g('update-ref', M['EVIDENCE_REF'], self.base)
+        before = self.state()
+        with self.assertRaises(M['CommitError']): self.create()
+        self.assertEqual(self.state(), before)
+        self.assertEqual(self.g('rev-parse', M['EVIDENCE_REF']), self.base)
+
+    def test_rejects_dangling_symbolic_evidence_ref(self):
+        self.g('symbolic-ref', M['EVIDENCE_REF'], 'refs/heads/unrelated-missing')
+        with self.assertRaises(M['CommitError']): self.create()
+        self.assertEqual(self.g('symbolic-ref', M['EVIDENCE_REF']), 'refs/heads/unrelated-missing')
+        self.assertFalse((self.repo / '.git/refs/heads/unrelated-missing').exists())
+
+    def test_rejects_moved_candidate_ref(self):
+        self.g('update-ref', M['CANDIDATE_REF'], self.base)
+        before = self.state()
+        with self.assertRaises(M['CommitError']): self.create()
+        self.assertEqual(self.state(), before)
+        self.assert_ref_absent()
+
+    def test_rejects_output_inside_repository(self):
+        with self.assertRaises(M['CommitError']):
+            M['create_evidence_commit'](self.repo, self.archive, self.release, self.base)
+        self.assert_ref_absent()
+
+    def test_rejects_changed_reviewed_freezer(self):
+        (self.repo / M['FREEZER']).write_text('raise RuntimeError("must not execute")')
+        with self.assertRaises(M['CommitError']): self.create()
+        self.assert_ref_absent()
+
+    def test_compare_and_swap_ref_creation_preserves_competing_ref(self):
+        original = M['create_evidence_commit'].__globals__['create_ref_cas']
+        before = self.state()
+        def raced(repo, commit, env, state):
+            M['git'](repo, ['update-ref', M['EVIDENCE_REF'], self.base], env=ENV)
+            return original(repo, commit, env, state)
+        with mock.patch.dict(M['create_evidence_commit'].__globals__, {'create_ref_cas': raced}):
+            with self.assertRaises(M['CommitError']): self.create()
+        self.assertEqual(self.g('rev-parse', M['EVIDENCE_REF']), self.base)
+        self.assertEqual(self.state(), before)
+        self.assertFalse((self.out / 'evidence-commit-result.json').exists())
+
+    def test_cas_preserves_competing_dangling_symbolic_ref(self):
+        original = M['create_evidence_commit'].__globals__['create_ref_cas']
+        before = self.state()
+        def raced(repo, commit, env, state):
+            M['git'](repo, ['symbolic-ref', M['EVIDENCE_REF'], 'refs/heads/unrelated-missing'], env=env)
+            return original(repo, commit, env, state)
+        with mock.patch.dict(M['create_evidence_commit'].__globals__, {'create_ref_cas': raced}):
+            with self.assertRaises(M['CommitError']): self.create()
+        self.assertEqual(self.g('symbolic-ref', M['EVIDENCE_REF']), 'refs/heads/unrelated-missing')
+        self.assertFalse((self.repo / '.git/refs/heads/unrelated-missing').exists())
+        self.assertEqual(self.state(), before)
+        self.assertFalse((self.out / 'evidence-commit-result.json').exists())
+        self.assertFalse((self.repo / '.git/refs/heads/codex/launch-evidence-20261010.lock').exists())
+
+    def test_reference_transaction_hook_cannot_run(self):
+        hooks = self.root / 'custom-hooks'
+        hooks.mkdir()
+        marker = self.root / 'hook-ran'
+        hook = hooks / 'reference-transaction'
+        hook.write_text('#!/bin/sh\nprintf invoked > "' + str(marker) + '"\n')
+        hook.chmod(0o755)
+        self.g('config', 'core.hooksPath', str(hooks))
+        self.create()
+        self.assertFalse(marker.exists())
+
+    def test_fsmonitor_command_cannot_run(self):
+        marker = self.root / 'fsmonitor-ran'
+        script = self.root / 'fsmonitor.sh'
+        script.write_text('#!/bin/sh\nprintf invoked > "' + str(marker) + '"\nexit 1\n')
+        script.chmod(0o755)
+        self.g('config', 'core.fsmonitor', str(script))
+        self.create()
+        self.assertFalse(marker.exists())
+
+    def test_expired_prepared_transaction_aborts_before_commit(self):
+        globals_map = M['create_evidence_commit'].__globals__
+        original_absent = globals_map['ref_absent']
+        original_clock = M['time'].monotonic
+        offset = [0]
+        calls = [0]
+        def slow_absence_check(repo, env):
+            absent = original_absent(repo, env)
+            calls[0] += 1
+            if calls[0] == 2:
+                offset[0] = 11
+            return absent
+        before = self.state()
+        with mock.patch.dict(globals_map, {'ref_absent': slow_absence_check}), mock.patch.object(M['time'], 'monotonic', side_effect=lambda: original_clock() + offset[0]):
+            with self.assertRaisesRegex(M['CommitError'], 'expired before commit'):
+                self.create()
+        self.assert_ref_absent()
+        self.assertEqual(self.state(), before)
+        self.assertFalse((self.repo / '.git/refs/heads/codex/launch-evidence-20261010.lock').exists())
+
+    def test_cli_requires_exact_release_and_explicit_create(self):
+        for args in [[], ['--create'], ['--release', self.release], ['--create', '--release', 'main']]:
+            result = subprocess.run([sys.executable, '-B', str(SCRIPT), *args], cwd=self.repo,
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=ENV)
+            self.assertEqual(result.returncode, 2)
+        self.assert_ref_absent()
+
+
+if __name__ == '__main__':
+    suite = unittest.defaultTestLoader.loadTestsFromTestCase(CommitTests)
+    result = unittest.TextTestRunner(verbosity=2).run(suite)
+    print(json.dumps({'passed': result.wasSuccessful(), 'tests': result.testsRun,
+        'failures': len(result.failures), 'errors': len(result.errors),
+        'helperSha256': hashlib.sha256(SCRIPT.read_bytes()).hexdigest(),
+        'testSha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        'scope': 'Disposable temporary Git repositories only. No real repository Git writes.'}, indent=2))
+    sys.exit(0 if result.wasSuccessful() else 1)

@@ -1,0 +1,38 @@
+{
+  "browser": "149.0.7827.55",
+  "controls": [
+    {
+      "colorScheme": "light",
+      "state": "selected",
+      "snapshot": "- button \"Classic Trivia\" [pressed]:\n  - strong: Classic Trivia",
+      "name": "Classic Trivia",
+      "pressed": "true",
+      "passed": true
+    },
+    {
+      "colorScheme": "light",
+      "state": "unselected",
+      "snapshot": "- button \"Classic Trivia\":\n  - strong: Classic Trivia",
+      "name": "Classic Trivia",
+      "pressed": "false",
+      "passed": true
+    },
+    {
+      "colorScheme": "dark",
+      "state": "selected",
+      "snapshot": "- button \"Classic Trivia\" [pressed]:\n  - strong: Classic Trivia",
+      "name": "Classic Trivia",
+      "pressed": "true",
+      "passed": true
+    },
+    {
+      "colorScheme": "dark",
+      "state": "unselected",
+      "snapshot": "- button \"Classic Trivia\":\n  - strong: Classic Trivia",
+      "name": "Classic Trivia",
+      "pressed": "false",
+      "passed": true
+    }
+  ],
+  "passed": true
+}

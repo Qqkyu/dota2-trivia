@@ -1,0 +1,11 @@
+#!/bin/sh
+cd /home/kulmisiu/dev/dota2-trivia
+APP_URL=http://127.0.0.1:3351 \
+BROWSER_EXECUTABLE=/home/kulmisiu/.cache/ms-playwright/chromium-1228/chrome-linux64/chrome \
+A11Y_MODES=desktop,forced,forced-dark \
+A11Y_PAGES=/,/party,/calibration \
+A11Y_FIXTURES=shop-build \
+A11Y_SKIP_KEYBOARD=1 \
+A11Y_OUTPUT_DIR=/tmp/queue-arcade-launch-ci/forced-color-fix/red \
+A11Y_RUN_NAME=chromium \
+/tmp/queue-arcade-launch-checks/tools/node22/bin/node scripts/check-accessibility.mjs > /tmp/queue-arcade-launch-ci/forced-color-fix/red/run.log 2>&1

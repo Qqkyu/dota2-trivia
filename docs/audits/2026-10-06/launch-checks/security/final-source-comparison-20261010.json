@@ -1,0 +1,13 @@
+{
+  "recordedAt": "2026-10-10T10:10:50.129478+00:00",
+  "release": "da28a646479fab030e9b02b187e177c0f89555b9",
+  "checkedFiles": 451,
+  "bytesRead": 10986353,
+  "sourceAndOperationsChanged": [],
+  "missingFiles": [],
+  "unexpectedEntries": [],
+  "passed": true,
+  "method": "Enumerated exact release blobs with git ls-tree -r -z. Compared each non-audit working file using the Git blob hash of its bytes. Also checked non-ignored extra files against the release path set. Did not use the working index for content comparison.",
+  "excludedEvidenceScope": "All paths under docs/audits/ were excluded from this light source and operations comparison. Launch evidence was still being written; historical archive integrity was not rechecked here.",
+  "note": "Source, configuration, application assets, tests, and operations documents matched the release at this check. The final evidence commit still requires an exact-commit scan after all writers finish. No blob contents, secret values, or private paths are included."
+}

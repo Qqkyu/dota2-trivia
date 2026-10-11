@@ -1,0 +1,73 @@
+{
+  "exitCode": 0,
+  "startedAt": "2026-10-10T11:13:51.771Z",
+  "completedAt": "2026-10-10T11:14:08.329Z",
+  "completed": true,
+  "browser": "151.0",
+  "pages": 8,
+  "fixtures": 2,
+  "checks": 78,
+  "failures": [],
+  "perControl": [
+    {
+      "kind": "volume",
+      "mode": "forced",
+      "checks": 11,
+      "passed": 11
+    },
+    {
+      "kind": "party",
+      "mode": "forced",
+      "checks": 14,
+      "passed": 14
+    },
+    {
+      "kind": "calibration",
+      "mode": "forced",
+      "checks": 7,
+      "passed": 7
+    },
+    {
+      "kind": "shop",
+      "mode": "forced",
+      "checks": 7,
+      "passed": 7
+    },
+    {
+      "kind": "volume",
+      "mode": "forced-dark",
+      "checks": 11,
+      "passed": 11
+    },
+    {
+      "kind": "party",
+      "mode": "forced-dark",
+      "checks": 14,
+      "passed": 14
+    },
+    {
+      "kind": "calibration",
+      "mode": "forced-dark",
+      "checks": 7,
+      "passed": 7
+    },
+    {
+      "kind": "shop",
+      "mode": "forced-dark",
+      "checks": 7,
+      "passed": 7
+    }
+  ],
+  "sourceSha256": {
+    "scripts/check-accessibility.mjs": "72dee694777e5fb7d561c238e78f2748a0a2c46388bf51d559b973292dc95668",
+    "scripts/lib/forced-color-checks.mjs": "0b9ef695d3e1f1be74640f2409c5bb1832487a1952d9cf3af33ea6faea02eabb",
+    "src/components/queue-arcade.module.css": "cc274adee55eb2bc79e4db7d162c62ab3075521af12436f0465611ede35ea507",
+    "src/components/private-room-panel.module.css": "b278310aeb677d7bec7c453ff20321d76b93c1b5c612bf1ae131efcadc738b28",
+    "src/components/calibration-dashboard.module.css": "059aba0a3aba0324afd84055e81cdd102669bca701564f6b57a73682393e649a"
+  },
+  "rawAxe": {
+    "violations": 0,
+    "incompleteRules": 6
+  },
+  "scope": "Affected controls in Firefox forced-color light and dark emulation on a local development server. This does not test physical high-contrast displays."
+}

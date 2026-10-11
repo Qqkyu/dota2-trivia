@@ -1,0 +1,121 @@
+{
+  "files": [
+    {
+      "source": "browser-diagnosis-remaining/chromium-accessibility.log",
+      "archive": "chromium-accessibility.log",
+      "bytes": 596,
+      "sha256": "021ed03b685c7e314dd88e4c29395200c6e1a57bb6ff29a8c3c1488f1d09bd52",
+      "exactCopy": true
+    },
+    {
+      "source": "browser-diagnosis-remaining/chromium-accessibility.started",
+      "archive": "chromium-accessibility.started",
+      "bytes": 21,
+      "sha256": "5fb18fc62ef03479866f30d8921f42bb77530cba0ee4dec391fcf6024e3c6e26",
+      "exactCopy": true
+    },
+    {
+      "source": "browser-diagnosis-remaining/chromium-accessibility.finished",
+      "archive": "chromium-accessibility.finished",
+      "bytes": 21,
+      "sha256": "6ae9f4a8a90095a222923779bed912407cc43f3a0b85453848a8e56dcb8ee279",
+      "exactCopy": true
+    },
+    {
+      "source": "browser-diagnosis-remaining/chromium-accessibility.exit",
+      "archive": "chromium-accessibility.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "exactCopy": true
+    },
+    {
+      "source": "accessibility/chromium.json",
+      "archive": "chromium.json.gz",
+      "sourceBytes": 3816369,
+      "sourceSha256": "0bc0418e7b76453a17322685863840174cc578734bea9bf0adc51596c8ced7e1",
+      "archiveBytes": 98700,
+      "archiveSha256": "faef4bca1b1dd6f716ef70326bf26034f97daab6ca38540d960460a6aa6876fa",
+      "exactAfterDecompression": true
+    },
+    {
+      "source": "browser-diagnosis-remaining/firefox-accessibility.log",
+      "archive": "firefox-accessibility.log",
+      "bytes": 203,
+      "sha256": "2e8ef97bf340d8539841ae4e12bb83cd97b5938b69e249bc05ed8cf3ac014004",
+      "exactCopy": true
+    },
+    {
+      "source": "browser-diagnosis-remaining/firefox-accessibility.started",
+      "archive": "firefox-accessibility.started",
+      "bytes": 21,
+      "sha256": "6ae9f4a8a90095a222923779bed912407cc43f3a0b85453848a8e56dcb8ee279",
+      "exactCopy": true
+    },
+    {
+      "source": "browser-diagnosis-remaining/firefox-accessibility.finished",
+      "archive": "firefox-accessibility.finished",
+      "bytes": 21,
+      "sha256": "3f3d020d0c40fa0347d14f85c098cb007caa8015712485a57678b44017aa8635",
+      "exactCopy": true
+    },
+    {
+      "source": "browser-diagnosis-remaining/firefox-accessibility.exit",
+      "archive": "firefox-accessibility.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "exactCopy": true
+    },
+    {
+      "source": "accessibility/firefox.json",
+      "archive": "firefox.json.gz",
+      "sourceBytes": 525526,
+      "sourceSha256": "8548b70db1678051fa996cd63ea97b7a03852380a4cbf459aa087463afeb865e",
+      "archiveBytes": 15848,
+      "archiveSha256": "3a7aa32a0d6fd2fda2b49a3868fa5a930c2ab4cb48b0db5dd24d12c1f6f214f4",
+      "exactAfterDecompression": true
+    },
+    {
+      "source": "browser-diagnosis-remaining/webkit-accessibility.log",
+      "archive": "webkit-accessibility.log",
+      "bytes": 200,
+      "sha256": "7cf95b7701cac7ec160a7bd62ebbbe5a7a9324c707a893325729bef09809009e",
+      "exactCopy": true
+    },
+    {
+      "source": "browser-diagnosis-remaining/webkit-accessibility.started",
+      "archive": "webkit-accessibility.started",
+      "bytes": 21,
+      "sha256": "3f3d020d0c40fa0347d14f85c098cb007caa8015712485a57678b44017aa8635",
+      "exactCopy": true
+    },
+    {
+      "source": "browser-diagnosis-remaining/webkit-accessibility.finished",
+      "archive": "webkit-accessibility.finished",
+      "bytes": 21,
+      "sha256": "ae398e78eb5ffe906b8f9f57a14f26b4cd6559ff2c733d383f0f933f3a47027a",
+      "exactCopy": true
+    },
+    {
+      "source": "browser-diagnosis-remaining/webkit-accessibility.exit",
+      "archive": "webkit-accessibility.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "exactCopy": true
+    },
+    {
+      "source": "accessibility/webkit.json",
+      "archive": "webkit.json.gz",
+      "sourceBytes": 524971,
+      "sourceSha256": "f841e958c0cb1eff58819ad0380ba99f89edcbfcb2db6eb70e326ff31a3c4bd5",
+      "archiveBytes": 15864,
+      "archiveSha256": "dde8e4683cfceeb4a96c32b2ca4fc243bae864a0666252ff308ef44b6ad2bda2",
+      "exactAfterDecompression": true
+    }
+  ],
+  "checkerRepositoryPath": "scripts/check-accessibility.mjs",
+  "checkerRepositoryCommit": "da28a646479fab030e9b02b187e177c0f89555b9",
+  "checkerRepositorySha256": "ada35f46e03ae9a917a7705db0e62477ad2e0dd008606040b933468277d9a9e9",
+  "checkerMatchesRepositoryCommit": true,
+  "executedRunnerCheckerHashCaptured": false,
+  "limitation": "The checker hash proves the current repository file matches the candidate commit. It does not independently prove which file the runner executed. Reports have buildId null."
+}

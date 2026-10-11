@@ -1,0 +1,450 @@
+#!/usr/bin/env node
+
+import { writeFile } from "node:fs/promises";
+
+const debuggingUrl = process.env.CHROME_DEBUG_URL ?? "http://127.0.0.1:9222";
+const appUrl = process.env.APP_URL ?? "http://localhost:3000";
+
+const newestHeroes = {
+  family: "order",
+  cards: [
+    {
+      key: "kez",
+      name: "Kez",
+      context: "Katana",
+      image: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png",
+    },
+    {
+      key: "largo",
+      name: "Largo",
+      context: "Bard",
+      image: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png",
+    },
+    {
+      key: "muerta",
+      name: "Muerta",
+      context: "The Veil",
+      image: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/muerta.png",
+    },
+    {
+      key: "ringmaster",
+      name: "Ringmaster",
+      context: "Circus",
+      image: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png",
+    },
+  ],
+};
+
+const fixtures = {
+  order: {
+    game: "flashback",
+    question: {
+      kind: "flashback-choice",
+      category: "History",
+      eyebrow: "The newest four",
+      prompt: "Put these heroes in the order they were added.",
+      answers: ["", "", "", ""],
+      answerMode: "flashback-order",
+      flashback: newestHeroes,
+      image: {
+        src: "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+        alt: "Dota 2",
+        kind: "item",
+      },
+    },
+    reveal: {
+      correctIndex: 0,
+      correctAnswerKey: "order-v1:muerta,ringmaster,kez,largo",
+      explanation: "Muerta, Ringmaster, Kez, then Largo.",
+      orderValues: newestHeroes.cards.map((card) => ({ key: card.key, label: card.context })),
+    },
+  },
+  year: {
+    game: "flashback",
+    question: {
+      kind: "flashback-choice",
+      category: "History",
+      eyebrow: "The year",
+      prompt: "What year did The International first run?",
+      answers: ["", "", "", ""],
+      answerMode: "flashback-year",
+      flashback: { family: "year", yearMin: 2009, yearMax: new Date().getFullYear() },
+      image: {
+        src: "/arcade/flashback/originals/international.svg",
+        alt: "The International tournament card",
+        kind: "hero",
+      },
+    },
+    reveal: {
+      correctIndex: 1,
+      correctAnswerKey: "year-v1:2011",
+      explanation: "TI1 was at Gamescom in 2011.",
+    },
+  },
+  winner: {
+    game: "flashback",
+    question: {
+      kind: "flashback-choice",
+      category: "Esports",
+      eyebrow: "KeyArena 2017",
+      prompt: "Who won The International 2017 at KeyArena?",
+      answers: ["Newbee", "Team Liquid", "LGD Gaming", "Virtus.pro"],
+      flashback: { family: "choice" },
+      image: {
+        src: "/arcade/flashback/originals/international.svg",
+        alt: "The International tournament card",
+        kind: "item",
+      },
+    },
+    reveal: {
+      correctIndex: 1,
+      explanation: "Liquid swept Newbee 3-0.",
+      media: {
+        src: "/arcade/flashback/originals/winner-team-liquid.svg",
+        alt: "Team Liquid winner card",
+        caption: "Team Liquid · TI7",
+        kind: "mark",
+      },
+    },
+  },
+};
+
+const targets = await fetch(`${debuggingUrl}/json/list`).then((response) => response.json());
+const target = targets.find((entry) => entry.type === "page");
+if (!target?.webSocketDebuggerUrl) throw new Error("No Chrome page.");
+
+const socket = new WebSocket(target.webSocketDebuggerUrl);
+const pending = new Map();
+const eventWaiters = new Map();
+let requestId = 0;
+
+socket.addEventListener("message", (message) => {
+  const payload = JSON.parse(message.data);
+  if (payload.id) {
+    const request = pending.get(payload.id);
+    if (!request) return;
+    pending.delete(payload.id);
+    if (payload.error) request.reject(new Error(payload.error.message));
+    else request.resolve(payload.result);
+    return;
+  }
+  const waiters = eventWaiters.get(payload.method);
+  if (waiters?.length) {
+    eventWaiters.delete(payload.method);
+    for (const resolve of waiters) resolve(payload.params);
+  }
+});
+
+await new Promise((resolve, reject) => {
+  socket.addEventListener("open", resolve, { once: true });
+  socket.addEventListener("error", reject, { once: true });
+});
+
+function send(method, params = {}) {
+  const id = ++requestId;
+  socket.send(JSON.stringify({ id, method, params }));
+  return new Promise((resolve, reject) => pending.set(id, { resolve, reject }));
+}
+
+function once(method) {
+  return new Promise((resolve) => {
+    const waiters = eventWaiters.get(method) ?? [];
+    waiters.push(resolve);
+    eventWaiters.set(method, waiters);
+  });
+}
+
+async function evaluate(expression) {
+  const result = await send("Runtime.evaluate", {
+    expression,
+    awaitPromise: true,
+    returnByValue: true,
+  });
+  if (result.exceptionDetails) {
+    throw new Error(result.exceptionDetails.exception?.description ?? result.exceptionDetails.text);
+  }
+  return result.result.value;
+}
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function waitFor(expression, timeout = 20_000) {
+  const startedAt = Date.now();
+  while (Date.now() - startedAt < timeout) {
+    if (await evaluate(expression)) return;
+    await delay(200);
+  }
+  throw new Error(`Timed out waiting for: ${expression}`);
+}
+
+async function screenshot(path) {
+  const result = await send("Page.captureScreenshot", {
+    format: "png",
+    fromSurface: true,
+    captureBeyondViewport: false,
+  });
+  await writeFile(path, Buffer.from(result.data, "base64"));
+}
+
+await send("Page.enable");
+await send("Runtime.enable");
+await send("Emulation.setDeviceMetricsOverride", {
+  width: 1440,
+  height: 1000,
+  deviceScaleFactor: 1,
+  mobile: false,
+});
+
+const loaded = once("Page.loadEventFired");
+await send("Page.addScriptToEvaluateOnNewDocument", {
+  source: `(() => {
+    const fixtures = ${JSON.stringify(fixtures)};
+    const originalFetch = window.fetch.bind(window);
+    window.__flashbackVisual = null;
+    Object.defineProperty(HTMLMediaElement.prototype, "play", {
+      configurable: true,
+      value() { return Promise.resolve(); }
+    });
+    window.fetch = async (...args) => {
+      const response = await originalFetch(...args);
+      const state = window.__flashbackVisual;
+      const input = args[0];
+      const requestUrl = typeof input === "string" || input instanceof URL ? String(input) : input?.url;
+      const requestPath = requestUrl ? new URL(requestUrl, location.href).pathname : "";
+      if (!state || requestPath !== "/api/rounds") return response;
+      const fixture = fixtures[state.kind];
+      if (!fixture) return response;
+      const payload = await response.clone().json();
+      if (!payload?.round || !payload?.room) return response;
+      const now = Date.now();
+      const reveal = state.phase === "reveal";
+      payload.serverNow = now;
+      payload.round = {
+        ...payload.round,
+        id: "visual-flashback-" + state.kind + (reveal ? "-reveal" : "") + (state.variant ? "-" + state.variant : ""),
+        phase: reveal ? "reveal" : "answering",
+        game: "flashback",
+        startedAt: now - 3_000,
+        answerDeadline: reveal ? now - 1_000 : now + 12_000,
+        revealDeadline: now + 6_000,
+        answerDuration: 15_000
+      };
+      payload.questionRevision = "visual-flashback-" + state.kind + ":" + state.phase + ":" + now;
+      payload.question = {
+        id: "visual-flashback-" + state.kind + (reveal ? "-reveal" : "") + (state.variant ? "-" + state.variant : ""),
+        game: "flashback",
+        difficulty: 2,
+        clueStage: 1,
+        ...fixture.question,
+        reveal: reveal ? fixture.reveal : null
+      };
+      payload.presence = { activePlayers: 4 };
+      payload.crowd = {
+        counts: reveal ? [0, 3, 1, 0] : [0, 0, 0, 0],
+        total: 4,
+        positions: [],
+        keyCounts: [],
+        scoreSummary: reveal ? { correctCount: 3, average: 140, best: 180, playerPoints: 160 } : null
+      };
+      payload.playerVote = state.kind === "order"
+        ? (reveal || state.locked
+          ? { answerIndex: 0, answerKey: "order-v1:kez,largo,muerta,ringmaster", submittedAt: now - 1_000 }
+          : null)
+        : state.kind === "year"
+          ? ((reveal || state.locked) && state.yearAnswer !== null
+            ? { answerIndex: 1, answerKey: "year-v1:" + (state.yearAnswer ?? 2011), submittedAt: now - 1_000 }
+            : null)
+          : { answerIndex: 1, submittedAt: now - 1_000 };
+      payload.playerReport = null;
+      return new Response(JSON.stringify(payload), {
+        status: 200,
+        headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+      });
+    };
+  })()`,
+});
+await send("Page.navigate", { url: `${appUrl}/play` });
+await loaded;
+await waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`, 20_000);
+const startButton = await evaluate(`Boolean(document.querySelector('[data-testid="start-arcade"]'))`);
+if (startButton) {
+  await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
+}
+await waitFor(
+  `location.pathname === "/play" && (document.querySelector("main")?.dataset.phase === "answering" || document.querySelector("main")?.dataset.phase === "reveal")`,
+  40_000,
+);
+await delay(300);
+
+async function apply(kind, phase, extra = {}) {
+  await evaluate(`(() => {
+    window.__flashbackVisual = ${JSON.stringify({ kind, phase, ...extra })};
+    window.dispatchEvent(new Event("focus"));
+    return true;
+  })()`);
+  await delay(200);
+  await evaluate(`window.dispatchEvent(new Event("focus")); true`);
+}
+
+
+const results = [];
+for (const [width, height] of [[320,568],[1440,1000]]) {
+ await send('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:1,mobile:width<500});
+ for (const yearAnswer of [2017,2011]) {
+  const variant = `${width}-${yearAnswer}`;
+  await apply('year','reveal',{yearAnswer,variant});
+  await waitFor(`document.querySelector('main')?.dataset.roundId === ${JSON.stringify('visual-flashback-year-reveal-'+variant)}`);
+  const before = await evaluate(`(() => { const b=document.querySelector('[data-testid="report-question"]')?.closest('[aria-live="polite"]')?.getBoundingClientRect(); return b ? {x:b.x,y:b.y,width:b.width,height:b.height}:null; })()`);
+  await evaluate(`document.querySelector('[data-testid="report-question"]')?.click()`);
+  await waitFor(`document.querySelectorAll('[data-testid="report-reason"]').length===4`);
+  const state = await evaluate(`(() => {
+   const board=document.querySelector('[data-testid="flashback-year-board"]');
+   const b=document.querySelector('[data-testid="report-question"]')?.closest('[aria-live="polite"]')?.getBoundingClientRect();
+   return {board:Boolean(board),phase:board?.dataset.phase,correctYear:board?.dataset.correctYear,readout:document.querySelector('[data-testid="flashback-year-readout"]')?.textContent?.trim(),label:document.querySelector('[data-testid="flashback-year-answer-label"]')?.textContent?.trim(),yourAnswer:document.querySelector('[data-testid="flashback-year-your-answer"]')?.textContent?.trim(),slider:Boolean(document.querySelector('[data-testid="flashback-year-slider"]')),lock:Boolean(document.querySelector('[data-testid="flashback-year-lock"]')),reportReasons:document.querySelectorAll('[data-testid="report-reason"]').length,after:b?{x:b.x,y:b.y,width:b.width,height:b.height}:null};
+  })()`);
+  const sameBounds=before && state.after && Object.keys(before).every(k=>Math.abs(before[k]-state.after[k])<=1);
+  const reveal = await evaluate(`(() => {
+  const panel = document.querySelector('[data-testid="report-question"]')?.closest('[aria-live="polite"]');
+  const bounds = panel?.getBoundingClientRect();
+  return {
+    result:
+      document.querySelector('[data-testid="reveal-callout"]')?.textContent?.trim() ??
+      [...document.querySelectorAll("span")].find((entry) =>
+        [
+          "Correct",
+          "Incorrect",
+          "Time expired",
+          "First Blood",
+          "Killing Spree",
+          "Dominating",
+          "Mega Kill",
+          "Unstoppable",
+          "Wicked Sick",
+          "Monster Kill",
+          "Godlike",
+          "Beyond Godlike",
+        ].includes(
+          entry.textContent.trim(),
+        ),
+      )?.textContent,
+    percentages: [...document.querySelectorAll('[data-testid="arcade-answer"]')]
+      .filter((button) => /%/.test(button.innerText)).length,
+    shopPercentages: [...document.querySelectorAll('[data-testid="shopkeeper-store-item"]')]
+      .filter((button) => /%/.test(button.innerText)).length,
+    heroPercentages: [...document.querySelectorAll('[data-testid="hero-picker-hero"]')]
+      .filter((button) => /%/.test(button.innerText)).length,
+    heroCorrect: document.querySelectorAll('[data-testid="hero-picker-hero"][data-state="correct"]').length,
+    orderSequences: document.querySelectorAll('[data-testid="value-order-sequence"]').length,
+    orderValueLabels: document.querySelectorAll('[data-testid="value-order-sequence"] em').length,
+    flashbackOrderSequences: document.querySelectorAll('[data-testid="flashback-order-sequence"]').length,
+    flashbackYearSlider: Boolean(document.querySelector('[data-testid="flashback-year-slider"]')),
+    flashbackYear: {
+      visible: Boolean(document.querySelector('[data-testid="flashback-year-board"]')),
+      phase: document.querySelector('[data-testid="flashback-year-board"]')?.dataset.phase ?? "",
+      correctYear: document.querySelector('[data-testid="flashback-year-board"]')?.dataset.correctYear ?? "",
+      readout: document.querySelector('[data-testid="flashback-year-readout"]')?.textContent?.trim() ?? "",
+      label: document.querySelector('[data-testid="flashback-year-answer-label"]')?.textContent?.trim() ?? "",
+      yourAnswer: document.querySelector('[data-testid="flashback-year-your-answer"]')?.textContent?.trim() ?? "",
+      lock: Boolean(document.querySelector('[data-testid="flashback-year-lock"]')),
+    },
+    crowdSplit: (() => {
+      const split = document.querySelector('[data-testid="crowd-split"]');
+      const rows = [...document.querySelectorAll('[data-testid="crowd-split-row"]')];
+      return {
+        visible: Boolean(split),
+        kind: split?.dataset.splitKind,
+        total: Number(split?.dataset.total),
+        rows: rows.length,
+        countTotal: rows.reduce((sum, row) => sum + Number(row.dataset.count), 0),
+        correctRows: rows.filter((row) => row.dataset.correct === "true").length,
+        selectedRows: rows.filter((row) => row.dataset.selected === "true").length,
+      };
+    })(),
+    recipeReveal: Boolean(document.querySelector('[data-testid="shopkeeper-recipe-reveal-tray"]')),
+    openShopReveal: Boolean(document.querySelector('[data-testid="shopkeeper-open-reveal"]')),
+    reportReasons: document.querySelectorAll('[data-testid="report-reason"]').length,
+    reportBounds: bounds ? { x: bounds.x, y: bounds.y, width: bounds.width, height: bounds.height } : null,
+    nextButton: [...document.querySelectorAll("button")].some((button) => button.textContent.includes("Next round")),
+    internalSourceLabel: document.body.innerText.includes("OpenDota constants"),
+    audioPrewarmRequests: Number(window.__queueArcadeAudioPrewarmRequests ?? 0)
+  };
+})()`);
+  const answering = {flashbackYearSubmittedYear: yearAnswer};
+  const accepted = !(answering.answers !== 0 || !answering.flashbackYearSlider
+            : answering.answers !== 4) ||
+  answering.difficultyControls !== 0 ||
+  answering.tipCards !== 0 ||
+  answering.crowdSplitVisible ||
+  answering.crowdCardVisible ||
+  !answering.publicRoomVisible ||
+  answering.roomPresenceVisible ||
+  answering.roomElapsedVisible ||
+  (answering.game === "shopkeeper" && Boolean(answering.promptContext)) ||
+  (answering.game === "trivia" &&
+    Boolean(
+      answering.promptContext &&
+        answering.promptText?.toLocaleLowerCase().includes(answering.promptContext.toLocaleLowerCase()),
+    )) ||
+  answering.timer < MIN_INITIAL_ANSWER_TIME_MS / 1_000 - 2 ||
+  answering.horizontalOverflow ||
+  (answering.openShop &&
+    (answering.shopSearchField !== "Search Items" ||
+      !shopTooltip?.visible ||
+      !shopTooltip.stable ||
+      !shopTooltip.insideViewport ||
+      !shopSearchCleared)) ||
+  answering.copyGuard !== "blocked" ||
+  questionCopyGuard.phase !== "answering" ||
+  !questionCopyGuard.blocked ||
+  questionCopyGuard.userSelect !== "none"
+) {
+  failures.push("The synchronized public round is incomplete or still exposes a player queue choice.");
+}
+if (answering.flashbackOrder && answering.flashbackOrderStable !== true) {
+  failures.push("Flashback order cards still jump when a card is picked.");
+}
+if (
+  answering.heroPicker &&
+  (!heroSearch || heroSearch.value !== "z" || heroSearch.matches < 1 || heroSearch.dimmed < 1 || !heroSearch.fixed)
+) {
+  failures.push("Type-to-search no longer dims heroes in place without rearranging the Dota grid.");
+}
+if (revealCopyGuard.copyGuard !== "allowed" || revealCopyGuard.blocked) {
+  failures.push("Question copy stayed blocked after the answer clock stopped.");
+}
+if (
+  !reveal.result ||
+  !reveal.crowdSplit.visible ||
+  reveal.crowdSplit.rows < 1 ||
+  reveal.crowdSplit.countTotal !== reveal.crowdSplit.total ||
+  reveal.crowdSplit.correctRows !== 1 ||
+  reveal.crowdSplit.selectedRows !== 1 ||
+  (answering.openShop
+    ? answering.recipeBuilder
+      ? !reveal.openShopReveal || !reveal.recipeReveal || reveal.shopPercentages !== 0
+      : !reveal.openShopReveal || reveal.shopPercentages < 1 || reveal.recipeReveal
+    : answering.heroPicker
+      ? reveal.heroPercentages < 1 || reveal.heroCorrect !== 1 || reveal.openShopReveal
+      : answering.valueOrder
+        ? reveal.orderSequences < 1 || reveal.orderValueLabels !== 4 || reveal.openShopReveal
+        : answering.flashbackOrder
+          ? reveal.flashbackOrderSequences < 1 || reveal.openShopReveal
+          : answering.flashbackYear
+            ? !reveal.flashbackYear.visible ||
+              reveal.flashbackYear.phase !== "reveal" ||
+              !/^\d{4}$/.test(reveal.flashbackYear.correctYear) ||
+              reveal.flashbackYear.readout !== reveal.flashbackYear.correctYear ||
+              reveal.flashbackYear.label !== "Correct year" ||
+              !Number.isInteger(answering.flashbackYearSubmittedYear) ||
+              reveal.flashbackYear.yourAnswer !== `Your answer: ${answering.flashbackYearSubmittedYear}.` ||
+              reveal.flashbackYearSlider ||
+              reveal.flashbackYear.lock ||
+              reveal.openShopReveal);
+  results.push({width,height,yearAnswer,...state,before,sameBounds,accepted});
+  await screenshot(`/tmp/year-smoke-${width}-${yearAnswer}.png`);
+  await evaluate(`document.querySelector('[data-testid="report-question"]')?.click()`);
+ }
+}
+socket.close();
+console.log(JSON.stringify({mode:'corrected',results},null,2));
+if(results.some(r=>!r.accepted || !r.sameBounds || r.reportReasons!==4)) throw new Error('Year reveal failed the corrected displayed-answer assertion or report layout moved.');

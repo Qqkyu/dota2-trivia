@@ -1,0 +1,44 @@
+test_candidate_remote_sha_and_successful_ci_are_required (__main__.OperatorTests) ... ok
+test_operation_allowlist_blocks_other_mutations (__main__.OperatorTests) ... ok
+test_redirects_never_forward_operator_authorization (__main__.OperatorTests) ... ok
+test_reviewed_readonly_helper_is_hash_bound (__main__.OperatorTests) ... ok
+test_all_five_proof_cases_are_required (__main__.PolicyTests) ... ok
+test_duplicate_environment_keys_are_rejected (__main__.PolicyTests) ... ok
+test_edge_rejection_requires_exact_types_and_values (__main__.PolicyTests) ... ok
+test_empty_202_is_recorded_as_queued (__main__.PolicyTests) ... ok
+test_failed_repeated_proof_cannot_change_configuration (__main__.PolicyTests) ... ok
+test_full_environment_change_during_proof_blocks_put (__main__.PolicyTests) ... ok
+test_incomplete_environment_group_listing_blocks_put (__main__.PolicyTests) ... ok
+test_linked_environment_group_blocks_put_without_fetching_group_values (__main__.PolicyTests) ... ok
+test_monitor_deadline_stops_pending_build (__main__.PolicyTests) ... ok
+test_only_one_key_changes_and_exact_sha_is_deployed (__main__.PolicyTests) ... ok
+test_operator_change_before_put_blocks_all_provider_mutations (__main__.PolicyTests) ... ok
+test_operator_is_rechecked_immediately_before_put (__main__.PolicyTests) ... ok
+test_operator_manifest_requires_exact_known_path_and_hash (__main__.PolicyTests) ... ok
+test_other_cases_cannot_use_edge_rejection (__main__.PolicyTests) ... ok
+test_other_change_after_put_suspends_and_does_not_deploy (__main__.PolicyTests) ... ok
+test_poll_detects_any_full_environment_change (__main__.PolicyTests) ... ok
+test_poll_detects_new_wrong_sha (__main__.PolicyTests) ... ok
+test_poll_does_not_allow_health_checks_with_another_pending_deploy (__main__.PolicyTests) ... ok
+test_poll_requires_new_live_deploy_not_the_old_same_sha (__main__.PolicyTests) ... ok
+test_poll_stops_if_the_remote_candidate_moves (__main__.PolicyTests) ... ok
+test_poll_stops_wrong_live_commit_even_for_historical_id (__main__.PolicyTests) ... ok
+test_proof_input_hash_change_blocks_put (__main__.PolicyTests) ... ok
+test_proof_must_be_fresh_and_bound_to_live_commit_and_run (__main__.PolicyTests) ... ok
+test_receipt_metadata_binding_prevents_old_deploy_reclassification (__main__.PolicyTests) ... ok
+test_remote_branch_change_after_proof_blocks_put (__main__.PolicyTests) ... ok
+test_same_sha_replacement_deployment_during_proof_blocks_put (__main__.PolicyTests) ... ok
+test_service_and_database_plan_changes_block_put (__main__.PolicyTests) ... ok
+test_uncertain_put_is_not_retried_and_service_is_suspended (__main__.PolicyTests) ... ok
+test_uncertain_suspension_is_not_retried (__main__.PolicyTests) ... ok
+test_unknown_receipt_fields_are_not_printed_or_used (__main__.PolicyTests) ... ok
+test_unrelated_environment_group_metadata_is_not_logged (__main__.PolicyTests) ... ok
+test_v2_accepts_only_the_two_allowed_edge_rejections (__main__.PolicyTests) ... ok
+test_v2_schema_and_order_are_required (__main__.PolicyTests) ... ok
+test_verified_egress_requires_exact_types_and_values (__main__.PolicyTests) ... ok
+test_wrong_deploy_commit_suspends_before_cancel (__main__.PolicyTests) ... ok
+
+----------------------------------------------------------------------
+Ran 39 tests in 0.089s
+
+OK

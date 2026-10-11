@@ -1,0 +1,50 @@
+{
+  "scope": "Independent v2 Python proof-wrapper review and synthetic tests. No provider calls, network or real credential reads.",
+  "fullSuiteTests": 29,
+  "fullSuitePassed": true,
+  "originalWrapperRedTests": 2,
+  "originalWrapperRedFailures": 5,
+  "originalWrapperRedErrors": 0,
+  "originalWrapperSha256": "e73148881241fd2ad02380bf6b14438d7ddbd9f1b2fe887fd11753c56123ef49",
+  "networkBlocked": true,
+  "realChildProcesses": "Only the five fixed Python snippets used to test bounded process output and time limits were permitted.",
+  "additionalIndependentReview": {
+    "allowedSchemaCombinationsPassed": 4,
+    "invalidSchemaVariantsRejected": 75,
+    "changedOversizedAndSymlinkOperatorsRejected": true,
+    "priorFunctionsOtherThanMainUnchanged": true
+  },
+  "findings": [],
+  "files": [
+    {
+      "file": "prove-render-ingress.py",
+      "bytes": 11752,
+      "sha256": "ec86311ede8d1dc20de550b950dfb0625b57b1838d37823eec14b5f9592e7afe"
+    },
+    {
+      "file": "check-ingress-proof.mjs",
+      "bytes": 5415,
+      "sha256": "4cce1ac678ecfd86036cf647196b846029bc9ba01e83dada29c8c5e7c1c73c14"
+    },
+    {
+      "file": "test-prove-render-ingress.py",
+      "bytes": 26345,
+      "sha256": "0771050478846966099eac0925e435f6b54ea61213cfb5d745786ebd1a56c23c"
+    },
+    {
+      "file": "proof-green-tests.log",
+      "bytes": 2849,
+      "sha256": "86a098716e6d6f4673b9108dc92d7889899a16d664dced3cae12af97a2335c49"
+    },
+    {
+      "file": "proof-original-red-tests.log",
+      "bytes": 3229,
+      "sha256": "56ac317694f8fdf036be3317731fc1733a89a1ec047396fa13e759d1b1c24308"
+    },
+    {
+      "file": "proof-independent-green-tests.log",
+      "bytes": 2849,
+      "sha256": "f0b7c7208923f554ff2496969adceed95819ae2eef0fd8f88ee75d88caee378b"
+    }
+  ]
+}

@@ -1,13 +1,15 @@
 import { request as httpsRequest } from "node:https";
 import { request as httpRequest } from "node:http";
 import { randomBytes, randomUUID, createHash } from "node:crypto";
-import { readFile, writeFile, mkdir, lstat, chmod } from "node:fs/promises";
+import { readFile, writeFile, mkdir, lstat, chmod, rename } from "node:fs/promises";
 import { createRequire } from "node:module";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 const ROOT = "/home/kulmisiu/dev/dota2-trivia";
 const ORIGIN = "https://queue-arcade.onrender.com";
+const PRIVATE_BASE = "/tmp/queue-arcade-launch-checks/hosted-smoke-preparation";
+const PENDING_GUEST = path.join(PRIVATE_BASE, "hosted-owned-guest.json");
 const SERVICE = "srv-d9mqd1942hec73e9nlt0";
 const LOCAL_INPUTS = ["src/lib/arcade-games.mjs", "scripts/image-assets.mjs"];
 const API = `https://api.render.com/v1/services/${SERVICE}`;
@@ -29,7 +31,7 @@ export function allowedUrl(raw, origin, provider = false) {
   else ensure(url.origin === origin || (url.protocol === "https:" && !url.port && MEDIA_HOSTS.has(url.hostname)), "REQUEST_ORIGIN");
   return url;
 }
-export function validateGate(gate, now = Date.now()) {
+export function validateGate(gate, now = Date.now(), cleanupOnly = false) {
   ensure(gate && gate.version === 1 && gate.origin === ORIGIN && gate.serviceId === SERVICE, "GATE_SERVICE");
   ensure(/^[0-9a-f]{40}$/.test(gate.commit) && /^dep-[a-z0-9]{1,80}$/.test(gate.deployId), "GATE_REVISION");
   ensure(Number.isSafeInteger(gate.ciRunId) && gate.ciRunId > 0 && gate.ciConclusion === "success", "GATE_CI");
@@ -38,7 +40,7 @@ export function validateGate(gate, now = Date.now()) {
   ensure(/^[0-9a-f]{64}$/.test(gate.operatorSha256) && Array.isArray(gate.localInputs) && gate.localInputs.length === LOCAL_INPUTS.length, "GATE_INPUTS");
   for (const [index, row] of gate.localInputs.entries()) ensure(row.path === LOCAL_INPUTS[index] && /^[0-9a-f]{64}$/.test(row.sha256), "GATE_INPUTS");
   const age = now - Date.parse(gate.checkedAt);
-  ensure(Number.isFinite(age) && age >= 0 && age < 2 * 60 * 60_000, "GATE_FRESHNESS");
+  ensure(Number.isFinite(age) && age >= 0 && (cleanupOnly || age < 2 * 60 * 60_000), "GATE_FRESHNESS");
 }
 export async function validateLocalInputs(gate) {
   ensure(hash(await readFile(new URL(import.meta.url))) === gate.operatorSha256, "OPERATOR_CHANGED");
@@ -52,6 +54,13 @@ export function validateVote(body, owned) {
   ensure(Object.keys(body).sort().join(",") === "answerIndex,gameId,privateCode,roundId,voterId", "VOTE_FIELDS");
   ensure(body.gameId === "dota2" && body.privateCode === owned.code && body.voterId === owned.playerId && body.answerIndex === 0, "VOTE_SCOPE");
   ensure(body.roundId.startsWith(`${owned.roomId}:round:`) && owned.roomId.includes(`:private:${owned.code}`), "VOTE_PRIVATE_ROUND");
+}
+export function validateOwnedReceipt(receipt, gate, origin) {
+  ensure(receipt?.version === 1 && receipt.origin === origin && receipt.rehearsal === false && receipt.commit === gate.commit && receipt.deployId === gate.deployId && receipt.contentVersion === gate.contentVersion, "OWNED_RECEIPT_SCOPE");
+  const owned = receipt.owned;
+  ensure(owned && /^LAUNCH[0-9A-F]{10}$/.test(owned.code) && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(owned.playerId), "OWNED_RECEIPT_IDENTITY");
+  ensure(owned.roomId === "" || owned.roomId === `dota2:${gate.contentVersion}:private:${owned.code}`, "OWNED_RECEIPT_ROOM");
+  ensure(receipt.createAttempted === true && typeof receipt.voteAttempted === "boolean" && typeof receipt.cleanupConfirmed === "boolean", "OWNED_RECEIPT_STATE");
 }
 export function safeFailure(error) {
   return /^[A-Z][A-Z0-9_]{1,80}$/.test(error?.publicCode ?? "") ? error.publicCode : "UNCLASSIFIED_FAILURE";
@@ -106,6 +115,8 @@ class Check {
     this.cleanupBytes = 0;
     this.voteRequests = 0;
     this.owned = null;
+    this.guestReceipt = null;
+    this.guestReceiptPath = null;
     this.providerCalls = 0;
     this.browserRequests = 0;
     this.browserPathCounts = {};
@@ -268,42 +279,91 @@ class Check {
     ensure(assets.some((asset) => asset.format === "fogged-vision" && asset.originKind === "app") && assets.some((asset) => asset.format === "echo-hunt" && asset.originKind === "app") && assets.some((asset) => asset.format === "soundcheck" && asset.originKind === "app"), "NATIVE_ROUTE_COVERAGE");
     this.output.checks.formats = [...found.values()]; this.output.checks.assets = assets;
   }
+  async assertNoPendingGuest() {
+    if (this.rehearsal) return;
+    try { await lstat(PENDING_GUEST); }
+    catch (error) { if (error.code === "ENOENT") return; throw error; }
+    ensure(false, "OWNED_GUEST_RECOVERY_REQUIRED");
+  }
+  async recordGuestState(patch, initial = false) {
+    const directory = await lstat(PRIVATE_BASE);
+    ensure(directory.isDirectory() && !directory.isSymbolicLink() && (directory.mode & 0o077) === 0, "OWNED_RECEIPT_DIRECTORY");
+    if (initial) {
+      this.guestReceiptPath = this.rehearsal ? path.join(PRIVATE_BASE, `rehearsal-owned-guest-${randomBytes(12).toString("hex")}.json`) : PENDING_GUEST;
+      this.guestReceipt = { version: 1, origin: this.origin, rehearsal: this.rehearsal, commit: this.gate.commit ?? null, deployId: this.gate.deployId ?? null, contentVersion: this.gate.contentVersion, owned: { ...this.owned }, createAttempted: true, voteAttempted: false, cleanupConfirmed: false, createdAt: new Date().toISOString(), ...patch };
+      await writeFile(this.guestReceiptPath, JSON.stringify(this.guestReceipt) + "\n", { mode: 0o600, flag: "wx" });
+      return;
+    }
+    ensure(this.guestReceipt && this.guestReceiptPath, "OWNED_RECEIPT_REQUIRED");
+    const info = await lstat(this.guestReceiptPath);
+    ensure(info.isFile() && !info.isSymbolicLink() && (info.mode & 0o077) === 0 && info.size < 8192, "OWNED_RECEIPT_FILE");
+    this.guestReceipt = { ...this.guestReceipt, ...patch, owned: { ...this.owned }, checkedAt: new Date().toISOString() };
+    const stage = this.guestReceiptPath + "." + randomBytes(12).toString("hex") + ".tmp";
+    await writeFile(stage, JSON.stringify(this.guestReceipt) + "\n", { mode: 0o600, flag: "wx" });
+    await rename(stage, this.guestReceiptPath);
+  }
+  async cleanupOwnedGuest() {
+    let closed = false;
+    for (let attempt = 0; attempt < 2 && !closed; attempt++) {
+      try {
+        const { code, playerId } = this.owned;
+        const leave = await this.request("/api/private-rooms/leave", { method: "POST", cleanup: true, body: { code, playerId } });
+        ensure([200,404].includes(leave.status), "PRIVATE_LEAVE_STATUS");
+        const probe = await this.request(`/api/private-rooms?${new URLSearchParams({ code, peek: "1" })}`, { cleanup: true });
+        closed = probe.status === 404;
+      } catch { /* One bounded repeat is reserved for cleanup. */ }
+    }
+    this.output.privateRoomCleanupConfirmed = closed;
+    ensure(closed, "PRIVATE_CLEANUP_FAILED");
+    await this.recordGuestState({ cleanupConfirmed: true });
+    if (this.guestReceiptPath) {
+      const completed = path.join(PRIVATE_BASE, `completed-owned-guest-${randomBytes(12).toString("hex")}.json`);
+      await rename(this.guestReceiptPath, completed);
+      this.guestReceiptPath = completed;
+    }
+  }
+  async recoverOwnedGuest() {
+    ensure(!this.rehearsal, "RECOVERY_HOSTED_ONLY");
+    const info = await lstat(PENDING_GUEST);
+    ensure(info.isFile() && !info.isSymbolicLink() && (info.mode & 0o077) === 0 && info.size < 8192, "OWNED_RECEIPT_FILE");
+    const receipt = JSON.parse(await readFile(PENDING_GUEST, "utf8"));
+    validateOwnedReceipt(receipt, this.gate, this.origin);
+    this.owned = { ...receipt.owned }; this.guestReceipt = receipt; this.guestReceiptPath = PENDING_GUEST;
+    await this.cleanupOwnedGuest();
+    this.output.checks.recovery = { votesSent: 0, createsSent: 0, startsSent: 0, cleanupConfirmed: true };
+  }
   async guest() {
     const code = `LAUNCH${randomBytes(5).toString("hex").toUpperCase()}`;
     this.owned = { code, playerId: randomUUID(), roomId: "" };
     let attempted = false;
     try {
       ensure((await this.json("/api/me")).authenticated === false, "GUEST_ACCOUNT_GUARD");
+      await this.recordGuestState({}, true);
       attempted = true;
       const created = await this.json("/api/private-rooms", { method: "POST", body: { action: "create", code, playerId: this.owned.playerId, name: "Launch smoke", games: ["trivia"] } });
       ensure(created.privateRoom?.code === code && created.privateRoom.isHost && created.privateRoom.players?.length === 1 && created.room?.id === `dota2:${this.gate.contentVersion}:private:${code}`, "PRIVATE_CREATE");
       this.owned.roomId = created.room.id;
+      await this.recordGuestState({ created: true });
       const started = await this.json("/api/private-rooms/start", { method: "POST", body: { code, playerId: this.owned.playerId } });
       ensure(started.privateRoom.code === code && Number.isFinite(started.countdownMs) && started.countdownMs <= 5000, "PRIVATE_START");
       await this.pause(started.countdownMs + 700);
       const query = `/api/rounds?${new URLSearchParams({ gameId: "dota2", privateCode: code, playerId: this.owned.playerId })}`;
       const active = await this.json(query);
       ensure(active.playerIdentity?.kind === "guest" && active.playerIdentity.id === this.owned.playerId && active.room.id === this.owned.roomId && active.round.phase === "answering" && active.round.game === "trivia" && !active.question.answerMode && active.question.reveal === null && active.question.answers.length === 4 && active.round.answerDeadline - active.serverNow > 5000, "PRIVATE_VOTE_PRECONDITIONS");
+      await this.recordGuestState({ voteAttempted: true });
       const vote = await this.json("/api/votes", { method: "POST", body: { gameId: "dota2", privateCode: code, roundId: active.round.id, answerIndex: 0, voterId: this.owned.playerId } });
       ensure(vote.accepted === true && vote.playerIdentity?.kind === "guest" && vote.playerIdentity.id === this.owned.playerId && vote.playerVote, "PRIVATE_VOTE_ACCEPTED");
-      await this.pause(active.round.answerDeadline - active.serverNow + 800);
-      const reveal = await this.json(query);
+      let reveal;
+      for (let attempt = 0; attempt < 3; attempt++) {
+        await this.pause(attempt === 0 ? active.round.answerDeadline - active.serverNow + 1200 : 300);
+        reveal = await this.json(query);
+        if (reveal.round.id !== active.round.id || reveal.round.phase !== "answering") break;
+      }
+      this.output.checks.privateRevealTiming = { sameRound: reveal.round.id === active.round.id, phase: reveal.round.phase, answerPresent: Boolean(reveal.question.reveal), playerVotePresent: Boolean(reveal.playerVote) };
       ensure(reveal.round.id === active.round.id && reveal.round.phase === "reveal" && reveal.question.reveal && reveal.playerVote, "PRIVATE_REVEAL");
       this.output.checks.privateGuest = { created: true, started: true, votesSent: 1, accepted: true, revealConfirmed: true, authenticated: false, alphaSessionSent: false, publicCalibrationEligible: false, reportsSent: 0, rawPrivateVoteExpiresUnderNormalRetention: true };
     } finally {
-      if (attempted) {
-        let closed = false;
-        for (let attempt = 0; attempt < 2 && !closed; attempt++) {
-          try {
-            const leave = await this.request("/api/private-rooms/leave", { method: "POST", cleanup: true, body: { code, playerId: this.owned.playerId } });
-            ensure([200,404].includes(leave.status), "PRIVATE_LEAVE_STATUS");
-            const probe = await this.request(`/api/private-rooms?${new URLSearchParams({ code, peek: "1" })}`, { cleanup: true });
-            closed = probe.status === 404;
-          } catch { /* One bounded repeat is reserved for cleanup. */ }
-        }
-        this.output.privateRoomCleanupConfirmed = closed;
-        ensure(closed, "PRIVATE_CLEANUP_FAILED");
-      }
+      if (attempted) await this.cleanupOwnedGuest();
     }
   }
   async browser() {
@@ -351,6 +411,7 @@ class Check {
     }
   }
   async run({ skipFormats = false, skipBrowser = false } = {}) {
+    await this.assertNoPendingGuest();
     await this.deployment(); await this.health(); await this.pages();
     if (!skipFormats) await this.formats();
     await this.guest();
@@ -366,20 +427,22 @@ class Check {
 
 export { Check };
 async function main() {
-  const args = process.argv.slice(2); const rehearsal = ["--rehearse", "--rehearse-all"].includes(args[0]);
-  ensure(rehearsal ? args.length === 1 : args.length === 2 && args[0] === "--gate", "USAGE");
+  const args = process.argv.slice(2); const rehearsal = ["--rehearse", "--rehearse-all"].includes(args[0]); const recovery = args[0] === "--cleanup-owned";
+  ensure(rehearsal ? args.length === 1 : recovery ? args.length === 3 && args[1] === "--gate" : args.length === 2 && args[0] === "--gate", "USAGE");
+  const gatePath = recovery ? args[2] : args[1];
   let gate;
   if (rehearsal) {
     const response = await fetch("http://127.0.0.1:3334/api/health", { signal: AbortSignal.timeout(5000), redirect: "error" });
     const health = await response.json(); ensure(health.storage?.backend === "file", "REHEARSAL_ISOLATION");
     gate = { contentVersion: health.content.version };
   } else {
-    const info = await lstat(args[1]); ensure(info.isFile() && !info.isSymbolicLink() && (info.mode & 0o077) === 0 && info.size < 16_384, "GATE_FILE");
-    gate = JSON.parse(await readFile(args[1], "utf8")); validateGate(gate); await validateLocalInputs(gate);
+    const info = await lstat(gatePath); ensure(info.isFile() && !info.isSymbolicLink() && (info.mode & 0o077) === 0 && info.size < 16_384, "GATE_FILE");
+    gate = JSON.parse(await readFile(gatePath, "utf8")); validateGate(gate, Date.now(), recovery); await validateLocalInputs(gate);
   }
   const check = new Check(rehearsal ? "http://127.0.0.1:3334" : ORIGIN, gate, rehearsal);
   try {
-    await check.run({ skipFormats: args[0] === "--rehearse" });
+    if (recovery) { await check.deployment(); await check.recoverOwnedGuest(); await check.deployment(); check.output.ok = true; }
+    else await check.run({ skipFormats: args[0] === "--rehearse" });
     if (!rehearsal) await validateLocalInputs(gate);
   }
   catch (error) { check.output.ok = false; check.output.failure = safeFailure(error); process.exitCode = 1; }

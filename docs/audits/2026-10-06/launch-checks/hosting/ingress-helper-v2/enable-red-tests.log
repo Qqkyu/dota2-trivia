@@ -1,0 +1,323 @@
+test_candidate_remote_sha_and_successful_ci_are_required (__main__.OperatorTests) ... ok
+test_operation_allowlist_blocks_other_mutations (__main__.OperatorTests) ... ok
+test_redirects_never_forward_operator_authorization (__main__.OperatorTests) ... ok
+test_reviewed_readonly_helper_is_hash_bound (__main__.OperatorTests) ... ok
+test_all_five_proof_cases_are_required (__main__.PolicyTests) ... ok
+test_duplicate_environment_keys_are_rejected (__main__.PolicyTests) ... ok
+test_edge_rejection_requires_exact_types_and_values (__main__.PolicyTests) ... ok
+test_empty_202_is_recorded_as_queued (__main__.PolicyTests) ... ERROR
+test_failed_repeated_proof_cannot_change_configuration (__main__.PolicyTests) ... ok
+test_full_environment_change_during_proof_blocks_put (__main__.PolicyTests) ... ok
+test_incomplete_environment_group_listing_blocks_put (__main__.PolicyTests) ... ok
+test_linked_environment_group_blocks_put_without_fetching_group_values (__main__.PolicyTests) ... ok
+test_monitor_deadline_stops_pending_build (__main__.PolicyTests) ... ERROR
+test_only_one_key_changes_and_exact_sha_is_deployed (__main__.PolicyTests) ... ERROR
+test_operator_change_before_put_blocks_all_provider_mutations (__main__.PolicyTests) ... ok
+test_operator_is_rechecked_immediately_before_put (__main__.PolicyTests) ... ERROR
+test_operator_manifest_requires_exact_known_path_and_hash (__main__.PolicyTests) ... ok
+test_other_cases_cannot_use_edge_rejection (__main__.PolicyTests) ... ok
+test_other_change_after_put_suspends_and_does_not_deploy (__main__.PolicyTests) ... FAIL
+test_poll_detects_any_full_environment_change (__main__.PolicyTests) ... ERROR
+test_poll_detects_new_wrong_sha (__main__.PolicyTests) ... ERROR
+test_poll_does_not_allow_health_checks_with_another_pending_deploy (__main__.PolicyTests) ... ERROR
+test_poll_requires_new_live_deploy_not_the_old_same_sha (__main__.PolicyTests) ... ERROR
+test_poll_stops_if_the_remote_candidate_moves (__main__.PolicyTests) ... ERROR
+test_poll_stops_wrong_live_commit_even_for_historical_id (__main__.PolicyTests) ... ERROR
+test_proof_input_hash_change_blocks_put (__main__.PolicyTests) ... ok
+test_proof_must_be_fresh_and_bound_to_live_commit_and_run (__main__.PolicyTests) ... ok
+test_receipt_metadata_binding_prevents_old_deploy_reclassification (__main__.PolicyTests) ... ERROR
+test_remote_branch_change_after_proof_blocks_put (__main__.PolicyTests) ... ok
+test_same_sha_replacement_deployment_during_proof_blocks_put (__main__.PolicyTests) ... ok
+test_service_and_database_plan_changes_block_put (__main__.PolicyTests) ... ok
+test_uncertain_put_is_not_retried_and_service_is_suspended (__main__.PolicyTests) ... ERROR
+test_uncertain_suspension_is_not_retried (__main__.PolicyTests) ... ERROR
+test_unknown_receipt_fields_are_not_printed_or_used (__main__.PolicyTests) ... ERROR
+test_unrelated_environment_group_metadata_is_not_logged (__main__.PolicyTests) ... ERROR
+test_v2_accepts_only_the_two_allowed_edge_rejections (__main__.PolicyTests) ... ERROR
+test_v2_schema_and_order_are_required (__main__.PolicyTests) ... ok
+test_verified_egress_requires_exact_types_and_values (__main__.PolicyTests) ... ok
+test_wrong_deploy_commit_suspends_before_cancel (__main__.PolicyTests) ... ERROR
+
+======================================================================
+ERROR: test_empty_202_is_recorded_as_queued (__main__.PolicyTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 350, in test_empty_202_is_recorded_as_queued
+    self.apply()
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 126, in apply
+    module.apply(self.helper, copy.deepcopy(CANDIDATE))
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 315, in apply
+    validate_proof(read_json(PROOF_FILE), candidate, live)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 207, in validate_proof
+    require(isinstance(proof, dict) and set(proof) == PROOF_KEYS)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 44, in require
+    raise RuntimeError(message)
+RuntimeError: Proxy policy precondition failed.
+
+======================================================================
+ERROR: test_monitor_deadline_stops_pending_build (__main__.PolicyTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 415, in test_monitor_deadline_stops_pending_build
+    self.apply()
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 126, in apply
+    module.apply(self.helper, copy.deepcopy(CANDIDATE))
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 315, in apply
+    validate_proof(read_json(PROOF_FILE), candidate, live)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 207, in validate_proof
+    require(isinstance(proof, dict) and set(proof) == PROOF_KEYS)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 44, in require
+    raise RuntimeError(message)
+RuntimeError: Proxy policy precondition failed.
+
+======================================================================
+ERROR: test_only_one_key_changes_and_exact_sha_is_deployed (__main__.PolicyTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 133, in test_only_one_key_changes_and_exact_sha_is_deployed
+    self.apply()
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 126, in apply
+    module.apply(self.helper, copy.deepcopy(CANDIDATE))
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 315, in apply
+    validate_proof(read_json(PROOF_FILE), candidate, live)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 207, in validate_proof
+    require(isinstance(proof, dict) and set(proof) == PROOF_KEYS)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 44, in require
+    raise RuntimeError(message)
+RuntimeError: Proxy policy precondition failed.
+
+======================================================================
+ERROR: test_operator_is_rechecked_immediately_before_put (__main__.PolicyTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 234, in test_operator_is_rechecked_immediately_before_put
+    with patch.object(module, 'api', side_effect=tracked): self.apply()
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 126, in apply
+    module.apply(self.helper, copy.deepcopy(CANDIDATE))
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 315, in apply
+    validate_proof(read_json(PROOF_FILE), candidate, live)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 207, in validate_proof
+    require(isinstance(proof, dict) and set(proof) == PROOF_KEYS)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 44, in require
+    raise RuntimeError(message)
+RuntimeError: Proxy policy precondition failed.
+
+======================================================================
+ERROR: test_poll_detects_any_full_environment_change (__main__.PolicyTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 365, in test_poll_detects_any_full_environment_change
+    self.apply(); self.world.env['OTHER_ENV'] = 'different'
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 126, in apply
+    module.apply(self.helper, copy.deepcopy(CANDIDATE))
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 315, in apply
+    validate_proof(read_json(PROOF_FILE), candidate, live)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 207, in validate_proof
+    require(isinstance(proof, dict) and set(proof) == PROOF_KEYS)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 44, in require
+    raise RuntimeError(message)
+RuntimeError: Proxy policy precondition failed.
+
+======================================================================
+ERROR: test_poll_detects_new_wrong_sha (__main__.PolicyTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 377, in test_poll_detects_new_wrong_sha
+    self.apply(); self.world.rows[0]['commit']['id'] = WRONG
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 126, in apply
+    module.apply(self.helper, copy.deepcopy(CANDIDATE))
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 315, in apply
+    validate_proof(read_json(PROOF_FILE), candidate, live)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 207, in validate_proof
+    require(isinstance(proof, dict) and set(proof) == PROOF_KEYS)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 44, in require
+    raise RuntimeError(message)
+RuntimeError: Proxy policy precondition failed.
+
+======================================================================
+ERROR: test_poll_does_not_allow_health_checks_with_another_pending_deploy (__main__.PolicyTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 390, in test_poll_does_not_allow_health_checks_with_another_pending_deploy
+    self.apply()
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 126, in apply
+    module.apply(self.helper, copy.deepcopy(CANDIDATE))
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 315, in apply
+    validate_proof(read_json(PROOF_FILE), candidate, live)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 207, in validate_proof
+    require(isinstance(proof, dict) and set(proof) == PROOF_KEYS)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 44, in require
+    raise RuntimeError(message)
+RuntimeError: Proxy policy precondition failed.
+
+======================================================================
+ERROR: test_poll_requires_new_live_deploy_not_the_old_same_sha (__main__.PolicyTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 356, in test_poll_requires_new_live_deploy_not_the_old_same_sha
+    self.apply()
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 126, in apply
+    module.apply(self.helper, copy.deepcopy(CANDIDATE))
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 315, in apply
+    validate_proof(read_json(PROOF_FILE), candidate, live)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 207, in validate_proof
+    require(isinstance(proof, dict) and set(proof) == PROOF_KEYS)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 44, in require
+    raise RuntimeError(message)
+RuntimeError: Proxy policy precondition failed.
+
+======================================================================
+ERROR: test_poll_stops_if_the_remote_candidate_moves (__main__.PolicyTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 370, in test_poll_stops_if_the_remote_candidate_moves
+    self.apply()
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 126, in apply
+    module.apply(self.helper, copy.deepcopy(CANDIDATE))
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 315, in apply
+    validate_proof(read_json(PROOF_FILE), candidate, live)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 207, in validate_proof
+    require(isinstance(proof, dict) and set(proof) == PROOF_KEYS)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 44, in require
+    raise RuntimeError(message)
+RuntimeError: Proxy policy precondition failed.
+
+======================================================================
+ERROR: test_poll_stops_wrong_live_commit_even_for_historical_id (__main__.PolicyTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 383, in test_poll_stops_wrong_live_commit_even_for_historical_id
+    self.apply()
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 126, in apply
+    module.apply(self.helper, copy.deepcopy(CANDIDATE))
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 315, in apply
+    validate_proof(read_json(PROOF_FILE), candidate, live)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 207, in validate_proof
+    require(isinstance(proof, dict) and set(proof) == PROOF_KEYS)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 44, in require
+    raise RuntimeError(message)
+RuntimeError: Proxy policy precondition failed.
+
+======================================================================
+ERROR: test_receipt_metadata_binding_prevents_old_deploy_reclassification (__main__.PolicyTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 400, in test_receipt_metadata_binding_prevents_old_deploy_reclassification
+    self.apply(); receipt = self.receipt()
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 126, in apply
+    module.apply(self.helper, copy.deepcopy(CANDIDATE))
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 315, in apply
+    validate_proof(read_json(PROOF_FILE), candidate, live)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 207, in validate_proof
+    require(isinstance(proof, dict) and set(proof) == PROOF_KEYS)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 44, in require
+    raise RuntimeError(message)
+RuntimeError: Proxy policy precondition failed.
+
+======================================================================
+ERROR: test_uncertain_put_is_not_retried_and_service_is_suspended (__main__.PolicyTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 328, in test_uncertain_put_is_not_retried_and_service_is_suspended
+    with self.assertRaises(TimeoutError): self.apply()
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 126, in apply
+    module.apply(self.helper, copy.deepcopy(CANDIDATE))
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 315, in apply
+    validate_proof(read_json(PROOF_FILE), candidate, live)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 207, in validate_proof
+    require(isinstance(proof, dict) and set(proof) == PROOF_KEYS)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 44, in require
+    raise RuntimeError(message)
+RuntimeError: Proxy policy precondition failed.
+
+======================================================================
+ERROR: test_uncertain_suspension_is_not_retried (__main__.PolicyTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 336, in test_uncertain_suspension_is_not_retried
+    with self.assertRaises(TimeoutError): self.apply()
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 126, in apply
+    module.apply(self.helper, copy.deepcopy(CANDIDATE))
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 315, in apply
+    validate_proof(read_json(PROOF_FILE), candidate, live)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 207, in validate_proof
+    require(isinstance(proof, dict) and set(proof) == PROOF_KEYS)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 44, in require
+    raise RuntimeError(message)
+RuntimeError: Proxy policy precondition failed.
+
+======================================================================
+ERROR: test_unknown_receipt_fields_are_not_printed_or_used (__main__.PolicyTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 407, in test_unknown_receipt_fields_are_not_printed_or_used
+    self.apply(); receipt = self.receipt(); receipt['privatePayload'] = SECRET
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 126, in apply
+    module.apply(self.helper, copy.deepcopy(CANDIDATE))
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 315, in apply
+    validate_proof(read_json(PROOF_FILE), candidate, live)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 207, in validate_proof
+    require(isinstance(proof, dict) and set(proof) == PROOF_KEYS)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 44, in require
+    raise RuntimeError(message)
+RuntimeError: Proxy policy precondition failed.
+
+======================================================================
+ERROR: test_unrelated_environment_group_metadata_is_not_logged (__main__.PolicyTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 304, in test_unrelated_environment_group_metadata_is_not_logged
+    self.apply()
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 126, in apply
+    module.apply(self.helper, copy.deepcopy(CANDIDATE))
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 315, in apply
+    validate_proof(read_json(PROOF_FILE), candidate, live)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 207, in validate_proof
+    require(isinstance(proof, dict) and set(proof) == PROOF_KEYS)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 44, in require
+    raise RuntimeError(message)
+RuntimeError: Proxy policy precondition failed.
+
+======================================================================
+ERROR: test_v2_accepts_only_the_two_allowed_edge_rejections (__main__.PolicyTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 152, in test_v2_accepts_only_the_two_allowed_edge_rejections
+    self.apply()
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 126, in apply
+    module.apply(self.helper, copy.deepcopy(CANDIDATE))
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 315, in apply
+    validate_proof(read_json(PROOF_FILE), candidate, live)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 207, in validate_proof
+    require(isinstance(proof, dict) and set(proof) == PROOF_KEYS)
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/enable-render-proxy.py", line 44, in require
+    raise RuntimeError(message)
+RuntimeError: Proxy policy precondition failed.
+
+======================================================================
+ERROR: test_wrong_deploy_commit_suspends_before_cancel (__main__.PolicyTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 344, in test_wrong_deploy_commit_suspends_before_cancel
+    self.assertTrue(endpoints[-2].endswith('/suspend'))
+IndexError: list index out of range
+
+======================================================================
+FAIL: test_other_change_after_put_suspends_and_does_not_deploy (__main__.PolicyTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-enable-render-proxy.py", line 322, in test_other_change_after_put_suspends_and_does_not_deploy
+    self.assertEqual([method for _, method, _ in self.world.actions], ['PUT', 'POST'])
+AssertionError: Lists differ: [] != ['PUT', 'POST']
+
+Second list contains 2 additional elements.
+First extra element 0:
+'PUT'
+
+- []
++ ['PUT', 'POST']
+
+----------------------------------------------------------------------
+Ran 39 tests in 0.063s
+
+FAILED (failures=1, errors=17)

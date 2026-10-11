@@ -1,0 +1,47 @@
+{
+  "reportsAndSource": [
+    {
+      "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T115945Z/production-browser/accessibility/chromium.json",
+      "archive": "chromium.json.gz",
+      "sourceBytes": 4567155,
+      "sourceSha256": "4e7947dcdd62d0fe7c564b063a2ac3ce8fa29c37c682b8ecaa1d63e71fb986f2",
+      "archiveBytes": 117898,
+      "archiveSha256": "e62b48ff48da098e15757f5a0039088ad4fdd9d2e1bcab6ac3c4231fbaeac614",
+      "losslessGzip": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T115945Z/production-browser/accessibility/firefox.json",
+      "archive": "firefox.json.gz",
+      "sourceBytes": 525582,
+      "sourceSha256": "c4d9409772d730e7ed80b2b19a19796d43ef0a4265a54bd17c840e3544f3c7cb",
+      "archiveBytes": 15882,
+      "archiveSha256": "afb275b1c21661b82e5c8999278e34645f1d614c8971eea8a622a235fa982ad5",
+      "losslessGzip": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T115945Z/production-browser/accessibility/webkit.json",
+      "archive": "webkit.json.gz",
+      "sourceBytes": 525027,
+      "sourceSha256": "6c2b5d15510e76373ca3d65369dbb0d3de3aa9b3eb1989c3597886cb4178667f",
+      "archiveBytes": 15893,
+      "archiveSha256": "47cf22145e882c98fc15698a90a772179acee52f57f66b8682ebd6fa54415dca",
+      "losslessGzip": true
+    },
+    {
+      "source": "git:31961cbd762587225b4b8a814828dc0829952978:scripts/check-accessibility.mjs",
+      "archive": "check-accessibility.mjs.txt",
+      "bytes": 26917,
+      "sha256": "72dee694777e5fb7d561c238e78f2748a0a2c46388bf51d559b973292dc95668",
+      "scope": "Exact committed source, not a hash measured inside the running browser process."
+    },
+    {
+      "source": "git:31961cbd762587225b4b8a814828dc0829952978:scripts/lib/forced-color-checks.mjs",
+      "archive": "forced-color-checks.mjs.txt",
+      "bytes": 11625,
+      "sha256": "0b9ef695d3e1f1be74640f2409c5bb1832487a1952d9cf3af33ea6faea02eabb",
+      "scope": "Exact committed source, not a hash measured inside the running browser process."
+    }
+  ],
+  "copyRecordSha256": "18577e8c3d952111ed5a8487ca70f898648eb94a5c624e57426c291559e2bec8",
+  "screenshots": "All private PNGs are inventoried. Only the independent production review retains selected images."
+}

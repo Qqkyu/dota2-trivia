@@ -1,0 +1,14 @@
+{
+  "recordedAt": "2026-10-11T06:19:37.805737+00:00",
+  "serviceId": "srv-d9mqd1942hec73e9nlt0",
+  "commit": "31961cbd762587225b4b8a814828dc0829952978",
+  "approvedSetting": {
+    "ARCADE_TRUST_PROXY": "cf-connecting-ip"
+  },
+  "approvedSameCommitRedeploy": true,
+  "userReply": "y",
+  "context": "Direct reply to the exact setting-change and same-commit redeploy approval question.",
+  "plansUnchangedRequired": true,
+  "renewedProofPassedAt": "2026-10-11T06:17:18.312Z",
+  "applyAttemptStoppedBeforeMutation": "FileNotFoundError resolving gh under the restricted child PATH; no policy receipt created."
+}

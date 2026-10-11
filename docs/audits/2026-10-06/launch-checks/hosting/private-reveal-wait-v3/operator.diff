@@ -1,0 +1,54 @@
+--- before-hosted-smoke.mjs
++++ hosted-smoke.mjs
+@@ -348,18 +348,49 @@
+       ensure(started.privateRoom.code === code && Number.isFinite(started.countdownMs) && started.countdownMs <= 5000, "PRIVATE_START");
+       await this.pause(started.countdownMs + 700);
+       const query = `/api/rounds?${new URLSearchParams({ gameId: "dota2", privateCode: code, playerId: this.owned.playerId })}`;
++      const activeRequestStarted = performance.now();
+       const active = await this.json(query);
++      const activeReceivedAt = performance.now();
+       ensure(active.playerIdentity?.kind === "guest" && active.playerIdentity.id === this.owned.playerId && active.room.id === this.owned.roomId && active.round.phase === "answering" && active.round.game === "trivia" && !active.question.answerMode && active.question.reveal === null && active.question.answers.length === 4 && active.round.answerDeadline - active.serverNow > 5000, "PRIVATE_VOTE_PRECONDITIONS");
+       await this.recordGuestState({ voteAttempted: true });
++      const voteRequestStarted = performance.now();
+       const vote = await this.json("/api/votes", { method: "POST", body: { gameId: "dota2", privateCode: code, roundId: active.round.id, answerIndex: 0, voterId: this.owned.playerId } });
++      const voteReceivedAt = performance.now();
+       ensure(vote.accepted === true && vote.playerIdentity?.kind === "guest" && vote.playerIdentity.id === this.owned.playerId && vote.playerVote, "PRIVATE_VOTE_ACCEPTED");
++      const roundedMs = (value) => Math.round(value * 100) / 100;
++      const timing = {
++        activeRequestMs: roundedMs(activeReceivedAt - activeRequestStarted),
++        voteRequestMs: roundedMs(voteReceivedAt - voteRequestStarted),
++        activeResponseToVoteResponseMs: roundedMs(voteReceivedAt - activeReceivedAt),
++        activeAnswerRemainingMs: active.round.answerDeadline - active.serverNow,
++        waitMs: 0,
++        samples: [],
++      };
++      this.output.checks.privateRevealTiming = timing;
+       let reveal;
+       for (let attempt = 0; attempt < 3; attempt++) {
+-        await this.pause(attempt === 0 ? active.round.answerDeadline - active.serverNow + 1200 : 300);
++        const readStartedAt = performance.now();
+         reveal = await this.json(query);
++        const receivedAt = performance.now();
++        const readMs = receivedAt - readStartedAt;
++        ensure(Number.isFinite(reveal.serverNow) && Number.isFinite(reveal.round.answerDeadline) && Number.isFinite(reveal.round.revealDeadline), "PRIVATE_REVEAL_TIMING");
++        timing.samples.push({
++          requestMs: roundedMs(readMs),
++          sinceVoteResponseMs: roundedMs(receivedAt - voteReceivedAt),
++          answerRemainingMs: reveal.round.answerDeadline - reveal.serverNow,
++          revealRemainingMs: reveal.round.revealDeadline - reveal.serverNow,
++          sameRound: reveal.round.id === active.round.id,
++          phase: ["answering", "reveal"].includes(reveal.round.phase) ? reveal.round.phase : "invalid",
++        });
+         if (reveal.round.id !== active.round.id || reveal.round.phase !== "answering") break;
++        if (attempt < 2) {
++          // Keep the original total sleep ceiling while refreshing every deadline.
++          const waitMs = Math.max(0, Math.min(30_000, 30_600 - timing.waitMs, reveal.round.answerDeadline - reveal.serverNow - readMs + 1200));
++          await this.pause(waitMs);
++          timing.waitMs += waitMs;
++        }
+       }
+-      this.output.checks.privateRevealTiming = { sameRound: reveal.round.id === active.round.id, phase: reveal.round.phase, answerPresent: Boolean(reveal.question.reveal), playerVotePresent: Boolean(reveal.playerVote) };
++      Object.assign(timing, { elapsedSinceActiveResponseMs: roundedMs(performance.now() - activeReceivedAt), sameRound: reveal.round.id === active.round.id, phase: reveal.round.phase, answerPresent: Boolean(reveal.question.reveal), playerVotePresent: Boolean(reveal.playerVote) });
+       ensure(reveal.round.id === active.round.id && reveal.round.phase === "reveal" && reveal.question.reveal && reveal.playerVote, "PRIVATE_REVEAL");
+       this.output.checks.privateGuest = { created: true, started: true, votesSent: 1, accepted: true, revealConfirmed: true, authenticated: false, alphaSessionSent: false, publicCalibrationEligible: false, reportsSent: 0, rawPrivateVoteExpiresUnderNormalRetention: true };
+     } finally {

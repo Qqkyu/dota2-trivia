@@ -1,0 +1,360 @@
+{
+  "operatorSha256": "d6dc93c529c1e24539f7262d33ccef7b0988935985a1d03afc194142304f4389",
+  "expectedPassing": [
+    "normal",
+    "delayed-vote",
+    "delayed-active",
+    "delayed-refresh",
+    "delayed-before-snapshot",
+    "already-reveal"
+  ],
+  "matchesExpected": false,
+  "cases": [
+    {
+      "mode": "normal",
+      "passed": true,
+      "failure": null,
+      "roundReads": 3,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700,
+        15500
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 119200,
+          "number": 0,
+          "phase": "reveal",
+          "answerDeadline": 118000
+        }
+      ]
+    },
+    {
+      "mode": "delayed-vote",
+      "passed": true,
+      "failure": null,
+      "roundReads": 3,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700,
+        9000
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 110200,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 119200,
+          "number": 0,
+          "phase": "reveal",
+          "answerDeadline": 118000
+        }
+      ]
+    },
+    {
+      "mode": "delayed-active",
+      "passed": true,
+      "failure": null,
+      "roundReads": 3,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700,
+        9000
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 110200,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 119200,
+          "number": 0,
+          "phase": "reveal",
+          "answerDeadline": 118000
+        }
+      ]
+    },
+    {
+      "mode": "delayed-refresh",
+      "passed": true,
+      "failure": null,
+      "roundReads": 3,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700,
+        9000
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 119200,
+          "number": 0,
+          "phase": "reveal",
+          "answerDeadline": 118000
+        }
+      ]
+    },
+    {
+      "mode": "delayed-before-snapshot",
+      "passed": false,
+      "failure": "PRIVATE_REVEAL",
+      "roundReads": 4,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700,
+        11500,
+        300
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 105700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 117200,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 117500,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        }
+      ]
+    },
+    {
+      "mode": "already-reveal",
+      "passed": true,
+      "failure": null,
+      "roundReads": 2,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 119200,
+          "number": 0,
+          "phase": "reveal",
+          "answerDeadline": 118000
+        }
+      ]
+    },
+    {
+      "mode": "already-next-round",
+      "passed": false,
+      "failure": "PRIVATE_REVEAL",
+      "roundReads": 2,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 126200,
+          "number": 1,
+          "phase": "answering",
+          "answerDeadline": 140000
+        }
+      ]
+    },
+    {
+      "mode": "never-reveal",
+      "passed": false,
+      "failure": "PRIVATE_REVEAL",
+      "roundReads": 4,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700,
+        1100,
+        300
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 103600
+        },
+        {
+          "serverNow": 104800,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 104700
+        },
+        {
+          "serverNow": 105100,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 105000
+        }
+      ]
+    },
+    {
+      "mode": "missing-reveal",
+      "passed": false,
+      "failure": "PRIVATE_REVEAL",
+      "roundReads": 3,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700,
+        15500
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 119200,
+          "number": 0,
+          "phase": "reveal",
+          "answerDeadline": 118000
+        }
+      ]
+    },
+    {
+      "mode": "missing-vote",
+      "passed": false,
+      "failure": "PRIVATE_REVEAL",
+      "roundReads": 3,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700,
+        15500
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 119200,
+          "number": 0,
+          "phase": "reveal",
+          "answerDeadline": 118000
+        }
+      ]
+    },
+    {
+      "mode": "read-failure",
+      "passed": false,
+      "failure": "JSON_STATUS",
+      "roundReads": 2,
+      "votes": 1,
+      "cleanup": true,
+      "sleeps": [
+        3700
+      ],
+      "observations": [
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        },
+        {
+          "serverNow": 103700,
+          "number": 0,
+          "phase": "answering",
+          "answerDeadline": 118000
+        }
+      ]
+    }
+  ],
+  "hostedRequests": 0
+}

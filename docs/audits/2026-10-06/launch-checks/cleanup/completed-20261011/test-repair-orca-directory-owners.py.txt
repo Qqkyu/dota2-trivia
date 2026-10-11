@@ -1,0 +1,51 @@
+import importlib.util
+import os
+from pathlib import Path
+import tempfile
+import unittest
+from unittest.mock import patch
+
+CLOSE=Path('/tmp/dota2-trivia-audit-close')
+spec=importlib.util.spec_from_file_location('repair',CLOSE/'repair-orca-directory-owners.py')
+r=importlib.util.module_from_spec(spec);spec.loader.exec_module(r)
+
+class Checks(unittest.TestCase):
+ def setUp(self):
+  self.tmp=tempfile.TemporaryDirectory(prefix='orca-owner-check-',dir=CLOSE)
+  self.root=Path(self.tmp.name);self.directory=self.root/'directory';self.directory.mkdir(mode=0o755)
+  self.file=self.root/'unchanged.txt';self.file.write_text('fixture')
+  s=self.root.stat();self.plan={'root_identity':[s.st_dev,s.st_ino,s.st_uid]}
+ def tearDown(self):self.tmp.cleanup()
+ def test_dry_run_cannot_chown(self):
+  with patch.object(r,'inspect_plan',return_value=[{'path':'directory'}]),patch.object(r.os,'fchown') as change:
+   self.assertEqual(r.repair(None,self.plan)['directories_changed'],0);change.assert_not_called()
+ def test_execute_only_calls_directory_owner_change(self):
+  before=self.file.stat();calls=[]
+  def fake_chown(fd,uid,gid):
+   self.assertTrue(os.path.isdir('/proc/self/fd/'+str(fd)))
+   calls.append((uid,gid))
+  with patch.object(r,'ROOT',self.root),patch.object(r,'inspect_plan',side_effect=[[{'path':'directory'}],[{'path':'directory'}],[]]),patch.object(r,'operational_guards'),patch.object(r.os,'geteuid',return_value=0),patch.object(r,'open_directory',side_effect=lambda row,fd:os.open(self.directory,r.FLAGS)),patch.object(r.os,'fchown',side_effect=fake_chown),patch.object(r.os,'fstat',side_effect=self.fake_stat):
+   result=r.repair(None,self.plan,True)
+  self.assertEqual(calls,[(1000,-1)]);self.assertEqual(result['directories_changed'],1)
+  self.assertEqual(self.file.read_text(),'fixture');self.assertEqual(self.file.stat(),before)
+ def fake_stat(self,fd):
+  s=os.stat('/proc/self/fd/'+str(fd));values=list(s)
+  if os.readlink('/proc/self/fd/'+str(fd))==str(self.directory): values[5]=0
+  return os.stat_result(values)
+ def test_regular_file_refused_as_directory(self):
+  fd=os.open(self.root,r.FLAGS)
+  try:
+   with self.assertRaises(Exception):r.open_directory({'path':self.file.name},fd)
+  finally:os.close(fd)
+ def test_symlink_refused_as_directory(self):
+  (self.root/'link').symlink_to(self.directory,target_is_directory=True);fd=os.open(self.root,r.FLAGS)
+  try:
+   with self.assertRaises(Exception):r.open_directory({'path':'link'},fd)
+  finally:os.close(fd)
+ def test_changed_inode_refused(self):
+  s=self.directory.stat();row={'path':'directory','device':s.st_dev,'inode':s.st_ino+1,'nlink':s.st_nlink,'bytes':s.st_size};fd=os.open(self.root,r.FLAGS)
+  try:
+   with self.assertRaises(Exception):r.open_directory(row,fd)
+  finally:os.close(fd)
+
+if __name__=='__main__':unittest.main(verbosity=2)

@@ -1,0 +1,648 @@
+#!/usr/bin/env node
+
+import { readFile, writeFile } from "node:fs/promises";
+import path from "node:path";
+import { MIN_INITIAL_ANSWER_TIME_MS } from "../src/lib/arcade-entry.mjs";
+import { valueOrderAnswerKey } from "../src/lib/value-order.mjs";
+import { waitForRevealEntryWindow } from "./lib/reveal-entry.mjs";
+
+const debuggingUrl = process.env.CHROME_DEBUG_URL ?? "http://127.0.0.1:9222";
+const appUrl = process.env.APP_URL ?? process.env.ARCADE_APP_URL ?? "http://localhost:3000";
+const delay = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+const [heroPickerCatalog, shopkeeperCatalog, valueOrderCatalog] = await Promise.all(
+  ["hero-picker.json", "shopkeeper-catalog.json", "value-order-questions.json"].map(async (file) =>
+    JSON.parse(await readFile(path.join(process.cwd(), "src", "data", file), "utf8")),
+  ),
+);
+const heroStressEntries = heroPickerCatalog.groups
+  .flatMap((group) => group.heroes)
+  .map((hero) => ({ answerKey: hero.key, count: 1 }));
+const itemStressItems = shopkeeperCatalog.groups.flatMap((group) => group.items);
+const itemStressEntries = itemStressItems.map((item) => ({ answerKey: item.key, count: 1 }));
+const orderStressQuestion = valueOrderCatalog.find((question) => question.valueOrder?.family === "hero-move-speed");
+if (!orderStressQuestion) throw new Error("Missing hero movement-speed Order Up fixture.");
+const orderStressCards = orderStressQuestion.valueOrder.cards;
+
+function permutations(values) {
+  if (values.length <= 1) return [values];
+  return values.flatMap((value, index) =>
+    permutations(values.filter((_, candidateIndex) => candidateIndex !== index)).map((rest) => [value, ...rest]),
+  );
+}
+
+const correctOrderStressKeys = orderStressQuestion.valueOrder.correctOrder;
+const correctOrderStressAnswer = valueOrderAnswerKey(correctOrderStressKeys);
+const orderStressEntries = permutations(orderStressCards.map((card) => card.key))
+  .map((keys) => valueOrderAnswerKey(keys))
+  .filter((answerKey) => answerKey && answerKey !== correctOrderStressAnswer)
+  .concat(correctOrderStressAnswer)
+  .map((answerKey) => ({ answerKey, count: 1 }));
+const crowdStressFixtures = {
+  heroes: {
+    game: "quote-hunt",
+    question: {
+      kind: "hero-quote",
+      category: "Heroes",
+      eyebrow: "Crowd split stress",
+      prompt: "Who said it?",
+      detail: "Every hero received one vote in this visual fixture.",
+      answerMode: "hero-grid",
+    },
+    entries: heroStressEntries,
+  },
+  items: {
+    game: "shopkeeper",
+    question: {
+      kind: "shopkeeper-build-result",
+      category: "Recipes",
+      eyebrow: "Crowd split stress",
+      prompt: "What do these components build?",
+      answerMode: "item-grid",
+      shopkeeper: {
+        format: "build-result",
+        promptItems: itemStressItems.slice(0, 3).map((item) => ({
+          key: item.key,
+          name: item.name,
+          image: item.image,
+          count: 1,
+        })),
+      },
+    },
+    entries: itemStressEntries,
+  },
+  orders: {
+    game: "order-up",
+    question: {
+      kind: orderStressQuestion.kind,
+      category: orderStressQuestion.category,
+      eyebrow: orderStressQuestion.eyebrow,
+      prompt: orderStressQuestion.prompt,
+      answerMode: "value-order",
+      valueOrder: {
+        family: orderStressQuestion.valueOrder.family,
+        direction: "ascending",
+        cards: orderStressCards,
+      },
+    },
+    entries: orderStressEntries,
+    reveal: {
+      orderValues: orderStressQuestion.valueOrder.values.map(({ key, label }) => ({ key, label })),
+    },
+  },
+  classic: {
+    game: "trivia",
+    question: {
+      kind: "item-cost",
+      category: "Items",
+      eyebrow: "Pipe of Insight",
+      prompt: "How much does Pipe of Insight cost?",
+      answers: ["3,250 gold", "3,275 gold", "3,725 gold", "4,000 gold"],
+    },
+    entries: ["a", "b", "c", "d"].map((answerKey) => ({ answerKey, count: 1 })),
+  },
+  spell: {
+    game: "spell-link",
+    question: {
+      kind: "spell-owner",
+      category: "Abilities",
+      eyebrow: "Ensnare",
+      prompt: "Which hero owns this ability?",
+      hint: "Interrupts the target and traps them in place, preventing movement or blinking. Can target units affected by Song of the caster.",
+      answerMode: "hero-grid",
+    },
+    entries: heroStressEntries.slice(0, 4),
+  },
+  aghanim: {
+    game: "aghanim-lab",
+    question: {
+      kind: "aghanim-upgrade",
+      category: "Abilities",
+      eyebrow: "Upgrade effect",
+      prompt: "Whose upgrade is this?",
+      answerMode: "hero-grid",
+      aghanim: {
+        effect:
+          "After using a mobility spell, the next attack burns extra maximum mana and temporarily prevents mana gain.",
+      },
+    },
+    entries: heroStressEntries.slice(0, 4),
+  },
+};
+const targets = await fetch(`${debuggingUrl}/json/list`).then((response) => response.json());
+const target = targets.find((entry) => entry.type === "page");
+
+if (!target?.webSocketDebuggerUrl) {
+  throw new Error("No debuggable Chrome page was found.");
+}
+
+const socket = new WebSocket(target.webSocketDebuggerUrl);
+const pending = new Map();
+const eventWaiters = new Map();
+const browserErrors = [];
+let requestId = 0;
+
+socket.addEventListener("message", (message) => {
+  const payload = JSON.parse(message.data);
+
+  if (payload.id) {
+    const request = pending.get(payload.id);
+    if (!request) return;
+    pending.delete(payload.id);
+    if (payload.error) request.reject(new Error(payload.error.message));
+    else request.resolve(payload.result);
+    return;
+  }
+
+  if (payload.method === "Runtime.exceptionThrown") {
+    browserErrors.push(payload.params.exceptionDetails.text);
+  }
+
+  const waiters = eventWaiters.get(payload.method);
+  if (waiters?.length) {
+    eventWaiters.delete(payload.method);
+    for (const resolve of waiters) resolve(payload.params);
+  }
+});
+
+await new Promise((resolve, reject) => {
+  socket.addEventListener("open", resolve, { once: true });
+  socket.addEventListener("error", reject, { once: true });
+});
+
+function send(method, params = {}) {
+  const id = ++requestId;
+  socket.send(JSON.stringify({ id, method, params }));
+  return new Promise((resolve, reject) => pending.set(id, { resolve, reject }));
+}
+
+function once(method) {
+  return new Promise((resolve) => {
+    const waiters = eventWaiters.get(method) ?? [];
+    waiters.push(resolve);
+    eventWaiters.set(method, waiters);
+  });
+}
+
+async function evaluate(expression) {
+  const result = await send("Runtime.evaluate", {
+    expression,
+    awaitPromise: true,
+    returnByValue: true,
+  });
+  if (result.exceptionDetails) {
+    throw new Error(result.exceptionDetails.exception?.description ?? result.exceptionDetails.text);
+  }
+  return result.result.value;
+}
+
+async function navigate(url) {
+  const loaded = once("Page.loadEventFired");
+  await send("Page.navigate", { url });
+  await loaded;
+  await evaluate("document.fonts.ready.then(() => true)");
+  await delay(500);
+}
+
+async function screenshot(path) {
+  const result = await send("Page.captureScreenshot", {
+    format: "png",
+    fromSurface: true,
+    captureBeyondViewport: false,
+  });
+  await writeFile(path, Buffer.from(result.data, "base64"));
+}
+
+async function waitFor(expression, timeout = 30_000) {
+  const startedAt = Date.now();
+  while (Date.now() - startedAt < timeout) {
+    if (await evaluate(expression)) return;
+    await delay(200);
+  }
+  throw new Error(`Timed out waiting for: ${expression}`);
+}
+
+async function runCrowdStress(kind, expectedTotal) {
+  await evaluate(`(() => {
+    window.__queueArcadeCrowdStress = { kind: ${JSON.stringify(kind)}, phase: "answering" };
+    window.__queueArcadeOrderSubmittedKey = null;
+    window.__queueArcadeOrderAutoSubmitRequests = 0;
+  })()`);
+  await waitFor(
+    `(() => {
+    const main = document.querySelector("main");
+    const expectedPicker = ${JSON.stringify(kind)} === "heroes"
+      ? "hero-picker"
+      : ${JSON.stringify(kind)} === "orders"
+        ? "value-order-board"
+        : "shopkeeper-store";
+    return main?.dataset.phase === "answering" &&
+      main?.dataset.roundId === "visual-crowd-stress-${kind}" &&
+      Boolean(document.querySelector('[data-testid="' + expectedPicker + '"]')) &&
+      !document.querySelector('[data-testid="crowd-split"]') &&
+      !document.querySelector('[data-testid="crowd-card"]');
+  })()`,
+    12_000,
+  );
+  const hiddenBeforeReveal = await evaluate(
+    `!document.querySelector('[data-testid="crowd-split"]') && !document.querySelector('[data-testid="crowd-card"]')`,
+  );
+  const promptContextHiddenBeforeReveal = await evaluate(
+    `!document.querySelector('[data-testid="round-prompt"] [class*="questionCopy"] > span')`,
+  );
+  let orderAutoSubmit = null;
+
+  if (kind === "orders") {
+    const lockButtonAbsent = await evaluate(
+      `![...document.querySelectorAll("button")].some((button) => button.textContent.includes("Lock order"))`,
+    );
+    for (let cardIndex = 0; cardIndex < 4; cardIndex += 1) {
+      await evaluate(`document.querySelectorAll('[data-testid="value-order-card"]')[${cardIndex}]?.click()`);
+      await waitFor(
+        `document.querySelectorAll('[data-testid="value-order-card"][data-selected="true"]').length === ${cardIndex + 1}`,
+      );
+    }
+    await waitFor(
+      `document.querySelector('[data-testid="value-order-board"]')?.dataset.locked === "true" &&
+        window.__queueArcadeOrderAutoSubmitRequests === 1`,
+    );
+    orderAutoSubmit = await evaluate(`({
+      locked: document.querySelector('[data-testid="value-order-board"]')?.dataset.locked === "true",
+      requests: window.__queueArcadeOrderAutoSubmitRequests,
+      hasSubmittedKey: typeof window.__queueArcadeOrderSubmittedKey === "string",
+      lockButtonAbsent: ${lockButtonAbsent}
+    })`);
+  }
+
+  await evaluate(`window.__queueArcadeCrowdStress.phase = "reveal"`);
+  await waitFor(
+    `(() => {
+    const split = document.querySelector('[data-testid="crowd-split"]');
+    return document.querySelector("main")?.dataset.phase === "reveal" &&
+      split?.dataset.splitKind === "open-grid" &&
+      Number(split?.dataset.total) === ${expectedTotal};
+  })()`,
+    12_000,
+  );
+  await delay(650);
+  await screenshot(`/tmp/queue-arcade-crowd-${kind}.png`);
+
+  return evaluate(`(() => {
+    const card = document.querySelector('[data-testid="crowd-card"]');
+    const split = document.querySelector('[data-testid="crowd-split"]');
+    const rows = [...document.querySelectorAll('[data-testid="crowd-split-row"]')];
+    const score = document.querySelector('[data-testid="crowd-score-summary"]');
+    const other = rows.find((row) => row.textContent.includes("Other picks"));
+    const cardBounds = card?.getBoundingClientRect();
+    const rowBounds = rows.map((row) => row.getBoundingClientRect());
+    return {
+      kind: split?.dataset.splitKind,
+      hiddenBeforeReveal: ${hiddenBeforeReveal},
+      promptContextHiddenBeforeReveal: ${promptContextHiddenBeforeReveal},
+      total: Number(split?.dataset.total),
+      rowCount: rows.length,
+      namedRows: rows.filter((row) => !row.textContent.includes("Other picks")).length,
+      countTotal: rows.reduce((sum, row) => sum + Number(row.dataset.count), 0),
+      otherCount: Number(other?.dataset.count),
+      otherPercentage: Number(other?.dataset.percentage),
+      correctRows: rows.filter((row) => row.dataset.correct === "true").length,
+      selectedRows: rows.filter((row) => row.dataset.selected === "true").length,
+      labelsVisible: rows.every((row) => (row.querySelector("strong")?.getBoundingClientRect().width ?? 0) > 0),
+      rowsInsideCard: Boolean(cardBounds) && rowBounds.every((bounds) =>
+        bounds.left >= cardBounds.left && bounds.right <= cardBounds.right && bounds.bottom <= cardBounds.bottom
+      ),
+      scoreVisible: Boolean(score) && score.querySelectorAll("span").length === 3 &&
+        score.textContent.includes("Correct avg") && score.textContent.includes("Best"),
+      scoreInsideCard: Boolean(cardBounds && score) && score.getBoundingClientRect().bottom <= cardBounds.bottom,
+      cardHeight: cardBounds?.height,
+      cardInsideViewport: Boolean(cardBounds && cardBounds.bottom <= window.innerHeight),
+      clipped: Boolean(card && (card.scrollWidth > card.clientWidth || card.scrollHeight > card.clientHeight)),
+      horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+      orderSequences: document.querySelectorAll('[data-testid="value-order-sequence"]').length,
+      orderValueLabels: document.querySelectorAll('[data-testid="value-order-sequence"] [data-card-kind] em').length,
+      explanationVisible: Boolean(document.querySelector('[data-testid="reveal-explanation"]')),
+      orderAutoSubmit: ${JSON.stringify(orderAutoSubmit)},
+      catalogResults: ${JSON.stringify(kind)} === "heroes"
+        ? [...document.querySelectorAll('[data-testid="hero-picker-hero"]')].filter((entry) => /%/.test(entry.innerText)).length
+        : ${JSON.stringify(kind)} === "items"
+          ? [...document.querySelectorAll('[data-testid="shopkeeper-store-item"]')].filter((entry) => /%/.test(entry.innerText)).length
+          : null,
+      catalogVisible: ${JSON.stringify(kind)} === "heroes"
+        ? document.querySelectorAll('[data-testid="hero-picker-hero"]').length
+        : ${JSON.stringify(kind)} === "items"
+          ? document.querySelectorAll('[data-testid="shopkeeper-store-item"]').length
+          : null
+    };
+  })()`);
+}
+
+async function runClassicChromeStress() {
+  await evaluate(`window.__queueArcadeCrowdStress = { kind: "classic", phase: "answering" }`);
+  await evaluate(`window.dispatchEvent(new Event("focus")); true`);
+  await waitFor(
+    `document.querySelector("main")?.dataset.phase === "answering" &&
+      document.querySelector("main")?.dataset.roundId === "visual-crowd-stress-classic"`,
+    12_000,
+  );
+  return evaluate(`({
+    promptContextVisible: Boolean(
+      document.querySelector('[data-testid="round-prompt"] [class*="questionCopy"] > span')
+    ),
+    crowdCardVisible: Boolean(document.querySelector('[data-testid="crowd-card"]')),
+    roomCardVisible: Boolean(document.querySelector('[class*="queueCard"]'))
+  })`);
+}
+
+async function runSpellLayoutStress() {
+  await evaluate(`window.__queueArcadeCrowdStress = { kind: "spell", phase: "answering" }`);
+  await evaluate(`window.dispatchEvent(new Event("focus")); true`);
+  await waitFor(
+    `document.querySelector("main")?.dataset.phase === "answering" &&
+      document.querySelector("main")?.dataset.roundId === "visual-crowd-stress-spell" &&
+      Boolean(document.querySelector('[data-testid="spell-clue-list"]'))`,
+    12_000,
+  );
+  await delay(300);
+  await screenshot("/tmp/queue-arcade-spell-layout.png");
+
+  return evaluate(`(() => {
+    const prompt = document.querySelector('[data-testid="round-prompt"]');
+    const clues = document.querySelector('[data-testid="spell-clue-list"]');
+    const picker = document.querySelector('[data-testid="hero-picker"]');
+    const promptBounds = prompt?.getBoundingClientRect();
+    const clueBounds = clues?.getBoundingClientRect();
+    const pickerBounds = picker?.getBoundingClientRect();
+    return {
+      visible: Boolean(clueBounds?.width && clueBounds?.height),
+      fullyVisible: Boolean(
+        promptBounds &&
+          clueBounds &&
+          clueBounds.top >= promptBounds.top &&
+          clueBounds.bottom <= promptBounds.bottom
+      ),
+      bottomInset: promptBounds && clueBounds ? promptBounds.bottom - clueBounds.bottom : -1,
+      pickerGap: pickerBounds && clueBounds ? pickerBounds.top - clueBounds.bottom : -1,
+      horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+    };
+  })()`);
+}
+
+async function runAghanimLayoutStress() {
+  await evaluate(`window.__queueArcadeCrowdStress = { kind: "aghanim", phase: "answering" }`);
+  await evaluate(`window.dispatchEvent(new Event("focus")); true`);
+  await waitFor(
+    `document.querySelector("main")?.dataset.phase === "answering" &&
+      document.querySelector("main")?.dataset.roundId === "visual-crowd-stress-aghanim" &&
+      Boolean(document.querySelector('[data-testid="aghanim-clue-1"]'))`,
+    12_000,
+  );
+  await delay(300);
+  await screenshot("/tmp/queue-arcade-aghanim-layout.png");
+
+  return evaluate(`(() => {
+    const prompt = document.querySelector('[data-testid="round-prompt"]');
+    const picker = document.querySelector('[data-testid="hero-picker"]');
+    const artwork = document.querySelector('[data-testid="aghanim-artwork"]');
+    const promptBounds = prompt?.getBoundingClientRect();
+    const pickerBounds = picker?.getBoundingClientRect();
+    return {
+      clueCards: [1, 2, 3].filter((stage) =>
+        document.querySelector('[data-testid="aghanim-clue-' + stage + '"]')
+      ).length,
+      firstClueVisible: Boolean(document.querySelector('[data-testid="aghanim-clue-1"] strong')),
+      laterCluesLocked:
+        document.querySelector('[data-testid="aghanim-clue-2"] span')?.textContent === "Upgrade details" &&
+        document.querySelector('[data-testid="aghanim-clue-3"] span')?.textContent === "Ability name",
+      artworkVisible: Boolean(artwork?.getBoundingClientRect().width),
+      heroItems: document.querySelectorAll('[data-testid="hero-picker-hero"]').length,
+      pickerGap: pickerBounds && promptBounds ? pickerBounds.top - promptBounds.bottom : -1,
+      promptInsideViewport: Boolean(promptBounds && promptBounds.bottom <= window.innerHeight),
+      horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+    };
+  })()`);
+}
+
+await send("Page.enable");
+await send("Runtime.enable");
+await send("Page.addScriptToEvaluateOnNewDocument", {
+  source: `(() => {
+    const fixtures = ${JSON.stringify(crowdStressFixtures)};
+    const originalFetch = window.fetch.bind(window);
+    window.__queueArcadeCrowdStress = null;
+    window.__queueArcadeAudioPrewarmRequests = 0;
+    window.__queueArcadeOrderSubmittedKey = null;
+    window.__queueArcadeOrderAutoSubmitRequests = 0;
+
+    Object.defineProperty(HTMLMediaElement.prototype, "play", {
+      configurable: true,
+      value() { return Promise.resolve(); }
+    });
+
+    window.fetch = async (...args) => {
+      const input = args[0];
+      const init = args[1];
+      const requestUrl = typeof input === "string" || input instanceof URL ? String(input) : input?.url;
+      const requestMethod = String(init?.method ?? input?.method ?? "GET").toUpperCase();
+      const requestPath = requestUrl ? new URL(requestUrl, location.href).pathname : "";
+      if (requestPath === "/api/round-audio" && requestMethod === "HEAD") {
+        window.__queueArcadeAudioPrewarmRequests += 1;
+      }
+
+      const state = window.__queueArcadeCrowdStress;
+      if (state?.kind === "orders" && requestPath === "/api/votes" && requestMethod === "POST") {
+        const body = JSON.parse(String(init?.body ?? "{}"));
+        window.__queueArcadeOrderSubmittedKey = body.answerKey;
+        window.__queueArcadeOrderAutoSubmitRequests += 1;
+        return new Response(JSON.stringify({
+          accepted: true,
+          counts: [0, 0, 0, 0],
+          total: 1,
+          positions: [],
+          keyCounts: [],
+          scoreSummary: null,
+          playerVote: {
+            answerIndex: 0,
+            answerKey: body.answerKey,
+            submittedAt: Date.now()
+          }
+        }), {
+          status: 200,
+          headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+        });
+      }
+
+      const response = await originalFetch(...args);
+      if (!state || requestPath !== "/api/rounds") return response;
+
+      try {
+        const fixture = fixtures[state.kind];
+        if (!fixture) return response;
+        const payload = await response.clone().json();
+        if (!payload?.round || !payload?.room) return response;
+
+        const now = Date.now();
+        const reveal = state.phase === "reveal";
+        const total = fixture.entries.length;
+        const correctKey = fixture.entries.at(-1).answerKey;
+        const selectedKey = state.kind === "orders" && window.__queueArcadeOrderSubmittedKey
+          ? window.__queueArcadeOrderSubmittedKey
+          : fixture.entries.at(-2).answerKey;
+        const roundId = "visual-crowd-stress-" + state.kind;
+        payload.serverNow = now;
+        payload.round = {
+          ...payload.round,
+          id: roundId,
+          phase: reveal ? "reveal" : "answering",
+          game: fixture.game,
+          startedAt: now - 3_000,
+          answerDeadline: reveal ? now - 1_000 : now + 12_000,
+          revealDeadline: now + 6_000,
+          answerDuration: 15_000
+        };
+        payload.questionRevision = roundId + ":" + state.phase;
+        payload.question = {
+          id: roundId,
+          game: fixture.game,
+          ...fixture.question,
+          difficulty: 3,
+          answers: fixture.question.answers ?? ["", "", "", ""],
+          patch: "visual-test",
+          clueStage: reveal ? 3 : 1,
+          reveal: reveal ? {
+            correctIndex: 0,
+            correctAnswerKey: correctKey,
+            explanation: "Full-catalog crowd split visual fixture.",
+            ...(fixture.reveal ?? {})
+          } : null
+        };
+        payload.presence = { activePlayers: total };
+        payload.crowd = {
+          counts: reveal ? [total, 0, 0, 0] : [0, 0, 0, 0],
+          total,
+          positions: [],
+          keyCounts: reveal ? fixture.entries : [],
+          scoreSummary: reveal ? {
+            correctCount: Math.ceil(total / 3),
+            average: 164,
+            best: 218,
+            playerPoints: 0
+          } : null
+        };
+        payload.playerVote = state.kind === "orders" && !reveal && !window.__queueArcadeOrderSubmittedKey
+          ? null
+          : {
+              answerIndex: 0,
+              ...(fixture.question.answerMode ? { answerKey: selectedKey } : {}),
+              submittedAt: now - 1_000
+            };
+        payload.playerReport = null;
+
+        return new Response(JSON.stringify(payload), {
+          status: response.status,
+          statusText: response.statusText,
+          headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+        });
+      } catch {
+        return response;
+      }
+    };
+  })();`,
+});
+await send("Emulation.setDeviceMetricsOverride", {
+  width: 1440,
+  height: 1000,
+  deviceScaleFactor: 1,
+  mobile: false,
+});
+
+await navigate(appUrl);
+await evaluate(`(() => {
+  localStorage.clear();
+  return true;
+})()`);
+await navigate(appUrl);
+await waitFor(
+  `document.querySelector("main")?.dataset.clientReady === "true" && document.querySelector("main")?.dataset.accountReady === "true"`,
+);
+const defaultVolume = await evaluate(`document.querySelector('[data-testid="game-volume"]')?.value`);
+await evaluate(`(() => {
+  localStorage.clear();
+  localStorage.setItem("queue-arcade:settings:v3", JSON.stringify({ soundEnabled: false, gameVolume: 0.1 }));
+  return true;
+})()`);
+await navigate(appUrl);
+await waitFor(
+  `document.querySelector("main")?.dataset.clientReady === "true" && document.querySelector("main")?.dataset.accountReady === "true"`,
+);
+const migratedVolume = await evaluate(`document.querySelector('[data-testid="game-volume"]')?.value`);
+const migratedMuted = await evaluate(`Boolean(document.querySelector('button[aria-label="Enable game sounds"]'))`);
+await evaluate(`(() => {
+  localStorage.clear();
+  localStorage.setItem("queue-arcade:settings:v4", JSON.stringify({ soundEnabled: false, gameVolume: 0.45 }));
+  return true;
+})()`);
+await navigate(appUrl);
+await waitFor(
+  `document.querySelector("main")?.dataset.clientReady === "true" && document.querySelector("main")?.dataset.accountReady === "true"`,
+);
+await screenshot("/tmp/queue-arcade-lobby.png");
+
+const lobby = await evaluate(`(() => {
+  const brand = document.querySelector('a[aria-label="Queue Arcade home"]');
+  const mark = brand?.firstElementChild?.getBoundingClientRect();
+  const copy = brand?.lastElementChild?.getBoundingClientRect();
+  return {
+    title: document.title,
+    heading: document.querySelector("h1")?.innerText,
+    startButtons: document.querySelectorAll('[data-testid="start-arcade"]').length,
+    shareButtons: document.querySelectorAll('[data-testid="share-arcade"]').length,
+    canonical: document.querySelector('link[rel="canonical"]')?.href,
+    openGraphImage: document.querySelector('meta[property="og:image"]')?.content,
+    modeCards: document.querySelectorAll("[data-arcade-mode]").length,
+    roundFamilies: document.querySelectorAll("[data-round-family]").length,
+    roundMix: document.querySelector('[data-testid="round-mix"]')?.innerText,
+    copy: document.querySelector("main")?.innerText,
+    muted: Boolean(document.querySelector('button[aria-label="Enable game sounds"]')),
+    volume: document.querySelector('[data-testid="game-volume"]')?.value,
+    steamButtons: document.querySelectorAll('[data-testid="steam-sign-in"]').length,
+    steamButton: (() => {
+      const button = document.querySelector('[data-testid="steam-sign-in"]');
+      const bounds = button?.getBoundingClientRect();
+      return bounds ? {
+        width: bounds.width,
+        height: bounds.height,
+        markPath: button.querySelector('[data-brand-icon="steam"] path')?.getAttribute("d"),
+        label: button.textContent?.trim()
+      } : null;
+    })(),
+    accountSlot: (() => {
+      const bounds = document.querySelector('[data-testid="account-action-slot"]')?.getBoundingClientRect();
+      return bounds ? { width: bounds.width, height: bounds.height } : null;
+    })(),
+    markCenter: mark ? mark.top + mark.height / 2 : 0,
+    copyCenter: copy ? copy.top + copy.height / 2 : 0,
+    brandLeft: document.querySelector('[data-testid="site-home"]')?.getBoundingClientRect().left ?? null,
+    headerLeft: document.querySelector("header")?.getBoundingClientRect().left ?? null,
+    horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+  };
+})()`);
+
+socket.close();
+const checks = {
+  startButtons: lobby.startButtons === 1,
+  defaultVolume: defaultVolume === "70",
+  migratedVolume: migratedVolume === "70",
+  migratedMuted,
+  shareButtons: lobby.shareButtons === 0,
+  canonical: lobby.canonical === `${new URL(appUrl).origin}/`,
+  openGraphImage: lobby.openGraphImage?.includes("opengraph-image"),
+  modeCards: lobby.modeCards === 0,
+  roundFamilies: lobby.roundFamilies === 10,
+  classic: lobby.roundMix?.includes("Classic Trivia"),
+  flashback: lobby.roundMix?.includes("Flashback"),
+  tenGames: lobby.copy?.toLowerCase().includes("ten games"),
+  noOldChoice: !lobby.copy?.toLowerCase().includes("choose your side quest"),
+  muted: lobby.muted,
+  volume: lobby.volume === "45",
+};
+console.log(JSON.stringify({checks,actual:{defaultVolume,migratedVolume,migratedMuted,startButtons:lobby.startButtons,shareButtons:lobby.shareButtons,canonical:lobby.canonical,expectedCanonical:`${new URL(appUrl).origin}/`,openGraphImage:lobby.openGraphImage,modeCards:lobby.modeCards,roundFamilies:lobby.roundFamilies,roundMix:lobby.roundMix,copy:lobby.copy,muted:lobby.muted,volume:lobby.volume}},null,2));
+if(Object.values(checks).some(value=>!value))throw new Error("Lobby predicate failed");

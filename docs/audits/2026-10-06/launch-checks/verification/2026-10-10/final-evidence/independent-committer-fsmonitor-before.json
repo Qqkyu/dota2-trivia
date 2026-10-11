@@ -1,0 +1,6 @@
+{
+  "scope": "Isolated temporary Git fixture. No real repository Git writes.",
+  "finding": "The helper returned success while a configured core.fsmonitor command wrote a marker outside the evidence subtree. Disabling core.hooksPath did not prevent this command.",
+  "reproduced": true,
+  "helperSha256": "8fbdf4c8a2a7f2ea76b3972bb23176b7be33969d676eb26e53289ac982adffb6"
+}

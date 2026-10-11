@@ -1,0 +1,18 @@
+{
+  "node": "v22.23.3",
+  "fixtureCount": 7,
+  "allCasesExitZero": true,
+  "allCasesReachFinally": true,
+  "helperPath": "scripts/lib/health-readiness.mjs",
+  "helperSha256": "f255a0c66fd073c6c4d234a6e18e639bd903c95024e1c3824632d8ee106f36f5",
+  "callSiteReviewed": true,
+  "sourceIssueFound": false,
+  "testIssueSent": "The parser fixture caught its unexpected-success assertion. CI agent was asked to place this failure outside the catch.",
+  "testIssueResolved": true,
+  "testCorrection": "The catch only accepts TimeoutError or TypeError. It rethrows the unexpected-success Error. The comment now describes the controlled fixture rather than the untraced original event.",
+  "reviewedSourceHashes": {
+    "scripts/lib/health-readiness.mjs": "f255a0c66fd073c6c4d234a6e18e639bd903c95024e1c3824632d8ee106f36f5",
+    "scripts/check-container.mjs": "14db144a2ee9308e878ba6af3f31de00bb825cad60e6d2495e89d90c7bd80698",
+    "tests/health-readiness.test.mjs": "760d29cd758d6871bae5eb59cf547faad9f050783057bdbe639f81107d43e013"
+  }
+}

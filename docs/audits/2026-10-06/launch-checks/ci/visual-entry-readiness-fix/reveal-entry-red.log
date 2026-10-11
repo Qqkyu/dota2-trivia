@@ -1,0 +1,44 @@
+
+ RUN  v5.0.0 /home/kulmisiu/dev/dota2-trivia
+
+ ❯ tests/reveal-entry.test.mjs (3 tests | 3 failed) 20ms
+   ❯ reveal entry polling (3)
+     × waits through grace when starting just before the answer deadline 17ms
+     × waits through grace when starting inside vote grace 1ms
+     × skips a reveal with insufficient entry time and waits for the next round 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/reveal-entry.test.mjs > reveal entry polling > waits through grace when starting just before the answer deadline
+ FAIL  tests/reveal-entry.test.mjs > reveal entry polling > waits through grace when starting inside vote grace
+Error: Could not reach a reveal window for the first-entry smoke test.
+ ❯ waitForRevealEntryWindow scripts/lib/reveal-entry.mjs:13:9
+     11|     await sleep(Math.max(150, wait));
+     12|   }
+     13|   throw new Error("Could not reach a reveal window for the first-entry…
+       |         ^
+     14| }
+     15|
+ ❯ tests/reveal-entry.test.mjs:37:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/reveal-entry.test.mjs > reveal entry polling > skips a reveal with insufficient entry time and waits for the next round
+Error: Could not reach a reveal window for the first-entry smoke test.
+ ❯ waitForRevealEntryWindow scripts/lib/reveal-entry.mjs:13:9
+     11|     await sleep(Math.max(150, wait));
+     12|   }
+     13|   throw new Error("Could not reach a reveal window for the first-entry…
+       |         ^
+     14| }
+     15|
+ ❯ tests/reveal-entry.test.mjs:47:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  12:41:07
+   Duration  132ms (transform 39%, tests 39%, import 16%, worker 6%)
+

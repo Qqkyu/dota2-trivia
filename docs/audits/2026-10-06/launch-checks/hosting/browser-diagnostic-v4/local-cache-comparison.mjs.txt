@@ -1,0 +1,69 @@
+import assert from 'node:assert/strict';
+import {createServer} from 'node:http';
+import {createHash} from 'node:crypto';
+import {createRequire} from 'node:module';
+import {readFile,writeFile} from 'node:fs/promises';
+import {Check,browserProxyRoute,safeFailure,closeOwnedBrowser,withDeadline} from '../reveal-wait-v3/hosted-smoke.mjs';
+const {chromium}=createRequire('/home/kulmisiu/dev/dota2-trivia/package.json')('playwright');
+const BASE='/tmp/queue-arcade-launch-checks/hosted-smoke-preparation/browser-diagnostic-v4';
+const rows=[];
+const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jA5sAAAAASUVORK5CYII=','base64');
+const server=createServer((request,response)=>{
+ rows.push({path:request.url,method:request.method,credentials:Boolean(request.headers.cookie||request.headers.authorization)});
+ response.setHeader('Set-Cookie','server-secret=synthetic-only; Path=/');
+ response.setHeader('Cache-Control',request.url==='/'?'no-store':'public, max-age=31536000, immutable');
+ response.setHeader('Content-Type',request.url.endsWith('.png')?'image/png':request.url==='/'?'text/html':'application/javascript');
+ response.end(request.url==='/'?'<html><body><main id="board"></main></body></html>':request.url.endsWith('.png')?png:'/* controlled static fixture */');
+});
+await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+const origin=`http://127.0.0.1:${server.address().port}`;
+const results=[];
+try{
+ for(const cacheEnabled of [false,true]){
+  let browser,owned,routeCount=0,blockedWrites=0,exceeded=false;const blockedKinds={};const before=rows.length;const started=Date.now();
+  const check=new Check(origin,{contentVersion:'synthetic-cache-comparison'},true);
+  const result={cacheEnabled,stages:[]};
+  try{
+   await withDeadline(90000,async()=>{
+    const env=Object.fromEntries(['PATH','DISPLAY','XDG_RUNTIME_DIR','LD_LIBRARY_PATH','LANG'].filter(k=>process.env[k]).map(k=>[k,process.env[k]]));
+    owned=await chromium.launchServer({executablePath:'/usr/bin/google-chrome',host:'127.0.0.1',headless:true,env,args:['--mute-audio','--disable-background-networking','--disable-sync']});
+    browser=await chromium.connect(owned.wsEndpoint(),{timeout:15000});
+    const context=await browser.newContext({serviceWorkers:'block'});
+    await context.addCookies([{name:'client-secret',value:'synthetic-only',url:origin}]);
+    await context.setExtraHTTPHeaders({Authorization:'Bearer synthetic-only'});
+    await context.route('**/*',async route=>{
+     if(++routeCount>640||Date.now()-started>90000){exceeded=true;return route.abort();}
+     try{await browserProxyRoute(route,check,()=>blockedWrites++);}catch(error){const code=safeFailure(error);blockedKinds[code]=(blockedKinds[code]??0)+1;await route.abort().catch(()=>{});}
+    });
+    const page=await context.newPage();page.setDefaultTimeout(15000);
+    if(cacheEnabled){const cdp=await context.newCDPSession(page);await cdp.send('Network.setCacheDisabled',{cacheDisabled:false});}
+    await page.goto(origin,{waitUntil:'domcontentloaded'});
+    const guards=await page.evaluate(async()=>{
+     const settled=await Promise.allSettled([fetch('/api/sessions',{method:'POST',body:'synthetic'}),fetch('https://example.invalid/blocked')]);
+     return settled.map(row=>row.status);
+    });
+    assert.deepEqual(guards,['rejected','rejected']);
+    for(const [name,prefix,count] of [['preload','hero',131],['hidden-hero','hero',131],['hidden-shop','item',108],['answering','hero',131],['reveal','hero',131]]){
+     const mounted=await page.evaluate(async({prefix,count})=>{
+      document.querySelector('#board').replaceChildren();
+      const assets=Array.from({length:count},(_,i)=>{const img=new Image();const done=new Promise(resolve=>{img.onload=()=>resolve(true);img.onerror=()=>resolve(false);});img.src=`/public/${prefix}-${i}.png`;document.querySelector('#board').append(img);return done;});
+      return (await Promise.all(assets)).filter(Boolean).length;
+     },{prefix,count});
+     result.stages.push({name,mounted,requested:count,routes:routeCount,forwarded:check.browserRequests});
+     if(exceeded)break;
+    }
+    result.extraAssets=await page.evaluate(async()=>{const states=await Promise.allSettled(Array.from({length:24},(_,i)=>fetch(`/static/chunk-${i}.js`)));return states.filter(row=>row.status==='fulfilled').length;});
+    const cookies=await context.cookies();assert(!cookies.some(c=>c.name==='server-secret'));
+    result.responseCookieStored=false;
+   },()=>browser?.close());
+  }catch(error){result.failure=safeFailure(error);}
+  finally{
+   if(owned){const child=owned.process();await closeOwnedBrowser(()=>Promise.all([browser?.close(),owned.close()]),()=>child.kill('SIGKILL'),()=>child.exitCode!==null||child.signalCode!==null);result.browserStopped=true;}
+  }
+  const traffic=rows.slice(before);assert(!traffic.some(row=>row.credentials));assert(!traffic.some(row=>row.method!=='GET'));assert(check.browserRequests<=640);
+  Object.assign(result,{routes:routeCount,forwarded:check.browserRequests,realLocalRequests:traffic.length,bytes:check.bytes,blockedWrites,blockedKinds,exceeded,elapsedMs:Date.now()-started,credentialsForwarded:false,foreignRequestsForwarded:false,privateWrites:check.writeCounts});
+  results.push(result);
+ }
+}finally{await new Promise(resolve=>server.close(resolve));}
+const output={checkedAt:new Date().toISOString(),fixture:'Repeated synthetic hero-board mounts through the actual reviewed proxy and Chromium; immutable public cache headers; no hosted requests.',limits:{outboundBrowserRequests:640,bytes:33554432,wallMs:90000},operatorSha256:createHash('sha256').update(await readFile(new URL(import.meta.url))).digest('hex'),hostedRequests:0,results};
+await writeFile(BASE+'/local-cache-comparison.json',JSON.stringify(output,null,2)+'\n',{mode:0o600});console.log(JSON.stringify(output,null,2));

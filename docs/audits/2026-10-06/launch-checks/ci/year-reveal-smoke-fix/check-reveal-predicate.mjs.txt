@@ -1,0 +1,37 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const source = JSON.parse(fs.readFileSync(new URL('./source-check.json', import.meta.url)));
+const cases = JSON.parse(fs.readFileSync(new URL('./focused-year-green.log', import.meta.url))).results;
+const rejects = Function('answering', 'reveal', `return (${source.predicate});`);
+const checks = [];
+for (const state of cases) {
+  const answering = { flashbackYearSubmittedYear: state.yearAnswer };
+  const reveal = {
+    flashbackYearSlider: state.slider,
+    openShopReveal: false,
+    flashbackYear: { visible: state.board, phase: state.phase, correctYear: state.correctYear, readout: state.readout, label: state.label, yourAnswer: state.yourAnswer, lock: state.lock },
+  };
+  assert.equal(Boolean(rejects(answering, reveal)), false);
+  checks.push({ width: state.width, yearAnswer: state.yearAnswer, case: 'actual rendered state accepted', pass: true });
+  const mutations = [
+    ['missing board', (a, r) => { r.flashbackYear.visible = false; }],
+    ['wrong phase', (a, r) => { r.flashbackYear.phase = 'answering'; }],
+    ['missing correct year', (a, r) => { r.flashbackYear.correctYear = ''; }],
+    ['malformed correct year', (a, r) => { r.flashbackYear.correctYear = 'year'; }],
+    ['wrong visible year', (a, r) => { r.flashbackYear.readout = '2000'; }],
+    ['missing correct-year label', (a, r) => { r.flashbackYear.label = ''; }],
+    ['missing submitted year', (a) => { a.flashbackYearSubmittedYear = null; }],
+    ['wrong retained answer', (a, r) => { r.flashbackYear.yourAnswer = 'Your answer: 2000.'; }],
+    ['stale slider', (a, r) => { r.flashbackYearSlider = true; }],
+    ['stale lock button', (a, r) => { r.flashbackYear.lock = true; }],
+    ['wrong format reveal', (a, r) => { r.openShopReveal = true; }],
+  ];
+  for (const [name, mutate] of mutations) {
+    const a = structuredClone(answering);
+    const r = structuredClone(reveal);
+    mutate(a, r);
+    assert.equal(Boolean(rejects(a, r)), true, name);
+    checks.push({ width: state.width, yearAnswer: state.yearAnswer, case: name, pass: true });
+  }
+}
+console.log(JSON.stringify({ sourceSha256: source.sha256, checks: checks.length, passed: checks.every(c => c.pass), results: checks }, null, 2));

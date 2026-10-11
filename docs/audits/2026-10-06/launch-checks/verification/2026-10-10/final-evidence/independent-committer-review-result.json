@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "checks": [
+    "dirty real index, main HEAD and candidate ref preserved",
+    "one exact release parent",
+    "unrelated working edit excluded",
+    "ignored evidence included without filter or newline transformations",
+    "existing executable mode preserved",
+    "reference transaction hook disabled",
+    "filesystem monitor command disabled",
+    "receipt stays outside frozen archive",
+    "stale_manifest rejected without main/index/candidate changes",
+    "extra_file rejected without main/index/candidate changes",
+    "evidence_ref rejected without main/index/candidate changes",
+    "dangling_ref rejected without main/index/candidate changes",
+    "candidate_drift rejected without main/index/candidate changes",
+    "symbolic_ref_race rejected without main/index/candidate changes"
+  ],
+  "helperSha256": "5ce732fd153b48c46a428ad5a7c1068e915a041365642675d1d728b5c690c0ad",
+  "testSha256": "43db4227ad4dfb8546443091f2daa02e44eaecde133dd83c694147875e477c8a",
+  "scope": "Only isolated temporary Git fixtures. No real repository Git writes."
+}

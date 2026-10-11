@@ -1,0 +1,11 @@
+--- full-image-scan-entrypoint-before-apk-fix.sh
++++ full-image-scan-entrypoint.sh
+@@ -31,7 +31,7 @@
+ sha256sum Dockerfile > "$scan_dir/dockerfile-sha256.txt"
+ cp Dockerfile "$scan_dir/Dockerfile.txt"
+ docker run --rm --entrypoint node "$image_id" -e 'const fs=require("node:fs"),path=require("node:path"),crypto=require("node:crypto"),sharp=require("sharp");const libraries=[];function walk(p){for(const e of fs.readdirSync(p,{withFileTypes:true})){const f=path.join(p,e.name);if(e.isDirectory())walk(f);else if(e.isFile()&&/libvips.*\.so/.test(e.name))libraries.push({path:f,sha256:crypto.createHash("sha256").update(fs.readFileSync(f)).digest("hex")});}}walk("/app/node_modules");console.log(JSON.stringify({node:process.versions,sharp:sharp.versions,libraries},null,2))' > "$scan_dir/native-metadata.json"
+-docker run --rm --entrypoint sh "$image_id" -ec 'apk info --installed zlib; apk info --all zlib; ffmpeg -version' > "$scan_dir/runtime-packages.log"
++docker run --rm --entrypoint sh "$image_id" -ec 'apk info --installed zlib; apk list --installed zlib; ffmpeg -version' > "$scan_dir/runtime-packages.log" 2>&1
+ "$scanner" image --cache-dir "$scanner_cache" --download-db-only > "$scan_dir/database-update.log" 2>&1
+ cp "$scanner_cache/db/metadata.json" "$scan_dir/database-metadata.json"
+ "$scanner" --version > "$scan_dir/scanner-version.log"

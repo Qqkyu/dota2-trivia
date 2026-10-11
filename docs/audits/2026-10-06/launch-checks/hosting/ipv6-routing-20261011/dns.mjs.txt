@@ -1,0 +1,29 @@
+import { resolve4, resolve6 } from 'node:dns/promises';
+import { request } from 'node:https';
+import { writeFile } from 'node:fs/promises';
+const HOST = 'queue-arcade.onrender.com';
+function get(url) {
+  return new Promise((resolve, reject) => {
+    const req = request(url, { family: 4, rejectUnauthorized: true }, res => {
+      let size = 0; const chunks = [];
+      res.on('data', chunk => { size += chunk.length; if (size > 16384) req.destroy(new Error('SIZE')); else chunks.push(chunk); });
+      res.on('end', () => { clearTimeout(timer); try { resolve({ status: res.statusCode, body: JSON.parse(Buffer.concat(chunks)) }); } catch { reject(new Error('JSON')); } });
+    });
+    const timer = setTimeout(() => req.destroy(new Error('TIMEOUT')), 8000);
+    req.on('error', error => { clearTimeout(timer); reject(error); }); req.end();
+  });
+}
+const rows = [];
+for (const [type, resolver] of [['A', resolve4], ['AAAA', resolve6]]) {
+  try { rows.push({ source: 'system-resolver', type, answerCount: (await resolver(HOST)).length, ok: true }); }
+  catch (error) { rows.push({ source: 'system-resolver', type, ok: false, code: ['ENODATA', 'ENOTFOUND', 'ETIMEOUT', 'ESERVFAIL', 'EREFUSED'].includes(error.code) ? error.code : 'OTHER' }); }
+}
+for (const type of ['A', 'AAAA']) {
+  try {
+    const r = await get('https://dns.google/resolve?name=' + HOST + '&type=' + type);
+    rows.push({ source: 'google-public-dns', type, httpStatus: r.status, dnsStatus: r.body.Status, answerTypes: (r.body.Answer ?? []).map(row => row.type), requestedTypeAnswers: (r.body.Answer ?? []).filter(row => row.type === (type === 'A' ? 1 : 28)).length });
+  } catch { rows.push({ source: 'google-public-dns', type, ok: false, code: 'TRANSPORT' }); }
+}
+const report = { checkedAt: new Date().toISOString(), host: HOST, rawAddressesLogged: false, appRequests: 0, rows };
+await writeFile('/tmp/queue-arcade-launch-checks/ipv6-oct11-diagnosis/dns-result.json', JSON.stringify(report, null, 2) + '\n', { mode: 0o600 });
+console.log(JSON.stringify(report));

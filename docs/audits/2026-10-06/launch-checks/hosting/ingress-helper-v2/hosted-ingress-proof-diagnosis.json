@@ -1,0 +1,17 @@
+{
+  "ok": false,
+  "checkedAt": "2026-10-10T12:44:52.783071+00:00",
+  "errorType": "RuntimeError",
+  "safeReason": "Hosted ingress proof did not pass.",
+  "child": [
+    {
+      "returnCode": 1,
+      "stdoutBytes": 0,
+      "stderrBytes": 517,
+      "knownFailureClassifications": [
+        "Probe response was not JSON"
+      ]
+    }
+  ],
+  "rawOutputLogged": false
+}

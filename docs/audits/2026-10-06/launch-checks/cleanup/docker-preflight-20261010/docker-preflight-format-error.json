@@ -1,0 +1,12 @@
+{
+  "errors": [
+    {
+      "commandClass": [
+        "container",
+        "inspect"
+      ],
+      "exit": 1,
+      "stderr": "template parsing error: template: :1:226: executing \"\" at <.HostConfig.Mounts>: map has no entry for key \"Mounts\""
+    }
+  ]
+}

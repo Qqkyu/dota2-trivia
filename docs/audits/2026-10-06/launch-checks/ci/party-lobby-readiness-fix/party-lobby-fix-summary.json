@@ -1,0 +1,30 @@
+{
+  "createdAt": "2026-10-10T10:21:47.397380+00:00",
+  "candidate": "da28a646479fab030e9b02b187e177c0f89555b9",
+  "failedRun": 38043410114,
+  "source": "scripts/check-party-lobby.mjs",
+  "sourceSha256": "7b47ac77cdb2c65f4c284443a46797127c6ee356639ff00858573a96ae3b5946",
+  "originalObservedFailure": {
+    "setup": true,
+    "wait": false,
+    "error": ""
+  },
+  "originalNetworkTimingKnown": false,
+  "controlledResponseDelayMs": 600,
+  "oldAssertionDelayMs": 400,
+  "realApiControlledReproductions": {
+    "attempts": 3,
+    "exactSymptomFailures": 3,
+    "expected404EventuallyRendered": 3,
+    "joinRecovered": 3
+  },
+  "permanentChromeNetworkRegression": {
+    "latencyMs": 600,
+    "originalSleepResult": "failed with exact original symptom",
+    "boundedTerminalStateWaitFullLobbyResult": "passed"
+  },
+  "appCodeChanged": false,
+  "uiWaitTimeoutMsUnchanged": 20000,
+  "fullUiBatch": "running",
+  "remainingWorkflowChecks": "queued after full UI success"
+}

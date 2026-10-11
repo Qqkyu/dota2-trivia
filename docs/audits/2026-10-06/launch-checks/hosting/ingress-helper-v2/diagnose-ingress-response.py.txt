@@ -1,0 +1,15 @@
+import datetime,hashlib,importlib.util,json,sys
+from pathlib import Path
+P=Path('/tmp/queue-arcade-launch-checks/prove-render-ingress.py');raw=P.read_bytes();assert hashlib.sha256(raw).hexdigest()=='e73148881241fd2ad02380bf6b14438d7ddbd9f1b2fe887fd11753c56123ef49'
+spec=importlib.util.spec_from_file_location('proof_response_diagnostic',P);m=importlib.util.module_from_spec(spec);exec(compile(raw,str(P),'exec'),m.__dict__)
+try:
+ candidate=json.loads(m.CANDIDATE.read_text());status=json.loads((m.OUT/'candidate-deploy-status.json').read_text());assert status['externalHealthChecksAllowed'] and status['commit']==candidate['commit']
+ m.checked_local_inputs(candidate['commit']);state,env=m.checked_state(candidate)
+ result=m.run_bounded([m.NODE,'/tmp/queue-arcade-launch-checks/diagnose-ingress-response.mjs'],env={**m.BASE_ENV,'ARCADE_AUTH_SECRET':env['ARCADE_AUTH_SECRET']},timeout=55,limit=8192)
+ assert result.returncode==0 and not result.stderr
+ for value in [env['ARCADE_AUTH_SECRET'],env['DATABASE_URL']]:assert value.encode() not in result.stdout
+ document=json.loads(result.stdout);assert document.get('rawBodyLogged') is False and document.get('rawHeadersLogged') is False
+ assert m.checked_state(candidate)==(state,env)
+ document.update(commit=candidate['commit'],deployId=state['deployId'],policyDuringCheck='none')
+ (m.OUT/'hosted-ingress-error1000-diagnosis.json').write_text(json.dumps(document,indent=2)+'\n');print(json.dumps(document))
+except Exception as error:print(json.dumps({'ok':False,'errorType':type(error).__name__}));sys.exit(1)

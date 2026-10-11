@@ -1,0 +1,310 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-11T06:37:40.643Z",
+  "origin": "https://queue-arcade.onrender.com",
+  "rehearsal": false,
+  "ok": false,
+  "limits": {
+    "wallMs": 900000,
+    "requests": 140,
+    "bytes": 33554432,
+    "requestMs": 15000,
+    "rounds": 26,
+    "browserRequests": 640,
+    "browserMs": 90000
+  },
+  "checks": {
+    "health": {
+      "ready": true,
+      "durableStores": 3,
+      "backend": "postgres",
+      "questionCount": 1517,
+      "currentContentVersion": true,
+      "maintenanceRecent": true
+    },
+    "pages": [
+      {
+        "path": "/",
+        "status": 200,
+        "headersPassed": true
+      },
+      {
+        "path": "/party",
+        "status": 200,
+        "headersPassed": true
+      },
+      {
+        "path": "/play",
+        "status": 200,
+        "headersPassed": true
+      },
+      {
+        "path": "/profile",
+        "status": 200,
+        "headersPassed": true
+      },
+      {
+        "path": "/privacy",
+        "status": 200,
+        "headersPassed": true
+      },
+      {
+        "path": "/missing-hosted-smoke-page",
+        "status": 404,
+        "headersPassed": true
+      }
+    ],
+    "formats": [
+      {
+        "format": "shopkeeper-builds",
+        "promptPresent": true,
+        "assetsChecked": 2,
+        "answeringDataHidden": true
+      },
+      {
+        "format": "quote-hunt",
+        "promptPresent": true,
+        "assetsChecked": 0,
+        "answeringDataHidden": true
+      },
+      {
+        "format": "aghanim-upgrades",
+        "promptPresent": true,
+        "assetsChecked": 0,
+        "answeringDataHidden": true
+      },
+      {
+        "format": "classic-hero-stats",
+        "promptPresent": true,
+        "assetsChecked": 2,
+        "answeringDataHidden": true
+      },
+      {
+        "format": "soundcheck",
+        "promptPresent": true,
+        "assetsChecked": 1,
+        "answeringDataHidden": true
+      },
+      {
+        "format": "flashback",
+        "promptPresent": true,
+        "assetsChecked": 1,
+        "answeringDataHidden": true
+      },
+      {
+        "format": "value-order",
+        "promptPresent": true,
+        "assetsChecked": 2,
+        "answeringDataHidden": true
+      },
+      {
+        "format": "shopkeeper-paths",
+        "promptPresent": true,
+        "assetsChecked": 2,
+        "answeringDataHidden": true
+      },
+      {
+        "format": "spell-link",
+        "promptPresent": true,
+        "assetsChecked": 1,
+        "answeringDataHidden": true
+      },
+      {
+        "format": "classic-item-prices",
+        "promptPresent": true,
+        "assetsChecked": 2,
+        "answeringDataHidden": true
+      },
+      {
+        "format": "echo-hunt",
+        "promptPresent": true,
+        "assetsChecked": 1,
+        "answeringDataHidden": true
+      },
+      {
+        "format": "classic-ability-values",
+        "promptPresent": true,
+        "assetsChecked": 1,
+        "answeringDataHidden": true
+      },
+      {
+        "format": "fogged-vision",
+        "promptPresent": true,
+        "assetsChecked": 1,
+        "answeringDataHidden": true
+      }
+    ],
+    "assets": [
+      {
+        "format": "shopkeeper-builds",
+        "originKind": "public-game-cdn",
+        "type": "image/png",
+        "bytes": 10884,
+        "sha256": "acdc162cb9efc19e8b6de82060bbf3c4159ce254fae0a4966b7ac0fad48b0e4d"
+      },
+      {
+        "format": "shopkeeper-builds",
+        "originKind": "public-game-cdn",
+        "type": "image/png",
+        "bytes": 8364,
+        "sha256": "6a6b2f95ff2d7a24f2506e1f33b943e306e4228e7585bc2f67d6d733d1448bf7"
+      },
+      {
+        "format": "classic-hero-stats",
+        "originKind": "public-game-cdn",
+        "type": "image/png",
+        "bytes": 58444,
+        "sha256": "7f09114864aba65189d7e0ee3deef03ce58ae90614e81cbafb5bcc91cec48cd8"
+      },
+      {
+        "format": "classic-hero-stats",
+        "originKind": "public-game-cdn",
+        "type": "image/png",
+        "bytes": 79414,
+        "sha256": "ac5932d6a4f56c1903415c1786ecde06c905e7e24817eefa70d286c885e4d8d3"
+      },
+      {
+        "format": "soundcheck",
+        "originKind": "app",
+        "type": "audio/wav",
+        "bytes": 21212,
+        "sha256": "5e737c8e7bcaab917037eb92afd13519768e2e90f91e839552e8672cb91b238e"
+      },
+      {
+        "format": "flashback",
+        "originKind": "app",
+        "type": "image/png",
+        "bytes": 538802,
+        "sha256": "f1e8499778fa0564165451bc678c4c7854f413cdf012f6f7104270ae115ddf52"
+      },
+      {
+        "format": "value-order",
+        "originKind": "public-game-cdn",
+        "type": "image/png",
+        "bytes": 38179,
+        "sha256": "892b7d907942cd05593ea1266d63ed87f86baf4d489801dfc72df118777c1069"
+      },
+      {
+        "format": "value-order",
+        "originKind": "public-game-cdn",
+        "type": "image/png",
+        "bytes": 21245,
+        "sha256": "b31c2d35340c5501f3a6559318eb33793951039d06d7a1b20d0ea551c9309647"
+      },
+      {
+        "format": "shopkeeper-paths",
+        "originKind": "public-game-cdn",
+        "type": "image/png",
+        "bytes": 10974,
+        "sha256": "2454a8574455581b22abfac27fb11b51c789e16947963c20b30af4b93fde8136"
+      },
+      {
+        "format": "shopkeeper-paths",
+        "originKind": "public-game-cdn",
+        "type": "image/png",
+        "bytes": 12433,
+        "sha256": "2b2be346bde57942f70dc243e9714147150a1087579aa28728cf5fd566cdde8a"
+      },
+      {
+        "format": "spell-link",
+        "originKind": "public-game-cdn",
+        "type": "image/png",
+        "bytes": 24065,
+        "sha256": "5382f76f5951c341f61314853e009456bf2e53eabf1631ae57ea5f9a8a0a4e6a"
+      },
+      {
+        "format": "classic-item-prices",
+        "originKind": "public-game-cdn",
+        "type": "image/png",
+        "bytes": 12749,
+        "sha256": "c9ef14193920c3da8222b7231af9a3c7e026840e5d0b2eee3a88bc2973c0d3ef"
+      },
+      {
+        "format": "classic-item-prices",
+        "originKind": "public-game-cdn",
+        "type": "image/png",
+        "bytes": 11674,
+        "sha256": "e3ad388d257ffb2c68661f4b819d93634c9d4086a47a9c4aee9bc0dda464423d"
+      },
+      {
+        "format": "echo-hunt",
+        "originKind": "app",
+        "type": "audio/mpeg",
+        "bytes": 2525,
+        "sha256": "f2f7b17aba1c6890ab8203e0007eba6c56e4a9570a628029221d88fd05ab9e9e"
+      },
+      {
+        "format": "classic-ability-values",
+        "originKind": "public-game-cdn",
+        "type": "image/png",
+        "bytes": 27636,
+        "sha256": "8b60c05367bbb84f18f43798f187294ce6c7a778d99dc00c15dcb0a2dd2e9431"
+      },
+      {
+        "format": "fogged-vision",
+        "originKind": "app",
+        "type": "image/png",
+        "bytes": 21345,
+        "sha256": "d4f35c77302be6c45458d32167fbf0752e97e1e127dca3b7a35a85c359b10edf"
+      }
+    ],
+    "privateRevealTiming": {
+      "activeRequestMs": 410,
+      "voteRequestMs": 110.92,
+      "activeResponseToVoteResponseMs": 111.72,
+      "activeAnswerRemainingMs": 14241,
+      "waitMs": 14832.688972000033,
+      "samples": [
+        {
+          "requestMs": 86.31,
+          "sinceVoteResponseMs": 86.39,
+          "answerRemainingMs": 13719,
+          "revealRemainingMs": 20719,
+          "sameRound": true,
+          "phase": "answering"
+        },
+        {
+          "requestMs": 460.16,
+          "sinceVoteResponseMs": 15383.03,
+          "answerRemainingMs": -1388,
+          "revealRemainingMs": 5612,
+          "sameRound": true,
+          "phase": "reveal"
+        }
+      ],
+      "elapsedSinceActiveResponseMs": 15494.78,
+      "sameRound": true,
+      "phase": "reveal",
+      "answerPresent": true,
+      "playerVotePresent": true
+    },
+    "privateGuest": {
+      "created": true,
+      "started": true,
+      "votesSent": 1,
+      "accepted": true,
+      "revealConfirmed": true,
+      "authenticated": false,
+      "alphaSessionSent": false,
+      "publicCalibrationEligible": false,
+      "reportsSent": 0,
+      "rawPrivateVoteExpiresUnderNormalRetention": true
+    }
+  },
+  "accountHolderSteamLoginVerified": false,
+  "deployment": {
+    "serviceId": "srv-d9mqd1942hec73e9nlt0",
+    "deployId": "dep-db5imrt9fdbs73d19570",
+    "commit": "31961cbd762587225b4b8a814828dc0829952978",
+    "ciRunId": 38050315807,
+    "plan": "free",
+    "runtimeRoleMatchesVerifiedRole": true,
+    "proxyPolicy": "cf-connecting-ip"
+  },
+  "privateRoomCleanupConfirmed": true,
+  "failure": "BROWSER_RUNTIME",
+  "httpRequests": 55,
+  "httpBytes": 6586971,
+  "cleanupHttpRequests": 2,
+  "browserHttpRequests": 639
+}

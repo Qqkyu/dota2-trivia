@@ -1,0 +1,280 @@
+#!/usr/bin/env python3
+"""Create one evidence-only commit without changing the checkout or real index.
+
+The CLI is fixed to the reviewed repository and separate evidence branch.
+It requires an existing valid global archive manifest. Results stay outside it.
+"""
+import argparse
+from datetime import datetime, timezone
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import select
+import subprocess
+import sys
+import tempfile
+import time
+
+REPO = Path('/home/kulmisiu/dev/dota2-trivia')
+OUTPUT = Path('/tmp/dota2-trivia-audit-close')
+WORKING_HEAD = '7528a842754642d249640531df3f6fc91bf032b9'
+CANDIDATE_REF = 'refs/heads/codex/launch-checks-20261006'
+EVIDENCE_REF = 'refs/heads/codex/launch-evidence-20261010'
+PREFIX = 'docs/audits/2026-10-06/launch-checks/'
+FREEZER = PREFIX + 'verification/2026-10-10/final-evidence/freezer-exact-workflow-v2/freeze-archive.py.txt'
+FREEZER_SHA256 = '4852cc57ecc3bd77b87467be51bdb639da35bd32f7eab4cee0e1c7800ff358af'
+OID = re.compile(r'[0-9a-f]{40}\Z')
+GIT_COMMAND = ['git', '-c', 'commit.gpgsign=false', '-c', 'core.hooksPath=/dev/null',
+               '-c', 'core.fsmonitor=false', '-c', 'core.splitIndex=false']
+
+
+class CommitError(Exception):
+    pass
+
+
+def digest(raw):
+    return hashlib.sha256(raw).hexdigest()
+
+
+def require(condition, message):
+    if not condition:
+        raise CommitError(message)
+
+
+def clean_environment():
+    env = {key: value for key, value in os.environ.items() if not key.startswith('GIT_')}
+    env.update(GIT_OPTIONAL_LOCKS='0', GIT_NO_REPLACE_OBJECTS='1', LC_ALL='C')
+    return env
+
+
+def git(repo, args, *, env=None, data=None, allow_failure=False):
+    result = subprocess.run([*GIT_COMMAND, *args], cwd=repo,
+                            env=env or clean_environment(), input=data,
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if result.returncode and not allow_failure:
+        raise CommitError('Git operation failed: ' + args[0])
+    return result
+
+
+def text(repo, *args, env=None):
+    return git(repo, list(args), env=env).stdout.decode('ascii').strip()
+
+
+def tree_entries(repo, tree, env):
+    rows = {}
+    for record in git(repo, ['ls-tree', '-rz', '--full-tree', tree], env=env).stdout.split(b'\0'):
+        if not record:
+            continue
+        meta, path = record.split(b'\t', 1)
+        mode, kind, oid = meta.decode('ascii').split()
+        name = path.decode('utf-8')
+        require(name not in rows, 'Duplicate tree path')
+        rows[name] = (mode, kind, oid)
+    return rows
+
+
+def load_freezer(repo):
+    path = repo / FREEZER
+    require(not path.is_symlink(), 'Freezer must be a regular reviewed file')
+    raw = path.read_bytes()
+    require(digest(raw) == FREEZER_SHA256, 'Freezer source does not match the reviewed version')
+    namespace = {'__name__': '_reviewed_freezer', '__file__': str(path)}
+    exec(compile(raw, str(path), 'exec'), namespace)
+    return namespace
+
+
+def preservation_state(repo, env):
+    index = Path(text(repo, 'rev-parse', '--git-path', 'index', env=env))
+    if not index.is_absolute():
+        index = repo / index
+    require(index.is_file() and not index.is_symlink(), 'Real index must be a regular file')
+    return {'head': text(repo, 'rev-parse', 'HEAD', env=env),
+            'symbolicHead': text(repo, 'symbolic-ref', 'HEAD', env=env),
+            'indexSha256': digest(index.read_bytes()),
+            'candidate': text(repo, 'rev-parse', CANDIDATE_REF, env=env)}
+
+
+def ref_absent(repo, env):
+    return (git(repo, ['show-ref', '--verify', '--quiet', EVIDENCE_REF], env=env, allow_failure=True).returncode == 1 and
+            git(repo, ['symbolic-ref', '--quiet', EVIDENCE_REF], env=env, allow_failure=True).returncode == 1)
+
+
+def create_ref_cas(repo, commit, env, before):
+    # A dangling symbolic ref resolves to a zero object ID. Git's create/CAS alone
+    # accepts it. Prepare first, then check ref absence while the ref lock is held.
+    process = subprocess.Popen([*GIT_COMMAND, 'update-ref', '--stdin'], cwd=repo, env=env,
+                               stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                               stderr=subprocess.DEVNULL, bufsize=0)
+    deadline = time.monotonic() + 10
+
+    def acknowledgement(expected):
+        line = bytearray()
+        while len(line) < 128:
+            remaining = deadline - time.monotonic()
+            require(remaining > 0, 'Ref transaction exceeded its deadline')
+            ready, _, _ = select.select([process.stdout], [], [], remaining)
+            require(bool(ready), 'Ref transaction exceeded its deadline')
+            char = os.read(process.stdout.fileno(), 1)
+            require(bool(char), 'Ref transaction ended before acknowledgement')
+            line.extend(char)
+            if char == b'\n':
+                require(bytes(line) == expected, 'Unexpected ref transaction acknowledgement')
+                return
+        raise CommitError('Ref transaction acknowledgement is too large')
+
+    try:
+        process.stdin.write(('start\noption no-deref\ncreate ' + EVIDENCE_REF + ' ' + commit + '\nprepare\n').encode('ascii'))
+        acknowledgement(b'start: ok\n')
+        acknowledgement(b'prepare: ok\n')
+        require(ref_absent(repo, env), 'Evidence ref appeared before transaction preparation')
+        require(preservation_state(repo, env) == before, 'Protected state changed during ref preparation')
+        require(time.monotonic() < deadline, 'Ref transaction expired before commit')
+        process.stdin.write(b'commit\n')
+        acknowledgement(b'commit: ok\n')
+        process.stdin.close()
+        require(process.wait(timeout=max(0.1, deadline - time.monotonic())) == 0, 'Ref transaction failed')
+    finally:
+        if process.poll() is None:
+            try:
+                if not process.stdin.closed:
+                    process.stdin.write(b'abort\n')
+                    process.stdin.close()
+                process.wait(timeout=2)
+            except (BrokenPipeError, OSError, subprocess.TimeoutExpired):
+                process.terminate()
+                try:
+                    process.wait(timeout=2)
+                except subprocess.TimeoutExpired:
+                    process.kill()
+                    process.wait()
+        if not process.stdin.closed:
+            process.stdin.close()
+        process.stdout.close()
+
+
+def verify_blobs(repo, expected, entries, env):
+    actual_inside = {name: value for name, value in entries.items() if name.startswith(PREFIX)}
+    require(set(actual_inside) == set(expected), 'Evidence tree path set differs from frozen archive')
+    wanted = {}
+    for name, item in expected.items():
+        mode, kind, oid = actual_inside[name]
+        require(mode == item['mode'] and kind == 'blob', 'Evidence file mode or type differs')
+        wanted.setdefault(oid, []).append(item)
+    raw = git(repo, ['cat-file', '--batch'], env=env,
+              data=''.join(oid + '\n' for oid in wanted).encode('ascii')).stdout
+    offset = 0
+    for expected_oid, items in wanted.items():
+        end = raw.find(b'\n', offset)
+        require(end >= 0, 'Incomplete blob batch header')
+        header = raw[offset:end].decode('ascii').split()
+        require(len(header) == 3 and header[0] == expected_oid and header[1] == 'blob', 'Unexpected blob batch record')
+        size = int(header[2])
+        start = end + 1
+        content = raw[start:start + size]
+        require(len(content) == size and raw[start + size:start + size + 1] == b'\n', 'Incomplete stored blob')
+        for item in items:
+            require(size == item['bytes'] and digest(content) == item['sha256'], 'Stored evidence blob differs from frozen bytes')
+        offset = start + size + 1
+    require(offset == len(raw), 'Unexpected trailing blob output')
+
+
+def create_evidence_commit(repo, output, release, working_head):
+    """Core operation. Tests call this only with their isolated repositories."""
+    repo = repo.absolute()
+    output = output.absolute()
+    require(not any(path.is_symlink() for path in (repo, *repo.parents, output, *output.parents)),
+            'Repository and output paths must not use symlinks')
+    require(not output.is_relative_to(repo), 'Output must stay outside the repository')
+    require(OID.fullmatch(release) and OID.fullmatch(working_head), 'Expected exact commit identifiers')
+    if repo == REPO:
+        require(working_head == WORKING_HEAD and output == OUTPUT,
+                'Real repository invocation does not match the reviewed constants')
+    require(output.is_dir() and not output.is_symlink(), 'Output directory is missing or unsafe')
+    env = clean_environment()
+    require(text(repo, 'rev-parse', '--show-object-format', env=env) == 'sha1', 'Unexpected Git object format')
+    require(text(repo, 'cat-file', '-t', release, env=env) == 'commit', 'Release is not a commit')
+    before = preservation_state(repo, env)
+    require(before['head'] == working_head, 'Working checkout moved')
+    require(before['symbolicHead'] == 'refs/heads/main', 'Working checkout must remain on main')
+    require(before['candidate'] == release, 'Deployment candidate ref moved')
+    require(ref_absent(repo, env), 'Evidence branch already exists or cannot be checked')
+    freezer = load_freezer(repo)
+    archive = repo / PREFIX
+    frozen = freezer['verify'](archive, release)
+    manifest_raw = freezer['read_regular'](archive / 'archive-manifest.json')
+    expected = {PREFIX + row['path']: dict(row) for row in frozen['files']}
+    expected[PREFIX + 'archive-manifest.json'] = {'path': 'archive-manifest.json',
+        'bytes': len(manifest_raw), 'sha256': digest(manifest_raw)}
+    release_entries = tree_entries(repo, release, env)
+    old_inside = {name: value for name, value in release_entries.items() if name.startswith(PREFIX)}
+    for value in old_inside.values():
+        require(value[0] in {'100644', '100755'} and value[1] == 'blob', 'Release evidence contains a non-regular entry')
+    for name, row in expected.items():
+        row['mode'] = old_inside.get(name, ('100644',))[0]
+
+    with tempfile.TemporaryDirectory(prefix='evidence-index-', dir=output) as scratch:
+        index = Path(scratch) / 'index'
+        staged_env = {**env, 'GIT_INDEX_FILE': str(index)}
+        git(repo, ['read-tree', release], env=staged_env)
+        records = [b'0 ' + b'0' * 40 + b'\t' + name.encode() + b'\0' for name in old_inside]
+        for name, row in sorted(expected.items()):
+            content = freezer['read_regular'](repo / name)
+            require(len(content) == row['bytes'] and digest(content) == row['sha256'], 'Evidence changed after manifest verification')
+            oid = git(repo, ['hash-object', '-w', '--no-filters', '--stdin'], env=staged_env, data=content).stdout.decode('ascii').strip()
+            require(OID.fullmatch(oid), 'Unexpected blob identifier')
+            records.append(row['mode'].encode() + b' ' + oid.encode() + b'\t' + name.encode() + b'\0')
+        git(repo, ['update-index', '-z', '--index-info'], env=staged_env, data=b''.join(records))
+        tree = text(repo, 'write-tree', env=staged_env)
+        built = tree_entries(repo, tree, staged_env)
+        require({n: v for n, v in release_entries.items() if not n.startswith(PREFIX)} ==
+                {n: v for n, v in built.items() if not n.startswith(PREFIX)},
+                'A file outside the evidence subtree changed')
+        verify_blobs(repo, expected, built, staged_env)
+        require(freezer['verify'](archive, release) == frozen and freezer['read_regular'](archive / 'archive-manifest.json') == manifest_raw,
+                'Frozen archive changed while building its tree')
+        require(preservation_state(repo, env) == before, 'Checkout, real index or deployment ref changed')
+        message = ('Archive the verified Queue Arcade launch evidence\n\n'
+                   'Record audit, CI, hosted checks and cleanup evidence for release ' + release + '.\n').encode()
+        commit = git(repo, ['commit-tree', tree, '-p', release], env=staged_env, data=message).stdout.decode('ascii').strip()
+        require(text(repo, 'rev-list', '--parents', '-n', '1', commit, env=env).split() == [commit, release],
+                'Evidence commit has an unexpected parent')
+        require(text(repo, 'rev-parse', commit + '^{tree}', env=env) == tree, 'Evidence commit has an unexpected tree')
+        require(preservation_state(repo, env) == before, 'Checkout, real index or deployment ref changed before ref creation')
+        create_ref_cas(repo, commit, env, before)
+        require(text(repo, 'rev-parse', EVIDENCE_REF, env=env) == commit, 'Evidence ref did not retain the created commit')
+        require(preservation_state(repo, env) == before, 'Checkout, real index or deployment ref changed after ref creation')
+    result = {'createdAt': datetime.now(timezone.utc).isoformat(), 'passed': True,
+              'release': release, 'commit': commit, 'tree': tree, 'branch': EVIDENCE_REF,
+              'soleParent': release, 'archiveManifestSha256': digest(manifest_raw),
+              'evidenceFiles': len(expected), 'evidenceBytes': sum(x['bytes'] for x in expected.values()),
+              'outsideEvidenceUnchanged': True, 'workingHeadUnchanged': True,
+              'realIndexUnchanged': True, 'deploymentRefUnchanged': True}
+    destination = output / 'evidence-commit-result.json'
+    descriptor = os.open(destination, os.O_WRONLY | os.O_CREAT | os.O_TRUNC | os.O_NOFOLLOW, 0o600)
+    with os.fdopen(descriptor, 'w') as handle:
+        json.dump(result, handle, indent=2)
+        handle.write('\n')
+    return result
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--create', action='store_true', required=True)
+    parser.add_argument('--release', required=True, help='Exact frozen release commit, which must match the deployment candidate ref')
+    args = parser.parse_args()
+    if not OID.fullmatch(args.release):
+        parser.error('--release must be a lowercase 40-character commit hash')
+    try:
+        result = create_evidence_commit(REPO, OUTPUT, args.release, WORKING_HEAD)
+    except Exception as error:
+        # Unexpected failures may contain file data or private paths. Emit a class only.
+        print(json.dumps({'passed': False, 'errorType': type(error).__name__}))
+        return 1
+    print(json.dumps(result, indent=2))
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())

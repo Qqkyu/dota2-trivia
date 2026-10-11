@@ -1,0 +1,44 @@
+{
+  "scope": "Independent pin-only delta review and exact-byte dependency checks. No provider calls, network or real credentials.",
+  "tests": 39,
+  "passed": true,
+  "onlyTwoPinLinesChangedSinceReviewedVersion": true,
+  "priorPolicyHelperSha256": "0fef91fafb31774e1f1bcc050b7fc630b51518fac2d622b8739145601d773e63",
+  "exactReviewedProofHelperLoads": true,
+  "proofHelperChecksExactReviewedOperator": true,
+  "pendingPins": [],
+  "findings": [],
+  "priorAttempt": "The first independent run blocked OpenerDirector.open globally, which also blocked the synthetic redirect fixtures and caused 15 fixture failures. The retained rerun blocks sockets and unexpected subprocesses while allowing the fake HTTPS handler. No product change was needed.",
+  "files": [
+    {
+      "file": "enable-render-proxy.py",
+      "bytes": 26199,
+      "sha256": "b4b143e325a030497251bd8176629c0f7d1bfa97d5c8e1a9d7d7b02d1526f672"
+    },
+    {
+      "file": "prove-render-ingress.py",
+      "bytes": 11752,
+      "sha256": "ec86311ede8d1dc20de550b950dfb0625b57b1838d37823eec14b5f9592e7afe"
+    },
+    {
+      "file": "check-ingress-proof.mjs",
+      "bytes": 5415,
+      "sha256": "4cce1ac678ecfd86036cf647196b846029bc9ba01e83dada29c8c5e7c1c73c14"
+    },
+    {
+      "file": "test-enable-render-proxy.py",
+      "bytes": 28047,
+      "sha256": "ee1c9a7169bcf3bdb7d2a460bf3e0614eba43276e1914bad8aeb9ece18064543"
+    },
+    {
+      "file": "enable-independent-frozen-tests.log",
+      "bytes": 19172,
+      "sha256": "b4d8cea5da0b24a9949786ac01370e1c0b492f0c8a13f3a6acb9362513fa55aa"
+    },
+    {
+      "file": "enable-independent-frozen-tests-rerun.log",
+      "bytes": 3327,
+      "sha256": "94aa11300a3d144af7004afd52423655737660aa89a022fb69f26b0ee89afade"
+    }
+  ]
+}

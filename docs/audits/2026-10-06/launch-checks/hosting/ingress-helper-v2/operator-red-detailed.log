@@ -1,0 +1,83 @@
+TAP version 13
+# Subtest: every case requires the expected egress when it reaches the app
+ok 1 - every case requires the expected egress when it reaches the app
+  ---
+  duration_ms: 2.518901
+  type: 'test'
+  ...
+# Subtest: only the two CF cases may report exact edge rejection
+not ok 2 - only the two CF cases may report exact edge rejection
+  ---
+  duration_ms: 0.218185
+  type: 'test'
+  location: '/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-ingress-operator-before.mjs:24:1'
+  failureType: 'testCodeFailure'
+  error: 'PROBE_HTTP_STATUS'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    ensure (file:///tmp/queue-arcade-launch-checks/ingress-helper-v2/operator-before-edge.mjs:9:25)
+    classifyResponse (file:///tmp/queue-arcade-launch-checks/ingress-helper-v2/operator-before-edge.mjs:65:3)
+    TestContext.<anonymous> (file:///tmp/queue-arcade-launch-checks/ingress-helper-v2/test-ingress-operator-before.mjs:28:26)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: other errors, types, redirects and body text cannot pass as edge rejection
+ok 3 - other errors, types, redirects and body text cannot pass as edge rejection
+  ---
+  duration_ms: 0.192739
+  type: 'test'
+  ...
+# Subtest: wrong and spoofed proof values cannot pass
+ok 4 - wrong and spoofed proof values cannot pass
+  ---
+  duration_ms: 0.802434
+  type: 'test'
+  ...
+# Subtest: the original nonce schema cache and size requirements remain
+ok 5 - the original nonce schema cache and size requirements remain
+  ---
+  duration_ms: 0.237544
+  type: 'test'
+  ...
+# Subtest: the complete five-case proof preserves request headers and hides private values
+not ok 6 - the complete five-case proof preserves request headers and hides private values
+  ---
+  duration_ms: 0.940452
+  type: 'test'
+  location: '/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-ingress-operator-before.mjs:54:1'
+  failureType: 'testCodeFailure'
+  error: 'PROBE_HTTP_STATUS'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    ensure (file:///tmp/queue-arcade-launch-checks/ingress-helper-v2/operator-before-edge.mjs:9:25)
+    classifyResponse (file:///tmp/queue-arcade-launch-checks/ingress-helper-v2/operator-before-edge.mjs:65:3)
+    prove (file:///tmp/queue-arcade-launch-checks/ingress-helper-v2/operator-before-edge.mjs:91:17)
+    async TestContext.<anonymous> (file:///tmp/queue-arcade-launch-checks/ingress-helper-v2/test-ingress-operator-before.mjs:56:18)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: HTTPS reader fixes IPv4 and bounds response bytes without following redirects
+ok 7 - HTTPS reader fixes IPv4 and bounds response bytes without following redirects
+  ---
+  duration_ms: 0.381451
+  type: 'test'
+  ...
+# Subtest: reader aborts oversized responses and reports fixed timeout errors
+ok 8 - reader aborts oversized responses and reports fixed timeout errors
+  ---
+  duration_ms: 0.487163
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 6
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 11.748856

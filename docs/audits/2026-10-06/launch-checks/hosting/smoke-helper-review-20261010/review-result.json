@@ -1,0 +1,41 @@
+{
+  "checkedAt": "2026-10-10T09:36:33.311215+00:00",
+  "ok": true,
+  "scope": "Independent source review and local safety tests for the hosted smoke, gate, address isolation, and restart cleanup operators.",
+  "hostedExecutionPerformed": false,
+  "operators": {
+    "hosted-smoke.mjs": "e0a09e4909016e3ee5dbefefafe9d7385401a6972294d10c8d5a92679b7bfc68",
+    "create-gate.py": "0658d4d755bb7f469ea05c8e8fb54d05db74ca557c9d812ef861b3b347857c77",
+    "check-address-isolation.mjs": "4b3ee3e193b450d0e982d9ba1707e51a22c5fe698868c40e32de1a449aef3b58"
+  },
+  "testCases": {
+    "smoke-tests.json": 63,
+    "gate-tests.json": 33,
+    "address-tests.json": 36,
+    "independent-address-tests.json": 16,
+    "recovery-filesystem-tests.json": 10,
+    "independent-recovery-tests.json": 14
+  },
+  "sourceInputs": {
+    "src/lib/api-protection.ts": "a9cdfc86d757b455d430143900a40743e81369d98729b4aca42a645fada45001",
+    "src/lib/rate-limit.mjs": "c8fd57b4f3ed317c4af5c22f3f34be9b8c9abdaf9a328395a5af28077a099a2f",
+    "src/app/api/auth/steam/route.ts": "d31e2be35404a71282391206d13f1e7f5ee1be0b6d3ea9ed996bacdbc23d20dd",
+    "src/app/api/votes/route.ts": "f4986218bfd55f120c9eea0a5e4565d5432d66770f3caebaee54d705c00ead29",
+    "src/lib/database-schema.mjs": "ea36b40a7a1808dbd117f7a2bc4bdd0a63e0db451bd018e944e9a6e4d246991e"
+  },
+  "changesReviewed": [
+    "Explicit framework request-header allowlist with credentials removed.",
+    "Browser request cap of 640 with unchanged 32 MiB aggregate and 90-second browser bounds.",
+    "Private exclusive checkpoint before create and vote; cleanup-only recovery.",
+    "Private reveal waits 1200 ms and permits at most two additional same-round read-only polls.",
+    "Address report starts with deploymentAndConfigurationStable false."
+  ],
+  "limits": [
+    "The full 13-format rehearsal used the saved earlier helper before ownership recovery and the reveal timing adjustment.",
+    "The final helper passed the shorter guest and browser rehearsal.",
+    "An earlier asset-status failure did not identify its asset or cause.",
+    "The earlier reveal failure did not record enough timing to establish its cause.",
+    "These checks do not prove hosted routing, address isolation, production database behavior, or account-holder Steam login."
+  ],
+  "transportDeadlineMs": 15002
+}

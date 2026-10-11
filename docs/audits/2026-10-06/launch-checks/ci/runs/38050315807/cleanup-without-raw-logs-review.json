@@ -1,0 +1,6 @@
+{
+  "originalSha256": "e51f03d8ddd01539011f07dbb0ccf920a7f9db62412a5fe9af51b6f1933fc4e9",
+  "cleanupSha256": "a84d967417c5f8fb0e6190396df7b494033d7d94657afa2471bc165671fa29dd",
+  "change": "Removed only the diagnostic-copy block. All ownership, stopped-state, registration and resource-removal checks are unchanged.",
+  "noRawRunnerLogReads": true
+}

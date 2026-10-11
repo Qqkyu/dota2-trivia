@@ -1,0 +1,360 @@
+{
+  "startedAt": "2026-10-10T11:05:17.998Z",
+  "completedAt": "2026-10-10T11:05:55.347Z",
+  "completed": true,
+  "version": "149.0.7827.55",
+  "engine": "chromium",
+  "runName": "chromium",
+  "requestedModes": [
+    "desktop",
+    "forced",
+    "forced-dark"
+  ],
+  "buildId": null,
+  "reviewerFixture": false,
+  "failures": [
+    "desktop-shop: first choice starts selected",
+    "desktop-shop: selected state has a visible marker",
+    "forced-volume: muted volume text has painted contrast",
+    "forced-volume: muting does not fade high-contrast controls",
+    "forced-volume: muted and enabled text remain equally readable",
+    "forced-volume: muted and enabled slider remain equally readable",
+    "forced-party: selected checkmark has painted contrast",
+    "forced-calibration: selected state has a visible marker",
+    "forced-shop: first choice starts selected",
+    "forced-shop: selected state has a visible marker",
+    "forced-dark-volume: muted volume text has painted contrast",
+    "forced-dark-volume: muting does not fade high-contrast controls",
+    "forced-dark-volume: muted and enabled text remain equally readable",
+    "forced-dark-volume: muted and enabled slider remain equally readable",
+    "forced-dark-calibration: selected state has a visible marker",
+    "forced-dark-shop: first choice starts selected",
+    "forced-dark-shop: selected state has a visible marker"
+  ],
+  "pages": 12,
+  "fixtures": 3,
+  "generalKeyboardFlows": 0,
+  "paintedControlChecks": 87,
+  "perControl": [
+    {
+      "kind": "volume",
+      "mode": "desktop",
+      "checks": 4,
+      "failed": []
+    },
+    {
+      "kind": "party",
+      "mode": "desktop",
+      "checks": 9,
+      "failed": []
+    },
+    {
+      "kind": "calibration",
+      "mode": "desktop",
+      "checks": 7,
+      "failed": []
+    },
+    {
+      "kind": "shop",
+      "mode": "desktop",
+      "checks": 7,
+      "failed": [
+        {
+          "name": "first choice starts selected",
+          "passed": false
+        },
+        {
+          "name": "selected state has a visible marker",
+          "passed": false,
+          "detail": {
+            "changed": 0,
+            "sameDimensions": true
+          }
+        }
+      ]
+    },
+    {
+      "kind": "volume",
+      "mode": "forced",
+      "checks": 7,
+      "failed": [
+        {
+          "name": "muted volume text has painted contrast",
+          "passed": false,
+          "detail": {
+            "width": 34,
+            "height": 11,
+            "background": [
+              254,
+              254,
+              254
+            ],
+            "maxContrast": 3.085287791859882,
+            "pixelsAtLeast3": 8,
+            "pixelsAtLeast45": 0
+          }
+        },
+        {
+          "name": "muting does not fade high-contrast controls",
+          "passed": false,
+          "detail": {
+            "mutedOpacity": [
+              0.42,
+              0.42
+            ]
+          }
+        },
+        {
+          "name": "muted and enabled text remain equally readable",
+          "passed": false,
+          "detail": {
+            "muted": {
+              "width": 34,
+              "height": 11,
+              "background": [
+                254,
+                254,
+                254
+              ],
+              "maxContrast": 3.085287791859882,
+              "pixelsAtLeast3": 8,
+              "pixelsAtLeast45": 0
+            },
+            "enabled": {
+              "width": 34,
+              "height": 11,
+              "background": [
+                255,
+                255,
+                255
+              ],
+              "maxContrast": 21,
+              "pixelsAtLeast3": 63,
+              "pixelsAtLeast45": 51
+            }
+          }
+        },
+        {
+          "name": "muted and enabled slider remain equally readable",
+          "passed": false,
+          "detail": {
+            "muted": {
+              "width": 72,
+              "height": 21,
+              "background": [
+                254,
+                254,
+                254
+              ],
+              "maxContrast": 3.0936535799368317,
+              "pixelsAtLeast3": 98,
+              "pixelsAtLeast45": 0
+            },
+            "enabled": {
+              "width": 72,
+              "height": 21,
+              "background": [
+                55,
+                0,
+                110
+              ],
+              "maxContrast": 15.134013837043632,
+              "pixelsAtLeast3": 1018,
+              "pixelsAtLeast45": 1006
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "party",
+      "mode": "forced",
+      "checks": 9,
+      "failed": [
+        {
+          "name": "selected checkmark has painted contrast",
+          "passed": false,
+          "detail": {
+            "width": 14,
+            "height": 14,
+            "background": [
+              255,
+              255,
+              255
+            ],
+            "maxContrast": 1.4736928863846674,
+            "pixelsAtLeast3": 0,
+            "pixelsAtLeast45": 0
+          }
+        }
+      ]
+    },
+    {
+      "kind": "calibration",
+      "mode": "forced",
+      "checks": 7,
+      "failed": [
+        {
+          "name": "selected state has a visible marker",
+          "passed": false,
+          "detail": {
+            "changed": 0,
+            "sameDimensions": true
+          }
+        }
+      ]
+    },
+    {
+      "kind": "shop",
+      "mode": "forced",
+      "checks": 7,
+      "failed": [
+        {
+          "name": "first choice starts selected",
+          "passed": false
+        },
+        {
+          "name": "selected state has a visible marker",
+          "passed": false,
+          "detail": {
+            "changed": 0,
+            "sameDimensions": true
+          }
+        }
+      ]
+    },
+    {
+      "kind": "volume",
+      "mode": "forced-dark",
+      "checks": 7,
+      "failed": [
+        {
+          "name": "muted volume text has painted contrast",
+          "passed": false,
+          "detail": {
+            "width": 34,
+            "height": 11,
+            "background": [
+              1,
+              1,
+              1
+            ],
+            "maxContrast": 4.034034274823607,
+            "pixelsAtLeast3": 25,
+            "pixelsAtLeast45": 0
+          }
+        },
+        {
+          "name": "muting does not fade high-contrast controls",
+          "passed": false,
+          "detail": {
+            "mutedOpacity": [
+              0.42,
+              0.42
+            ]
+          }
+        },
+        {
+          "name": "muted and enabled text remain equally readable",
+          "passed": false,
+          "detail": {
+            "muted": {
+              "width": 34,
+              "height": 11,
+              "background": [
+                1,
+                1,
+                1
+              ],
+              "maxContrast": 4.034034274823607,
+              "pixelsAtLeast3": 25,
+              "pixelsAtLeast45": 0
+            },
+            "enabled": {
+              "width": 34,
+              "height": 11,
+              "background": [
+                0,
+                0,
+                0
+              ],
+              "maxContrast": 21,
+              "pixelsAtLeast3": 79,
+              "pixelsAtLeast45": 65
+            }
+          }
+        },
+        {
+          "name": "muted and enabled slider remain equally readable",
+          "passed": false,
+          "detail": {
+            "muted": {
+              "width": 72,
+              "height": 21,
+              "background": [
+                2,
+                2,
+                2
+              ],
+              "maxContrast": 4.022443558923633,
+              "pixelsAtLeast3": 472,
+              "pixelsAtLeast45": 0
+            },
+            "enabled": {
+              "width": 72,
+              "height": 21,
+              "background": [
+                26,
+                235,
+                255
+              ],
+              "maxContrast": 14.371254724906635,
+              "pixelsAtLeast3": 1010,
+              "pixelsAtLeast45": 1006
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "party",
+      "mode": "forced-dark",
+      "checks": 9,
+      "failed": []
+    },
+    {
+      "kind": "calibration",
+      "mode": "forced-dark",
+      "checks": 7,
+      "failed": [
+        {
+          "name": "selected state has a visible marker",
+          "passed": false,
+          "detail": {
+            "changed": 0,
+            "sameDimensions": true
+          }
+        }
+      ]
+    },
+    {
+      "kind": "shop",
+      "mode": "forced-dark",
+      "checks": 7,
+      "failed": [
+        {
+          "name": "first choice starts selected",
+          "passed": false
+        },
+        {
+          "name": "selected state has a visible marker",
+          "passed": false,
+          "detail": {
+            "changed": 0,
+            "sameDimensions": true
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "checkedAt": "2026-10-10T09:35:17.184Z",
+  "passed": 10,
+  "hostedRequests": 0,
+  "sourceSha256": "e0a09e4909016e3ee5dbefefafe9d7385401a6972294d10c8d5a92679b7bfc68",
+  "onlyTestCopyChange": "Private receipt directory replaced with a new isolated temporary directory.",
+  "fixtureDirectoryRemoved": true,
+  "cases": [
+    {
+      "name": "private checkpoint uses exclusive creation and mode 0600",
+      "passed": true
+    },
+    {
+      "name": "a new hosted run refuses an unresolved checkpoint",
+      "passed": true
+    },
+    {
+      "name": "exclusive creation preserves an existing checkpoint",
+      "passed": true
+    },
+    {
+      "name": "atomic vote checkpoint preserves mode and leaves no stage file",
+      "passed": true
+    },
+    {
+      "name": "recovery rejects a changed deployment before transport",
+      "passed": true
+    },
+    {
+      "name": "recovery rejects a symlink before reading capabilities",
+      "passed": true
+    },
+    {
+      "name": "recovery rejects group-readable capability files",
+      "passed": true
+    },
+    {
+      "name": "failed recovery retains the pending checkpoint after two leave attempts",
+      "passed": true
+    },
+    {
+      "name": "successful recovery leaves once, confirms absence, and removes the pending blocker",
+      "passed": true
+    },
+    {
+      "name": "a non-private directory blocks checkpoint creation",
+      "passed": true
+    }
+  ]
+}

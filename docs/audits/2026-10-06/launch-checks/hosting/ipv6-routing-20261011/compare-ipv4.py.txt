@@ -1,0 +1,38 @@
+import concurrent.futures
+import datetime
+import ipaddress
+import json
+import subprocess
+from pathlib import Path
+
+ENV = {'PATH': '/usr/bin:/bin', 'SystemRoot': r'C:\Windows', 'WINDIR': r'C:\Windows'}
+URLS = [('ipify', 'https://api64.ipify.org/'), ('cloudflare', 'https://www.cloudflare.com/cdn-cgi/trace')]
+CLIENTS = [('linux', '/usr/bin/curl'), ('windows', '/mnt/c/Windows/System32/curl.exe')]
+
+def run(job):
+    client, binary, source, url = job
+    args = [binary, '--disable', '--ipv4', '--proto', '=https', '--silent', '--show-error', '--max-time', '8', '--connect-timeout', '4', '--max-filesize', '16384', '--write-out', '\nSTATUS:%{http_code}', url]
+    row = {'client': client, 'source': source}
+    address = None
+    try:
+        result = subprocess.run(args, env=ENV, capture_output=True, timeout=10)
+        row.update(exitCode=result.returncode, stderrBytes=len(result.stderr), stdoutBytes=len(result.stdout))
+        body, status = result.stdout.decode().rsplit('\nSTATUS:', 1)
+        row['httpStatus'] = int(status)
+        value = [line[3:] for line in body.splitlines() if line.startswith('ip=')][0] if source == 'cloudflare' else body.strip()
+        address = ipaddress.ip_address(value)
+        row['globalIpv4Validated'] = result.returncode == 0 and not result.stderr and int(status) == 200 and address.version == 4 and address.is_global
+    except Exception:
+        row['globalIpv4Validated'] = False
+    return row, address
+
+jobs = [(client, binary, source, url) for client, binary in CLIENTS for source, url in URLS]
+with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+    results = list(pool.map(run, jobs))
+passed = all(row['globalIpv4Validated'] for row, _ in results)
+agreement = passed and results[0][1] == results[1][1] and results[2][1] == results[3][1]
+report = {'checkedAt': datetime.datetime.now(datetime.timezone.utc).isoformat(), 'appRequests': 0, 'rawAddressesLogged': False, 'providerBodiesLogged': False, 'eachClientIndependentSourcesAgreed': agreement, 'clientsHaveDifferentIpv4Addresses': agreement and results[0][1] != results[2][1], 'rows': [row for row, _ in results]}
+path = Path('/tmp/queue-arcade-launch-checks/ipv6-oct11-diagnosis/compare-ipv4-result.json')
+path.write_text(json.dumps(report, indent=2) + '\n')
+path.chmod(0o600)
+print(json.dumps(report))

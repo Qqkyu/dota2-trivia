@@ -1,0 +1,95 @@
+import { readFile, writeFile, lstat } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { createRequire } from "node:module";
+import path from "node:path";
+import { Check, ensure, validateGate, validateLocalInputs, browserProxyRoute, safeFailure, withDeadline, closeOwnedBrowser } from "../reveal-wait-v3/hosted-smoke.mjs";
+const ROOT="/home/kulmisiu/dev/dota2-trivia";
+const BASE="/tmp/queue-arcade-launch-checks/hosted-smoke-preparation/browser-diagnostic-v4";
+const GATE="/tmp/queue-arcade-launch-checks/hosted-smoke-preparation/hosted-smoke-gate-reveal-v3.json";
+const HELPER="/tmp/queue-arcade-launch-checks/hosted-smoke-preparation/reveal-wait-v3/hosted-smoke.mjs";
+const EXPECTED="f3da963f57baeb3634b525b1809140c26badbe38ec9835967cf9dbf775608670";
+const hash=(value)=>createHash("sha256").update(value).digest("hex");
+const {chromium}=createRequire(path.join(ROOT,"package.json"))("playwright");
+const LIMITS=Object.freeze({wallMs:900000,requests:140,bytes:33554432,requestMs:15000,rounds:26,browserRequests:640,browserMs:90000});
+function errorKind(error) {
+ const message=typeof error?.message==="string"?error.message:"";
+ const react=/Minified React error #(\d{1,4})/.exec(message);
+ if(react)return "REACT_"+react[1];
+ for(const [pattern,label] of [[/Failed to fetch/,"FETCH_FAILED"],[/ChunkLoadError|Loading chunk/,"CHUNK_LOAD"],[/hydration|Hydration/,"HYDRATION"],[/net::ERR_FAILED/,"NETWORK_FAILED"],[/Failed to load resource/,"RESOURCE_FAILED"]])if(pattern.test(message))return label;
+ return ["TypeError","ReferenceError","SyntaxError","RangeError","Error"].includes(error?.name)?error.name:"OTHER";
+}
+class DiagnosticCheck extends Check {
+ constructor(origin,gate){super(origin,gate,false);this.pathCounts=new Map();this.diagnostic={version:1,routeCategories:{},resourceTypes:{},methods:{},pageErrorKinds:{},consoleErrorKinds:{},failedRequestKinds:{},httpStatuses:{},requestsBySecond:{},pathOverflow:0,stages:[]};this.output.checks.browserDiagnostic=this.diagnostic;}
+ count(record,key){record[key]=(record[key]??0)+1;}
+ category(raw){const url=new URL(raw);if(url.origin!==this.origin)return "public-game-cdn";for(const exact of ["/api/rounds","/api/me","/api/presence","/api/sessions","/api/round-image","/api/round-audio"])if(url.pathname===exact)return exact;if(url.pathname.startsWith("/api/auth/"))return "auth";if(url.pathname.startsWith("/_next/"))return "next-static";if(url.pathname.startsWith("/api/"))return "other-api";return "app-page-or-asset";}
+ recordBrowserRequest(request){const category=this.category(request.url());this.count(this.diagnostic.routeCategories,category);const type=request.resourceType();this.count(this.diagnostic.resourceTypes,["document","stylesheet","image","media","font","script","xhr","fetch","other"].includes(type)?type:"other");this.count(this.diagnostic.methods,["GET","HEAD","POST"].includes(request.method())?request.method():"OTHER");this.count(this.diagnostic.requestsBySecond,String(Math.min(95,Math.floor((Date.now()-this.browserStart)/1000))));const url=new URL(request.url());const key=hash(url.origin+url.pathname);if(this.pathCounts.has(key))this.pathCounts.get(key).count++;else if(this.pathCounts.size<256)this.pathCounts.set(key,{pathSha256:key,category,count:1});else this.diagnostic.pathOverflow++;}
+ stage(name){this.diagnostic.stages.push({name,elapsedMs:Date.now()-this.browserStart,forwarded:this.browserRequests,routeCategories:{...this.diagnostic.routeCategories},pathCount:this.pathCounts.size});}
+ async request(raw,options={}){ensure(["GET","HEAD"].includes(options.method??"GET"),"DIAGNOSTIC_READ_ONLY");const response=await super.request(raw,options);if(options.browser)this.count(this.diagnostic.httpStatuses,String(response.status));return response;}
+  async browser() {
+    let browser; let server; let browserRequests = 0; let blockedWrites = 0; let exceeded = false; let pageErrors = 0; let proxyFailure = null;
+    const browserStart = Date.now();
+    this.browserStart = browserStart;
+    try {
+      return await withDeadline(LIMITS.browserMs, async () => {
+      const env = Object.fromEntries(["PATH", "DISPLAY", "XDG_RUNTIME_DIR", "LD_LIBRARY_PATH", "LANG"].filter((key) => process.env[key]).map((key) => [key, process.env[key]]));
+      server = await chromium.launchServer({ executablePath: process.env.CHROME_BIN ?? "/usr/bin/google-chrome", host: "127.0.0.1", headless: true, env, args: ["--mute-audio", "--disable-background-networking", "--disable-sync"] });
+      browser = await chromium.connect(server.wsEndpoint(), { timeout: 15_000 });
+      const context = await browser.newContext({ viewport: { width: 320, height: 568 }, serviceWorkers: "block" });
+      await context.route("**/*", async (route) => {
+        const request = route.request();
+        this.recordBrowserRequest(request);
+        if (++browserRequests > LIMITS.browserRequests || Date.now() - browserStart > LIMITS.browserMs) { exceeded = true; return route.abort(); }
+        try {
+          return await browserProxyRoute(route, this, () => blockedWrites++);
+        } catch (error) { proxyFailure ??= safeFailure(error); await route.abort().catch(() => undefined); }
+      });
+      const page = await context.newPage(); page.setDefaultTimeout(15_000);
+      page.on("pageerror", (error) => { pageErrors++; this.count(this.diagnostic.pageErrorKinds, errorKind(error)); });
+      page.on("console", (message) => { if (message.type() === "error") this.count(this.diagnostic.consoleErrorKinds, errorKind({ message: message.text() })); });
+      page.on("requestfailed", (request) => this.count(this.diagnostic.failedRequestKinds, /^net::ERR_[A-Z0-9_]+$/.test(request.failure()?.errorText ?? "") ? request.failure().errorText : "OTHER"));
+      await page.goto(this.origin, { waitUntil: "domcontentloaded", timeout: 30_000 });
+      await page.waitForFunction(() => document.querySelector("main")?.dataset.clientReady === "true");
+      this.stage("home-ready");
+      await page.getByTestId("start-arcade").click();
+      await page.waitForFunction(() => document.querySelector("main")?.dataset.phase === "answering", null, { timeout: 35_000 });
+      this.stage("answering");
+      const views = [];
+      for (const size of [{ width: 320, height: 568 }, { width: 1440, height: 1000 }]) {
+        await page.setViewportSize(size); await page.waitForTimeout(200);
+        const layout = await page.evaluate(() => ({ noHorizontalOverflow: document.documentElement.scrollWidth <= innerWidth + 1, hasPrompt: Boolean(document.querySelector('[data-testid="round-prompt"] h2')), hasTimer: Boolean(document.querySelector('[data-testid="round-timer"]')), hasAnswerControl: Boolean(document.querySelector('[data-testid="arcade-answer"], [data-testid="hero-search-input"], [data-testid="shopkeeper-search-field"], [data-testid="flashback-year-slider"], [data-testid="value-order-card"], [data-testid="flashback-order-card"]')) }));
+        ensure(layout.noHorizontalOverflow && layout.hasPrompt && layout.hasTimer && layout.hasAnswerControl, "BROWSER_ROUND_LAYOUT");
+        views.push({ ...size, ...layout });
+        this.stage("layout-"+size.width);
+      }
+      await page.waitForFunction(() => document.querySelector("main")?.dataset.phase === "reveal", null, { timeout: 22_000 });
+      this.stage("reveal");
+      ensure(await page.getByTestId("reveal-panel").count() > 0, "BROWSER_REVEAL");
+      ensure(!exceeded && pageErrors === 0 && proxyFailure === null, proxyFailure ?? "BROWSER_RUNTIME");
+      this.output.checks.browser = { views, liveAnsweringAndReveal: true, votesSent: 0, mutationRequestsBlocked: blockedWrites, requests: browserRequests, requestCategories: this.browserPathCounts, frameworkHeadersForwarded: [...this.frameworkHeadersSeen].sort(), pageErrors, freshContext: true, allCookiesStripped: true, transport: "bounded Node proxy with browser rendering", redirectsFollowed: 0 };
+      }, () => browser?.close());
+    } finally {
+      Object.assign(this.diagnostic, { elapsedMs: Date.now() - browserStart, routedRequests: browserRequests, forwardedBrowserRequests: this.browserRequests, blockedWrites, exceeded, pageErrors, proxyFailure, requestCategories: this.browserPathCounts, frameworkHeadersForwarded: [...this.frameworkHeadersSeen].sort(), bytes: this.bytes, topPaths: [...this.pathCounts.values()].sort((a,b) => b.count-a.count).slice(0,32) });
+      if (server) {
+        const child = server.process();
+        await closeOwnedBrowser(
+          () => Promise.all([browser?.close(), server.close()]),
+          () => child.kill("SIGKILL"),
+          () => child.exitCode !== null || child.signalCode !== null,
+        );
+      }
+    }
+  }
+}
+ensure(process.argv.length===2,"DIAGNOSTIC_USAGE");
+ensure(hash(await readFile(HELPER))===EXPECTED,"DIAGNOSTIC_HELPER_CHANGED");
+const info=await lstat(GATE);ensure(info.isFile()&&!info.isSymbolicLink()&&(info.mode&0o077)===0&&info.size<16384,"GATE_FILE");
+const gate=JSON.parse(await readFile(GATE,"utf8"));validateGate(gate);await validateLocalInputs(gate);
+const check=new DiagnosticCheck("https://queue-arcade.onrender.com",gate);
+let failure=null;
+try {await check.assertNoPendingGuest();await check.deployment();await check.health();await check.browser();}
+catch(error){failure=safeFailure(error);}
+finally {
+ try {await check.health();await check.deployment();await validateLocalInputs(gate);check.output.afterChecksPassed=true;}catch(error){check.output.afterFailure=safeFailure(error);}
+ check.output.ok=failure===null&&check.output.afterChecksPassed===true;check.output.failure=failure;check.output.finishedAt=new Date().toISOString();check.output.operatorSha256=hash(await readFile(new URL(import.meta.url)));check.output.httpRequests=check.requests;check.output.browserHttpRequests=check.browserRequests;check.output.httpBytes=check.bytes;check.output.votesSent=check.voteRequests;check.output.privateWrites=check.writeCounts;
+ const output=path.join(BASE,"browser-diagnostic-"+Date.now()+".json");await writeFile(output,JSON.stringify(check.output,null,2)+"\n",{mode:0o600,flag:"wx"});console.log(JSON.stringify({ok:check.output.ok,failure,afterChecksPassed:check.output.afterChecksPassed??false,resultFile:output}));if(!check.output.ok)process.exitCode=1;
+}

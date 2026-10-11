@@ -1,0 +1,128 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-10T09:33:21.656Z",
+  "origin": "http://127.0.0.1:3334",
+  "rehearsal": true,
+  "ok": true,
+  "limits": {
+    "wallMs": 900000,
+    "requests": 140,
+    "bytes": 33554432,
+    "requestMs": 15000,
+    "rounds": 26,
+    "browserRequests": 640,
+    "browserMs": 90000
+  },
+  "checks": {
+    "health": {
+      "ready": true,
+      "durableStores": 3,
+      "backend": "file",
+      "questionCount": 1517,
+      "currentContentVersion": true,
+      "maintenanceRecent": true
+    },
+    "pages": [
+      {
+        "path": "/",
+        "status": 200,
+        "headersPassed": true
+      },
+      {
+        "path": "/party",
+        "status": 200,
+        "headersPassed": true
+      },
+      {
+        "path": "/play",
+        "status": 200,
+        "headersPassed": true
+      },
+      {
+        "path": "/profile",
+        "status": 200,
+        "headersPassed": true
+      },
+      {
+        "path": "/privacy",
+        "status": 200,
+        "headersPassed": true
+      },
+      {
+        "path": "/missing-hosted-smoke-page",
+        "status": 404,
+        "headersPassed": true
+      }
+    ],
+    "privateRevealTiming": {
+      "sameRound": true,
+      "phase": "reveal",
+      "answerPresent": true,
+      "playerVotePresent": true
+    },
+    "privateGuest": {
+      "created": true,
+      "started": true,
+      "votesSent": 1,
+      "accepted": true,
+      "revealConfirmed": true,
+      "authenticated": false,
+      "alphaSessionSent": false,
+      "publicCalibrationEligible": false,
+      "reportsSent": 0,
+      "rawPrivateVoteExpiresUnderNormalRetention": true
+    },
+    "browser": {
+      "views": [
+        {
+          "width": 320,
+          "height": 568,
+          "noHorizontalOverflow": true,
+          "hasPrompt": true,
+          "hasTimer": true,
+          "hasAnswerControl": true
+        },
+        {
+          "width": 1440,
+          "height": 1000,
+          "noHorizontalOverflow": true,
+          "hasPrompt": true,
+          "hasTimer": true,
+          "hasAnswerControl": true
+        }
+      ],
+      "liveAnsweringAndReveal": true,
+      "votesSent": 0,
+      "mutationRequestsBlocked": 1,
+      "requests": 178,
+      "requestCategories": {
+        "app-page-or-asset": 14,
+        "next-static": 18,
+        "public-game-cdn": 135,
+        "/api/presence": 1,
+        "/api/me": 1,
+        "/api/rounds": 6,
+        "other-app-api": 2
+      },
+      "frameworkHeadersForwarded": [
+        "next-router-prefetch",
+        "next-router-segment-prefetch",
+        "next-router-state-tree",
+        "next-url",
+        "rsc"
+      ],
+      "pageErrors": 0,
+      "freshContext": true,
+      "allCookiesStripped": true,
+      "transport": "bounded Node proxy with browser rendering",
+      "redirectsFollowed": 0
+    }
+  },
+  "accountHolderSteamLoginVerified": false,
+  "privateRoomCleanupConfirmed": true,
+  "finishedAt": "2026-10-10T09:34:08.037Z",
+  "httpRequests": 15,
+  "httpBytes": 3103484,
+  "cleanupHttpRequests": 2,
+  "browserHttpRequests": 177
+}

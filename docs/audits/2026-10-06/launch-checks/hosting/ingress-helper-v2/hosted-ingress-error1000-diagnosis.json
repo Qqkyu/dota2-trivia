@@ -1,0 +1,80 @@
+{
+  "checkedAt": "2026-10-10T12:47:45.346Z",
+  "checks": [
+    {
+      "path": "/api/health/ingress",
+      "authenticated": true,
+      "caseName": "baseline",
+      "status": 200,
+      "contentEncoding": "none",
+      "noStore": true,
+      "contentType": "application/json",
+      "bodyBytes": 142,
+      "json": true,
+      "cloudflareError1000": false,
+      "bodyClassifications": [],
+      "cloudflareChallenge": false
+    },
+    {
+      "path": "/api/health/ingress",
+      "authenticated": true,
+      "caseName": "cloudflare-header",
+      "status": 403,
+      "contentEncoding": "none",
+      "noStore": false,
+      "contentType": "text/plain",
+      "bodyBytes": 17,
+      "json": false,
+      "cloudflareError1000": true,
+      "bodyClassifications": [],
+      "cloudflareChallenge": false
+    },
+    {
+      "path": "/api/health/ingress",
+      "authenticated": true,
+      "caseName": "real-ip-header",
+      "status": 200,
+      "contentEncoding": "none",
+      "noStore": true,
+      "contentType": "application/json",
+      "bodyBytes": 142,
+      "json": true,
+      "cloudflareError1000": false,
+      "bodyClassifications": [],
+      "cloudflareChallenge": false
+    },
+    {
+      "path": "/api/health/ingress",
+      "authenticated": true,
+      "caseName": "forwarded-chain",
+      "status": 200,
+      "contentEncoding": "none",
+      "noStore": true,
+      "contentType": "application/json",
+      "bodyBytes": 142,
+      "json": true,
+      "cloudflareError1000": false,
+      "bodyClassifications": [],
+      "cloudflareChallenge": false
+    },
+    {
+      "path": "/api/health/ingress",
+      "authenticated": true,
+      "caseName": "combined-headers",
+      "status": 403,
+      "contentEncoding": "none",
+      "noStore": false,
+      "contentType": "text/plain",
+      "bodyBytes": 17,
+      "json": false,
+      "cloudflareError1000": true,
+      "bodyClassifications": [],
+      "cloudflareChallenge": false
+    }
+  ],
+  "rawBodyLogged": false,
+  "rawHeadersLogged": false,
+  "commit": "31961cbd762587225b4b8a814828dc0829952978",
+  "deployId": "dep-db534k0473hc739n08rg",
+  "policyDuringCheck": "none"
+}

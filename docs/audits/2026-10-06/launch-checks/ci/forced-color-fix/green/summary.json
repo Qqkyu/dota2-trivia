@@ -1,0 +1,192 @@
+{
+  "exitCode": 0,
+  "startedAt": "2026-10-10T11:10:06.587Z",
+  "completedAt": "2026-10-10T11:10:27.766Z",
+  "completed": true,
+  "browser": "149.0.7827.55",
+  "pages": 12,
+  "fixtures": 3,
+  "checks": 117,
+  "failures": [],
+  "perControl": [
+    {
+      "kind": "volume",
+      "mode": "desktop",
+      "checks": 11,
+      "passed": 11
+    },
+    {
+      "kind": "party",
+      "mode": "desktop",
+      "checks": 14,
+      "passed": 14
+    },
+    {
+      "kind": "calibration",
+      "mode": "desktop",
+      "checks": 7,
+      "passed": 7
+    },
+    {
+      "kind": "shop",
+      "mode": "desktop",
+      "checks": 7,
+      "passed": 7
+    },
+    {
+      "kind": "volume",
+      "mode": "forced",
+      "checks": 11,
+      "passed": 11
+    },
+    {
+      "kind": "party",
+      "mode": "forced",
+      "checks": 14,
+      "passed": 14
+    },
+    {
+      "kind": "calibration",
+      "mode": "forced",
+      "checks": 7,
+      "passed": 7
+    },
+    {
+      "kind": "shop",
+      "mode": "forced",
+      "checks": 7,
+      "passed": 7
+    },
+    {
+      "kind": "volume",
+      "mode": "forced-dark",
+      "checks": 11,
+      "passed": 11
+    },
+    {
+      "kind": "party",
+      "mode": "forced-dark",
+      "checks": 14,
+      "passed": 14
+    },
+    {
+      "kind": "calibration",
+      "mode": "forced-dark",
+      "checks": 7,
+      "passed": 7
+    },
+    {
+      "kind": "shop",
+      "mode": "forced-dark",
+      "checks": 7,
+      "passed": 7
+    }
+  ],
+  "sourceSha256": {
+    "scripts/check-accessibility.mjs": "72dee694777e5fb7d561c238e78f2748a0a2c46388bf51d559b973292dc95668",
+    "scripts/lib/forced-color-checks.mjs": "0b9ef695d3e1f1be74640f2409c5bb1832487a1952d9cf3af33ea6faea02eabb",
+    "src/components/queue-arcade.module.css": "cc274adee55eb2bc79e4db7d162c62ab3075521af12436f0465611ede35ea507",
+    "src/components/private-room-panel.module.css": "b278310aeb677d7bec7c453ff20321d76b93c1b5c612bf1ae131efcadc738b28",
+    "src/components/calibration-dashboard.module.css": "059aba0a3aba0324afd84055e81cdd102669bca701564f6b57a73682393e649a",
+    ".github/workflows/ci.yml": "28ff89df3f7916693e2b308a66f5c76ca6a229ad61756393b72b3d6da3f531c8"
+  },
+  "normalColorControls": [
+    {
+      "file": "chromium-desktop-party-selected.png",
+      "beforeSha256": "bb006a57a6b1c2a606a5beca40ac0bc7e47cb8a54284d73d84160f9912d41d41",
+      "afterSha256": "bb006a57a6b1c2a606a5beca40ac0bc7e47cb8a54284d73d84160f9912d41d41",
+      "identical": true
+    },
+    {
+      "file": "chromium-desktop-party-unselected.png",
+      "beforeSha256": "5fbd8db930ac9b6444ae343ff106456febef4254188a0d914c56ce921dbb977b",
+      "afterSha256": "5fbd8db930ac9b6444ae343ff106456febef4254188a0d914c56ce921dbb977b",
+      "identical": true
+    },
+    {
+      "file": "chromium-desktop-party-unselected-unfocused.png",
+      "beforeSha256": "5c6091f8aff7893a43f1b6a83106414f00cfcd4dac66aefa333a6fea13c6b3be",
+      "afterSha256": "93b7c5d0e74d75855ac32d665069ef4d5863a4e19e038511b50c2f8b66c0867d",
+      "identical": false,
+      "changedPixels": 557,
+      "maximumChannelDifference": 2,
+      "pixelsAboveChangeThreshold": 0
+    },
+    {
+      "file": "chromium-desktop-party-unselected-keyboard-focus.png",
+      "beforeSha256": "be19928fb02a958a9c128752b11d3154316b8c020b34564178b663484f47102a",
+      "afterSha256": "2745f5c38dcb8a6151299de13b187a3e10e0434b3559790fdf3cc5594c22ced9",
+      "identical": false,
+      "changedPixels": 557,
+      "maximumChannelDifference": 2,
+      "pixelsAboveChangeThreshold": 0
+    },
+    {
+      "file": "chromium-desktop-party-keyboard-selected.png",
+      "beforeSha256": "bb006a57a6b1c2a606a5beca40ac0bc7e47cb8a54284d73d84160f9912d41d41",
+      "afterSha256": "bb006a57a6b1c2a606a5beca40ac0bc7e47cb8a54284d73d84160f9912d41d41",
+      "identical": true
+    },
+    {
+      "file": "chromium-desktop-party-keyboard-unselected.png",
+      "beforeSha256": "5fbd8db930ac9b6444ae343ff106456febef4254188a0d914c56ce921dbb977b",
+      "afterSha256": "5fbd8db930ac9b6444ae343ff106456febef4254188a0d914c56ce921dbb977b",
+      "identical": true
+    },
+    {
+      "file": "chromium-desktop-calibration-selected.png",
+      "beforeSha256": "def927b6a9d28bba1ea5d3108e594981e76c6d976109f9a1bbbab0a730747fbb",
+      "afterSha256": "def927b6a9d28bba1ea5d3108e594981e76c6d976109f9a1bbbab0a730747fbb",
+      "identical": true
+    },
+    {
+      "file": "chromium-desktop-calibration-unselected.png",
+      "beforeSha256": "9078964c595d897d3469bb13b46e29e32fa0aac3b9f50992c5becd581413f8ef",
+      "afterSha256": "9078964c595d897d3469bb13b46e29e32fa0aac3b9f50992c5becd581413f8ef",
+      "identical": true
+    },
+    {
+      "file": "chromium-desktop-calibration-unselected-unfocused.png",
+      "beforeSha256": "6b14439ae63588cf66c346286a207c2ebda70f4c8bf0e262a55500f50aa8ba75",
+      "afterSha256": "6b14439ae63588cf66c346286a207c2ebda70f4c8bf0e262a55500f50aa8ba75",
+      "identical": true
+    },
+    {
+      "file": "chromium-desktop-calibration-unselected-keyboard-focus.png",
+      "beforeSha256": "91da31b2516953954c71c115d46229b0c26eeb318d7abc5598312cf877af3dee",
+      "afterSha256": "91da31b2516953954c71c115d46229b0c26eeb318d7abc5598312cf877af3dee",
+      "identical": true
+    },
+    {
+      "file": "chromium-desktop-shop-selected.png",
+      "beforeSha256": "7d05026da77c1bd5e0e0293281cccdedbef0e2921e750899e0732e5d3c89eec3",
+      "afterSha256": "7d05026da77c1bd5e0e0293281cccdedbef0e2921e750899e0732e5d3c89eec3",
+      "identical": true
+    },
+    {
+      "file": "chromium-desktop-shop-unselected.png",
+      "beforeSha256": "654021c8d62cdcefe2454d0fb2b33de3681f7bf22df7018e0ee4faef18177bf9",
+      "afterSha256": "654021c8d62cdcefe2454d0fb2b33de3681f7bf22df7018e0ee4faef18177bf9",
+      "identical": true
+    },
+    {
+      "file": "chromium-desktop-shop-unselected-unfocused.png",
+      "beforeSha256": "eb6058401117937faec7eddc9df7929994641b4ecfdb8821dd98dd2c1d411625",
+      "afterSha256": "eb6058401117937faec7eddc9df7929994641b4ecfdb8821dd98dd2c1d411625",
+      "identical": true
+    },
+    {
+      "file": "chromium-desktop-shop-unselected-keyboard-focus.png",
+      "beforeSha256": "abfec1b47f48b26cf856b13dbf2c61eb0e89cd12fbe341e5863de22051d68288",
+      "afterSha256": "abfec1b47f48b26cf856b13dbf2c61eb0e89cd12fbe341e5863de22051d68288",
+      "identical": true
+    }
+  ],
+  "scope": "Selected control crops in Chromium on a local development server. These checks do not certify page-wide contrast, physical devices, or other browser engines.",
+  "rawAxe": {
+    "violations": 4,
+    "incompleteRules": 13,
+    "excludedForcedColorContrastRules": 4
+  },
+  "scopedEslintExitCode": 0
+}

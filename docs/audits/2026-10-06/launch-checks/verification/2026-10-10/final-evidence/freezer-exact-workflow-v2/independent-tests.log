@@ -1,0 +1,13 @@
+test_allowed_prefix_does_not_hide_extra_files (__main__.ExactWorkflowException) ... ok
+test_each_exact_exception_path_rejects_symlinks (__main__.ExactWorkflowException) ... ok
+test_nearby_and_private_paths_remain_blocked (__main__.ExactWorkflowException) ... ok
+test_only_safe_name_function_changed (__main__.ExactWorkflowException) ... ok
+test_only_three_exact_hidden_paths_are_newly_allowed (__main__.ExactWorkflowException) ... ok
+test_symlink_root_remains_blocked (__main__.ExactWorkflowException) ... ok
+test_workflow_content_is_hashed_by_snapshot (__main__.ExactWorkflowException) ... ok
+test_workflow_file_symlink_is_rejected (__main__.ExactWorkflowException) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.006s
+
+OK

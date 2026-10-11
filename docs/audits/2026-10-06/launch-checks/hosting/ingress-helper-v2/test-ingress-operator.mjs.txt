@@ -1,0 +1,121 @@
+import assert from "node:assert/strict";
+import { EventEmitter } from "node:events";
+import test from "node:test";
+import { CASES, classifyResponse, prove, read } from "./check-ingress-proof.mjs";
+import { ingressProbeProof } from "/home/kulmisiu/dev/dota2-trivia/src/lib/ingress-probe.mjs";
+
+const secret = "synthetic-ingress-operator-secret-for-isolated-tests";
+const expected = "8.8.8.8";
+const env = { ARCADE_APP_URL: "https://arcade.example", ARCADE_AUTH_SECRET: secret, ARCADE_TRUST_PROXY: "none" };
+const nonce = Buffer.alloc(32, 7).toString("base64url");
+const verified = (address = expected, changes = {}) => ({ status: 200, cache: "no-store",
+  contentType: "application/json", body: Buffer.from(JSON.stringify({ version: 1, nonce,
+    proof: ingressProbeProof(env, nonce, address), ...changes })) });
+const blocked = (body = "error code: 1000\n", changes = {}) => ({ status: 403,
+  contentType: "text/plain; charset=UTF-8", body: Buffer.from(body), ...changes });
+
+test("every case requires the expected egress when it reaches the app", () => {
+  for (const row of CASES) {
+    assert.deepEqual(classifyResponse(row, verified(), env, nonce, expected), {
+      name: row.name, outcome: "verified_egress", receivedVerifiedEgress: true,
+      suppliedHeaderDidNotControlResult: true, httpStatus: 200, edgeErrorCode: null });
+  }
+});
+test("only the two CF cases may report exact edge rejection", () => {
+  for (const row of CASES) {
+    if (["cloudflare-header", "combined-headers"].includes(row.name)) {
+      for (const body of ["error code: 1000", "error code: 1000\r\n \t"]) {
+        assert.deepEqual(classifyResponse(row, blocked(body), env, nonce, expected), {
+          name: row.name, outcome: "edge_rejected", receivedVerifiedEgress: false,
+          suppliedHeaderDidNotControlResult: true, httpStatus: 403, edgeErrorCode: 1000 });
+      }
+    } else assert.throws(() => classifyResponse(row, blocked(), env, nonce, expected));
+  }
+});
+test("other errors, types, redirects and body text cannot pass as edge rejection", () => {
+  const row = CASES[1];
+  for (const response of [blocked("Error code: 1000"), blocked(" error code: 1000"),
+    blocked("error code: 1000 extra"), blocked("error code: 10000"), blocked("error code: 1000\0"),
+    blocked("error code: 1000\u00a0"), blocked("error code: 1000\n", { status: 400 }),
+    blocked("error code: 1000\n", { status: 429 }), blocked("error code: 1000\n", { status: 302 }),
+    blocked("error code: 1000\n", { contentType: "text/html" }), blocked("error code: 1000\n", { contentType: undefined })])
+    assert.throws(() => classifyResponse(row, response, env, nonce, expected));
+});
+test("wrong and spoofed proof values cannot pass", () => {
+  for (const address of ["192.0.2.41", "192.0.2.45", "192.0.2.42", "198.51.100.44", "", "unknown", "8.8.4.4"])
+    for (const row of CASES) assert.throws(() => classifyResponse(row, verified(address), env, nonce, expected));
+});
+test("the original nonce schema cache and size requirements remain", () => {
+  for (const response of [verified(expected, { nonce: "wrong" }), verified(expected, { version: 2 }),
+    verified(expected, { extra: true }), { ...verified(), cache: "public" },
+    { ...verified(), body: Buffer.from("not json") }, { ...verified(), body: Buffer.alloc(8193) }])
+    assert.throws(() => classifyResponse(CASES[0], response, env, nonce, expected));
+});
+test("the complete five-case proof preserves request headers and hides private values", async () => {
+  let count = 0;
+  const result = await prove(env.ARCADE_APP_URL, secret, expected, async (url, headers) => {
+    const row = CASES[count++];
+    assert.equal(url.href, env.ARCADE_APP_URL + "/api/health/ingress");
+    assert.deepEqual(Object.keys(headers).sort(), [...Object.keys(row.headers), "Authorization"].sort());
+    const receivedNonce = /^ArcadeIngress v1\.[0-9]{10}\.([A-Za-z0-9_-]{43})\.[a-f0-9]{64}$/.exec(headers.Authorization)?.[1];
+    assert(receivedNonce);
+    if (row.headers["CF-Connecting-IP"]) return blocked();
+    return { status: 200, cache: "no-store", body: Buffer.from(JSON.stringify({ version: 1,
+      nonce: receivedNonce, proof: ingressProbeProof(env, receivedNonce, expected) })) };
+  });
+  assert.equal(count, 5);
+  assert.equal(result.proofVersion, 2);
+  assert.equal(result.checks.filter((row) => row.outcome === "verified_egress").length, 3);
+  for (const privateValue of [secret, expected]) assert(!JSON.stringify(result).includes(privateValue));
+});
+test("HTTPS reader fixes IPv4 and bounds response bytes without following redirects", async () => {
+  let calls = 0;
+  const request = (url, options, callback) => {
+    calls++;
+    assert.equal(url.protocol, "https:");
+    assert.equal(options.family, 4);
+    assert.equal(options.method, "GET");
+    assert.equal(options.timeout, 10000);
+    assert.equal(options.rejectUnauthorized, undefined);
+    const req = new EventEmitter();
+    req.destroy = () => {};
+    req.end = () => queueMicrotask(() => {
+      const res = new EventEmitter();
+      res.statusCode = 302;
+      res.headers = { location: "https://other.invalid" };
+      res.destroy = () => {};
+      callback(res);
+      res.emit("data", Buffer.from("redirect"));
+      res.emit("end");
+    });
+    return req;
+  };
+  const response = await read(new URL("https://arcade.example/api/health/ingress"), {}, request);
+  assert.equal(response.status, 302);
+  assert.equal(calls, 1);
+  assert.throws(() => classifyResponse(CASES[1], response, env, nonce, expected));
+});
+test("reader aborts oversized responses and reports fixed timeout errors", async () => {
+  for (const mode of ["oversized", "timeout", "connection", "response-error"]) {
+    let destroyed = false;
+    const request = (_url, _options, callback) => {
+      const req = new EventEmitter();
+      req.destroy = () => { destroyed = true; };
+      req.end = () => queueMicrotask(() => {
+        if (mode === "timeout") return req.emit("timeout");
+        if (mode === "connection") return req.emit("error", new Error(secret));
+        const res = new EventEmitter();
+        res.statusCode = 200;
+        res.headers = {};
+        res.destroy = () => { destroyed = true; };
+        callback(res);
+        if (mode === "response-error") res.emit("error", new Error(secret));
+        else res.emit("data", Buffer.alloc(8193));
+      });
+      return req;
+    };
+    await assert.rejects(read(new URL("https://arcade.example/api/health/ingress"), {}, request),
+      (error) => /^PROBE_[A-Z_]+$/.test(error.message) && !error.message.includes(secret));
+    if (["oversized", "timeout"].includes(mode)) assert.equal(destroyed, true);
+  }
+});

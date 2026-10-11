@@ -1,0 +1,53 @@
+import assert from 'node:assert/strict';
+import https from 'node:https';
+import { syncBuiltinESMExports } from 'node:module';
+import { EventEmitter } from 'node:events';
+import { pathToFileURL } from 'node:url';
+import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+const original = https.request;
+const captured = [];
+const cases = [];
+const target = new URL('./check-address-isolation.mjs', import.meta.url);
+https.request = (url, options, callback) => {
+  captured.push({ url, options });
+  const outgoing = new EventEmitter();
+  outgoing.destroy = () => {};
+  outgoing.end = () => queueMicrotask(() => {
+    const response = new EventEmitter();
+    response.statusCode = 302;
+    response.headers = { location: 'https://steamcommunity.com/openid/login?synthetic=fixture' };
+    callback(response);
+    response.emit('end');
+  });
+  return outgoing;
+};
+syncBuiltinESMExports();
+try {
+  const { probe4, loginResponse } = await import(target);
+  async function test(name, operation) {
+    try { await operation(); cases.push({ name, passed: true }); }
+    catch (error) { cases.push({ name, passed: false, errorCode: error.code ?? error.name }); }
+  }
+  for (const index of [0,129]) {
+    await test(`IPv4 probe ${index} rotates only X-Real-IP and X-Forwarded-For`, async () => {
+      const before = captured.length;
+      assert.equal((await probe4(index, null, Date.now() + 10_000)).status,302);
+      assert.equal(captured.length,before+1);
+      const {url,options}=captured.at(-1);
+      assert.equal(url,'https://queue-arcade.onrender.com/api/auth/steam');
+      assert.deepEqual(Object.keys(options.headers).sort(),['X-Forwarded-For','X-Real-IP','user-agent']);
+      assert.equal(options.headers['X-Real-IP'],`198.51.100.${index+1}`);
+      assert.equal(options.headers['X-Forwarded-For'],`203.0.113.${index+1}, 192.0.2.${index+1}`);
+      assert.equal(options.family,4); assert.equal(options.rejectUnauthorized,true); assert.equal(options.method,'GET');
+    });
+  }
+  await test('plain IPv4 probe has no forwarded headers or credentials', async()=>{
+    assert.equal((await probe4(undefined,null,Date.now()+10_000)).status,302);
+    assert.deepEqual(Object.keys(captured.at(-1).options.headers),['user-agent']);
+  });
+  await test('unexpected edge rejection is not accepted by a login budget probe',()=>assert.throws(()=>loginResponse(403,{})));
+} finally { https.request=original; syncBuiltinESMExports(); }
+const failed=cases.filter(row=>!row.passed).length;
+console.log(JSON.stringify({checkedAt:new Date().toISOString(),sourceSha256:createHash('sha256').update(await readFile(target)).digest('hex'),hostedRequests:0,transport:'Node HTTPS request replaced with an in-memory fixture.',passed:cases.length-failed,failed,cases},null,2));
+process.exitCode=failed?1:0;

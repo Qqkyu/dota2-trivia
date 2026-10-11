@@ -1,0 +1,261 @@
+{
+  "passed": true,
+  "scope": "Exact Python source with in-memory file, Docker and GitHub substitutes. No actual Docker, GitHub, network or helper mutations.",
+  "testCount": 36,
+  "sourceSha256": "f70476dddbee8c810e2e22e814be178977f450990af2e61ca77e593333a4dfe8",
+  "lifecycleSha256": "e51f03d8ddd01539011f07dbb0ccf920a7f9db62412a5fe9af51b6f1933fc4e9",
+  "cases": [
+    {
+      "name": "accept exact successful run with stopped owned container",
+      "expectedSuccess": true,
+      "passed": true,
+      "mutationCalls": 2,
+      "errorType": null
+    },
+    {
+      "name": "reject malformed candidate",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject noninteger run",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject workflow head_sha",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject workflow status",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject workflow conclusion",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject workflow event",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject workflow path",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject checkpoint container",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject checkpoint volume",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject cleaned state",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject invalid state name",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "ValueError"
+    },
+    {
+      "name": "reject invalid state owner",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "ValueError"
+    },
+    {
+      "name": "reject no job",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject multiple jobs",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject other runner job",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject unsuccessful job",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject running container",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject container owner mismatch",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "ValueError"
+    },
+    {
+      "name": "reject volume owner mismatch",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "ValueError"
+    },
+    {
+      "name": "reject host boundary CgroupnsMode",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject host boundary NanoCpus",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject host boundary Memory",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject host boundary MemorySwap",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject host boundary PidMode",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject host boundary IpcMode",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject host boundary NetworkMode",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject host boundary UTSMode",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject host boundary Binds",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject host boundary VolumesFrom",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject extra mount",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject mount Type",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject mount Name",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject mount Destination",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject foreign volume driver",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "reject volume options",
+      "expectedSuccess": false,
+      "passed": true,
+      "mutationCalls": 0,
+      "errorType": "AssertionError"
+    }
+  ]
+}

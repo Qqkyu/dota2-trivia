@@ -1,0 +1,129 @@
+[
+  {
+    "server": "normal",
+    "client": "normal",
+    "deadlineMs": 500,
+    "exit": 0,
+    "events": [
+      {
+        "event": "settled",
+        "ok": true,
+        "status": "ready",
+        "elapsedMs": 38.133553
+      },
+      {
+        "event": "finally"
+      }
+    ],
+    "stderr": ""
+  },
+  {
+    "server": "service-unavailable",
+    "client": "normal",
+    "deadlineMs": 500,
+    "exit": 0,
+    "events": [
+      {
+        "event": "settled",
+        "ok": false,
+        "status": "waiting",
+        "elapsedMs": 30.219681
+      },
+      {
+        "event": "finally"
+      }
+    ],
+    "stderr": ""
+  },
+  {
+    "server": "delayed-body",
+    "client": "normal",
+    "deadlineMs": 100,
+    "exit": 0,
+    "events": [
+      {
+        "event": "caught",
+        "name": "TimeoutError",
+        "message": "Health request timed out",
+        "elapsedMs": 103.063288
+      },
+      {
+        "event": "finally"
+      }
+    ],
+    "stderr": ""
+  },
+  {
+    "server": "stall",
+    "client": "normal",
+    "deadlineMs": 100,
+    "exit": 0,
+    "events": [
+      {
+        "event": "caught",
+        "name": "TimeoutError",
+        "message": "Health request timed out",
+        "elapsedMs": 101.914239
+      },
+      {
+        "event": "finally"
+      }
+    ],
+    "stderr": ""
+  },
+  {
+    "server": "end",
+    "client": "parser-delay",
+    "deadlineMs": 300,
+    "exit": 0,
+    "events": [
+      {
+        "event": "caught",
+        "name": "TimeoutError",
+        "message": "Health request timed out",
+        "elapsedMs": 301.095091
+      },
+      {
+        "event": "finally"
+      }
+    ],
+    "stderr": ""
+  },
+  {
+    "server": "normal",
+    "client": "parser-delay",
+    "deadlineMs": 500,
+    "exit": 0,
+    "events": [
+      {
+        "event": "settled",
+        "ok": true,
+        "status": "ready",
+        "elapsedMs": 128.85449699999998
+      },
+      {
+        "event": "finally"
+      }
+    ],
+    "stderr": ""
+  },
+  {
+    "server": "normal",
+    "client": "ignores-abort",
+    "deadlineMs": 100,
+    "exit": 0,
+    "events": [
+      {
+        "event": "caught",
+        "name": "TimeoutError",
+        "message": "Health request timed out",
+        "elapsedMs": 100.861842,
+        "aborted": true
+      },
+      {
+        "event": "finally"
+      }
+    ],
+    "stderr": ""
+  }
+]

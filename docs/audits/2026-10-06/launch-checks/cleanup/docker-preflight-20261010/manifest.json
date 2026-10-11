@@ -1,0 +1,49 @@
+{
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 2339,
+      "sha256": "ec3d90d47c03ee63d34e726cd4501453a5e1802df82a86a426d6fb94c72b98f3"
+    },
+    {
+      "file": "archive-replay.log",
+      "bytes": 1477,
+      "sha256": "3e02ad00c9a8c7cfbcfe47b43fa34507e2dda5e5d2ee74fe4d9cf0c31c2e8dd5"
+    },
+    {
+      "file": "cleanup-guard-tests.log",
+      "bytes": 1477,
+      "sha256": "3fd036eb30732285b741b880c20291f196130776bcbd0ad4de352860e98d418d"
+    },
+    {
+      "file": "cleanup-reviewed-docker.py.txt",
+      "bytes": 6964,
+      "sha256": "724724857427caf1f02cb6523417acd7687fd339c5f793b6cc7cc3bd8e09cc47"
+    },
+    {
+      "file": "docker-cleanup-preflight.json",
+      "bytes": 2897,
+      "sha256": "65aaf8501274f73ab67b7e10de7ee28d380d95aa90d05bdcc9544627d8b6ab16"
+    },
+    {
+      "file": "docker-cleanup-review.json",
+      "bytes": 3770,
+      "sha256": "446e5ccb65879e4264988507bff4e110407129dc98b5e309100ba1d8b1a11323"
+    },
+    {
+      "file": "docker-preflight-format-error.json",
+      "bytes": 259,
+      "sha256": "f9bd6ba3dfff84d9e58a206ad64ded4e4b56d5967ced0d7bfa704c2700f8bf68"
+    },
+    {
+      "file": "provenance.json",
+      "bytes": 1970,
+      "sha256": "71af5ae8638c2ba105c14c4e026d6527273c2d9088c4d0ad0db5332df7525c4f"
+    },
+    {
+      "file": "test_cleanup_guards.py.txt",
+      "bytes": 6742,
+      "sha256": "bacf417e462edfa168db62defef6902b51d5cf341440b3deff833d47c80db196"
+    }
+  ]
+}

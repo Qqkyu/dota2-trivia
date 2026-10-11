@@ -1,0 +1,25 @@
+import { firefox } from "/home/kulmisiu/dev/dota2-trivia/node_modules/playwright/index.mjs";
+import { writeFile } from "node:fs/promises";
+const browser = await firefox.launch();
+const result = { browser: browser.version(), method: "Playwright ariaSnapshot", controls: [] };
+try {
+ for (const colorScheme of ["light", "dark"]) {
+  const context = await browser.newContext({ forcedColors: "active", colorScheme });
+  const page = await context.newPage();
+  await page.goto("http://127.0.0.1:3351/party");
+  await page.getByTestId("private-room-choose-create").click();
+  const first = page.getByRole("group", { name: "Games", exact: true }).getByRole("button").first();
+  for (const state of ["selected", "unselected"]) {
+   if (state === "unselected") await first.click();
+   const snapshot = await first.ariaSnapshot();
+   const pressed = await first.getAttribute("aria-pressed");
+   const pseudoContent = await first.evaluate((node) => getComputedStyle(node, "::after").content);
+   result.controls.push({colorScheme, state, snapshot, pressed, pseudoContent, passed: !/[✓✔☑]/u.test(snapshot) && snapshot.includes('button "Classic Trivia"') && pressed === (state === "selected" ? "true" : "false")});
+  }
+  await context.close();
+ }
+} finally { await browser.close(); }
+result.passed = result.controls.length === 4 && result.controls.every((control) => control.passed);
+await writeFile("/tmp/queue-arcade-launch-ci/forced-color-fix/firefox-party-decoration.json", JSON.stringify(result, null, 2));
+console.log(JSON.stringify(result));
+if (!result.passed) process.exitCode=1;

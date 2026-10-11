@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# Prepare only the explicitly private, resource-limited audit container namespace.
+set -Eeuo pipefail
+cg_root=/sys/fs/cgroup
+cg_evidence=/runner-evidence/cgroup-init
+mkdir -p "$cg_evidence"
+test "$(stat -fc '%T' "$cg_root")" = cgroup2fs
+test "$(cat /proc/1/cgroup)" = '0::/'
+test "$(cat "$cg_root/cgroup.type")" = domain
+cg_before_cpu=$(cat "$cg_root/cpu.max")
+cg_before_memory=$(cat "$cg_root/memory.max")
+cg_before_swap=$(cat "$cg_root/memory.swap.max")
+read -r cg_quota cg_period <<< "$cg_before_cpu"
+[[ "$cg_quota" =~ ^[0-9]+$ && "$cg_period" =~ ^[0-9]+$ ]]
+(( cg_quota == 2 * cg_period ))
+test "$cg_before_memory" = 5368709120
+test "$cg_before_swap" = 0
+cg_controllers=$(cat "$cg_root/cgroup.controllers")
+[[ " $cg_controllers " == *' cpu '* && " $cg_controllers " == *' memory '* ]]
+printf '%s\n' "$cg_before_cpu" "$cg_before_memory" "$cg_before_swap" > "$cg_evidence/outer-limits-before.txt"
+printf '%s\n' "$cg_controllers" > "$cg_evidence/available-controllers.txt"
+test ! -e "$cg_root/init"
+mkdir "$cg_root/init"
+test "$(cat "$cg_root/init/cgroup.type")" = domain
+cg_ready=false
+for cg_attempt in {1..20}; do
+  while read -r cg_pid; do
+    if test -n "$cg_pid"; then
+      [[ "$cg_pid" =~ ^[0-9]+$ ]]
+      if ! printf '%s\n' "$cg_pid" > "$cg_root/init/cgroup.procs" 2>/dev/null; then
+        test ! -e "/proc/$cg_pid" || { echo 'A live process could not move into the private leaf cgroup.' >&2; exit 1; }
+      fi
+    fi
+  done < "$cg_root/cgroup.procs"
+  cg_enable="+${cg_controllers// / +}"
+  if printf '%s\n' "$cg_enable" > "$cg_root/cgroup.subtree_control" 2>/dev/null; then
+    cg_ready=true
+    break
+  fi
+  sleep 0.1
+done
+test "$cg_ready" = true
+test -z "$(cat "$cg_root/cgroup.procs")"
+test "$(cat "$cg_root/cgroup.type")" = domain
+cg_enabled=$(cat "$cg_root/cgroup.subtree_control")
+[[ " $cg_enabled " == *' cpu '* && " $cg_enabled " == *' memory '* ]]
+test "$(cat "$cg_root/cpu.max")" = "$cg_before_cpu"
+test "$(cat "$cg_root/memory.max")" = "$cg_before_memory"
+test "$(cat "$cg_root/memory.swap.max")" = "$cg_before_swap"
+printf '%s\n' "$cg_enabled" > "$cg_evidence/enabled-controllers.txt"
+printf '%s\n' "$(cat "$cg_root/cpu.max")" "$(cat "$cg_root/memory.max")" "$(cat "$cg_root/memory.swap.max")" > "$cg_evidence/outer-limits-after.txt"
+printf '%s\n' 'Private cgroup v2 delegation prepared; outer CPU, memory, and swap limits are unchanged.'

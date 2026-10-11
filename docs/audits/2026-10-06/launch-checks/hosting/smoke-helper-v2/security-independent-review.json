@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-10-10T12:57:54.520038+00:00",
+  "reviewer": "security_finish",
+  "scope": "Independent source-diff review and exact-byte offline rerun. No provider calls or live credentials.",
+  "findings": [],
+  "originalSmokeUnchanged": true,
+  "suites": [
+    {
+      "file": "gate-tests.py",
+      "passed": 33,
+      "hostedRequests": 0
+    },
+    {
+      "file": "gate-contract-tests.py",
+      "passed": 29,
+      "hostedRequests": 0
+    },
+    {
+      "file": "header-transport-tests.mjs",
+      "passed": 4,
+      "hostedRequests": 0
+    },
+    {
+      "file": "address-isolation-tests.mjs",
+      "passed": 40,
+      "hostedRequests": 0
+    },
+    {
+      "file": "independent-address-tests.mjs",
+      "passed": 16,
+      "hostedRequests": 0
+    }
+  ],
+  "files": [
+    {
+      "file": "create-gate.py",
+      "sha256": "46a7599ae2e183a5f3fe74665ab394cecc10c634ad8ca0289fc547f94cdc66c5"
+    },
+    {
+      "file": "check-address-isolation.mjs",
+      "sha256": "fe1c62d1e08978f9f6f858b896dd0e3fee31083384764de5cea54356c07163e4"
+    }
+  ]
+}

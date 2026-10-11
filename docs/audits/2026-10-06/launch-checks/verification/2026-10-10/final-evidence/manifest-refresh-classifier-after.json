@@ -1,0 +1,168 @@
+{
+  "checkerSha256": "5fc14491872b6e0930ad717594bee4dc229d2891119816d6dcb59a59be6c6dd1",
+  "scope": "Only three named refresh records and their linked exact revision blobs. No broad archive validation.",
+  "passed": true,
+  "cases": [
+    {
+      "path": "docs/audits/2026-10-06/launch-checks/verification/2026-10-10/health-readiness-manifest-refresh.json",
+      "sha256": "637c43acdfd7ed09f5e89373ef6bf242e4b9d87ec702fab3cd59cf7d5b79a797",
+      "previousCommit": "15617dcaf2a495418c163398732d5f57b1add238",
+      "currentCommit": "da28a646479fab030e9b02b187e177c0f89555b9",
+      "checkedBlobs": [
+        {
+          "commit": "15617dcaf2a495418c163398732d5f57b1add238",
+          "path": "docs/content-review.json",
+          "sha256": "3b6706d2eb665edec4cbe3efbabb800011f8e3ac1832eb726d13e6142ebe4d08"
+        },
+        {
+          "commit": "da28a646479fab030e9b02b187e177c0f89555b9",
+          "path": "docs/content-review.json",
+          "sha256": "9ebf289a61d9f26f4aa0f6655ff9cd8d8d537a94305bb78420ed37426e861567"
+        },
+        {
+          "commit": "15617dcaf2a495418c163398732d5f57b1add238",
+          "path": "scripts/check-container.mjs",
+          "sha256": "aa7b5fc0658da24af732b65bc533341bfe0eb79ea97d4e3d5033804c3358553d"
+        },
+        {
+          "commit": "15617dcaf2a495418c163398732d5f57b1add238",
+          "path": "docs/audits/2026-10-06/launch-checks/content-review.md",
+          "sha256": "272bf69778ad75bd0e7aa51a19ca4b256c4e780777a793ef7558bc1126751af6"
+        },
+        {
+          "commit": "da28a646479fab030e9b02b187e177c0f89555b9",
+          "path": "scripts/check-container.mjs",
+          "sha256": "14db144a2ee9308e878ba6af3f31de00bb825cad60e6d2495e89d90c7bd80698"
+        },
+        {
+          "commit": "da28a646479fab030e9b02b187e177c0f89555b9",
+          "path": "scripts/lib/health-readiness.mjs",
+          "sha256": "f255a0c66fd073c6c4d234a6e18e639bd903c95024e1c3824632d8ee106f36f5"
+        },
+        {
+          "commit": "da28a646479fab030e9b02b187e177c0f89555b9",
+          "path": "docs/audits/2026-10-06/launch-checks/content-review.md",
+          "sha256": "272bf69778ad75bd0e7aa51a19ca4b256c4e780777a793ef7558bc1126751af6"
+        }
+      ],
+      "mismatches": [],
+      "scope": "Historical source-review change record. Verify exact manifest blobs, input change lists and changed input/evidence blobs.",
+      "changedInputs": [
+        "scripts/check-container.mjs",
+        "scripts/lib/health-readiness.mjs"
+      ],
+      "unchangedQuestionHashesCompared": true
+    },
+    {
+      "path": "docs/audits/2026-10-06/launch-checks/verification/2026-10-10/browser-waits-manifest-refresh.json",
+      "sha256": "4ed4d2646c2b5cbd21dffeb1203df73a34c14e4c22bbd5dfec19bb7e29296c4a",
+      "previousCommit": "da28a646479fab030e9b02b187e177c0f89555b9",
+      "currentCommit": "6e1eace126e89341052dddbd76eeb4ad4de584e6",
+      "checkedBlobs": [
+        {
+          "commit": "da28a646479fab030e9b02b187e177c0f89555b9",
+          "path": "docs/content-review.json",
+          "sha256": "9ebf289a61d9f26f4aa0f6655ff9cd8d8d537a94305bb78420ed37426e861567"
+        },
+        {
+          "commit": "6e1eace126e89341052dddbd76eeb4ad4de584e6",
+          "path": "docs/content-review.json",
+          "sha256": "b262b79baebb8608da2d27e8d5f4ad40e59ec1c84253c900be918102a66d8419"
+        },
+        {
+          "commit": "da28a646479fab030e9b02b187e177c0f89555b9",
+          "path": "scripts/check-party-lobby.mjs",
+          "sha256": "a4189c5de7d2e030b793e756cad87be5b0c947a5fbe5cbdb0915592eb81ff708"
+        },
+        {
+          "commit": "da28a646479fab030e9b02b187e177c0f89555b9",
+          "path": "scripts/visual-smoke.mjs",
+          "sha256": "4b38a2b53bcba85834e3cb31b8870bb64ab08131a0726f7794b1eb91cf10eddb"
+        },
+        {
+          "commit": "da28a646479fab030e9b02b187e177c0f89555b9",
+          "path": "docs/audits/2026-10-06/launch-checks/content-review.md",
+          "sha256": "272bf69778ad75bd0e7aa51a19ca4b256c4e780777a793ef7558bc1126751af6"
+        },
+        {
+          "commit": "6e1eace126e89341052dddbd76eeb4ad4de584e6",
+          "path": "scripts/check-party-lobby.mjs",
+          "sha256": "7b47ac77cdb2c65f4c284443a46797127c6ee356639ff00858573a96ae3b5946"
+        },
+        {
+          "commit": "6e1eace126e89341052dddbd76eeb4ad4de584e6",
+          "path": "scripts/lib/reveal-entry.mjs",
+          "sha256": "5a157036ce50fcda939ba83c6a2e8a280750984a19e302addbab20a7d23350a2"
+        },
+        {
+          "commit": "6e1eace126e89341052dddbd76eeb4ad4de584e6",
+          "path": "scripts/visual-smoke.mjs",
+          "sha256": "8e14f037726e255d606975d9b068a630a2b155b9c6801fcd176d3c03173eaa20"
+        },
+        {
+          "commit": "6e1eace126e89341052dddbd76eeb4ad4de584e6",
+          "path": "docs/audits/2026-10-06/launch-checks/content-review.md",
+          "sha256": "272bf69778ad75bd0e7aa51a19ca4b256c4e780777a793ef7558bc1126751af6"
+        }
+      ],
+      "mismatches": [],
+      "scope": "Historical source-review change record. Verify exact manifest blobs, input change lists and changed input/evidence blobs.",
+      "changedInputs": [
+        "scripts/check-party-lobby.mjs",
+        "scripts/lib/reveal-entry.mjs",
+        "scripts/visual-smoke.mjs"
+      ],
+      "unchangedQuestionHashesCompared": true
+    },
+    {
+      "path": "docs/audits/2026-10-06/launch-checks/verification/2026-10-10/contrast-manifest-refresh.json",
+      "sha256": "10787fab1e2ff7ec5f4d3e8325a93ba55e48fbd39f00da53e246c318752410cc",
+      "previousCommit": "6e1eace126e89341052dddbd76eeb4ad4de584e6",
+      "currentCommit": "64046c2d198fcbfe556599e727ae0638423a3482",
+      "checkedBlobs": [
+        {
+          "commit": "6e1eace126e89341052dddbd76eeb4ad4de584e6",
+          "path": "docs/content-review.json",
+          "sha256": "b262b79baebb8608da2d27e8d5f4ad40e59ec1c84253c900be918102a66d8419"
+        },
+        {
+          "commit": "64046c2d198fcbfe556599e727ae0638423a3482",
+          "path": "docs/content-review.json",
+          "sha256": "831cdc07fd9664c86ca90ce1204bc5b4935ea5f722201d4d90fbfb36d86e4755"
+        },
+        {
+          "commit": "6e1eace126e89341052dddbd76eeb4ad4de584e6",
+          "path": "scripts/check-accessibility.mjs",
+          "sha256": "ada35f46e03ae9a917a7705db0e62477ad2e0dd008606040b933468277d9a9e9"
+        },
+        {
+          "commit": "6e1eace126e89341052dddbd76eeb4ad4de584e6",
+          "path": "docs/audits/2026-10-06/launch-checks/content-review.md",
+          "sha256": "272bf69778ad75bd0e7aa51a19ca4b256c4e780777a793ef7558bc1126751af6"
+        },
+        {
+          "commit": "64046c2d198fcbfe556599e727ae0638423a3482",
+          "path": "scripts/check-accessibility.mjs",
+          "sha256": "72dee694777e5fb7d561c238e78f2748a0a2c46388bf51d559b973292dc95668"
+        },
+        {
+          "commit": "64046c2d198fcbfe556599e727ae0638423a3482",
+          "path": "scripts/lib/forced-color-checks.mjs",
+          "sha256": "0b9ef695d3e1f1be74640f2409c5bb1832487a1952d9cf3af33ea6faea02eabb"
+        },
+        {
+          "commit": "64046c2d198fcbfe556599e727ae0638423a3482",
+          "path": "docs/audits/2026-10-06/launch-checks/content-review.md",
+          "sha256": "272bf69778ad75bd0e7aa51a19ca4b256c4e780777a793ef7558bc1126751af6"
+        }
+      ],
+      "mismatches": [],
+      "scope": "Historical source-review change record. Verify exact manifest blobs, input change lists and changed input/evidence blobs.",
+      "changedInputs": [
+        "scripts/check-accessibility.mjs",
+        "scripts/lib/forced-color-checks.mjs"
+      ],
+      "unchangedQuestionHashesCompared": true
+    }
+  ]
+}

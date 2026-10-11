@@ -1,0 +1,36 @@
+import assert from 'node:assert/strict';
+import { EventEmitter } from 'node:events';
+import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { CASES, classifyResponse, prove, read } from '../../ingress-helper-v2/check-ingress-proof.mjs';
+const cases=[];
+async function test(name, operation){await operation();cases.push({name,passed:true});}
+const secret='independent-offline-ingress-fixture-secret';
+await test('invalid origins stop before transport',async()=>{
+ for(const origin of ['http://example.test','https://user:private@example.test','https://example.test/private','https://example.test/?query=1','https://example.test/#fragment'])
+  await assert.rejects(prove(origin,secret,'192.0.2.20',()=>assert.fail('must not read')));
+});
+await test('invalid egress addresses stop before transport',async()=>{
+ for(const address of ['', 'not-an-address','::1'])await assert.rejects(prove('https://example.test',secret,address,()=>assert.fail('must not read')));
+});
+await test('a blocked baseline cannot be reported as an edge-proof success',async()=>{
+ let calls=0;await assert.rejects(prove('https://example.test',secret,'192.0.2.20',async()=>{calls++;return{status:403,contentType:'text/plain',body:Buffer.from('error code: 1000\n')};}));assert.equal(calls,1);
+});
+await test('edge rejection requires the bounded exact body bytes',()=>{
+ for(const body of [Buffer.alloc(8193),Buffer.from('error code: 1000\n<script>'),Buffer.from('error code: 1000\u2028')])assert.throws(()=>classifyResponse(CASES[1],{status:403,contentType:'text/plain',body},{},'', '192.0.2.20'));
+});
+await test('the transport rejects an oversized body without requiring an end event',async()=>{
+ let destroyed=0;
+ const fixture=(_url,_opts,callback)=>{const req=new EventEmitter();req.destroy=()=>{};req.end=()=>queueMicrotask(()=>{const response=new EventEmitter();response.statusCode=200;response.headers={};response.destroy=()=>{destroyed++;};callback(response);response.emit('data',Buffer.alloc(8193));});return req;};
+ await assert.rejects(read(new URL('https://example.test/'),{},fixture),/PROBE_RESPONSE_SIZE/);assert.equal(destroyed,1);
+});
+await test('socket timeout rejects with a fixed code and destroys the request',async()=>{
+ let destroyed=0;const fixture=()=>{const req=new EventEmitter();req.destroy=()=>{destroyed++;};req.end=()=>queueMicrotask(()=>req.emit('timeout'));return req;};
+ await assert.rejects(read(new URL('https://example.test/'),{},fixture),/PROBE_TIMEOUT/);assert.equal(destroyed,1);
+});
+await test('a response that sends data every 100 ms still ends at the absolute ten-second deadline',async()=>{
+ let interval;let destroyed=0;let chunks=0;
+ const fixture=(_url,_opts,callback)=>{const req=new EventEmitter();req.destroy=()=>{destroyed++;clearInterval(interval);};req.end=()=>queueMicrotask(()=>{const response=new EventEmitter();response.statusCode=200;response.headers={};response.destroy=()=>clearInterval(interval);callback(response);interval=setInterval(()=>{chunks++;response.emit('data',Buffer.from(' '));},100);});return req;};
+ const started=Date.now();try{await assert.rejects(read(new URL('https://example.test/'),{},fixture),/PROBE_DEADLINE/);}finally{clearInterval(interval);}assert.equal(destroyed,1);assert(chunks>=50);assert(Date.now()-started>=9500&&Date.now()-started<13000);
+});
+console.log(JSON.stringify({checkedAt:new Date().toISOString(),hostedRequests:0,networkRequests:0,passed:cases.length,operatorSha256:createHash('sha256').update(await readFile(new URL('../../ingress-helper-v2/check-ingress-proof.mjs',import.meta.url))).digest('hex'),cases},null,2));

@@ -1,0 +1,23 @@
+{
+  "log": {
+    "source": "browser-diagnosis-ui.log",
+    "sourceSha256": "af64734ce06633c050bead45a775b3b102367bcd6cf620337167cf713703ca38",
+    "archive": "browser-diagnosis-ui.redacted.log",
+    "archiveSha256": "41c84089b7d78c12cd11555c2789967e4288ae13cd21678521ffe0f5d9f602ad",
+    "redactions": [
+      "Replace one synthetic room code and display-name list in the lobby completion line.",
+      "Replace one synthetic room code in the nickname synchronization completion line."
+    ]
+  },
+  "exit": {
+    "source": "browser-diagnosis-ui.exit",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "exactCopy": true
+  },
+  "source": {
+    "source": "scripts/check-ui.mjs",
+    "sha256": "cabb9b3baf299144d22b430c106fd455b09adbe58594501489e66297e3045984",
+    "archive": "check-ui.mjs.txt",
+    "exactCopy": true
+  }
+}

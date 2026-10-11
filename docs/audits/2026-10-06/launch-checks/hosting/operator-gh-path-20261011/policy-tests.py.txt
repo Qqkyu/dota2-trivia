@@ -1,0 +1,494 @@
+import contextlib
+import copy
+import datetime
+import hashlib
+from email.message import Message
+import importlib.util
+import io
+import json
+import os
+from pathlib import Path
+import subprocess
+import tempfile
+import types
+import unittest
+from unittest.mock import patch
+import urllib.error
+import urllib.response
+
+BASE = Path(__file__).parent
+spec = importlib.util.spec_from_file_location('enable_proxy', BASE / 'enable-render-proxy-gh-path.py')
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+SHA = 'a' * 40
+WRONG = 'b' * 40
+SECRET = 'isolated-render-operator-secret-must-not-be-logged'
+CANDIDATE = {'branch': module.BRANCH, 'commit': SHA, 'ciRunId': 12345}
+OPERATOR = {'path': 'ingress-helper-v2/check-ingress-proof.mjs', 'sha256': 'e' * 64}
+MANIFEST = [{'path': name, 'sha256': ('c' if index == 0 else 'd') * 64} for index, name in enumerate(module.LOCAL_INPUTS)]
+
+
+def proof():
+    return {'checkedAt': module.now().isoformat(), 'origin': module.ORIGIN, 'ok': True,
+        'proofVersion': 2, 'operatorScript': copy.deepcopy(OPERATOR),
+        'policyDuringCheck': 'none', 'checks': [{'name': name, 'outcome': 'verified_egress',
+        'receivedVerifiedEgress': True, 'suppliedHeaderDidNotControlResult': True,
+        'httpStatus': 200, 'edgeErrorCode': None} for name in module.CHECK_NAMES], 'changedConfiguration': False,
+        'commit': SHA, 'deployId': 'dep-old', 'ciRunId': CANDIDATE['ciRunId'],
+        'independentIpv4SourcesAgreed': True, 'operatorSecretLogged': False, 'rawAddressesLogged': False,
+        'deploymentAndConfigurationStable': True, 'localInputs': copy.deepcopy(MANIFEST)}
+
+
+class World:
+    def __init__(self):
+        self.env = {module.KEY: 'none', 'ARCADE_APP_URL': module.ORIGIN, 'ARCADE_ALLOW_FILE_STORE': 'false',
+            'ARCADE_AUTO_MIGRATE': 'false', 'ARCADE_AUTH_SECRET': SECRET + '-auth',
+            'ARCADE_VOTER_SALT': SECRET + '-voter', 'DATABASE_URL': 'postgresql://queue_arcade_runtime_20261006:'
+            + SECRET + '@' + module.DID + '/queue_arcade_db?sslmode=require', 'OTHER_ENV': 'unchanged'}
+        self.service = {'id': module.SID, 'name': 'queue-arcade', 'ownerId': module.OWNER,
+            'repo': 'https://github.com/Qqkyu/dota2-trivia', 'branch': module.BRANCH, 'autoDeployTrigger': 'off',
+            'suspended': 'not_suspended', 'serviceDetails': {'plan': 'free', 'buildPlan': 'starter',
+            'region': 'frankfurt', 'numInstances': 1, 'healthCheckPath': '/api/health'}}
+        self.database = {'id': module.DID, 'plan': '0.1c-256mb', 'region': 'frankfurt', 'version': '17',
+            'status': 'available', 'diskSizeGB': 1, 'ipAllowList': []}
+        self.groups = []
+        self.rows = [{'id': 'dep-old', 'status': 'live', 'commit': {'id': SHA}}]
+        self.actions = []
+        self.deploy_status = 201
+        self.deploy_sha = SHA
+        self.put_timeout = False
+        self.suspend_timeout = False
+        self.change_other_on_put = False
+
+    def api(self, path, method='GET', body=None):
+        if method == 'GET':
+            if path == '/services/' + module.SID: value = self.service
+            elif path == '/postgres/' + module.DID: value = self.database
+            elif path == '/env-groups?ownerId=' + module.OWNER + '&limit=100': value = self.groups
+            elif path.endswith('/env-vars?limit=100'): value = [{'envVar': {'key': k, 'value': v}} for k, v in self.env.items()]
+            elif path.endswith('/deploys?limit=20'): value = [{'deploy': x} for x in self.rows]
+            else: raise AssertionError('Unexpected mocked GET path')
+            return 200, copy.deepcopy(value)
+        self.actions.append((path, method, copy.deepcopy(body)))
+        if method == 'PUT':
+            if path != '/services/' + module.SID + '/env-vars/' + module.KEY: raise AssertionError('Unexpected mocked PUT')
+            self.env[module.KEY] = body['value']
+            if self.change_other_on_put: self.env['OTHER_ENV'] = 'changed'
+            if self.put_timeout: raise TimeoutError(SECRET)
+            return 200, {'key': module.KEY, 'value': body['value']}
+        if path.endswith('/deploys'):
+            row = {'id': 'dep-new', 'status': 'build_in_progress', 'commit': {'id': self.deploy_sha}}
+            self.rows.insert(0, row)
+            return self.deploy_status, None if self.deploy_status == 202 else copy.deepcopy(row)
+        if path.endswith('/suspend'):
+            if self.suspend_timeout: raise TimeoutError(SECRET)
+            self.service['suspended'] = 'suspended'
+            return 202, None
+        if path.endswith('/cancel'):
+            for row in self.rows:
+                if row['id'] in path: row['status'] = 'canceled'
+            return 200, None
+        raise AssertionError('Unexpected mocked mutation')
+
+
+class PolicyTests(unittest.TestCase):
+    def setUp(self):
+        self.directory = tempfile.TemporaryDirectory(prefix='proxy-policy-offline-', dir=str(BASE))
+        self.addCleanup(self.directory.cleanup)
+        self.out = Path(self.directory.name)
+        self.world = World()
+        self.output = io.StringIO()
+        self.helper = types.SimpleNamespace(checked_local_inputs=lambda commit: copy.deepcopy(MANIFEST),
+            checked_operator_script=lambda: copy.deepcopy(OPERATOR))
+        self.repeated = proof()
+        self.after_repeat = lambda: None
+        self.write_proof(proof())
+        patches = [patch.object(module, 'OPERATOR_SCRIPT_SHA256', OPERATOR['sha256'], create=True),
+            patch.object(module, 'OUT', self.out), patch.object(module, 'PROOF_FILE', self.out / 'proof.json'),
+            patch.object(module, 'RECEIPT', self.out / 'proxy-policy-change-v2.json'),
+            patch.object(module, 'api', side_effect=self.world.api),
+            patch.object(module, 'checked_candidate', return_value=copy.deepcopy(CANDIDATE)),
+            patch.object(module, 'repeat_proof', side_effect=self.repeat),
+            patch.object(module.time, 'sleep'), patch.dict(os.environ, {'RENDER_API_KEY': SECRET}),
+            contextlib.redirect_stdout(self.output)]
+        for p in patches:
+            p.__enter__(); self.addCleanup(p.__exit__, None, None, None)
+
+    def write_proof(self, value):
+        (self.out / 'proof.json').write_text(json.dumps(value))
+
+    def repeat(self, helper):
+        self.write_proof(self.repeated)
+        self.after_repeat()
+        return copy.deepcopy(self.repeated)
+
+    def apply(self):
+        module.apply(self.helper, copy.deepcopy(CANDIDATE))
+
+    def receipt(self):
+        return json.loads((self.out / 'proxy-policy-change-v2.json').read_text())
+
+    def test_only_one_key_changes_and_exact_sha_is_deployed(self):
+        before = copy.deepcopy(self.world.env)
+        self.apply()
+        expected = {**before, module.KEY: module.POLICY}
+        self.assertEqual(self.world.env, expected)
+        self.assertEqual(self.world.actions, [('/services/' + module.SID + '/env-vars/' + module.KEY, 'PUT', {'value': module.POLICY}),
+            ('/services/' + module.SID + '/deploys', 'POST', {'commitId': SHA, 'clearCache': 'do_not_clear'})])
+        result = self.receipt()
+        self.assertEqual(result['verification'], 'deployment_pending')
+        self.assertFalse(result['externalHealthChecksAllowed'])
+        self.assertNotIn(SECRET, self.output.getvalue() + json.dumps(result))
+        self.assertNotIn('DATABASE_URL', json.dumps(result))
+        self.assertEqual(result['proofDigest'], module.digest(self.repeated))
+
+    def test_v2_accepts_only_the_two_allowed_edge_rejections(self):
+        value = proof()
+        for index in (1, 4):
+            value['checks'][index].update(outcome='edge_rejected', receivedVerifiedEgress=False,
+                                         httpStatus=403, edgeErrorCode=1000)
+        self.write_proof(value)
+        self.repeated = copy.deepcopy(value)
+        self.apply()
+        self.assertEqual([row[1] for row in self.world.actions], ['PUT', 'POST'])
+        self.assertEqual(self.receipt()['proofDigest'], module.digest(value))
+
+    def test_other_cases_cannot_use_edge_rejection(self):
+        for index in (0, 2, 3):
+            with self.subTest(index=index):
+                value = proof()
+                value['checks'][index].update(outcome='edge_rejected', receivedVerifiedEgress=False,
+                                             httpStatus=403, edgeErrorCode=1000)
+                self.write_proof(value)
+                with self.assertRaises(RuntimeError): self.apply()
+                self.assertEqual(self.world.actions, [])
+
+    def test_edge_rejection_requires_exact_types_and_values(self):
+        changes = [{'receivedVerifiedEgress': True}, {'suppliedHeaderDidNotControlResult': False},
+            {'httpStatus': 200}, {'httpStatus': 403.0}, {'edgeErrorCode': None},
+            {'edgeErrorCode': 1000.0}, {'edgeErrorCode': 1001}, {'outcome': 'rejected'},
+            {'responseBody': SECRET}]
+        for index in (1, 4):
+            for change in changes:
+                with self.subTest(index=index, change=change):
+                    value = proof()
+                    value['checks'][index].update(outcome='edge_rejected', receivedVerifiedEgress=False,
+                                                 httpStatus=403, edgeErrorCode=1000)
+                    value['checks'][index].update(change)
+                    self.write_proof(value)
+                    with self.assertRaises(RuntimeError): self.apply()
+                    self.assertEqual(self.world.actions, [])
+                    self.assertNotIn(SECRET, self.output.getvalue())
+
+    def test_verified_egress_requires_exact_types_and_values(self):
+        for change in ({'httpStatus': 200.0}, {'httpStatus': 403}, {'edgeErrorCode': 1000},
+                       {'receivedVerifiedEgress': 1}, {'suppliedHeaderDidNotControlResult': 1},
+                       {'outcome': 'unknown'}):
+            with self.subTest(change=change):
+                value = proof(); value['checks'][0].update(change); self.write_proof(value)
+                with self.assertRaises(RuntimeError): self.apply()
+                self.assertEqual(self.world.actions, [])
+
+    def test_v2_schema_and_order_are_required(self):
+        variants = []
+        for version in (1, 3, '2', 2.0, True, None):
+            value = proof(); value['proofVersion'] = version; variants.append(value)
+        value = proof(); del value['proofVersion']; variants.append(value)
+        value = proof(); value['checks'][1], value['checks'][4] = value['checks'][4], value['checks'][1]; variants.append(value)
+        value = proof(); value['checks'][1] = copy.deepcopy(value['checks'][0]); variants.append(value)
+        value = proof(); del value['checks'][1]['outcome']; variants.append(value)
+        value = proof(); value['privateExtra'] = SECRET; variants.append(value)
+        for value in variants:
+            with self.subTest(version=value.get('proofVersion')):
+                self.write_proof(value)
+                with self.assertRaises(RuntimeError): self.apply()
+                self.assertEqual(self.world.actions, [])
+                self.assertNotIn(SECRET, self.output.getvalue())
+
+    def test_operator_manifest_requires_exact_known_path_and_hash(self):
+        for operator in ({'path': 'scripts/check-ingress-proof.mjs', 'sha256': OPERATOR['sha256']},
+                         {'path': OPERATOR['path'], 'sha256': 'f' * 64},
+                         {'path': OPERATOR['path'], 'sha256': 123},
+                         {**OPERATOR, 'extra': SECRET}, {}, None):
+            with self.subTest(operator=operator):
+                value = proof(); value['operatorScript'] = operator; self.write_proof(value)
+                with self.assertRaises(RuntimeError): self.apply()
+                self.assertEqual(self.world.actions, [])
+
+    def test_operator_change_before_put_blocks_all_provider_mutations(self):
+        self.helper.checked_operator_script = lambda: {**OPERATOR, 'sha256': 'f' * 64}
+        with self.assertRaises(RuntimeError): self.apply()
+        self.assertEqual(self.world.actions, [])
+
+    def test_operator_is_rechecked_immediately_before_put(self):
+        events = []
+        original_api = self.world.api
+        def tracked(path, method='GET', body=None):
+            events.append(method)
+            return original_api(path, method, body)
+        def checked_operator():
+            self.assertTrue((self.out / 'proxy-policy-change-v2.json').is_file())
+            events.append('operator')
+            return copy.deepcopy(OPERATOR)
+        self.helper.checked_operator_script = checked_operator
+        with patch.object(module, 'api', side_effect=tracked): self.apply()
+        self.assertEqual(events.count('operator'), 1)
+        self.assertEqual(events[events.index('PUT') - 1], 'operator')
+
+    def test_all_five_proof_cases_are_required(self):
+        for index in range(5):
+            for field in ['receivedVerifiedEgress', 'suppliedHeaderDidNotControlResult']:
+                with self.subTest(index=index, field=field):
+                    bad = proof(); bad['checks'][index][field] = False; self.write_proof(bad)
+                    with self.assertRaises(RuntimeError): self.apply()
+                    self.assertEqual(self.world.actions, [])
+
+    def test_proof_must_be_fresh_and_bound_to_live_commit_and_run(self):
+        variants = [{'commit': WRONG}, {'deployId': 'dep-different'}, {'ciRunId': 999}, {'origin': 'https://wrong.invalid'},
+            {'checkedAt': (module.now() - datetime.timedelta(minutes=6)).isoformat()},
+            {'checkedAt': (module.now() + datetime.timedelta(minutes=1)).isoformat()}, {'deploymentAndConfigurationStable': False},
+            {'policyDuringCheck': module.POLICY}, {'independentIpv4SourcesAgreed': False}]
+        for change in variants:
+            with self.subTest(change=change):
+                value = proof(); value.update(change); self.write_proof(value)
+                with self.assertRaises((RuntimeError, ValueError)): self.apply()
+                self.assertEqual(self.world.actions, [])
+
+    def test_failed_repeated_proof_cannot_change_configuration(self):
+        self.repeated['checks'][0]['receivedVerifiedEgress'] = False
+        with self.assertRaises(RuntimeError): self.apply()
+        self.assertEqual(self.world.actions, [])
+
+    def test_full_environment_change_during_proof_blocks_put(self):
+        self.after_repeat = lambda: self.world.env.update({'OTHER_ENV': SECRET})
+        with self.assertRaises(RuntimeError): self.apply()
+        self.assertEqual(self.world.actions, [])
+        self.assertNotIn(SECRET, self.output.getvalue())
+
+    def test_same_sha_replacement_deployment_during_proof_blocks_put(self):
+        self.after_repeat = lambda: self.world.rows[0].update({'id': 'dep-other'})
+        with self.assertRaises(RuntimeError): self.apply()
+        self.assertEqual(self.world.actions, [])
+
+    def test_remote_branch_change_after_proof_blocks_put(self):
+        with patch.object(module, 'checked_candidate', return_value={**CANDIDATE, 'commit': WRONG}):
+            with self.assertRaises(RuntimeError): self.apply()
+        self.assertEqual(self.world.actions, [])
+
+    def test_proof_input_hash_change_blocks_put(self):
+        self.helper.checked_local_inputs = lambda commit: []
+        with self.assertRaises(RuntimeError): self.apply()
+        self.assertEqual(self.world.actions, [])
+
+    def test_service_and_database_plan_changes_block_put(self):
+        self.world.service['serviceDetails']['plan'] = 'starter'
+        with self.assertRaises(RuntimeError): self.apply()
+        self.world.service['serviceDetails']['plan'] = 'free'
+        self.world.database['plan'] = 'changed-plan'
+        with self.assertRaises(RuntimeError): self.apply()
+        self.assertEqual(self.world.actions, [])
+
+    def test_linked_environment_group_blocks_put_without_fetching_group_values(self):
+        self.world.groups = [{'id': 'evg-isolated', 'serviceLinks': [{'id': module.SID}]}]
+        with self.assertRaises(RuntimeError): self.apply()
+        self.assertEqual(self.world.actions, [])
+        self.assertNotIn('evg-isolated', self.output.getvalue())
+
+    def test_incomplete_environment_group_listing_blocks_put(self):
+        self.world.groups = [{'id': 'evg-isolated', 'serviceLinks': []} for _ in range(100)]
+        with self.assertRaises(RuntimeError): self.apply()
+        self.assertEqual(self.world.actions, [])
+
+    def test_unrelated_environment_group_metadata_is_not_logged(self):
+        self.world.groups = [{'id': 'evg-unrelated', 'name': SECRET, 'serviceLinks': [{'id': 'srv-unrelated'}]}]
+        self.apply()
+        self.assertNotIn(SECRET, self.output.getvalue())
+        self.assertNotIn('evg-unrelated', self.output.getvalue())
+
+
+    def test_duplicate_environment_keys_are_rejected(self):
+        original = self.world.api
+        def duplicate(path, method='GET', body=None):
+            status, data = original(path, method, body)
+            if path.endswith('/env-vars?limit=100'): data.append(copy.deepcopy(data[0]))
+            return status, data
+        with patch.object(module, 'api', side_effect=duplicate):
+            with self.assertRaises(RuntimeError): self.apply()
+        self.assertEqual(self.world.actions, [])
+
+    def test_other_change_after_put_suspends_and_does_not_deploy(self):
+        self.world.change_other_on_put = True
+        with self.assertRaises(RuntimeError): self.apply()
+        self.assertEqual([method for _, method, _ in self.world.actions], ['PUT', 'POST'])
+        self.assertTrue(self.world.actions[-1][0].endswith('/suspend'))
+        self.assertTrue(self.receipt()['serviceSuspended'])
+
+    def test_uncertain_put_is_not_retried_and_service_is_suspended(self):
+        self.world.put_timeout = True
+        with self.assertRaises(TimeoutError): self.apply()
+        self.assertEqual(sum(x[1] == 'PUT' for x in self.world.actions), 1)
+        self.assertEqual(sum(x[0].endswith('/suspend') for x in self.world.actions), 1)
+        self.assertTrue(self.receipt()['serviceSuspended'])
+        self.assertNotIn(SECRET, self.output.getvalue())
+
+    def test_uncertain_suspension_is_not_retried(self):
+        self.world.put_timeout = True; self.world.suspend_timeout = True
+        with self.assertRaises(TimeoutError): self.apply()
+        self.assertEqual(sum(x[0].endswith('/suspend') for x in self.world.actions), 1)
+        self.assertTrue(self.receipt()['suspendOutcomeUnknown'])
+
+    def test_wrong_deploy_commit_suspends_before_cancel(self):
+        self.world.deploy_sha = WRONG
+        with self.assertRaises(RuntimeError): self.apply()
+        endpoints = [x[0] for x in self.world.actions]
+        self.assertTrue(endpoints[-2].endswith('/suspend'))
+        self.assertTrue(endpoints[-1].endswith('/deploys/dep-new/cancel'))
+        self.assertTrue(self.receipt()['serviceSuspended'])
+
+    def test_empty_202_is_recorded_as_queued(self):
+        self.world.deploy_status = 202
+        self.apply()
+        self.assertTrue(self.receipt()['queued'])
+        self.assertNotIn('requestedDeploy', self.receipt())
+        self.assertFalse(self.receipt()['externalHealthChecksAllowed'])
+
+    def test_poll_requires_new_live_deploy_not_the_old_same_sha(self):
+        self.apply()
+        module.poll(self.helper, CANDIDATE)
+        self.assertFalse(self.receipt()['externalHealthChecksAllowed'])
+        self.world.rows[0]['status'] = 'live'; self.world.rows[1]['status'] = 'deactivated'
+        module.poll(self.helper, CANDIDATE)
+        self.assertTrue(self.receipt()['externalHealthChecksAllowed'])
+        self.assertEqual(self.receipt()['newLiveDeployId'], 'dep-new')
+
+    def test_poll_detects_any_full_environment_change(self):
+        self.apply(); self.world.env['OTHER_ENV'] = 'different'
+        with self.assertRaises(RuntimeError): module.poll(self.helper, CANDIDATE)
+        self.assertTrue(self.receipt()['serviceSuspended'])
+
+    def test_poll_stops_if_the_remote_candidate_moves(self):
+        self.apply()
+        with patch.object(module, 'checked_candidate', return_value={**CANDIDATE, 'commit': WRONG}):
+            with self.assertRaises(RuntimeError): module.poll(self.helper, CANDIDATE)
+        self.assertTrue(self.receipt()['serviceSuspended'])
+
+
+    def test_poll_detects_new_wrong_sha(self):
+        self.apply(); self.world.rows[0]['commit']['id'] = WRONG
+        with self.assertRaises(RuntimeError): module.poll(self.helper, CANDIDATE)
+        self.assertTrue(self.receipt()['serviceSuspended'])
+        self.assertEqual(self.receipt()['failure'], 'unexpected_deploy_commit')
+
+    def test_poll_stops_wrong_live_commit_even_for_historical_id(self):
+        self.apply()
+        self.world.rows = [{'id': 'dep-old', 'status': 'live', 'commit': {'id': WRONG}}]
+        with self.assertRaises(RuntimeError): module.poll(self.helper, CANDIDATE)
+        self.assertTrue(self.receipt()['serviceSuspended'])
+        self.assertEqual(self.receipt()['failure'], 'unexpected_deploy_commit')
+
+    def test_poll_does_not_allow_health_checks_with_another_pending_deploy(self):
+        self.apply()
+        self.world.rows[0]['status'] = 'live'; self.world.rows[1]['status'] = 'deactivated'
+        self.world.rows.insert(0, {'id': 'dep-queued', 'status': 'queued', 'commit': None})
+        module.poll(self.helper, CANDIDATE)
+        self.assertFalse(self.receipt()['externalHealthChecksAllowed'])
+        self.assertEqual(self.receipt()['verification'], 'deployment_pending')
+        self.assertEqual(self.world.service['suspended'], 'not_suspended')
+
+
+    def test_receipt_metadata_binding_prevents_old_deploy_reclassification(self):
+        self.apply(); receipt = self.receipt()
+        receipt['previousLiveDeployId'] = 'dep-forged'; receipt['previousDeployIds'] = ['dep-forged']
+        (self.out / 'proxy-policy-change-v2.json').write_text(json.dumps(receipt))
+        with self.assertRaises(RuntimeError): module.poll(self.helper, CANDIDATE)
+        self.assertTrue(self.receipt()['serviceSuspended'])
+
+    def test_unknown_receipt_fields_are_not_printed_or_used(self):
+        self.apply(); receipt = self.receipt(); receipt['privatePayload'] = SECRET
+        (self.out / 'proxy-policy-change-v2.json').write_text(json.dumps(receipt))
+        count = len(self.world.actions)
+        with self.assertRaises(RuntimeError): module.poll(self.helper, CANDIDATE)
+        self.assertEqual(len(self.world.actions), count)
+        self.assertNotIn(SECRET, self.output.getvalue())
+
+    def test_monitor_deadline_stops_pending_build(self):
+        self.apply()
+        later = module.now() + datetime.timedelta(minutes=11)
+        with patch.object(module, 'now', return_value=later):
+            with self.assertRaises(RuntimeError): module.poll(self.helper, CANDIDATE)
+        self.assertEqual(self.receipt()['failure'], 'monitor_deadline_exceeded')
+        self.assertTrue(self.receipt()['serviceSuspended'])
+
+
+class OperatorTests(unittest.TestCase):
+    def test_operation_allowlist_blocks_other_mutations(self):
+        attempts = [('/services/' + module.SID, 'PATCH', {'branch': 'main'}),
+            ('/postgres/' + module.DID, 'PATCH', {'plan': 'paid'}),
+            ('/services/' + module.SID + '/env-vars/DATABASE_URL', 'PUT', {'value': SECRET}),
+            ('/services/' + module.SID + '/env-vars/' + module.KEY, 'PUT', {'value': 'none'}),
+            ('/services/' + module.SID + '/resume', 'POST', None),
+            ('/services/' + module.SID + '/deploys', 'POST', {'commitId': SHA, 'extra': SECRET})]
+        with patch.object(module.OPENER, 'open') as opened:
+            for path, method, body in attempts:
+                with self.subTest(path=path):
+                    with self.assertRaises(RuntimeError): module.api(path, method, body)
+            opened.assert_not_called()
+
+    def test_redirects_never_forward_operator_authorization(self):
+        with patch.dict(os.environ, {'RENDER_API_KEY': SECRET}):
+            for code in [301, 302, 303, 307, 308]:
+                for method in ['GET', 'PUT', 'POST']:
+                    with self.subTest(code=code, method=method):
+                        seen = []
+                        class FakeHTTPS(module.urllib.request.HTTPSHandler):
+                            def https_open(self, request):
+                                seen.append(request)
+                                headers = Message(); headers['Location'] = 'https://redirect.invalid/credential-sink'
+                                response = urllib.response.addinfourl(io.BytesIO(b''), headers, request.full_url, code)
+                                response.msg = 'Isolated redirect fixture'
+                                return response
+                        opener = module.urllib.request.build_opener(module.NoRedirect(), FakeHTTPS())
+                        if method == 'GET': path, body = '/services/' + module.SID, None
+                        elif method == 'PUT': path, body = '/services/' + module.SID + '/env-vars/' + module.KEY, {'value': module.POLICY}
+                        else: path, body = '/services/' + module.SID + '/deploys', {'commitId': SHA, 'clearCache': 'do_not_clear'}
+                        with patch.object(module, 'OPENER', opener):
+                            with self.assertRaises(urllib.error.HTTPError) as error: module.api(path, method, body)
+                        self.assertEqual(error.exception.code, code)
+                        self.assertEqual(len(seen), 1)
+                        self.assertEqual(seen[0].full_url, 'https://api.render.com/v1' + path)
+                        self.assertNotIn(SECRET, str(error.exception))
+
+    def test_reviewed_readonly_helper_is_hash_bound(self):
+        with tempfile.TemporaryDirectory(prefix='proxy-proof-hash-offline-', dir=str(BASE)) as directory:
+            path = Path(directory) / 'proof.py'
+            raw = b'def run_bounded(*args, **kwargs):\n    return None\n'
+            path.write_bytes(raw)
+            with patch.object(module, 'PROOF_HELPER', path), \
+                 patch.object(module, 'PROOF_HELPER_SHA256', hashlib.sha256(raw).hexdigest()):
+                helper = module.verified_proof_helper()
+                self.assertTrue(callable(helper.run_bounded))
+                with patch.object(module, 'PROOF_HELPER_SHA256', '0' * 64):
+                    with self.assertRaises(RuntimeError): module.verified_proof_helper()
+
+    def test_candidate_remote_sha_and_successful_ci_are_required(self):
+        with tempfile.TemporaryDirectory(prefix='proxy-gate-offline-', dir=str(BASE)) as directory:
+            root = Path(directory)
+            (root / 'candidate-commit.json').write_text(json.dumps({'branch': module.BRANCH, 'commit': SHA, 'originalIndexUnchanged': True}))
+            run = {'head_sha': SHA, 'path': '.github/workflows/ci.yml', 'status': 'completed', 'conclusion': 'success', 'id': 12345}
+            for remote, ci, expected in [(SHA, run, True), (WRONG, run, False),
+                                         (SHA, {**run, 'conclusion': 'failure'}, False), (SHA, {**run, 'status': 'in_progress'}, False)]:
+                with self.subTest(remote=remote, conclusion=ci['conclusion']):
+                    outputs = [json.dumps({'object': {'sha': remote}}).encode(), json.dumps({'workflow_runs': [ci]}).encode()]
+                    calls = []
+                    def run_bounded(argv, **kwargs):
+                        calls.append((argv, kwargs)); return subprocess.CompletedProcess(argv, 0, outputs.pop(0), b'')
+                    helper = types.SimpleNamespace(run_bounded=run_bounded)
+                    with patch.object(module, 'PRIVATE', root), patch.dict(os.environ, {'RENDER_API_KEY': SECRET}):
+                        if expected: self.assertEqual(module.checked_candidate(helper), CANDIDATE)
+                        else:
+                            with self.assertRaises(RuntimeError): module.checked_candidate(helper)
+                    self.assertTrue(all('RENDER_API_KEY' not in kwargs['env'] for _, kwargs in calls))
+
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)

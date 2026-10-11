@@ -1,0 +1,51 @@
+{
+  "scope": "Hosted browser diagnostic and local synthetic cache comparison, 2026-10-11",
+  "sourceCommit": "31961cbd762587225b4b8a814828dc0829952978",
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 4475,
+      "sha256": "57c871682a9e5dbd0a99e2cf47f704b928d0030507792b9b7197e12bb84ce4bf"
+    },
+    {
+      "file": "browser-diagnostic-1791701345130.json",
+      "bytes": 11909,
+      "sha256": "4343d170214cbd88cbe39971dc1615689e807c0993eb22ea4a365a903bef661f"
+    },
+    {
+      "file": "browser-only.mjs.txt",
+      "bytes": 10245,
+      "sha256": "695558a482a668f872e602351d527f09b10a3ecb24eed7b8e25a636880536627"
+    },
+    {
+      "file": "evidence-secret-scan.json",
+      "bytes": 941,
+      "sha256": "8d28a1cfd8bf2841ee3bbbdab0118cc367def0c73f14fc1f81c6bf5ff02c2ff3"
+    },
+    {
+      "file": "local-cache-comparison.json",
+      "bytes": 3132,
+      "sha256": "58bc1df30905081febc4480a31e3648b5d268a6a68f597f039c76debf5c098ca"
+    },
+    {
+      "file": "local-cache-comparison.mjs.txt",
+      "bytes": 5869,
+      "sha256": "5099efbe3e9ed03e766d4b2938f64170639feebcc01117df21d26c24a9bb902a"
+    },
+    {
+      "file": "original-hosted-failure.json",
+      "bytes": 8515,
+      "sha256": "c83e05ec99311c9c33859a02808bb4b8d02da7ad325db3c8051370710882d843"
+    },
+    {
+      "file": "provenance.json",
+      "bytes": 2420,
+      "sha256": "5c4a0a05b9cb92673b3e5272c12ec4f75c2ea52f8b38ba75e4aa4faaf8ea4ce1"
+    },
+    {
+      "file": "review.json",
+      "bytes": 3642,
+      "sha256": "b25c961a96c7209b6021267f15f8267745123b95569a7e9a72eeed0cb9f9322b"
+    }
+  ]
+}

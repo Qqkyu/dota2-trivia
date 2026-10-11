@@ -1,0 +1,259 @@
+{
+  "checkedAt": "2026-10-11T06:36:55.659Z",
+  "passed": 63,
+  "hostedRequests": 0,
+  "cases": [
+    {
+      "name": "valid private gate",
+      "passed": true
+    },
+    {
+      "name": "reject gate origin",
+      "passed": true
+    },
+    {
+      "name": "reject gate service",
+      "passed": true
+    },
+    {
+      "name": "reject gate revision",
+      "passed": true
+    },
+    {
+      "name": "reject gate CI",
+      "passed": true
+    },
+    {
+      "name": "reject gate proof",
+      "passed": true
+    },
+    {
+      "name": "reject gate proxy",
+      "passed": true
+    },
+    {
+      "name": "reject gate stale",
+      "passed": true
+    },
+    {
+      "name": "reject gate future",
+      "passed": true
+    },
+    {
+      "name": "reject gate operator",
+      "passed": true
+    },
+    {
+      "name": "reject gate imports",
+      "passed": true
+    },
+    {
+      "name": "reject foreign, credentialed or insecure URL",
+      "passed": true
+    },
+    {
+      "name": "reject foreign, credentialed or insecure URL",
+      "passed": true
+    },
+    {
+      "name": "reject foreign, credentialed or insecure URL",
+      "passed": true
+    },
+    {
+      "name": "reject foreign, credentialed or insecure URL",
+      "passed": true
+    },
+    {
+      "name": "reject foreign, credentialed or insecure URL",
+      "passed": true
+    },
+    {
+      "name": "reject foreign, credentialed or insecure URL",
+      "passed": true
+    },
+    {
+      "name": "provider URL stays on exact service",
+      "passed": true
+    },
+    {
+      "name": "private guest vote fields",
+      "passed": true
+    },
+    {
+      "name": "reject vote public",
+      "passed": true
+    },
+    {
+      "name": "reject vote account",
+      "passed": true
+    },
+    {
+      "name": "reject vote alpha",
+      "passed": true
+    },
+    {
+      "name": "reject vote wrongRoom",
+      "passed": true
+    },
+    {
+      "name": "reject vote otherAnswer",
+      "passed": true
+    },
+    {
+      "name": "reject vote extraField",
+      "passed": true
+    },
+    {
+      "name": "untrusted exception text is never returned",
+      "passed": true
+    },
+    {
+      "name": "private error labels are rejected",
+      "passed": true
+    },
+    {
+      "name": "browser proxy removes request credentials and response cookies",
+      "passed": true
+    },
+    {
+      "name": "browser proxy rejects redirects without issuing a second request",
+      "passed": true
+    },
+    {
+      "name": "browser proxy blocks POST before transport",
+      "passed": true
+    },
+    {
+      "name": "browser proxy blocks PUT before transport",
+      "passed": true
+    },
+    {
+      "name": "browser proxy blocks PATCH before transport",
+      "passed": true
+    },
+    {
+      "name": "browser proxy blocks DELETE before transport",
+      "passed": true
+    },
+    {
+      "name": "browser proxy blocks OPTIONS before transport",
+      "passed": true
+    },
+    {
+      "name": "browser proxy blocks CONNECT before transport",
+      "passed": true
+    },
+    {
+      "name": "browser proxy blocks TRACE before transport",
+      "passed": true
+    },
+    {
+      "name": "absolute browser deadline fires even without further requests",
+      "passed": true
+    },
+    {
+      "name": "a hung browser close kills only its owned child and settles with failure",
+      "passed": true
+    },
+    {
+      "name": "graceful browser close does not invoke kill",
+      "passed": true
+    },
+    {
+      "name": "private guest success has exactly one vote and confirmed cleanup",
+      "passed": true
+    },
+    {
+      "name": "cleanup after ambiguous-create without retrying write",
+      "passed": true
+    },
+    {
+      "name": "cleanup after ambiguous-vote without retrying write",
+      "passed": true
+    },
+    {
+      "name": "private reveal retries only a read at the vote-grace boundary",
+      "passed": true
+    },
+    {
+      "name": "cleanup failure remains a failure after two attempts",
+      "passed": true
+    },
+    {
+      "name": "recovery accepts only this deployment and owned guest",
+      "passed": true
+    },
+    {
+      "name": "recovery rejects deployment",
+      "passed": true
+    },
+    {
+      "name": "recovery rejects revision",
+      "passed": true
+    },
+    {
+      "name": "recovery rejects origin",
+      "passed": true
+    },
+    {
+      "name": "recovery rejects local",
+      "passed": true
+    },
+    {
+      "name": "recovery rejects publicRoom",
+      "passed": true
+    },
+    {
+      "name": "recovery rejects account",
+      "passed": true
+    },
+    {
+      "name": "recovery rejects unknownCreation",
+      "passed": true
+    },
+    {
+      "name": "recovery rejects badVoteState",
+      "passed": true
+    },
+    {
+      "name": "expired gate is accepted only for cleanup of the owned room",
+      "passed": true
+    },
+    {
+      "name": "guest records ownership and vote attempts before sending each write",
+      "passed": true
+    },
+    {
+      "name": "owned-room recovery sends only leave and absence reads",
+      "passed": true
+    },
+    {
+      "name": "transport returns redirect without following it",
+      "passed": true
+    },
+    {
+      "name": "transport bounds response bytes",
+      "passed": true
+    },
+    {
+      "name": "cleanup retains a separate byte allowance after the main budget is exhausted",
+      "passed": true
+    },
+    {
+      "name": "cleanup keeps four requests after a rejected main request exhausts its budget",
+      "passed": true
+    },
+    {
+      "name": "transport rejects an app credential header before sending",
+      "passed": true
+    },
+    {
+      "name": "transport refuses a second private vote before sending",
+      "passed": true
+    },
+    {
+      "name": "transport rejects unapproved mutation paths before sending",
+      "passed": true
+    }
+  ]
+}

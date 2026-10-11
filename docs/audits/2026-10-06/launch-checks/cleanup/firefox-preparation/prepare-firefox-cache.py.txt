@@ -1,0 +1,198 @@
+#!/usr/bin/env python3
+"""Remove four empty audit-source entries after the existing cache is verified.
+
+Default execution is read-only and checks metadata only. No cache destination is
+changed. The fixed main cleanup helper performs the later tool retention.
+"""
+import argparse
+import base64
+import datetime
+import hashlib
+import importlib.util
+import json
+import os
+from pathlib import Path
+import stat
+import subprocess
+import sys
+
+CLOSE = Path('/tmp/dota2-trivia-audit-close')
+SOURCE = Path('/tmp/queue-arcade-deep-review/browser-cache/firefox-1532')
+DESTINATION = Path('/home/kulmisiu/.cache/ms-playwright/firefox-1532')
+BASE_PATH = CLOSE / 'cleanup-audit.py'
+BASE_HASH = 'b08f8bbe81d15102f125acf0c77177b669ff8b9106563c83a904c53506f26a94'
+WINDOWS_REPORT = CLOSE / 'windows-task-users.json'
+RECEIPT = CLOSE / 'firefox-cache-preparation.json'
+RUNTIME = ('firefox/.parentlock', 'firefox/updates/0', 'firefox/updates/downloading', 'firefox/updates')
+
+class Refusal(RuntimeError):
+    pass
+
+def require(condition, reason):
+    if not condition:
+        raise Refusal(reason)
+
+def load_base():
+    require(BASE_PATH.is_file() and not BASE_PATH.is_symlink(), 'Main cleanup helper is missing or is a symlink.')
+    require(hashlib.sha256(BASE_PATH.read_bytes()).hexdigest() == BASE_HASH, 'Main cleanup helper hash differs.')
+    spec = importlib.util.spec_from_file_location('pinned_cleanup', BASE_PATH)
+    base = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(base)
+    base.no_symlink_ancestors(BASE_PATH)
+    return base
+
+def identity(value):
+    return (value.st_dev, value.st_ino, value.st_uid, stat.S_IFMT(value.st_mode))
+
+def runtime_guard(base):
+    base.owned_directory(SOURCE)
+    base.owned_directory(DESTINATION)
+    root_device = SOURCE.stat().st_dev
+    snapshot = {}
+    for relative in RUNTIME:
+        path = SOURCE / relative
+        base.no_symlink_ancestors(path)
+        value = path.lstat()
+        require(value.st_uid == os.getuid() and value.st_dev == root_device, 'Runtime entry owner or filesystem differs.')
+        if relative.endswith('.parentlock'):
+            require(stat.S_ISREG(value.st_mode) and value.st_size == 0 and value.st_nlink == 1, 'Lock must be an empty single-link regular file.')
+        else:
+            require(stat.S_ISDIR(value.st_mode), 'Update entry must be a directory.')
+            expected = ['0', 'downloading'] if relative == 'firefox/updates' else []
+            require(sorted(p.name for p in path.iterdir()) == expected, 'Update directory has unexpected entries.')
+        snapshot[relative] = identity(value)
+    for relative in ('firefox',):
+        value = (SOURCE / relative).lstat()
+        require(stat.S_ISDIR(value.st_mode) and value.st_uid == os.getuid(), 'Firefox source directory differs.')
+        snapshot[relative] = identity(value)
+    snapshot['.'] = identity(SOURCE.lstat())
+    return snapshot
+
+def windows_guard(base, now=None):
+    base.no_symlink_ancestors(WINDOWS_REPORT)
+    value = WINDOWS_REPORT.stat()
+    require(stat.S_ISREG(value.st_mode) and value.st_uid == os.getuid() and value.st_nlink == 1, 'Windows report owner or type differs.')
+    require(value.st_size <= 64 * 1024, 'Windows report exceeds its size bound.')
+    report = json.loads(WINDOWS_REPORT.read_text())
+    when = datetime.datetime.fromisoformat(report['checkedAt'])
+    require(when.tzinfo is not None, 'Windows report lacks a timezone.')
+    now = now or datetime.datetime.now(datetime.timezone.utc)
+    age = (now - when).total_seconds()
+    require(-10 <= age <= 300, 'Windows process report is stale or from the future.')
+    require(report.get('taskPathMatches') == [] and report.get('deviceToolProcesses') == [], 'Windows process report has active task/tool matches.')
+    require(report.get('commandLinesLogged') is False and report.get('processesChanged') is False, 'Windows report has unexpected scope.')
+
+def windows_exact_paths():
+    # Match Unix paths after normalizing Windows separators. This also covers
+    # WSL UNC paths, without exposing complete process arguments.
+    patterns = json.dumps([str(SOURCE), str(DESTINATION)])
+    script = """$ErrorActionPreference = 'Stop'
+$roots = ConvertFrom-Json '__ROOTS__'
+$hits = @()
+foreach ($p in Get-CimInstance Win32_Process) {
+  if ($p.ProcessId -eq $PID) { continue }
+  $command = ([string]$p.CommandLine).Replace('\\','/').ToLowerInvariant()
+  $executable = ([string]$p.ExecutablePath).Replace('\\','/').ToLowerInvariant()
+  $matched = @($roots | Where-Object {
+    $needle = ([string]$_).ToLowerInvariant()
+    $command.Contains($needle) -or $executable.Contains($needle)
+  })
+  if ($matched.Count -gt 0) {
+    $hits += [pscustomobject]@{ processId=$p.ProcessId; name=$p.Name; matchedRoots=@($matched) }
+  }
+}
+[pscustomobject]@{ checkedRoots=@($roots); matches=@($hits); commandLinesLogged=$false; processesChanged=$false } | ConvertTo-Json -Depth 5 -Compress
+""".replace('__ROOTS__', patterns)
+    encoded = base64.b64encode(script.encode('utf-16le')).decode('ascii')
+    try:
+        process = subprocess.run(['/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe', '-NoLogo', '-NoProfile', '-NonInteractive', '-EncodedCommand', encoded], capture_output=True, timeout=30)
+    except (OSError, subprocess.SubprocessError):
+        raise Refusal('Exact Windows path check could not run.')
+    require(process.returncode == 0, 'Exact Windows path check failed; raw output withheld.')
+    report = json.loads(process.stdout.decode('utf-8-sig'))
+    require(report.get('checkedRoots') == [str(SOURCE), str(DESTINATION)], 'Windows path check covered different roots.')
+    require(report.get('matches') == [], 'Windows processes still use the source or cache path.')
+    require(report.get('commandLinesLogged') is False and report.get('processesChanged') is False, 'Exact Windows report scope differs.')
+
+def compare_trees(base):
+    before = base.tree(SOURCE)
+    destination = base.tree(DESTINATION)
+    for relative in RUNTIME:
+        require(relative in before, 'Source runtime entry disappeared.')
+        del before[relative]
+    require(before == destination, 'Source and existing cache have different paths or file hashes.')
+    return base.fingerprint(destination)
+
+def remove_runtime(snapshot):
+    # Open fixed directories without following links. All deletions are relative
+    # to these file descriptors, never a recursively resolved user path.
+    flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
+    source_fd = firefox_fd = updates_fd = None
+    try:
+        source_fd = os.open(SOURCE, flags)
+        require(identity(os.fstat(source_fd)) == snapshot['.'], 'Source root identity changed.')
+        firefox_fd = os.open('firefox', flags, dir_fd=source_fd)
+        require(identity(os.fstat(firefox_fd)) == snapshot['firefox'], 'Firefox directory identity changed.')
+        updates_fd = os.open('updates', flags, dir_fd=firefox_fd)
+        require(identity(os.fstat(updates_fd)) == snapshot['firefox/updates'], 'Update parent identity changed.')
+        lock = os.stat('.parentlock', dir_fd=firefox_fd, follow_symlinks=False)
+        require(identity(lock) == snapshot['firefox/.parentlock'] and lock.st_size == 0 and lock.st_nlink == 1, 'Lock changed before removal.')
+        os.unlink('.parentlock', dir_fd=firefox_fd)
+        for leaf in ('0', 'downloading'):
+            current = os.stat(leaf, dir_fd=updates_fd, follow_symlinks=False)
+            require(identity(current) == snapshot['firefox/updates/' + leaf], 'Update leaf identity changed.')
+            os.rmdir(leaf, dir_fd=updates_fd)
+        current = os.stat('updates', dir_fd=firefox_fd, follow_symlinks=False)
+        require(identity(current) == snapshot['firefox/updates'], 'Update parent changed before removal.')
+        os.rmdir('updates', dir_fd=firefox_fd)
+    finally:
+        for fd in (updates_fd, firefox_fd, source_fd):
+            if fd is not None:
+                os.close(fd)
+
+def prepare(base, execute=False, check_hashes=False, hosted_complete=False, ci_complete=False):
+    snapshot = runtime_guard(base)
+    result = {'mode': 'execute' if execute else 'read-only preflight', 'runtime_entries': len(RUNTIME), 'content_hashes_checked': False, 'removed_entries': 0, 'cache_destination_changed': False, 'pinned_main_helper': BASE_HASH}
+    if execute:
+        require(hosted_complete and ci_complete, 'Hosted checks and CI must be complete before removal.')
+        windows_guard(base)
+        windows_exact_paths()
+        base.mount_guard((SOURCE, DESTINATION))
+        base.process_guard((SOURCE, DESTINATION))
+    expected = None
+    if execute or check_hashes:
+        expected = compare_trees(base)
+        result['content_hashes_checked'] = True
+        result['retained_bundle_fingerprint'] = expected
+    if not execute:
+        return result
+    # Refresh all guards after hashing and immediately before removing empties.
+    windows_guard(base)
+    windows_exact_paths()
+    base.mount_guard((SOURCE, DESTINATION))
+    base.process_guard((SOURCE, DESTINATION))
+    require(runtime_guard(base) == snapshot, 'Runtime metadata changed during verification.')
+    remove_runtime(snapshot)
+    require(base.fingerprint(base.tree(SOURCE)) == expected == base.fingerprint(base.tree(DESTINATION)), 'Post-removal Firefox hashes differ.')
+    result['removed_entries'] = len(RUNTIME)
+    result['completed_at_utc'] = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    base.private_write(RECEIPT, result)
+    return result
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--execute', action='store_true')
+    parser.add_argument('--check-hashes', action='store_true')
+    parser.add_argument('--hosted-checks-complete', action='store_true')
+    parser.add_argument('--ci-complete', action='store_true')
+    args = parser.parse_args()
+    base = load_base()
+    print(json.dumps(prepare(base, args.execute, args.check_hashes, args.hosted_checks_complete, args.ci_complete)))
+
+if __name__ == '__main__':
+    try:
+        main()
+    except Exception as exc:
+        # No file values or raw process arguments enter error output.
+        print('Firefox cache preparation stopped: ' + str(exc), file=sys.stderr)
+        sys.exit(1)

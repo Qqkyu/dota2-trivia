@@ -1,0 +1,55 @@
+{
+  "scope": "Operator preparation and isolated checks. The final target commit scan has not run.",
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 4473,
+      "sha256": "b72dc2eac4cb908f733ab4cbd7226330f1cf769d599cb29d6e88beb909cc4173"
+    },
+    {
+      "file": "final-exact-scan.py",
+      "bytes": 22142,
+      "sha256": "0702eac3321ab67a03784edcf8a8c3440cde7df6642f5716f20788edf5acfc5e"
+    },
+    {
+      "file": "gitleaks-all-paths-result.json",
+      "bytes": 709,
+      "sha256": "373892f9781ececf29363ae41858f7243c8613aa49317fc55427a76f43933099"
+    },
+    {
+      "file": "independent-review.json",
+      "bytes": 1692,
+      "sha256": "8e8b565a4e950f79ed6b81a99dfc1a11e0bf479ffcb4e5c17996f2e157c2a7d6"
+    },
+    {
+      "file": "review-tests-after.log",
+      "bytes": 1728,
+      "sha256": "176b6cdc7fe0d9c3fc5dee66de26369193a3b41b7c222d4e746f49e3cc9b791f"
+    },
+    {
+      "file": "review-tests-before.log",
+      "bytes": 2577,
+      "sha256": "ed143f7313db603d7baf6686e5ad344de8d4162f3a656780e558f2c25a1b3eaa"
+    },
+    {
+      "file": "review-tests-final.log",
+      "bytes": 1812,
+      "sha256": "0d46d2adcf9054e23b386eae42a7ab592039f0d79a24c35995215d7df71a006d"
+    },
+    {
+      "file": "review-tests.py",
+      "bytes": 17231,
+      "sha256": "cd2c3b35da069118eab62e1d0c46c6ca857cd47ac9d4ac2be34af0a35e595514"
+    },
+    {
+      "file": "reviewed-findings-baseline.json",
+      "bytes": 23861,
+      "sha256": "35427204b8bdea6ce98aeb1fadffef1d2bb5267326ca024bdfbaf35ca80b0005"
+    },
+    {
+      "file": "test-gitleaks-all-paths.py",
+      "bytes": 3025,
+      "sha256": "a01f212d25075cbb0e8e1256d92cbaf1e49e58b31eec123e43ba7cc40704ef4f"
+    }
+  ]
+}

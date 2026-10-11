@@ -1,0 +1,196 @@
+{
+  "passed": 38,
+  "total": 38,
+  "cases": [
+    {
+      "case": "private normal copy",
+      "passed": true,
+      "result": "accepted"
+    },
+    {
+      "case": "private modes accepted",
+      "passed": true,
+      "result": "accepted"
+    },
+    {
+      "case": "changed private file mode refuses",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "changed private directory mode refuses",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "private copy mode",
+      "passed": true,
+      "result": "accepted"
+    },
+    {
+      "case": "private destination collision",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "symlink ancestor",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "private symlink",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "tool relative safe link",
+      "passed": true,
+      "result": "accepted"
+    },
+    {
+      "case": "tool relative escaping link",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "tool absolute escaping link",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "tar parent traversal",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "tar absolute link",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "tar relative escaping link",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "tar member below link",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "tar hard link",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "tar duplicate",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "tar outside prefix ignored",
+      "passed": true,
+      "result": "accepted"
+    },
+    {
+      "case": "active helper found from cmdline",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "unreadable directory fails closed",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "private hard-link collision refuses",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "unrelated hard-link permissions unchanged",
+      "passed": true,
+      "result": "0o644"
+    },
+    {
+      "case": "fixed eleven roots and launch last",
+      "passed": true,
+      "result": "accepted"
+    },
+    {
+      "case": "fixed plan accepts exact paths",
+      "passed": true,
+      "result": "accepted"
+    },
+    {
+      "case": "fixed plan rejects extra deletion root",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "nested mount refusal",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "tool move validates exact bytes",
+      "passed": true,
+      "result": "accepted"
+    },
+    {
+      "case": "tool move receipt and source state",
+      "passed": true,
+      "result": "accepted"
+    },
+    {
+      "case": "tool move resumes after rename",
+      "passed": true,
+      "result": "accepted"
+    },
+    {
+      "case": "tool cache collision refuses",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "venv prefix rewrite",
+      "passed": true,
+      "result": "accepted"
+    },
+    {
+      "case": "wrapper executable mode preserved",
+      "passed": true,
+      "result": "accepted"
+    },
+    {
+      "case": "venv relocated fingerprint",
+      "passed": true,
+      "result": "accepted"
+    },
+    {
+      "case": "wrapper hard-link refusal",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "archive matches running script and plan",
+      "passed": true,
+      "result": "accepted"
+    },
+    {
+      "case": "archive rejects different running script",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "archive rejects different plan",
+      "passed": true,
+      "result": "refused"
+    },
+    {
+      "case": "archive rejects omitted file",
+      "passed": true,
+      "result": "refused"
+    }
+  ]
+}

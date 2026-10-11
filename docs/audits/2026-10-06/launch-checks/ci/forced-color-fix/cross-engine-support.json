@@ -1,0 +1,28 @@
+{
+  "firefox": {
+    "version": "151.0",
+    "completed": true,
+    "pagesChecked": 8,
+    "fixturesChecked": 2,
+    "paintingChecks": 78,
+    "forcedColorsSupport": "active and verified in light/dark",
+    "failures": [],
+    "exitCode": 0,
+    "earlierEnvironmentFailures": [
+      "Matching firefox-1532 was not installed.",
+      "Installed Firefox 115 was incompatible with the current Playwright viewport protocol."
+    ],
+    "setup": "Downloaded Firefox 151 to the normal Playwright cache; no host packages changed."
+  },
+  "webkit": {
+    "version": null,
+    "completed": false,
+    "pagesChecked": 0,
+    "forcedColorsSupport": "not assessed",
+    "failure": "The installed WebKit process cannot load libavif.so.13 and exits before the browser starts.",
+    "log": "webkit-green/run.log",
+    "exitCode": 1
+  },
+  "installationAttempted": true,
+  "hostPackagesChanged": false
+}

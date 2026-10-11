@@ -1,0 +1,38 @@
+test_changed_root_identity_blocks_deletion (__main__.CleanupTests) ... ok
+test_chrome_absolute_link_rejected (__main__.CleanupTests) ... ok
+test_chrome_duplicate_rejected (__main__.CleanupTests) ... ok
+test_chrome_hardlink_rejected (__main__.CleanupTests) ... ok
+test_chrome_ignores_workspace (__main__.CleanupTests) ... ok
+test_chrome_link_ancestor_rejected (__main__.CleanupTests) ... ok
+test_chrome_traversal_rejected (__main__.CleanupTests) ... ok
+test_cmdline_only_process_blocks_cleanup (__main__.CleanupTests) ... ok
+test_dry_run_does_not_hash_or_write (__main__.CleanupTests) ... ok
+test_escaping_tool_link_rejected (__main__.CleanupTests) ... ok
+test_exact_root_deletion_leaves_unrelated_directory (__main__.CleanupTests) ... ok
+test_hardlinked_wrapper_rejected (__main__.CleanupTests) ... ok
+test_identical_tool_destination_reused_without_overwrite (__main__.CleanupTests) ... ok
+test_internal_tool_link_kept (__main__.CleanupTests) ... ok
+test_interrupted_delete_receipt_can_resume (__main__.CleanupTests) ... ok
+test_known_android_link_allowed (__main__.CleanupTests) ... ok
+test_known_python_link_allowed (__main__.CleanupTests) ... ok
+test_missing_completion_flags_block_execution (__main__.CleanupTests) ... ok
+test_missing_root_without_intent_is_rejected (__main__.CleanupTests) ... ok
+test_mount_under_scratch_rejected (__main__.CleanupTests) ... ok
+test_prefix_repair_replaces_all_occurrences (__main__.CleanupTests) ... ok
+test_private_copy_collision_same_size_rejected (__main__.CleanupTests) ... ok
+test_private_copy_has_exact_bytes_and_private_modes (__main__.CleanupTests) ... ok
+test_private_hardlink_rejected (__main__.CleanupTests) ... ok
+test_private_staging_collision_rejected (__main__.CleanupTests) ... ok
+test_private_symlink_rejected (__main__.CleanupTests) ... ok
+test_relocation_and_resume (__main__.CleanupTests) ... ok
+test_scope_cannot_be_broadened_by_plan (__main__.CleanupTests) ... ok
+test_symlink_ancestor_rejected (__main__.CleanupTests) ... ok
+test_tool_collision_preserves_both (__main__.CleanupTests) ... ok
+test_tree_hash_detects_same_size_change (__main__.CleanupTests) ... ok
+test_unrelated_cmdline_is_allowed (__main__.CleanupTests) ... ok
+test_unrelated_mount_is_allowed (__main__.CleanupTests) ... ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 0.034s
+
+OK

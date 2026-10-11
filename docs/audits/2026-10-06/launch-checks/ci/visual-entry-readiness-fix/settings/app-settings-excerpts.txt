@@ -1,0 +1,50 @@
+src/components/queue-arcade.tsx, lines 164-169
+
+const REVEAL_DURATION_MS = 7_000;
+const ANSWER_DURATION_MS = 15_000;
+const DEFAULT_GAME_VOLUME = 0.7;
+const MIN_GAME_VOLUME = 0.1;
+const LETTERS = ["A", "B", "C", "D"] as const;
+
+src/components/queue-arcade.tsx, lines 189-192
+const SETTINGS_KEY = "queue-arcade:settings:v4";
+const PREVIOUS_SETTINGS_KEY = "queue-arcade:settings:v3";
+const LEGACY_STORAGE_KEY = "queue-trivia:stats:v1";
+const LEGACY_SETTINGS_KEY = "queue-trivia:settings:v1";
+
+src/components/queue-arcade.tsx, lines 4040-4063
+        const currentSettings = safeBrowserStorage("local").getItem(SETTINGS_KEY);
+        const storedSettings =
+          currentSettings ??
+          safeBrowserStorage("local").getItem(PREVIOUS_SETTINGS_KEY) ??
+          safeBrowserStorage("local").getItem(LEGACY_SETTINGS_KEY);
+        if (storedStats) {
+          const storage = safeBrowserStorage("local");
+          const statsKey = storage.getItem(STORAGE_KEY) === null ? LEGACY_STORAGE_KEY : STORAGE_KEY;
+          const loaded = readGuestLifetimeStats(storage, statsKey);
+          if (statsKey === LEGACY_STORAGE_KEY) storage.setItem(STORAGE_KEY, JSON.stringify(loaded));
+          setLifetimeStats(loaded);
+        }
+        if (storedSettings) {
+          const settings = JSON.parse(storedSettings) as {
+            soundEnabled?: boolean;
+            gameVolume?: number;
+          };
+          if (typeof settings.soundEnabled === "boolean") setSoundEnabled(settings.soundEnabled);
+          if (typeof settings.gameVolume === "number" && Number.isFinite(settings.gameVolume)) {
+            const stored = Math.min(1, Math.max(MIN_GAME_VOLUME, settings.gameVolume));
+            const fromInaudibleDefault = !currentSettings && stored <= 0.1;
+            setGameVolume(fromInaudibleDefault ? DEFAULT_GAME_VOLUME : stored);
+          }
+        }
+
+src/components/queue-arcade.tsx, lines 4322-4330
+            <input
+              className={styles.volumeSlider}
+              data-testid="game-volume"
+              type="range"
+              min={MIN_GAME_VOLUME * 100}
+              max="100"
+              step="5"
+              value={Math.round(gameVolume * 100)}
+              onChange={(event) => {

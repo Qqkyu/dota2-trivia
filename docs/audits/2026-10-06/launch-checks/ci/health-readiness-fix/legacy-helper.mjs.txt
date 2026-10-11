@@ -1,0 +1,5 @@
+/** Read one health response within the startup probe's request deadline. */
+export async function readHealthWithDeadline(url, timeoutMs = 2000) {
+  const response = await fetch(url, { signal: AbortSignal.timeout(timeoutMs) });
+  return { ok: response.ok, health: await response.json() };
+}

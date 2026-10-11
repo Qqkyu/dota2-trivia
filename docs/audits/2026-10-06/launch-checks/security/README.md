@@ -2,6 +2,34 @@
 
 Checked on 2026-10-06. Earlier audit archives were not changed.
 
+The hosted acceptance row was updated on 2026-10-11. The
+[authenticated ingress proof](../hosting/hosted-ingress-proof-v2.json) passed all
+five cases. The edge rejected requests that supplied `CF-Connecting-IP` and
+preserved the verified client address in the other cases. The
+[policy receipt](../hosting/proxy-policy-change-v2.json) confirms that the approved
+`cf-connecting-ip` setting and the same checked commit are live.
+
+The [address-isolation check](../hosting/acceptance-20261011/address-isolation-edge-v3-1791700698282.json)
+confirmed that a separate IPv6 client remained allowed while the IPv4 client was
+rate-limited. The IPv6 control used an
+[explicit Cloudflare shared-edge connection](../hosting/ipv6-routing-20261011/README.md)
+with the app hostname and TLS certificate verification preserved. It does not
+establish native IPv6 support in Render DNS. The dated checks and procedures below
+remain the initial review record.
+
+The 2026-10-10 secret-scan review found that older six-value checks omitted the
+configured `STEAM_WEB_API_KEY` because they looked for `STEAM_API_KEY`. The
+[corrected source-candidate check](final-exact-scan-v2/steam-web-key-correction.json)
+checked seven app values and two operator values, with no matches. The
+[corrected final scan operator](final-exact-scan-v2/README.md) requires the actual
+Steam key name and uses that nine-value scope. After the archive closes, run it
+against the exact evidence commit and its verified release parent. Pass the
+[latest 76-record baseline](source-candidate-31961cb/reviewed-findings-through-31961cb.json)
+explicitly with `--reviewed-findings`. Require no known-value matches or unreviewed
+findings, successful scanner redaction, and unchanged Git state. Keep the final
+scan receipt outside its own scanned archive and state its result in the final
+summary. Old scan archives and the separate Steam provider checks remain unchanged.
+
 ## Acceptance and results
 
 | Requirement | Result | Evidence |
@@ -12,7 +40,7 @@ Checked on 2026-10-06. Earlier audit archives were not changed.
 | Authentication rejects malformed, unsigned, duplicate, stale and replayed assertions. | Passed local route regressions with synthetic provider responses. Production cookie and canonical-origin checks passed. | [Final regression log](regressions-final.log), `tests/security-auth.test.mjs`. |
 | Steam's public discovery, login page and verification endpoint are reachable over verified TLS. | Passed three unauthenticated checks. | [Provider result](steam-provider.json), [discovery document](steam-discovery.xml). |
 | Proxy trust stays explicit and ignores other caller-supplied address headers. | Passed strict address, configuration and source-limit tests. A local TLS ingress test also passed. | [Final regression log](regressions-final.log), [TLS test](tls-ingress.log). |
-| The hosted ingress overwrites forged headers and separates independent clients. | Pending the isolated hosted probe. | Procedure below. |
+| The hosted ingress prevents forged client addresses and separates independent clients. | Passed five ingress cases. The rate check allowed 120 IPv4 requests, then blocked ten spoof-header requests and the header-free control. The independent IPv6 control remained allowed in the same window through the explicit Cloudflare route described above. | [Ingress proof](../hosting/hosted-ingress-proof-v2.json), [live policy receipt](../hosting/proxy-policy-change-v2.json), [address control](../hosting/acceptance-20261011/address-isolation-edge-v3-1791700698282.json). |
 | A real Steam account completes login on the final HTTPS origin. | Requires the account owner. No personal credentials or browser cookies were accessed. | Procedure below. |
 
 The final focused regression run passed all 116 tests, including the local TLS test.

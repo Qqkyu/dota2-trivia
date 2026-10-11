@@ -1,0 +1,11 @@
+{
+  "observedAt": "2026-10-11T07:13:37.178191+00:00",
+  "phase": "delete",
+  "complete": false,
+  "scratchRootsDeleted": 10,
+  "remainingRoot": "/tmp/queue-arcade-launch-checks",
+  "failure": "Permission denied while deleting an audit-created Orca customization file in a root-owned fixture directory.",
+  "privateRetentionCompleted": true,
+  "privateRecoveryContentsLogged": false,
+  "dockerResourcesChanged": false
+}

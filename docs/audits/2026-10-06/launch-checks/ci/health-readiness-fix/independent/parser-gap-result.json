@@ -1,0 +1,1604 @@
+[
+  {
+    "server": "reset",
+    "mode": "normal",
+    "replicate": 0,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "caught",
+        "name": "TypeError",
+        "message": "fetch failed"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "reset",
+    "mode": "normal",
+    "replicate": 1,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "caught",
+        "name": "TypeError",
+        "message": "fetch failed"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "reset",
+    "mode": "normal",
+    "replicate": 2,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "caught",
+        "name": "TypeError",
+        "message": "fetch failed"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "reset",
+    "mode": "normal",
+    "replicate": 3,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "caught",
+        "name": "TypeError",
+        "message": "fetch failed"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "reset",
+    "mode": "slow",
+    "replicate": 0,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "caught",
+        "name": "TypeError",
+        "message": "fetch failed"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "reset",
+    "mode": "slow",
+    "replicate": 1,
+    "exit": 13,
+    "stdout": "",
+    "stderr": "Warning: Detected unsettled top-level await at file:///tmp/queue-arcade-health-wait-review/parser-gap-client.mjs:21\n  const response = await fetch(url, { signal: controller?.signal ?? AbortSignal.timeout(300) });\n                   ^\n\n\n\n",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "reset",
+    "mode": "slow",
+    "replicate": 2,
+    "exit": 13,
+    "stdout": "",
+    "stderr": "Warning: Detected unsettled top-level await at file:///tmp/queue-arcade-health-wait-review/parser-gap-client.mjs:21\n  const response = await fetch(url, { signal: controller?.signal ?? AbortSignal.timeout(300) });\n                   ^\n\n\n\n",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "reset",
+    "mode": "slow",
+    "replicate": 3,
+    "exit": 13,
+    "stdout": "",
+    "stderr": "Warning: Detected unsettled top-level await at file:///tmp/queue-arcade-health-wait-review/parser-gap-client.mjs:21\n  const response = await fetch(url, { signal: controller?.signal ?? AbortSignal.timeout(300) });\n                   ^\n\n\n\n",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "reset",
+    "mode": "slow-ref",
+    "replicate": 0,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "compile-return"
+      },
+      {
+        "event": "caught",
+        "name": "Error",
+        "message": "Referenced deadline"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "reset",
+    "mode": "slow-ref",
+    "replicate": 1,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "compile-return"
+      },
+      {
+        "event": "caught",
+        "name": "Error",
+        "message": "Referenced deadline"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "reset",
+    "mode": "slow-ref",
+    "replicate": 2,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "caught",
+        "name": "TypeError",
+        "message": "fetch failed"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "reset",
+    "mode": "slow-ref",
+    "replicate": 3,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "caught",
+        "name": "TypeError",
+        "message": "fetch failed"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "destroy",
+    "mode": "normal",
+    "replicate": 0,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "caught",
+        "name": "TypeError",
+        "message": "fetch failed"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "destroy",
+    "mode": "normal",
+    "replicate": 1,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "caught",
+        "name": "TypeError",
+        "message": "fetch failed"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "destroy",
+    "mode": "normal",
+    "replicate": 2,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "caught",
+        "name": "TypeError",
+        "message": "fetch failed"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "destroy",
+    "mode": "normal",
+    "replicate": 3,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "caught",
+        "name": "TypeError",
+        "message": "fetch failed"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "destroy",
+    "mode": "slow",
+    "replicate": 0,
+    "exit": 13,
+    "stdout": "",
+    "stderr": "Warning: Detected unsettled top-level await at file:///tmp/queue-arcade-health-wait-review/parser-gap-client.mjs:21\n  const response = await fetch(url, { signal: controller?.signal ?? AbortSignal.timeout(300) });\n                   ^\n\n\n\n",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "destroy",
+    "mode": "slow",
+    "replicate": 1,
+    "exit": 13,
+    "stdout": "",
+    "stderr": "Warning: Detected unsettled top-level await at file:///tmp/queue-arcade-health-wait-review/parser-gap-client.mjs:21\n  const response = await fetch(url, { signal: controller?.signal ?? AbortSignal.timeout(300) });\n                   ^\n\n\n\n",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "destroy",
+    "mode": "slow",
+    "replicate": 2,
+    "exit": 13,
+    "stdout": "",
+    "stderr": "Warning: Detected unsettled top-level await at file:///tmp/queue-arcade-health-wait-review/parser-gap-client.mjs:21\n  const response = await fetch(url, { signal: controller?.signal ?? AbortSignal.timeout(300) });\n                   ^\n\n\n\n",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "destroy",
+    "mode": "slow",
+    "replicate": 3,
+    "exit": 13,
+    "stdout": "",
+    "stderr": "Warning: Detected unsettled top-level await at file:///tmp/queue-arcade-health-wait-review/parser-gap-client.mjs:21\n  const response = await fetch(url, { signal: controller?.signal ?? AbortSignal.timeout(300) });\n                   ^\n\n\n\n",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "destroy",
+    "mode": "slow-ref",
+    "replicate": 0,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "compile-return"
+      },
+      {
+        "event": "caught",
+        "name": "Error",
+        "message": "Referenced deadline"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "destroy",
+    "mode": "slow-ref",
+    "replicate": 1,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "compile-return"
+      },
+      {
+        "event": "caught",
+        "name": "Error",
+        "message": "Referenced deadline"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "destroy",
+    "mode": "slow-ref",
+    "replicate": 2,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "compile-return"
+      },
+      {
+        "event": "caught",
+        "name": "Error",
+        "message": "Referenced deadline"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "destroy",
+    "mode": "slow-ref",
+    "replicate": 3,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "compile-return"
+      },
+      {
+        "event": "caught",
+        "name": "Error",
+        "message": "Referenced deadline"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "end",
+    "mode": "normal",
+    "replicate": 0,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "caught",
+        "name": "TypeError",
+        "message": "fetch failed"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "end",
+    "mode": "normal",
+    "replicate": 1,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "caught",
+        "name": "TypeError",
+        "message": "fetch failed"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "end",
+    "mode": "normal",
+    "replicate": 2,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "caught",
+        "name": "TypeError",
+        "message": "fetch failed"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "end",
+    "mode": "normal",
+    "replicate": 3,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "caught",
+        "name": "TypeError",
+        "message": "fetch failed"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "end",
+    "mode": "slow",
+    "replicate": 0,
+    "exit": 13,
+    "stdout": "",
+    "stderr": "Warning: Detected unsettled top-level await at file:///tmp/queue-arcade-health-wait-review/parser-gap-client.mjs:21\n  const response = await fetch(url, { signal: controller?.signal ?? AbortSignal.timeout(300) });\n                   ^\n\n\n\n",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "end",
+    "mode": "slow",
+    "replicate": 1,
+    "exit": 13,
+    "stdout": "",
+    "stderr": "Warning: Detected unsettled top-level await at file:///tmp/queue-arcade-health-wait-review/parser-gap-client.mjs:21\n  const response = await fetch(url, { signal: controller?.signal ?? AbortSignal.timeout(300) });\n                   ^\n\n\n\n",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "end",
+    "mode": "slow",
+    "replicate": 2,
+    "exit": 13,
+    "stdout": "",
+    "stderr": "Warning: Detected unsettled top-level await at file:///tmp/queue-arcade-health-wait-review/parser-gap-client.mjs:21\n  const response = await fetch(url, { signal: controller?.signal ?? AbortSignal.timeout(300) });\n                   ^\n\n\n\n",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "end",
+    "mode": "slow",
+    "replicate": 3,
+    "exit": 13,
+    "stdout": "",
+    "stderr": "Warning: Detected unsettled top-level await at file:///tmp/queue-arcade-health-wait-review/parser-gap-client.mjs:21\n  const response = await fetch(url, { signal: controller?.signal ?? AbortSignal.timeout(300) });\n                   ^\n\n\n\n",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "end",
+    "mode": "slow-ref",
+    "replicate": 0,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "compile-return"
+      },
+      {
+        "event": "caught",
+        "name": "Error",
+        "message": "Referenced deadline"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "end",
+    "mode": "slow-ref",
+    "replicate": 1,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "compile-return"
+      },
+      {
+        "event": "caught",
+        "name": "Error",
+        "message": "Referenced deadline"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "end",
+    "mode": "slow-ref",
+    "replicate": 2,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "compile-return"
+      },
+      {
+        "event": "caught",
+        "name": "Error",
+        "message": "Referenced deadline"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "end",
+    "mode": "slow-ref",
+    "replicate": 3,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "compile-return"
+      },
+      {
+        "event": "caught",
+        "name": "Error",
+        "message": "Referenced deadline"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "delay-reset",
+    "mode": "normal",
+    "replicate": 0,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "caught",
+        "name": "TypeError",
+        "message": "fetch failed"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "delay-reset",
+    "mode": "normal",
+    "replicate": 1,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "caught",
+        "name": "TypeError",
+        "message": "fetch failed"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "delay-reset",
+    "mode": "normal",
+    "replicate": 2,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "caught",
+        "name": "TypeError",
+        "message": "fetch failed"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "delay-reset",
+    "mode": "normal",
+    "replicate": 3,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "caught",
+        "name": "TypeError",
+        "message": "fetch failed"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "delay-reset",
+    "mode": "slow",
+    "replicate": 0,
+    "exit": 13,
+    "stdout": "",
+    "stderr": "Warning: Detected unsettled top-level await at file:///tmp/queue-arcade-health-wait-review/parser-gap-client.mjs:21\n  const response = await fetch(url, { signal: controller?.signal ?? AbortSignal.timeout(300) });\n                   ^\n\n\n\n",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "delay-reset",
+    "mode": "slow",
+    "replicate": 1,
+    "exit": 13,
+    "stdout": "",
+    "stderr": "Warning: Detected unsettled top-level await at file:///tmp/queue-arcade-health-wait-review/parser-gap-client.mjs:21\n  const response = await fetch(url, { signal: controller?.signal ?? AbortSignal.timeout(300) });\n                   ^\n\n\n\n",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "delay-reset",
+    "mode": "slow",
+    "replicate": 2,
+    "exit": 13,
+    "stdout": "",
+    "stderr": "Warning: Detected unsettled top-level await at file:///tmp/queue-arcade-health-wait-review/parser-gap-client.mjs:21\n  const response = await fetch(url, { signal: controller?.signal ?? AbortSignal.timeout(300) });\n                   ^\n\n\n\n",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "delay-reset",
+    "mode": "slow",
+    "replicate": 3,
+    "exit": 13,
+    "stdout": "",
+    "stderr": "Warning: Detected unsettled top-level await at file:///tmp/queue-arcade-health-wait-review/parser-gap-client.mjs:21\n  const response = await fetch(url, { signal: controller?.signal ?? AbortSignal.timeout(300) });\n                   ^\n\n\n\n",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "delay-reset",
+    "mode": "slow-ref",
+    "replicate": 0,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "compile-return"
+      },
+      {
+        "event": "caught",
+        "name": "Error",
+        "message": "Referenced deadline"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "delay-reset",
+    "mode": "slow-ref",
+    "replicate": 1,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "compile-return"
+      },
+      {
+        "event": "caught",
+        "name": "Error",
+        "message": "Referenced deadline"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "delay-reset",
+    "mode": "slow-ref",
+    "replicate": 2,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "compile-return"
+      },
+      {
+        "event": "caught",
+        "name": "Error",
+        "message": "Referenced deadline"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "delay-reset",
+    "mode": "slow-ref",
+    "replicate": 3,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "compile-return"
+      },
+      {
+        "event": "caught",
+        "name": "Error",
+        "message": "Referenced deadline"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "write-close",
+    "mode": "normal",
+    "replicate": 0,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "headers",
+        "status": 503
+      },
+      {
+        "event": "settled"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "write-close",
+    "mode": "normal",
+    "replicate": 1,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "headers",
+        "status": 503
+      },
+      {
+        "event": "settled"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "write-close",
+    "mode": "normal",
+    "replicate": 2,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "headers",
+        "status": 503
+      },
+      {
+        "event": "settled"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "write-close",
+    "mode": "normal",
+    "replicate": 3,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "headers",
+        "status": 503
+      },
+      {
+        "event": "settled"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "write-close",
+    "mode": "slow",
+    "replicate": 0,
+    "exit": 13,
+    "stdout": "",
+    "stderr": "Warning: Detected unsettled top-level await at file:///tmp/queue-arcade-health-wait-review/parser-gap-client.mjs:21\n  const response = await fetch(url, { signal: controller?.signal ?? AbortSignal.timeout(300) });\n                   ^\n\n\n\n",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap",
+          "TCPSocketWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "write-close",
+    "mode": "slow",
+    "replicate": 1,
+    "exit": 13,
+    "stdout": "",
+    "stderr": "Warning: Detected unsettled top-level await at file:///tmp/queue-arcade-health-wait-review/parser-gap-client.mjs:21\n  const response = await fetch(url, { signal: controller?.signal ?? AbortSignal.timeout(300) });\n                   ^\n\n\n\n",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap",
+          "TCPSocketWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "write-close",
+    "mode": "slow",
+    "replicate": 2,
+    "exit": 13,
+    "stdout": "",
+    "stderr": "Warning: Detected unsettled top-level await at file:///tmp/queue-arcade-health-wait-review/parser-gap-client.mjs:21\n  const response = await fetch(url, { signal: controller?.signal ?? AbortSignal.timeout(300) });\n                   ^\n\n\n\n",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap",
+          "TCPSocketWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "write-close",
+    "mode": "slow",
+    "replicate": 3,
+    "exit": 13,
+    "stdout": "",
+    "stderr": "Warning: Detected unsettled top-level await at file:///tmp/queue-arcade-health-wait-review/parser-gap-client.mjs:21\n  const response = await fetch(url, { signal: controller?.signal ?? AbortSignal.timeout(300) });\n                   ^\n\n\n\n",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap",
+          "TCPSocketWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "write-close",
+    "mode": "slow-ref",
+    "replicate": 0,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "compile-return"
+      },
+      {
+        "event": "headers",
+        "status": 503
+      },
+      {
+        "event": "settled"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "write-close",
+    "mode": "slow-ref",
+    "replicate": 1,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "compile-return"
+      },
+      {
+        "event": "headers",
+        "status": 503
+      },
+      {
+        "event": "settled"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "write-close",
+    "mode": "slow-ref",
+    "replicate": 2,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "compile-return"
+      },
+      {
+        "event": "headers",
+        "status": 503
+      },
+      {
+        "event": "settled"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  },
+  {
+    "server": "write-close",
+    "mode": "slow-ref",
+    "replicate": 3,
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "events": [
+      {
+        "event": "compile-start"
+      },
+      {
+        "event": "compile-native-complete"
+      },
+      {
+        "event": "compile-return"
+      },
+      {
+        "event": "headers",
+        "status": 503
+      },
+      {
+        "event": "settled"
+      },
+      {
+        "event": "finally"
+      },
+      {
+        "event": "beforeExit",
+        "resources": [
+          "PipeWrap"
+        ]
+      }
+    ]
+  }
+]

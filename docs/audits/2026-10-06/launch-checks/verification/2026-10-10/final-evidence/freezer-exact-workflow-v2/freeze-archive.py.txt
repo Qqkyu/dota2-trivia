@@ -1,0 +1,239 @@
+#!/usr/bin/env python3
+"""Freeze or verify every launch evidence file. Run from a quiet repository root.
+
+This checks paths and bytes. It does not replace content review or a secret scan.
+The root archive-manifest.json is the only excluded file. Nested manifests remain
+included. A concurrent edit makes the command fail and requires another run.
+"""
+import argparse
+from datetime import datetime, timezone
+import hashlib
+import json
+import os
+from pathlib import Path, PurePosixPath
+import re
+import stat
+import sys
+import tempfile
+
+ARCHIVE_PATH = "docs/audits/2026-10-06/launch-checks"
+MANIFEST = "archive-manifest.json"
+DEFAULT_RELEASE = "da28a646479fab030e9b02b187e177c0f89555b9"
+HEX40 = re.compile(r"[0-9a-f]{40}\Z")
+HEX64 = re.compile(r"[0-9a-f]{64}\Z")
+PRIVATE_PARTS = {"node_modules", "__pycache__", "browser-profile", "browser-profiles",
+                 "private-render-backup", "render-productionize-private"}
+PRIVATE_SUFFIXES = {".dump", ".sql", ".sqlite", ".sqlite3", ".db", ".pem", ".key",
+                    ".p12", ".pfx", ".har", ".pyc", ".pyo"}
+
+
+class CheckError(Exception):
+    pass
+
+
+def safe_name(name):
+    if not isinstance(name, str) or not name or "\\" in name or ":" in name:
+        raise CheckError("Unsafe archive path")
+    if any(ord(char) < 32 or ord(char) == 127 for char in name):
+        raise CheckError("Unsafe archive path")
+    path = PurePosixPath(name)
+    if path.is_absolute() or str(path) != name or any(part in {".", ".."} for part in path.parts):
+        raise CheckError("Unsafe archive path")
+    public_workflow_paths = {
+        "ci/forced-color-fix/after/.github",
+        "ci/forced-color-fix/after/.github/workflows",
+        "ci/forced-color-fix/after/.github/workflows/ci.yml.txt",
+    }
+    if any(part.lower() in PRIVATE_PARTS for part in path.parts) or (
+        name not in public_workflow_paths and any(part.startswith(".") for part in path.parts)
+    ):
+        raise CheckError("Private or cache path is excluded from release evidence")
+    if path.suffix.lower() in PRIVATE_SUFFIXES:
+        raise CheckError("Private or cache file type is excluded from release evidence")
+
+
+def check_root(root):
+    root = root.absolute()
+    if any(path.is_symlink() for path in (root, *root.parents)):
+        raise CheckError("Archive root or its parent is a symlink")
+    if not root.is_dir():
+        raise CheckError("Archive root is missing")
+
+
+def read_regular(path):
+    before = path.lstat()
+    if not stat.S_ISREG(before.st_mode):
+        raise CheckError("Only regular archive files are allowed")
+    descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW)
+    with os.fdopen(descriptor, "rb") as handle:
+        opened = os.fstat(handle.fileno())
+        if (before.st_dev, before.st_ino) != (opened.st_dev, opened.st_ino):
+            raise CheckError("File changed while opening it")
+        raw = handle.read()
+        after = os.fstat(handle.fileno())
+    current = path.lstat()
+    identity = lambda value: (value.st_dev, value.st_ino, value.st_size, value.st_mtime_ns, value.st_ctime_ns)
+    if identity(opened) != identity(after) or identity(after) != identity(current) or len(raw) != after.st_size:
+        raise CheckError("File changed while reading it")
+    return raw
+
+
+def snapshot(root):
+    check_root(root)
+    rows = []
+
+    def walk(directory):
+        with os.scandir(directory) as listing:
+            children = sorted(listing, key=lambda entry: entry.name)
+        for entry in children:
+            path = Path(entry.path)
+            name = path.relative_to(root).as_posix()
+            safe_name(name)
+            if entry.is_symlink():
+                raise CheckError("Archive contains a symlink")
+            if entry.is_dir(follow_symlinks=False):
+                walk(path)
+            elif entry.is_file(follow_symlinks=False):
+                if name == MANIFEST:
+                    continue
+                raw = read_regular(path)
+                rows.append({"path": name, "bytes": len(raw), "sha256": hashlib.sha256(raw).hexdigest()})
+            else:
+                raise CheckError("Archive contains a non-regular entry")
+
+    walk(root)
+    return sorted(rows, key=lambda row: row["path"])
+
+
+def stable_snapshot(root):
+    first = snapshot(root)
+    if first != snapshot(root):
+        raise CheckError("Archive changed during the check")
+    return first
+
+
+def validate_manifest(document, release):
+    keys = {"schemaVersion", "archiveRoot", "release", "createdAt", "count", "totalBytes", "files"}
+    if not isinstance(document, dict) or set(document) != keys:
+        raise CheckError("Unexpected manifest schema")
+    if type(document["schemaVersion"]) is not int or document["schemaVersion"] != 1:
+        raise CheckError("Unsupported manifest schema")
+    if document["archiveRoot"] != ARCHIVE_PATH or document["release"] != release:
+        raise CheckError("Manifest archive or release does not match")
+    try:
+        timestamp = datetime.fromisoformat(document["createdAt"].replace("Z", "+00:00"))
+        if timestamp.utcoffset() is None or timestamp.utcoffset().total_seconds() != 0:
+            raise ValueError()
+    except (AttributeError, TypeError, ValueError):
+        raise CheckError("Manifest timestamp must be UTC") from None
+    rows = document["files"]
+    if not isinstance(rows, list) or not rows:
+        raise CheckError("Manifest must contain file records")
+    seen = set()
+    for row in rows:
+        if not isinstance(row, dict) or set(row) != {"path", "bytes", "sha256"}:
+            raise CheckError("Malformed manifest file record")
+        safe_name(row["path"])
+        if row["path"] == MANIFEST or row["path"] in seen:
+            raise CheckError("Manifest includes itself or a duplicate file")
+        seen.add(row["path"])
+        if type(row["bytes"]) is not int or row["bytes"] < 0 or not isinstance(row["sha256"], str) or not HEX64.fullmatch(row["sha256"]):
+            raise CheckError("Malformed manifest file metadata")
+    if rows != sorted(rows, key=lambda row: row["path"]):
+        raise CheckError("Manifest file records are not sorted")
+    if type(document["count"]) is not int or document["count"] != len(rows):
+        raise CheckError("Manifest file count differs")
+    if type(document["totalBytes"]) is not int or document["totalBytes"] != sum(row["bytes"] for row in rows):
+        raise CheckError("Manifest byte total differs")
+
+
+def verify(root, release):
+    check_root(root)
+    raw = read_regular(root / MANIFEST)
+    def unique_keys(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise CheckError("Manifest has duplicate JSON keys")
+            result[key] = value
+        return result
+    try:
+        document = json.loads(raw, object_pairs_hook=unique_keys)
+    except (ValueError, UnicodeError):
+        raise CheckError("Manifest is not valid JSON") from None
+    validate_manifest(document, release)
+    if stable_snapshot(root) != document["files"]:
+        raise CheckError("Archive file set, size or digest differs")
+    if read_regular(root / MANIFEST) != raw:
+        raise CheckError("Manifest changed during verification")
+    return document
+
+
+def write(root, release, replace=False):
+    check_root(root)
+    target = root / MANIFEST
+    previous = read_regular(target) if target.exists() or target.is_symlink() else None
+    if previous is not None and not replace:
+        raise CheckError("Manifest already exists; --replace is required")
+    rows = stable_snapshot(root)
+    document = {"schemaVersion": 1, "archiveRoot": ARCHIVE_PATH, "release": release,
+                "createdAt": datetime.now(timezone.utc).isoformat(), "count": len(rows),
+                "totalBytes": sum(row["bytes"] for row in rows), "files": rows}
+    validate_manifest(document, release)
+    payload = (json.dumps(document, indent=2) + "\n").encode()
+    # Keep the temporary file outside the archive, so it cannot enter its own inventory.
+    descriptor, temporary = tempfile.mkstemp(prefix=".launch-manifest-", dir=root.parent)
+    try:
+        with os.fdopen(descriptor, "wb") as handle:
+            handle.write(payload)
+            handle.flush()
+            os.fsync(handle.fileno())
+        if rows != snapshot(root):
+            raise CheckError("Archive changed before manifest publication")
+        if replace:
+            current = read_regular(target) if target.exists() or target.is_symlink() else None
+            if current != previous:
+                raise CheckError("Existing manifest changed before replacement")
+            os.replace(temporary, target)
+        else:
+            # link fails if a concurrent writer created the destination.
+            os.link(temporary, target)
+        directory = os.open(root, os.O_DIRECTORY)
+        try:
+            os.fsync(directory)
+        finally:
+            os.close(directory)
+    finally:
+        Path(temporary).unlink(missing_ok=True)
+    return verify(root, release)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    mode = parser.add_mutually_exclusive_group(required=True)
+    mode.add_argument("--write", action="store_true")
+    mode.add_argument("--verify", action="store_true")
+    parser.add_argument("--replace", action="store_true", help="Allow an existing manifest to be replaced with --write")
+    parser.add_argument("--release", default=DEFAULT_RELEASE, help="Exact checked Git commit; defaults to the prepared candidate")
+    args = parser.parse_args()
+    if args.replace and not args.write:
+        parser.error("--replace requires --write")
+    if not HEX40.fullmatch(args.release):
+        parser.error("--release must be a lowercase 40-character commit hash")
+    if not (Path.cwd() / "package.json").is_file():
+        parser.error("Run from the repository root")
+    try:
+        root = Path.cwd() / ARCHIVE_PATH
+        document = write(root, args.release, args.replace) if args.write else verify(root, args.release)
+    except (CheckError, OSError) as error:
+        # Filesystem errors can contain private target paths. Print the error class only.
+        print(json.dumps({"passed": False, "error": str(error) if isinstance(error, CheckError) else type(error).__name__}))
+        return 1
+    print(json.dumps({"passed": True, "mode": "write" if args.write else "verify", "release": args.release,
+                      "count": document["count"], "totalBytes": document["totalBytes"],
+                      "manifestSha256": hashlib.sha256(read_regular(root / MANIFEST)).hexdigest()}, indent=2))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

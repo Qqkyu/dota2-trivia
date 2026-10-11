@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-10T11:16:04.841688+00:00",
+  "sourceHashes": {
+    "scripts/check-accessibility.mjs": "72dee694777e5fb7d561c238e78f2748a0a2c46388bf51d559b973292dc95668",
+    "scripts/lib/forced-color-checks.mjs": "0b9ef695d3e1f1be74640f2409c5bb1832487a1952d9cf3af33ea6faea02eabb",
+    "src/components/queue-arcade.module.css": "cc274adee55eb2bc79e4db7d162c62ab3075521af12436f0465611ede35ea507",
+    "src/components/private-room-panel.module.css": "b278310aeb677d7bec7c453ff20321d76b93c1b5c612bf1ae131efcadc738b28",
+    "src/components/calibration-dashboard.module.css": "059aba0a3aba0324afd84055e81cdd102669bca701564f6b57a73682393e649a",
+    ".github/workflows/ci.yml": "28ff89df3f7916693e2b308a66f5c76ca6a229ad61756393b72b3d6da3f531c8"
+  },
+  "chromiumChecks": 117,
+  "firefoxChecks": 78,
+  "failedChecks": 0,
+  "lintExit": 0,
+  "webKit": "Local launch blocked because libavif.so.13 is missing",
+  "serverCleanup": {
+    "at": "2026-10-10T11:15:45.578731+00:00",
+    "port": 3351,
+    "pid": 467145,
+    "stopped": true,
+    "ownedBuildOutputRemoved": true,
+    "listenerClosed": true,
+    "ignoredNextEnvGeneratedImports": {
+      "priorBytesNotCaptured": true,
+      "temporaryImportsRemoved": true,
+      "restoredToExistingGeneratedTypes": ".next-check/types",
+      "trackedSourceChanged": false
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "checkedAt": "2026-10-10T09:36:32.945448+00:00",
+  "localCandidatePortClosed": true,
+  "pendingHostedGuest": false,
+  "unfinishedLocalGuestReceipts": 0,
+  "completedLocalGuests": 2,
+  "allCompletedLocalGuestCleanupConfirmed": true,
+  "hostedRequestsMadeByThisAgent": 0,
+  "helpers": [
+    {
+      "path": "hosted-smoke.mjs",
+      "sha256": "e0a09e4909016e3ee5dbefefafe9d7385401a6972294d10c8d5a92679b7bfc68"
+    },
+    {
+      "path": "create-gate.py",
+      "sha256": "0658d4d755bb7f469ea05c8e8fb54d05db74ca557c9d812ef861b3b347857c77"
+    },
+    {
+      "path": "check-address-isolation.mjs",
+      "sha256": "4b3ee3e193b450d0e982d9ba1707e51a22c5fe698868c40e32de1a449aef3b58"
+    }
+  ]
+}

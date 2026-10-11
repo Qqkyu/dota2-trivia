@@ -1,0 +1,16 @@
+{
+  "status": "failed-before-vulnerability-scan",
+  "exitCode": 1,
+  "reason": "The checked package metadata command apk info --all zlib returned 1 before the database and Trivy stages.",
+  "scanReportPresent": false,
+  "probe": "../package-probe/package-probe.log",
+  "probeResults": {
+    "apk info --installed zlib": 0,
+    "apk info --all zlib": 1,
+    "apk list --installed zlib": 0,
+    "ffmpeg -version": 0
+  },
+  "installedZlib": "1.3.2-r1",
+  "ffmpegVersion": "8.1.2",
+  "resolution": "Correct the helper metadata command. The application image, source, Dockerfile, and native library bytes did not change."
+}

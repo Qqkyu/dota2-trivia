@@ -1,0 +1,49 @@
+{
+  "reviewedAt": "2026-10-10T11:52:45.598131+00:00",
+  "workflowRun": "38047885476",
+  "sourceCommit": "64046c2d198fcbfe556599e727ae0638423a3482",
+  "conclusion": "The smoke test requires a year slider during reveal, but the component intentionally removes it. This known-false condition is sufficient to trigger the generic reveal failure. The saved year reveal itself matches the intended UI.",
+  "answeringScreenshot": "The question asks when bounty runes first spawned. The year readout is 2017, with a slider and Lock control.",
+  "revealScreenshot": "The board shows Correct year, 2014 and Your answer: 2017. The result panel shows Incorrect, the explanation and zero gold. The crowd split lists the submitted and correct years. No slider is visible.",
+  "expectedBehavior": "The existing component renders the slider only when hasRange and phase is not reveal. Reveal uses a correct-year readout and separate submitted-year text.",
+  "comparison": "The prior accepted wrong-answer screenshot for the TI first-year question uses the same correct-year label/readout and submitted-year layout without a slider.",
+  "recommendedAssertion": "Verify the reveal board phase, correct-year data and label, matching correct-year readout, submitted-year text, and slider absence. Keep the report-layout check and record both pre-open and post-open bounds plus the comparison result.",
+  "limits": [
+    "This finding identifies a sufficient failing subcondition, not every possible cause of the generic assertion.",
+    "The saved output omits pre-open report-panel bounds. The no-shift condition cannot be verified from the saved screenshots or reported final bounds.",
+    "This is read-only screenshot and source inspection. No edits, new browser sessions, app runs or data changes were performed."
+  ],
+  "images": [
+    {
+      "file": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T111816Z/visual-smoke/queue-arcade-public-round.png",
+      "sha256": "c30e538a90cd789fdc806d1f8e7dcd3113650bb237989c6856cf131017147ecb",
+      "visuallyInspected": true
+    },
+    {
+      "file": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T111816Z/visual-smoke/queue-arcade-public-reveal.png",
+      "sha256": "d5e55d2002d0bc45f5755eb7dbb086cf524d0f0c5ecb02fd5c17a4fdac1b0aa6",
+      "visuallyInspected": true
+    },
+    {
+      "file": "docs/audits/2026-10-06/launch-checks/rights/year-reveal-after/flashback-year-1440-wrong.png",
+      "sha256": "a92b1c25f2c325d05547ee652d387c5e2ce92131a54a234338e25c68179cada2",
+      "visuallyInspected": true
+    }
+  ],
+  "sourceExcerpts": [
+    {
+      "file": "src/components/queue-arcade.tsx",
+      "sha256": "b5ca0cb670a2fa52e86316a9b12fc6ab1e19908a547585d73d2a8c00aaa710ad",
+      "startLine": 1311,
+      "endLine": 1345,
+      "text": "  }, [commitYear, cursorYear, hasRange, locked, midpoint]);\n\n  const shownYear = correctYear ?? lockedYear ?? cursorYear ?? midpoint;\n\n  return (\n    <div\n      className={styles.flashbackYearBoard}\n      data-testid=\"flashback-year-board\"\n      data-phase={phase}\n      data-locked={locked ? \"true\" : \"false\"}\n      data-correct-year={correctYear ?? \"\"}\n    >\n      {phase === \"reveal\" && (\n        <span className={styles.flashbackYearResultText} data-testid=\"flashback-year-answer-label\">\n          Correct year\n        </span>\n      )}\n      <strong data-testid=\"flashback-year-readout\">{shownYear ?? \"Year\"}</strong>\n      {phase === \"reveal\" && (\n        <p className={styles.flashbackYearResultText} data-testid=\"flashback-year-your-answer\">\n          {lockedYear !== null ? `Your answer: ${lockedYear}.` : \"No answer locked.\"}\n        </p>\n      )}\n      {hasRange && phase !== \"reveal\" ? (\n        <>\n          <input\n            className={styles.flashbackYearSlider}\n            type=\"range\"\n            min={yearMin}\n            max={yearMax}\n            step={1}\n            value={shownYear ?? midpoint ?? yearMin}\n            disabled={locked}\n            aria-label=\"Year\"\n            data-testid=\"flashback-year-slider\""
+    },
+    {
+      "file": "scripts/visual-smoke.mjs",
+      "sha256": "8e14f037726e255d606975d9b068a630a2b155b9c6801fcd176d3c03173eaa20",
+      "startLine": 1570,
+      "endLine": 1598,
+      "text": "  !reveal.result ||\n  !reveal.crowdSplit.visible ||\n  reveal.crowdSplit.rows < 1 ||\n  reveal.crowdSplit.countTotal !== reveal.crowdSplit.total ||\n  reveal.crowdSplit.correctRows !== 1 ||\n  reveal.crowdSplit.selectedRows !== 1 ||\n  (answering.openShop\n    ? answering.recipeBuilder\n      ? !reveal.openShopReveal || !reveal.recipeReveal || reveal.shopPercentages !== 0\n      : !reveal.openShopReveal || reveal.shopPercentages < 1 || reveal.recipeReveal\n    : answering.heroPicker\n      ? reveal.heroPercentages < 1 || reveal.heroCorrect !== 1 || reveal.openShopReveal\n      : answering.valueOrder\n        ? reveal.orderSequences < 1 || reveal.orderValueLabels !== 4 || reveal.openShopReveal\n        : answering.flashbackOrder\n          ? reveal.flashbackOrderSequences < 1 || reveal.openShopReveal\n          : answering.flashbackYear\n            ? !reveal.flashbackYearSlider || reveal.openShopReveal\n            : reveal.percentages !== 4 || reveal.openShopReveal) ||\n  reveal.reportReasons !== 4 ||\n  reveal.audioPrewarmRequests < 1 ||\n  !sameBounds ||\n  reveal.nextButton ||\n  reveal.internalSourceLabel\n) {\n  failures.push(\"The shared reveal or no-shift report menu regressed.\");\n}\nif (\n  autoAdvanced.phase !== \"answering\" ||"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-10-11T07:06:24.411091+00:00",
+  "reviewer": "/root/final_evidence_oct11/freezer_review",
+  "passed": true,
+  "scope": "The exact archived public workflow path exception in safe_name only.",
+  "inputs": {
+    "originalHelper": {
+      "path": "/home/kulmisiu/dev/dota2-trivia/docs/audits/2026-10-06/launch-checks/verification/2026-10-10/final-evidence/freeze-archive.py.txt",
+      "bytes": 10334,
+      "sha256": "a32a216c44143e1fb8c49864fb8e680a3d018652d0d227d92150cba367fff106"
+    },
+    "candidateHelper": {
+      "path": "/tmp/dota2-trivia-audit-close/freezer-exact-workflow-v2/freeze-archive.py.txt",
+      "bytes": 10618,
+      "sha256": "4852cc57ecc3bd77b87467be51bdb639da35bd32f7eab4cee0e1c7800ff358af"
+    },
+    "publicWorkflow": {
+      "path": "/home/kulmisiu/dev/dota2-trivia/docs/audits/2026-10-06/launch-checks/ci/forced-color-fix/after/.github/workflows/ci.yml.txt",
+      "bytes": 8741,
+      "sha256": "28ff89df3f7916693e2b308a66f5c76ca6a229ad61756393b72b3d6da3f531c8"
+    },
+    "independentTests": {
+      "path": "/tmp/dota2-trivia-audit-close/freezer-exact-workflow-v2/independent/test_independent.py",
+      "bytes": 6530,
+      "sha256": "26b931820c1fd26976fdd7b9bbe17352e8bcb24ac8d7c49321da2632a1f9e5d8"
+    }
+  },
+  "diffReview": "Only safe_name changed. It permits exactly the existing workflow file and its two hidden-path directory prefixes. Other helper code is byte-identical after removing this change.",
+  "workflowReview": {
+    "result": "No embedded production credentials or private user data found in manual review.",
+    "credentialLikeValues": "The workflow has public fixture values for an ephemeral loopback CI database, fixed CI auth and voter salts, and a fixed test Steam ID.",
+    "references": "Remote references are public package repositories and pinned GitHub actions. No private backup links, operator addresses, account cookies, or production connection values are present.",
+    "limitation": "This manual review is scoped to the exact workflow bytes. The final exact Git blob scan remains required."
+  },
+  "checks": {
+    "unittestMethods": 8,
+    "returnCode": 0,
+    "blockedPathCases": 31,
+    "newlyAllowedExactPaths": 3,
+    "symlinkCases": 5,
+    "coverage": "Wrong directories, nearby filenames, descendants, case changes, private directories, private suffixes, hidden paths, path traversal, duplicate separators, control characters, symlink parents and files.",
+    "inputHashesStableAcrossTests": true
+  },
+  "writes": "Only the existing scratch independent directory. No archive, provider or Git changes.",
+  "committerBindingReview": {
+    "passed": true,
+    "originalSha256": "5ce732fd153b48c46a428ad5a7c1068e915a041365642675d1d728b5c690c0ad",
+    "correctedSha256": "880fc9574fcf1d6c95ad7104deb5667bb8267f4fd6e129a47be85d92635b7d19",
+    "result": "Exactly two constants changed: the freezer archive path and its pinned SHA-256. The new digest equals the independently reviewed freezer bytes. All commit creation and preservation checks are unchanged.",
+    "suiteScope": "Independent static byte comparison only. Parent reports the existing 21 fixtures and 14 independent checks passed; this review did not rerun those suites."
+  }
+}

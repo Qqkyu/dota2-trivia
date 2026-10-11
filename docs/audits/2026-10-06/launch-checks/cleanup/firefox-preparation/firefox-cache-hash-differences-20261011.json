@@ -1,0 +1,25 @@
+{
+  "checked_at_utc": "2026-10-11T06:53:32.950730+00:00",
+  "source": "/tmp/queue-arcade-deep-review/browser-cache/firefox-1532",
+  "destination": "/home/kulmisiu/.cache/ms-playwright/firefox-1532",
+  "source_entries_without_runtime": 63,
+  "destination_entries": 63,
+  "source_fingerprint_without_runtime": "abadf72237bf565a0a5dedc45313869a0af3b2a32e7dea0d19c44c8e2351c5ce",
+  "destination_fingerprint": "adaca088db02c41f95ab737744cbaf211243a3102a43a35dded94ffd38d241e0",
+  "differences": [
+    {
+      "path": "firefox/fonts/.uuid",
+      "source": {
+        "type": "file",
+        "bytes": 36,
+        "sha256": "d170159798f31ea015316f73e2caf5159b5d17051215c7187e2568d39680c235"
+      },
+      "destination": {
+        "type": "file",
+        "bytes": 36,
+        "sha256": "b19d3abe243fa96c32856d7af327c5b4de5f6dc08ea56ff5141f1edb62b2d542"
+      }
+    }
+  ],
+  "mutations": false
+}

@@ -1,0 +1,121 @@
+#!/usr/bin/env python3
+"""Remove only the reviewed audit resources after root confirms both gates."""
+import argparse, datetime, hashlib, json, pathlib, shutil, subprocess, sys
+
+BASE = pathlib.Path('/tmp/dota2-trivia-audit-close')
+CONTAINER = '0f6a9b0963a0c01c52c7815a216e7f623249bf08870d42bf48cd6dd115324890'
+NAME = '/queue-arcade-launch-restore-pg17'
+VOLUME = 'b8a2f56da4718a3162e88b791b6791bb3b460d4c90abad59295ef374180789ae'
+PG_IMAGE = 'sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24'
+IMAGES = {
+ 'queue-arcade-launch:final': 'sha256:691894e712d4c9c24abbe9d4be7776f03f996c6835d82453d96ddd02c43eed40',
+ 'queue-arcade-assistive:orca49': 'sha256:567f0e0417943577762b69a58a5a2a576b299d5011d1cf68b3f5d55899706163',
+ 'queue-arcade-launch:baseline': 'sha256:ce9eca3d1cf89ec1d2ba245bdd54107373b95fdb80731a26fa04329bca3bb626',
+ 'queue-arcade-ci-runner:20261006': 'sha256:285cd0c0d0fd7be15e0900938d552db30bd6dcb92e4704d338e4d42f33e34d43',
+ 'queue-arcade-launch-runtime-base:local': 'sha256:cda0d9616bf2f605a04221fd43a6e695fa6e58ad52df145d654a4f694403a432',
+ 'queue-arcade-launch-dependencies:local': 'sha256:84459f933569aa8478d9c2c1bc87bf95922660b44f7bc05d79f2827bff0426e3',
+}
+DOCKER = shutil.which('docker') or '/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe'
+RESULT = {'startedAt': datetime.datetime.now(datetime.timezone.utc).isoformat(), 'sourceSha256': hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(), 'removed': [], 'problems': []}
+
+def command(*args):
+ p = subprocess.run([DOCKER, *args], capture_output=True, text=True, timeout=90)
+ if p.returncode:
+  raise RuntimeError('Docker command failed: ' + ' '.join(args[:2]) + '; exit ' + str(p.returncode))
+ return p.stdout.strip()
+
+def lines(*args):
+ return [line for line in command(*args).splitlines() if line]
+
+def require(ok, message):
+ if not ok: raise RuntimeError(message)
+
+def container_state():
+ ids = lines('ps', '-aq', '--no-trunc')
+ if CONTAINER not in ids:
+  names = lines('ps', '-a', '--format', '{{.Names}}')
+  require(NAME.lstrip('/') not in names, 'Restore fixture name was reused with a different ID')
+  return None
+ fmt = '{"id":{{json .Id}},"name":{{json .Name}},"image":{{json .Image}},"status":{{json .State.Status}},"running":{{json .State.Running}},"mounts":{{json .Mounts}},"binds":{{json .HostConfig.Binds}},"mountRequests":{{json (index .HostConfig "Mounts")}},"declaredVolumes":{{json .Config.Volumes}}}'
+ d = json.loads(command('container', 'inspect', '--format', fmt, CONTAINER))
+ require(d['id'] == CONTAINER and d['name'] == NAME and d['image'] == PG_IMAGE, 'Restore fixture identity changed')
+ require(d['status'] == 'exited' and not d['running'], 'Restore fixture is not stopped')
+ require(not d['binds'] and not d['mountRequests'], 'Restore fixture has explicit mounts')
+ require(d['declaredVolumes'] == {'/var/lib/postgresql/data': {}}, 'Restore fixture declared volumes changed')
+ require(len(d['mounts']) == 1, 'Restore fixture mount count changed')
+ m=d['mounts'][0]
+ require(m['Type'] == 'volume' and m['Name'] == VOLUME and m['Destination'] == '/var/lib/postgresql/data' and m['Driver'] == 'local', 'Restore fixture volume changed')
+ return d
+
+def volume_state(expected_user):
+ if VOLUME not in lines('volume', 'ls', '-q'):
+  require(not expected_user, 'Restore fixture volume is absent')
+  return None
+ fmt = '{"name":{{json .Name}},"driver":{{json .Driver}},"scope":{{json .Scope}},"options":{{json .Options}},"createdAt":{{json .CreatedAt}}}'
+ d=json.loads(command('volume', 'inspect', '--format', fmt, VOLUME))
+ require(d['name'] == VOLUME and d['driver'] == 'local' and d['scope'] == 'local' and not d['options'] and d['createdAt'], 'Restore volume configuration changed')
+ users=lines('ps', '-aq', '--no-trunc', '--filter', 'volume='+VOLUME)
+ require(set(users) == ({CONTAINER} if expected_user else set()), 'Restore volume has unexpected users')
+ d['users']=users
+ return d
+
+def image_state(tag, expected):
+ tags=lines('image', 'ls', '--format', '{{.Repository}}:{{.Tag}}')
+ if tag not in tags: return None
+ fmt='{"id":{{json .Id}},"tags":{{json .RepoTags}}}'
+ d=json.loads(command('image', 'inspect', '--format', fmt, tag))
+ require(d['id'] == expected and tag in d['tags'], 'Reviewed image tag changed: '+tag)
+ users=lines('ps', '-aq', '--no-trunc', '--filter', 'ancestor='+expected)
+ require(not users, 'Reviewed image has container users: '+tag)
+ d['users']=users
+ return d
+
+def snapshot():
+ c=container_state()
+ v=volume_state(c is not None)
+ require(c is not None or v is None, 'Restore volume exists without the exact reviewed fixture')
+ return {'container': c, 'volume': v, 'images': {tag: image_state(tag, expected) for tag, expected in IMAGES.items()}}
+
+def run(execute):
+ RESULT['mode']='execute' if execute else 'review-only'
+ if execute:
+  gate=BASE/'docker-cleanup-root-go.json'
+  data=json.loads(gate.read_text())
+  require(data.get('parent') == '/root' and data.get('hostedChecksComplete') is True and data.get('privateBackupRetentionVerified') is True and data.get('confirmedAt'), 'Root hosted and retention gates are incomplete')
+  RESULT['authorizationRecordSha256']=hashlib.sha256(gate.read_bytes()).hexdigest()
+ RESULT['before']=snapshot()
+ if execute:
+  c=container_state()
+  volume_state(c is not None)
+  if c:
+   command('container', 'rm', CONTAINER)
+   RESULT['removed'].append({'type':'container','id':CONTAINER,'name':NAME})
+  v=volume_state(False)
+  if v:
+   previous=RESULT['before']['volume']
+   require(previous is not None and {k:value for k,value in v.items() if k != 'users'} == {k:value for k,value in previous.items() if k != 'users'}, 'Restore volume changed after the initial preflight')
+   command('volume', 'rm', VOLUME)
+   RESULT['removed'].append({'type':'volume','name':VOLUME})
+  for tag, expected in IMAGES.items():
+   if image_state(tag, expected):
+    command('image', 'rm', '--no-prune', tag)
+    RESULT['removed'].append({'type':'image-tag','tag':tag,'id':expected})
+  RESULT['after']=snapshot()
+  require(RESULT['after']['container'] is None and RESULT['after']['volume'] is None and all(v is None for v in RESULT['after']['images'].values()), 'A reviewed resource remains')
+ RESULT['completed']=True
+
+if __name__ == '__main__':
+ parser=argparse.ArgumentParser()
+ parser.add_argument('--execute-after-root-go',action='store_true')
+ args=parser.parse_args()
+ try:
+  run(args.execute_after_root_go)
+ except Exception as error:
+  RESULT['completed']=False
+  RESULT['problems'].append(str(error))
+ finally:
+  RESULT['finishedAt']=datetime.datetime.now(datetime.timezone.utc).isoformat()
+  outfile=BASE/('docker-cleanup-result.json' if args.execute_after_root_go else 'docker-cleanup-preflight.json')
+  outfile.write_text(json.dumps(RESULT,indent=2)+'\n')
+  print(json.dumps({'completed':RESULT['completed'],'mode':RESULT.get('mode'),'removedCount':len(RESULT['removed']),'problems':RESULT['problems'],'result':str(outfile)}))
+ sys.exit(0 if RESULT['completed'] else 1)

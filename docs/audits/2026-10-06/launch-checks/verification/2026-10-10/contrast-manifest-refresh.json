@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-10-10T11:15:45.856Z",
+  "review": "Reviewed the browser painting regressions for volume, party selection, shop tabs, and calibration filters in normal and forced color palettes. The checks exercise actual selected, unselected, and keyboard focus states. Scoped CSS fixes restore volume contrast and visible selection marks. No question, answer, generator, or source fact changed.",
+  "changedReviewInputs": [
+    "scripts/check-accessibility.mjs",
+    "scripts/lib/forced-color-checks.mjs"
+  ],
+  "addedReviewInputs": [
+    "scripts/lib/forced-color-checks.mjs"
+  ],
+  "missingReviewInputs": [],
+  "previousFileCount": 126,
+  "currentFileCount": 127,
+  "previousManifestSha256": "b262b79baebb8608da2d27e8d5f4ad40e59ec1c84253c900be918102a66d8419",
+  "currentManifestSha256": "831cdc07fd9664c86ca90ce1204bc5b4935ea5f722201d4d90fbfb36d86e4755",
+  "questionAndEvidenceHashesUnchanged": true,
+  "currentReviewedAt": "2026-10-10T11:15:45.834Z"
+}

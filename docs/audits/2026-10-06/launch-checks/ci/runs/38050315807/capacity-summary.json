@@ -1,0 +1,241 @@
+{
+  "sourceFile": "capacity-1.json",
+  "sourceSha256": "918537a685289c254171cc6b028e95f967ad01b65bfa2bc95adfb9a8c542427b",
+  "scope": "Aggregate synthetic workload only. No room codes, room or round IDs, player/session rows, individual answers or chat texts are copied.",
+  "ok": true,
+  "full": false,
+  "requestedRounds": 2,
+  "durationMs": 52970,
+  "peakOutstandingHttp": 7,
+  "scenarios": [
+    {
+      "name": "small-nat",
+      "size": 4,
+      "mode": "nat",
+      "public": false,
+      "media": false,
+      "games": [
+        "trivia"
+      ],
+      "statuses": {
+        "200": 204,
+        "204": 7,
+        "409": 2
+      },
+      "mediaRequests": 0,
+      "mediaBytes": 0,
+      "maxMessageCount": 2,
+      "joined": 4,
+      "membershipRequests": 131,
+      "errors": [],
+      "requests": {
+        "POST /api/private-rooms": {
+          "latencyMs": {
+            "count": 139,
+            "p50": 7.78,
+            "p95": 197.6,
+            "p99": 290.45,
+            "max": 689.66
+          },
+          "clientQueueMs": {
+            "count": 139,
+            "p50": 0.36,
+            "p95": 1.01,
+            "p99": 1.18,
+            "max": 1.24
+          },
+          "bytes": 151985
+        },
+        "POST /api/private-rooms/start": {
+          "latencyMs": {
+            "count": 1,
+            "p50": 105.59,
+            "p95": 105.59,
+            "p99": 105.59,
+            "max": 105.59
+          },
+          "clientQueueMs": {
+            "count": 1,
+            "p50": 0,
+            "p95": 0,
+            "p99": 0,
+            "max": 0
+          },
+          "bytes": 982
+        },
+        "POST /api/sessions": {
+          "latencyMs": {
+            "count": 8,
+            "p50": 90.77,
+            "p95": 398.42,
+            "p99": 398.42,
+            "max": 398.42
+          },
+          "clientQueueMs": {
+            "count": 8,
+            "p50": 0.44,
+            "p95": 1.63,
+            "p99": 1.63,
+            "max": 1.63
+          },
+          "bytes": 136
+        },
+        "GET /api/rounds": {
+          "latencyMs": {
+            "count": 40,
+            "p50": 88.97,
+            "p95": 186.05,
+            "p99": 399.35,
+            "max": 399.35
+          },
+          "clientQueueMs": {
+            "count": 40,
+            "p50": 0.24,
+            "p95": 0.74,
+            "p99": 0.87,
+            "max": 0.87
+          },
+          "bytes": 96604
+        },
+        "POST /api/votes": {
+          "latencyMs": {
+            "count": 12,
+            "p50": 200.5,
+            "p95": 396.76,
+            "p99": 396.76,
+            "max": 396.76
+          },
+          "clientQueueMs": {
+            "count": 12,
+            "p50": 0.01,
+            "p95": 0.37,
+            "p99": 0.37,
+            "max": 0.37
+          },
+          "bytes": 2124
+        },
+        "POST /api/private-rooms/messages": {
+          "latencyMs": {
+            "count": 2,
+            "p50": 2.23,
+            "p95": 4.39,
+            "p99": 4.39,
+            "max": 4.39
+          },
+          "clientQueueMs": {
+            "count": 2,
+            "p50": 0.01,
+            "p95": 0.01,
+            "p99": 0.01,
+            "max": 0.01
+          },
+          "bytes": 2201
+        },
+        "HEAD /api/round-audio": {
+          "latencyMs": {
+            "count": 7,
+            "p50": 98.95,
+            "p95": 101.26,
+            "p99": 101.26,
+            "max": 101.26
+          },
+          "clientQueueMs": {
+            "count": 7,
+            "p50": 0.35,
+            "p95": 0.47,
+            "p99": 0.47,
+            "max": 0.47
+          },
+          "bytes": 0
+        },
+        "POST /api/private-rooms/leave": {
+          "latencyMs": {
+            "count": 4,
+            "p50": 99.85,
+            "p95": 104.02,
+            "p99": 104.02,
+            "max": 104.02
+          },
+          "clientQueueMs": {
+            "count": 4,
+            "p50": 0.21,
+            "p95": 0.34,
+            "p99": 0.34,
+            "max": 0.34
+          },
+          "bytes": 3022
+        }
+      },
+      "roundCount": 2,
+      "acceptedVotes": 8,
+      "correctVotes": 2,
+      "httpRequests": 213
+    },
+    {
+      "name": "expected-throttles",
+      "size": 1,
+      "mode": "nat",
+      "public": true,
+      "media": false,
+      "games": [
+        "trivia"
+      ],
+      "statuses": {
+        "200": 150,
+        "409": 12,
+        "429": 9
+      },
+      "mediaRequests": 0,
+      "mediaBytes": 0,
+      "maxMessageCount": 0,
+      "joined": 0,
+      "errors": [],
+      "requests": {
+        "POST /api/votes": {
+          "latencyMs": {
+            "count": 20,
+            "p50": 2.82,
+            "p95": 96.86,
+            "p99": 704.72,
+            "max": 704.72
+          },
+          "clientQueueMs": {
+            "count": 20,
+            "p50": 0,
+            "p95": 0,
+            "p99": 0,
+            "max": 0
+          },
+          "bytes": 1028
+        },
+        "GET /api/rounds": {
+          "latencyMs": {
+            "count": 151,
+            "p50": 92.47,
+            "p95": 189.85,
+            "p99": 294.97,
+            "max": 299.81
+          },
+          "clientQueueMs": {
+            "count": 151,
+            "p50": 0,
+            "p95": 0,
+            "p99": 0.02,
+            "max": 0.02
+          },
+          "bytes": 311606
+        }
+      },
+      "burst": {
+        "expiredVotesBeforeThrottle": 12,
+        "rejectedVoteBurst": 8,
+        "admittedIdentities": 150,
+        "rejectedIdentity": 151
+      },
+      "roundCount": 0,
+      "acceptedVotes": 0,
+      "correctVotes": 0,
+      "httpRequests": 171
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+#!/usr/bin/env python3
+"""Check the exact public workflow exception and unchanged archive guards."""
+import hashlib
+import importlib.machinery
+import importlib.util
+from pathlib import Path
+import tempfile
+import unittest
+
+HERE = Path(__file__).resolve().parent
+CANDIDATE = HERE.parent / "freeze-archive.py.txt"
+ORIGINAL = Path("/home/kulmisiu/dev/dota2-trivia/docs/audits/2026-10-06/launch-checks/verification/2026-10-10/final-evidence/freeze-archive.py.txt")
+WORKFLOW = "ci/forced-color-fix/after/.github/workflows/ci.yml.txt"
+DIRECTORIES = ["ci/forced-color-fix/after/.github", "ci/forced-color-fix/after/.github/workflows"]
+
+
+def load(path, name):
+    loader = importlib.machinery.SourceFileLoader(name, str(path))
+    spec = importlib.util.spec_from_loader(name, loader)
+    module = importlib.util.module_from_spec(spec)
+    loader.exec_module(module)
+    return module
+
+
+freezer = load(CANDIDATE, "independent_candidate")
+original = load(ORIGINAL, "independent_original")
+
+
+class ExactWorkflowException(unittest.TestCase):
+    def test_only_safe_name_function_changed(self):
+        before = ORIGINAL.read_text()
+        after = CANDIDATE.read_text()
+        start = "    public_workflow_paths = {\n"
+        end = "        raise CheckError(\"Private or cache path is excluded from release evidence\")"
+        prefix, changed = after.split(start, 1)
+        _, suffix = changed.split(end, 1)
+        restored = prefix + '    if any(part.startswith(".") or part.lower() in PRIVATE_PARTS for part in path.parts):\n' + end + suffix
+        self.assertEqual(before, restored)
+
+    def test_only_three_exact_hidden_paths_are_newly_allowed(self):
+        for name in [*DIRECTORIES, WORKFLOW]:
+            with self.subTest(name=name):
+                with self.assertRaises(original.CheckError):
+                    original.safe_name(name)
+                freezer.safe_name(name)
+
+    def test_nearby_and_private_paths_remain_blocked(self):
+        blocked = [
+            ".github", ".github/workflows/ci.yml.txt",
+            "ci/forced-color-fix/before/.github/workflows/ci.yml.txt",
+            "ci/another/after/.github/workflows/ci.yml.txt",
+            "ci/forced-color-fix/after/.github/workflows/other.yml.txt",
+            "ci/forced-color-fix/after/.github/workflows/ci.yml",
+            "ci/forced-color-fix/after/.github/workflows/ci.yml.txt.bak",
+            "ci/forced-color-fix/after/.github/workflows/ci.yml.txt/child.txt",
+            "ci/forced-color-fix/after/.github/workflows/private.txt",
+            "ci/forced-color-fix/after/.github/workflows/.env",
+            "ci/forced-color-fix/after/.github/.config",
+            "ci/forced-color-fix/after/.GitHub/workflows/ci.yml.txt",
+            "ci/forced-color-fix/after/.github/workflows/CI.yml.txt",
+            "ci/forced-color-fix/after/.github/workflows/ci.yml.txt/../private.txt",
+            "ci/forced-color-fix/after/.github/workflows//ci.yml.txt",
+            "ci/forced-color-fix/after/.github/workflows/./ci.yml.txt",
+            "ci/forced-color-fix/after/.github/workflows/ci.yml.txt/",
+            "ci/forced-color-fix/after/.github/workflows/ci.yml.txt\x00",
+            "safe/.env.txt", "safe/private-render-backup/value.txt",
+            "safe/render-productionize-private/value.txt", "safe/NODE_MODULES/value.txt",
+            "safe/browser-profile/value.txt", "safe/browser-profiles/value.txt",
+            "safe/__pycache__/value.txt", "safe/backup.dump", "safe/secret.KEY",
+            "safe/database.sql", "safe/capture.har", "/absolute.txt", "../outside.txt",
+        ]
+        for name in blocked:
+            with self.subTest(name=name):
+                with self.assertRaises(freezer.CheckError):
+                    freezer.safe_name(name)
+
+    def test_workflow_content_is_hashed_by_snapshot(self):
+        with tempfile.TemporaryDirectory(dir=HERE) as directory:
+            root = Path(directory)
+            target = root / WORKFLOW
+            target.parent.mkdir(parents=True)
+            content = b"public fixture workflow\n"
+            target.write_bytes(content)
+            expected = [{"path": WORKFLOW, "bytes": len(content), "sha256": hashlib.sha256(content).hexdigest()}]
+            self.assertEqual(freezer.stable_snapshot(root), expected)
+            with self.assertRaises(original.CheckError):
+                original.snapshot(root)
+
+    def test_each_exact_exception_path_rejects_symlinks(self):
+        for name in [*DIRECTORIES, WORKFLOW]:
+            with self.subTest(name=name), tempfile.TemporaryDirectory(dir=HERE) as directory:
+                root = Path(directory) / "archive"
+                root.mkdir()
+                destination = Path(directory) / "outside"
+                destination.mkdir()
+                (destination / "data.txt").write_text("fixture data")
+                link = root / name
+                link.parent.mkdir(parents=True)
+                link.symlink_to(destination, target_is_directory=True)
+                with self.assertRaisesRegex(freezer.CheckError, "symlink"):
+                    freezer.snapshot(root)
+
+    def test_workflow_file_symlink_is_rejected(self):
+        with tempfile.TemporaryDirectory(dir=HERE) as directory:
+            root = Path(directory) / "archive"
+            target = root / WORKFLOW
+            target.parent.mkdir(parents=True)
+            destination = Path(directory) / "outside.txt"
+            destination.write_text("fixture data")
+            target.symlink_to(destination)
+            with self.assertRaisesRegex(freezer.CheckError, "symlink"):
+                freezer.snapshot(root)
+
+    def test_allowed_prefix_does_not_hide_extra_files(self):
+        with tempfile.TemporaryDirectory(dir=HERE) as directory:
+            root = Path(directory)
+            target = root / WORKFLOW
+            target.parent.mkdir(parents=True)
+            target.write_text("public workflow")
+            target.with_name("extra.txt").write_text("must be blocked")
+            with self.assertRaises(freezer.CheckError):
+                freezer.stable_snapshot(root)
+
+    def test_symlink_root_remains_blocked(self):
+        with tempfile.TemporaryDirectory(dir=HERE) as directory:
+            target = Path(directory) / "target"
+            target.mkdir()
+            link = Path(directory) / "archive"
+            link.symlink_to(target, target_is_directory=True)
+            with self.assertRaisesRegex(freezer.CheckError, "symlink"):
+                freezer.snapshot(link)
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)

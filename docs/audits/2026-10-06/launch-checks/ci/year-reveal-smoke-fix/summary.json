@@ -1,0 +1,76 @@
+{
+  "originalRun": 38047885476,
+  "originalRunConclusion": "failure",
+  "priorSourceCommit": "64046c2d198fcbfe556599e727ae0638423a3482",
+  "priorSmokeSha256": "8e14f037726e255d606975d9b068a630a2b155b9c6801fcd176d3c03173eaa20",
+  "correctedSmokeSha256": "0064ae5cee65d0da37fe6597d8418c421967a51c4b8a475fc269ede1f3a3d010",
+  "focusedRed": {
+    "exitCode": 1,
+    "cases": 4,
+    "legacyAssertionRejected": 4,
+    "sameBounds": 4
+  },
+  "focusedGreen": {
+    "exitCode": 0,
+    "cases": 4,
+    "correctedAssertionAccepted": 4,
+    "sameBounds": 4
+  },
+  "widths": [
+    320,
+    1440
+  ],
+  "answerCases": [
+    "wrong year 2017",
+    "correct year 2011"
+  ],
+  "fixture": "Controlled TI first-year responses on the production app, with correct year 2011. The original CI question was bounty runes, with correct year 2014.",
+  "originalMenuMovement": "Unknown because pre-open bounds were not recorded in the original CI output. The later four-case checks record both bounds and find no movement.",
+  "privateGeneratorFailures": "Two generated scripts failed syntax parsing before browser access. These are retained separately and are not product failures.",
+  "fullCorrectedVisual": {
+    "exitCode": 0,
+    "startedAt": "2026-10-10T11:53:55Z",
+    "finishedAt": "2026-10-10T11:55:50Z",
+    "log": "verification/visual-smoke.log",
+    "yearFormat": "not-current-round",
+    "actualFormat": "Soundcheck",
+    "reportBoundsMatched": true
+  },
+  "multiplayer": {
+    "exitCode": 0,
+    "startedAt": "2026-10-10T11:55:50Z",
+    "finishedAt": "2026-10-10T11:56:30Z",
+    "log": "verification/multiplayer.log"
+  },
+  "packagedCleanup": {
+    "exitCode": 0,
+    "startedAt": "2026-10-10T11:56:30Z",
+    "finishedAt": "2026-10-10T11:56:30Z",
+    "log": "verification/cleanup-dry-run.log"
+  },
+  "newExactCandidateCi": "pending",
+  "predicateGuards": {
+    "checks": 48,
+    "passingRenderedStates": 4,
+    "rejectedMutations": 44,
+    "passed": true
+  },
+  "lint": {
+    "exitCode": 0,
+    "sourceSha256": "0064ae5cee65d0da37fe6597d8418c421967a51c4b8a475fc269ede1f3a3d010"
+  },
+  "productionImage": {
+    "checkedAt": "2026-10-10T11:57:27.931689+00:00",
+    "baseCommit": "64046c2d198fcbfe556599e727ae0638423a3482",
+    "imageId": "sha256:2805e11a91f951c2b316c290068566f2cd759ef5cd10086e6a5c4ed12d658600",
+    "runtimeBuildId": "tzY0qWu2D63ePle_kOR2l",
+    "scriptSha256": "0064ae5cee65d0da37fe6597d8418c421967a51c4b8a475fc269ede1f3a3d010",
+    "onlyCheckoutChange": "scripts/visual-smoke.mjs",
+    "outerNanoCpus": 2000000000,
+    "outerMemory": 5368709120,
+    "outerMemorySwap": 5368709120,
+    "productionImageRebuilt": false,
+    "registrationCreatedForDiagnosis": false,
+    "fixtureDatabase": "isolated disposable PostgreSQL inside existing private runner"
+  }
+}

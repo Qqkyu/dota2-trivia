@@ -1,0 +1,8 @@
+test_exact_directory_calls_keep_group (__main__.OwnerTests) ... ok
+test_nonroot_refuses_before_chown (__main__.OwnerTests) ... ok
+test_symlink_component_refuses (__main__.OwnerTests) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.004s
+
+OK

@@ -1,0 +1,39 @@
+{
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 1044,
+      "sha256": "de74bc472dc39733aaa630bd1c0c548225d18900f5ec20cfba019869cbf0a5e0"
+    },
+    {
+      "file": "gitleaks.log",
+      "bytes": 84,
+      "sha256": "8aedb76a2d2b017ed7d3a6bdd965d171756e27d20e195c1395dc49f8a82d9670"
+    },
+    {
+      "file": "inventory.json",
+      "bytes": 329364,
+      "sha256": "facb476a49ca37442aa092f32e1c643a711c8dfee2fdb385792bf250e05eacdc"
+    },
+    {
+      "file": "known-secret-scan.json",
+      "bytes": 73,
+      "sha256": "9cba10fb2bc9a1f7e40905fbbbb42900f817b517110e9660fdc1af2b9ba36966"
+    },
+    {
+      "file": "manual-review.json",
+      "bytes": 786,
+      "sha256": "bed0ba799eb7e126eb7232128f2eff69af5b777f8fd16376fcfb9aeda86f8bd0"
+    },
+    {
+      "file": "reviewed-findings.json",
+      "bytes": 16186,
+      "sha256": "ea21a279f2ec00e209b39f547f1f5cd452105ca716cfbcfc651d21f59e0f913e"
+    },
+    {
+      "file": "summary.json",
+      "bytes": 640,
+      "sha256": "1a66c53233e587d72ada948ac58032a8c6480a4c53315062e6de29c606c719f4"
+    }
+  ]
+}

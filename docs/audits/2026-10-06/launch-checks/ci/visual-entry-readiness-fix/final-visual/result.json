@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "exitCode": 0,
+  "scope": "Saved-environment full visual preflight using the final reveal helper and settings fixtures. This is not a successful GitHub release workflow.",
+  "startedAt": "2026-10-10T10:50:20Z",
+  "finishedAt": "2026-10-10T10:52:24Z",
+  "visualSourceSha256": "8e14f037726e255d606975d9b068a630a2b155b9c6801fcd176d3c03173eaa20",
+  "revealHelperSha256": "5a157036ce50fcda939ba83c6a2e8a280750984a19e302addbab20a7d23350a2",
+  "sourceFreezeFile": "../browser-wait-source-freeze.json",
+  "screenshot": {
+    "file": "lobby.png",
+    "sha256": "afdaaacd80ab1d2eea6a594a24aa5c4485a3ec3bc421b421e48c03902434e01a",
+    "width": 1440,
+    "height": 1000,
+    "viewedDuringArchiveReview": true,
+    "observedSettings": "The visible volume is 45% and sound is muted, matching the v4 fixture.",
+    "scope": "One desktop lobby frame. It is not a complete visual or contrast audit."
+  },
+  "releaseCi": "pending"
+}

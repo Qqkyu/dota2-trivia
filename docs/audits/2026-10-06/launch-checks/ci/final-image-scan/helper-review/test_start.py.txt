@@ -1,0 +1,83 @@
+#!/usr/bin/env python3
+"""Run exact starter source with in-memory file, Docker and GitHub substitutes."""
+import ast,contextlib,copy,hashlib,importlib.util,io,json,pathlib,re,subprocess,tarfile,types
+from unittest import mock
+BASE=pathlib.Path('/tmp/queue-arcade-launch-ci')
+SOURCE=(BASE/'start-final-scan.py').read_text()
+LIFE_SOURCE=(BASE/'runner-lifecycle.py').read_text()
+# Extract the two pure checks without importing lifecycle side effects.
+tree=ast.parse(LIFE_SOURCE)
+guards={}
+exec(compile(ast.Module(body=[n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name in ('check_state','assert_owned')],type_ignores=[]),'<pure guards>','exec'),{'re':re,'OWNER_LABEL':'io.queue-arcade.launch-ci-owner'},guards)
+NAME='queue-arcade-ci-20261010T093043Z';OWNER='f'*32;COMMIT='a'*40;RUN=424242
+LABEL='io.queue-arcade.launch-ci-owner'
+STATE={'name':NAME,'volume':NAME+'-data','owner':OWNER}
+CHECKPOINT={'candidate':COMMIT,'workflowRun':RUN,'container':NAME,'volume':NAME+'-data'}
+WORKFLOW={'head_sha':COMMIT,'status':'completed','conclusion':'success','event':'push','path':'.github/workflows/ci.yml'}
+JOBS={'jobs':[{'runner_name':NAME,'conclusion':'success'}]}
+CONTAINER={'Config':{'Labels':{LABEL:OWNER}},'State':{'Running':False},'HostConfig':{'CgroupnsMode':'private','NanoCpus':2000000000,'Memory':5368709120,'MemorySwap':5368709120,'PidMode':'','IpcMode':'private','NetworkMode':'default','UTSMode':'','Binds':None,'VolumesFrom':None},'Mounts':[{'Type':'volume','Name':NAME+'-data','Destination':'/var/lib/docker'}]}
+VOLUME={'Labels':{LABEL:OWNER},'Driver':'local','Options':{}}
+class MemoryPath:
+ def __init__(self,name,files):self.name=str(name);self.files=files
+ def __truediv__(self,name):return MemoryPath(self.name+'/'+str(name),self.files)
+ def read_text(self):return self.files[self.name].decode()
+ def read_bytes(self):return self.files[self.name]
+def run_case(name,change=None,expected=True):
+ data=copy.deepcopy({'state':STATE,'checkpoint':CHECKPOINT,'workflow':WORKFLOW,'jobs':JOBS,'container':CONTAINER,'volume':VOLUME})
+ if change:change(data)
+ files={str(BASE/'checkpoint.json'):json.dumps(data['checkpoint']).encode(),str(BASE/'evidence/active-runner.json'):json.dumps(data['state']).encode(),str(BASE/'full-image-scan-entrypoint.sh'):(BASE/'full-image-scan-entrypoint.sh').read_bytes(),str(BASE/'runner-image/prepare-cgroup-v2.sh'):(BASE/'runner-image/prepare-cgroup-v2.sh').read_bytes()}
+ commands=[];reads=[]
+ def json_call(argv):
+  reads.append(argv)
+  assert argv[:2]==['gh','api']
+  suffix=argv[2]
+  if suffix==f'repos/Qqkyu/dota2-trivia/actions/runs/{data["checkpoint"]["workflowRun"]}':return data['workflow']
+  if suffix.endswith('/jobs'):return data['jobs']
+  raise AssertionError('Unexpected GitHub read')
+ def call(argv,**kwargs):
+  commands.append(argv)
+  assert argv[0]=='mock-docker'
+  if argv[1]=='cp':
+   assert argv==['mock-docker','cp','-',NAME+':/']
+   with tarfile.open(fileobj=io.BytesIO(kwargs['data'])) as t:
+    entries=t.getmembers()
+    assert {e.name for e in entries}=={'usr/local/bin/entrypoint.sh','usr/local/bin/prepare-cgroup-v2.sh','run/expected-scan-commit'}
+    assert all(e.isfile() and e.mode==(0o755 if e.name.endswith('.sh') else 0o600) for e in entries)
+    assert t.extractfile('run/expected-scan-commit').read()==(COMMIT+'\n').encode()
+  else:assert argv==['mock-docker','start',NAME]
+  return types.SimpleNamespace(returncode=0,stdout=b'',stderr=b'')
+ life=types.SimpleNamespace(STATE=MemoryPath(str(BASE/'evidence/active-runner.json'),files),check_state=guards['check_state'],assert_owned=guards['assert_owned'],json_call=json_call,docker_binary=lambda:'mock-docker',resource=lambda d,k,n:data[k],call=call)
+ spec=types.SimpleNamespace(loader=types.SimpleNamespace(exec_module=lambda module:None))
+ error=None
+ with mock.patch('pathlib.Path',side_effect=lambda p:MemoryPath(p,files)),mock.patch('importlib.util.spec_from_file_location',return_value=spec),mock.patch('importlib.util.module_from_spec',return_value=life),mock.patch('subprocess.run',side_effect=AssertionError('Real process execution forbidden')),contextlib.redirect_stdout(io.StringIO()):
+  try:exec(compile(SOURCE,str(BASE/'start-final-scan.py'),'exec'),{'__name__':'scan_review'})
+  except Exception as e:error=type(e).__name__
+ passed=(error is None)==expected
+ if expected:passed=passed and [x[1] for x in commands]==['cp','start']
+ else:passed=passed and not commands
+ assert passed,(name,error,commands)
+ return {'name':name,'expectedSuccess':expected,'passed':passed,'mutationCalls':len(commands),'errorType':error}
+cases=[run_case('accept exact successful run with stopped owned container')]
+def reject(name,change):cases.append(run_case(name,change,False))
+reject('reject malformed candidate',lambda d:d['checkpoint'].update(candidate='not-a-sha'))
+reject('reject noninteger run',lambda d:d['checkpoint'].update(workflowRun='424242'))
+for key,value in [('head_sha','b'*40),('status','in_progress'),('conclusion','failure'),('event','workflow_dispatch'),('path','other.yml')]:reject('reject workflow '+key,lambda d,k=key,v=value:d['workflow'].__setitem__(k,v))
+for key,value in [('container',NAME+'x'),('volume','foreign')]:reject('reject checkpoint '+key,lambda d,k=key,v=value:d['checkpoint'].__setitem__(k,v))
+reject('reject cleaned state',lambda d:d['state'].update(cleanedAt='already-cleaned'))
+reject('reject invalid state name',lambda d:d['state'].update(name='foreign'))
+reject('reject invalid state owner',lambda d:d['state'].update(owner='foreign'))
+reject('reject no job',lambda d:d['jobs'].update(jobs=[]))
+reject('reject multiple jobs',lambda d:d['jobs']['jobs'].append(copy.deepcopy(d['jobs']['jobs'][0])))
+reject('reject other runner job',lambda d:d['jobs']['jobs'][0].update(runner_name='foreign'))
+reject('reject unsuccessful job',lambda d:d['jobs']['jobs'][0].update(conclusion='failure'))
+reject('reject running container',lambda d:d['container']['State'].update(Running=True))
+reject('reject container owner mismatch',lambda d:d['container']['Config']['Labels'].update({LABEL:'0'*32}))
+reject('reject volume owner mismatch',lambda d:d['volume']['Labels'].update({LABEL:'0'*32}))
+for key,value in [('CgroupnsMode','host'),('NanoCpus',0),('Memory',0),('MemorySwap',0),('PidMode','host'),('IpcMode','host'),('NetworkMode','host'),('UTSMode','host'),('Binds',['/tmp:/host']),('VolumesFrom',['other'])]:reject('reject host boundary '+key,lambda d,k=key,v=value:d['container']['HostConfig'].__setitem__(k,v))
+reject('reject extra mount',lambda d:d['container']['Mounts'].append(copy.deepcopy(d['container']['Mounts'][0])))
+for key,value in [('Type','bind'),('Name','foreign'),('Destination','/other')]:reject('reject mount '+key,lambda d,k=key,v=value:d['container']['Mounts'][0].__setitem__(k,v))
+reject('reject foreign volume driver',lambda d:d['volume'].update(Driver='foreign'))
+reject('reject volume options',lambda d:d['volume'].update(Options={'device':'/host'}))
+report={'passed':True,'scope':'Exact Python source with in-memory file, Docker and GitHub substitutes. No actual Docker, GitHub, network or helper mutations.','testCount':len(cases),'sourceSha256':hashlib.sha256(SOURCE.encode()).hexdigest(),'lifecycleSha256':hashlib.sha256(LIFE_SOURCE.encode()).hexdigest(),'cases':cases}
+(BASE/'final-scan-review/starter-mock-results.json').write_text(json.dumps(report,indent=2)+'\n')
+print(json.dumps({'passed':True,'testCount':len(cases)}))

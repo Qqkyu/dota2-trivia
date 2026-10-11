@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-10-11T06:30:51.689Z",
+  "host": "queue-arcade.onrender.com",
+  "rawAddressesLogged": false,
+  "appRequests": 0,
+  "rows": [
+    {
+      "source": "system-resolver",
+      "type": "A",
+      "answerCount": 2,
+      "ok": true
+    },
+    {
+      "source": "system-resolver",
+      "type": "AAAA",
+      "answerCount": 0,
+      "ok": true
+    },
+    {
+      "source": "google-public-dns",
+      "type": "A",
+      "httpStatus": 200,
+      "dnsStatus": 0,
+      "answerTypes": [
+        5,
+        5,
+        1,
+        1
+      ],
+      "requestedTypeAnswers": 2
+    },
+    {
+      "source": "google-public-dns",
+      "type": "AAAA",
+      "httpStatus": 200,
+      "dnsStatus": 0,
+      "answerTypes": [
+        5,
+        5
+      ],
+      "requestedTypeAnswers": 0
+    }
+  ]
+}

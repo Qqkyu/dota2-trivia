@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "spoofHeadersTested": [
+    "x-real-ip",
+    "x-forwarded-for"
+  ],
+  "checkedAt": "2026-10-11T06:25:09.185Z",
+  "ok": false,
+  "independentIpv6SourcesAgreed": true,
+  "deploymentAndConfigurationStable": false,
+  "ipv4Requests": 131,
+  "ipv6LoginRequests": 1,
+  "allowed": 120,
+  "blocked": 10,
+  "rawAddressesLogged": false,
+  "cookiesRetained": false,
+  "redirectsFollowed": 0,
+  "appDataWrites": 0,
+  "failure": "IPV6_TRANSPORT",
+  "commit": "31961cbd762587225b4b8a814828dc0829952978",
+  "deployId": "dep-db5imrt9fdbs73d19570",
+  "ciRunId": 38050315807
+}

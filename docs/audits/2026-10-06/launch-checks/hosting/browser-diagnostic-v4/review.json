@@ -1,0 +1,75 @@
+{
+  "reviewedOn": "2026-10-11",
+  "browserOnlySha256": "695558a482a668f872e602351d527f09b10a3ecb24eed7b8e25a636880536627",
+  "localComparisonSha256": "5099efbe3e9ed03e766d4b2938f64170639feebcc01117df21d26c24a9bb902a",
+  "importedHelperSha256": "f3da963f57baeb3634b525b1809140c26badbe38ec9835967cf9dbf775608670",
+  "independentReadOnlyReview": {
+    "reportedBy": "Coordinating operator",
+    "status": "No blocker in the pinned wrapper.",
+    "scope": "The wrapper adds coded counters and hashed path observations. It retains the reviewed request, byte, wall-time, origin, credential, write, deployment, source, and browser cleanup controls.",
+    "archiveAgentExecution": "No tests, browsers, hosted requests, or provider requests were run by the archive agent."
+  },
+  "originalRun": {
+    "ok": false,
+    "failure": "BROWSER_RUNTIME",
+    "publicFormatsPassed": 13,
+    "privateGuestRevealPassed": true,
+    "privateRoomCleanupConfirmed": true,
+    "forwardedBrowserRequests": 639,
+    "cause": "Unknown. The failed run did not retain the browser diagnostics needed to identify the failed runtime condition."
+  },
+  "browserDiagnostic": {
+    "ok": true,
+    "routedRequests": 360,
+    "forwardedBrowserRequests": 359,
+    "publicGameCdnRequests": 304,
+    "roundApiRequests": 11,
+    "elapsedMs": 37342,
+    "pageErrors": 0,
+    "blockedWrites": 1,
+    "exceeded": false,
+    "consoleErrorKinds": {
+      "NETWORK_FAILED": 1
+    },
+    "failedRequestKinds": {
+      "net::ERR_FAILED": 1,
+      "net::ERR_ABORTED": 1
+    },
+    "pathObservationLimit": 256,
+    "pathOverflowObservations": 30,
+    "topPathRows": 32,
+    "metricsLimit": "Diagnostic counters are captured before browser teardown. Requests still in flight can make later final totals differ. Zero page errors does not mean zero console or request failures."
+  },
+  "localComparison": {
+    "hostedRequests": 0,
+    "subprocessExitCodeReportedByOperator": 0,
+    "localServerClosedReportedByOperator": true,
+    "bothBrowsersStoppedRecorded": true,
+    "cacheToggleChangedRequestCounts": false,
+    "bothVariants": {
+      "routes": 659,
+      "forwarded": 638,
+      "realLocalRequests": 638,
+      "exceeded": true,
+      "extraAssetsLoaded": 5,
+      "extraAssetsRequested": 24
+    },
+    "meaning": "Repeated synthetic asset mounts through the reviewed route/fulfill proxy can exhaust the unchanged request budget. Explicitly enabling the Chromium cache did not change these counts.",
+    "limit": "This synthetic fixture does not replay the original hosted run or measure normal browser caching without the proxy. It does not establish the original failure cause."
+  },
+  "executionApprovalRecord": {
+    "reportedBy": "Coordinating operator after completion",
+    "firstAttempt": "Automatic permission review timed out before execution.",
+    "retry": "One authorized retry completed the local comparison with exit code 0.",
+    "limit": "This is an operator record, not a permission-system transcript or process execution attestation."
+  },
+  "sourceChange": "No app or proxy source fix is claimed by this evidence. The wrapper only adds diagnostics.",
+  "identityLimits": [
+    "The reports do not record the browser version or an observed runtime build ID. Deployment identity comes from provider checks.",
+    "Account-holder Steam login was not verified."
+  ],
+  "independentArchiveReview": {
+    "status": "Metrics, source hash, and privacy scope checked read-only by a separate archive reviewer.",
+    "limits": "The network console error and failed requests lack event-to-route correlation. They cannot be assigned to specific routes from these records."
+  }
+}

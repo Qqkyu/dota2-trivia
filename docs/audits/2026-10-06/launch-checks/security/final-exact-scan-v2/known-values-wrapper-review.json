@@ -1,0 +1,36 @@
+{
+  "scope": "Independent source review and isolated tests. No real credentials, target Git access, target scan, or network.",
+  "tests": 14,
+  "passed": true,
+  "reviewedBehavior": [
+    "Requires seven configured app values and two operator values. Canonical Steam key coverage comes from the independently reviewed helper.",
+    "Uses read-only exact-blob and Git-state helpers. The output path is outside the repository.",
+    "Missing and invalid helpers return a fixed error. Error details do not enter output.",
+    "Exclusive output creation preserves files and symlink targets created during the scan."
+  ],
+  "limitations": [
+    "This wrapper scans only known values in raw blobs. Gitleaks and expanded compressed payload checks are separate."
+  ],
+  "files": [
+    {
+      "file": "scan-candidate-known-values.py",
+      "bytes": 4111,
+      "sha256": "0e636d495adc772417131db35706a5e4a8a6ed8cda0a86a7f33cdce8000d4168"
+    },
+    {
+      "file": "final-exact-scan.py",
+      "bytes": 22283,
+      "sha256": "33e6801c2adfa7adc191408d7462f4d78727c09b4c90eb5f8ff4db26212b156f"
+    },
+    {
+      "file": "review-known-values-wrapper.py",
+      "bytes": 8166,
+      "sha256": "2623b1c5a1b7a648b76d2cf4b8231dee50d094e2437f8dbede7e25d1aae8d53a"
+    },
+    {
+      "file": "known-values-wrapper-tests.log",
+      "bytes": 1102,
+      "sha256": "7181a83c321357961ecfdb4a45fd68d5d0b1058529d58f1f537ae1637be207cd"
+    }
+  ]
+}

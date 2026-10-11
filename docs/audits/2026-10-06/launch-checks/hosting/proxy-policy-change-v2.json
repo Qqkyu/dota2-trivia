@@ -1,0 +1,60 @@
+{
+  "checkedAt": "2026-10-11T06:24:36.496165+00:00",
+  "serviceId": "srv-d9mqd1942hec73e9nlt0",
+  "databaseId": "dpg-d9mqc4taeets73aiclsg-a",
+  "commit": "31961cbd762587225b4b8a814828dc0829952978",
+  "ciRunId": 38050315807,
+  "branch": "codex/launch-checks-20261006",
+  "plan": "free",
+  "buildPlan": "starter",
+  "databasePlan": "0.1c-256mb",
+  "previousLiveDeployId": "dep-db534k0473hc739n08rg",
+  "previousDeployIds": [
+    "dep-db534k0473hc739n08rg",
+    "dep-d9sbpam417fc73au1stg",
+    "dep-d9sb2a6q1p3s73fk7kug",
+    "dep-d9sak5rncjis739od2d0",
+    "dep-d9s9a89srm7s73b3897g",
+    "dep-d9s7hagae00c73ag37vg",
+    "dep-d9s6u30ae00c73afl2s0",
+    "dep-d9rn2cbl550s73dogb70",
+    "dep-d9rmes3ncjis739b1np0",
+    "dep-d9rlp5pt0dsc73b6m4j0",
+    "dep-d9rl3b1t0dsc73b64gv0",
+    "dep-d9o1u8hsrm7s73fif2v0",
+    "dep-d9nnip3bc2fs73eg1sog",
+    "dep-d9nn5i1t0dsc73976d7g",
+    "dep-d9nmnvgae00c73fdimag",
+    "dep-d9nmhsc9v7es73cgng90",
+    "dep-d9nm5149v7es73cgd4hg",
+    "dep-d9nl7rss728c73bbf380",
+    "dep-d9njsttbedkc73f4gn70",
+    "dep-d9n2irlbedkc73epvdj0"
+  ],
+  "proofCheckedAt": "2026-10-11T06:23:38.822000+00:00",
+  "proofDigest": "4b54c5e8f118daf8732da6fc95195e05dabfdd6ffe328df73333ed9a1dbfc6d7",
+  "changedKey": "ARCADE_TRUST_PROXY",
+  "previousPolicy": "none",
+  "requestedPolicy": "cf-connecting-ip",
+  "configurationChangeAttempted": true,
+  "configurationChanged": true,
+  "externalHealthChecksAllowed": true,
+  "monitorDeadline": "2026-10-11T06:33:42.558719+00:00",
+  "configurationBinding": "7f51dbfff90777f003f4d553b80f77b0e057237f9bc91e6726a8ba683671c5c4",
+  "deployRequestStatus": 201,
+  "queued": false,
+  "requestedDeploy": {
+    "id": "dep-db5imrt9fdbs73d19570",
+    "status": "build_in_progress",
+    "commit": "31961cbd762587225b4b8a814828dc0829952978"
+  },
+  "observedDeploys": [
+    {
+      "id": "dep-db5imrt9fdbs73d19570",
+      "status": "live",
+      "commit": "31961cbd762587225b4b8a814828dc0829952978"
+    }
+  ],
+  "verification": "new_candidate_live",
+  "newLiveDeployId": "dep-db5imrt9fdbs73d19570"
+}

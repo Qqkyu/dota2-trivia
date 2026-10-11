@@ -1,0 +1,43 @@
+{
+  "scope": "Only directory ownership under the reviewed Orca audit attempts. No files or modes are changed.",
+  "host_owner_uid": 0,
+  "host_owner_gid": 0,
+  "sandbox_display_uid": 65534,
+  "directories": 178,
+  "regular_files": 451,
+  "symlinks": 0,
+  "special_files": 0,
+  "hardlinked_files": 0,
+  "origin_evidence": [
+    {
+      "path": "docs/audits/2026-10-06/launch-checks/devices/evidence/assistive/modern-orca49/Dockerfile.txt",
+      "line": 2,
+      "fact": "The test image uses USER root."
+    },
+    {
+      "path": "docs/audits/2026-10-06/launch-checks/devices/evidence/assistive/modern-orca49/modern-session.sh.txt",
+      "line": 3,
+      "fact": "The test session creates separate config, data, cache, log, speech and screenshot paths and writes Orca and browser outputs."
+    },
+    {
+      "path": "docs/audits/2026-10-06/launch-checks/devices/evidence/assistive/modern-orca49/modern-check.mjs.txt",
+      "line": 11,
+      "fact": "The browser checks write the app results, accessibility snapshots and screenshots found in the test output structure."
+    }
+  ],
+  "matching_small_archived_output": {
+    "path": "docs/audits/2026-10-06/launch-checks/devices/evidence/assistive/modern-orca49/environment.json",
+    "sha256": "dcd56f377a46385492f3a1adb6a9c8ab8835b8170713b57139ebfe9771046ddb",
+    "attempts": [
+      "control-external-status",
+      "control-external-generic-initial",
+      "control-recovered-generic",
+      "control-external-generic-late",
+      "final3333-combined",
+      "final3333-recipe"
+    ]
+  },
+  "limit": "No separate archived launcher names every early attempt. The exact 12 paths are within the already reviewed task root and contain the generated Orca output structure.",
+  "tests_passed": 5,
+  "mutations_performed": false
+}

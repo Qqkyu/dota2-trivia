@@ -1,0 +1,2131 @@
+{
+  "reviewedAt": "2026-10-10T11:16:35.186219+00:00",
+  "result": "The four previously reported defects are corrected in the reviewed local capture. No new visible regression was found in this scope. Final production-image CI remains separate.",
+  "sourceProvenance": {
+    "captureType": "Local development server, not a production image",
+    "baselineCandidate": "6e1eace126e89341052dddbd76eeb4ad4de584e6",
+    "baselineMethod": "Supplied by the CI owner; the capture itself has buildId null.",
+    "greenSourceSummary": "../green/summary.json",
+    "greenSourceSummarySha256": "97fd39528d833f1db9f7058c9ec34dc33ff704565abfa7e96bab1683fd7cb003",
+    "sourceSha256": {
+      "scripts/check-accessibility.mjs": "72dee694777e5fb7d561c238e78f2748a0a2c46388bf51d559b973292dc95668",
+      "scripts/lib/forced-color-checks.mjs": "0b9ef695d3e1f1be74640f2409c5bb1832487a1952d9cf3af33ea6faea02eabb",
+      "src/components/queue-arcade.module.css": "cc274adee55eb2bc79e4db7d162c62ab3075521af12436f0465611ede35ea507",
+      "src/components/private-room-panel.module.css": "b278310aeb677d7bec7c453ff20321d76b93c1b5c612bf1ae131efcadc738b28",
+      "src/components/calibration-dashboard.module.css": "059aba0a3aba0324afd84055e81cdd102669bca701564f6b57a73682393e649a",
+      ".github/workflows/ci.yml": "28ff89df3f7916693e2b308a66f5c76ca6a229ad61756393b72b3d6da3f531c8"
+    },
+    "currentWorkspaceHashesMatchCaptureSummary": true
+  },
+  "expectedResult": "Muted controls remain visible, selected states differ by a visible mark or border, and keyboard focus remains distinct from selection in normal, forced-light and forced-dark modes.",
+  "method": "Read-only visual inspection with view_image. Compared all 54 saved red and 60 green control crops in labeled sheets; inspected 12 green full-page images. Calibration images received a full overview and native-size top crop. Read raw browser reports and checked source hashes. No app, browser, network or Docker run was performed for this follow-up.",
+  "captures": [
+    {
+      "phase": "red",
+      "engine": "chromium",
+      "version": "149.0.7827.55",
+      "appUrl": "http://127.0.0.1:3351",
+      "buildId": null,
+      "startedAt": "2026-10-10T11:07:45.498Z",
+      "completedAt": "2026-10-10T11:08:06.661Z",
+      "completed": true,
+      "requestedModes": [
+        "desktop",
+        "forced",
+        "forced-dark"
+      ],
+      "pages": 12,
+      "fixtures": 3,
+      "paintingChecks": 102,
+      "paintingChecksPassed": 86,
+      "failures": 16,
+      "rawReportSha256": "2a30f4c812f77521fcb1f22efcf298fc917ec0022352272f11555214b98a50f8",
+      "rawReportBytes": 1642577
+    },
+    {
+      "phase": "green",
+      "engine": "chromium",
+      "version": "149.0.7827.55",
+      "appUrl": "http://127.0.0.1:3351",
+      "buildId": null,
+      "startedAt": "2026-10-10T11:10:06.587Z",
+      "completedAt": "2026-10-10T11:10:27.766Z",
+      "completed": true,
+      "requestedModes": [
+        "desktop",
+        "forced",
+        "forced-dark"
+      ],
+      "pages": 12,
+      "fixtures": 3,
+      "paintingChecks": 117,
+      "paintingChecksPassed": 117,
+      "failures": 0,
+      "rawReportSha256": "3a14fb369df56b8f756035dd6df364a29de948513744dbb19aac97e59893217a",
+      "rawReportBytes": 1640129
+    }
+  ],
+  "visualFindings": [
+    {
+      "id": "FC-1",
+      "status": "corrected in reviewed capture",
+      "observation": "Muted volume text and slider are as visible as their unmuted equivalents in all three modes. The speaker icon changes between a cross and sound waves, so the mute state still has a separate visible cue.",
+      "evidence": [
+        "desktop-volume-comparison.png",
+        "forced-volume-comparison.png",
+        "forced-dark-volume-comparison.png"
+      ]
+    },
+    {
+      "id": "FC-2",
+      "status": "corrected in reviewed capture",
+      "observation": "Forced-light selected party cards have black checkmarks and forced-dark cards have white checkmarks. Unselected interiors are blank. Space selection and clearing crops show both states. The normal theme retains its green marker.",
+      "evidence": [
+        "forced-selection-comparison.png",
+        "forced-dark-selection-comparison.png",
+        "chromium-forced-party-unchecked.png"
+      ]
+    },
+    {
+      "id": "FC-3",
+      "status": "corrected in reviewed capture",
+      "observation": "Only the selected shop tab has an underline in forced-light and forced-dark modes. The normal theme retains its gold selected state.",
+      "evidence": [
+        "forced-selection-comparison.png",
+        "forced-dark-selection-comparison.png",
+        "chromium-forced-shop-build.png"
+      ]
+    },
+    {
+      "id": "FC-4",
+      "status": "corrected in reviewed capture",
+      "observation": "The selected calibration filter has a double border. Unselected filters have a solid border in both forced-color modes. The normal theme retains its prior selected style.",
+      "evidence": [
+        "forced-calibration-top.png",
+        "forced-dark-calibration-top.png",
+        "forced-selection-comparison.png",
+        "forced-dark-selection-comparison.png"
+      ]
+    }
+  ],
+  "focusReview": {
+    "result": "The tested unselected party card, shop tab and calibration filter gain a separate outer outline on keyboard focus in all three modes. The selected marker remains distinct from this outline.",
+    "evidence": [
+      "desktop-focus-comparison.png",
+      "forced-focus-comparison.png",
+      "forced-dark-focus-comparison.png"
+    ]
+  },
+  "fullPageReview": "The corrected controls fit their surrounding layouts. Headings, labels, item artwork and the inspected page content remain visible. This targeted review found no new layout regression.",
+  "measuredEvidenceLimits": [
+    "The green report records 117 passing targeted painting checks. Red has 102 checks and 16 failures; test counts differ because green adds mute icon, label, restoration and normal-theme volume checks.",
+    "The pixel method compares pixels against the most common crop color. Its maximum contrast is the highest sampled pixel ratio, not a minimum text contrast or a page-wide measurement.",
+    "Green raw axe output still has excluded forced-light color-contrast results and incomplete checks. A zero gate failure count is not a claim that all axe checks passed."
+  ],
+  "limits": [
+    "This review covers one Chromium version, one desktop viewport and three recorded color modes. It does not certify other browsers, physical Windows high-contrast themes or smaller screens.",
+    "The report has no build ID and the screenshots show the development indicator. Source hashes in the capture summary bind this local correction; they do not prove the final production image.",
+    "This follow-up covers four identified defects and their nearby layouts. It is not a full accessibility or page-wide contrast audit.",
+    "Calibration table rows were viewed as a full-page overview; the native-size check covered the top section and controls, not every row.",
+    "The saved crops and browser report support the recorded state and focus checks. This reviewer did not operate a browser or test a screen reader."
+  ],
+  "sourceImages": [
+    {
+      "phase": "red",
+      "file": "chromium-desktop-volume-muted-text.png",
+      "sha256": "aa04e71e828f9b29e921fea2cb9c191e5ebbf22910900f26bf103ab85559e6f5",
+      "bytes": 640,
+      "size": [
+        34,
+        11
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-desktop-volume-enabled-text.png",
+      "sha256": "fbba17bc68ff11aa5abf52a6033f011941b39520f1fb0cbd9cedf0b432b7821e",
+      "bytes": 731,
+      "size": [
+        34,
+        11
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-desktop-volume-muted-slider.png",
+      "sha256": "e5fb55fffd56b654fd220db4969393320935209ba1cb20052aa8589313369e29",
+      "bytes": 1186,
+      "size": [
+        72,
+        21
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-desktop-volume-enabled-slider.png",
+      "sha256": "f65d3336e0b25ae36ac158dc420e0ac85a19ba82453a2c559de109dfee165e09",
+      "bytes": 1061,
+      "size": [
+        72,
+        21
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-desktop-party-selected.png",
+      "sha256": "bb006a57a6b1c2a606a5beca40ac0bc7e47cb8a54284d73d84160f9912d41d41",
+      "bytes": 338,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-desktop-party-unselected.png",
+      "sha256": "5fbd8db930ac9b6444ae343ff106456febef4254188a0d914c56ce921dbb977b",
+      "bytes": 203,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-desktop-party-keyboard-selected.png",
+      "sha256": "bb006a57a6b1c2a606a5beca40ac0bc7e47cb8a54284d73d84160f9912d41d41",
+      "bytes": 338,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-desktop-party-keyboard-unselected.png",
+      "sha256": "5fbd8db930ac9b6444ae343ff106456febef4254188a0d914c56ce921dbb977b",
+      "bytes": 203,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-desktop-shop-selected.png",
+      "sha256": "7d05026da77c1bd5e0e0293281cccdedbef0e2921e750899e0732e5d3c89eec3",
+      "bytes": 2273,
+      "size": [
+        88,
+        36
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-desktop-shop-unselected.png",
+      "sha256": "654021c8d62cdcefe2454d0fb2b33de3681f7bf22df7018e0ee4faef18177bf9",
+      "bytes": 1522,
+      "size": [
+        88,
+        36
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-desktop-calibration-selected.png",
+      "sha256": "def927b6a9d28bba1ea5d3108e594981e76c6d976109f9a1bbbab0a730747fbb",
+      "bytes": 1831,
+      "size": [
+        91,
+        39
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-desktop-calibration-unselected.png",
+      "sha256": "9078964c595d897d3469bb13b46e29e32fa0aac3b9f50992c5becd581413f8ef",
+      "bytes": 1161,
+      "size": [
+        91,
+        39
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-desktop-party-unselected-unfocused.png",
+      "sha256": "5c6091f8aff7893a43f1b6a83106414f00cfcd4dac66aefa333a6fea13c6b3be",
+      "bytes": 30855,
+      "size": [
+        376,
+        200
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-desktop-party-unselected-keyboard-focus.png",
+      "sha256": "be19928fb02a958a9c128752b11d3154316b8c020b34564178b663484f47102a",
+      "bytes": 30006,
+      "size": [
+        376,
+        200
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-desktop-shop-unselected-unfocused.png",
+      "sha256": "eb6058401117937faec7eddc9df7929994641b4ecfdb8821dd98dd2c1d411625",
+      "bytes": 2093,
+      "size": [
+        100,
+        48
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-desktop-shop-unselected-keyboard-focus.png",
+      "sha256": "abfec1b47f48b26cf856b13dbf2c61eb0e89cd12fbe341e5863de22051d68288",
+      "bytes": 2103,
+      "size": [
+        100,
+        48
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-desktop-calibration-unselected-unfocused.png",
+      "sha256": "6b14439ae63588cf66c346286a207c2ebda70f4c8bf0e262a55500f50aa8ba75",
+      "bytes": 1224,
+      "size": [
+        103,
+        51
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-desktop-calibration-unselected-keyboard-focus.png",
+      "sha256": "91da31b2516953954c71c115d46229b0c26eeb318d7abc5598312cf877af3dee",
+      "bytes": 1226,
+      "size": [
+        103,
+        51
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-volume-muted-text.png",
+      "sha256": "7660432e34052d50eabf1bab6b5cf16567690fdcbb0bd185bd71bdaccfde4e07",
+      "bytes": 671,
+      "size": [
+        34,
+        11
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-volume-enabled-text.png",
+      "sha256": "3a3c86bdcf799c5099979918c26da39122949bd2f688bcb016193f34d2955818",
+      "bytes": 639,
+      "size": [
+        34,
+        11
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-volume-muted-slider.png",
+      "sha256": "8bc4112aa6b1ae29b58625f85ad07616853f2e0c129a00bd3ef5f144f3c49dc9",
+      "bytes": 1405,
+      "size": [
+        72,
+        21
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-volume-enabled-slider.png",
+      "sha256": "b5990bfdfda8710c67139ec41bd64366432c2ded898e9896fab2a679f5bbd44c",
+      "bytes": 1334,
+      "size": [
+        72,
+        21
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-party-selected.png",
+      "sha256": "553fb9fef8548d0f8709bd8c0ce6f3cd76b05c5dcc217a6313ef4d47cab8ebe5",
+      "bytes": 256,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-party-unselected.png",
+      "sha256": "6929feca4be8f2414418ca69449b981db0830b5ee32861d95c6fd5acca4febb9",
+      "bytes": 106,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-party-keyboard-selected.png",
+      "sha256": "553fb9fef8548d0f8709bd8c0ce6f3cd76b05c5dcc217a6313ef4d47cab8ebe5",
+      "bytes": 256,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-party-keyboard-unselected.png",
+      "sha256": "6929feca4be8f2414418ca69449b981db0830b5ee32861d95c6fd5acca4febb9",
+      "bytes": 106,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-shop-selected.png",
+      "sha256": "5f6e9eae0f48ebf33357f6c36b296d34482940be15b8274f89d89645e466c4d3",
+      "bytes": 740,
+      "size": [
+        88,
+        36
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-shop-unselected.png",
+      "sha256": "264dc917056c23df4057ba331d62dfb3f0c00b6053e74dcb32eccdaa516ac2f0",
+      "bytes": 735,
+      "size": [
+        88,
+        36
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-calibration-selected.png",
+      "sha256": "a6b189e7695f9ccb82b6febae7b3eebb195308227572c2d87fb5e5bd7ed93a99",
+      "bytes": 974,
+      "size": [
+        91,
+        39
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-calibration-unselected.png",
+      "sha256": "a6b189e7695f9ccb82b6febae7b3eebb195308227572c2d87fb5e5bd7ed93a99",
+      "bytes": 974,
+      "size": [
+        91,
+        39
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-party-unselected-unfocused.png",
+      "sha256": "98af1df017142058eda6589e5213022794d81fc3039b32015954199d5b4094a7",
+      "bytes": 21975,
+      "size": [
+        376,
+        200
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-party-unselected-keyboard-focus.png",
+      "sha256": "a70ca423cd39424d232178efd0edcba1fb5eac9cd4595501bc1fe88e6d3cd5f4",
+      "bytes": 20444,
+      "size": [
+        376,
+        200
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-shop-unselected-unfocused.png",
+      "sha256": "8147de1712599b699b5a7a663a8c9005e53475be52e82611c02df21c3f7e2629",
+      "bytes": 795,
+      "size": [
+        100,
+        48
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-shop-unselected-keyboard-focus.png",
+      "sha256": "1bdd01dd1aefab45fe78ce52c7e49299e88e5966fefe6a86175365f56e09f268",
+      "bytes": 830,
+      "size": [
+        100,
+        48
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-calibration-unselected-unfocused.png",
+      "sha256": "7f3fe9033f389fc5dae239143ab939df2a1abdabbcb279c40468beab8794d6f0",
+      "bytes": 1030,
+      "size": [
+        103,
+        51
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-calibration-unselected-keyboard-focus.png",
+      "sha256": "cd2ee4f39bb9a2838c6acc16073f808baccc52d8ce6c4cc8353f8412b2a1475c",
+      "bytes": 1066,
+      "size": [
+        103,
+        51
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-dark-volume-muted-text.png",
+      "sha256": "7377b9a87d02a99814900412bc134e62c9e09e003ae4b9f2a4c73342007866f4",
+      "bytes": 685,
+      "size": [
+        34,
+        11
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-dark-volume-enabled-text.png",
+      "sha256": "ffafdc89fafb1648226f969cf48ee50ce4a5fbabd00bb92154cfc9bb5efed468",
+      "bytes": 643,
+      "size": [
+        34,
+        11
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-dark-volume-muted-slider.png",
+      "sha256": "32dddbfd05978e00e9f05337344de1cac61d26c973e5eee8f9871fb91eb9de63",
+      "bytes": 1425,
+      "size": [
+        72,
+        21
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-dark-volume-enabled-slider.png",
+      "sha256": "240169923a7e6c62f707c998a3b79b8b13f833a5f0bef0cc51af3461d658c820",
+      "bytes": 1282,
+      "size": [
+        72,
+        21
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-dark-party-selected.png",
+      "sha256": "71d9a4aee6cd9d9850898843bc2b1b1a30b0bcb614615ccbbf2e7db2877485c8",
+      "bytes": 306,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-dark-party-unselected.png",
+      "sha256": "9385c9b17edcc7a133f5406a9718c508f806136b0766234c502bae50d480450c",
+      "bytes": 182,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-dark-party-keyboard-selected.png",
+      "sha256": "71d9a4aee6cd9d9850898843bc2b1b1a30b0bcb614615ccbbf2e7db2877485c8",
+      "bytes": 306,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-dark-party-keyboard-unselected.png",
+      "sha256": "9385c9b17edcc7a133f5406a9718c508f806136b0766234c502bae50d480450c",
+      "bytes": 182,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-dark-shop-selected.png",
+      "sha256": "eab9b06440bf8665938948416dac0e5c4f6333be8cfed68c4b5bf0ee62bb472e",
+      "bytes": 746,
+      "size": [
+        88,
+        36
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-dark-shop-unselected.png",
+      "sha256": "143d3f70b9e607058c5b7aa18d793e53480e07705619d4563f528feec2aa606f",
+      "bytes": 743,
+      "size": [
+        88,
+        36
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-dark-calibration-selected.png",
+      "sha256": "85bf3f98a330ddd84e78ec9a15c0b60b16d44f50661e7ad5a9955dfd850f7768",
+      "bytes": 967,
+      "size": [
+        91,
+        39
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-dark-calibration-unselected.png",
+      "sha256": "85bf3f98a330ddd84e78ec9a15c0b60b16d44f50661e7ad5a9955dfd850f7768",
+      "bytes": 967,
+      "size": [
+        91,
+        39
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-dark-party-unselected-unfocused.png",
+      "sha256": "99cbb20ec5c3f3d9389722710b62115d856b3d81b6936ee31a110b38c50d2d82",
+      "bytes": 28272,
+      "size": [
+        376,
+        200
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-dark-party-unselected-keyboard-focus.png",
+      "sha256": "3b350aa0f81491a258803b74e9c75df91fd87d9efe2635012482e643dda06cfd",
+      "bytes": 27569,
+      "size": [
+        376,
+        200
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-dark-shop-unselected-unfocused.png",
+      "sha256": "a1adfde9fd8d5f88ce79ded15f5f4932350f16c2a7085d4866180c2e1ec54606",
+      "bytes": 796,
+      "size": [
+        100,
+        48
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-dark-shop-unselected-keyboard-focus.png",
+      "sha256": "faa3e123c3b48fea61aefdcf90928b0b125e264377e2e7217803705182c98c0c",
+      "bytes": 831,
+      "size": [
+        100,
+        48
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-dark-calibration-unselected-unfocused.png",
+      "sha256": "da15026f2b4b31a1638bdd8e49bc126529496773fdd03beff36c251989670887",
+      "bytes": 1027,
+      "size": [
+        103,
+        51
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "red",
+      "file": "chromium-forced-dark-calibration-unselected-keyboard-focus.png",
+      "sha256": "d8df166df154c478e286e143de7694349ee0615748dc404967179e1996b3efe8",
+      "bytes": 1060,
+      "size": [
+        103,
+        51
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-volume-muted-button.png",
+      "sha256": "0fb0a21b9f346189d75b7cf8539c1e3ee582e8f2c25ab1657fccbb006ada9443",
+      "bytes": 1264,
+      "size": [
+        36,
+        37
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-volume-enabled-button.png",
+      "sha256": "ebc1c5d542805f1825101c40cfb84235e3cd2ff64c9074b2e1b3b85a1b3ce334",
+      "bytes": 1316,
+      "size": [
+        36,
+        37
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-volume-muted-text.png",
+      "sha256": "fbba17bc68ff11aa5abf52a6033f011941b39520f1fb0cbd9cedf0b432b7821e",
+      "bytes": 731,
+      "size": [
+        34,
+        11
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-volume-enabled-text.png",
+      "sha256": "fbba17bc68ff11aa5abf52a6033f011941b39520f1fb0cbd9cedf0b432b7821e",
+      "bytes": 731,
+      "size": [
+        34,
+        11
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-volume-muted-slider.png",
+      "sha256": "f65d3336e0b25ae36ac158dc420e0ac85a19ba82453a2c559de109dfee165e09",
+      "bytes": 1061,
+      "size": [
+        72,
+        21
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-volume-enabled-slider.png",
+      "sha256": "f65d3336e0b25ae36ac158dc420e0ac85a19ba82453a2c559de109dfee165e09",
+      "bytes": 1061,
+      "size": [
+        72,
+        21
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-party-selected.png",
+      "sha256": "bb006a57a6b1c2a606a5beca40ac0bc7e47cb8a54284d73d84160f9912d41d41",
+      "bytes": 338,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-party-unselected.png",
+      "sha256": "5fbd8db930ac9b6444ae343ff106456febef4254188a0d914c56ce921dbb977b",
+      "bytes": 203,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-party-keyboard-selected.png",
+      "sha256": "bb006a57a6b1c2a606a5beca40ac0bc7e47cb8a54284d73d84160f9912d41d41",
+      "bytes": 338,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-party-keyboard-unselected.png",
+      "sha256": "5fbd8db930ac9b6444ae343ff106456febef4254188a0d914c56ce921dbb977b",
+      "bytes": 203,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-shop-selected.png",
+      "sha256": "7d05026da77c1bd5e0e0293281cccdedbef0e2921e750899e0732e5d3c89eec3",
+      "bytes": 2273,
+      "size": [
+        88,
+        36
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-shop-unselected.png",
+      "sha256": "654021c8d62cdcefe2454d0fb2b33de3681f7bf22df7018e0ee4faef18177bf9",
+      "bytes": 1522,
+      "size": [
+        88,
+        36
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-calibration-selected.png",
+      "sha256": "def927b6a9d28bba1ea5d3108e594981e76c6d976109f9a1bbbab0a730747fbb",
+      "bytes": 1831,
+      "size": [
+        91,
+        39
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-calibration-unselected.png",
+      "sha256": "9078964c595d897d3469bb13b46e29e32fa0aac3b9f50992c5becd581413f8ef",
+      "bytes": 1161,
+      "size": [
+        91,
+        39
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-party-unselected-unfocused.png",
+      "sha256": "93b7c5d0e74d75855ac32d665069ef4d5863a4e19e038511b50c2f8b66c0867d",
+      "bytes": 30872,
+      "size": [
+        376,
+        200
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-party-unselected-keyboard-focus.png",
+      "sha256": "2745f5c38dcb8a6151299de13b187a3e10e0434b3559790fdf3cc5594c22ced9",
+      "bytes": 29997,
+      "size": [
+        376,
+        200
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-shop-unselected-unfocused.png",
+      "sha256": "eb6058401117937faec7eddc9df7929994641b4ecfdb8821dd98dd2c1d411625",
+      "bytes": 2093,
+      "size": [
+        100,
+        48
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-shop-unselected-keyboard-focus.png",
+      "sha256": "abfec1b47f48b26cf856b13dbf2c61eb0e89cd12fbe341e5863de22051d68288",
+      "bytes": 2103,
+      "size": [
+        100,
+        48
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-calibration-unselected-unfocused.png",
+      "sha256": "6b14439ae63588cf66c346286a207c2ebda70f4c8bf0e262a55500f50aa8ba75",
+      "bytes": 1224,
+      "size": [
+        103,
+        51
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-calibration-unselected-keyboard-focus.png",
+      "sha256": "91da31b2516953954c71c115d46229b0c26eeb318d7abc5598312cf877af3dee",
+      "bytes": 1226,
+      "size": [
+        103,
+        51
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-home.png",
+      "sha256": "250db72e88efb178cf90448869137892a10839554553c71d9e488aadf6201cd9",
+      "bytes": 651428,
+      "size": [
+        1280,
+        932
+      ],
+      "inspection": "Direct full-page view"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-party-unchecked.png",
+      "sha256": "1d31181d13f017f08b6547c28c6218ec9ad37b170f0737f5660ba1e42e27c4fb",
+      "bytes": 556535,
+      "size": [
+        1280,
+        1160
+      ],
+      "inspection": "Direct full-page view"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-shop-build.png",
+      "sha256": "b0b6b3e5b135fcd3397ea4fc1042ca7a7bc62e602f95fc2b11bf633fc0683d2b",
+      "bytes": 671638,
+      "size": [
+        1280,
+        934
+      ],
+      "inspection": "Direct full-page view"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-desktop-calibration.png",
+      "sha256": "ee976fd0bb5240c56ae2b16edbcce72f44339bbd56c6437319f386c70d0174ac",
+      "bytes": 1599026,
+      "size": [
+        1280,
+        9298
+      ],
+      "inspection": "Full-page overview and native-size top crop"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-volume-muted-button.png",
+      "sha256": "2140cac55e26b3bb07320db2bf6fd9358a08e193316b76bde0cf2252065b9cbd",
+      "bytes": 1254,
+      "size": [
+        36,
+        37
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-volume-enabled-button.png",
+      "sha256": "6128a0007761e415ec8cf79f6dae6d15cb23c50476a72dda026507006573c5cb",
+      "bytes": 1306,
+      "size": [
+        36,
+        37
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-volume-muted-text.png",
+      "sha256": "3a3c86bdcf799c5099979918c26da39122949bd2f688bcb016193f34d2955818",
+      "bytes": 639,
+      "size": [
+        34,
+        11
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-volume-enabled-text.png",
+      "sha256": "3a3c86bdcf799c5099979918c26da39122949bd2f688bcb016193f34d2955818",
+      "bytes": 639,
+      "size": [
+        34,
+        11
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-volume-muted-slider.png",
+      "sha256": "b5990bfdfda8710c67139ec41bd64366432c2ded898e9896fab2a679f5bbd44c",
+      "bytes": 1334,
+      "size": [
+        72,
+        21
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-volume-enabled-slider.png",
+      "sha256": "b5990bfdfda8710c67139ec41bd64366432c2ded898e9896fab2a679f5bbd44c",
+      "bytes": 1334,
+      "size": [
+        72,
+        21
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-party-selected.png",
+      "sha256": "d0fa7291325565942b389e42e1a0bdb8165415f7bde04e52590df23358c2a9b1",
+      "bytes": 289,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-party-unselected.png",
+      "sha256": "6929feca4be8f2414418ca69449b981db0830b5ee32861d95c6fd5acca4febb9",
+      "bytes": 106,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-party-keyboard-selected.png",
+      "sha256": "d0fa7291325565942b389e42e1a0bdb8165415f7bde04e52590df23358c2a9b1",
+      "bytes": 289,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-party-keyboard-unselected.png",
+      "sha256": "6929feca4be8f2414418ca69449b981db0830b5ee32861d95c6fd5acca4febb9",
+      "bytes": 106,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-shop-selected.png",
+      "sha256": "264dc917056c23df4057ba331d62dfb3f0c00b6053e74dcb32eccdaa516ac2f0",
+      "bytes": 735,
+      "size": [
+        88,
+        36
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-shop-unselected.png",
+      "sha256": "f5f0036bf4dbacf1f45b06b3a846056f88d41b435930e4b22ddfcf6babbb4f03",
+      "bytes": 735,
+      "size": [
+        88,
+        36
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-calibration-selected.png",
+      "sha256": "391cd9921743a8f37e9b4454fd3559fe5956280e768c7b8b40d8e0d328019feb",
+      "bytes": 998,
+      "size": [
+        95,
+        39
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-calibration-unselected.png",
+      "sha256": "e4cacc0cb9327881f77b13210bad27efd1b276ac27aca5f7840f6615342c94ad",
+      "bytes": 981,
+      "size": [
+        95,
+        39
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-party-unselected-unfocused.png",
+      "sha256": "d2b0decd8c6bba7eb486670e01a80b13beb1e06ef74f6663ad5b577d6a9cf156",
+      "bytes": 21904,
+      "size": [
+        376,
+        200
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-party-unselected-keyboard-focus.png",
+      "sha256": "f9472bfe94b8577426e2b61de94eeb7d046272f2fb541433fe9b40f7c65b63c5",
+      "bytes": 20385,
+      "size": [
+        376,
+        200
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-shop-unselected-unfocused.png",
+      "sha256": "544bf3d9237e5efff3a19429e347dfd7271a10022916306070aca0a302a13881",
+      "bytes": 790,
+      "size": [
+        100,
+        48
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-shop-unselected-keyboard-focus.png",
+      "sha256": "e2ff0aabf65e849ef25b2ab2ce4021d1f6bd69b86c43eb9450b5454b3bb8f305",
+      "bytes": 827,
+      "size": [
+        100,
+        48
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-calibration-unselected-unfocused.png",
+      "sha256": "3be1ab6f4593118bc4e1b0b41686a86754f07a08869155fe319df2cea30c490a",
+      "bytes": 1033,
+      "size": [
+        107,
+        51
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-calibration-unselected-keyboard-focus.png",
+      "sha256": "a86cc1af577d24391c7fbe28428a1ba07be681961f726800e7105183402dbc41",
+      "bytes": 1072,
+      "size": [
+        107,
+        51
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-home.png",
+      "sha256": "efd7664bbb92b58dd7e5fa91886c0854c1280d7ff98a8cbf9e8c50c5d6da74e9",
+      "bytes": 665842,
+      "size": [
+        1280,
+        932
+      ],
+      "inspection": "Direct full-page view"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-party-unchecked.png",
+      "sha256": "2e713ec23c304663ffd73138a7efd1a079dca16b335a191002a9c99a8b93b792",
+      "bytes": 474402,
+      "size": [
+        1280,
+        1160
+      ],
+      "inspection": "Direct full-page view"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-shop-build.png",
+      "sha256": "ee3bf7f4a067e20f645f33b29a488624084ebb267f74cd4da50ca6da4d666389",
+      "bytes": 601573,
+      "size": [
+        1280,
+        934
+      ],
+      "inspection": "Direct full-page view"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-calibration.png",
+      "sha256": "05598f60971bbd7bbc141f5cf5b1a01be3d43fc8b910fdab827fa4afa4cffbf6",
+      "bytes": 1190251,
+      "size": [
+        1280,
+        9298
+      ],
+      "inspection": "Full-page overview and native-size top crop"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-volume-muted-button.png",
+      "sha256": "80b7cce2fe21c28f33ac0cd067ca51627dbf77886a6de0cea441e792b309f7b7",
+      "bytes": 1287,
+      "size": [
+        36,
+        37
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-volume-enabled-button.png",
+      "sha256": "e17121bf8486ebbc68d1482641bce0729caada5987edf7efe88acd42531f1554",
+      "bytes": 1308,
+      "size": [
+        36,
+        37
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-volume-muted-text.png",
+      "sha256": "ffafdc89fafb1648226f969cf48ee50ce4a5fbabd00bb92154cfc9bb5efed468",
+      "bytes": 643,
+      "size": [
+        34,
+        11
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-volume-enabled-text.png",
+      "sha256": "ffafdc89fafb1648226f969cf48ee50ce4a5fbabd00bb92154cfc9bb5efed468",
+      "bytes": 643,
+      "size": [
+        34,
+        11
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-volume-muted-slider.png",
+      "sha256": "240169923a7e6c62f707c998a3b79b8b13f833a5f0bef0cc51af3461d658c820",
+      "bytes": 1282,
+      "size": [
+        72,
+        21
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-volume-enabled-slider.png",
+      "sha256": "240169923a7e6c62f707c998a3b79b8b13f833a5f0bef0cc51af3461d658c820",
+      "bytes": 1282,
+      "size": [
+        72,
+        21
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-party-selected.png",
+      "sha256": "fdebba3735876d4f2c00ead610193f58fe211833d14914b498fd7a313e341063",
+      "bytes": 289,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-party-unselected.png",
+      "sha256": "95bbd7c724349b94ae8c85d7703e302d1497c0c7bffcfe85ab3425f81a19c24f",
+      "bytes": 104,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-party-keyboard-selected.png",
+      "sha256": "fdebba3735876d4f2c00ead610193f58fe211833d14914b498fd7a313e341063",
+      "bytes": 289,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-party-keyboard-unselected.png",
+      "sha256": "95bbd7c724349b94ae8c85d7703e302d1497c0c7bffcfe85ab3425f81a19c24f",
+      "bytes": 104,
+      "size": [
+        14,
+        14
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-shop-selected.png",
+      "sha256": "143d3f70b9e607058c5b7aa18d793e53480e07705619d4563f528feec2aa606f",
+      "bytes": 743,
+      "size": [
+        88,
+        36
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-shop-unselected.png",
+      "sha256": "e0a896bbc539a826c2d7d1939641760a78575f428ec8de5f105abdf4cd75f8bc",
+      "bytes": 739,
+      "size": [
+        88,
+        36
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-calibration-selected.png",
+      "sha256": "63c06e28a7da215881c7379fe1bea7a09fd269bfe07eaff144af6375e1f75c64",
+      "bytes": 995,
+      "size": [
+        95,
+        39
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-calibration-unselected.png",
+      "sha256": "9547d9bb0d421133d657fce1cea43cc0df77472071b46399c1b443aa623bf433",
+      "bytes": 979,
+      "size": [
+        95,
+        39
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-party-unselected-unfocused.png",
+      "sha256": "48f0606caf94045845c717733f3178bc4cad581669ce27bc6a8a490fa39ab472",
+      "bytes": 28075,
+      "size": [
+        376,
+        200
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-party-unselected-keyboard-focus.png",
+      "sha256": "f56e1c6251eea0ee6e186d3bd509e60cb4e773b51084a17b750191bbd1d16099",
+      "bytes": 27391,
+      "size": [
+        376,
+        200
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-shop-unselected-unfocused.png",
+      "sha256": "21671cdeb2dace4c621e5f657bfe35c0ddbc509ceab1cf42ba17bbb09d2ac775",
+      "bytes": 792,
+      "size": [
+        100,
+        48
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-shop-unselected-keyboard-focus.png",
+      "sha256": "a1eecfb94bf90219e6c397c9b6927c676bed88bcac9c47b5382bffe550461aa8",
+      "bytes": 828,
+      "size": [
+        100,
+        48
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-calibration-unselected-unfocused.png",
+      "sha256": "6361ab5f83aa9f589507e6b02c9edb90e2d91f9573dc1b03c7eeae639c595b47",
+      "bytes": 1030,
+      "size": [
+        107,
+        51
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-calibration-unselected-keyboard-focus.png",
+      "sha256": "b3d24eabc3cf278db274299696b34d54c0424a4e391b706b7a9bcdf053bf949e",
+      "bytes": 1070,
+      "size": [
+        107,
+        51
+      ],
+      "inspection": "Labeled comparison sheet, crop enlarged by nearest-neighbor scaling when narrower than 200 pixels"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-home.png",
+      "sha256": "65dc16e64c5b95fcca565bccbd8c87e31c90ada6211e5f2ba10f719c1983f90e",
+      "bytes": 666226,
+      "size": [
+        1280,
+        932
+      ],
+      "inspection": "Direct full-page view"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-party-unchecked.png",
+      "sha256": "7cf76f840a38eb0015ebd2c6e6482d867f5e469d6fae541c42441715d1d632ec",
+      "bytes": 521862,
+      "size": [
+        1280,
+        1160
+      ],
+      "inspection": "Direct full-page view"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-shop-build.png",
+      "sha256": "67cf2946d74f7a6b63a39ce4a74e8bb359678b4eaaa043cb94f03860e93e20d7",
+      "bytes": 601952,
+      "size": [
+        1280,
+        934
+      ],
+      "inspection": "Direct full-page view"
+    },
+    {
+      "phase": "green",
+      "file": "chromium-forced-dark-calibration.png",
+      "sha256": "889f5ddb6f91dc118bcb235e071bd8eefe046e881472e2e8de972bb2e01f82fc",
+      "bytes": 1191102,
+      "size": [
+        1280,
+        9298
+      ],
+      "inspection": "Full-page overview and native-size top crop"
+    }
+  ],
+  "derivedImages": [
+    {
+      "file": "desktop-volume-comparison.png",
+      "type": "comparison sheet",
+      "mode": "desktop",
+      "category": "volume",
+      "columns": [
+        "red, before correction",
+        "green, after correction"
+      ],
+      "sourceFiles": [
+        {
+          "phase": "green",
+          "file": "chromium-desktop-volume-muted-button.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-desktop-volume-enabled-button.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-desktop-volume-muted-text.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-desktop-volume-muted-text.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-desktop-volume-enabled-text.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-desktop-volume-enabled-text.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-desktop-volume-muted-slider.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-desktop-volume-muted-slider.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-desktop-volume-enabled-slider.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-desktop-volume-enabled-slider.png"
+        }
+      ],
+      "method": "Source crops pasted in labeled rows. Crops narrower than 200 pixels use 3x nearest-neighbor scaling; larger crops remain native size. Gray space is a sheet background. Missing red mute-button captures remain blank."
+    },
+    {
+      "file": "desktop-selection-comparison.png",
+      "type": "comparison sheet",
+      "mode": "desktop",
+      "category": "selection",
+      "columns": [
+        "red, before correction",
+        "green, after correction"
+      ],
+      "sourceFiles": [
+        {
+          "phase": "red",
+          "file": "chromium-desktop-party-selected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-desktop-party-selected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-desktop-party-unselected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-desktop-party-unselected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-desktop-party-keyboard-selected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-desktop-party-keyboard-selected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-desktop-party-keyboard-unselected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-desktop-party-keyboard-unselected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-desktop-shop-selected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-desktop-shop-selected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-desktop-shop-unselected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-desktop-shop-unselected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-desktop-calibration-selected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-desktop-calibration-selected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-desktop-calibration-unselected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-desktop-calibration-unselected.png"
+        }
+      ],
+      "method": "Source crops pasted in labeled rows. Crops narrower than 200 pixels use 3x nearest-neighbor scaling; larger crops remain native size. Gray space is a sheet background. Missing red mute-button captures remain blank."
+    },
+    {
+      "file": "desktop-focus-comparison.png",
+      "type": "comparison sheet",
+      "mode": "desktop",
+      "category": "focus",
+      "columns": [
+        "red, before correction",
+        "green, after correction"
+      ],
+      "sourceFiles": [
+        {
+          "phase": "red",
+          "file": "chromium-desktop-party-unselected-unfocused.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-desktop-party-unselected-unfocused.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-desktop-party-unselected-keyboard-focus.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-desktop-party-unselected-keyboard-focus.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-desktop-shop-unselected-unfocused.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-desktop-shop-unselected-unfocused.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-desktop-shop-unselected-keyboard-focus.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-desktop-shop-unselected-keyboard-focus.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-desktop-calibration-unselected-unfocused.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-desktop-calibration-unselected-unfocused.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-desktop-calibration-unselected-keyboard-focus.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-desktop-calibration-unselected-keyboard-focus.png"
+        }
+      ],
+      "method": "Source crops pasted in labeled rows. Crops narrower than 200 pixels use 3x nearest-neighbor scaling; larger crops remain native size. Gray space is a sheet background. Missing red mute-button captures remain blank."
+    },
+    {
+      "file": "desktop-calibration-top.png",
+      "type": "unscaled crop",
+      "sourcePhase": "green",
+      "sourceFile": "chromium-desktop-calibration.png",
+      "box": [
+        0,
+        0,
+        1280,
+        950
+      ]
+    },
+    {
+      "file": "forced-volume-comparison.png",
+      "type": "comparison sheet",
+      "mode": "forced",
+      "category": "volume",
+      "columns": [
+        "red, before correction",
+        "green, after correction"
+      ],
+      "sourceFiles": [
+        {
+          "phase": "green",
+          "file": "chromium-forced-volume-muted-button.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-volume-enabled-button.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-volume-muted-text.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-volume-muted-text.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-volume-enabled-text.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-volume-enabled-text.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-volume-muted-slider.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-volume-muted-slider.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-volume-enabled-slider.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-volume-enabled-slider.png"
+        }
+      ],
+      "method": "Source crops pasted in labeled rows. Crops narrower than 200 pixels use 3x nearest-neighbor scaling; larger crops remain native size. Gray space is a sheet background. Missing red mute-button captures remain blank."
+    },
+    {
+      "file": "forced-selection-comparison.png",
+      "type": "comparison sheet",
+      "mode": "forced",
+      "category": "selection",
+      "columns": [
+        "red, before correction",
+        "green, after correction"
+      ],
+      "sourceFiles": [
+        {
+          "phase": "red",
+          "file": "chromium-forced-party-selected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-party-selected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-party-unselected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-party-unselected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-party-keyboard-selected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-party-keyboard-selected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-party-keyboard-unselected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-party-keyboard-unselected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-shop-selected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-shop-selected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-shop-unselected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-shop-unselected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-calibration-selected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-calibration-selected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-calibration-unselected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-calibration-unselected.png"
+        }
+      ],
+      "method": "Source crops pasted in labeled rows. Crops narrower than 200 pixels use 3x nearest-neighbor scaling; larger crops remain native size. Gray space is a sheet background. Missing red mute-button captures remain blank."
+    },
+    {
+      "file": "forced-focus-comparison.png",
+      "type": "comparison sheet",
+      "mode": "forced",
+      "category": "focus",
+      "columns": [
+        "red, before correction",
+        "green, after correction"
+      ],
+      "sourceFiles": [
+        {
+          "phase": "red",
+          "file": "chromium-forced-party-unselected-unfocused.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-party-unselected-unfocused.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-party-unselected-keyboard-focus.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-party-unselected-keyboard-focus.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-shop-unselected-unfocused.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-shop-unselected-unfocused.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-shop-unselected-keyboard-focus.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-shop-unselected-keyboard-focus.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-calibration-unselected-unfocused.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-calibration-unselected-unfocused.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-calibration-unselected-keyboard-focus.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-calibration-unselected-keyboard-focus.png"
+        }
+      ],
+      "method": "Source crops pasted in labeled rows. Crops narrower than 200 pixels use 3x nearest-neighbor scaling; larger crops remain native size. Gray space is a sheet background. Missing red mute-button captures remain blank."
+    },
+    {
+      "file": "forced-calibration-top.png",
+      "type": "unscaled crop",
+      "sourcePhase": "green",
+      "sourceFile": "chromium-forced-calibration.png",
+      "box": [
+        0,
+        0,
+        1280,
+        950
+      ]
+    },
+    {
+      "file": "forced-dark-volume-comparison.png",
+      "type": "comparison sheet",
+      "mode": "forced-dark",
+      "category": "volume",
+      "columns": [
+        "red, before correction",
+        "green, after correction"
+      ],
+      "sourceFiles": [
+        {
+          "phase": "green",
+          "file": "chromium-forced-dark-volume-muted-button.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-dark-volume-enabled-button.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-dark-volume-muted-text.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-dark-volume-muted-text.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-dark-volume-enabled-text.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-dark-volume-enabled-text.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-dark-volume-muted-slider.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-dark-volume-muted-slider.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-dark-volume-enabled-slider.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-dark-volume-enabled-slider.png"
+        }
+      ],
+      "method": "Source crops pasted in labeled rows. Crops narrower than 200 pixels use 3x nearest-neighbor scaling; larger crops remain native size. Gray space is a sheet background. Missing red mute-button captures remain blank."
+    },
+    {
+      "file": "forced-dark-selection-comparison.png",
+      "type": "comparison sheet",
+      "mode": "forced-dark",
+      "category": "selection",
+      "columns": [
+        "red, before correction",
+        "green, after correction"
+      ],
+      "sourceFiles": [
+        {
+          "phase": "red",
+          "file": "chromium-forced-dark-party-selected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-dark-party-selected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-dark-party-unselected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-dark-party-unselected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-dark-party-keyboard-selected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-dark-party-keyboard-selected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-dark-party-keyboard-unselected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-dark-party-keyboard-unselected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-dark-shop-selected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-dark-shop-selected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-dark-shop-unselected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-dark-shop-unselected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-dark-calibration-selected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-dark-calibration-selected.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-dark-calibration-unselected.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-dark-calibration-unselected.png"
+        }
+      ],
+      "method": "Source crops pasted in labeled rows. Crops narrower than 200 pixels use 3x nearest-neighbor scaling; larger crops remain native size. Gray space is a sheet background. Missing red mute-button captures remain blank."
+    },
+    {
+      "file": "forced-dark-focus-comparison.png",
+      "type": "comparison sheet",
+      "mode": "forced-dark",
+      "category": "focus",
+      "columns": [
+        "red, before correction",
+        "green, after correction"
+      ],
+      "sourceFiles": [
+        {
+          "phase": "red",
+          "file": "chromium-forced-dark-party-unselected-unfocused.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-dark-party-unselected-unfocused.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-dark-party-unselected-keyboard-focus.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-dark-party-unselected-keyboard-focus.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-dark-shop-unselected-unfocused.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-dark-shop-unselected-unfocused.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-dark-shop-unselected-keyboard-focus.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-dark-shop-unselected-keyboard-focus.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-dark-calibration-unselected-unfocused.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-dark-calibration-unselected-unfocused.png"
+        },
+        {
+          "phase": "red",
+          "file": "chromium-forced-dark-calibration-unselected-keyboard-focus.png"
+        },
+        {
+          "phase": "green",
+          "file": "chromium-forced-dark-calibration-unselected-keyboard-focus.png"
+        }
+      ],
+      "method": "Source crops pasted in labeled rows. Crops narrower than 200 pixels use 3x nearest-neighbor scaling; larger crops remain native size. Gray space is a sheet background. Missing red mute-button captures remain blank."
+    },
+    {
+      "file": "forced-dark-calibration-top.png",
+      "type": "unscaled crop",
+      "sourcePhase": "green",
+      "sourceFile": "chromium-forced-dark-calibration.png",
+      "box": [
+        0,
+        0,
+        1280,
+        950
+      ]
+    }
+  ]
+}

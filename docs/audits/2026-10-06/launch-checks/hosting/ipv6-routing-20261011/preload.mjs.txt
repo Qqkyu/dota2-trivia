@@ -1,0 +1,56 @@
+import childProcess from 'node:child_process';
+import { syncBuiltinESMExports } from 'node:module';
+import { promisify } from 'node:util';
+import { writeFileSync } from 'node:fs';
+
+const original = childProcess.execFile;
+const originalPromisified = promisify(original);
+const output = '/tmp/queue-arcade-launch-checks/ipv6-oct11-diagnosis/main-transport-result.json';
+const rows = [];
+const sources = new Map([
+  ['https://api64.ipify.org/', 'ipify'],
+  ['https://www.cloudflare.com/cdn-cgi/trace', 'cloudflare'],
+  ['https://queue-arcade.onrender.com/api/auth/steam', 'app-login'],
+]);
+function record(args, error, result) {
+  try {
+    if (args[0] !== '/mnt/c/Windows/System32/curl.exe') return;
+    const stderr = String(error?.stderr ?? result?.stderr ?? '');
+    const stdout = String(error?.stdout ?? result?.stdout ?? '');
+    const status = /\nSTATUS:([0-9]{3})$/.exec(stdout);
+    const curlError = /curl: \(([0-9]+)\)/.exec(stderr);
+    const codes = new Set(['ENOENT', 'EACCES', 'EPERM', 'ENOMEM', 'ENOBUFS', 'ERR_CHILD_PROCESS_STDIO_MAXBUFFER']);
+    const row = {
+      checkedAt: new Date().toISOString(),
+      source: sources.get(args[1]?.at(-1)) ?? 'unknown',
+      success: !error,
+      exitCode: Number.isInteger(error?.code) ? error.code : !error ? 0 : null,
+      errno: codes.has(error?.code) ? error.code : null,
+      killed: error?.killed === true,
+      signal: ['SIGTERM', 'SIGKILL', 'SIGSEGV', 'SIGABRT'].includes(error?.signal) ? error.signal : null,
+      stdoutBytes: Buffer.byteLength(stdout), stderrBytes: Buffer.byteLength(stderr),
+      httpStatus: status ? Number(status[1]) : null,
+      curlError: curlError ? Number(curlError[1]) : null,
+      errorKinds: [
+        ['Could not resolve', 'DNS'], ['Failed to connect', 'CONNECT'],
+        ['Network is unreachable', 'NO_ROUTE'], ['Address family not supported', 'ADDRESS_FAMILY'],
+        ['timed out', 'TIMEOUT'], ['SSL certificate problem', 'CERTIFICATE'],
+        ['schannel:', 'SCHANNEL'], ['WSL', 'WSL'], ['Exec format error', 'EXEC_FORMAT'],
+        ['Failed to execute', 'EXECUTION'], ['Proxy', 'PROXY'], ['No such file', 'MISSING_FILE'],
+        ['Access is denied', 'ACCESS_DENIED'], ['Operation not permitted', 'NOT_PERMITTED'],
+        ['Permission denied', 'PERMISSION'], ['getpwuid', 'USER_LOOKUP'], ['socket', 'SOCKET'],
+        ['execvpe', 'EXECVPE'], ['UtilAcceptVsock', 'WSL_VSOCK'], ['CreateProcess', 'CREATE_PROCESS'],
+      ].filter(([needle]) => stderr.toLowerCase().includes(needle.toLowerCase())).map(([, label]) => label),
+    };
+    rows.push(row);
+    writeFileSync(output, JSON.stringify({ version: 1, originalPromisesReturned: true, argumentsChanged: false, childEnvironmentChanged: false, rawAddressesLogged: false, providerBodiesLogged: false, rows }, null, 2) + '\n', { mode: 0o600 });
+  } catch { /* A failed diagnostic must not alter the original child promise. */ }
+}
+function wrapped(...args) { return Reflect.apply(original, this, args); }
+wrapped[promisify.custom] = function (...args) {
+  const pending = Reflect.apply(originalPromisified, this, args);
+  pending.then(result => record(args, null, result), error => record(args, error, null));
+  return pending;
+};
+childProcess.execFile = wrapped;
+syncBuiltinESMExports();

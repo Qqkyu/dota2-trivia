@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-10T09:31:19.803Z",
+  "origin": "http://127.0.0.1:3334",
+  "rehearsal": true,
+  "ok": false,
+  "limits": {
+    "wallMs": 900000,
+    "requests": 140,
+    "bytes": 33554432,
+    "requestMs": 15000,
+    "rounds": 26,
+    "browserRequests": 640,
+    "browserMs": 90000
+  },
+  "checks": {
+    "health": {
+      "ready": true,
+      "durableStores": 3,
+      "backend": "file",
+      "questionCount": 1517,
+      "currentContentVersion": true,
+      "maintenanceRecent": true
+    },
+    "pages": [
+      {
+        "path": "/",
+        "status": 200,
+        "headersPassed": true
+      },
+      {
+        "path": "/party",
+        "status": 200,
+        "headersPassed": true
+      },
+      {
+        "path": "/play",
+        "status": 200,
+        "headersPassed": true
+      },
+      {
+        "path": "/profile",
+        "status": 200,
+        "headersPassed": true
+      },
+      {
+        "path": "/privacy",
+        "status": 200,
+        "headersPassed": true
+      },
+      {
+        "path": "/missing-hosted-smoke-page",
+        "status": 404,
+        "headersPassed": true
+      }
+    ]
+  },
+  "accountHolderSteamLoginVerified": false,
+  "privateRoomCleanupConfirmed": true,
+  "failure": "PRIVATE_REVEAL",
+  "httpRequests": 14,
+  "httpBytes": 155578,
+  "cleanupHttpRequests": 2,
+  "browserHttpRequests": 0
+}

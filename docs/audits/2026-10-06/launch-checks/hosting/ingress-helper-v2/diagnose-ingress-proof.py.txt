@@ -1,0 +1,22 @@
+import ast,datetime,hashlib,importlib.util,json,sys
+from pathlib import Path
+P=Path('/tmp/queue-arcade-launch-checks/prove-render-ingress.py')
+raw=P.read_bytes();assert hashlib.sha256(raw).hexdigest()=='e73148881241fd2ad02380bf6b14438d7ddbd9f1b2fe887fd11753c56123ef49'
+spec=importlib.util.spec_from_file_location('proof_diagnostic',P);m=importlib.util.module_from_spec(spec);exec(compile(raw,str(P),'exec'),m.__dict__)
+allowed={'Hosted ingress proof precondition failed.'}
+for n in ast.walk(ast.parse(raw)):
+    if isinstance(n,ast.Call) and isinstance(n.func,ast.Name) and n.func.id=='require' and len(n.args)>1 and isinstance(n.args[1],ast.Constant) and isinstance(n.args[1].value,str):allowed.add(n.args[1].value)
+original=m.run_bounded
+child=[]
+def bounded(*args,**kwargs):
+    result=original(*args,**kwargs)
+    if args[0][0]==m.NODE:
+        reasons=['Operator authentication failed','Received header did not match independently checked egress','Untrusted or missing header accepted','Probe response too large','Probe response was not JSON','Probe request deadline exceeded','Probe request timed out','Probe connection failed','Invalid ingress probe configuration']
+        child.append({'returnCode':result.returncode,'stdoutBytes':len(result.stdout),'stderrBytes':len(result.stderr),'knownFailureClassifications':[s for s in reasons if s.encode() in result.stderr]})
+    return result
+m.run_bounded=bounded
+sys.argv=[str(P)]
+try:m.main()
+except Exception as error:
+    value={'ok':False,'checkedAt':datetime.datetime.now(datetime.timezone.utc).isoformat(),'errorType':type(error).__name__,'safeReason':str(error) if str(error) in allowed else None,'child':child,'rawOutputLogged':False}
+    out=m.OUT/'hosted-ingress-proof-diagnosis.json';out.write_text(json.dumps(value,indent=2)+'\n');print(json.dumps(value));sys.exit(1)

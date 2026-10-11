@@ -1,0 +1,707 @@
+{
+  "version": 1,
+  "reviewedThroughSourceCommit": "6e1eace126e89341052dddbd76eeb4ad4de584e6",
+  "note": "Exact previously reviewed findings plus three SHA-256 manifest entries rechecked against the 6e1eace source candidate. A finding in a changed file requires a new review.",
+  "findings": [
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "sha256": "d8e78d2bb3a3002af136ca669466756a943bd911b6640e347673504510aa965a",
+      "RuleID": "generic-api-key",
+      "StartLine": 60,
+      "EndLine": 60,
+      "StartColumn": 31,
+      "EndColumn": 115,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "sha256": "d8e78d2bb3a3002af136ca669466756a943bd911b6640e347673504510aa965a",
+      "RuleID": "generic-api-key",
+      "StartLine": 71,
+      "EndLine": 71,
+      "StartColumn": 39,
+      "EndColumn": 126,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "sha256": "d8e78d2bb3a3002af136ca669466756a943bd911b6640e347673504510aa965a",
+      "RuleID": "generic-api-key",
+      "StartLine": 114,
+      "EndLine": 114,
+      "StartColumn": 15,
+      "EndColumn": 102,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "sha256": "d8e78d2bb3a3002af136ca669466756a943bd911b6640e347673504510aa965a",
+      "RuleID": "generic-api-key",
+      "StartLine": 122,
+      "EndLine": 122,
+      "StartColumn": 15,
+      "EndColumn": 104,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "sha256": "d8e78d2bb3a3002af136ca669466756a943bd911b6640e347673504510aa965a",
+      "RuleID": "generic-api-key",
+      "StartLine": 188,
+      "EndLine": 188,
+      "StartColumn": 15,
+      "EndColumn": 102,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "sha256": "d8e78d2bb3a3002af136ca669466756a943bd911b6640e347673504510aa965a",
+      "RuleID": "generic-api-key",
+      "StartLine": 279,
+      "EndLine": 279,
+      "StartColumn": 15,
+      "EndColumn": 100,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "sha256": "d8e78d2bb3a3002af136ca669466756a943bd911b6640e347673504510aa965a",
+      "RuleID": "generic-api-key",
+      "StartLine": 286,
+      "EndLine": 286,
+      "StartColumn": 15,
+      "EndColumn": 98,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "sha256": "d8e78d2bb3a3002af136ca669466756a943bd911b6640e347673504510aa965a",
+      "RuleID": "generic-api-key",
+      "StartLine": 313,
+      "EndLine": 313,
+      "StartColumn": 15,
+      "EndColumn": 98,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "sha256": "d8e78d2bb3a3002af136ca669466756a943bd911b6640e347673504510aa965a",
+      "RuleID": "generic-api-key",
+      "StartLine": 321,
+      "EndLine": 321,
+      "StartColumn": 15,
+      "EndColumn": 106,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "sha256": "d8e78d2bb3a3002af136ca669466756a943bd911b6640e347673504510aa965a",
+      "RuleID": "generic-api-key",
+      "StartLine": 352,
+      "EndLine": 352,
+      "StartColumn": 15,
+      "EndColumn": 97,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "sha256": "d8e78d2bb3a3002af136ca669466756a943bd911b6640e347673504510aa965a",
+      "RuleID": "generic-api-key",
+      "StartLine": 399,
+      "EndLine": 399,
+      "StartColumn": 13,
+      "EndColumn": 110,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "sha256": "d8e78d2bb3a3002af136ca669466756a943bd911b6640e347673504510aa965a",
+      "RuleID": "generic-api-key",
+      "StartLine": 415,
+      "EndLine": 415,
+      "StartColumn": 13,
+      "EndColumn": 103,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "sha256": "d8e78d2bb3a3002af136ca669466756a943bd911b6640e347673504510aa965a",
+      "RuleID": "generic-api-key",
+      "StartLine": 416,
+      "EndLine": 416,
+      "StartColumn": 13,
+      "EndColumn": 108,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 61,
+      "EndLine": 61,
+      "StartColumn": 31,
+      "EndColumn": 115,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 72,
+      "EndLine": 72,
+      "StartColumn": 39,
+      "EndColumn": 126,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 113,
+      "EndLine": 113,
+      "StartColumn": 15,
+      "EndColumn": 102,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 121,
+      "EndLine": 121,
+      "StartColumn": 15,
+      "EndColumn": 104,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 180,
+      "EndLine": 180,
+      "StartColumn": 15,
+      "EndColumn": 102,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 270,
+      "EndLine": 270,
+      "StartColumn": 15,
+      "EndColumn": 100,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 277,
+      "EndLine": 277,
+      "StartColumn": 15,
+      "EndColumn": 98,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 304,
+      "EndLine": 304,
+      "StartColumn": 15,
+      "EndColumn": 98,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 311,
+      "EndLine": 311,
+      "StartColumn": 15,
+      "EndColumn": 106,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 342,
+      "EndLine": 342,
+      "StartColumn": 15,
+      "EndColumn": 97,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 377,
+      "EndLine": 377,
+      "StartColumn": 13,
+      "EndColumn": 110,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 390,
+      "EndLine": 390,
+      "StartColumn": 13,
+      "EndColumn": 103,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 391,
+      "EndLine": 391,
+      "StartColumn": 13,
+      "EndColumn": 108,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/flashback/flashback-primary/hobb-publisher-excerpt.html",
+      "sha256": "7f97a9e19a49e7ad7c0c759b7c171a68266bafbaddc47d1f581481eba5cdb873",
+      "RuleID": "generic-api-key",
+      "StartLine": 170,
+      "EndLine": 170,
+      "StartColumn": 7768,
+      "EndColumn": 7815,
+      "reason": "public-source-field"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/flashback/flashback-primary/hobb-publisher-excerpt.html",
+      "sha256": "7f97a9e19a49e7ad7c0c759b7c171a68266bafbaddc47d1f581481eba5cdb873",
+      "RuleID": "generic-api-key",
+      "StartLine": 170,
+      "EndLine": 170,
+      "StartColumn": 7818,
+      "EndColumn": 7858,
+      "reason": "public-source-field"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/flashback/flashback-primary/hobb-publisher-excerpt.html",
+      "sha256": "7f97a9e19a49e7ad7c0c759b7c171a68266bafbaddc47d1f581481eba5cdb873",
+      "RuleID": "generic-api-key",
+      "StartLine": 183,
+      "EndLine": 183,
+      "StartColumn": 1124,
+      "EndColumn": 1164,
+      "reason": "public-source-field"
+    },
+    {
+      "path": "docs/audits/2026-10-06/evidence/original-hashes.json",
+      "sha256": "f646894611627d409f593a316d3baa187e391e48a44994801ecf223e3c5d2679",
+      "RuleID": "generic-api-key",
+      "StartLine": 56,
+      "EndLine": 56,
+      "StartColumn": 29,
+      "EndColumn": 113,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/evidence/original-hashes.json",
+      "sha256": "f646894611627d409f593a316d3baa187e391e48a44994801ecf223e3c5d2679",
+      "RuleID": "generic-api-key",
+      "StartLine": 67,
+      "EndLine": 67,
+      "StartColumn": 37,
+      "EndColumn": 124,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/evidence/original-hashes.json",
+      "sha256": "f646894611627d409f593a316d3baa187e391e48a44994801ecf223e3c5d2679",
+      "RuleID": "generic-api-key",
+      "StartLine": 103,
+      "EndLine": 103,
+      "StartColumn": 13,
+      "EndColumn": 100,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/evidence/original-hashes.json",
+      "sha256": "f646894611627d409f593a316d3baa187e391e48a44994801ecf223e3c5d2679",
+      "RuleID": "generic-api-key",
+      "StartLine": 110,
+      "EndLine": 110,
+      "StartColumn": 13,
+      "EndColumn": 102,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/evidence/original-hashes.json",
+      "sha256": "f646894611627d409f593a316d3baa187e391e48a44994801ecf223e3c5d2679",
+      "RuleID": "generic-api-key",
+      "StartLine": 159,
+      "EndLine": 159,
+      "StartColumn": 13,
+      "EndColumn": 100,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/evidence/original-hashes.json",
+      "sha256": "f646894611627d409f593a316d3baa187e391e48a44994801ecf223e3c5d2679",
+      "RuleID": "generic-api-key",
+      "StartLine": 245,
+      "EndLine": 245,
+      "StartColumn": 13,
+      "EndColumn": 98,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/evidence/original-hashes.json",
+      "sha256": "f646894611627d409f593a316d3baa187e391e48a44994801ecf223e3c5d2679",
+      "RuleID": "generic-api-key",
+      "StartLine": 251,
+      "EndLine": 251,
+      "StartColumn": 13,
+      "EndColumn": 96,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/evidence/original-hashes.json",
+      "sha256": "f646894611627d409f593a316d3baa187e391e48a44994801ecf223e3c5d2679",
+      "RuleID": "generic-api-key",
+      "StartLine": 271,
+      "EndLine": 271,
+      "StartColumn": 13,
+      "EndColumn": 96,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/evidence/original-hashes.json",
+      "sha256": "f646894611627d409f593a316d3baa187e391e48a44994801ecf223e3c5d2679",
+      "RuleID": "generic-api-key",
+      "StartLine": 299,
+      "EndLine": 299,
+      "StartColumn": 13,
+      "EndColumn": 95,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/flashback/flashback-primary/hobb-publisher-excerpt.html",
+      "sha256": "7f97a9e19a49e7ad7c0c759b7c171a68266bafbaddc47d1f581481eba5cdb873",
+      "RuleID": "generic-api-key",
+      "StartLine": 4037,
+      "EndLine": 4037,
+      "StartColumn": 10,
+      "EndColumn": 75,
+      "reason": "public-source-field"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/flashback/flashback-primary/hobb-publisher-excerpt.html",
+      "sha256": "7f97a9e19a49e7ad7c0c759b7c171a68266bafbaddc47d1f581481eba5cdb873",
+      "RuleID": "generic-api-key",
+      "StartLine": 4039,
+      "EndLine": 4039,
+      "StartColumn": 10,
+      "EndColumn": 72,
+      "reason": "public-source-field"
+    },
+    {
+      "path": "docs/audits/2026-10-06/deep-review/flashback/flashback-primary/hobb-publisher-excerpt.html",
+      "sha256": "7f97a9e19a49e7ad7c0c759b7c171a68266bafbaddc47d1f581481eba5cdb873",
+      "RuleID": "generic-api-key",
+      "StartLine": 5117,
+      "EndLine": 5117,
+      "StartColumn": 24,
+      "EndColumn": 73,
+      "reason": "public-source-field"
+    },
+    {
+      "path": "docs/audits/2026-10-06/launch-checks/infrastructure/content-review-at-build.json",
+      "sha256": "602b2117b0dd76da24d865f6f0e256486a822e80eeae522037fdcbce512903ab",
+      "RuleID": "generic-api-key",
+      "StartLine": 39,
+      "EndLine": 39,
+      "StartColumn": 15,
+      "EndColumn": 102,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/launch-checks/infrastructure/content-review-at-build.json",
+      "sha256": "602b2117b0dd76da24d865f6f0e256486a822e80eeae522037fdcbce512903ab",
+      "RuleID": "generic-api-key",
+      "StartLine": 47,
+      "EndLine": 47,
+      "StartColumn": 15,
+      "EndColumn": 104,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/launch-checks/infrastructure/content-review-at-build.json",
+      "sha256": "602b2117b0dd76da24d865f6f0e256486a822e80eeae522037fdcbce512903ab",
+      "RuleID": "generic-api-key",
+      "StartLine": 120,
+      "EndLine": 120,
+      "StartColumn": 15,
+      "EndColumn": 102,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/launch-checks/hosting/proof-helper/offline-tests.py.txt",
+      "sha256": "118c685a6b582f943eb505be83e8901b3f25b47b53e8b97119dcad7fc9e9805d",
+      "RuleID": "generic-api-key",
+      "StartLine": 135,
+      "EndLine": 135,
+      "StartColumn": 54,
+      "EndColumn": 97,
+      "reason": "variable-name-assertion"
+    },
+    {
+      "path": "docs/audits/2026-10-06/launch-checks/rights/create-replacements.mjs.txt",
+      "sha256": "4903d770572aabbee1c0f48c0a97629a62082995c87ef82fe945cef23f118419",
+      "RuleID": "generic-api-key",
+      "StartLine": 24,
+      "EndLine": 24,
+      "StartColumn": 63,
+      "EndColumn": 99,
+      "reason": "public-asset-filename"
+    },
+    {
+      "path": "docs/audits/2026-10-06/launch-checks/second-opinion/ingress-negative-proofs.json",
+      "sha256": "c0f65dba294bd79bd50d8d9df3f1e30a32d319a20031b1547713273eccb7a67e",
+      "RuleID": "generic-api-key",
+      "StartLine": 48,
+      "EndLine": 48,
+      "StartColumn": 15,
+      "EndColumn": 97,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/launch-checks/second-opinion/ingress-negative-proofs.json",
+      "sha256": "c0f65dba294bd79bd50d8d9df3f1e30a32d319a20031b1547713273eccb7a67e",
+      "RuleID": "generic-api-key",
+      "StartLine": 49,
+      "EndLine": 49,
+      "StartColumn": 15,
+      "EndColumn": 98,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/launch-checks/rights/verification.json",
+      "sha256": "0dae7107b175ef108b4600dab5437df9beb3b1dcec89097b3d7154244ff5eb6f",
+      "RuleID": "generic-api-key",
+      "StartLine": 160,
+      "EndLine": 160,
+      "StartColumn": 41,
+      "EndColumn": 131,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/manifest.json",
+      "sha256": "777d03b4749c10df2fb6abc7619388b5214f762f4e7774f96b34920a8d04d72e",
+      "RuleID": "generic-api-key",
+      "StartLine": 41,
+      "EndLine": 41,
+      "StartColumn": 14,
+      "EndColumn": 96,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/content-review.json",
+      "sha256": "9ebf289a61d9f26f4aa0f6655ff9cd8d8d537a94305bb78420ed37426e861567",
+      "RuleID": "generic-api-key",
+      "StartLine": 41,
+      "EndLine": 41,
+      "StartColumn": 15,
+      "EndColumn": 102,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/content-review.json",
+      "sha256": "9ebf289a61d9f26f4aa0f6655ff9cd8d8d537a94305bb78420ed37426e861567",
+      "RuleID": "generic-api-key",
+      "StartLine": 49,
+      "EndLine": 49,
+      "StartColumn": 15,
+      "EndColumn": 104,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/content-review.json",
+      "sha256": "9ebf289a61d9f26f4aa0f6655ff9cd8d8d537a94305bb78420ed37426e861567",
+      "RuleID": "generic-api-key",
+      "StartLine": 123,
+      "EndLine": 123,
+      "StartColumn": 15,
+      "EndColumn": 102,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 61,
+      "EndLine": 61,
+      "StartColumn": 31,
+      "EndColumn": 115,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 72,
+      "EndLine": 72,
+      "StartColumn": 39,
+      "EndColumn": 126,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 113,
+      "EndLine": 113,
+      "StartColumn": 15,
+      "EndColumn": 102,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 121,
+      "EndLine": 121,
+      "StartColumn": 15,
+      "EndColumn": 104,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 180,
+      "EndLine": 180,
+      "StartColumn": 15,
+      "EndColumn": 102,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 270,
+      "EndLine": 270,
+      "StartColumn": 15,
+      "EndColumn": 100,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 277,
+      "EndLine": 277,
+      "StartColumn": 15,
+      "EndColumn": 98,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 304,
+      "EndLine": 304,
+      "StartColumn": 15,
+      "EndColumn": 98,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 311,
+      "EndLine": 311,
+      "StartColumn": 15,
+      "EndColumn": 106,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 342,
+      "EndLine": 342,
+      "StartColumn": 15,
+      "EndColumn": 97,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 377,
+      "EndLine": 377,
+      "StartColumn": 13,
+      "EndColumn": 110,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 390,
+      "EndLine": 390,
+      "StartColumn": 13,
+      "EndColumn": 103,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "sha256": "a0f8a7c140ef8e0dd3623fc5ca24850cd2f60966361367f2e34faf34c99cd31c",
+      "RuleID": "generic-api-key",
+      "StartLine": 391,
+      "EndLine": 391,
+      "StartColumn": 13,
+      "EndColumn": 108,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "tests/ingress-probe.test.mjs",
+      "sha256": "83954636bae9ba0809f3f0bcdf8aeeefe2c2cd0958cc57fec903aa3d5e6665c0",
+      "RuleID": "generic-api-key",
+      "StartLine": 13,
+      "EndLine": 13,
+      "StartColumn": 4,
+      "EndColumn": 76,
+      "reason": "synthetic-test-value"
+    },
+    {
+      "path": "docs/content-review.json",
+      "sha256": "b262b79baebb8608da2d27e8d5f4ad40e59ec1c84253c900be918102a66d8419",
+      "RuleID": "generic-api-key",
+      "StartLine": 41,
+      "EndLine": 41,
+      "StartColumn": 15,
+      "EndColumn": 102,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/content-review.json",
+      "sha256": "b262b79baebb8608da2d27e8d5f4ad40e59ec1c84253c900be918102a66d8419",
+      "RuleID": "generic-api-key",
+      "StartLine": 49,
+      "EndLine": 49,
+      "StartColumn": 15,
+      "EndColumn": 104,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/content-review.json",
+      "sha256": "b262b79baebb8608da2d27e8d5f4ad40e59ec1c84253c900be918102a66d8419",
+      "RuleID": "generic-api-key",
+      "StartLine": 124,
+      "EndLine": 124,
+      "StartColumn": 15,
+      "EndColumn": 102,
+      "reason": "sha256-manifest-digest"
+    }
+  ]
+}

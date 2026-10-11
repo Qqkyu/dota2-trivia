@@ -18,7 +18,7 @@ BASE = Path('/tmp/queue-arcade-launch-checks/hosted-smoke-preparation')
 POLICY_HELPER = BASE.parent / 'enable-render-proxy.py'
 POLICY_HASH = '6c984bdf8be4e68e9622dfec5e148e7a351bc44f66ddf854063034ba263c6905'
 SMOKE = BASE / 'hosted-smoke.mjs'
-SMOKE_HASH = '0fcc5b0bcee5081fbc903a269217138b8a0ad5ea2ec7d62c9a9b124121ede382'
+SMOKE_HASH = 'e0a09e4909016e3ee5dbefefafe9d7385401a6972294d10c8d5a92679b7bfc68'
 INPUTS = ('src/lib/arcade-games.mjs', 'scripts/image-assets.mjs')
 GATE = BASE / 'hosted-smoke-gate.json'
 

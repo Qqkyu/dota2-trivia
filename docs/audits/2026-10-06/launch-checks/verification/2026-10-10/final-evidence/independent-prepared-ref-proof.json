@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "scope": "Two isolated temporary Git fixtures. No real repository Git writes.",
+  "cases": [
+    {
+      "scenario": "dangling_before_prepare",
+      "prepared": true,
+      "existingSymbolicDetected": true,
+      "competingWriterReturnCode": null,
+      "transactionReturnCode": 0,
+      "symbolicRefRetained": true,
+      "commitPublished": false
+    },
+    {
+      "scenario": "concurrent_writer_after_prepare",
+      "prepared": true,
+      "existingSymbolicDetected": false,
+      "competingWriterReturnCode": 1,
+      "transactionReturnCode": 0,
+      "symbolicRefRetained": false,
+      "commitPublished": true
+    }
+  ]
+}

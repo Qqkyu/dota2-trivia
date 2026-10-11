@@ -1,0 +1,7 @@
+Checking packaged migrate-db.mjs.
+Checking packaged grant-runtime-db.mjs.
+Running small-party workload 1/1.
+AssertionError [ERR_ASSERTION]: Correctness passed but the one-second p95 latency target failed
+    at file:///opt/runner/_work/dota2-trivia/dota2-trivia/scripts/check-container.mjs:447:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+Container result: /tmp/queue-arcade-container-health-fixed-1/container-result.json

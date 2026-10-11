@@ -1,0 +1,128 @@
+[
+  {
+    "mode": "normal",
+    "keepAlive": "natural",
+    "exit": 0,
+    "stdout": "{\"event\":\"start\",\"attempt\":0}\n{\"event\":\"headers\",\"attempt\":0,\"status\":200}\n{\"event\":\"ready\",\"health\":{\"status\":\"ready\",\"attempt\":1}}\n",
+    "stderr": ""
+  },
+  {
+    "mode": "normal",
+    "keepAlive": "keep",
+    "exit": 0,
+    "stdout": "{\"event\":\"start\",\"attempt\":0}\n{\"event\":\"headers\",\"attempt\":0,\"status\":200}\n{\"event\":\"ready\",\"health\":{\"status\":\"ready\",\"attempt\":1}}\n",
+    "stderr": ""
+  },
+  {
+    "mode": "delayed-headers",
+    "keepAlive": "natural",
+    "exit": 0,
+    "stdout": "{\"event\":\"start\",\"attempt\":0}\n{\"event\":\"caught\",\"attempt\":0,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":1}\n{\"event\":\"caught\",\"attempt\":1,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":2}\n{\"event\":\"caught\",\"attempt\":2,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":3}\n{\"event\":\"headers\",\"attempt\":3,\"status\":200}\n{\"event\":\"ready\",\"health\":{\"status\":\"ready\",\"attempt\":4}}\n",
+    "stderr": ""
+  },
+  {
+    "mode": "delayed-headers",
+    "keepAlive": "keep",
+    "exit": 0,
+    "stdout": "{\"event\":\"start\",\"attempt\":0}\n{\"event\":\"caught\",\"attempt\":0,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":1}\n{\"event\":\"caught\",\"attempt\":1,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":2}\n{\"event\":\"caught\",\"attempt\":2,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":3}\n{\"event\":\"headers\",\"attempt\":3,\"status\":200}\n{\"event\":\"ready\",\"health\":{\"status\":\"ready\",\"attempt\":4}}\n",
+    "stderr": ""
+  },
+  {
+    "mode": "delayed-body",
+    "keepAlive": "natural",
+    "exit": 0,
+    "stdout": "{\"event\":\"start\",\"attempt\":0}\n{\"event\":\"headers\",\"attempt\":0,\"status\":200}\n{\"event\":\"caught\",\"attempt\":0,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":1}\n{\"event\":\"headers\",\"attempt\":1,\"status\":200}\n{\"event\":\"caught\",\"attempt\":1,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":2}\n{\"event\":\"headers\",\"attempt\":2,\"status\":200}\n{\"event\":\"caught\",\"attempt\":2,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":3}\n{\"event\":\"headers\",\"attempt\":3,\"status\":200}\n{\"event\":\"ready\",\"health\":{\"status\":\"ready\",\"attempt\":4}}\n",
+    "stderr": ""
+  },
+  {
+    "mode": "delayed-body",
+    "keepAlive": "keep",
+    "exit": 0,
+    "stdout": "{\"event\":\"start\",\"attempt\":0}\n{\"event\":\"headers\",\"attempt\":0,\"status\":200}\n{\"event\":\"caught\",\"attempt\":0,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":1}\n{\"event\":\"headers\",\"attempt\":1,\"status\":200}\n{\"event\":\"caught\",\"attempt\":1,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":2}\n{\"event\":\"headers\",\"attempt\":2,\"status\":200}\n{\"event\":\"caught\",\"attempt\":2,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":3}\n{\"event\":\"headers\",\"attempt\":3,\"status\":200}\n{\"event\":\"ready\",\"health\":{\"status\":\"ready\",\"attempt\":4}}\n",
+    "stderr": ""
+  },
+  {
+    "mode": "close",
+    "keepAlive": "natural",
+    "exit": 0,
+    "stdout": "{\"event\":\"start\",\"attempt\":0}\n{\"event\":\"caught\",\"attempt\":0,\"name\":\"TypeError\",\"message\":\"fetch failed\"}\n{\"event\":\"start\",\"attempt\":1}\n{\"event\":\"caught\",\"attempt\":1,\"name\":\"TypeError\",\"message\":\"fetch failed\"}\n{\"event\":\"start\",\"attempt\":2}\n{\"event\":\"caught\",\"attempt\":2,\"name\":\"TypeError\",\"message\":\"fetch failed\"}\n{\"event\":\"start\",\"attempt\":3}\n{\"event\":\"headers\",\"attempt\":3,\"status\":200}\n{\"event\":\"ready\",\"health\":{\"status\":\"ready\",\"attempt\":4}}\n",
+    "stderr": ""
+  },
+  {
+    "mode": "close",
+    "keepAlive": "keep",
+    "exit": 0,
+    "stdout": "{\"event\":\"start\",\"attempt\":0}\n{\"event\":\"caught\",\"attempt\":0,\"name\":\"TypeError\",\"message\":\"fetch failed\"}\n{\"event\":\"start\",\"attempt\":1}\n{\"event\":\"caught\",\"attempt\":1,\"name\":\"TypeError\",\"message\":\"fetch failed\"}\n{\"event\":\"start\",\"attempt\":2}\n{\"event\":\"caught\",\"attempt\":2,\"name\":\"TypeError\",\"message\":\"fetch failed\"}\n{\"event\":\"start\",\"attempt\":3}\n{\"event\":\"headers\",\"attempt\":3,\"status\":200}\n{\"event\":\"ready\",\"health\":{\"status\":\"ready\",\"attempt\":4}}\n",
+    "stderr": ""
+  },
+  {
+    "mode": "partial-close",
+    "keepAlive": "natural",
+    "exit": 0,
+    "stdout": "{\"event\":\"start\",\"attempt\":0}\n{\"event\":\"headers\",\"attempt\":0,\"status\":200}\n{\"event\":\"caught\",\"attempt\":0,\"name\":\"TypeError\",\"message\":\"terminated\"}\n{\"event\":\"start\",\"attempt\":1}\n{\"event\":\"headers\",\"attempt\":1,\"status\":200}\n{\"event\":\"caught\",\"attempt\":1,\"name\":\"TypeError\",\"message\":\"terminated\"}\n{\"event\":\"start\",\"attempt\":2}\n{\"event\":\"headers\",\"attempt\":2,\"status\":200}\n{\"event\":\"caught\",\"attempt\":2,\"name\":\"TypeError\",\"message\":\"terminated\"}\n{\"event\":\"start\",\"attempt\":3}\n{\"event\":\"headers\",\"attempt\":3,\"status\":200}\n{\"event\":\"ready\",\"health\":{\"status\":\"ready\"}}\n",
+    "stderr": ""
+  },
+  {
+    "mode": "partial-close",
+    "keepAlive": "keep",
+    "exit": 0,
+    "stdout": "{\"event\":\"start\",\"attempt\":0}\n{\"event\":\"headers\",\"attempt\":0,\"status\":200}\n{\"event\":\"caught\",\"attempt\":0,\"name\":\"TypeError\",\"message\":\"terminated\"}\n{\"event\":\"start\",\"attempt\":1}\n{\"event\":\"headers\",\"attempt\":1,\"status\":200}\n{\"event\":\"caught\",\"attempt\":1,\"name\":\"TypeError\",\"message\":\"terminated\"}\n{\"event\":\"start\",\"attempt\":2}\n{\"event\":\"headers\",\"attempt\":2,\"status\":200}\n{\"event\":\"caught\",\"attempt\":2,\"name\":\"TypeError\",\"message\":\"terminated\"}\n{\"event\":\"start\",\"attempt\":3}\n{\"event\":\"headers\",\"attempt\":3,\"status\":200}\n{\"event\":\"ready\",\"health\":{\"status\":\"ready\"}}\n",
+    "stderr": ""
+  },
+  {
+    "mode": "half-close",
+    "keepAlive": "natural",
+    "exit": 0,
+    "stdout": "{\"event\":\"start\",\"attempt\":0}\n{\"event\":\"caught\",\"attempt\":0,\"name\":\"TypeError\",\"message\":\"fetch failed\"}\n{\"event\":\"start\",\"attempt\":1}\n{\"event\":\"caught\",\"attempt\":1,\"name\":\"TypeError\",\"message\":\"fetch failed\"}\n{\"event\":\"start\",\"attempt\":2}\n{\"event\":\"caught\",\"attempt\":2,\"name\":\"TypeError\",\"message\":\"fetch failed\"}\n{\"event\":\"start\",\"attempt\":3}\n{\"event\":\"headers\",\"attempt\":3,\"status\":200}\n{\"event\":\"ready\",\"health\":{\"status\":\"ready\",\"attempt\":4}}\n",
+    "stderr": ""
+  },
+  {
+    "mode": "half-close",
+    "keepAlive": "keep",
+    "exit": 0,
+    "stdout": "{\"event\":\"start\",\"attempt\":0}\n{\"event\":\"caught\",\"attempt\":0,\"name\":\"TypeError\",\"message\":\"fetch failed\"}\n{\"event\":\"start\",\"attempt\":1}\n{\"event\":\"caught\",\"attempt\":1,\"name\":\"TypeError\",\"message\":\"fetch failed\"}\n{\"event\":\"start\",\"attempt\":2}\n{\"event\":\"caught\",\"attempt\":2,\"name\":\"TypeError\",\"message\":\"fetch failed\"}\n{\"event\":\"start\",\"attempt\":3}\n{\"event\":\"headers\",\"attempt\":3,\"status\":200}\n{\"event\":\"ready\",\"health\":{\"status\":\"ready\",\"attempt\":4}}\n",
+    "stderr": ""
+  },
+  {
+    "mode": "stall",
+    "keepAlive": "natural",
+    "exit": 1,
+    "stdout": "{\"event\":\"start\",\"attempt\":0}\n{\"event\":\"caught\",\"attempt\":0,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":1}\n{\"event\":\"caught\",\"attempt\":1,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":2}\n{\"event\":\"caught\",\"attempt\":2,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":3}\n{\"event\":\"caught\",\"attempt\":3,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":4}\n{\"event\":\"caught\",\"attempt\":4,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":5}\n{\"event\":\"caught\",\"attempt\":5,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":6}\n{\"event\":\"caught\",\"attempt\":6,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":7}\n{\"event\":\"caught\",\"attempt\":7,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":8}\n{\"event\":\"caught\",\"attempt\":8,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":9}\n{\"event\":\"caught\",\"attempt\":9,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":10}\n{\"event\":\"caught\",\"attempt\":10,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n",
+    "stderr": "node:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Application readiness timed out\n    at file:///tmp/queue-arcade-health-wait-review/client.mjs:18:5\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '==',\n  diff: 'simple'\n}\n\nNode.js v22.23.3\n"
+  },
+  {
+    "mode": "stall",
+    "keepAlive": "keep",
+    "exit": 1,
+    "stdout": "{\"event\":\"start\",\"attempt\":0}\n{\"event\":\"caught\",\"attempt\":0,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":1}\n{\"event\":\"caught\",\"attempt\":1,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":2}\n{\"event\":\"caught\",\"attempt\":2,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":3}\n{\"event\":\"caught\",\"attempt\":3,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":4}\n{\"event\":\"caught\",\"attempt\":4,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":5}\n{\"event\":\"caught\",\"attempt\":5,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":6}\n{\"event\":\"caught\",\"attempt\":6,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":7}\n{\"event\":\"caught\",\"attempt\":7,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":8}\n{\"event\":\"caught\",\"attempt\":8,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":9}\n{\"event\":\"caught\",\"attempt\":9,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n{\"event\":\"start\",\"attempt\":10}\n{\"event\":\"caught\",\"attempt\":10,\"name\":\"TimeoutError\",\"message\":\"The operation was aborted due to timeout\"}\n",
+    "stderr": "node:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Application readiness timed out\n    at file:///tmp/queue-arcade-health-wait-review/client.mjs:18:5\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '==',\n  diff: 'simple'\n}\n\nNode.js v22.23.3\n"
+  },
+  {
+    "mode": "keepalive-race",
+    "keepAlive": "natural",
+    "exit": 0,
+    "stdout": "{\"event\":\"start\",\"attempt\":0}\n{\"event\":\"headers\",\"attempt\":0,\"status\":200}\n{\"event\":\"start\",\"attempt\":1}\n{\"event\":\"headers\",\"attempt\":1,\"status\":200}\n{\"event\":\"start\",\"attempt\":2}\n{\"event\":\"headers\",\"attempt\":2,\"status\":200}\n{\"event\":\"start\",\"attempt\":3}\n{\"event\":\"headers\",\"attempt\":3,\"status\":200}\n{\"event\":\"ready\",\"health\":{\"status\":\"ready\"}}\n",
+    "stderr": ""
+  },
+  {
+    "mode": "keepalive-race",
+    "keepAlive": "keep",
+    "exit": 0,
+    "stdout": "{\"event\":\"start\",\"attempt\":0}\n{\"event\":\"headers\",\"attempt\":0,\"status\":200}\n{\"event\":\"start\",\"attempt\":1}\n{\"event\":\"headers\",\"attempt\":1,\"status\":200}\n{\"event\":\"start\",\"attempt\":2}\n{\"event\":\"headers\",\"attempt\":2,\"status\":200}\n{\"event\":\"start\",\"attempt\":3}\n{\"event\":\"headers\",\"attempt\":3,\"status\":200}\n{\"event\":\"ready\",\"health\":{\"status\":\"ready\"}}\n",
+    "stderr": ""
+  },
+  {
+    "mode": "service-unavailable",
+    "keepAlive": "natural",
+    "exit": 0,
+    "stdout": "{\"event\":\"start\",\"attempt\":0}\n{\"event\":\"headers\",\"attempt\":0,\"status\":503}\n{\"event\":\"start\",\"attempt\":1}\n{\"event\":\"headers\",\"attempt\":1,\"status\":503}\n{\"event\":\"start\",\"attempt\":2}\n{\"event\":\"headers\",\"attempt\":2,\"status\":503}\n{\"event\":\"start\",\"attempt\":3}\n{\"event\":\"headers\",\"attempt\":3,\"status\":200}\n{\"event\":\"ready\",\"health\":{\"status\":\"ready\"}}\n",
+    "stderr": ""
+  },
+  {
+    "mode": "service-unavailable",
+    "keepAlive": "keep",
+    "exit": 0,
+    "stdout": "{\"event\":\"start\",\"attempt\":0}\n{\"event\":\"headers\",\"attempt\":0,\"status\":503}\n{\"event\":\"start\",\"attempt\":1}\n{\"event\":\"headers\",\"attempt\":1,\"status\":503}\n{\"event\":\"start\",\"attempt\":2}\n{\"event\":\"headers\",\"attempt\":2,\"status\":503}\n{\"event\":\"start\",\"attempt\":3}\n{\"event\":\"headers\",\"attempt\":3,\"status\":200}\n{\"event\":\"ready\",\"health\":{\"status\":\"ready\"}}\n",
+    "stderr": ""
+  }
+]

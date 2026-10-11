@@ -1,0 +1,33 @@
+test_app_values_and_encoded_password (__main__.IndependentReview) ... ok
+test_archive_bounds_paths_links_and_nesting (__main__.IndependentReview) ... ok
+test_canonical_steam_web_api_key_is_scanned (__main__.IndependentReview) ... ok
+test_changed_blob_does_not_reuse_review (__main__.IndependentReview) ... ok
+test_config_changes_only_global_paths (__main__.IndependentReview) ... ok
+test_default_expected_app_value_count_is_seven (__main__.IndependentReview) ... ok
+test_exact_blobs_ignore_export_attributes (__main__.IndependentReview) ... ok
+test_exact_review_match_passes (__main__.IndependentReview) ... ok
+test_failed_redaction_is_not_a_pass (__main__.IndependentReview) ... ok
+test_gzip_and_tar_payload_coverage (__main__.IndependentReview) ... ok
+test_hosting_capture_keeps_render_out_of_child (__main__.IndependentReview) ... ok
+test_hosting_missing_and_command_failure_are_fixed (__main__.IndependentReview) ... ok
+test_inconsistent_gitleaks_status_is_rejected (__main__.IndependentReview) ... ok
+test_known_value_hit_fails_without_value_in_summary (__main__.IndependentReview) ... ok
+test_legacy_alias_absence_does_not_block (__main__.IndependentReview) ... ok
+test_legacy_alias_cannot_replace_canonical_key (__main__.IndependentReview) ... ok
+test_main_hides_arbitrary_error_details (__main__.IndependentReview) ... ok
+test_missing_each_required_key_is_rejected (__main__.IndependentReview) ... ok
+test_missing_empty_short_and_malformed_app_values (__main__.IndependentReview) ... ok
+test_operational_gitleaks_failure_is_rejected (__main__.IndependentReview) ... ok
+test_original_environment_exception_is_exact (__main__.IndependentReview) ... ok
+test_paths_and_forbidden_files (__main__.IndependentReview) ... ok
+test_present_legacy_alias_is_also_scanned (__main__.IndependentReview) ... ok
+test_private_permissions_and_symlink (__main__.IndependentReview) ... ok
+test_tar_metadata_known_value_is_scanned (__main__.IndependentReview) ... ok
+test_tree_rejects_symlink_submodule_and_bad_sha (__main__.IndependentReview) ... ok
+test_unknown_gitleaks_finding_fails (__main__.IndependentReview) ... ok
+test_wrong_owner_recovery_directory_is_rejected (__main__.IndependentReview) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.040s
+
+OK

@@ -1,0 +1,568 @@
+#!/usr/bin/env python3
+"""Remove only reviewed audit scratch after tools and private recovery files are safe.
+
+The default is a metadata-only dry run. Execution requires explicit completion
+flags from the root agent. This tool never changes Docker or hosted services.
+"""
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import shutil
+import stat
+import subprocess
+import sys
+import tarfile
+import tempfile
+import time
+
+REPO = Path('/home/kulmisiu/dev/dota2-trivia')
+CHECKS = Path('/tmp/queue-arcade-launch-checks')
+CACHE = Path('/home/kulmisiu/.cache')
+RECOVERY = REPO / '.local-assets/operator-recovery-20261010'
+EVIDENCE = REPO / 'docs/audits/2026-10-06/launch-checks'
+PLAN = CHECKS / 'cleanup-inventory/cleanup-plan.json'
+ROOTS = tuple(Path(p) for p in (
+    '/tmp/queue-arcade-health-wait-review',
+    '/tmp/queue-arcade-content-freshness-20261010',
+    '/tmp/queue-arcade-voices-replay',
+    '/tmp/queue-arcade-migrations.OfHbML',
+    '/tmp/queue-arcade-pg-audit.3f4hCl',
+    '/tmp/queue-arcade-audit-20261006',
+    '/tmp/queue-arcade-fixes',
+    '/tmp/queue-arcade-launch-security',
+    '/tmp/queue-arcade-deep-review',
+    '/tmp/queue-arcade-launch-ci',
+    '/tmp/queue-arcade-launch-checks',
+))
+PRIVATE_NAMES = ('private-render-backup', 'render-productionize-private', 'debug-backup')
+MOVES = (
+    (CHECKS / 'android-sdk', CACHE / 'android-sdk', 'android'),
+    (CHECKS / 'models', CACHE / 'faster-whisper/models', 'models'),
+    (CHECKS / 'asr-venv', CACHE / 'faster-whisper/venv-python3.10', 'venv'),
+    (CHECKS / 'tools/trivy', CACHE / 'trivy', 'trivy'),
+    (CHECKS / 'tools/node22', CACHE / 'node/22.23.3', 'node'),
+    (CHECKS / 'tools/postgres17', CACHE / 'postgresql/17-audit-clients', 'postgres'),
+    (Path('/tmp/queue-arcade-deep-review/browser-cache/firefox-1532'), CACHE / 'ms-playwright/firefox-1532', 'browser'),
+    (Path('/tmp/queue-arcade-deep-review/browser-cache/webkit-2311'), CACHE / 'ms-playwright/webkit-2311', 'browser'),
+    (CHECKS / 'assistive-modern/orca-gnome-49', CACHE / 'orca/49/source', 'source'),
+    (Path('/tmp/queue-arcade-launch-ci/secret-scan/tools'), CACHE / 'gitleaks/queue-arcade-audit', 'gitleaks'),
+)
+CHROME_TAR = CHECKS / 'assistive-modern/portable-reader.tar'
+CHROME_DEST = CACHE / 'google-chrome-for-testing/audit-chrome153'
+CHROME_PREFIX = 'opt/chrome153/'
+MAX_FILES = 250000
+MAX_BYTES = 40 * 1024 ** 3
+NODE_HASH = 'fde6a4bf8d0562f7751d1a2d6cb9b417c4cfe107bbcb0aa3e9a24e125e348f48'
+
+class Refusal(RuntimeError):
+    pass
+
+def require(condition, message):
+    if not condition:
+        raise Refusal(message)
+
+def within(path, root):
+    return path == root or root in path.parents
+
+def no_symlink_ancestors(path):
+    require(path.is_absolute(), 'An absolute path is required.')
+    for p in reversed((path,) + tuple(path.parents)):
+        if p.exists() or p.is_symlink():
+            require(not p.is_symlink(), 'A path or ancestor is a symlink: ' + str(p))
+            if p != path:
+                require(p.is_dir(), 'A path ancestor is not a directory: ' + str(p))
+
+def owned_directory(path):
+    no_symlink_ancestors(path)
+    s = path.stat()
+    require(stat.S_ISDIR(s.st_mode), 'Expected a directory: ' + str(path))
+    require(s.st_uid == os.getuid(), 'Directory owner differs: ' + str(path))
+    return [s.st_dev, s.st_ino, s.st_uid]
+
+def digest_file(path):
+    h = hashlib.sha256()
+    with path.open('rb') as f:
+        for block in iter(lambda: f.read(1024 * 1024), b''):
+            h.update(block)
+    return h.hexdigest()
+
+def check_link(path, root, target):
+    # Relative links must stay inside the tool. These two external links existed
+    # before cleanup and point to user tools; cleanup never follows or edits them.
+    exceptions = {
+        (CHECKS / 'android-sdk', 'platform-tools'): '/home/kulmisiu/android-sdk/platform-tools',
+        (CACHE / 'android-sdk', 'platform-tools'): '/home/kulmisiu/android-sdk/platform-tools',
+        (CHECKS / 'asr-venv', 'bin/python3'): '/usr/bin/python3',
+        (CACHE / 'faster-whisper/venv-python3.10', 'bin/python3'): '/usr/bin/python3',
+    }
+    relative = str(path.relative_to(root))
+    if exceptions.get((root, relative)) == target:
+        return
+    require(not os.path.isabs(target), 'Unexpected absolute tool link: ' + relative)
+    normalized = Path(os.path.normpath(str(path.parent / target)))
+    require(within(normalized, root), 'Tool link escapes its root: ' + relative)
+
+def tree(path, private=False):
+    owned_directory(path)
+    rows = {}
+    total = 0
+    root_device = path.stat().st_dev
+    for parent, dirs, files in os.walk(path, followlinks=False, onerror=lambda error: (_ for _ in ()).throw(error)):
+        for name in sorted(dirs + files):
+            p = Path(parent) / name
+            s = p.lstat()
+            rel = p.relative_to(path).as_posix()
+            require(len(rows) < MAX_FILES, 'Tree exceeds the file bound.')
+            require(s.st_uid == os.getuid(), 'A tree entry has another owner: ' + rel)
+            require(s.st_dev == root_device, 'A nested filesystem was found: ' + rel)
+            if stat.S_ISLNK(s.st_mode):
+                require(not private, 'Private recovery material contains a symlink.')
+                target = os.readlink(p)
+                check_link(p, path, target)
+                rows[rel] = {'type': 'link', 'target': target}
+            elif stat.S_ISDIR(s.st_mode):
+                rows[rel] = {'type': 'directory'}
+            elif stat.S_ISREG(s.st_mode):
+                require(not private or s.st_nlink == 1, 'Private material contains a hard-linked file.')
+                total += s.st_size
+                require(total <= MAX_BYTES, 'Tree exceeds the byte bound.')
+                rows[rel] = {'type': 'file', 'bytes': s.st_size, 'sha256': digest_file(p)}
+            else:
+                raise Refusal('A special file was found: ' + rel)
+    return rows
+
+def fingerprint(rows):
+    return hashlib.sha256(json.dumps(rows, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+
+def private_write(path, value):
+    no_symlink_ancestors(path)
+    path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+    fd, temporary = tempfile.mkstemp(prefix='.cleanup-write-', dir=path.parent)
+    try:
+        os.fchmod(fd, 0o600)
+        with os.fdopen(fd, 'w') as f:
+            json.dump(value, f, indent=2)
+            f.write('\n')
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(temporary, path)
+    finally:
+        if os.path.exists(temporary):
+            os.unlink(temporary)
+
+def tighten_private(path):
+    rows = tree(path, private=True)
+    path.chmod(0o700)
+    for rel, row in rows.items():
+        (path / rel).chmod(0o700 if row['type'] == 'directory' else 0o600)
+
+def assert_private_modes(path, rows=None):
+    rows = tree(path, private=True) if rows is None else rows
+    require(stat.S_IMODE(path.stat().st_mode) == 0o700, 'Private recovery directory mode changed.')
+    for relative, row in rows.items():
+        expected = 0o700 if row['type'] == 'directory' else 0o600
+        require(stat.S_IMODE((path / relative).lstat().st_mode) == expected, 'Private recovery entry mode changed.')
+
+def copy_private(source, destination):
+    no_symlink_ancestors(destination)
+    before = tree(source, private=True)
+    if destination.exists():
+        require(tree(destination, private=True) == before, 'Private recovery destination collision.')
+    else:
+        destination.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+        temporary = destination.parent / ('.cleanup-copy-' + destination.name)
+        require(not temporary.exists() and not temporary.is_symlink(), 'Private copy staging path already exists. Review it before retrying.')
+        temporary.mkdir(mode=0o700)
+        for rel, row in before.items():
+            target = temporary / rel
+            if row['type'] == 'directory':
+                target.mkdir(mode=0o700)
+            else:
+                with (source / rel).open('rb') as inp, target.open('xb') as output:
+                    os.fchmod(output.fileno(), 0o600)
+                    shutil.copyfileobj(inp, output, 1024 * 1024)
+        require(tree(temporary, private=True) == before, 'Private recovery copy verification failed.')
+        os.rename(temporary, destination)
+    tighten_private(destination)
+    require(tree(source, private=True) == tree(destination, private=True), 'Private source changed during retention.')
+    return fingerprint(before)
+
+def changed_prefix_files(source, kind):
+    if kind == 'venv':
+        return [p for p in (source / 'bin').iterdir() if p.is_file() and not p.is_symlink()] + [source / 'pyvenv.cfg']
+    if kind == 'postgres':
+        return [source / 'bin' / p for p in ('pg_restore', 'psql', 'pg_dump')]
+    return []
+
+def expected_relocation(source, destination, kind, rows):
+    result = json.loads(json.dumps(rows))
+    for p in changed_prefix_files(source, kind):
+        require(p.stat().st_size < 2 * 1024 * 1024, 'A wrapper exceeds its size bound.')
+        require(p.stat().st_nlink == 1, 'A wrapper is hard-linked to another file.')
+        before = p.read_bytes()
+        after = before.replace(str(source).encode(), str(destination).encode())
+        rel = p.relative_to(source).as_posix()
+        result[rel] = {'type': 'file', 'bytes': len(after), 'sha256': hashlib.sha256(after).hexdigest()}
+    return result
+
+def repair_prefixes(destination, source, kind):
+    for p in changed_prefix_files(destination, kind):
+        require(p.stat().st_nlink == 1, 'A wrapper is hard-linked to another file.')
+        before = p.read_bytes()
+        after = before.replace(str(source).encode(), str(destination).encode())
+        if before != after:
+            mode = stat.S_IMODE(p.stat().st_mode)
+            fd, staging = tempfile.mkstemp(prefix='.cleanup-wrapper-', dir=p.parent)
+            try:
+                os.fchmod(fd, mode)
+                with os.fdopen(fd, 'wb') as output:
+                    output.write(after)
+                    output.flush()
+                    os.fsync(output.fileno())
+                os.replace(staging, p)
+            finally:
+                if os.path.exists(staging):
+                    os.unlink(staging)
+        require(str(source).encode() not in p.read_bytes(), 'A wrapper still refers to its scratch prefix.')
+
+def command_ok(argv, expected=None, timeout=60):
+    env = {'PATH': '/usr/bin:/bin', 'HOME': '/home/kulmisiu', 'LANG': 'C.UTF-8', 'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONNOUSERSITE': '1', 'PIP_DISABLE_PIP_VERSION_CHECK': '1'}
+    result = subprocess.run([str(v) for v in argv], env=env, capture_output=True, timeout=timeout)
+    require(result.returncode == 0, 'Tool validation failed: ' + str(argv[0]))
+    if expected:
+        require(expected.encode() in result.stdout + result.stderr, 'Tool version did not match: ' + str(argv[0]))
+    # Deliberately do not print subprocess output.
+
+def validate_tool(destination, kind):
+    if kind == 'node':
+        require(digest_file(destination / 'bin/node') == NODE_HASH, 'Node executable hash changed.')
+        command_ok([destination / 'bin/node', '--version'], 'v22.23.3')
+    elif kind == 'venv':
+        command_ok([destination / 'bin/python', '-m', 'pip', 'check'], timeout=120)
+        command_ok([destination / 'bin/python', '-c', 'import faster_whisper, ctranslate2'], timeout=120)
+    elif kind == 'postgres':
+        for exe in ('psql', 'pg_dump', 'pg_restore'):
+            command_ok([destination / 'bin' / exe, '--version'], '17.')
+    elif kind == 'gitleaks':
+        command_ok([destination / 'gitleaks', 'version'], '8.30.1')
+    elif kind == 'trivy':
+        command_ok([destination / 'trivy', '--version'], 'Version:')
+    elif kind == 'android':
+        command_ok([destination / 'emulator/emulator', '-version'], 'Android emulator')
+        command_ok([destination / 'platform-tools/adb', 'version'], 'Android Debug Bridge')
+    elif kind == 'models':
+        for model in ('small.en', 'medium.en', 'large-v3'):
+            require((destination / model / 'model.bin').is_file(), 'An ASR model file is missing.')
+    elif kind == 'chrome':
+        command_ok([destination / 'chrome', '--version'], '153.')
+
+def relocate(source, destination, kind, state, save):
+    no_symlink_ancestors(destination)
+    key = str(source)
+    record = state['moves'].get(key)
+    if record is None:
+        require(source.exists(), 'The tool source is missing without a receipt: ' + key)
+        before = tree(source)
+        after = expected_relocation(source, destination, kind, before)
+        record = {'destination': str(destination), 'kind': kind, 'before': fingerprint(before), 'after': fingerprint(after), 'complete': False}
+        if destination.exists():
+            # A collision is safe only if the existing target equals every file
+            # and link in the final transformed tree. Never overwrite it.
+            require(fingerprint(tree(destination)) == record['after'], 'Tool destination collision: ' + str(destination))
+        state['moves'][key] = record
+        save()
+    require(record['destination'] == str(destination) and record['kind'] == kind, 'Relocation receipt does not match the fixed plan.')
+    if not destination.exists():
+        require(source.exists() and fingerprint(tree(source)) == record['before'], 'Tool source changed after its receipt.')
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        # Refuse a cross-device move instead of silently duplicating gigabytes.
+        require(source.stat().st_dev == destination.parent.stat().st_dev, 'Cross-device tool move needs a separately reviewed copy.')
+        os.rename(source, destination)
+    repair_prefixes(destination, source, kind)
+    require(fingerprint(tree(destination)) == record['after'], 'Relocated tool hash verification failed.')
+    validate_tool(destination, kind)
+    record['complete'] = True
+    save()
+
+def chrome_members(archive):
+    selected = []
+    names = set()
+    total = 0
+    archive_members = 0
+    archive_bytes = 0
+    for member in archive:
+        archive_members += 1
+        archive_bytes += member.size
+        require(archive_members <= 100000 and archive_bytes <= 2 * 1024 ** 3, 'Chrome source archive exceeds its bounds.')
+        require(len(member.name) <= 1024, 'Chrome source archive path is too long.')
+        name = member.name.rstrip('/')
+        if name == CHROME_PREFIX.rstrip('/'):
+            continue
+        if not name.startswith(CHROME_PREFIX):
+            continue
+        relative = name[len(CHROME_PREFIX):]
+        parts = relative.split('/')
+        require(relative and all(v not in ('', '.', '..') for v in parts), 'Unsafe Chrome archive path.')
+        require(relative not in names, 'Duplicate Chrome archive member.')
+        names.add(relative)
+        require(len(names) <= 20000, 'Chrome archive has too many members.')
+        require(member.isdir() or member.isfile() or member.issym(), 'Unsupported Chrome archive member type.')
+        if member.issym():
+            require(not os.path.isabs(member.linkname), 'Chrome archive has an absolute link.')
+            target = Path(os.path.normpath(str(Path(relative).parent / member.linkname)))
+            require(str(target) != '..' and '..' not in target.parts, 'Chrome archive link escapes its root.')
+        total += member.size
+        require(total <= 1024 ** 3, 'Chrome archive exceeds its byte bound.')
+        selected.append((member, relative))
+    require(any(r == 'chrome' and m.isfile() for m, r in selected), 'Chrome executable is missing from the archive.')
+    # Links cannot be ancestors of other selected members.
+    links = {r for m, r in selected if m.issym()}
+    for _, relative in selected:
+        require(not any(p.as_posix() in links for p in Path(relative).parents), 'Chrome archive member is below a symlink.')
+    return selected
+
+def extract_chrome(state, save):
+    no_symlink_ancestors(CHROME_DEST)
+    key = 'chrome-extraction'
+    record = state.get(key)
+    require(CHROME_TAR.is_file() or record is not None, 'Chrome archive is missing.')
+    if record is not None and CHROME_DEST.exists():
+        require(fingerprint(tree(CHROME_DEST)) == record['after'], 'Cached Chrome changed after extraction.')
+        validate_tool(CHROME_DEST, 'chrome')
+        record['complete'] = True
+        save()
+        return
+    require(not CHROME_DEST.exists(), 'Chrome cache destination collision. Review before retrying.')
+    CHROME_DEST.parent.mkdir(parents=True, exist_ok=True)
+    temporary = CHROME_DEST.parent / '.cleanup-chrome153-staging'
+    require(not temporary.exists() and not temporary.is_symlink(), 'Chrome staging path already exists. Review before retrying.')
+    require(CHROME_TAR.stat().st_size <= 1024 ** 3, 'Chrome tar file exceeds its byte bound.')
+    with tarfile.open(CHROME_TAR) as archive:
+        selected = chrome_members(archive)
+        temporary.mkdir(mode=0o755)
+        expected_files = {}
+        for member, relative in sorted(selected, key=lambda pair: (len(Path(pair[1]).parts), pair[1])):
+            target = temporary / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            if member.isdir():
+                target.mkdir(exist_ok=True)
+            elif member.issym():
+                target.symlink_to(member.linkname)
+            else:
+                h = hashlib.sha256()
+                with archive.extractfile(member) as inp, target.open('xb') as output:
+                    for block in iter(lambda: inp.read(1024 * 1024), b''):
+                        h.update(block)
+                        output.write(block)
+                expected_files[relative] = h.hexdigest()
+                target.chmod(0o755 if member.mode & 0o111 else 0o644)
+                require(target.stat().st_size == member.size, 'Chrome extracted size differs.')
+        extracted = tree(temporary)
+        for relative, digest in expected_files.items():
+            require(extracted[relative]['sha256'] == digest, 'Chrome extracted file digest differs from its tar member.')
+        after = fingerprint(extracted)
+        state[key] = {'destination': str(CHROME_DEST), 'after': after, 'complete': False}
+        save()
+        os.rename(temporary, CHROME_DEST)
+    require(fingerprint(tree(CHROME_DEST)) == after, 'Chrome extraction hash verification failed.')
+    validate_tool(CHROME_DEST, 'chrome')
+    state[key]['complete'] = True
+    save()
+
+def mount_guard(roots, mountinfo=Path('/proc/self/mountinfo')):
+    for line in mountinfo.read_text().splitlines():
+        fields = line.split()
+        require(len(fields) >= 5, 'Malformed mount information.')
+        mount = Path(re.sub(r'\\([0-7]{3})', lambda m: chr(int(m.group(1), 8)), fields[4]))
+        require(not any(within(mount, root) for root in roots), 'A task root contains a mount point: ' + str(mount))
+
+def process_guard(roots, proc=Path('/proc')):
+    found = []
+    for p in proc.iterdir():
+        if not p.name.isdigit() or int(p.name) == os.getpid():
+            continue
+        try:
+            paths = []
+            for name in ('cwd', 'exe'):
+                try:
+                    paths.append(os.readlink(p / name))
+                except (FileNotFoundError, PermissionError, ProcessLookupError):
+                    pass
+            try:
+                for fd in (p / 'fd').iterdir():
+                    try:
+                        paths.append(os.readlink(fd))
+                    except (FileNotFoundError, PermissionError, ProcessLookupError):
+                        pass
+            except (FileNotFoundError, PermissionError, ProcessLookupError):
+                pass
+            try:
+                for line in (p / 'maps').read_text().splitlines():
+                    parts = line.split(maxsplit=5)
+                    if len(parts) == 6 and parts[5].startswith('/'):
+                        paths.append(parts[5].removesuffix(' (deleted)'))
+            except (FileNotFoundError, PermissionError, ProcessLookupError):
+                pass
+            try:
+                for arg in (p / 'cmdline').read_bytes().split(b'\0'):
+                    decoded = arg.decode(errors='replace')
+                    # Accept full path arguments and --flag=/path forms only.
+                    candidate = decoded.split('=', 1)[-1] if '=' in decoded else decoded
+                    if candidate.startswith('/'):
+                        paths.append(candidate)
+            except (FileNotFoundError, PermissionError, ProcessLookupError):
+                pass
+            if any(any(within(Path(value), root) for root in roots) for value in paths if value.startswith('/')):
+                found.append(int(p.name))
+        except (FileNotFoundError, ProcessLookupError):
+            continue
+    require(not found, 'Task paths are still in use by process IDs: ' + ', '.join(map(str, sorted(found))))
+
+def verify_evidence(manifest):
+    require(manifest == EVIDENCE / 'archive-manifest.json', 'Use the fixed launch archive manifest path.')
+    no_symlink_ancestors(manifest)
+    require(manifest.stat().st_size <= 4 * 1024 * 1024, 'Evidence manifest is too large.')
+    value = json.loads(manifest.read_text())
+    if isinstance(value, dict) and isinstance(value.get('files'), list):
+        entries = value['files']
+    elif isinstance(value, dict):
+        entries = [{'path': p, 'sha256': v} if isinstance(v, str) else {'path': p, **v} for p, v in value.items()]
+    else:
+        raise Refusal('Unsupported evidence manifest format.')
+    expected = set()
+    for entry in entries:
+        rel = entry['path']
+        require(isinstance(rel, str) and not Path(rel).is_absolute() and '..' not in Path(rel).parts, 'Unsafe evidence manifest path.')
+        require(rel not in expected and rel != 'archive-manifest.json', 'Duplicate or self-referencing manifest entry.')
+        expected.add(rel)
+        p = EVIDENCE / rel
+        no_symlink_ancestors(p)
+        require(p.is_file() and re.fullmatch('[a-f0-9]{64}', entry['sha256']), 'Invalid evidence manifest record.')
+        require(digest_file(p) == entry['sha256'], 'Evidence digest differs: ' + rel)
+        if 'bytes' in entry:
+            require(p.stat().st_size == entry['bytes'], 'Evidence size differs: ' + rel)
+    actual = set()
+    for p in EVIDENCE.rglob('*'):
+        require(not p.is_symlink(), 'Evidence contains a symlink.')
+        if p.is_file() and p != manifest:
+            actual.add(p.relative_to(EVIDENCE).as_posix())
+    require(actual == expected, 'Evidence manifest does not cover the exact current file set.')
+    require('cleanup/cleanup-audit.py.txt' in expected and 'cleanup/cleanup-plan.json' in expected, 'Cleanup tools and plan are absent from archived evidence.')
+    require(digest_file(Path(__file__)) == digest_file(EVIDENCE / 'cleanup/cleanup-audit.py.txt'), 'Running cleanup script differs from the archived script.')
+    current_plan = PLAN if PLAN.exists() else EVIDENCE / 'cleanup/cleanup-plan.json'
+    require(digest_file(current_plan) == digest_file(EVIDENCE / 'cleanup/cleanup-plan.json'), 'Cleanup plan differs from the archived plan.')
+    return digest_file(manifest)
+
+def delete_roots(state, save):
+    require(shutil.rmtree.avoids_symlink_attacks, 'This Python cannot safely delete a directory tree.')
+    mount_guard(ROOTS)
+    process_guard(ROOTS)
+    for root in ROOTS:
+        if str(root) in state['deleted']:
+            require(not root.exists() and not root.is_symlink(), 'A removed task directory was recreated: ' + str(root))
+            continue
+        if not root.exists() and not root.is_symlink() and state.get('deletion_intent') == str(root):
+            state['deleted'].append(str(root))
+            state.pop('deletion_intent', None)
+            save()
+            continue
+        require(root.exists(), 'Task root disappeared without a cleanup receipt: ' + str(root))
+        require(owned_directory(root) == state['roots'][str(root)], 'Task root identity changed: ' + str(root))
+        mount_guard((root,))
+        process_guard((root,))
+        state['deletion_intent'] = str(root)
+        save()
+        shutil.rmtree(root)
+        require(not root.exists() and not root.is_symlink(), 'Task root was not fully removed.')
+        state['deleted'].append(str(root))
+        state.pop('deletion_intent', None)
+        save()
+
+def fixed_plan_check(plan):
+    require(len(plan['delete_after_all_retention_and_evidence_checks']) == len(ROOTS), 'The plan changes the fixed root count.')
+    require(set(plan['delete_after_all_retention_and_evidence_checks']) == {str(p) for p in ROOTS}, 'The plan changes the fixed deletion scope.')
+    actual = {(m['source'], m['destination']) for m in plan['cache_moves']}
+    require(actual == {(str(s), str(d)) for s, d, _ in MOVES}, 'The plan changes the fixed tool move scope.')
+    require({(v['source'], v['destination']) for v in plan['private_retention']} == {(str(CHECKS / n), str(RECOVERY / n)) for n in PRIVATE_NAMES}, 'The plan changes private retention paths.')
+    require(plan['cache_extraction']['source'] == str(CHROME_TAR) and plan['cache_extraction']['destination'] == str(CHROME_DEST) and plan['cache_extraction']['member_prefix'] == CHROME_PREFIX, 'The plan changes Chrome extraction.')
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--execute', action='store_true')
+    parser.add_argument('--phase', choices=['retain', 'delete'], default='retain')
+    parser.add_argument('--hosted-checks-complete', action='store_true')
+    parser.add_argument('--ci-complete', action='store_true')
+    parser.add_argument('--windows-users-checked', action='store_true')
+    parser.add_argument('--evidence-manifest', type=Path)
+    args = parser.parse_args()
+    current_plan = PLAN if PLAN.exists() else EVIDENCE / 'cleanup/cleanup-plan.json'
+    no_symlink_ancestors(current_plan)
+    plan = json.loads(current_plan.read_text())
+    fixed_plan_check(plan)
+    if not args.execute:
+        # No tree walks, content hashes, process scans, or directory creation.
+        for root in ROOTS:
+            no_symlink_ancestors(root)
+        for _, destination, _ in MOVES:
+            no_symlink_ancestors(destination)
+        print(json.dumps({'mode': 'metadata-only dry run', 'phase': args.phase, 'scratch_root_count': len(ROOTS), 'cache_move_count': len(MOVES), 'private_directory_count': len(PRIVATE_NAMES), 'existing_cache_destinations': [str(d) for _, d, _ in MOVES if d.exists()], 'would_write': False, 'would_delete': False}))
+        return
+    require(args.hosted_checks_complete and args.ci_complete, 'Both hosted checks and CI must be complete before any move.')
+    require(args.windows_users_checked, 'Root must confirm that Windows processes do not use task files.')
+    require(args.evidence_manifest is not None, 'Verified archived evidence is required before any move.')
+    evidence_hash = verify_evidence(args.evidence_manifest)
+    mount_guard(ROOTS)
+    process_guard(ROOTS)
+    no_symlink_ancestors(RECOVERY)
+    RECOVERY.mkdir(parents=True, exist_ok=True, mode=0o700)
+    RECOVERY.chmod(0o700)
+    receipt = RECOVERY / 'cleanup-state.json'
+    if receipt.exists():
+        no_symlink_ancestors(receipt)
+        state = json.loads(receipt.read_text())
+        require(state['version'] == 1, 'Unknown cleanup receipt version.')
+        require(set(state['roots']) == {str(p) for p in ROOTS}, 'Cleanup receipt has a different root scope.')
+        require(set(state['deleted']).issubset({str(p) for p in ROOTS}), 'Cleanup receipt has an unexpected removed root.')
+        require(set(state['moves']).issubset({str(s) for s, _, _ in MOVES}), 'Cleanup receipt has an unexpected tool source.')
+    else:
+        state = {'version': 1, 'created_at_epoch': int(time.time()), 'roots': {str(p): owned_directory(p) for p in ROOTS}, 'private': {}, 'moves': {}, 'deleted': []}
+    save = lambda: private_write(receipt, state)
+    state['evidence_manifest_sha256'] = evidence_hash
+    save()
+    if args.phase == 'retain':
+        require(not state['deleted'], 'Scratch deletion has already started.')
+        for name in PRIVATE_NAMES:
+            state['private'][name] = copy_private(CHECKS / name, RECOVERY / name)
+            save()
+        for source, destination, kind in MOVES:
+            relocate(source, destination, kind, state, save)
+        extract_chrome(state, save)
+        state['retention_complete'] = True
+        save()
+        print(json.dumps({'phase': 'retain', 'complete': True, 'private_directory_count': len(PRIVATE_NAMES), 'cache_tool_count': len(MOVES) + 1, 'scratch_roots_deleted': 0}))
+    else:
+        require(state.get('retention_complete'), 'Retention is not complete.')
+        require(stat.S_IMODE(RECOVERY.stat().st_mode) == 0o700, 'Private recovery root mode changed.')
+        for name in PRIVATE_NAMES:
+            private_rows = tree(RECOVERY / name, private=True)
+            assert_private_modes(RECOVERY / name, private_rows)
+            require(fingerprint(private_rows) == state['private'][name], 'Retained private material changed.')
+            if CHECKS.exists() and state.get('deletion_intent') != str(CHECKS):
+                require(fingerprint(tree(CHECKS / name, private=True)) == state['private'][name], 'Private source changed after retention.')
+        for source, destination, kind in MOVES:
+            record = state['moves'].get(str(source), {})
+            require(record.get('complete') and fingerprint(tree(destination)) == record.get('after'), 'Retained tool changed or is incomplete.')
+        require(state.get('chrome-extraction', {}).get('complete') and fingerprint(tree(CHROME_DEST)) == state['chrome-extraction']['after'], 'Chrome retention is incomplete.')
+        delete_roots(state, save)
+        print(json.dumps({'phase': 'delete', 'complete': True, 'scratch_roots_deleted': len(state['deleted']), 'private_recovery': str(RECOVERY)}))
+
+if __name__ == '__main__':
+    try:
+        main()
+    except (Refusal, OSError, ValueError, KeyError, subprocess.SubprocessError, tarfile.TarError) as exc:
+        # Error messages contain fixed paths/operation labels, never file values.
+        print('Cleanup stopped: ' + str(exc), file=sys.stderr)
+        sys.exit(1)

@@ -1,0 +1,14 @@
+import { writeFile } from 'node:fs/promises';
+import { curl6, ipv6, failure } from '../hosted-smoke-preparation/v2/check-address-isolation.mjs';
+const report = { checkedAt: new Date().toISOString(), appRequests: 0, rawAddressesLogged: false, providerBodiesLogged: false, rows: [] };
+try {
+  const a = await curl6('https://api64.ipify.org/');
+  report.rows.push({ source: 'ipify', status: a.status, globalIpv6Parsed: Boolean(ipv6(a.body)) });
+  const b = await curl6('https://www.cloudflare.com/cdn-cgi/trace');
+  const rows = b.body.split(/\r?\n/).filter(row => row.startsWith('ip='));
+  report.rows.push({ source: 'cloudflare', status: b.status, globalIpv6Parsed: rows.length === 1 && Boolean(ipv6(rows[0].slice(3))) });
+  report.independentIpv6SourcesAgreed = rows.length === 1 && ipv6(a.body) === ipv6(rows[0].slice(3));
+  report.ok = a.status === 200 && b.status === 200 && report.independentIpv6SourcesAgreed;
+} catch (error) { report.ok = false; report.failure = failure(error); }
+await writeFile('/tmp/queue-arcade-launch-checks/ipv6-oct11-diagnosis/exact-transport-result.json', JSON.stringify(report, null, 2) + '\n', { mode: 0o600 });
+console.log(JSON.stringify(report));

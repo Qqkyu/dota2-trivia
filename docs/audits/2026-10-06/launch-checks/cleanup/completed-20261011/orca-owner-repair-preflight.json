@@ -1,0 +1,16 @@
+{
+  "mode": "read-only",
+  "reviewed_directories": 178,
+  "pending_directories": 178,
+  "unchanged_regular_files": 451,
+  "directory_modes_changed": false,
+  "file_owners_changed": false,
+  "directories_changed": 0,
+  "plan_sha256": "c14363c1ffcd04b627670e895a2d678a24f269f44d0ecb3f88c49a43b4ae4151",
+  "pinned_cleanup_sha256": "b08f8bbe81d15102f125acf0c77177b669ff8b9106563c83a904c53506f26a94",
+  "host_uid": 1000,
+  "checked_at_utc": "2026-10-11T07:16:42.427513+00:00",
+  "user_process_guard": "passed",
+  "mount_guard": "passed",
+  "helper_sha256": "00fa15d644c0fd5e2830f71443a66909b2a2febb4b467f967d1a20acaa9f1ad0"
+}

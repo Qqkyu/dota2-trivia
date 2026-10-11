@@ -1,8 +1,8 @@
 {
-  "checkedAt": "2026-10-10T09:24:22.267530+00:00",
+  "checkedAt": "2026-10-10T09:35:17.069431+00:00",
   "passed": 33,
   "hostedRequests": 0,
-  "gateSha256": "f952d7bffb4cb59642641fcb7b9375f1c437512fcf307f45f670151c95ca4a19",
+  "gateSha256": "0658d4d755bb7f469ea05c8e8fb54d05db74ca557c9d812ef861b3b347857c77",
   "cases": [
     {
       "name": "fresh exact candidate creates value-free gate",

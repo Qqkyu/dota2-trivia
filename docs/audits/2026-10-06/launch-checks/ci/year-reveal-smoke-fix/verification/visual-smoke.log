@@ -1,0 +1,64 @@
+{
+  "onePublicRoom": true,
+  "legacyModeRedirect": true,
+  "roundFamilies": 10,
+  "synchronizedReveal": true,
+  "revealReportBounds": {
+    "before": {
+      "x": 53,
+      "y": 681,
+      "width": 1006,
+      "height": 109.34375
+    },
+    "after": {
+      "x": 53,
+      "y": 681,
+      "width": 1006,
+      "height": 109.34375
+    },
+    "sameBounds": true
+  },
+  "flashbackYearReveal": "not-current-round",
+  "fairFirstEntry": true,
+  "stableShopTooltip": "not-current-round",
+  "automaticAdvance": true,
+  "browserHistory": [
+    "/",
+    "/play"
+  ],
+  "directPlay": "/play",
+  "fullCatalogCrowdSplits": {
+    "heroes": "4 named + Other (127 votes)",
+    "items": "4 named + Other (182 votes)",
+    "orders": "4 named + Other (24 votes)"
+  },
+  "spellLinkClueClearance": "16px",
+  "aghanimLabLayout": "3 staged clues + 127-hero picker",
+  "mediaPlaybackDisabled": true,
+  "optionalSteamProfile": true,
+  "privacyControls": true,
+  "sharePreview": true,
+  "freshVolume": "70%",
+  "migratedOldDefault": "70%",
+  "closeTabExit": true,
+  "privateOpsGate": true,
+  "mobileFits": true,
+  "screenshots": [
+    "/tmp/queue-arcade-lobby.png",
+    "/tmp/queue-arcade-profile-guest.png",
+    "/tmp/queue-arcade-profile-records-short.png",
+    "/tmp/queue-arcade-profile-records-long.png",
+    "/tmp/queue-arcade-privacy.png",
+    "/tmp/queue-arcade-ops-guest.png",
+    "/tmp/queue-arcade-entry-wait.png",
+    "/tmp/queue-arcade-public-round.png",
+    "/tmp/queue-arcade-public-reveal.png",
+    "/tmp/queue-arcade-crowd-heroes.png",
+    "/tmp/queue-arcade-crowd-items.png",
+    "/tmp/queue-arcade-crowd-orders.png",
+    "/tmp/queue-arcade-spell-layout.png",
+    "/tmp/queue-arcade-aghanim-layout.png",
+    "/tmp/queue-arcade-mobile.png",
+    "/tmp/queue-arcade-calibration-mobile.png"
+  ]
+}

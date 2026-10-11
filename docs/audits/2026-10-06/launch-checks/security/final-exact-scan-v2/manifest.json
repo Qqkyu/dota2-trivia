@@ -1,0 +1,95 @@
+{
+  "scope": "Corrected Steam key lookup, isolated operator checks, and the explicit nine-value source-candidate check. The final evidence commit scan has not run. Original operator archive remains unchanged.",
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 6758,
+      "sha256": "85c18a53582ef265943930c71b31237808cd837639265638b2fb1fa7db0b5eb9"
+    },
+    {
+      "file": "credential-readiness-steam-key-corrected.json",
+      "bytes": 467,
+      "sha256": "0b5bf2be2174b91b113907f45af5167ceec639726d32ceb52d8b6c8da2152b68"
+    },
+    {
+      "file": "final-exact-scan.py",
+      "bytes": 22283,
+      "sha256": "33e6801c2adfa7adc191408d7462f4d78727c09b4c90eb5f8ff4db26212b156f"
+    },
+    {
+      "file": "gitleaks-all-paths-result.json",
+      "bytes": 709,
+      "sha256": "373892f9781ececf29363ae41858f7243c8613aa49317fc55427a76f43933099"
+    },
+    {
+      "file": "independent-review-before-optional-steam.json",
+      "bytes": 1692,
+      "sha256": "8e8b565a4e950f79ed6b81a99dfc1a11e0bf479ffcb4e5c17996f2e157c2a7d6"
+    },
+    {
+      "file": "independent-review.json",
+      "bytes": 2414,
+      "sha256": "0146ad7da924266740c23bddc27f37d2d6636fe90790e05ba0dbb5a80f42d4fa"
+    },
+    {
+      "file": "known-values-wrapper-review.json",
+      "bytes": 1428,
+      "sha256": "8cb21dc7a18ef5f8795187185780d937e470dcfaebd2e899b935f024a186df2f"
+    },
+    {
+      "file": "known-values-wrapper-tests.log",
+      "bytes": 1102,
+      "sha256": "7181a83c321357961ecfdb4a45fd68d5d0b1058529d58f1f537ae1637be207cd"
+    },
+    {
+      "file": "review-known-values-wrapper.py",
+      "bytes": 8166,
+      "sha256": "2623b1c5a1b7a648b76d2cf4b8231dee50d094e2437f8dbede7e25d1aae8d53a"
+    },
+    {
+      "file": "review-tests-before.log",
+      "bytes": 2577,
+      "sha256": "ed143f7313db603d7baf6686e5ad344de8d4162f3a656780e558f2c25a1b3eaa"
+    },
+    {
+      "file": "review-tests.py",
+      "bytes": 19808,
+      "sha256": "622befa6cb446d2fe1416d37f33134c7f3cddb8598d1165d750bd1b6729b5778"
+    },
+    {
+      "file": "reviewed-findings-baseline.json",
+      "bytes": 23861,
+      "sha256": "35427204b8bdea6ce98aeb1fadffef1d2bb5267326ca024bdfbaf35ca80b0005"
+    },
+    {
+      "file": "reviewed-findings-source-6e1eace.json",
+      "bytes": 1021,
+      "sha256": "49d79ae252a5058d14a1f55425be3b789095b8720d7973cfceff67e73c42e43e"
+    },
+    {
+      "file": "reviewed-findings-through-6e1eace.json",
+      "bytes": 24796,
+      "sha256": "18e66e79d480b553e6af485e955b0b698bf3b62ea4f79fc96aa11c7e47cdaed3"
+    },
+    {
+      "file": "scan-candidate-known-values.py",
+      "bytes": 4111,
+      "sha256": "0e636d495adc772417131db35706a5e4a8a6ed8cda0a86a7f33cdce8000d4168"
+    },
+    {
+      "file": "steam-key-tests.log",
+      "bytes": 2292,
+      "sha256": "7d68389183f246343a933235fffeaef54c309c3a0eddbdce9043f6d1d06a97f9"
+    },
+    {
+      "file": "steam-web-key-correction.json",
+      "bytes": 805,
+      "sha256": "c953007b397903bcdbbb60f5135bd174708ce36e0c02d0e3ecf768225b7ce5e8"
+    },
+    {
+      "file": "test-gitleaks-all-paths.py",
+      "bytes": 3025,
+      "sha256": "a01f212d25075cbb0e8e1256d92cbaf1e49e58b31eec123e43ba7cc40704ef4f"
+    }
+  ]
+}

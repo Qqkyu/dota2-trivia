@@ -1,0 +1,190 @@
+import assert from "node:assert/strict";
+import { createServer } from "node:http";
+import { Check, allowedUrl, validateGate, validateVote, validateOwnedReceipt, safeFailure, browserProxyRoute, withDeadline, closeOwnedBrowser } from "./hosted-smoke.mjs";
+const origin = "https://queue-arcade.onrender.com";
+const serviceId = "srv-d9mqd1942hec73e9nlt0";
+const gate = { version: 1, origin, serviceId, commit: "a".repeat(40), deployId: "dep-synthetic123", ciRunId: 123, ciConclusion: "success", ingressVerified: true, proxyPolicy: "cf-connecting-ip", contentVersion: "synthetic-content-version", checkedAt: new Date().toISOString(), operatorSha256: "b".repeat(64), localInputs: ["src/lib/arcade-games.mjs", "scripts/image-assets.mjs"].map((path) => ({ path, sha256: "c".repeat(64) })) };
+const results = [];
+async function test(name, fn) { await fn(); results.push({ name, passed: true }); }
+await test("valid private gate", () => validateGate(gate));
+for (const [name, delta] of Object.entries({ origin: { origin: "https://example.com" }, service: { serviceId: "srv-other" }, revision: { commit: "bad" }, CI: { ciConclusion: "failure" }, proof: { ingressVerified: false }, proxy: { proxyPolicy: "none" }, stale: { checkedAt: new Date(Date.now() - 3 * 60 * 60_000).toISOString() }, future: { checkedAt: new Date(Date.now() + 30_000).toISOString() }, operator: { operatorSha256: "bad" }, imports: { localInputs: [] } })) {
+  await test(`reject gate ${name}`, () => assert.throws(() => validateGate({ ...gate, ...delta })));
+}
+for (const url of ["https://example.com", "https://queue-arcade.onrender.com.evil.test", "https://person:password@queue-arcade.onrender.com/", "http://cdn.steamstatic.com/a.png", "https://cdn.steamstatic.com:444/a.png", "file:///tmp/private"]) {
+  await test("reject foreign, credentialed or insecure URL", () => assert.throws(() => allowedUrl(url, origin)));
+}
+await test("provider URL stays on exact service", () => {
+  assert.throws(() => allowedUrl(`https://api.render.com/v1/services/${serviceId}other`, origin, true));
+  assert.throws(() => allowedUrl("https://api.render.com/v1/services/other/env-vars", origin, true));
+  assert.equal(allowedUrl(`https://api.render.com/v1/services/${serviceId}/env-vars`, origin, true).hostname, "api.render.com");
+});
+const owned = { code: "LAUNCH0123456789", playerId: "synthetic-guest-only", roomId: `dota2:${gate.contentVersion}:private:LAUNCH0123456789` };
+const vote = { gameId: "dota2", privateCode: owned.code, roundId: `${owned.roomId}:round:0:123`, answerIndex: 0, voterId: owned.playerId };
+await test("private guest vote fields", () => validateVote(vote, owned));
+for (const [name, delta] of Object.entries({ public: { privateCode: undefined }, account: { voterId: "account:synthetic" }, alpha: { sessionId: "synthetic-session" }, wrongRoom: { roundId: "dota2:public:round:0" }, otherAnswer: { answerIndex: 3 }, extraField: { reporter: true } })) {
+  await test(`reject vote ${name}`, () => assert.throws(() => validateVote({ ...vote, ...delta }, owned)));
+}
+await test("untrusted exception text is never returned", () => assert.equal(safeFailure(new Error("cookie=private-password")), "UNCLASSIFIED_FAILURE"));
+await test("private error labels are rejected", () => assert.equal(safeFailure({ publicCode: "https://person:private@example.test" }), "UNCLASSIFIED_FAILURE"));
+function browserRoute(method = "GET") {
+  const state = { aborted: 0, fulfilled: null };
+  return { state, request: () => ({ method: () => method, url: () => origin + "/", headers: () => ({ cookie: "synthetic-cookie", authorization: "synthetic-authorization", accept: "text/html", rsc: "1", "next-router-state-tree": "synthetic-tree", "next-router-prefetch": "1", "next-router-segment-prefetch": "synthetic-segment", "next-url": "/play", "x-nextjs-data": "1", "x-middleware-prefetch": "1" }) }), abort: async () => state.aborted++, fulfill: async (value) => { state.fulfilled = value; } };
+}
+await test("browser proxy removes request credentials and response cookies", async () => {
+  const route = browserRoute(); let passedOptions;
+  const check = { origin, request: async (_url, options) => { passedOptions = options; return { status: 200, bytes: Buffer.from("safe"), headers: { "content-type": "text/html", "set-cookie": ["synthetic=value"], "Set-Cookie2": "synthetic=other", "content-length": "4", connection: "keep-alive" } }; } };
+  await browserProxyRoute(route, check, () => assert.fail("unexpected write"));
+  assert.deepEqual(passedOptions.headers, { accept: "text/html", rsc: "1", "next-router-state-tree": "synthetic-tree", "next-router-prefetch": "1", "next-router-segment-prefetch": "synthetic-segment", "next-url": "/play", "x-nextjs-data": "1", "x-middleware-prefetch": "1" });
+  assert.deepEqual(route.state.fulfilled.headers, { "content-type": "text/html" });
+  assert.equal(passedOptions.browser, true);
+});
+await test("browser proxy rejects redirects without issuing a second request", async () => {
+  const route = browserRoute(); let count = 0;
+  const check = { origin, request: async () => { count++; return { status: 302, bytes: Buffer.alloc(0), headers: { location: "https://example.com/private" } }; } };
+  await assert.rejects(browserProxyRoute(route, check, () => {}), /BROWSER_REDIRECT/);
+  assert.equal(count, 1); assert.equal(route.state.fulfilled, null);
+});
+for (const method of ["POST", "PUT", "PATCH", "DELETE", "OPTIONS", "CONNECT", "TRACE"]) {
+  await test(`browser proxy blocks ${method} before transport`, async () => {
+    const route = browserRoute(method); let blocked = 0;
+    await browserProxyRoute(route, { origin, request: () => assert.fail("transport must not run") }, () => blocked++);
+    assert.equal(blocked, 1); assert.equal(route.state.aborted, 1);
+  });
+}
+await test("absolute browser deadline fires even without further requests", async () => {
+  let closed = 0; const started = Date.now();
+  await assert.rejects(withDeadline(20, () => new Promise(() => {}), () => closed++), /BROWSER_DEADLINE/);
+  assert.equal(closed, 1); assert(Date.now() - started < 2000);
+});
+await test("a hung browser close kills only its owned child and settles with failure", async () => {
+  let killed = 0; let stopped = false; const started = Date.now();
+  await assert.rejects(closeOwnedBrowser(() => new Promise(() => {}), () => { killed++; stopped = true; }, () => stopped, 20, 20), /BROWSER_FORCED_TERMINATION/);
+  assert.equal(killed, 1); assert(Date.now() - started < 2000);
+});
+await test("graceful browser close does not invoke kill", async () => {
+  let stopped = false;
+  await closeOwnedBrowser(async () => { stopped = true; }, () => assert.fail("must not kill"), () => stopped, 20, 20);
+});
+
+function response(status, value) { return { status, headers: { "content-type": "application/json" }, bytes: Buffer.from(JSON.stringify(value)) }; }
+class GuestFixture extends Check {
+  constructor(mode) { super("http://127.0.0.1:3334", gate, true); this.mode = mode; this.calls = []; this.roundReads = 0; this.leaves = 0; }
+  async pause() {}
+  async recordGuestState(patch, initial = false) { this.recordedState = { ...this.recordedState, ...patch }; this.calls.push({ checkpoint: true, initial, patch }); }
+  async request(raw, options = {}) {
+    const pathname = new URL(raw, this.origin).pathname;
+    this.calls.push({ pathname, method: options.method ?? "GET", body: options.body });
+    if (pathname === "/api/me") return response(200, { authenticated: false });
+    if (pathname === "/api/private-rooms" && options.method === "POST") {
+      if (this.mode === "ambiguous-create") throw new Error("lost response after commit");
+      return response(200, { privateRoom: { code: this.owned.code, isHost: true, players: [{}] }, room: { id: `dota2:${gate.contentVersion}:private:${this.owned.code}` } });
+    }
+    if (pathname === "/api/private-rooms/start") return response(200, { countdownMs: 0, privateRoom: { code: this.owned.code } });
+    if (pathname === "/api/rounds") {
+      this.roundReads++;
+      return response(200, { serverNow: Date.now(), room: { id: this.owned.roomId }, playerIdentity: { kind: "guest", id: this.owned.playerId }, round: { id: `${this.owned.roomId}:round:0:123`, phase: this.roundReads > (this.mode === "grace-boundary" ? 2 : 1) ? "reveal" : "answering", game: "trivia", answerDeadline: Date.now() + 10_000, revealDeadline: Date.now() + 17_000 }, question: { answers: ["A", "B", "C", "D"], reveal: this.roundReads > (this.mode === "grace-boundary" ? 2 : 1) ? { correctIndex: 0 } : null }, playerVote: this.roundReads > (this.mode === "grace-boundary" ? 2 : 1) ? {} : null });
+    }
+    if (pathname === "/api/votes") {
+      validateVote(options.body, this.owned);
+      if (this.mode === "ambiguous-vote") throw new Error("response lost after accepted vote");
+      return response(200, { accepted: true, playerIdentity: { kind: "guest", id: this.owned.playerId }, playerVote: {} });
+    }
+    if (pathname === "/api/private-rooms/leave") { this.leaves++; return response(this.mode === "cleanup-failure" ? 503 : 200, { left: true }); }
+    if (pathname === "/api/private-rooms") return response(404, { error: "Unknown private room." });
+    throw new Error("Unexpected fixture request");
+  }
+}
+await test("private guest success has exactly one vote and confirmed cleanup", async () => {
+  const check = new GuestFixture("success"); await check.guest();
+  assert.equal(check.calls.filter((call) => call.pathname === "/api/votes").length, 1);
+  assert.equal(check.output.privateRoomCleanupConfirmed, true);
+  assert.equal(check.calls.some((call) => ["/api/sessions", "/api/reports"].includes(call.pathname)), false);
+  assert.equal(check.output.checks.privateGuest.alphaSessionSent, false);
+});
+for (const mode of ["ambiguous-create", "ambiguous-vote"]) {
+  await test(`cleanup after ${mode} without retrying write`, async () => {
+    const check = new GuestFixture(mode); await assert.rejects(check.guest());
+    assert.equal(check.output.privateRoomCleanupConfirmed, true);
+    assert.equal(check.leaves, 1);
+    assert(check.calls.filter((call) => call.pathname === "/api/votes").length <= 1);
+  });
+}
+await test("private reveal retries only a read at the vote-grace boundary", async () => {
+  const check = new GuestFixture("grace-boundary"); await check.guest();
+  assert.equal(check.roundReads, 3);
+  assert.equal(check.calls.filter((call) => call.pathname === "/api/votes").length, 1);
+  assert.equal(check.output.checks.privateRevealTiming.phase, "reveal");
+  assert.equal(check.output.privateRoomCleanupConfirmed, true);
+});
+await test("cleanup failure remains a failure after two attempts", async () => {
+  const check = new GuestFixture("cleanup-failure"); await assert.rejects(check.guest(), /PRIVATE_CLEANUP_FAILED/);
+  assert.equal(check.leaves, 2); assert.equal(check.output.privateRoomCleanupConfirmed, false);
+});
+const validOwnedReceipt = { version: 1, origin, rehearsal: false, commit: gate.commit, deployId: gate.deployId, contentVersion: gate.contentVersion, owned: { code: "LAUNCH0123456789", playerId: "00000000-0000-4000-8000-000000000001", roomId: "" }, createAttempted: true, voteAttempted: false, cleanupConfirmed: false };
+await test("recovery accepts only this deployment and owned guest", () => validateOwnedReceipt(validOwnedReceipt, gate, origin));
+for (const [name, delta] of Object.entries({ deployment: { deployId: "dep-other" }, revision: { commit: "d".repeat(40) }, origin: { origin: "https://other.test" }, local: { rehearsal: true }, publicRoom: { owned: { ...validOwnedReceipt.owned, roomId: "dota2:public" } }, account: { owned: { ...validOwnedReceipt.owned, playerId: "account:123" } }, unknownCreation: { createAttempted: false }, badVoteState: { voteAttempted: "yes" } })) {
+  await test(`recovery rejects ${name}`, () => assert.throws(() => validateOwnedReceipt({ ...validOwnedReceipt, ...delta }, gate, origin)));
+}
+await test("expired gate is accepted only for cleanup of the owned room", () => {
+  const old = { ...gate, checkedAt: new Date(Date.now() - 24 * 60 * 60_000).toISOString() };
+  assert.throws(() => validateGate(old)); validateGate(old, Date.now(), true);
+});
+await test("guest records ownership and vote attempts before sending each write", async () => {
+  const check = new GuestFixture("success"); await check.guest();
+  const create = check.calls.findIndex((call) => call.pathname === "/api/private-rooms" && call.method === "POST");
+  const voteAt = check.calls.findIndex((call) => call.pathname === "/api/votes");
+  assert.equal(check.calls[create - 1].initial, true);
+  assert.equal(check.calls[voteAt - 1].patch.voteAttempted, true);
+  assert.equal(check.recordedState.cleanupConfirmed, true);
+});
+await test("owned-room recovery sends only leave and absence reads", async () => {
+  const check = new GuestFixture("success"); check.owned = owned;
+  await check.cleanupOwnedGuest();
+  assert.deepEqual(check.calls.filter((call) => !call.checkpoint).map((call) => call.pathname), ["/api/private-rooms/leave", "/api/private-rooms"]);
+  assert.equal(check.output.privateRoomCleanupConfirmed, true);
+});
+let calls = 0;
+const server = createServer((request, response) => {
+  calls++;
+  if (request.url === "/redirect") { response.writeHead(302, { Location: "https://example.com/private" }); response.end(); }
+  else if (request.url === "/large") response.end("x".repeat(500));
+  else { response.writeHead(200, { "Content-Type": "application/json" }); response.end("{}"); }
+});
+await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
+try {
+  const local = `http://127.0.0.1:${server.address().port}`;
+  await test("transport returns redirect without following it", async () => {
+    const check = new Check(local, gate, true); const count = calls;
+    assert.equal((await check.request("/redirect")).status, 302); assert.equal(calls, count + 1);
+  });
+  await test("transport bounds response bytes", async () => {
+    const check = new Check(local, gate, true); await assert.rejects(check.request("/large", { maxBytes: 10 }));
+  });
+  await test("cleanup retains a separate byte allowance after the main budget is exhausted", async () => {
+    const check = new Check(local, gate, true); check.bytes = 32 * 1024 * 1024 + 1;
+    assert.equal((await check.request("/", { cleanup: true })).status, 200);
+    assert.equal(check.cleanupBytes, 2);
+    await assert.rejects(check.request("/"));
+  });
+  await test("cleanup keeps four requests after a rejected main request exhausts its budget", async () => {
+    const check = new Check(local, gate, true); check.requests = 140;
+    await assert.rejects(check.request("/"), /REQUEST_LIMIT/);
+    for (let i = 0; i < 4; i++) assert.equal((await check.request("/", { cleanup: true })).status, 200);
+    const count = calls;
+    await assert.rejects(check.request("/", { cleanup: true }), /CLEANUP_REQUEST_LIMIT/);
+    assert.equal(calls, count);
+  });
+  await test("transport rejects an app credential header before sending", async () => {
+    const check = new Check(local, gate, true); const count = calls;
+    await assert.rejects(check.request("/", { headers: { Cookie: "synthetic-session" } })); assert.equal(calls, count);
+  });
+  await test("transport refuses a second private vote before sending", async () => {
+    const check = new Check(local, gate, true); check.owned = owned; check.voteRequests = 1; const count = calls;
+    await assert.rejects(check.request("/api/votes", { method: "POST", body: vote })); assert.equal(calls, count);
+  });
+  await test("transport rejects unapproved mutation paths before sending", async () => {
+    const check = new Check(local, gate, true); check.owned = owned; const count = calls;
+    await assert.rejects(check.request("/api/reports", { method: "POST", body: {} })); assert.equal(calls, count);
+  });
+} finally { await new Promise((resolve) => server.close(resolve)); }
+console.log(JSON.stringify({ checkedAt: new Date().toISOString(), passed: results.length, hostedRequests: 0, cases: results }, null, 2));

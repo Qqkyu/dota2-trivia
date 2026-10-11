@@ -1,0 +1,50 @@
+{
+  "workflowResult": "Selected fields from the GitHub Actions run API. User and repository profile fields are omitted.",
+  "workflowResultRawSha256": "1d6bda7a0b6098182e0e01aa2ac13835e65217ff093a99118a51c78485d6cec3",
+  "copiedInputs": [
+    {
+      "source": "workflow-jobs-completed.json",
+      "archive": "workflow-jobs.json",
+      "bytes": 8241,
+      "sha256": "919e5e4c64510445226853d98ec9ff614a253245a826793b6e0998887f0ca3c1"
+    },
+    {
+      "source": "workflow.log",
+      "archive": "workflow.log",
+      "bytes": 466297,
+      "sha256": "c27d8f0673bb1a8f97797528c3928db5eada285a5d74513e01468694844d3b7e"
+    },
+    {
+      "source": "runtime-metadata.json",
+      "archive": "runtime-metadata.json",
+      "bytes": 632,
+      "sha256": "f5e6d50ad2657281d6ea436da64d9980c8845cf78c1f9d1a1fbab34bd24afd21"
+    },
+    {
+      "source": "token-lifecycle.json",
+      "archive": "token-lifecycle.json",
+      "bytes": 211,
+      "sha256": "2077fc55edf0653d0ddb2b6566783616cf38dae71698a2cdddc9ea74a95e2144"
+    },
+    {
+      "source": "safe-capacity-results/container-result.json",
+      "archive": "container-result.json",
+      "bytes": 3917,
+      "sha256": "b96e44040850687358e149e988cfb80f677c12b78ba68cc0bcd3f10fcf561332"
+    },
+    {
+      "source": "cleanup-result.json",
+      "archive": "cleanup-result.json",
+      "bytes": 97,
+      "sha256": "192ad44d6b919949e745a9ef4c17188a7852a4811d2e36de9b49ce273f35384f"
+    },
+    {
+      "source": "runners-after-cleanup.json",
+      "archive": "runners-after-cleanup.json",
+      "bytes": 40,
+      "sha256": "0a37990c04105f6d4c2c21388345c6326e3d61bcd8733ff58d79c28bc80f52a3"
+    }
+  ],
+  "runtimeMetadataScope": "Saved runner startup metadata. It is not a statement about the container state after later diagnostic restarts.",
+  "privateFilesExcluded": true
+}

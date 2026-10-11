@@ -1,0 +1,25 @@
+{
+  "appUrl": "http://127.0.0.1:3351",
+  "engine": "firefox",
+  "runName": "firefox",
+  "buildId": null,
+  "startedAt": "2026-10-10T11:11:38.256Z",
+  "completed": false,
+  "requestedModes": [
+    "desktop",
+    "forced",
+    "forced-dark"
+  ],
+  "fixtureModes": [
+    "desktop",
+    "forced",
+    "forced-dark"
+  ],
+  "reviewerFixture": false,
+  "version": "115.0",
+  "pages": [],
+  "fixtures": [],
+  "keyboard": [],
+  "painting": [],
+  "failures": []
+}

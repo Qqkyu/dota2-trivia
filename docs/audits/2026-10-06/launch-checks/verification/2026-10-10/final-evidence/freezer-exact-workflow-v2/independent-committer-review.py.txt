@@ -1,0 +1,150 @@
+#!/usr/bin/env python3
+"""Independent isolated tests. No command targets the real repository Git state."""
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import runpy
+import subprocess
+import sys
+import tempfile
+from unittest import mock
+
+sys.dont_write_bytecode = True
+HERE = Path(__file__).resolve().parent
+HELPER = HERE / 'create-evidence-commit.py'
+SOURCE_FREEZER = Path('/home/kulmisiu/dev/dota2-trivia/docs/audits/2026-10-06/launch-checks/verification/2026-10-10/final-evidence/freezer-exact-workflow-v2/freeze-archive.py.txt')
+
+
+def command(repo, *args, data=None):
+    environment = {k: v for k, v in os.environ.items() if not k.startswith('GIT_')}
+    environment.update(GIT_OPTIONAL_LOCKS='0', LC_ALL='C')
+    result = subprocess.run(['git', '-c', 'commit.gpgsign=false', *args], cwd=repo,
+                            input=data, capture_output=True, env=environment, check=True)
+    return result.stdout
+
+
+def fixture(module, base):
+    repo = base / 'repo'
+    output = base / 'output'
+    repo.mkdir()
+    output.mkdir()
+    command(repo, 'init', '-b', 'main')
+    command(repo, 'config', 'user.name', 'Local fixture')
+    command(repo, 'config', 'user.email', 'fixture@example.invalid')
+    archive = repo / module['PREFIX']
+    archive.mkdir(parents=True)
+    (repo / 'outside.txt').write_text('release outside bytes\n')
+    (archive / 'old.txt').write_text('old evidence\n')
+    (archive / 'run.sh').write_text('#!/bin/sh\nexit 0\n')
+    (archive / 'run.sh').chmod(0o755)
+    command(repo, 'add', '--all')
+    command(repo, 'commit', '-m', 'fixture release')
+    release = command(repo, 'rev-parse', 'HEAD').decode().strip()
+    command(repo, 'branch', module['CANDIDATE_REF'].removeprefix('refs/heads/'), release)
+    (repo / 'outside.txt').write_text('working changes must stay outside evidence commit\n')
+    (repo / 'staged.txt').write_text('preserve the original index\n')
+    command(repo, 'add', 'staged.txt')
+    (repo / '.gitignore').write_text('/docs/audits/\n')
+    (repo / '.gitattributes').write_text('*.txt filter=fixture text eol=lf\n')
+    command(repo, 'config', 'filter.fixture.clean', "sed 's/evidence/TRANSFORMED/g'")
+    (archive / 'new.txt').write_bytes(b'new evidence with CRLF\r\n')
+    (archive / 'old.txt').write_text('new evidence version\n')
+    freezer_path = repo / module['FREEZER']
+    freezer_path.parent.mkdir(parents=True)
+    freezer_path.write_bytes(SOURCE_FREEZER.read_bytes())
+    freezer = runpy.run_path(str(freezer_path))
+    freezer['write'](archive, release)
+    return repo, output, archive, release
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--expect-hook-invoked', action='store_true')
+    parser.add_argument('--expect-fsmonitor-invoked', action='store_true')
+    args = parser.parse_args()
+    module = runpy.run_path(str(HELPER))
+    passed = []
+    with tempfile.TemporaryDirectory(prefix='independent-evidence-', dir=HERE) as temporary:
+        repo, output, archive, release = fixture(module, Path(temporary))
+        hook = repo / '.git/hooks/reference-transaction'
+        hook.write_text('#!/bin/sh\nprintf invoked > hook-ran\n')
+        hook.chmod(0o755)
+        fsmonitor = Path(temporary) / 'fsmonitor.sh'
+        fsmonitor.write_text('#!/bin/sh\nprintf invoked > fsmonitor-ran\nprintf "fixture-token\\0/\\0"\n')
+        fsmonitor.chmod(0o755)
+        command(repo, 'config', 'core.fsmonitor', str(fsmonitor))
+        original_index = (repo / '.git/index').read_bytes()
+        before = module['preservation_state'](repo, module['clean_environment']())
+        result = module['create_evidence_commit'](repo, output, release, release)
+        assert module['preservation_state'](repo, module['clean_environment']()) == before
+        assert (repo / '.git/index').read_bytes() == original_index
+        passed.append('dirty real index, main HEAD and candidate ref preserved')
+        assert command(repo, 'rev-list', '--parents', '-n', '1', result['commit']).decode().split() == [result['commit'], release]
+        passed.append('one exact release parent')
+        assert command(repo, 'show', result['commit'] + ':outside.txt') == b'release outside bytes\n'
+        passed.append('unrelated working edit excluded')
+        assert command(repo, 'show', result['commit'] + ':' + module['PREFIX'] + 'new.txt') == b'new evidence with CRLF\r\n'
+        passed.append('ignored evidence included without filter or newline transformations')
+        mode = command(repo, 'ls-tree', result['commit'], '--', module['PREFIX'] + 'run.sh').split()[0]
+        assert mode == b'100755'
+        passed.append('existing executable mode preserved')
+        assert (repo / 'hook-ran').exists() == args.expect_hook_invoked
+        passed.append('reference transaction hook ' + ('reproduced' if args.expect_hook_invoked else 'disabled'))
+        assert (repo / 'fsmonitor-ran').exists() == args.expect_fsmonitor_invoked
+        passed.append('filesystem monitor command ' + ('reproduced' if args.expect_fsmonitor_invoked else 'disabled'))
+        assert json.loads((output / 'evidence-commit-result.json').read_text()) == result
+        passed.append('receipt stays outside frozen archive')
+    if not args.expect_hook_invoked:
+        for kind in ['stale_manifest', 'extra_file', 'evidence_ref', 'dangling_ref', 'candidate_drift', 'symbolic_ref_race']:
+            with tempfile.TemporaryDirectory(prefix='independent-evidence-', dir=HERE) as temporary:
+                repo, output, archive, release = fixture(module, Path(temporary))
+                if kind == 'stale_manifest':
+                    (archive / 'new.txt').write_text('changed')
+                elif kind == 'extra_file':
+                    (archive / 'extra.txt').write_text('extra')
+                elif kind == 'evidence_ref':
+                    command(repo, 'branch', module['EVIDENCE_REF'].removeprefix('refs/heads/'), release)
+                elif kind == 'dangling_ref':
+                    command(repo, 'symbolic-ref', module['EVIDENCE_REF'], 'refs/heads/dangling-target')
+                elif kind == 'candidate_drift':
+                    tree = command(repo, 'rev-parse', release + '^{tree}').decode().strip()
+                    other = command(repo, 'commit-tree', tree, '-p', release, data=b'other fixture commit\n').decode().strip()
+                    command(repo, 'update-ref', module['CANDIDATE_REF'], other)
+                before = module['preservation_state'](repo, module['clean_environment']())
+                actual_create_ref = module['create_ref_cas']
+                def injected_create_ref(*call_args):
+                    command(repo, 'symbolic-ref', module['EVIDENCE_REF'], 'refs/heads/dangling-target')
+                    return actual_create_ref(*call_args)
+                try:
+                    if kind == 'symbolic_ref_race':
+                        with mock.patch.dict(module['create_evidence_commit'].__globals__, create_ref_cas=injected_create_ref):
+                            module['create_evidence_commit'](repo, output, release, release)
+                    else:
+                        module['create_evidence_commit'](repo, output, release, release)
+                except Exception as error:
+                    expected_errors = {
+                        'stale_manifest': ('CheckError', 'Archive file set, size or digest differs'),
+                        'extra_file': ('CheckError', 'Archive file set, size or digest differs'),
+                        'evidence_ref': ('CommitError', 'Evidence branch already exists or cannot be checked'),
+                        'dangling_ref': ('CommitError', 'Evidence branch already exists or cannot be checked'),
+                        'candidate_drift': ('CommitError', 'Deployment candidate ref moved'),
+                        'symbolic_ref_race': ('CommitError', 'Evidence ref appeared before transaction preparation'),
+                    }
+                    assert (type(error).__name__, str(error)) == expected_errors[kind], (kind, type(error).__name__, str(error))
+                else:
+                    raise AssertionError(kind + ' unexpectedly accepted')
+                assert module['preservation_state'](repo, module['clean_environment']()) == before
+                assert not (output / 'evidence-commit-result.json').exists()
+                if kind == 'symbolic_ref_race':
+                    assert command(repo, 'symbolic-ref', module['EVIDENCE_REF']).decode().strip() == 'refs/heads/dangling-target'
+                    assert not (repo / '.git' / (module['EVIDENCE_REF'] + '.lock')).exists()
+                passed.append(kind + ' rejected without main/index/candidate changes')
+    print(json.dumps({'passed': True, 'checks': passed, 'helperSha256': hashlib.sha256(HELPER.read_bytes()).hexdigest(),
+                      'testSha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+                      'scope': 'Only isolated temporary Git fixtures. No real repository Git writes.'}, indent=2))
+
+
+if __name__ == '__main__':
+    main()

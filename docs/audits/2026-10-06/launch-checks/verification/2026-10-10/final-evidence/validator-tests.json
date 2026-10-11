@@ -1,0 +1,126 @@
+{
+  "tests": 30,
+  "passed": true,
+  "checks": [
+    {
+      "name": "Year reveal refresh binds to the exact release revisions",
+      "passed": true
+    },
+    {
+      "name": "Existing file with a space resolves",
+      "passed": true
+    },
+    {
+      "name": "Missing file is reported",
+      "passed": true
+    },
+    {
+      "name": "Reference link resolves",
+      "passed": true
+    },
+    {
+      "name": "Web and fenced examples are excluded",
+      "passed": true
+    },
+    {
+      "name": "Correct manifest passes",
+      "passed": true
+    },
+    {
+      "name": "Changed manifest bytes fail",
+      "passed": true
+    },
+    {
+      "name": "Manifest path escape fails",
+      "passed": true
+    },
+    {
+      "name": "Duplicate manifest path fails",
+      "passed": true
+    },
+    {
+      "name": "Malformed digest fails",
+      "passed": true
+    },
+    {
+      "name": "Malformed row fails",
+      "passed": true
+    },
+    {
+      "name": "Empty file manifest fails",
+      "passed": true
+    },
+    {
+      "name": "Mixed archive rows exclude old source drift",
+      "passed": true
+    },
+    {
+      "name": "Mixed archive evidence changes fail",
+      "passed": true
+    },
+    {
+      "name": "Credential rule finds synthetic token",
+      "passed": true
+    },
+    {
+      "name": "Credential result never includes matched value",
+      "passed": true
+    },
+    {
+      "name": "Private archived filename fails: responses/.env",
+      "passed": true
+    },
+    {
+      "name": "Private archived filename fails: responses/.env.production",
+      "passed": true
+    },
+    {
+      "name": "Private archived filename fails: private-render-backup/backup.txt",
+      "passed": true
+    },
+    {
+      "name": "Private archived filename fails: responses/session.db",
+      "passed": true
+    },
+    {
+      "name": "Public response archive filename passes",
+      "passed": true
+    },
+    {
+      "name": "Source manifest refresh metadata is separate",
+      "passed": true
+    },
+    {
+      "name": "A file inventory cannot hide as refresh metadata",
+      "passed": true
+    },
+    {
+      "name": "Malformed refresh hash is not accepted as metadata",
+      "passed": true
+    },
+    {
+      "name": "Malformed optional refresh list is not accepted",
+      "passed": true
+    },
+    {
+      "name": "Refresh references and changed blob hashes pass",
+      "passed": true
+    },
+    {
+      "name": "Changed linked manifest hash fails",
+      "passed": true
+    },
+    {
+      "name": "Unlisted changed input fails",
+      "passed": true
+    },
+    {
+      "name": "Changed source input bytes fail",
+      "passed": true
+    },
+    {
+      "name": "Changed review evidence bytes fail",
+      "passed": true
+    }
+  ]
+}

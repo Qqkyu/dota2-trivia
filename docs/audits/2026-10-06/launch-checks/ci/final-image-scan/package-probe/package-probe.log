@@ -1,0 +1,85 @@
+apk-installed exit 0
+zlib
+apk-all exit 1
+zlib-1.3.2-r0 description:
+A compression/decompression Library
+
+zlib-1.3.2-r0 webpage:
+https://zlib.net/
+
+zlib-1.3.2-r0 installed size:
+105 KiB
+
+zlib-1.3.2-r0 depends on:
+so:libc.musl-x86_64.so.1
+
+zlib-1.3.2-r0 provides:
+so:libz.so.1=1.3.2
+
+zlib-1.3.2-r0 has auto-install rule:
+
+zlib-1.3.2-r0 license:
+Zlib
+
+zlib-1.3.2-r1 description:
+A compression/decompression Library
+
+zlib-1.3.2-r1 webpage:
+https://zlib.net/
+
+zlib-1.3.2-r1 installed size:
+105 KiB
+
+zlib-1.3.2-r1 depends on:
+so:libc.musl-x86_64.so.1
+
+zlib-1.3.2-r1 provides:
+so:libz.so.1=1.3.2
+
+zlib-1.3.2-r1 is required by:
+freetype-2.14.3-r0
+ffmpeg-8.1.2-r0
+libpng-1.6.59-r0
+libapk-3.0.8-r0
+glib-2.88.1-r1
+libopenmpt-0.8.9-r0
+ffmpeg-libavfilter-8.1.2-r0
+libssh-0.12.2-r0
+apk-tools-3.0.8-r0
+harfbuzz-13.2.1-r0
+ffmpeg-libavcodec-8.1.2-r0
+ffmpeg-libavformat-8.1.2-r0
+libxml2-2.13.9-r2
+ffmpeg-libswscale-8.1.2-r0
+ffmpeg-libavutil-8.1.2-r0
+
+zlib-1.3.2-r1 contains:
+usr/lib/libz.so.1
+usr/lib/libz.so.1.3.2
+
+zlib-1.3.2-r1 triggers:
+
+zlib-1.3.2-r1 has auto-install rule:
+
+zlib-1.3.2-r1 affects auto-installation of:
+
+zlib-1.3.2-r1 replaces:
+
+zlib-1.3.2-r1 license:
+Zlib
+
+apk-list-installed exit 0
+zlib-1.3.2-r1 x86_64 {zlib} (Zlib) [installed]
+ffmpeg-version exit 0
+ffmpeg version 8.1.2 Copyright (c) 2000-2026 the FFmpeg developers
+built with gcc 15.2.0 (Alpine 15.2.0)
+configuration: --prefix=/usr --disable-librtmp --disable-lzma --disable-static --disable-stripping --enable-avfilter --enable-gpl --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libdav1d --enable-libdrm --enable-libdvdnav --enable-libdvdread --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libjxl --enable-libmp3lame --enable-libopenmpt --enable-libopus --enable-libplacebo --enable-libpulse --enable-librav1e --enable-librist --enable-libshaderc --enable-libsoxr --enable-libsrt --enable-libssh --enable-libtheora --enable-libv4l2 --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxcb --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-lto=auto --enable-lv2 --enable-openssl --enable-pic --enable-pthreads --enable-shared --enable-vaapi --enable-vdpau --enable-version3 --enable-vulkan --optflags=-O3 --enable-libsvtav1 --enable-libvpl
+libavutil      60. 26.102 / 60. 26.102
+libavcodec     62. 28.102 / 62. 28.102
+libavformat    62. 12.102 / 62. 12.102
+libavdevice    62.  3.102 / 62.  3.102
+libavfilter    11. 14.102 / 11. 14.102
+libswscale      9.  5.102 /  9.  5.102
+libswresample   6.  3.102 /  6.  3.102
+
+Exiting with exit code 0

@@ -1,0 +1,107 @@
+{
+  "scope": "All regular files in this accessibility archive except manifest.json. Private screenshot bytes are not part of this archive.",
+  "fileCount": 20,
+  "totalBytes": 175048,
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 3037,
+      "sha256": "b2f576e7ed265902a42e25fccba46547b69367bc548f609eb5ebd09bc17552a3"
+    },
+    {
+      "file": "chromium-accessibility.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "file": "chromium-accessibility.finished",
+      "bytes": 21,
+      "sha256": "6ae9f4a8a90095a222923779bed912407cc43f3a0b85453848a8e56dcb8ee279"
+    },
+    {
+      "file": "chromium-accessibility.log",
+      "bytes": 596,
+      "sha256": "021ed03b685c7e314dd88e4c29395200c6e1a57bb6ff29a8c3c1488f1d09bd52"
+    },
+    {
+      "file": "chromium-accessibility.started",
+      "bytes": 21,
+      "sha256": "5fb18fc62ef03479866f30d8921f42bb77530cba0ee4dec391fcf6024e3c6e26"
+    },
+    {
+      "file": "chromium.json.gz",
+      "bytes": 98700,
+      "sha256": "faef4bca1b1dd6f716ef70326bf26034f97daab6ca38540d960460a6aa6876fa"
+    },
+    {
+      "file": "firefox-accessibility.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "file": "firefox-accessibility.finished",
+      "bytes": 21,
+      "sha256": "3f3d020d0c40fa0347d14f85c098cb007caa8015712485a57678b44017aa8635"
+    },
+    {
+      "file": "firefox-accessibility.log",
+      "bytes": 203,
+      "sha256": "2e8ef97bf340d8539841ae4e12bb83cd97b5938b69e249bc05ed8cf3ac014004"
+    },
+    {
+      "file": "firefox-accessibility.started",
+      "bytes": 21,
+      "sha256": "6ae9f4a8a90095a222923779bed912407cc43f3a0b85453848a8e56dcb8ee279"
+    },
+    {
+      "file": "firefox.json.gz",
+      "bytes": 15848,
+      "sha256": "3a7aa32a0d6fd2fda2b49a3868fa5a930c2ab4cb48b0db5dd24d12c1f6f214f4"
+    },
+    {
+      "file": "private-screenshot-inventory.json",
+      "bytes": 31987,
+      "sha256": "cdef775d0d8904fe40db30b0507b1f517cfd2621875a3eb050262de305c26dfe"
+    },
+    {
+      "file": "provenance.json",
+      "bytes": 4817,
+      "sha256": "102541ef8a859573bcc202ecfaf3cf1a2e2d49d6c54ec82e604dd30fb5b6a405"
+    },
+    {
+      "file": "secret-scan.json",
+      "bytes": 374,
+      "sha256": "48c2a79d7f36c0e12e587a826bf3c0d857924d770c7a3b9ce6360ba788ab7ad1"
+    },
+    {
+      "file": "summary.json",
+      "bytes": 3290,
+      "sha256": "9d66a357f4069708f3db3a2d2ae18fcff9c2c88dbd5480246feae4c848ce3993"
+    },
+    {
+      "file": "webkit-accessibility.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "file": "webkit-accessibility.finished",
+      "bytes": 21,
+      "sha256": "ae398e78eb5ffe906b8f9f57a14f26b4cd6559ff2c733d383f0f933f3a47027a"
+    },
+    {
+      "file": "webkit-accessibility.log",
+      "bytes": 200,
+      "sha256": "7cf95b7701cac7ec160a7bd62ebbbe5a7a9324c707a893325729bef09809009e"
+    },
+    {
+      "file": "webkit-accessibility.started",
+      "bytes": 21,
+      "sha256": "3f3d020d0c40fa0347d14f85c098cb007caa8015712485a57678b44017aa8635"
+    },
+    {
+      "file": "webkit.json.gz",
+      "bytes": 15864,
+      "sha256": "dde8e4683cfceeb4a96c32b2ca4fc243bae864a0666252ff308ef44b6ad2bda2"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-10-10T11:57:31.204679+00:00",
+  "commit": "31961cbd762587225b4b8a814828dc0829952978",
+  "exactRawBlobFilesChecked": 1657,
+  "exactRawBlobBytesChecked": 130489954,
+  "appCredentialValuesChecked": 7,
+  "operatorCredentialValuesChecked": 2,
+  "steamWebApiKeyRequiredAndChecked": true,
+  "rawUrlQuotedAndJsonEscapedFormsChecked": true,
+  "matchedFiles": [],
+  "mainIndexAndReleaseRefUnchanged": true,
+  "scope": "Known configured values in exact raw Git blobs. Gitleaks and the expanded-payload final evidence scan are separate checks.",
+  "passed": true
+}

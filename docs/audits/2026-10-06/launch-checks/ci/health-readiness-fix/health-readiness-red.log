@@ -1,0 +1,65 @@
+
+ RUN  v5.0.0 /home/kulmisiu/dev/dota2-trivia
+
+ ❯ tests/health-readiness.test.mjs (6 tests | 2 failed) 363ms
+   × startup cleanup runs when the peer closes during native fetch parser initialization 53ms
+   × the deadline rejects even if a pending fetch does not react to abort 20ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/health-readiness.test.mjs > startup cleanup runs when the peer closes during native fetch parser initialization
+AssertionError: Warning: Detected unsettled top-level await at file:///home/kulmisiu/dev/dota2-trivia/[eval1]:13
+      await readHealthWithDeadline("http://127.0.0.1:37717/api/health", 300);
+      ^
+
+
+
+: expected 13 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 13
+
+ ❯ tests/health-readiness.test.mjs:65:38
+     63|   `);
+     64|   expect(result.stdout).toContain("parser compiled");
+     65|   expect(result.code, result.stderr).toBe(0);
+       |                                      ^
+     66|   expect(result.signal).toBeNull();
+     67|   expect(result.stdout).toContain("request settled:");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/health-readiness.test.mjs > the deadline rejects even if a pending fetch does not react to abort
+AssertionError: Warning: Detected unsettled top-level await at file:///home/kulmisiu/dev/dota2-trivia/[eval1]:6
+      await readHealthWithDeadline("http://127.0.0.1:3323/api/health", 50);
+      ^
+
+
+
+: expected 13 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 13
+
+ ❯ tests/health-readiness.test.mjs:84:38
+     82|     }
+     83|   `);
+     84|   expect(result.code, result.stderr).toBe(0);
+       |                                      ^
+     85|   expect(result.signal).toBeNull();
+     86|   expect(result.stdout).toContain("TimeoutError");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 4 passed (6)
+   Start at  11:47:51
+   Duration  503ms (tests 84%, transform 11%, import 5%, worker 1%)
+

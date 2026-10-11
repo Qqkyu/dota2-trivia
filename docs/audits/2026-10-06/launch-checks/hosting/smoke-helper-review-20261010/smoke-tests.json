@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-10T09:24:25.985Z",
-  "passed": 50,
+  "checkedAt": "2026-10-10T09:35:12.433Z",
+  "passed": 63,
   "hostedRequests": 0,
   "cases": [
     {
@@ -172,7 +172,59 @@
       "passed": true
     },
     {
+      "name": "private reveal retries only a read at the vote-grace boundary",
+      "passed": true
+    },
+    {
       "name": "cleanup failure remains a failure after two attempts",
+      "passed": true
+    },
+    {
+      "name": "recovery accepts only this deployment and owned guest",
+      "passed": true
+    },
+    {
+      "name": "recovery rejects deployment",
+      "passed": true
+    },
+    {
+      "name": "recovery rejects revision",
+      "passed": true
+    },
+    {
+      "name": "recovery rejects origin",
+      "passed": true
+    },
+    {
+      "name": "recovery rejects local",
+      "passed": true
+    },
+    {
+      "name": "recovery rejects publicRoom",
+      "passed": true
+    },
+    {
+      "name": "recovery rejects account",
+      "passed": true
+    },
+    {
+      "name": "recovery rejects unknownCreation",
+      "passed": true
+    },
+    {
+      "name": "recovery rejects badVoteState",
+      "passed": true
+    },
+    {
+      "name": "expired gate is accepted only for cleanup of the owned room",
+      "passed": true
+    },
+    {
+      "name": "guest records ownership and vote attempts before sending each write",
+      "passed": true
+    },
+    {
+      "name": "owned-room recovery sends only leave and absence reads",
       "passed": true
     },
     {

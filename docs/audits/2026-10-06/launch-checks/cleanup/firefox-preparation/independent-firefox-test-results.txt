@@ -1,0 +1,31 @@
+test_active_windows_receipt_refuses (__main__.IndependentFirefoxTests) ... ok
+test_both_completion_flags_required (__main__.IndependentFirefoxTests) ... ok
+test_complete_source_minus_runtime_matches_cache (__main__.IndependentFirefoxTests) ... ok
+test_default_does_not_hash_probe_or_remove (__main__.IndependentFirefoxTests) ... ok
+test_exact_windows_paths_clean_response (__main__.IndependentFirefoxTests) ... ok
+test_exact_windows_paths_rejects_active_cache_user (__main__.IndependentFirefoxTests) ... ok
+test_exact_windows_paths_rejects_probe_failure (__main__.IndependentFirefoxTests) ... ok
+test_exact_windows_paths_rejects_wrong_roots (__main__.IndependentFirefoxTests) ... ok
+test_execute_removes_exact_four_and_preserves_cache (__main__.IndependentFirefoxTests) ... ok
+test_extra_source_file_refuses (__main__.IndependentFirefoxTests) ... ok
+test_extra_update_leaf_refuses (__main__.IndependentFirefoxTests) ... ok
+test_fixed_scope (__main__.IndependentFirefoxTests) ... ok
+test_fresh_clean_windows_receipt (__main__.IndependentFirefoxTests) ... ok
+test_future_windows_receipt_refuses (__main__.IndependentFirefoxTests) ... ok
+test_hardlinked_lock_refuses (__main__.IndependentFirefoxTests) ... ok
+test_lock_replacement_refuses_before_removal (__main__.IndependentFirefoxTests) ... ok
+test_new_nonempty_update_leaf_is_never_recursive (__main__.IndependentFirefoxTests) ... ok
+test_nonempty_lock_refuses (__main__.IndependentFirefoxTests) ... ok
+test_nonempty_update_leaf_refuses (__main__.IndependentFirefoxTests) ... ok
+test_process_guard_failure_preserves_all_entries (__main__.IndependentFirefoxTests) ... ok
+test_root_replacement_refuses_before_removal (__main__.IndependentFirefoxTests) ... ok
+test_same_size_cache_change_refuses (__main__.IndependentFirefoxTests) ... ok
+test_stale_windows_receipt_refuses (__main__.IndependentFirefoxTests) ... ok
+test_symlink_destination_refuses (__main__.IndependentFirefoxTests) ... ok
+test_symlink_lock_refuses (__main__.IndependentFirefoxTests) ... ok
+test_wrong_windows_receipt_scope_refuses (__main__.IndependentFirefoxTests) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 0.028s
+
+OK

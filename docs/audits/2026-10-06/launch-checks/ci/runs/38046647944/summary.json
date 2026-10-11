@@ -1,0 +1,22 @@
+{
+  "run": 38046647944,
+  "commit": "6e1eace126e89341052dddbd76eeb4ad4de584e6",
+  "conclusion": "cancelled",
+  "job": 114197417292,
+  "reason": "Intentional cancellation after a separate review confirmed forced-color defects. The run was stopped before application build.",
+  "recordedFailedSteps": 0,
+  "activeStepAtCancellation": "Install browser engines for accessibility checks",
+  "completedBeforeCancellation": [
+    "Set up job",
+    "Initialize containers",
+    "Checkout source",
+    "Install pnpm",
+    "Set up Node",
+    "Install native media tools",
+    "Install PostgreSQL 17 client tools",
+    "Frozen dependency install"
+  ],
+  "appVerification": "Dependency audit, app checks, tests, build, image scan and browser journeys were skipped.",
+  "cleanup": "completed; owned container, volume and registration removed without reported problems",
+  "cleanedAt": "2026-10-10T11:03:07.972439+00:00"
+}

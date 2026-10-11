@@ -1,0 +1,424 @@
+Validated profile, calibration, privacy, and Steam OpenID start/reject.
+Validated party lobby names, uniqueness, and 3 tabs for [synthetic room code] ([synthetic display names]).
+Validated 10 party previews match the 362x132 profile crop. 10 games selected.
+Validated nick sync across two Chrome profiles for [synthetic room code].
+Validated party UI at 1, 20, 50, and 100 players on 1080p, desktop, laptop, small, narrow, short. The 101st join is blocked.
+Validated public play lobby → answer → reveal ([data-testid="hero-picker-hero"]).
+Validated question reports: accept, dedupe, and next-round carryover.
+Validated member-only party audio, images, votes and chat, and host pass.
+Validated round copy, controls, and reveals for 10 formats: trivia, shopkeeper, spell-link, fogged-vision, echo-hunt, soundcheck, quote-hunt, aghanim-lab, order-up, flashback.
+Validated Shopkeeper search (108 → 4 items) and Enter picks the only match.
+Layout ok: 16 play formats at 420 and 1400px.
+Validated hero grid search and reveal: Enter picks the only match, reveal names Tidehunter in place.
+{
+  "orderBefore": {
+    "cards": [
+      {
+        "text": "Kez",
+        "context": "Katana",
+        "font": "geistSans, \"geistSans Fallback\", Arial, Helvetica, sans-serif",
+        "fontSize": 14,
+        "x": 53,
+        "y": 467,
+        "w": 246,
+        "h": 132,
+        "artW": 72,
+        "artH": 72,
+        "nameBottom": 569,
+        "contextTop": 575,
+        "nameOverlapsArt": false
+      },
+      {
+        "text": "Largo",
+        "context": "Bard",
+        "font": "geistSans, \"geistSans Fallback\", Arial, Helvetica, sans-serif",
+        "fontSize": 14,
+        "x": 307,
+        "y": 467,
+        "w": 246,
+        "h": 132,
+        "artW": 72,
+        "artH": 72,
+        "nameBottom": 569,
+        "contextTop": 575,
+        "nameOverlapsArt": false
+      },
+      {
+        "text": "Muerta",
+        "context": "The Veil",
+        "font": "geistSans, \"geistSans Fallback\", Arial, Helvetica, sans-serif",
+        "fontSize": 14,
+        "x": 560,
+        "y": 467,
+        "w": 246,
+        "h": 132,
+        "artW": 72,
+        "artH": 72,
+        "nameBottom": 569,
+        "contextTop": 575,
+        "nameOverlapsArt": false
+      },
+      {
+        "text": "Ringmaster",
+        "context": "Circus",
+        "font": "geistSans, \"geistSans Fallback\", Arial, Helvetica, sans-serif",
+        "fontSize": 14,
+        "x": 814,
+        "y": 467,
+        "w": 246,
+        "h": 132,
+        "artW": 72,
+        "artH": 72,
+        "nameBottom": 569,
+        "contextTop": 575,
+        "nameOverlapsArt": false
+      }
+    ],
+    "extraMarks": 0,
+    "overflow": false
+  },
+  "orderAfterPick": [
+    {
+      "x": 53,
+      "y": 467,
+      "w": 246,
+      "h": 132
+    },
+    {
+      "x": 307,
+      "y": 467,
+      "w": 246,
+      "h": 132
+    },
+    {
+      "x": 560,
+      "y": 467,
+      "w": 246,
+      "h": 132
+    },
+    {
+      "x": 814,
+      "y": 467,
+      "w": 246,
+      "h": 132
+    }
+  ],
+  "orderReveal": {
+    "rows": [
+      {
+        "name": "Muerta",
+        "context": "The Veil",
+        "clipped": false,
+        "contextUnderIndex": false,
+        "fontSize": 14
+      },
+      {
+        "name": "Ringmaster",
+        "context": "Circus",
+        "clipped": false,
+        "contextUnderIndex": false,
+        "fontSize": 14
+      },
+      {
+        "name": "Kez",
+        "context": "Katana",
+        "clipped": false,
+        "contextUnderIndex": false,
+        "fontSize": 14
+      },
+      {
+        "name": "Largo",
+        "context": "Bard",
+        "clipped": false,
+        "contextUnderIndex": false,
+        "fontSize": 14
+      }
+    ],
+    "yours": [
+      "Kez",
+      "Largo",
+      "Muerta",
+      "Ringmaster"
+    ],
+    "panelVisible": true
+  },
+  "yearBefore": {
+    "min": "2009",
+    "max": "2026",
+    "currentYear": "2026",
+    "height": 186,
+    "answers": 0,
+    "ticks": 0,
+    "helper": true,
+    "lock": true,
+    "lockDisabled": false
+  },
+  "yearAfterSlide": {
+    "locked": "false",
+    "readout": "2011",
+    "lockLabel": "Lock"
+  },
+  "yearAfterPick": {
+    "locked": "true",
+    "readout": "2011",
+    "value": "2011",
+    "height": 186,
+    "lockLabel": "Locked",
+    "lockDisabled": true
+  },
+  "yearReveal": {
+    "readout": "2011",
+    "correctYear": "2011",
+    "height": 186,
+    "panelVisible": true
+  },
+  "yearRevealCases": [
+    {
+      "width": 320,
+      "height": 568,
+      "scenario": "unanswered",
+      "yearAnswer": null,
+      "readout": "2011",
+      "label": "Correct year",
+      "yourAnswer": "No answer locked.",
+      "slider": false,
+      "lock": false,
+      "overflow": false,
+      "explanation": "TI1 was at Gamescom in 2011."
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "scenario": "wrong",
+      "yearAnswer": 2017,
+      "readout": "2011",
+      "label": "Correct year",
+      "yourAnswer": "Your answer: 2017.",
+      "slider": false,
+      "lock": false,
+      "overflow": false,
+      "explanation": "TI1 was at Gamescom in 2011."
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "scenario": "correct",
+      "yearAnswer": 2011,
+      "readout": "2011",
+      "label": "Correct year",
+      "yourAnswer": "Your answer: 2011.",
+      "slider": false,
+      "lock": false,
+      "overflow": false,
+      "explanation": "TI1 was at Gamescom in 2011."
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "scenario": "unanswered",
+      "yearAnswer": null,
+      "readout": "2011",
+      "label": "Correct year",
+      "yourAnswer": "No answer locked.",
+      "slider": false,
+      "lock": false,
+      "overflow": false,
+      "explanation": "TI1 was at Gamescom in 2011."
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "scenario": "wrong",
+      "yearAnswer": 2017,
+      "readout": "2011",
+      "label": "Correct year",
+      "yourAnswer": "Your answer: 2017.",
+      "slider": false,
+      "lock": false,
+      "overflow": false,
+      "explanation": "TI1 was at Gamescom in 2011."
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "scenario": "correct",
+      "yearAnswer": 2011,
+      "readout": "2011",
+      "label": "Correct year",
+      "yourAnswer": "Your answer: 2011.",
+      "slider": false,
+      "lock": false,
+      "overflow": false,
+      "explanation": "TI1 was at Gamescom in 2011."
+    }
+  ],
+  "winnerAnswering": {
+    "strip": false,
+    "leak": false,
+    "art": "http://127.0.0.1:3000/arcade/flashback/originals/international.svg"
+  },
+  "artBefore": {
+    "w": 248,
+    "h": 148,
+    "x": 80,
+    "y": 217
+  },
+  "winnerReveal": {
+    "strip": true,
+    "src": "http://127.0.0.1:3000/arcade/flashback/originals/winner-team-liquid.svg",
+    "alt": "Team Liquid winner card",
+    "w": 248,
+    "h": 148,
+    "x": 80,
+    "y": 217
+  },
+  "winnerMobile": {
+    "w": 248,
+    "h": 148,
+    "overflow": false
+  },
+  "failures": []
+}
+PASS expired invitation keeps its recovery form open
+PASS short party lobby keeps chat and its error slot inside the panel
+PASS new capped chat messages stay visible at the bottom
+PASS reading older messages does not jump to the bottom
+PASS failed chat preserves a newer draft and shows an error
+PASS a delayed lobby chat reply cannot reset active play
+PASS active-play chat failures are visible and do not move the dock
+PASS party membership uses explicit POST actions
+PASS calibration can reach records beyond the first 80
+PASS calibration search and filters reset pagination
+Validated party recovery, chat delivery and scrolling, stale replies, POST membership, and calibration pages.
+PASS entry and storage {"failFirst":true}
+PASS entry and storage {"hangFirst":true}
+PASS entry and storage {"blockStorage":true}
+PASS entry and storage {"blockStorageGetter":true}
+PASS 100 concurrent rounds preserve all 200 guest lifetime results
+PASS stale local mirror cannot replace the authoritative guest record
+PASS both guest tabs receive one score and one streak increment
+PASS missed reveal recovers once for guest session
+PASS missed reveal recovers once for connected session
+PASS vote committed after round transition recovers in the same current round
+PASS changed crowd award corrects score without counting the answer again
+PASS accepted account answer replaces a conflicting local choice before POST returns
+PASS leaving pending public entry cancels its result
+PASS transient profile failure preserves the known account
+PASS denied IndexedDB keeps play usable and does not overwrite shared lifetime data
+PASS browser commands do not submit classic answers
+PASS focused mute keeps native keyboard behavior in year
+PASS focused mute keeps native keyboard behavior in hero
+PASS mobile hero search has an editable input
+PASS cancel delayed party join with Back
+PASS cancel delayed party create with Back
+PASS party response body timeout leaves Join usable
+PASS rapid party Join sends one request
+PASS touch answer and reveal classic
+PASS touch answer and reveal hero
+PASS touch answer and reveal fog
+PASS touch answer and reveal echo
+PASS touch answer and reveal quote
+PASS touch answer and reveal aghanim
+PASS touch answer and reveal shop
+PASS touch answer and reveal recipe
+PASS touch answer and reveal freerecipe
+PASS touch answer and reveal shared
+PASS touch answer and reveal upgrade
+PASS touch answer and reveal year
+PASS touch answer and reveal flashchoice
+PASS touch answer and reveal flashorder
+PASS touch answer and reveal order
+PASS touch answer and reveal damageorder
+PASS touch answer and reveal soundability
+PASS touch answer and reveal sounditem
+PASS mobile next round restores prompt 320 flashchoice
+PASS mobile next round restores prompt 320 hero
+PASS mobile next round restores prompt 320 shop
+PASS mobile next round restores prompt 390 flashchoice
+PASS mobile next round restores prompt 390 hero
+PASS mobile next round restores prompt 390 shop
+PASS mobile next round resets nested hero search and scroll
+PASS mobile next round resets nested shop search and scroll
+PASS mobile next round preserves active party chat
+PASS edit partial order without an accidental lock
+PASS edit partial flashorder without an accidental lock
+PASS recipe removal and incomplete build stay unlocked
+PASS hero zero and ambiguous searches never submit
+PASS failed vote retries once without resetting the round
+PASS offline polling recovers with the same accepted answer
+PASS open report follows its original round
+PASS keyboard focus keeps year slider and lock separate
+PASS Back and Forward keep the public route usable
+PASS account change does not write connected results into guest stats
+PASS account logout starts a separate guest run
+PASS account switch ignores delayed accepted vote
+PASS account switch ignores delayed failed vote
+PASS account metadata missing cannot create guest credit
+PASS account switch discards an old profile response
+PASS account vote response migrates pending ownership from an old guest tab
+PASS account metadata restoration excludes earlier unknown results
+PASS account metadata gap cannot add unowned points to a known run
+PASS party chat draft survives the start transition
+PASS mobile rotation preserves a partial order
+Validated 52 player journeys.
+PASS round announcement, one update, lost answer focus recovery, next Tab, external focus retention
+PASS recipe selection speech, search focus recovery, build focus, keyboard submission
+Checked 320x568
+Checked 360x640
+Checked 390x844
+Checked 568x320
+Checked 768x1024
+Checked 1280x640
+Checked 1920x1080
+Checked 2560x1440
+Checked 3440x1440
+Checked 3840x2160
+Checked 960x540 (1920x1080 at 200% reflow)
+Responsive UI: 2489 checks passed.
+Native output check rejects raw-lock.
+Native output check rejects double-result.
+Native PCM ok: Shopkeeper first recipe pick before window focus (both output channels, full waveform, no extra copy)
+Native PCM ok: Shopkeeper first answer pick before window focus (both output channels, full waveform, no extra copy)
+Native PCM ok: Shopkeeper first recipe pick (both output channels, full waveform, no extra copy)
+Native PCM ok: Shopkeeper first answer pick (both output channels, full waveform, no extra copy)
+Native PCM ok: Shopkeeper first answer pick wrong result (both output channels, full waveform, no extra copy)
+Native PCM ok: Aghanim first answer pick (both output channels, full waveform, no extra copy)
+Native PCM ok: Aghanim first answer pick wrong result (both output channels, full waveform, no extra copy)
+Native PCM ok: wrong result with two game tabs (both output channels, full waveform, no extra copy)
+Native PCM ok: pick after tab ownership returns (both output channels, full waveform, no extra copy)
+Native PCM ok: result after tab ownership returns (both output channels, full waveform, no extra copy)
+Native feedback output holds: 10 checks. Cold first picks, unfocused first Shopkeeper picks, and the combined output of two live tabs.
+PCM check rejects silent-lock, even though native play() resolves.
+PCM check rejects cut-lock, even though native play() resolves.
+PCM ok: Shopkeeper recipe mouse pick (lock)
+PCM ok: Shopkeeper recipe remove (lock)
+PCM ok: Shopkeeper recipe Enter pick 1 (lock)
+PCM ok: Shopkeeper recipe Enter pick 2 (lock)
+PCM ok: Shopkeeper build at reveal (lock + wrong)
+PCM ok: shop-build pick at reveal (lock + wrong)
+PCM ok: shop-path pick at reveal (lock + wrong)
+PCM ok: shop-shared pick at reveal (lock + wrong)
+PCM ok: fogged-vision pick at reveal (lock + wrong)
+PCM ok: aghanim-lab pick at reveal (lock + wrong)
+PCM ok: spell-link pick at reveal (lock + wrong)
+PCM ok: trivia pick at reveal (lock + wrong)
+PCM ok: shop-build correct Enter pick (lock + correct)
+PCM ok: fogged-vision correct Enter pick (lock + correct)
+PCM ok: aghanim-lab correct Enter pick (lock + correct)
+PCM ok: spell-link correct Enter pick (lock + correct)
+PCM ok: trivia correct Enter pick (lock + correct)
+PCM ok: value-order card 1 (lock)
+PCM ok: value-order card 2 (lock)
+PCM ok: value-order card 3 (lock)
+PCM ok: value-order card 4 (lock + wrong)
+PCM ok: flashback-order card 1 (lock)
+PCM ok: flashback-order card 2 (lock)
+PCM ok: flashback-order card 3 (lock)
+PCM ok: flashback-order card 4 (lock + wrong)
+PCM ok: before delayed result (lock)
+PCM ok: delayed wrong result (wrong)
+PCM ok: next round pick (lock)
+PCM ok: before hidden result (lock)
+PCM ok: hidden wrong result (wrong)
+Feedback playback holds: 30 tapped PCM checks, ten fixed formats, mouse/keyboard, deadline races, hidden tab, and mute.
+Validated production vote rate limit (12 then 429).

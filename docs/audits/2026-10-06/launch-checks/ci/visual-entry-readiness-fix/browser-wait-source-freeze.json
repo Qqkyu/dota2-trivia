@@ -1,0 +1,23 @@
+{
+  "updatedAt": "2026-10-10T10:53:29.209466+00:00",
+  "candidateBase": "da28a646479fab030e9b02b187e177c0f89555b9",
+  "sourceFrozen": true,
+  "files": {
+    "scripts/check-party-lobby.mjs": "7b47ac77cdb2c65f4c284443a46797127c6ee356639ff00858573a96ae3b5946",
+    "scripts/visual-smoke.mjs": "8e14f037726e255d606975d9b068a630a2b155b9c6801fcd176d3c03173eaa20",
+    "scripts/lib/reveal-entry.mjs": "5a157036ce50fcda939ba83c6a2e8a280750984a19e302addbab20a7d23350a2",
+    "tests/reveal-entry.test.mjs": "005dc1bedee8f3f3da7e500cb0100f5b62bc6d59d6b5d598f9eb1d86888530e9"
+  },
+  "focusedTests": 12,
+  "lintExit": 0,
+  "uiScriptsPassed": 22,
+  "remainingChecksPassed": [
+    "Chromium accessibility",
+    "Firefox accessibility",
+    "WebKit accessibility",
+    "visual smoke with final helper and settings fixtures",
+    "PostgreSQL multiplayer",
+    "packaged cleanup dry run"
+  ],
+  "accessibilityScope": "Checker gates passed. Exclusions and incomplete checks remain in archived raw reports."
+}

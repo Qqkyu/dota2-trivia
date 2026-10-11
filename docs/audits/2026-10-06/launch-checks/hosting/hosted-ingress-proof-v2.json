@@ -1,0 +1,71 @@
+{
+  "checkedAt": "2026-10-11T06:23:38.822000+00:00",
+  "origin": "https://queue-arcade.onrender.com",
+  "ok": true,
+  "proofVersion": 2,
+  "policyDuringCheck": "none",
+  "operatorScript": {
+    "path": "ingress-helper-v2/check-ingress-proof.mjs",
+    "sha256": "4cce1ac678ecfd86036cf647196b846029bc9ba01e83dada29c8c5e7c1c73c14"
+  },
+  "checks": [
+    {
+      "name": "baseline",
+      "outcome": "verified_egress",
+      "receivedVerifiedEgress": true,
+      "suppliedHeaderDidNotControlResult": true,
+      "httpStatus": 200,
+      "edgeErrorCode": null
+    },
+    {
+      "name": "cloudflare-header",
+      "outcome": "edge_rejected",
+      "receivedVerifiedEgress": false,
+      "suppliedHeaderDidNotControlResult": true,
+      "httpStatus": 403,
+      "edgeErrorCode": 1000
+    },
+    {
+      "name": "real-ip-header",
+      "outcome": "verified_egress",
+      "receivedVerifiedEgress": true,
+      "suppliedHeaderDidNotControlResult": true,
+      "httpStatus": 200,
+      "edgeErrorCode": null
+    },
+    {
+      "name": "forwarded-chain",
+      "outcome": "verified_egress",
+      "receivedVerifiedEgress": true,
+      "suppliedHeaderDidNotControlResult": true,
+      "httpStatus": 200,
+      "edgeErrorCode": null
+    },
+    {
+      "name": "combined-headers",
+      "outcome": "edge_rejected",
+      "receivedVerifiedEgress": false,
+      "suppliedHeaderDidNotControlResult": true,
+      "httpStatus": 403,
+      "edgeErrorCode": 1000
+    }
+  ],
+  "changedConfiguration": false,
+  "commit": "31961cbd762587225b4b8a814828dc0829952978",
+  "deployId": "dep-db534k0473hc739n08rg",
+  "ciRunId": 38050315807,
+  "independentIpv4SourcesAgreed": true,
+  "operatorSecretLogged": false,
+  "rawAddressesLogged": false,
+  "deploymentAndConfigurationStable": true,
+  "localInputs": [
+    {
+      "path": "scripts/check-ingress-proof.mjs",
+      "sha256": "49e49deeffdcaca8448fad91420d9fcb60d1307afd6b0ae54cc45cfa4d892948"
+    },
+    {
+      "path": "src/lib/ingress-probe.mjs",
+      "sha256": "28de5683e29747720987e6026acdb7d2b640093f09835291aa5a093473e0f1ba"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "workflowResult": "Selected fields from the completed GitHub Actions run API response. User, contact and repository profile fields are omitted.",
+  "workflowResultRawSha256": "ec1004c97accbba16b30b28373259b4abf490ca2613ac547729af469fdbe6c94",
+  "copiedInputs": [
+    {
+      "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T111816Z/workflow-jobs.json",
+      "archive": "workflow-jobs.json",
+      "bytes": 12188,
+      "sha256": "c8d8830c96f15baa196c97c6bbac1c4dfffa7855fa3fdde5a3ba9ca2c85fe638"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T111816Z/workflow.log",
+      "archive": "workflow.log",
+      "bytes": 571702,
+      "sha256": "0bcd14b25decab73e1fd509dc1c68308b388e6dbd3e911da1bab5cd2e02b6e7f"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T111816Z/runtime-metadata.json",
+      "archive": "runtime-metadata.json",
+      "bytes": 867,
+      "sha256": "ed7106f432343fb00a2b74cea2064e3f0e82535e53f2dd1d83756740cc873689"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T111816Z/token-lifecycle.json",
+      "archive": "token-lifecycle.json",
+      "bytes": 122,
+      "sha256": "3e8e5ca90eebfd7da6d747f4cbf037c86d08252949671ad93fce88fc927aa276"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T111816Z/container-check/container-result.json",
+      "archive": "container-result.json",
+      "bytes": 3913,
+      "sha256": "09aa535b2f852ee83d4748cc13f06fea22a774dc4bd46ff8783fbf76ad478245"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T111816Z/visual-smoke/queue-arcade-public-reveal.png",
+      "archive": "queue-arcade-public-reveal.png",
+      "bytes": 634792,
+      "sha256": "d5e55d2002d0bc45f5755eb7dbb086cf524d0f0c5ecb02fd5c17a4fdac1b0aa6",
+      "scope": "Original 1440x1000 screenshot saved by the failed synthetic CI visual test. Inspected before archiving. It shows the Flashback year reveal with no real account data."
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T111816Z/cleanup-result.json",
+      "archive": "cleanup-result.json",
+      "bytes": 97,
+      "sha256": "88e5f5dab0608642649901eadfb30f6666552d39a1e744be5806dd93feacc2a3"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T111816Z/runners-after-cleanup.json",
+      "archive": "runners-after-cleanup.json",
+      "bytes": 40,
+      "sha256": "0a37990c04105f6d4c2c21388345c6326e3d61bcd8733ff58d79c28bc80f52a3"
+    }
+  ],
+  "visualResult": "Parsed the full JSON object printed by the failing visual-smoke step in workflow.log. No fields were omitted. Public room and round identifiers belong to the ephemeral synthetic CI workload.",
+  "runtimeMetadataScope": "The runtime metadata records runner startup. The container result records the separate constrained production app check. Neither describes later diagnostic restarts.",
+  "accessibility": "Lossless complete reports, exact-run copy metadata, committed checker sources and screenshot inventory are in accessibility.",
+  "privateFilesExcluded": [
+    "environment files",
+    "database credentials",
+    "private runtime data stores",
+    "capacity player rows and chat texts",
+    "runner diagnostic logs",
+    "registration tokens"
+  ],
+  "workflowLogPolicy": "The full GitHub log retains GitHub masking. Visible authentication strings and account IDs are declared synthetic CI fixtures. No private environment file is copied.",
+  "capacitySummary": {
+    "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T111816Z/container-evidence/queue-arcade-container-ci/capacity-1.json",
+    "sourceSha256": "ccaf8914361cc871ee56322ae3040fe7c905e1045099b76f84a41b8c42269aaf",
+    "scope": "Aggregate data from the actual synthetic small-party workload. Player rows, room and round identifiers, and chat texts are omitted."
+  },
+  "independentProductionUiReview": {
+    "manifest": "production-ui-review/manifest.json",
+    "sha256": "bdb2fcee33e8700507a3e6783ddd587249ac514f4eca39e4628fefc9274f44bf",
+    "scope": "Targeted production screenshot review. The overall workflow failed after these screenshots were captured."
+  },
+  "cleanupScope": "Final cleanup result for the named owned runner, its dedicated volume and registration after saved-image diagnosis. The reusable runner image was retained.",
+  "cleanupOwnerReport": "The cleanup owner reported that an earlier attempt refused while graceful stop was pending. Successful cleanup ran after stopped state was confirmed. This archive retains the final success output; it does not include a separate transcript of the earlier refusal."
+}

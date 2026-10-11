@@ -1,0 +1,42 @@
+{
+  "review": "Independent offline review of the v2 proxy policy helper",
+  "scope": [
+    "enable-render-proxy.py",
+    "test-enable-render-proxy.py"
+  ],
+  "testsRun": 39,
+  "testsPassed": true,
+  "independentRegressionChecks": [
+    {
+      "name": "throws_before_put",
+      "passed": true
+    },
+    {
+      "name": "different_path_before_put",
+      "passed": true
+    },
+    {
+      "name": "added_field_before_put",
+      "passed": true
+    }
+  ],
+  "networkAndUnexpectedSubprocessCalls": 0,
+  "providerCalls": 0,
+  "realCredentialsRead": false,
+  "blockingFindings": [],
+  "pendingBeforeExecution": [
+    "Replace both zero hash placeholders after the proof helper and operator are frozen. Re-run the exact dependency hash checks."
+  ],
+  "reviewedSha256": {
+    "enable-render-proxy.py": "0fef91fafb31774e1f1bcc050b7fc630b51518fac2d622b8739145601d773e63",
+    "test-enable-render-proxy.py": "ee1c9a7169bcf3bdb7d2a460bf3e0614eba43276e1914bad8aeb9ece18064543"
+  },
+  "controlsChecked": [
+    "Exact v2 schema and operator manifest",
+    "Only two named cases may have edge_rejected false/true/403/1000",
+    "All five cases may have verified_egress true/true/200/null",
+    "Fresh and repeated proof with exact commit, live deployment and CI",
+    "Full configuration, deployment, mutation allowlist and authenticated receipt guards preserved",
+    "Final operator checkpoint follows receipt save and immediately precedes PUT outside the mutation exception handler"
+  ]
+}

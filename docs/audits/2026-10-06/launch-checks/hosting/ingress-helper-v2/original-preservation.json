@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-10-10T12:58:23.282488+00:00",
+  "archives": [
+    {
+      "path": "proof-helper",
+      "manifestSha256": "9944d5bd23f6c85408189b04640ff5f7cf9f5eeeed66478600c0af81844522ad",
+      "verifiedFiles": 6,
+      "allUnchanged": true
+    },
+    {
+      "path": "proxy-policy-helper",
+      "manifestSha256": "5577c283fbc4377d5d580150d2ada0b43fc801a18e724c7be60820f2ce3c061c",
+      "verifiedFiles": 8,
+      "allUnchanged": true
+    }
+  ],
+  "originalHelpers": [
+    {
+      "file": "prove-render-ingress.py",
+      "sha256": "e73148881241fd2ad02380bf6b14438d7ddbd9f1b2fe887fd11753c56123ef49",
+      "matchesOriginalArchive": true
+    },
+    {
+      "file": "enable-render-proxy.py",
+      "sha256": "6c984bdf8be4e68e9622dfec5e148e7a351bc44f66ddf854063034ba263c6905",
+      "matchesOriginalArchive": true
+    }
+  ]
+}

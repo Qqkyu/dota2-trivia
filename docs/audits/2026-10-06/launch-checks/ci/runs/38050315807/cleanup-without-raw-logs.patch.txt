@@ -1,0 +1,21 @@
+--- runner-lifecycle.py
++++ runner-cleanup-without-raw-logs.py
+@@ -169,17 +169,7 @@
+             # Only constant labels and exception types enter the report.
+             problems.append({'step': label, 'errorType': type(error).__name__})
+             return None
+-    if metadata:
+-        def logs():
+-            result = call([docker, 'logs', name])
+-            (evidence / 'runner-process.log').write_bytes(result.stdout + result.stderr)
+-        attempt('copy runner process log', logs)
+-        attempt('copy runner diagnostics', lambda: copy_out(docker, name, '/runner-evidence', evidence / 'completed-runner'))
+-        for source in ('/tmp/queue-arcade-ci.log', '/tmp/queue-arcade-chrome.log'):
+-            attempt('copy optional test log', lambda source=source: copy_out(docker, name, source, evidence, optional=True))
+-        for filename in ('container-result.json', 'capacity-1.json'):
+-            attempt('copy optional container result', lambda filename=filename: copy_out(docker, name,
+-                '/tmp/queue-arcade-container-ci/' + filename, evidence / 'container-check', optional=True))
++    # All selected evidence is already copied. Do not read raw runner logs.
+     def unregister():
+         runners = repository_runners()
+         for runner in runners:

@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "scope": "Parse the saved real-API browser trace. This check does not rerun the browser or identify the original CI request timing.",
+  "attempts": [
+    {
+      "attempt": 1,
+      "oldAssertionExitCode": 1,
+      "responseStatus": 404,
+      "deliveryDelayMs": 600,
+      "finalError": "No party with that code.",
+      "retryEnabled": true
+    },
+    {
+      "attempt": 2,
+      "oldAssertionExitCode": 1,
+      "responseStatus": 404,
+      "deliveryDelayMs": 600,
+      "finalError": "No party with that code.",
+      "retryEnabled": true
+    },
+    {
+      "attempt": 3,
+      "oldAssertionExitCode": 1,
+      "responseStatus": 404,
+      "deliveryDelayMs": 600,
+      "finalError": "No party with that code.",
+      "retryEnabled": true
+    }
+  ]
+}

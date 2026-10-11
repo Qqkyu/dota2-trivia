@@ -1,0 +1,187 @@
+#!/usr/bin/env python3
+"""Preserve one audit font UUID, then align that source marker with the cache.
+
+The default checks hashes without writes. The existing cache is never written.
+The frozen four-entry preparation and main cleanup helpers remain unchanged.
+"""
+import argparse
+import datetime
+import hashlib
+import importlib.util
+import json
+import os
+from pathlib import Path
+import stat
+import sys
+import uuid
+
+CLOSE = Path('/tmp/dota2-trivia-audit-close')
+PREP_PATH = CLOSE / 'prepare-firefox-cache.py'
+PREP_HASH = 'ff5b5982c82c3ef15916a7d2c65e734300dabbad642efc0912a6a6edba2e1615'
+RELATIVE = 'firefox/fonts/.uuid'
+SOURCE_HASH = 'd170159798f31ea015316f73e2caf5159b5d17051215c7187e2568d39680c235'
+CACHE_HASH = 'b19d3abe243fa96c32856d7af327c5b4de5f6dc08ea56ff5141f1edb62b2d542'
+SOURCE_TREE = 'abadf72237bf565a0a5dedc45313869a0af3b2a32e7dea0d19c44c8e2351c5ce'
+CACHE_TREE = 'adaca088db02c41f95ab737744cbaf211243a3102a43a35dded94ffd38d241e0'
+BACKUP = Path('/tmp/queue-arcade-launch-checks/debug-backup/firefox-font-uuid-original.bin')
+RECEIPT = CLOSE / 'firefox-font-uuid-normalization.json'
+STAGING = '.uuid.audit-normalization'
+
+
+def require(condition, reason):
+    if not condition:
+        raise RuntimeError(reason)
+
+
+def sha(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def load_helpers():
+    require(PREP_PATH.is_file() and not PREP_PATH.is_symlink(), 'Frozen preparation helper is missing or linked.')
+    require(sha(PREP_PATH.read_bytes()) == PREP_HASH, 'Frozen preparation helper hash differs.')
+    spec = importlib.util.spec_from_file_location('frozen_firefox_preparation', PREP_PATH)
+    prep = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(prep)
+    base = prep.load_base()
+    base.no_symlink_ancestors(PREP_PATH)
+    return prep, base
+
+
+def file_identity(value):
+    return (value.st_dev, value.st_ino, value.st_uid, value.st_mode, value.st_nlink, value.st_size, value.st_mtime_ns, value.st_ctime_ns)
+
+
+def read_uuid(base, path, expected):
+    base.no_symlink_ancestors(path)
+    fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW)
+    try:
+        before = os.fstat(fd)
+        require(stat.S_ISREG(before.st_mode) and before.st_uid == os.getuid() and before.st_nlink == 1 and before.st_size == 36, 'UUID type, owner, link count or size differs.')
+        data = os.read(fd, 37)
+        require(file_identity(os.fstat(fd)) == file_identity(before) == file_identity(path.lstat()), 'UUID identity changed while reading.')
+        value = uuid.UUID(data.decode('ascii'))
+        require(value.version == 4 and value.variant == uuid.RFC_4122 and str(value).encode('ascii') == data, 'UUID format differs.')
+        require(sha(data) == expected, 'UUID content hash differs from the reviewed value.')
+        return data, file_identity(before)
+    finally:
+        os.close(fd)
+
+
+def check_trees(prep, base):
+    runtime = prep.runtime_guard(base)
+    source = base.tree(prep.SOURCE)
+    cache = base.tree(prep.DESTINATION)
+    for relative in prep.RUNTIME:
+        require(relative in source, 'A runtime entry disappeared.')
+        del source[relative]
+    require(len(source) == len(cache) == 63, 'Firefox entry count differs.')
+    require(base.fingerprint(source) == SOURCE_TREE and base.fingerprint(cache) == CACHE_TREE, 'A reviewed Firefox tree changed.')
+    rest_source = dict(source)
+    rest_cache = dict(cache)
+    del rest_source[RELATIVE]
+    del rest_cache[RELATIVE]
+    require(rest_source == rest_cache, 'Firefox differs beyond its font UUID.')
+    original, identity = read_uuid(base, prep.SOURCE / RELATIVE, SOURCE_HASH)
+    retained, _ = read_uuid(base, prep.DESTINATION / RELATIVE, CACHE_HASH)
+    return runtime, cache, original, retained, identity
+
+
+def process_checks(prep, base):
+    prep.windows_guard(base)
+    prep.windows_exact_paths()
+    base.mount_guard((prep.SOURCE, prep.DESTINATION))
+    base.process_guard((prep.SOURCE, prep.DESTINATION))
+
+
+def preserve_original(base, original):
+    base.owned_directory(BACKUP.parent)
+    require(stat.S_IMODE(BACKUP.parent.stat().st_mode) == 0o700, 'Private backup directory mode differs.')
+    base.no_symlink_ancestors(BACKUP)
+    parent_fd = os.open(BACKUP.parent, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+    try:
+        require(os.fstat(parent_fd).st_ino == BACKUP.parent.stat().st_ino, 'Backup directory identity changed.')
+        if BACKUP.exists():
+            data, identity = read_uuid(base, BACKUP, SOURCE_HASH)
+            require(stat.S_IMODE(identity[3]) == 0o600 and data == original, 'Existing private UUID backup differs.')
+        else:
+            fd = os.open(BACKUP.name, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600, dir_fd=parent_fd)
+            try:
+                os.fchmod(fd, 0o600)
+                require(os.write(fd, original) == 36, 'Private UUID backup write was incomplete.')
+                os.fsync(fd)
+            finally:
+                os.close(fd)
+            os.fsync(parent_fd)
+        data, identity = read_uuid(base, BACKUP, SOURCE_HASH)
+        require(data == original and stat.S_IMODE(identity[3]) == 0o600, 'Private UUID backup verification failed.')
+    finally:
+        os.close(parent_fd)
+
+
+def replace_source(base, source, original_identity, replacement):
+    parent = (source / RELATIVE).parent
+    base.owned_directory(parent)
+    parent_identity = parent.stat()
+    parent_fd = os.open(parent, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+    staged = False
+    try:
+        require((os.fstat(parent_fd).st_dev, os.fstat(parent_fd).st_ino) == (parent_identity.st_dev, parent_identity.st_ino), 'Source font directory changed.')
+        require(file_identity(os.stat('.uuid', dir_fd=parent_fd, follow_symlinks=False)) == original_identity, 'Source UUID changed before replacement.')
+        fd = os.open(STAGING, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600, dir_fd=parent_fd)
+        staged = True
+        try:
+            require(os.write(fd, replacement) == 36, 'Source UUID staging write was incomplete.')
+            os.fchmod(fd, stat.S_IMODE(original_identity[3]))
+            os.fsync(fd)
+        finally:
+            os.close(fd)
+        require(file_identity(os.stat('.uuid', dir_fd=parent_fd, follow_symlinks=False)) == original_identity, 'Source UUID changed during staging.')
+        base.no_symlink_ancestors(parent)
+        require((parent.stat().st_dev, parent.stat().st_ino) == (parent_identity.st_dev, parent_identity.st_ino), 'Source font path changed.')
+        os.replace(STAGING, '.uuid', src_dir_fd=parent_fd, dst_dir_fd=parent_fd)
+        staged = False
+        os.fsync(parent_fd)
+    finally:
+        if staged:
+            os.unlink(STAGING, dir_fd=parent_fd)
+        os.close(parent_fd)
+
+
+def normalize(prep, base, execute=False, hosted_complete=False, ci_complete=False):
+    if execute:
+        require(hosted_complete and ci_complete, 'Hosted checks and CI must be complete.')
+        process_checks(prep, base)
+    snapshot = check_trees(prep, base)
+    result = {'mode': 'execute' if execute else 'read-only', 'matching_other_entries': 62, 'uuid_bytes': 36, 'source_uuid_before_sha256': SOURCE_HASH, 'cache_uuid_sha256': CACHE_HASH, 'cache_tree_sha256': CACHE_TREE, 'source_changed': False, 'cache_changed': False, 'pinned_preparation_helper': PREP_HASH, 'pinned_main_helper': prep.BASE_HASH}
+    if not execute:
+        return result
+    preserve_original(base, snapshot[2])
+    process_checks(prep, base)
+    require(check_trees(prep, base) == snapshot, 'Firefox changed before normalization.')
+    replace_source(base, prep.SOURCE, snapshot[4], snapshot[3])
+    require(prep.runtime_guard(base) == snapshot[0], 'Source runtime metadata changed.')
+    require(prep.compare_trees(base) == CACHE_TREE, 'Normalized source does not match the cache.')
+    require(base.tree(prep.DESTINATION) == snapshot[1], 'Existing cache changed during normalization.')
+    read_uuid(base, BACKUP, SOURCE_HASH)
+    result.update({'source_changed': True, 'source_uuid_after_sha256': CACHE_HASH, 'backup_path': str(BACKUP), 'backup_mode': '0600', 'completed_at_utc': datetime.datetime.now(datetime.timezone.utc).isoformat()})
+    base.private_write(RECEIPT, result)
+    return result
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--execute', action='store_true')
+    parser.add_argument('--hosted-checks-complete', action='store_true')
+    parser.add_argument('--ci-complete', action='store_true')
+    args = parser.parse_args()
+    prep, base = load_helpers()
+    print(json.dumps(normalize(prep, base, args.execute, args.hosted_checks_complete, args.ci_complete)))
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except Exception:
+        print('Firefox UUID normalization stopped; no file contents or raw exception were logged.', file=sys.stderr)
+        sys.exit(1)

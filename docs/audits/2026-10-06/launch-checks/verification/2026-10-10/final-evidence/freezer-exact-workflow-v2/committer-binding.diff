@@ -1,0 +1,13 @@
+--- original/create-evidence-commit.py
++++ corrected/create-evidence-commit.py
+@@ -23,8 +23,8 @@
+ CANDIDATE_REF = 'refs/heads/codex/launch-checks-20261006'
+ EVIDENCE_REF = 'refs/heads/codex/launch-evidence-20261010'
+ PREFIX = 'docs/audits/2026-10-06/launch-checks/'
+-FREEZER = PREFIX + 'verification/2026-10-10/final-evidence/freeze-archive.py.txt'
+-FREEZER_SHA256 = 'a32a216c44143e1fb8c49864fb8e680a3d018652d0d227d92150cba367fff106'
++FREEZER = PREFIX + 'verification/2026-10-10/final-evidence/freezer-exact-workflow-v2/freeze-archive.py.txt'
++FREEZER_SHA256 = '4852cc57ecc3bd77b87467be51bdb639da35bd32f7eab4cee0e1c7800ff358af'
+ OID = re.compile(r'[0-9a-f]{40}\Z')
+ GIT_COMMAND = ['git', '-c', 'commit.gpgsign=false', '-c', 'core.hooksPath=/dev/null',
+                '-c', 'core.fsmonitor=false', '-c', 'core.splitIndex=false']

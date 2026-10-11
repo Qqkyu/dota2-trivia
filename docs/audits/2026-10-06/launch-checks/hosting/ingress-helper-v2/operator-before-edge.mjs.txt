@@ -1,0 +1,108 @@
+import { randomBytes } from "node:crypto";
+import { request } from "node:https";
+import { isIP } from "node:net";
+import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import { INGRESS_PROBE_PATH, ingressProbeAuthorization, ingressProbeProof } from "/home/kulmisiu/dev/dota2-trivia/src/lib/ingress-probe.mjs";
+
+function ensure(condition, code) {
+  if (!condition) throw new Error(code);
+}
+
+export const CASES = Object.freeze([
+  { name: "baseline", headers: {} },
+  { name: "cloudflare-header", headers: { "CF-Connecting-IP": "192.0.2.41" } },
+  { name: "real-ip-header", headers: { "X-Real-IP": "192.0.2.42" } },
+  { name: "forwarded-chain", headers: { "X-Forwarded-For": "192.0.2.43, 198.51.100.44" } },
+  { name: "combined-headers", headers: { "CF-Connecting-IP": "192.0.2.45", "X-Real-IP": "192.0.2.46",
+      "X-Forwarded-For": "192.0.2.47, 198.51.100.48" } },
+]);
+
+export function read(url, headers, requestImpl = request) {
+  return new Promise((resolvePromise, reject) => {
+    let deadline;
+    let settled = false;
+    const finish = (error, result) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(deadline);
+      if (error) reject(error);
+      else resolvePromise(result);
+    };
+    const req = requestImpl(url, { method: "GET", family: 4, headers, timeout: 10_000 }, (res) => {
+      const chunks = [];
+      let size = 0;
+      res.on("data", (chunk) => {
+        size += chunk.length;
+        if (size > 8192) {
+          res.destroy();
+          finish(new Error("PROBE_RESPONSE_SIZE"));
+          return;
+        }
+        chunks.push(chunk);
+      });
+      res.on("error", () => finish(new Error("PROBE_RESPONSE_FAILED")));
+      res.on("end", () => finish(null, {
+        status: res.statusCode,
+        cache: res.headers["cache-control"],
+        contentType: res.headers["content-type"],
+        body: Buffer.concat(chunks),
+      }));
+    });
+    deadline = setTimeout(() => {
+      finish(new Error("PROBE_DEADLINE"));
+      req.destroy();
+    }, 10_000);
+    req.on("timeout", () => { finish(new Error("PROBE_TIMEOUT")); req.destroy(); });
+    req.on("error", () => finish(new Error("PROBE_CONNECTION")));
+    req.end();
+  });
+}
+
+export function classifyResponse(test, response, env, nonce, expected) {
+  ensure(CASES.some((row) => row.name === test.name), "PROBE_CASE");
+  ensure(Buffer.isBuffer(response.body) && response.body.length <= 8192, "PROBE_RESPONSE_SIZE");
+  ensure(response.status === 200, "PROBE_HTTP_STATUS");
+  ensure(response.cache === "no-store", "PROBE_CACHE");
+  let data;
+  try { data = JSON.parse(response.body.toString()); }
+  catch { throw new Error("PROBE_JSON"); }
+  ensure(data && typeof data === "object" && !Array.isArray(data)
+    && Object.keys(data).sort().join(",") === "nonce,proof,version", "PROBE_SCHEMA");
+  ensure(data.version === 1 && data.nonce === nonce, "PROBE_NONCE");
+  ensure(data.proof === ingressProbeProof(env, nonce, expected), "PROBE_EGRESS");
+  for (const address of ["192.0.2.41", "192.0.2.45", "", "unknown"])
+    ensure(data.proof !== ingressProbeProof(env, nonce, address), "PROBE_SPOOFED");
+  return { name: test.name, outcome: "verified_egress", receivedVerifiedEgress: true,
+    suppliedHeaderDidNotControlResult: true, httpStatus: 200, edgeErrorCode: null };
+}
+
+export async function prove(originText, secret, expected, reader = read) {
+  const origin = new URL(originText);
+  ensure(origin.protocol === "https:" && !origin.username && !origin.password
+    && origin.pathname === "/" && !origin.search && !origin.hash, "PROBE_ORIGIN");
+  ensure(isIP(expected ?? "") === 4, "PROBE_EXPECTED_IPV4");
+  const env = { ARCADE_APP_URL: origin.origin, ARCADE_AUTH_SECRET: secret, ARCADE_TRUST_PROXY: "none" };
+  const checks = [];
+  for (const test of CASES) {
+    const nonce = randomBytes(32).toString("base64url");
+    const authorization = ingressProbeAuthorization(env, nonce, Math.floor(Date.now() / 1000) + 45);
+    const response = await reader(new URL(INGRESS_PROBE_PATH, origin), { ...test.headers, Authorization: authorization });
+    checks.push(classifyResponse(test, response, env, nonce, expected));
+  }
+  return { checkedAt: new Date().toISOString(), origin: origin.origin, ok: true,
+    proofVersion: 2, policyDuringCheck: "none", checks, changedConfiguration: false };
+}
+
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  try {
+    ensure(process.argv.length === 3, "PROBE_ARGUMENTS");
+    console.log(JSON.stringify(await prove(process.argv[2], process.env.ARCADE_AUTH_SECRET,
+      process.env.INGRESS_EXPECTED_IPV4), null, 2));
+  } catch (error) {
+    const code = error instanceof Error && /^PROBE_[A-Z_]+$/.test(error.message)
+      ? error.message : "PROBE_FAILED";
+    console.error(JSON.stringify({ ok: false, failure: code }));
+    process.exitCode = 1;
+  }
+}

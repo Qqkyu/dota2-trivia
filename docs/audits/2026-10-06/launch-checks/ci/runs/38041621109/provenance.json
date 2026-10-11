@@ -1,0 +1,32 @@
+{
+  "workflowResult": "Selected fields from the GitHub Actions run API. User and repository profile fields are omitted.",
+  "workflowResultRawSha256": "44262e0b09f8e725afb0caee54cbf628e2ecf62bfbac7a6d0b1afa262677b595",
+  "copiedInputs": [
+    {
+      "source": "workflow-jobs-completed.json",
+      "archive": "workflow-jobs.json",
+      "bytes": 8241,
+      "sha256": "13de463bc9a5ab1a7130b52502c58562141c7c98475be9fe037b86fb39b97964"
+    },
+    {
+      "source": "workflow.log",
+      "archive": "workflow.log",
+      "bytes": 466474,
+      "sha256": "7804cb49692127995a1de3d46362f921b90f8da587ece0ff2d7029a5a168294d"
+    },
+    {
+      "source": "runtime-metadata.json",
+      "archive": "runtime-metadata.json",
+      "bytes": 632,
+      "sha256": "747a777a79ceba651e76e0d9f0977fd68d592c66075cdf1c22eb0bae52004409"
+    },
+    {
+      "source": "token-lifecycle.json",
+      "archive": "token-lifecycle.json",
+      "bytes": 211,
+      "sha256": "2077fc55edf0653d0ddb2b6566783616cf38dae71698a2cdddc9ea74a95e2144"
+    }
+  ],
+  "runtimeMetadataScope": "Saved runner startup metadata. It is not a statement about the container state after later diagnostic restarts.",
+  "privateFilesExcluded": true
+}

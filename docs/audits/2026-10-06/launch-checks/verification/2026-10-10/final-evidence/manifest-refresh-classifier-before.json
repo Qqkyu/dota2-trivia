@@ -1,0 +1,22 @@
+{
+  "checkerSha256": "fe7867e4df3c47b21ff59f5de559dbb6c397b6ab71eda2d4c6b6fdd90c956add",
+  "sourceProvenance": "Local checker before this isolated change, reconstructed and matched to its previously recorded SHA-256. It was not in the source-release commit.",
+  "scope": "The original file-manifest classifier misclassifies three valid metadata records. No full archive check was run.",
+  "cases": [
+    {
+      "path": "verification/2026-10-10/health-readiness-manifest-refresh.json",
+      "priorFileManifestErrors": 10,
+      "reproducedMisclassification": true
+    },
+    {
+      "path": "verification/2026-10-10/browser-waits-manifest-refresh.json",
+      "priorFileManifestErrors": 11,
+      "reproducedMisclassification": true
+    },
+    {
+      "path": "verification/2026-10-10/contrast-manifest-refresh.json",
+      "priorFileManifestErrors": 11,
+      "reproducedMisclassification": true
+    }
+  ]
+}

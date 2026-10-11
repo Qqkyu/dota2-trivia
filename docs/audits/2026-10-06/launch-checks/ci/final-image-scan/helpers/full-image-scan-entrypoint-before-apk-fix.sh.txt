@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+scan_dir=/runner-evidence/final-image-scan
+scanner=/home/runner/.local/bin/trivy-bin/trivy
+scanner_cache=/opt/runner/_work/dota2-trivia/dota2-trivia/.cache/trivy
+mkdir -p "$scan_dir"
+/usr/local/bin/prepare-cgroup-v2.sh
+cd /opt/runner/_work/dota2-trivia/dota2-trivia
+actual_commit=$(git -c safe.directory="$PWD" rev-parse HEAD)
+expected_commit=$(cat /run/expected-scan-commit)
+test "$actual_commit" = "$expected_commit"
+printf '%s\n' "$actual_commit" > "$scan_dir/source-commit.txt"
+dockerd --host=unix:///var/run/docker.sock --data-root=/var/lib/docker > "$scan_dir/docker.log" 2>&1 &
+daemon_pid=$!
+finish() { kill "$daemon_pid" 2>/dev/null || true; wait "$daemon_pid" 2>/dev/null || true; }
+trap finish EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+for attempt in {1..60}; do
+  if docker info >/dev/null 2>&1; then break; fi
+  if ! kill -0 "$daemon_pid" 2>/dev/null; then exit 1; fi
+  sleep 1
+done
+docker info >/dev/null
+test -x "$scanner"
+image_id=$(node -e 'const assert=require("node:assert/strict"),r=require("/tmp/queue-arcade-container-ci/container-result.json");assert.equal(r.ok,true);assert.equal(r.correctnessPassed,true);assert.equal(r.latency.met,true);assert.match(r.imageId,/^sha256:[0-9a-f]{64}$/);console.log(r.imageId)')
+test "$(docker image inspect queue-arcade:ci --format '{{.Id}}')" = "$image_id"
+printf '%s\n' "$image_id" > "$scan_dir/ci-tested-image-id.txt"
+cp /tmp/queue-arcade-container-ci/container-result.json "$scan_dir/ci-container-result.json"
+docker image inspect "$image_id" > "$scan_dir/image-metadata.json"
+sha256sum Dockerfile > "$scan_dir/dockerfile-sha256.txt"
+cp Dockerfile "$scan_dir/Dockerfile.txt"
+docker run --rm --entrypoint node "$image_id" -e 'const fs=require("node:fs"),path=require("node:path"),crypto=require("node:crypto"),sharp=require("sharp");const libraries=[];function walk(p){for(const e of fs.readdirSync(p,{withFileTypes:true})){const f=path.join(p,e.name);if(e.isDirectory())walk(f);else if(e.isFile()&&/libvips.*\.so/.test(e.name))libraries.push({path:f,sha256:crypto.createHash("sha256").update(fs.readFileSync(f)).digest("hex")});}}walk("/app/node_modules");console.log(JSON.stringify({node:process.versions,sharp:sharp.versions,libraries},null,2))' > "$scan_dir/native-metadata.json"
+docker run --rm --entrypoint sh "$image_id" -ec 'apk info --installed zlib; apk info --all zlib; ffmpeg -version' > "$scan_dir/runtime-packages.log"
+"$scanner" image --cache-dir "$scanner_cache" --download-db-only > "$scan_dir/database-update.log" 2>&1
+cp "$scanner_cache/db/metadata.json" "$scan_dir/database-metadata.json"
+"$scanner" --version > "$scan_dir/scanner-version.log"
+sha256sum "$scanner" "$scanner_cache/db/trivy.db" "$scanner_cache/db/metadata.json" > "$scan_dir/scanner-input-sha256.txt"
+"$scanner" image --cache-dir "$scanner_cache" --skip-db-update --skip-java-db-update \
+  --offline-scan --scanners vuln --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL \
+  --ignore-unfixed=false --format json --exit-code 0 \
+  --output "$scan_dir/trivy-full.json" "$image_id" > "$scan_dir/trivy-full.log" 2>&1
+printf '%s\n' 'Final image scan completed across all severities, including unfixed issues.'

@@ -1,0 +1,19 @@
+test_app_value_count_mismatch_fails (__main__.WrapperReview) ... ok
+test_changed_git_state_fails_before_report (__main__.WrapperReview) ... ok
+test_clean_values_create_private_report (__main__.WrapperReview) ... ok
+test_import_error_message_is_hidden (__main__.WrapperReview) ... ok
+test_invalid_helper_has_fixed_error (__main__.WrapperReview) ... ok
+test_known_value_hit_fails_without_value_output (__main__.WrapperReview) ... ok
+test_missing_helper_has_fixed_error (__main__.WrapperReview) ... ok
+test_operator_value_count_mismatch_fails (__main__.WrapperReview) ... ok
+test_output_inside_repo_is_rejected_before_credentials (__main__.WrapperReview) ... ok
+test_preexisting_output_is_preserved (__main__.WrapperReview) ... ok
+test_raced_file_is_preserved (__main__.WrapperReview) ... ok
+test_raced_symlink_target_is_preserved (__main__.WrapperReview) ... ok
+test_secret_in_path_is_not_printed (__main__.WrapperReview) ... ok
+test_secret_loader_error_details_are_hidden (__main__.WrapperReview) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.014s
+
+OK

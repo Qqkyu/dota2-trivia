@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "commit": "31961cbd762587225b4b8a814828dc0829952978",
+  "findings": [
+    {
+      "path": "docs/content-review.json",
+      "sha256": "e79e03944f762513e40359ce10fe779afa90d75df1e0138f7e5189b7e99fb6f1",
+      "RuleID": "generic-api-key",
+      "StartLine": 41,
+      "EndLine": 41,
+      "StartColumn": 15,
+      "EndColumn": 102,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/content-review.json",
+      "sha256": "e79e03944f762513e40359ce10fe779afa90d75df1e0138f7e5189b7e99fb6f1",
+      "RuleID": "generic-api-key",
+      "StartLine": 49,
+      "EndLine": 49,
+      "StartColumn": 15,
+      "EndColumn": 104,
+      "reason": "sha256-manifest-digest"
+    },
+    {
+      "path": "docs/content-review.json",
+      "sha256": "e79e03944f762513e40359ce10fe779afa90d75df1e0138f7e5189b7e99fb6f1",
+      "RuleID": "generic-api-key",
+      "StartLine": 125,
+      "EndLine": 125,
+      "StartColumn": 15,
+      "EndColumn": 102,
+      "reason": "sha256-manifest-digest"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
+import { runIsolation, parseCurl, curlArgs, ipv6, loginResponse, failure } from '../../hosted-smoke-preparation/v2/check-address-isolation-edge-v3.mjs';
+
+const ORIGIN = 'https://queue-arcade.onrender.com';
+const ADDRESS = '2606:4700:4700::1111';
+const results = [];
+async function test(name, operation) { await operation(); results.push({ name, passed: true }); }
+function fixture(mode = 'valid') {
+  const state = { now: 1791624000000, probes: [], sources: [], checkpoints: [] };
+  const resetAt = state.now + 60000;
+  state.options = {
+    now: () => state.now,
+    source: async (url, headers, seconds) => {
+      state.sources.push({ url, headers, seconds });
+      if (url === 'https://api64.ipify.org/') return { status: mode === 'source-failure' ? 503 : 200, body: ADDRESS };
+      if (url === 'https://www.cloudflare.com/cdn-cgi/trace') return { status: 200, body: 'ip=' + (mode === 'source-mismatch' ? '2606:4700:4700::1001' : ADDRESS) + '\n' };
+      assert.equal(url, ORIGIN + '/api/auth/steam');
+      assert.equal(headers, true);
+      assert(seconds <= 4);
+      if (mode === 'control-window') state.now = resetAt;
+      if (mode === 'control-blocked') return { status: 429, body: `HTTP/2 429\r\nratelimit-limit: 120\r\nratelimit-remaining: 0\r\nratelimit-reset: ${resetAt / 1000}\r\n\r\n` };
+      return { status: 302, body: 'HTTP/2 302\r\nlocation: https://steamcommunity.com/openid/login?synthetic=1\r\nset-cookie: synthetic-secret=value\r\n\r\n' };
+    },
+    probe: async (index, _agent, deadline) => {
+      assert(deadline <= 1791624000000 + 50000);
+      state.probes.push(index);
+      state.now += mode === 'slow-probes' ? 1000 : 100;
+      if (mode === 'probe-error') throw new Error('private transport data');
+      if (mode === 'no-block') return { status: 302 };
+      if (mode === 'bypass-after-block') return index === 0 ? { status: 429, resetAt } : { status: 302 };
+      if (index === undefined && mode === 'plain-allowed') return { status: 302 };
+      if (index < 120) return { status: 302 };
+      return { status: 429, resetAt: mode === 'reset-changed' && index === 121 ? resetAt + 120000 : resetAt };
+    },
+    checkpoint: async (report) => state.checkpoints.push(JSON.parse(JSON.stringify(report))),
+  };
+  return state;
+}
+
+await test('valid check makes 131 IPv4 calls and one IPv6 control without retaining headers or addresses', async () => {
+  const state = fixture();
+  const report = await runIsolation(state.options);
+  assert.equal(report.ok, true);
+  assert.equal(report.deploymentAndConfigurationStable, false);
+  assert.equal(state.probes.length, 131);
+  assert.deepEqual(state.probes.slice(0, 130), Array.from({ length: 130 }, (_, i) => i));
+  assert.equal(state.probes[130], undefined);
+  assert.equal(state.sources.length, 3);
+  assert.equal(report.allowed, 120);
+  assert.equal(report.blocked, 10);
+  assert.equal(report.ipv6LoginRequests, 1);
+  assert.equal(report.cookiesRetained, false);
+  const saved = JSON.stringify(state.checkpoints);
+  assert(!saved.includes(ADDRESS) && !saved.includes('synthetic-secret'));
+});
+for (const mode of ['source-failure', 'source-mismatch', 'control-window', 'control-blocked', 'slow-probes', 'probe-error', 'no-block', 'bypass-after-block', 'plain-allowed', 'reset-changed']) {
+  await test('reject ' + mode + ' within request allowance', async () => {
+    const state = fixture(mode);
+    await assert.rejects(runIsolation(state.options));
+    assert(state.probes.length <= 131 && state.sources.length <= 3);
+    if (mode.startsWith('source-')) assert.equal(state.probes.length, 0);
+    for (const report of state.checkpoints) assert.equal(report.ok, false);
+  });
+}
+await test('curl command has fixed HTTPS destination and no redirect or credential options', () => {
+  const args = curlArgs(ORIGIN + '/api/auth/steam', true);
+  assert.deepEqual(args.slice(0, 4), ['--disable', '--ipv6', '--proto', '=https']);
+  for (const forbidden of ['--location', '-L', '--cookie', '-b', '--user', '-u', '--insecure', '-k']) assert(!args.includes(forbidden));
+  assert.throws(() => curlArgs('https://example.com/'));
+  assert.throws(() => curlArgs(ORIGIN + '/api/auth/steam', true, 9));
+});
+await test('curl parser rejects oversized or malformed status output', () => {
+  assert.throws(() => parseCurl('x'.repeat(16385)));
+  assert.throws(() => parseCurl('STATUS:200'));
+  assert.deepEqual(parseCurl('safe\nSTATUS:200'), { status: 200, body: 'safe' });
+});
+await test('IPv6 parser rejects IPv4, local, link-scoped and zone addresses', () => {
+  for (const address of ['127.0.0.1', '::1', 'fe80::1', 'fd00::1', '2606:4700::1%eth0']) assert.throws(() => ipv6(address));
+});
+await test('login response rejects foreign redirects and wrong rate metadata', () => {
+  assert.throws(() => loginResponse(302, { location: 'https://example.com/openid/login' }));
+  assert.throws(() => loginResponse(302, { location: 'http://steamcommunity.com/openid/login' }));
+  assert.throws(() => loginResponse(429, { 'ratelimit-limit': '100', 'ratelimit-remaining': '0', 'ratelimit-reset': '1791624120' }));
+});
+await test('untrusted exception text stays out of the report', () => assert.equal(failure(new Error('private-secret=value')), 'ISOLATION_CHECK_FAILED'));
+console.log(JSON.stringify({ checkedAt: new Date().toISOString(), passed: results.length, hostedRequests: 0,
+  operatorSha256: createHash('sha256').update(await readFile(new URL('../../hosted-smoke-preparation/v2/check-address-isolation-edge-v3.mjs', import.meta.url))).digest('hex'), cases: results }, null, 2));

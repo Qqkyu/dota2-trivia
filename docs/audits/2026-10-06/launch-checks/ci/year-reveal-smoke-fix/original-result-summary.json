@@ -1,0 +1,36 @@
+{
+  "run": 38047885476,
+  "sourceCommit": "64046c2d198fcbfe556599e727ae0638423a3482",
+  "sourceSha256": "2f859ab8e8b84fce1d7048c1fb783f634117f0111a231b91b9aeb75f2de00b8f",
+  "scope": "Selected fields from the original failed visual result. Room IDs, round IDs, full page copy and unrelated fixture details are omitted.",
+  "answering": {
+    "game": "flashback",
+    "flashbackYear": true,
+    "flashbackYearSlider": true,
+    "horizontalOverflow": false
+  },
+  "reveal": {
+    "result": "Incorrect",
+    "flashbackYearSlider": false,
+    "crowdSplit": {
+      "visible": true,
+      "kind": "open-grid",
+      "total": 1,
+      "rows": 2,
+      "countTotal": 1,
+      "correctRows": 1,
+      "selectedRows": 1
+    },
+    "reportReasons": 4,
+    "reportBounds": {
+      "x": 53,
+      "y": 593,
+      "width": 1006,
+      "height": 109.34375
+    },
+    "nextButton": false,
+    "internalSourceLabel": false,
+    "audioPrewarmRequests": 2
+  },
+  "originalPreOpenReportBounds": "Not recorded in the original result. No claim about the original menu movement can be derived from this selected result."
+}

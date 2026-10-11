@@ -1,0 +1,10 @@
+import { waitForRevealEntryWindow } from './lib/reveal-entry.mjs';
+const url = new URL('/api/rounds', process.env.APP_URL);
+url.search = new URLSearchParams({gameId:'dota2',mode:'mixed',filter:'Mixed',playerId:`visual-entry-${Date.now()}`});
+await waitForRevealEntryWindow(url, {fetchImpl: async (...args) => {
+  const response = await fetch(...args);
+  const snapshot = await response.clone().json();
+  console.log(JSON.stringify({status:response.status,phase:snapshot.round?.phase,answerRemaining:snapshot.round?.answerDeadline-snapshot.serverNow,revealRemaining:snapshot.round?.revealDeadline-snapshot.serverNow}));
+  return response;
+}});
+console.log('Reveal window available with at least five seconds remaining.');

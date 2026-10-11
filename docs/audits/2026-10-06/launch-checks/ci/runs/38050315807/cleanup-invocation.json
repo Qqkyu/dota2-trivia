@@ -1,0 +1,13 @@
+{
+  "recordedAt": "2026-10-10T12:41:24.594311+00:00",
+  "invokedCommand": "python3 /tmp/queue-arcade-launch-ci/runner-cleanup-without-raw-logs.py cleanup",
+  "sourceSha256AtPreparation": "a84d967417c5f8fb0e6190396df7b494033d7d94657afa2471bc165671fa29dd",
+  "sourceSha256AfterExecution": "a84d967417c5f8fb0e6190396df7b494033d7d94657afa2471bc165671fa29dd",
+  "cleanedAt": "2026-10-10T12:34:52.826622+00:00",
+  "result": {
+    "runner": "queue-arcade-ci-20261010T115945Z",
+    "resourcesRemoved": true,
+    "problems": []
+  },
+  "scope": "This is an operator invocation record made after completion. The source hash matches its recorded pre-execution preparation hash."
+}

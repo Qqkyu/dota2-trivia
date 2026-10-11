@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "scope": "Two synthetic files only; no target scan or real credentials.",
+  "gitleaksBinarySha256": "88f91962aa2f93ac6ab281d553b9e125f5197bbbce38f9f2437f7299c32e5509",
+  "upstreamConfigSha256": "e163e53b9e7e8a8511e77271e2b323ed057759542a6d988258afe3a1fa329caf",
+  "allPathsConfigSha256": "be04d7136dacfd77f569838e3b7c02cee9a77f37658629378b68d567ada8429f",
+  "cases": [
+    {
+      "configuration": "upstream",
+      "findingCount": 0,
+      "filesDetected": [],
+      "redactionPassed": true
+    },
+    {
+      "configuration": "all-paths",
+      "findingCount": 2,
+      "filesDetected": [
+        "icon.svg",
+        "pnpm-lock.yaml"
+      ],
+      "redactionPassed": true
+    }
+  ]
+}

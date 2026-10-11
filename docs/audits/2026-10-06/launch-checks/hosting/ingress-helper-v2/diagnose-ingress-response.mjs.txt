@@ -1,0 +1,30 @@
+import { randomBytes } from 'node:crypto';
+import { request } from 'node:https';
+import { ingressProbeAuthorization, INGRESS_PROBE_PATH } from '/home/kulmisiu/dev/dota2-trivia/src/lib/ingress-probe.mjs';
+const env={ARCADE_APP_URL:'https://queue-arcade.onrender.com',ARCADE_AUTH_SECRET:process.env.ARCADE_AUTH_SECRET,ARCADE_TRUST_PROXY:'none'};
+async function read(path, authenticated, spoofHeaders = {}, caseName = null) {
+ return new Promise((resolve,reject)=>{
+  let deadline;let completed=false;
+  function finish(err,result){if(completed)return;completed=true;clearTimeout(deadline);err?reject(err):resolve(result)}
+  const headers={...spoofHeaders};if(authenticated)headers.Authorization=ingressProbeAuthorization(env,randomBytes(32).toString('base64url'),Math.floor(Date.now()/1000)+45);
+  const req=request(new URL(path,env.ARCADE_APP_URL),{method:'GET',family:4,headers},res=>{
+   const chunks=[];let size=0;
+   res.on('data',chunk=>{size+=chunk.length;if(size>16384){res.destroy();finish(null,{path,authenticated,status:res.statusCode,bodyExceededLimit:true});return}chunks.push(chunk)});
+   res.on('error',()=>finish(new Error('Response read failed')));
+   res.on('end',()=>{const body=Buffer.concat(chunks).toString();let parsed=false;try{JSON.parse(body);parsed=true}catch{}
+    const types=['application/json','text/html','text/plain'];const ct=String(res.headers['content-type']??'').split(';')[0];
+    finish(null,{path,authenticated,caseName,status:res.statusCode,contentEncoding:[undefined,"identity","gzip","br"].includes(res.headers["content-encoding"])?(res.headers["content-encoding"]??"none"):"other",noStore:res.headers["cache-control"]==="no-store",contentType:types.includes(ct)?ct:'other',bodyBytes:size,json:parsed,cloudflareError1000:/^error code: 1000\s*$/i.test(body),bodyClassifications:['Cloudflare','Render','Not Found','Forbidden','Just a moment','Service Unavailable','Bad Gateway','Not Authorized'].filter(s=>body.includes(s)),cloudflareChallenge:res.headers['cf-mitigated']==='challenge'});
+   });
+  });
+  deadline=setTimeout(()=>{req.destroy();finish(new Error('Request deadline exceeded'))},10000);req.on('error',()=>finish(new Error('Connection failed')));req.end();
+ });
+}
+const cases=[
+ {name:'baseline',headers:{}},
+ {name:'cloudflare-header',headers:{'CF-Connecting-IP':'192.0.2.41'}},
+ {name:'real-ip-header',headers:{'X-Real-IP':'192.0.2.42'}},
+ {name:'forwarded-chain',headers:{'X-Forwarded-For':'192.0.2.43, 198.51.100.44'}},
+ {name:'combined-headers',headers:{'CF-Connecting-IP':'192.0.2.45','X-Real-IP':'192.0.2.46','X-Forwarded-For':'192.0.2.47, 198.51.100.48'}}
+];
+try {const checks=[];for(const test of cases)checks.push(await read(INGRESS_PROBE_PATH,true,test.headers,test.name));console.log(JSON.stringify({checkedAt:new Date().toISOString(),checks,rawBodyLogged:false,rawHeadersLogged:false}));}
+catch(e){console.log(JSON.stringify({ok:false,errorType:'RequestFailure'}));process.exitCode=1;}

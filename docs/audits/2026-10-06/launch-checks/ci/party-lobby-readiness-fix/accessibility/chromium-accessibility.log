@@ -1,0 +1,7 @@
+{"runName":"chromium","mode":"desktop","pages":7,"fixtures":16,"failures":0}
+{"runName":"chromium","mode":"mobile","pages":14,"fixtures":32,"failures":0}
+{"runName":"chromium","mode":"zoom200","pages":21,"fixtures":48,"failures":0}
+{"runName":"chromium","mode":"zoom400","pages":28,"fixtures":64,"failures":0}
+{"runName":"chromium","mode":"reduced","pages":35,"fixtures":80,"failures":0}
+{"runName":"chromium","mode":"forced","pages":42,"fixtures":96,"failures":0}
+{"runName":"chromium","pages":42,"fixtures":96,"failures":[],"output":"/tmp/queue-arcade-deep-review/accessibility/chromium.json"}

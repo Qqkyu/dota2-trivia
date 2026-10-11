@@ -1,0 +1,30 @@
+{
+  "status": "preflight only; no retention or deletion ran",
+  "linux_checked_at_utc": "2026-10-11T06:17:11.500054+00:00",
+  "linux_root_owners_valid": true,
+  "linux_process_guard_passed": true,
+  "linux_mount_guard_passed": true,
+  "windows_checked_at_utc": "2026-10-11T06:17:14.251974+00:00",
+  "windows_task_path_matches": 0,
+  "windows_device_tool_processes": 0,
+  "windows_scope": "Process names and task-path matches. This is not a complete Windows file-handle inventory.",
+  "firefox_cache_collision": {
+    "source": "/tmp/queue-arcade-deep-review/browser-cache/firefox-1532",
+    "destination": "/home/kulmisiu/.cache/ms-playwright/firefox-1532",
+    "source_entries": 67,
+    "destination_entries": 63,
+    "common_entry_metadata_matches": true,
+    "content_hashes_checked": false,
+    "strict_four_entry_guard_passed": true,
+    "strict_guard_checked_at_utc": "2026-10-11T06:23:49.820727+00:00",
+    "source_runtime_paths": [
+      "firefox/.parentlock",
+      "firefox/updates/0",
+      "firefox/updates/downloading",
+      "firefox/updates"
+    ]
+  },
+  "cleanup_helper_sha256": "b08f8bbe81d15102f125acf0c77177b669ff8b9106563c83a904c53506f26a94",
+  "retention_map_changed": false,
+  "mutations": false
+}

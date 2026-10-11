@@ -1,0 +1,68 @@
+{
+  "scope": "Parse the saved real-API observations and compare each phase with the shared 800 ms vote grace. No live API call is made by this archive check.",
+  "passed": true,
+  "runs": [
+    {
+      "source": "reveal-window-repro.log",
+      "observations": [
+        {
+          "attempt": 0,
+          "phase": "answering",
+          "answerRemaining": 197,
+          "revealRemaining": 7197
+        },
+        {
+          "attempt": 1,
+          "phase": "answering",
+          "answerRemaining": -171,
+          "revealRemaining": 6829
+        },
+        {
+          "attempt": 2,
+          "phase": "answering",
+          "answerRemaining": -327,
+          "revealRemaining": 6673
+        },
+        {
+          "attempt": 3,
+          "phase": "answering",
+          "answerRemaining": -485,
+          "revealRemaining": 6515
+        }
+      ],
+      "allPhasesMatchShared800MsGrace": true,
+      "usableRevealObserved": false
+    },
+    {
+      "source": "reveal-window-repro-2.log",
+      "observations": [
+        {
+          "attempt": 0,
+          "phase": "reveal",
+          "answerRemaining": -3264,
+          "revealRemaining": 3736
+        },
+        {
+          "attempt": 1,
+          "phase": "answering",
+          "answerRemaining": 14834,
+          "revealRemaining": 21834
+        },
+        {
+          "attempt": 2,
+          "phase": "answering",
+          "answerRemaining": -167,
+          "revealRemaining": 6833
+        },
+        {
+          "attempt": 3,
+          "phase": "answering",
+          "answerRemaining": -324,
+          "revealRemaining": 6676
+        }
+      ],
+      "allPhasesMatchShared800MsGrace": true,
+      "usableRevealObserved": false
+    }
+  ]
+}

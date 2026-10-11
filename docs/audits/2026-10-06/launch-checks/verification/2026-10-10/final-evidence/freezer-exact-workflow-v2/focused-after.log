@@ -1,0 +1,9 @@
+test_exact_workflow_directory_symlink_stays_rejected (__main__.WorkflowPathTests) ... ok
+test_exact_workflow_file_symlink_stays_rejected (__main__.WorkflowPathTests) ... ok
+test_exact_workflow_is_included_and_verified (__main__.WorkflowPathTests) ... ok
+test_other_hidden_or_private_names_stay_rejected (__main__.WorkflowPathTests) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.007s
+
+OK

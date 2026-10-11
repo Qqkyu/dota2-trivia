@@ -1,0 +1,16 @@
+--- v2/create-gate-gh-path.py
++++ reveal-wait-v3/create-gate-gh-path.py
+@@ -17,10 +17,10 @@
+ BASE = Path('/tmp/queue-arcade-launch-checks/hosted-smoke-preparation')
+ POLICY_HELPER = BASE.parent / 'ingress-helper-v2/enable-render-proxy-gh-path.py'
+ POLICY_HASH = '0d1400014b762b3592251f8e28eae334d41adbb1f527afda70a720dffa642b54'
+-SMOKE = BASE / 'hosted-smoke.mjs'
+-SMOKE_HASH = 'e0a09e4909016e3ee5dbefefafe9d7385401a6972294d10c8d5a92679b7bfc68'
++SMOKE = BASE / 'reveal-wait-v3/hosted-smoke.mjs'
++SMOKE_HASH = 'f3da963f57baeb3634b525b1809140c26badbe38ec9835967cf9dbf775608670'
+ INPUTS = ('src/lib/arcade-games.mjs', 'scripts/image-assets.mjs')
+-GATE = BASE / 'hosted-smoke-gate-v2.json'
++GATE = BASE / 'hosted-smoke-gate-reveal-v3.json'
+ 
+ 
+ def require(condition):

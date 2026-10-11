@@ -1,0 +1,12 @@
+{
+  "checkedAt": "2026-10-11T06:19:45.004450+00:00",
+  "policySha256": "0d1400014b762b3592251f8e28eae334d41adbb1f527afda70a720dffa642b54",
+  "gateSha256": "73266f8def00124ac76aec8a5960850bd0cc4e87571c5c13d74f295f8cdc1d5e",
+  "changedPolicyExpressions": 1,
+  "changedGateBindings": 2,
+  "oldSha256": "b4b143e325a030497251bd8176629c0f7d1bfa97d5c8e1a9d7d7b02d1526f672",
+  "oldGateSha256": "46a7599ae2e183a5f3fe74665ab394cecc10c634ad8ca0289fc547f94cdc66c5",
+  "oldLookupFailure": "FileNotFoundError",
+  "newLookupVersion": "gh version 2.96.0 (2026-07-02)\nhttps://github.com/cli/cli/releases/tag/v2.96.0",
+  "hostedRequests": 0
+}

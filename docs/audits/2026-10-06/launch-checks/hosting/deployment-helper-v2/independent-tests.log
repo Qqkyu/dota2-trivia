@@ -1,0 +1,32 @@
+test_candidate_excludes_private_and_generated_paths (__main__.CandidateChecks) ... ok
+test_candidate_refuses_changed_working_head (__main__.CandidateChecks) ... ok
+test_candidate_uses_temp_index_and_compare_and_swap_ref (__main__.CandidateChecks) ... ok
+test_exact_sha_deploy_success (__main__.DeployTests) ... ok
+test_explicit_400_with_changed_pause_state_cannot_authorize_resume (__main__.DeployTests) ... ok
+test_non_409_error_does_not_write_resume_authorization (__main__.DeployTests) ... ok
+test_other_status_cannot_authorize_resume_even_with_suspension_text (__main__.DeployTests) ... ok
+test_pending_commit_is_not_treated_as_wrong_commit (__main__.DeployTests) ... ok
+test_poll_only_allows_live_exact_candidate (__main__.DeployTests) ... ok
+test_prepare_is_only_candidate_branch_change (__main__.DeployTests) ... ok
+test_prepare_refuses_active_service (__main__.DeployTests) ... ok
+test_queued_empty_response_is_recorded (__main__.DeployTests) ... ok
+test_resume_400_immediately_observes_exact_candidate (__main__.DeployTests) ... ok
+test_resume_400_keeps_freshness_and_identity_gates (__main__.DeployTests) ... ok
+test_resume_immediately_observes_candidate (__main__.DeployTests) ... ok
+test_resume_rejects_other_receipt_statuses (__main__.DeployTests) ... ok
+test_resume_requires_fresh_matching_evidence (__main__.DeployTests) ... ok
+test_resume_without_new_deploy_requires_poll (__main__.DeployTests) ... ok
+test_resume_wrong_sha_suspends_before_cancelling (__main__.DeployTests) ... ok
+test_suspension_400_records_actual_status_only (__main__.DeployTests) ... ok
+test_suspension_409_records_only_classification (__main__.DeployTests) ... ok
+test_unrelated_400_cannot_authorize_resume (__main__.DeployTests) ... ok
+test_unrelated_409_cannot_authorize_resume (__main__.DeployTests) ... ok
+test_api_bound_and_empty_202 (__main__.StandaloneChecks) ... ok
+test_exact_commit_ci_gate (__main__.StandaloneChecks) ... ok
+test_redirects_cannot_forward_authorization (__main__.StandaloneChecks) ... ok
+test_suspension_parser_is_bounded_and_specific (__main__.StandaloneChecks) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 0.045s
+
+OK

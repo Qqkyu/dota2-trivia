@@ -9,7 +9,7 @@ import path from 'node:path';
 
 const BASE = '/tmp/queue-arcade-launch-checks/hosted-smoke-preparation';
 const SMOKE = path.join(BASE, 'hosted-smoke.mjs');
-const SMOKE_SHA = '0fcc5b0bcee5081fbc903a269217138b8a0ad5ea2ec7d62c9a9b124121ede382';
+const SMOKE_SHA = 'e0a09e4909016e3ee5dbefefafe9d7385401a6972294d10c8d5a92679b7bfc68';
 const ORIGIN = 'https://queue-arcade.onrender.com';
 const WINDOWS_CURL = '/mnt/c/Windows/System32/curl.exe';
 const execute = promisify(execFile);

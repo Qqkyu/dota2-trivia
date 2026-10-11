@@ -1,0 +1,298 @@
+#!/usr/bin/env node
+
+/**
+ * Clicks through the party wait lobby the way a host does.
+ */
+
+import { spawn } from "node:child_process";
+import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import { createServer } from "node:net";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { PRIVATE_ROOM_NAME_NOTICE_MS } from "../src/lib/private-rooms.mjs";
+
+const appUrl = process.env.APP_URL ?? "http://localhost:3000";
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function freePort() {
+  return new Promise((resolve, reject) => {
+    const server = createServer();
+    server.listen(0, "127.0.0.1", () => {
+      const address = server.address();
+      const port = typeof address === "object" && address ? address.port : 0;
+      server.close((error) => (error ? reject(error) : resolve(port)));
+    });
+    server.on("error", reject);
+  });
+}
+
+async function waitJson(url, timeout = 15_000) {
+  const startedAt = Date.now();
+  while (Date.now() - startedAt < timeout) {
+    try {
+      const response = await fetch(url);
+      if (response.ok) return await response.json();
+    } catch {
+      // Chrome is still binding.
+    }
+    await delay(100);
+  }
+  throw new Error(`Chrome debug HTTP did not open at ${url}`);
+}
+
+function attachCdp(webSocketDebuggerUrl) {
+  const socket = new WebSocket(webSocketDebuggerUrl);
+  const pending = new Map();
+  let requestId = 0;
+  socket.addEventListener("message", (message) => {
+    const payload = JSON.parse(message.data);
+    if (!payload.id) return;
+    const request = pending.get(payload.id);
+    if (!request) return;
+    pending.delete(payload.id);
+    if (payload.error) request.reject(new Error(payload.error.message));
+    else request.resolve(payload.result);
+  });
+  function send(method, params = {}) {
+    const id = ++requestId;
+    socket.send(JSON.stringify({ id, method, params }));
+    return new Promise((resolve, reject) => pending.set(id, { resolve, reject }));
+  }
+  async function evaluate(expression) {
+    const result = await send("Runtime.evaluate", { expression, awaitPromise: true, returnByValue: true });
+    if (result.exceptionDetails) {
+      throw new Error(result.exceptionDetails.exception?.description ?? result.exceptionDetails.text);
+    }
+    return result.result.value;
+  }
+  async function waitFor(expression, timeout = 20_000) {
+    const startedAt = Date.now();
+    while (Date.now() - startedAt < timeout) {
+      if (await evaluate(expression)) return;
+      await delay(150);
+    }
+    throw new Error(`Timed out waiting for: ${expression}`);
+  }
+  return {
+    socket,
+    send,
+    evaluate,
+    waitFor,
+    ready: new Promise((resolve, reject) => {
+      socket.addEventListener("open", resolve, { once: true });
+      socket.addEventListener("error", reject, { once: true });
+    }),
+  };
+}
+
+const port = await freePort();
+const userDataDir = await mkdtemp(join(tmpdir(), "queue-arcade-lobby-"));
+const chrome = spawn(
+  "google-chrome",
+  [
+    "--headless=new",
+    "--mute-audio",
+    `--remote-debugging-port=${port}`,
+    "--remote-allow-origins=*",
+    `--user-data-dir=${userDataDir}`,
+    "--no-first-run",
+    "--disable-gpu",
+    "--window-size=1400,1600",
+    "about:blank",
+  ],
+  { stdio: "ignore" },
+);
+
+let page = null;
+let browser = null;
+
+async function cleanup() {
+  try {
+    page?.socket.close();
+  } catch {
+    // gone
+  }
+  try {
+    browser?.socket.close();
+  } catch {
+    // gone
+  }
+  chrome.kill("SIGKILL");
+  await rm(userDataDir, { recursive: true, force: true }).catch(() => undefined);
+}
+
+try {
+  const version = await waitJson(`http://127.0.0.1:${port}/json/version`);
+  browser = attachCdp(version.webSocketDebuggerUrl);
+  await browser.ready;
+  const created = await browser.send("Target.createTarget", { url: "about:blank" });
+  const listed = await fetch(`http://127.0.0.1:${port}/json/list`).then((response) => response.json());
+  const target = listed.find((entry) => entry.id === created.targetId);
+  page = attachCdp(target.webSocketDebuggerUrl);
+  await page.ready;
+  await page.send("Page.enable");
+  await page.send("Runtime.enable");
+
+  await page.send("Page.addScriptToEvaluateOnNewDocument", {source: `(() => {
+    const rows=window.__joinTrace=[];const stamp=(kind,data={})=>rows.push({ms:Math.round(performance.now()),kind,...data});
+    const original=window.fetch.bind(window);
+    window.fetch=async (input,init={})=>{
+      const route=new URL(typeof input==='string'?input:input.url,location.href).pathname;
+      if(route!=='/api/private-rooms')return original(input,init);
+      stamp('dispatch',{route,method:init.method||'GET'});
+      try {const response=await original(input,init);stamp('response',{status:response.status});if(init.method==='POST'){await new Promise(resolve=>setTimeout(resolve,${Number(process.env.JOIN_DELAY_MS||0)}));stamp('released');}
+        const originalJson=response.json.bind(response);response.json=async()=>{const value=await originalJson();stamp('body');return value;};return response;
+      }catch(error){stamp('fetch-error',{name:error.name});throw error;}
+    };
+    document.addEventListener('click',event=>{if(event.target.closest('[data-testid="private-room-join"]'))stamp('join-click');},true);
+    let last='';new MutationObserver(()=>{const button=document.querySelector('[data-testid="private-room-join"]');const error=document.querySelector('[data-testid="private-room-error"]')?.textContent?.trim()||'';
+      const state=JSON.stringify({disabled:button?.disabled,text:button?.textContent,error});if(state!==last){last=state;stamp('dom',JSON.parse(state));}
+    }).observe(document,{childList:true,subtree:true,attributes:true,characterData:true});
+  })();`});
+  await page.send("Page.navigate", { url: `${appUrl}/party` });
+  await page.waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`);
+  await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-setup"]'))`);
+  await delay(400);
+
+  const choose = await page.evaluate(`(() => {
+    const create = document.querySelector('[data-testid="private-room-choose-create"]');
+    const join = document.querySelector('[data-testid="private-room-choose-join"]');
+    const setup = document.querySelector('[data-testid="private-room-setup"]');
+    if (!create || !join || !setup) return null;
+    const createStyle = getComputedStyle(create);
+    const joinStyle = getComputedStyle(join);
+    return {
+      path: setup.getAttribute("data-path"),
+      games: document.querySelectorAll('[data-testid^="format-preview-stage-"]').length,
+      code: Boolean(document.querySelector('[data-testid="private-room-join-code"]')),
+      create: {
+        transform: createStyle.textTransform,
+        size: createStyle.fontSize,
+        family: createStyle.fontFamily,
+        weight: createStyle.fontWeight,
+        height: Math.round(create.getBoundingClientRect().height),
+      },
+      join: {
+        transform: joinStyle.textTransform,
+        size: joinStyle.fontSize,
+        family: joinStyle.fontFamily,
+        weight: joinStyle.fontWeight,
+        height: Math.round(join.getBoundingClientRect().height),
+      },
+    };
+  })()`);
+  if (!choose) throw new Error("Create party or Join party is missing.");
+  if (choose.path !== "choose" || choose.games || choose.code) {
+    throw new Error(`Party opened on a form, not two doors (${JSON.stringify(choose)}).`);
+  }
+  if (choose.create.transform !== "uppercase" || choose.join.transform !== "uppercase") {
+    throw new Error(`Create/Join doors are not both uppercase (${JSON.stringify(choose)}).`);
+  }
+  if (
+    choose.create.size !== choose.join.size ||
+    choose.create.family !== choose.join.family ||
+    choose.create.weight !== choose.join.weight ||
+    choose.create.height !== choose.join.height
+  ) {
+    throw new Error(`Create and Join doors do not match (${JSON.stringify(choose)}).`);
+  }
+
+  const fill = async (testid, value) => {
+    await page.evaluate(`(() => {
+      const input = document.querySelector('[data-testid="${testid}"]');
+      const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+      setter.call(input, ${JSON.stringify(value)});
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    })()`);
+  };
+  const focusName = async () => {
+    await clickTestId("private-room-name");
+    await delay(80);
+  };
+  const commitName = async (value) => {
+    await focusName();
+    await fill("private-room-name", value);
+    await blurName();
+  };
+  const blurName = async () => {
+    const away = await page.evaluate(`(() => {
+      const node = document.querySelector('[data-testid="private-room-code"]');
+      if (!node) return null;
+      const rect = node.getBoundingClientRect();
+      return { x: rect.x + Math.min(12, rect.width / 2), y: rect.y + rect.height / 2 };
+    })()`);
+    if (!away) throw new Error("Party code is missing.");
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mousePressed",
+      x: away.x,
+      y: away.y,
+      button: "left",
+      clickCount: 1,
+    });
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mouseReleased",
+      x: away.x,
+      y: away.y,
+      button: "left",
+      clickCount: 1,
+    });
+    await delay(600);
+  };
+  const clickTestId = async (testid) => {
+    const box = await page.evaluate(`(() => {
+      const node = document.querySelector('[data-testid="${testid}"]');
+      if (!node) return null;
+      const rect = node.getBoundingClientRect();
+      return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
+    })()`);
+    if (!box) throw new Error(`${testid} is missing.`);
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mousePressed",
+      x: box.x,
+      y: box.y,
+      button: "left",
+      clickCount: 1,
+    });
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mouseReleased",
+      x: box.x,
+      y: box.y,
+      button: "left",
+      clickCount: 1,
+    });
+  };
+
+  const partyCode = `L${Date.now().toString(36).slice(-5).toUpperCase()}`;
+  await clickTestId("private-room-choose-join");
+  await page.waitFor(`document.querySelector('[data-testid="private-room-setup"]')?.dataset.path === "join"`);
+  const joinHasGames = await page.evaluate(
+    `document.querySelectorAll('[data-testid^="format-preview-stage-"]').length`,
+  );
+  if (joinHasGames) throw new Error("Join party showed game modes.");
+  const codeLabel = await page.evaluate(
+    `document.querySelector('[data-testid="private-room-code-label"]')?.textContent?.trim() ?? ""`,
+  );
+  if (codeLabel !== "Party code") throw new Error(`Party code has no label (${JSON.stringify(codeLabel)}).`);
+  await fill("private-room-join-code", "NOPE99");
+  await clickTestId("private-room-join");
+  await delay(400);
+  const missingJoin = await page.evaluate(`(() => ({
+    setup: Boolean(document.querySelector('[data-testid="private-room-setup"]')),
+    wait: Boolean(document.querySelector('[data-testid="private-room-wait"]')),
+    error: document.querySelector('[data-testid="private-room-error"]')?.textContent?.trim() ?? "",
+  }))()`);
+  if (!missingJoin.setup || missingJoin.wait) {
+    throw new Error(`Join created a party (${JSON.stringify(missingJoin)}).`);
+  }
+  if (missingJoin.error !== "No party with that code.") {
+    throw new Error(`Join of a missing code did not fail (${JSON.stringify(missingJoin)}).`);
+  }
+
+  console.log("AT_PASS " + JSON.stringify(await page.evaluate("window.__joinTrace")));
+  console.log("Missing-room join assertion passed.");
+} catch (error) {
+  console.log("AT_ASSERTION " + JSON.stringify(await page.evaluate("window.__joinTrace")));
+  await delay(2000);
+  console.log("AFTER_SETTLE " + JSON.stringify(await page.evaluate("window.__joinTrace")));
+  throw error;
+} finally { await cleanup(); }

@@ -1,0 +1,11 @@
+--- original/independent-committer-review.py
++++ corrected/independent-committer-review.py
+@@ -14,7 +14,7 @@
+ sys.dont_write_bytecode = True
+ HERE = Path(__file__).resolve().parent
+ HELPER = HERE / 'create-evidence-commit.py'
+-SOURCE_FREEZER = Path('/home/kulmisiu/dev/dota2-trivia/docs/audits/2026-10-06/launch-checks/verification/2026-10-10/final-evidence/freeze-archive.py.txt')
++SOURCE_FREEZER = Path('/home/kulmisiu/dev/dota2-trivia/docs/audits/2026-10-06/launch-checks/verification/2026-10-10/final-evidence/freezer-exact-workflow-v2/freeze-archive.py.txt')
+ 
+ 
+ def command(repo, *args, data=None):

@@ -1,0 +1,13 @@
+{
+  "checkedAt": "2026-10-10T12:59:54.043273+00:00",
+  "commit": "31961cbd762587225b4b8a814828dc0829952978",
+  "serviceId": "srv-d9mqd1942hec73e9nlt0",
+  "currentPolicy": "none",
+  "requestedPolicy": "cf-connecting-ip",
+  "hostedV2ProofPassed": true,
+  "automaticApprovalReviewRejected": true,
+  "commandExecuted": false,
+  "settingChanged": false,
+  "userApprovalRequested": true,
+  "reason": "The approval review requires explicit authorization for this persistent proxy-trust change and redeploy."
+}

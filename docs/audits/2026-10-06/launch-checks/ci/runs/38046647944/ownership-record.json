@@ -1,0 +1,12 @@
+{
+  "scope": "Selected fields from the saved lifecycle state after cleanup. This records resource names and the expected ownership label; it is not a Docker inspect snapshot.",
+  "runner": "queue-arcade-ci-20261010T105657Z",
+  "volume": "queue-arcade-ci-20261010T105657Z-data",
+  "repository": "Qqkyu/dota2-trivia",
+  "ownershipLabel": {
+    "key": "io.queue-arcade.launch-ci-owner",
+    "value": "cd7b7732378c43d3845dcc597077fa5a"
+  },
+  "cleanedAt": "2026-10-10T11:03:07.972439+00:00",
+  "sourceStateSha256": "d4b547ca3be5ab955340ad5a23e8bfd17d4a187f5459b21227b26056828cfe75"
+}

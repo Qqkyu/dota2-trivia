@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+"""No real ownership changes. Test only mocks and a temporary symlink fixture."""
+import importlib.util
+from pathlib import Path
+import os
+import stat
+import tempfile
+import types
+import unittest
+from unittest.mock import patch
+HERE=Path(__file__).resolve().parent
+spec=importlib.util.spec_from_file_location('orca_owner_repair',HERE/'repair-orca-directory-owners.py')
+m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+class OwnerTests(unittest.TestCase):
+ def test_nonroot_refuses_before_chown(self):
+  with patch.object(m,'inspect_plan',return_value=[]),patch.object(m.os,'geteuid',return_value=1000),patch.object(m.os,'fchown') as change:
+   with self.assertRaises(RuntimeError):m.repair(object(),{},True)
+   change.assert_not_called()
+ def test_exact_directory_calls_keep_group(self):
+  rows=[{'path':f'assistive-modern/attempt1/generated-{i}'} for i in range(178)]
+  root=types.SimpleNamespace(st_dev=2,st_ino=3,st_uid=1000)
+  done=types.SimpleNamespace(st_uid=1000,st_gid=0,st_mode=stat.S_IFDIR|0o755)
+  with patch.object(m,'inspect_plan',side_effect=[rows,rows,[]]),patch.object(m,'operational_guards'),patch.object(m.os,'geteuid',return_value=0),patch.object(m.os,'open',return_value=88) as opened,patch.object(m.os,'fstat',side_effect=[root]+[done]*178),patch.object(m,'open_directory',return_value=99) as directories,patch.object(m.os,'fchown') as changed,patch.object(m.os,'close'):
+   result=m.repair(object(),{'root_identity':[2,3,1000]},True)
+  self.assertEqual(changed.call_count,178)
+  self.assertEqual(directories.call_count,178)
+  self.assertTrue(all(call.args==(99,1000,-1) for call in changed.call_args_list))
+  self.assertEqual(result['directories_changed'],178)
+  self.assertFalse(result['file_owners_changed']);self.assertFalse(result['directory_modes_changed'])
+  self.assertEqual(opened.call_args.args,(m.ROOT,m.FLAGS))
+ def test_symlink_component_refuses(self):
+  with tempfile.TemporaryDirectory(prefix='owner-independent-',dir=HERE) as d:
+   root=Path(d);(root/'outside').mkdir();(root/'link').symlink_to(root/'outside',target_is_directory=True)
+   fd=os.open(root,m.FLAGS)
+   try:
+    with self.assertRaises(OSError):m.open_directory({'path':'link'},fd)
+   finally:os.close(fd)
+if __name__=='__main__':unittest.main(verbosity=2)

@@ -1,0 +1,52 @@
+
+ RUN  v5.0.0 /home/kulmisiu/dev/dota2-trivia
+
+ ❯ tests/health-readiness.test.mjs (6 tests | 6 failed) 41ms
+   × startup cleanup runs when the peer closes during native fetch parser initialization 8ms
+   × the deadline rejects even if a pending fetch does not react to abort 28ms
+   × the same deadline covers a stalled JSON response body 2ms
+   × returns the 200 health response and clears the request timer 1ms
+   × returns the 503 health response and clears the request timer 1ms
+   × a malformed JSON response rejects and clears the request timer 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/health-readiness.test.mjs > startup cleanup runs when the peer closes during native fetch parser initialization
+ FAIL  tests/health-readiness.test.mjs > the same deadline covers a stalled JSON response body
+ FAIL  tests/health-readiness.test.mjs > returns the 200 health response and clears the request timer
+ FAIL  tests/health-readiness.test.mjs > returns the 503 health response and clears the request timer
+ FAIL  tests/health-readiness.test.mjs > a malformed JSON response rejects and clears the request timer
+Error: listen EPERM: operation not permitted 127.0.0.1
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  tests/health-readiness.test.mjs > the deadline rejects even if a pending fetch does not react to abort
+AssertionError: Warning: Detected unsettled top-level await at file:///home/kulmisiu/dev/dota2-trivia/[eval1]:6
+      await readHealthWithDeadline("http://127.0.0.1:3323/api/health", 50);
+      ^
+
+
+
+: expected 13 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 13
+
+ ❯ tests/health-readiness.test.mjs:84:38
+     82|     }
+     83|   `);
+     84|   expect(result.code, result.stderr).toBe(0);
+       |                                      ^
+     85|   expect(result.signal).toBeNull();
+     86|   expect(result.stdout).toContain("TimeoutError");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed (6)
+   Start at  11:47:36
+   Duration  168ms (tests 49%, import 26%, transform 21%, worker 4%)
+

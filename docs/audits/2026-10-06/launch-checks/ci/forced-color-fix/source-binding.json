@@ -1,0 +1,35 @@
+{
+  "baselineCommit": "6e1eace126e89341052dddbd76eeb4ad4de584e6",
+  "baselineHashes": {
+    "at": "2026-10-10T11:05:09.465650+00:00",
+    "sourceCommit": "6e1eace126e89341052dddbd76eeb4ad4de584e6",
+    "files": [
+      {
+        "path": "src/components/queue-arcade.module.css",
+        "sha256": "f15aa01e2b069817eae1b305cd35592ecb3d7f86c810e4af70dcff132fabd815"
+      },
+      {
+        "path": "src/components/private-room-panel.module.css",
+        "sha256": "1a53bf39552f77c54eee465405dd4b8173fc175c27f952663fb91c3b873f0327"
+      },
+      {
+        "path": "src/components/calibration-dashboard.module.css",
+        "sha256": "95c2671403db42157ef79ae74228c5765140e7a3e7af442919c307ccfab60e47"
+      }
+    ]
+  },
+  "finalRecordedSourceSha256": {
+    "scripts/check-accessibility.mjs": "72dee694777e5fb7d561c238e78f2748a0a2c46388bf51d559b973292dc95668",
+    "scripts/lib/forced-color-checks.mjs": "0b9ef695d3e1f1be74640f2409c5bb1832487a1952d9cf3af33ea6faea02eabb",
+    "src/components/queue-arcade.module.css": "cc274adee55eb2bc79e4db7d162c62ab3075521af12436f0465611ede35ea507",
+    "src/components/private-room-panel.module.css": "b278310aeb677d7bec7c453ff20321d76b93c1b5c612bf1ae131efcadc738b28",
+    "src/components/calibration-dashboard.module.css": "059aba0a3aba0324afd84055e81cdd102669bca701564f6b57a73682393e649a",
+    ".github/workflows/ci.yml": "28ff89df3f7916693e2b308a66f5c76ca6a229ad61756393b72b3d6da3f531c8"
+  },
+  "archiveCheckedFinalHashesAgainstWorkingTree": true,
+  "redHelperSha256": "c84b3ee225d15fed0dc2acbb046fb64293609107a37c15737201fceb87796493",
+  "redHelperNote": "The source owner reconstructed the red helper from the intermediate snapshot. Its bytes match the SHA-256 saved at the baseline red run.",
+  "finalBuildId": null,
+  "releaseCiStatus": "Pending a new exact candidate run. This archive records local development server checks.",
+  "intermediateCssReconstruction": "The source owner reversed the two later CSS patches in private snapshot files. Both reconstructed files match their SHA-256 values recorded in the normal-volume-red summary. The private-room CSS already matches the final snapshot."
+}

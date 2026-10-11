@@ -1,0 +1,13 @@
+test_completion_gate_blocks_writes (__main__.UuidTests) ... ok
+test_default_is_read_only (__main__.UuidTests) ... ok
+test_existing_backup_collision_preserved (__main__.UuidTests) ... ok
+test_hardlinked_marker_refuses (__main__.UuidTests) ... ok
+test_non_uuid_change_refuses (__main__.UuidTests) ... ok
+test_source_identity_change_blocks_replace (__main__.UuidTests) ... ok
+test_success_preserves_backup_and_cache_and_runtime (__main__.UuidTests) ... ok
+test_symlink_marker_refuses (__main__.UuidTests) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.106s
+
+OK

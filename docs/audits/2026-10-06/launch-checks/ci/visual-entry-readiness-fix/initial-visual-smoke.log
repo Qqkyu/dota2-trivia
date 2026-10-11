@@ -1,0 +1,9 @@
+file:///opt/runner/_work/dota2-trivia/dota2-trivia/scripts/visual-smoke.mjs:444
+  throw new Error("Could not reach a reveal window for the first-entry smoke test.");
+        ^
+
+Error: Could not reach a reveal window for the first-entry smoke test.
+    at waitForRevealEntryWindow (file:///opt/runner/_work/dota2-trivia/dota2-trivia/scripts/visual-smoke.mjs:444:9)
+    at async file:///opt/runner/_work/dota2-trivia/dota2-trivia/scripts/visual-smoke.mjs:831:1
+
+Node.js v22.23.3

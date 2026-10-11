@@ -1,0 +1,375 @@
+{
+  "exitCode": 1,
+  "startedAt": "2026-10-10T11:07:45.498Z",
+  "completedAt": "2026-10-10T11:08:06.661Z",
+  "completed": true,
+  "browser": "149.0.7827.55",
+  "pages": 12,
+  "fixtures": 3,
+  "checks": 102,
+  "failures": [
+    "forced-volume: muted volume text has painted contrast",
+    "forced-volume: muting does not fade high-contrast controls",
+    "forced-volume: muted and enabled text remain equally readable",
+    "forced-volume: muted and enabled slider remain equally readable",
+    "forced-party: selected state has a visible marker",
+    "forced-party: selected checkmark has painted contrast",
+    "forced-party: keyboard selection paints the checkmark",
+    "forced-party: keyboard-selected checkmark has painted contrast",
+    "forced-calibration: selected state has a visible marker",
+    "forced-shop: selected state has a visible marker",
+    "forced-dark-volume: muted volume text has painted contrast",
+    "forced-dark-volume: muting does not fade high-contrast controls",
+    "forced-dark-volume: muted and enabled text remain equally readable",
+    "forced-dark-volume: muted and enabled slider remain equally readable",
+    "forced-dark-calibration: selected state has a visible marker",
+    "forced-dark-shop: selected state has a visible marker"
+  ],
+  "perControl": [
+    {
+      "kind": "volume",
+      "mode": "desktop",
+      "passed": 4,
+      "failed": []
+    },
+    {
+      "kind": "party",
+      "mode": "desktop",
+      "passed": 14,
+      "failed": []
+    },
+    {
+      "kind": "calibration",
+      "mode": "desktop",
+      "passed": 7,
+      "failed": []
+    },
+    {
+      "kind": "shop",
+      "mode": "desktop",
+      "passed": 7,
+      "failed": []
+    },
+    {
+      "kind": "volume",
+      "mode": "forced",
+      "passed": 3,
+      "failed": [
+        {
+          "name": "muted volume text has painted contrast",
+          "passed": false,
+          "detail": {
+            "width": 34,
+            "height": 11,
+            "background": [
+              254,
+              254,
+              254
+            ],
+            "maxContrast": 3.085287791859882,
+            "pixelsAtLeast3": 8,
+            "pixelsAtLeast45": 0
+          }
+        },
+        {
+          "name": "muting does not fade high-contrast controls",
+          "passed": false,
+          "detail": {
+            "mutedOpacity": [
+              0.42,
+              0.42
+            ]
+          }
+        },
+        {
+          "name": "muted and enabled text remain equally readable",
+          "passed": false,
+          "detail": {
+            "muted": {
+              "width": 34,
+              "height": 11,
+              "background": [
+                254,
+                254,
+                254
+              ],
+              "maxContrast": 3.085287791859882,
+              "pixelsAtLeast3": 8,
+              "pixelsAtLeast45": 0
+            },
+            "enabled": {
+              "width": 34,
+              "height": 11,
+              "background": [
+                255,
+                255,
+                255
+              ],
+              "maxContrast": 21,
+              "pixelsAtLeast3": 63,
+              "pixelsAtLeast45": 51
+            }
+          }
+        },
+        {
+          "name": "muted and enabled slider remain equally readable",
+          "passed": false,
+          "detail": {
+            "muted": {
+              "width": 72,
+              "height": 21,
+              "background": [
+                254,
+                254,
+                254
+              ],
+              "maxContrast": 3.0936535799368317,
+              "pixelsAtLeast3": 98,
+              "pixelsAtLeast45": 0
+            },
+            "enabled": {
+              "width": 72,
+              "height": 21,
+              "background": [
+                55,
+                0,
+                110
+              ],
+              "maxContrast": 15.134013837043632,
+              "pixelsAtLeast3": 1018,
+              "pixelsAtLeast45": 1006
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "party",
+      "mode": "forced",
+      "passed": 10,
+      "failed": [
+        {
+          "name": "selected state has a visible marker",
+          "passed": false,
+          "detail": {
+            "changed": 0,
+            "sameDimensions": true,
+            "compareShape": true
+          }
+        },
+        {
+          "name": "selected checkmark has painted contrast",
+          "passed": false,
+          "detail": {
+            "width": 14,
+            "height": 14,
+            "background": [
+              255,
+              255,
+              255
+            ],
+            "maxContrast": 1.4736928863846674,
+            "pixelsAtLeast3": 0,
+            "pixelsAtLeast45": 0
+          }
+        },
+        {
+          "name": "keyboard selection paints the checkmark",
+          "passed": false,
+          "detail": {
+            "changed": 0,
+            "sameDimensions": true,
+            "compareShape": true
+          }
+        },
+        {
+          "name": "keyboard-selected checkmark has painted contrast",
+          "passed": false,
+          "detail": {
+            "width": 14,
+            "height": 14,
+            "background": [
+              255,
+              255,
+              255
+            ],
+            "maxContrast": 1.4736928863846674,
+            "pixelsAtLeast3": 0,
+            "pixelsAtLeast45": 0
+          }
+        }
+      ]
+    },
+    {
+      "kind": "calibration",
+      "mode": "forced",
+      "passed": 6,
+      "failed": [
+        {
+          "name": "selected state has a visible marker",
+          "passed": false,
+          "detail": {
+            "changed": 0,
+            "sameDimensions": true,
+            "compareShape": true
+          }
+        }
+      ]
+    },
+    {
+      "kind": "shop",
+      "mode": "forced",
+      "passed": 6,
+      "failed": [
+        {
+          "name": "selected state has a visible marker",
+          "passed": false,
+          "detail": {
+            "changed": 0,
+            "sameDimensions": true,
+            "compareShape": true
+          }
+        }
+      ]
+    },
+    {
+      "kind": "volume",
+      "mode": "forced-dark",
+      "passed": 3,
+      "failed": [
+        {
+          "name": "muted volume text has painted contrast",
+          "passed": false,
+          "detail": {
+            "width": 34,
+            "height": 11,
+            "background": [
+              1,
+              1,
+              1
+            ],
+            "maxContrast": 4.034034274823607,
+            "pixelsAtLeast3": 25,
+            "pixelsAtLeast45": 0
+          }
+        },
+        {
+          "name": "muting does not fade high-contrast controls",
+          "passed": false,
+          "detail": {
+            "mutedOpacity": [
+              0.42,
+              0.42
+            ]
+          }
+        },
+        {
+          "name": "muted and enabled text remain equally readable",
+          "passed": false,
+          "detail": {
+            "muted": {
+              "width": 34,
+              "height": 11,
+              "background": [
+                1,
+                1,
+                1
+              ],
+              "maxContrast": 4.034034274823607,
+              "pixelsAtLeast3": 25,
+              "pixelsAtLeast45": 0
+            },
+            "enabled": {
+              "width": 34,
+              "height": 11,
+              "background": [
+                0,
+                0,
+                0
+              ],
+              "maxContrast": 21,
+              "pixelsAtLeast3": 79,
+              "pixelsAtLeast45": 65
+            }
+          }
+        },
+        {
+          "name": "muted and enabled slider remain equally readable",
+          "passed": false,
+          "detail": {
+            "muted": {
+              "width": 72,
+              "height": 21,
+              "background": [
+                2,
+                2,
+                2
+              ],
+              "maxContrast": 4.022443558923633,
+              "pixelsAtLeast3": 472,
+              "pixelsAtLeast45": 0
+            },
+            "enabled": {
+              "width": 72,
+              "height": 21,
+              "background": [
+                26,
+                235,
+                255
+              ],
+              "maxContrast": 14.371254724906635,
+              "pixelsAtLeast3": 1010,
+              "pixelsAtLeast45": 1006
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "party",
+      "mode": "forced-dark",
+      "passed": 14,
+      "failed": []
+    },
+    {
+      "kind": "calibration",
+      "mode": "forced-dark",
+      "passed": 6,
+      "failed": [
+        {
+          "name": "selected state has a visible marker",
+          "passed": false,
+          "detail": {
+            "changed": 0,
+            "sameDimensions": true,
+            "compareShape": true
+          }
+        }
+      ]
+    },
+    {
+      "kind": "shop",
+      "mode": "forced-dark",
+      "passed": 6,
+      "failed": [
+        {
+          "name": "selected state has a visible marker",
+          "passed": false,
+          "detail": {
+            "changed": 0,
+            "sameDimensions": true,
+            "compareShape": true
+          }
+        }
+      ]
+    }
+  ],
+  "sourceSha256": {
+    "scripts/check-accessibility.mjs": "72dee694777e5fb7d561c238e78f2748a0a2c46388bf51d559b973292dc95668",
+    "scripts/lib/forced-color-checks.mjs": "c84b3ee225d15fed0dc2acbb046fb64293609107a37c15737201fceb87796493",
+    "src/components/queue-arcade.module.css": "f15aa01e2b069817eae1b305cd35592ecb3d7f86c810e4af70dcff132fabd815",
+    "src/components/private-room-panel.module.css": "1a53bf39552f77c54eee465405dd4b8173fc175c27f952663fb91c3b873f0327",
+    "src/components/calibration-dashboard.module.css": "95c2671403db42157ef79ae74228c5765140e7a3e7af442919c307ccfab60e47"
+  },
+  "scope": "Painted crop checks cover the selected controls. They do not certify page-wide contrast or a physical high-contrast display."
+}

@@ -1,0 +1,46 @@
+test_success_archives_only_reviewed_fields_and_restricts_child_environment (proof_v2_red_review.IngressWrapperTests) ... FAIL
+test_both_cf_outcomes_and_each_mixed_combination_succeed (proof_v2_red_review.IngressWrapperTests) ... 
+======================================================================
+FAIL: test_success_archives_only_reviewed_fields_and_restricts_child_environment (proof_v2_red_review.IngressWrapperTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-prove-render-ingress.py", line 138, in test_success_archives_only_reviewed_fields_and_restricts_child_environment
+    self.assertIsNone(error)
+AssertionError: RuntimeError('Hosted ingress proof precondition failed.') is not None
+
+======================================================================
+FAIL: test_both_cf_outcomes_and_each_mixed_combination_succeed (proof_v2_red_review.IngressWrapperTests) (rejected=())
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-prove-render-ingress.py", line 164, in test_both_cf_outcomes_and_each_mixed_combination_succeed
+    self.assertIsNone(error)
+AssertionError: RuntimeError('Hosted ingress proof precondition failed.') is not None
+
+======================================================================
+FAIL: test_both_cf_outcomes_and_each_mixed_combination_succeed (proof_v2_red_review.IngressWrapperTests) (rejected=(1,))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-prove-render-ingress.py", line 164, in test_both_cf_outcomes_and_each_mixed_combination_succeed
+    self.assertIsNone(error)
+AssertionError: RuntimeError('Hosted ingress proof precondition failed.') is not None
+
+======================================================================
+FAIL: test_both_cf_outcomes_and_each_mixed_combination_succeed (proof_v2_red_review.IngressWrapperTests) (rejected=(4,))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-prove-render-ingress.py", line 164, in test_both_cf_outcomes_and_each_mixed_combination_succeed
+    self.assertIsNone(error)
+AssertionError: RuntimeError('Hosted ingress proof precondition failed.') is not None
+
+======================================================================
+FAIL: test_both_cf_outcomes_and_each_mixed_combination_succeed (proof_v2_red_review.IngressWrapperTests) (rejected=(1, 4))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/queue-arcade-launch-checks/ingress-helper-v2/test-prove-render-ingress.py", line 164, in test_both_cf_outcomes_and_each_mixed_combination_succeed
+    self.assertIsNone(error)
+AssertionError: RuntimeError('Hosted ingress proof precondition failed.') is not None
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.008s
+
+FAILED (failures=5)

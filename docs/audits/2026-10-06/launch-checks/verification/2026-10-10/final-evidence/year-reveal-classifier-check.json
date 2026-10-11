@@ -1,0 +1,51 @@
+{
+  "checkerSha256": "793f95887c441b19d6dea71d413ddf334f4cc2144d5bcc7072b886869c2934e8",
+  "scope": "Only the named year-reveal smoke refresh record and its linked exact revision blobs. No broad archive validation.",
+  "passed": true,
+  "cases": [
+    {
+      "path": "docs/audits/2026-10-06/launch-checks/verification/2026-10-10/year-reveal-smoke-manifest-refresh.json",
+      "sha256": "850c0d516f7fe51daaf4ffaea749f651ad6fb6064e5fe1730bfab610b545763c",
+      "previousCommit": "64046c2d198fcbfe556599e727ae0638423a3482",
+      "currentCommit": "31961cbd762587225b4b8a814828dc0829952978",
+      "checkedBlobs": [
+        {
+          "commit": "64046c2d198fcbfe556599e727ae0638423a3482",
+          "path": "docs/content-review.json",
+          "sha256": "831cdc07fd9664c86ca90ce1204bc5b4935ea5f722201d4d90fbfb36d86e4755"
+        },
+        {
+          "commit": "31961cbd762587225b4b8a814828dc0829952978",
+          "path": "docs/content-review.json",
+          "sha256": "e79e03944f762513e40359ce10fe779afa90d75df1e0138f7e5189b7e99fb6f1"
+        },
+        {
+          "commit": "64046c2d198fcbfe556599e727ae0638423a3482",
+          "path": "scripts/visual-smoke.mjs",
+          "sha256": "8e14f037726e255d606975d9b068a630a2b155b9c6801fcd176d3c03173eaa20"
+        },
+        {
+          "commit": "64046c2d198fcbfe556599e727ae0638423a3482",
+          "path": "docs/audits/2026-10-06/launch-checks/content-review.md",
+          "sha256": "272bf69778ad75bd0e7aa51a19ca4b256c4e780777a793ef7558bc1126751af6"
+        },
+        {
+          "commit": "31961cbd762587225b4b8a814828dc0829952978",
+          "path": "scripts/visual-smoke.mjs",
+          "sha256": "0064ae5cee65d0da37fe6597d8418c421967a51c4b8a475fc269ede1f3a3d010"
+        },
+        {
+          "commit": "31961cbd762587225b4b8a814828dc0829952978",
+          "path": "docs/audits/2026-10-06/launch-checks/content-review.md",
+          "sha256": "272bf69778ad75bd0e7aa51a19ca4b256c4e780777a793ef7558bc1126751af6"
+        }
+      ],
+      "mismatches": [],
+      "scope": "Historical source-review change record. Verify exact manifest blobs, input change lists and changed input/evidence blobs.",
+      "changedInputs": [
+        "scripts/visual-smoke.mjs"
+      ],
+      "unchangedQuestionHashesCompared": true
+    }
+  ]
+}

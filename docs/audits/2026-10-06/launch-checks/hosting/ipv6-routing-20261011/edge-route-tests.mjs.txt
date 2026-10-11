@@ -1,0 +1,64 @@
+import assert from 'node:assert/strict';
+import { curlArgs, runIsolation } from './check-address-isolation-edge-v3.mjs';
+import { curlArgs as oldCurlArgs } from './check-address-isolation.mjs';
+const APP = 'https://queue-arcade.onrender.com/api/auth/steam';
+const DEST = 'queue-arcade.onrender.com:443:www.cloudflare.com:443';
+const results = [];
+async function test(name, fn) { await fn(); results.push({ name, passed: true }); }
+for (const seconds of [1, 4, 8]) {
+  for (const url of ['https://api64.ipify.org/', 'https://www.cloudflare.com/cdn-cgi/trace']) {
+    await test(`independent public source preserves the original transport at ${seconds} seconds: ${url}`, () => {
+      assert.deepEqual(curlArgs(url, false, seconds), oldCurlArgs(url, false, seconds));
+      assert(!curlArgs(url, false, seconds).includes('--connect-to'));
+    });
+  }
+  await test(`only the exact application endpoint uses the fixed edge connection at ${seconds} seconds`, () => {
+    const args = curlArgs(APP, true, seconds);
+    const index = args.indexOf('--connect-to');
+    assert(index >= 0);
+    assert.equal(args.filter(x => x === '--connect-to').length, 1);
+    assert.equal(args[index + 1], DEST);
+    assert.equal(args.at(-1), APP);
+    args.splice(index, 2);
+    assert.deepEqual(args, oldCurlArgs(APP, true, seconds));
+  });
+}
+for (const url of [APP + '?x=1', APP + '/', APP.replace('https:', 'http:'), APP.replace('/api/auth/steam', '/api/health'), APP.replace('queue-arcade.', 'other.'), 'https://queue-arcade.onrender.com:443/api/auth/steam', 'https://name:password@queue-arcade.onrender.com/api/auth/steam']) {
+  await test('reject a changed URL before a connection', () => assert.throws(() => curlArgs(url, true, 4)));
+}
+await test('the edge path keeps certificate verification and sends no credentials, spoof headers, or redirects', () => {
+  const args = curlArgs(APP, true, 4);
+  for (const flag of ['--insecure', '-k', '--location', '-L', '--proxy', '-x', '--cookie', '-b', '--cookie-jar', '-c', '--user', '-u', '--header', '-H', '--resolve']) assert(!args.includes(flag));
+  assert.equal(args[0], '--disable');
+  assert(args.includes('--ipv6'));
+  assert.equal(args[args.indexOf('--proto') + 1], '=https');
+  assert.equal(args[args.indexOf('--max-time') + 1], '4');
+  assert.equal(args[args.indexOf('--max-filesize') + 1], '16384');
+});
+await test('the result states the manual edge route and retains the original request and timing limits', async () => {
+  let now = 1791624000000;
+  const resetAt = now + 60_000;
+  let calls = 0;
+  const report = await runIsolation({
+    now: () => now,
+    source: async (url, headers, seconds) => {
+      if (url.includes('ipify')) return { status: 200, body: '2606:4700:4700::1111' };
+      if (url.includes('trace')) return { status: 200, body: 'ip=2606:4700:4700::1111\n' };
+      assert.equal(url, APP); assert.equal(headers, true); assert(seconds <= 4);
+      return { status: 302, body: 'HTTP/2 302\r\nlocation: https://steamcommunity.com/openid/login\r\n' };
+    },
+    probe: async (index, agent, deadline) => {
+      calls++; now += 10;
+      assert.equal(deadline, 1791624050000);
+      return index !== undefined && index < 120 ? { status: 302 } : { status: 429, resetAt };
+    },
+  });
+  assert.equal(calls, 131); assert.equal(report.ipv6LoginRequests, 1);
+  assert.equal(report.version, 3);
+  assert.equal(report.ipv6ApplicationRoute, 'cloudflare-shared-edge-connect-to');
+  assert.equal(report.ipv6ConnectionHostname, 'www.cloudflare.com');
+  assert.equal(report.originHostAndSniPreserved, true); assert.equal(report.tlsVerificationEnabled, true);
+  assert.equal(report.ok, true); assert.equal(report.sameWindowConfirmed, true);
+  assert.equal(report.appDataWrites, 0); assert.equal(report.cookiesRetained, false); assert.equal(report.redirectsFollowed, 0);
+});
+console.log(JSON.stringify({ checkedAt: new Date().toISOString(), hostedRequests: 0, passed: results.length, cases: results }, null, 2));

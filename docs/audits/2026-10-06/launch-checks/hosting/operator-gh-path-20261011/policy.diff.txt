@@ -1,0 +1,11 @@
+--- enable-render-proxy.py
++++ enable-render-proxy-gh-path.py
+@@ -132,7 +132,7 @@
+         if name in os.environ:
+             env[name] = os.environ[name]
+     def gh(endpoint):
+-        result = proof_helper.run_bounded(['gh', 'api', '--hostname', 'github.com', endpoint],
++        result = proof_helper.run_bounded(['/home/kulmisiu/.local/bin/gh', 'api', '--hostname', 'github.com', endpoint],
+                                           env=env, timeout=15, limit=1_000_000)
+         require(result.returncode == 0 and not result.stderr)
+         return json.loads(result.stdout)

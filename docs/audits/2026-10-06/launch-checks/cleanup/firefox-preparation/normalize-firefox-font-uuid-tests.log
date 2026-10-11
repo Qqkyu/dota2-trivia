@@ -1,0 +1,13 @@
+test_changed_other_file_stops (__main__.Checks) ... ok
+test_completion_flags_required (__main__.Checks) ... ok
+test_execute_preserves_cache_and_original (__main__.Checks) ... ok
+test_existing_backup_collision_stops (__main__.Checks) ... ok
+test_hardlinked_uuid_stops (__main__.Checks) ... ok
+test_invalid_uuid_stops (__main__.Checks) ... ok
+test_read_only (__main__.Checks) ... ok
+test_symlinked_uuid_stops (__main__.Checks) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.079s
+
+OK

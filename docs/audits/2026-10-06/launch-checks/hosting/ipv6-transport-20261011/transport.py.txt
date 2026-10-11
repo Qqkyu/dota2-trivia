@@ -1,0 +1,56 @@
+import concurrent.futures
+import datetime
+import ipaddress
+import json
+import os
+import subprocess
+from pathlib import Path
+
+CURL = '/mnt/c/Windows/System32/curl.exe'
+ENV = {'PATH': '/usr/bin:/bin', 'SystemRoot': r'C:\Windows', 'WINDIR': r'C:\Windows'}
+URLS = [('ipify', 'https://api64.ipify.org/'), ('cloudflare', 'https://www.cloudflare.com/cdn-cgi/trace')]
+
+def run(name, command, env):
+    row = {'name': name}
+    try:
+        result = subprocess.run(command, env=env, capture_output=True, timeout=11)
+        stdout = result.stdout.decode('utf-8', 'replace')
+        stderr = result.stderr.decode('utf-8', 'replace')
+        row.update(exitCode=result.returncode, stdoutBytes=len(result.stdout), stderrBytes=len(result.stderr))
+        row['errorKinds'] = [label for needle, label in [
+            ('Could not resolve', 'DNS'), ('Failed to connect', 'CONNECT'),
+            ('Network is unreachable', 'NO_ROUTE'), ('Address family not supported', 'ADDRESS_FAMILY'),
+            ('timed out', 'TIMEOUT'), ('SSL certificate problem', 'CERTIFICATE'),
+            ('schannel:', 'SCHANNEL'), ('WSL', 'WSL'), ('Exec format error', 'EXEC_FORMAT'),
+            ('Failed to execute', 'EXECUTION'), ('Proxy', 'PROXY'), ('No such file', 'MISSING_FILE'),
+        ] if needle.lower() in stderr.lower()]
+        if '\nSTATUS:' in stdout:
+            body, status = stdout.rsplit('\nSTATUS:', 1)
+            row['httpStatus'] = int(status) if status.isdigit() else None
+            values = [line[3:] for line in body.splitlines() if line.startswith('ip=')] if name.startswith('cloudflare') else [body.strip()]
+            try:
+                address = ipaddress.ip_address(values[0]) if len(values) == 1 else None
+                row['returnedAddressVersion'] = address.version if address else None
+                row['returnedAddressGlobal'] = address.is_global if address else False
+            except ValueError:
+                row['returnedAddressVersion'] = None
+        elif name.startswith('version'):
+            row['curlVersionResponse'] = stdout.startswith('curl ')
+            row['ipv6FeatureListed'] = 'IPv6' in stdout
+    except Exception as error:
+        row['exceptionType'] = type(error).__name__
+        row['errno'] = getattr(error, 'errno', None)
+    return row
+
+jobs = [('version-exact-environment', [CURL, '--disable', '--version'], ENV), ('version-inherited-environment', [CURL, '--disable', '--version'], os.environ.copy())]
+for name, url in URLS:
+    for family in (6, 4):
+        command = [CURL, '--disable', '--ipv' + str(family), '--proto', '=https', '--silent', '--show-error', '--max-time', '8', '--connect-timeout', '4', '--max-filesize', '16384', '--write-out', '\nSTATUS:%{http_code}', url]
+        jobs.append((name + '-ipv' + str(family), command, ENV))
+with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
+    rows = list(pool.map(lambda job: run(*job), jobs))
+report = {'checkedAt': datetime.datetime.now(datetime.timezone.utc).isoformat(), 'rawAddressesLogged': False, 'providerBodiesLogged': False, 'appRequests': 0, 'rows': rows}
+output = Path('/tmp/queue-arcade-launch-checks/ipv6-oct11-diagnosis/transport-result.json')
+output.write_text(json.dumps(report, indent=2) + '\n')
+output.chmod(0o600)
+print(json.dumps(report))

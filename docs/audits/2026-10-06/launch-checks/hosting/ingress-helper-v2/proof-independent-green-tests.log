@@ -1,0 +1,34 @@
+test_api_denies_every_redirect_without_a_second_request (__main__.IngressWrapperTests) ... ok
+test_api_response_has_a_size_bound (__main__.IngressWrapperTests) ... ok
+test_both_cf_outcomes_and_each_mixed_combination_succeed (__main__.IngressWrapperTests) ... ok
+test_canonical_candidate_inputs_still_checked_twice (__main__.IngressWrapperTests) ... ok
+test_changed_deployment_and_service_snapshot_is_rejected (__main__.IngressWrapperTests) ... ok
+test_changed_local_inputs_after_proof_are_rejected (__main__.IngressWrapperTests) ... ok
+test_changed_private_configuration_is_rejected (__main__.IngressWrapperTests) ... ok
+test_checked_state_accepts_only_expected_stable_configuration (__main__.IngressWrapperTests) ... ok
+test_checked_state_rejects_changed_service_fields (__main__.IngressWrapperTests) ... ok
+test_checked_state_rejects_changed_trust_origin_and_invalid_secrets (__main__.IngressWrapperTests) ... ok
+test_checked_state_rejects_wrong_commit_multiple_live_and_active_deploys (__main__.IngressWrapperTests) ... ok
+test_child_failure_and_unreviewed_output_are_rejected (__main__.IngressWrapperTests) ... ok
+test_child_private_values_and_stderr_are_never_printed_or_archived (__main__.IngressWrapperTests) ... ok
+test_edge_rejection_rows_require_exact_fields_types_and_values (__main__.IngressWrapperTests) ... ok
+test_failed_release_prerequisites_do_not_start_child (__main__.IngressWrapperTests) ... ok
+test_independent_address_disagreement_does_not_start_child (__main__.IngressWrapperTests) ... ok
+test_local_input_mismatch_symlink_oversize_and_bad_commit_are_rejected (__main__.IngressWrapperTests) ... ok
+test_local_inputs_match_exact_commit_bytes_under_a_minimal_environment (__main__.IngressWrapperTests) ... ok
+test_main_guard_does_not_print_private_exception_messages (__main__.IngressWrapperTests) ... ok
+test_operator_drift_after_child_blocks_proof_archive (__main__.IngressWrapperTests) ... ok
+test_operator_drift_before_child_blocks_child (__main__.IngressWrapperTests) ... ok
+test_operator_script_is_exact_regular_and_bounded (__main__.IngressWrapperTests) ... ok
+test_ordinary_cases_cannot_claim_edge_rejection (__main__.IngressWrapperTests) ... ok
+test_run_bounded_caps_stdout_stderr_and_combined_output (__main__.IngressWrapperTests) ... ok
+test_run_bounded_has_an_absolute_deadline_despite_trickling_output (__main__.IngressWrapperTests) ... ok
+test_run_bounded_returns_bytes_and_exit_status (__main__.IngressWrapperTests) ... ok
+test_success_archives_only_reviewed_fields_and_restricts_child_environment (__main__.IngressWrapperTests) ... ok
+test_v2_version_and_order_are_required (__main__.IngressWrapperTests) ... ok
+test_verified_rows_require_exact_types_status_and_no_edge_code (__main__.IngressWrapperTests) ... ok
+
+----------------------------------------------------------------------
+Ran 29 tests in 0.394s
+
+OK

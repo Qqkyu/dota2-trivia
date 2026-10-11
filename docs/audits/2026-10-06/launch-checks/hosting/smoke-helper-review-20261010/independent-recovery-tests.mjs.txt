@@ -1,0 +1,102 @@
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { mkdtemp, readFile, writeFile, chmod, lstat, readdir, rm } from 'node:fs/promises';
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+const source = await readFile(new URL('./hosted-smoke.mjs', import.meta.url), 'utf8');
+const sourceHash = createHash('sha256').update(source).digest('hex');
+const base = await mkdtemp('/tmp/queue-arcade-owned-recovery-review-');
+await chmod(base, 0o700);
+const original = 'const PRIVATE_BASE = "/tmp/queue-arcade-launch-checks/hosted-smoke-preparation";';
+assert.equal(source.split(original).length, 2);
+await writeFile(path.join(base, 'operator.mjs'), source.replace(original, `const PRIVATE_BASE = ${JSON.stringify(base)};`), { mode: 0o600, flag: 'wx' });
+const { Check, validateOwnedReceipt } = await import(pathToFileURL(path.join(base, 'operator.mjs')));
+const ORIGIN = 'https://queue-arcade.onrender.com';
+const gate = { commit: 'a'.repeat(40), deployId: 'dep-reviewfixture', contentVersion: 'synthetic-review-content' };
+const owned = { code: 'LAUNCH0000000000', playerId: '123e4567-e89b-42d3-a456-426614174000', roomId: '' };
+const pending = path.join(base, 'hosted-owned-guest.json');
+const results = [];
+async function test(name, operation) { await operation(); results.push({ name, passed: true }); }
+function fixture() {
+  const check = new Check(ORIGIN, gate, false);
+  check.owned = { ...owned };
+  check.calls = [];
+  check.request = async (raw, options = {}) => {
+    check.calls.push({ path: new URL(raw, ORIGIN).pathname, method: options.method ?? 'GET' });
+    assert.equal(options.cleanup, true);
+    if (options.method === 'POST') {
+      assert.equal(raw, '/api/private-rooms/leave');
+      assert.deepEqual(options.body, { code: owned.code, playerId: owned.playerId });
+      return { status: 200 };
+    }
+    assert.equal(new URL(raw, ORIGIN).pathname, '/api/private-rooms');
+    return { status: 404 };
+  };
+  return check;
+}
+try {
+  const check = fixture();
+  await test('ownership record is private and precedes any app request', async () => {
+    await check.recordGuestState({}, true);
+    assert.equal((await lstat(pending)).mode & 0o777, 0o600);
+    assert.equal(check.calls.length, 0);
+    const saved = JSON.parse(await readFile(pending, 'utf8'));
+    assert.equal(saved.createAttempted, true);
+    assert.equal(saved.voteAttempted, false);
+    assert.equal(saved.cleanupConfirmed, false);
+    validateOwnedReceipt(saved, gate, ORIGIN);
+  });
+  await test('exclusive creation preserves a previous unresolved record', async () => {
+    const before = await readFile(pending, 'utf8');
+    await assert.rejects(fixture().recordGuestState({}, true), error => error.code === 'EEXIST');
+    assert.equal(await readFile(pending, 'utf8'), before);
+  });
+  await test('an unresolved record blocks a new hosted run', async () => {
+    const fresh = fixture();
+    await assert.rejects(fresh.assertNoPendingGuest(), /OWNED_GUEST_RECOVERY_REQUIRED/);
+    assert.equal(fresh.calls.length, 0);
+  });
+  await test('vote intent update preserves private file mode', async () => {
+    check.owned.roomId = `dota2:${gate.contentVersion}:private:${owned.code}`;
+    await check.recordGuestState({ voteAttempted: true });
+    assert.equal(JSON.parse(await readFile(pending, 'utf8')).voteAttempted, true);
+    assert.equal((await lstat(pending)).mode & 0o777, 0o600);
+    assert.equal(check.calls.length, 0);
+  });
+  const valid = JSON.parse(await readFile(pending, 'utf8'));
+  for (const [key, value] of Object.entries({ origin: 'https://example.com', rehearsal: true, commit: 'b'.repeat(40), deployId: 'dep-other', contentVersion: 'other-content', createAttempted: false, voteAttempted: 'yes', cleanupConfirmed: 'yes' })) {
+    await test('reject recovery record ' + key, async () => {
+      await writeFile(pending, JSON.stringify({ ...valid, [key]: value }), { mode: 0o600 });
+      const fresh = fixture();
+      await assert.rejects(fresh.recoverOwnedGuest());
+      assert.equal(fresh.calls.length, 0);
+    });
+  }
+  await writeFile(pending, JSON.stringify(valid), { mode: 0o600 });
+  await test('recovery after an attempted vote sends only leave and absence checks', async () => {
+    const fresh = fixture();
+    await fresh.recoverOwnedGuest();
+    assert.deepEqual(fresh.calls, [
+      { path: '/api/private-rooms/leave', method: 'POST' },
+      { path: '/api/private-rooms', method: 'GET' },
+    ]);
+    assert.equal(fresh.output.checks.recovery.votesSent, 0);
+    assert.equal(fresh.output.privateRoomCleanupConfirmed, true);
+    await assert.rejects(lstat(pending), error => error.code === 'ENOENT');
+    const names = (await readdir(base)).filter(name => name.startsWith('completed-owned-guest-'));
+    assert.equal(names.length, 1);
+    const completed = path.join(base, names[0]);
+    assert.equal((await lstat(completed)).mode & 0o777, 0o600);
+    assert.equal(JSON.parse(await readFile(completed, 'utf8')).cleanupConfirmed, true);
+    assert(!JSON.stringify(fresh.output).includes(owned.playerId));
+    assert(!JSON.stringify(fresh.output).includes(owned.code));
+  });
+  await test('a cleaned record permits a new run', async () => fixture().assertNoPendingGuest());
+  console.log(JSON.stringify({ checkedAt: new Date().toISOString(), passed: results.length,
+    hostedRequests: 0, operatorSha256: sourceHash,
+    sourceAdjustment: 'The private checkpoint directory alone was replaced with an isolated temporary directory.',
+    cases: results }, null, 2));
+} finally {
+  await rm(base, { recursive: true, force: true });
+}

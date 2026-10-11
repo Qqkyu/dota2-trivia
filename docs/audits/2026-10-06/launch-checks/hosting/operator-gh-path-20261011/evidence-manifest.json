@@ -1,0 +1,69 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1733,
+      "sha256": "368ab89107be4580094d451015e05a3c84fdf5c6dd9a3cd9cb6149d19b7c351d"
+    },
+    {
+      "path": "gate-contract-tests.json",
+      "bytes": 2792,
+      "sha256": "d1c5b494617855939df00d6193c3b9c5f63aa815924ed335383f3842709ce73b"
+    },
+    {
+      "path": "gate-contract-tests.py.txt",
+      "bytes": 3423,
+      "sha256": "d748aaa80c73d100eb12f2aa97738a2ef2c0dc588c945d3c740cdcdd90f69edf"
+    },
+    {
+      "path": "gate-source.py.txt",
+      "bytes": 8494,
+      "sha256": "73266f8def00124ac76aec8a5960850bd0cc4e87571c5c13d74f295f8cdc1d5e"
+    },
+    {
+      "path": "gate-tests.json",
+      "bytes": 2876,
+      "sha256": "c0f81218d81d75d54e996bbb38411b4c274685e7ad5b8a1e2b1423cc7d7ad95d"
+    },
+    {
+      "path": "gate-tests.py.txt",
+      "bytes": 9066,
+      "sha256": "38afc44c8c5008b40bf4e9b9f78b3e002b4cc449c59a1846ccbfa114d47dc6be"
+    },
+    {
+      "path": "gate.diff.txt",
+      "bytes": 690,
+      "sha256": "e63e573166a4eae3e44ac91ee7c6381c3f7bdab5a902f3359e69e280b69e8492"
+    },
+    {
+      "path": "path-reproduction.json",
+      "bytes": 626,
+      "sha256": "ff2ee8047ef9c706793e42d30a6d633762933e628e5ee4e9a08ad8554a56e053"
+    },
+    {
+      "path": "policy-source.py.txt",
+      "bytes": 26225,
+      "sha256": "0d1400014b762b3592251f8e28eae334d41adbb1f527afda70a720dffa642b54"
+    },
+    {
+      "path": "policy-tests.log",
+      "bytes": 3275,
+      "sha256": "4e1dc337e1506178e63e4d22861c4d8e351fe8b6022ecb4f2c9b2c98913cf749"
+    },
+    {
+      "path": "policy-tests.py.txt",
+      "bytes": 28064,
+      "sha256": "6dc33d4d74c96774bca24f4a02925deb9705c8981e1e0dee6feba93bf6cb455f"
+    },
+    {
+      "path": "policy.diff.txt",
+      "bytes": 583,
+      "sha256": "ec5a97b510cfaa3475ba70f649c40dd4e0adfe521286e582292ab215a80a78e1"
+    },
+    {
+      "path": "review-result.json",
+      "bytes": 1185,
+      "sha256": "9e36cbacca0237b25dc88f875db3f3ec76b230458db9bc0b96e7a3230846a96e"
+    }
+  ]
+}

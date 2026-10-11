@@ -1,0 +1,413 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-11T06:48:25.644Z",
+  "origin": "https://queue-arcade.onrender.com",
+  "rehearsal": false,
+  "ok": true,
+  "limits": {
+    "wallMs": 900000,
+    "requests": 140,
+    "bytes": 33554432,
+    "requestMs": 15000,
+    "rounds": 26,
+    "browserRequests": 640,
+    "browserMs": 90000
+  },
+  "checks": {
+    "browserDiagnostic": {
+      "version": 1,
+      "routeCategories": {
+        "app-page-or-asset": 18,
+        "next-static": 18,
+        "public-game-cdn": 304,
+        "/api/presence": 1,
+        "/api/me": 1,
+        "/api/rounds": 11,
+        "/api/sessions": 1,
+        "/api/round-audio": 6
+      },
+      "resourceTypes": {
+        "document": 1,
+        "font": 3,
+        "image": 307,
+        "stylesheet": 5,
+        "script": 10,
+        "fetch": 22,
+        "media": 12
+      },
+      "methods": {
+        "GET": 357,
+        "POST": 1,
+        "HEAD": 2
+      },
+      "pageErrorKinds": {},
+      "consoleErrorKinds": {
+        "NETWORK_FAILED": 1
+      },
+      "failedRequestKinds": {
+        "net::ERR_FAILED": 1,
+        "net::ERR_ABORTED": 1
+      },
+      "httpStatuses": {
+        "200": 348,
+        "204": 2,
+        "206": 9
+      },
+      "requestsBySecond": {
+        "0": 21,
+        "1": 316,
+        "6": 1,
+        "11": 1,
+        "16": 2,
+        "21": 6,
+        "26": 3,
+        "29": 2,
+        "31": 1,
+        "36": 1,
+        "37": 6
+      },
+      "pathOverflow": 30,
+      "stages": [
+        {
+          "name": "home-ready",
+          "elapsedMs": 1386,
+          "forwarded": 155,
+          "routeCategories": {
+            "app-page-or-asset": 1,
+            "next-static": 18,
+            "public-game-cdn": 134,
+            "/api/presence": 1,
+            "/api/me": 1
+          },
+          "pathCount": 154
+        },
+        {
+          "name": "answering",
+          "elapsedMs": 21522,
+          "forwarded": 341,
+          "routeCategories": {
+            "app-page-or-asset": 15,
+            "next-static": 18,
+            "public-game-cdn": 300,
+            "/api/presence": 1,
+            "/api/me": 1,
+            "/api/rounds": 5,
+            "/api/sessions": 1,
+            "/api/round-audio": 1
+          },
+          "pathCount": 256
+        },
+        {
+          "name": "layout-320",
+          "elapsedMs": 21727,
+          "forwarded": 346,
+          "routeCategories": {
+            "app-page-or-asset": 15,
+            "next-static": 18,
+            "public-game-cdn": 304,
+            "/api/presence": 1,
+            "/api/me": 1,
+            "/api/rounds": 5,
+            "/api/sessions": 1,
+            "/api/round-audio": 2
+          },
+          "pathCount": 256
+        },
+        {
+          "name": "layout-1440",
+          "elapsedMs": 22042,
+          "forwarded": 346,
+          "routeCategories": {
+            "app-page-or-asset": 15,
+            "next-static": 18,
+            "public-game-cdn": 304,
+            "/api/presence": 1,
+            "/api/me": 1,
+            "/api/rounds": 5,
+            "/api/sessions": 1,
+            "/api/round-audio": 2
+          },
+          "pathCount": 256
+        },
+        {
+          "name": "reveal",
+          "elapsedMs": 37335,
+          "forwarded": 359,
+          "routeCategories": {
+            "app-page-or-asset": 18,
+            "next-static": 18,
+            "public-game-cdn": 304,
+            "/api/presence": 1,
+            "/api/me": 1,
+            "/api/rounds": 11,
+            "/api/sessions": 1,
+            "/api/round-audio": 6
+          },
+          "pathCount": 256
+        }
+      ],
+      "elapsedMs": 37342,
+      "routedRequests": 360,
+      "forwardedBrowserRequests": 359,
+      "blockedWrites": 1,
+      "exceeded": false,
+      "pageErrors": 0,
+      "proxyFailure": null,
+      "requestCategories": {
+        "app-page-or-asset": 18,
+        "next-static": 18,
+        "public-game-cdn": 304,
+        "/api/presence": 1,
+        "/api/me": 1,
+        "/api/rounds": 11,
+        "other-app-api": 6
+      },
+      "frameworkHeadersForwarded": [
+        "next-router-prefetch",
+        "next-router-segment-prefetch",
+        "next-router-state-tree",
+        "next-url",
+        "rsc"
+      ],
+      "bytes": 5443950,
+      "topPaths": [
+        {
+          "pathSha256": "5ab5f66e9756826a6005869f930ade7ef92cdf416a4b2f907236e1fb90c981c9",
+          "category": "/api/rounds",
+          "count": 11
+        },
+        {
+          "pathSha256": "11ae907f1e6370dc0a3ae8a3bd8a03e9cb395d4839e90f3d2b612a296190e29b",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "5d3b5b3989efd00fcb49a68f56a326955e88dd31782a2d9ab3caf57125b2bbb0",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "53713c64d21c199c3c8d28390889e4a17116ad3f06de8194f048b8fc0918c8f1",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "b94bfd4991ba6fd737102dd7358d2b8ea39b4f77f6521b53d2e9c393ebd524ce",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "9bd88e5fdca83f1b35234d1ab3767a0e97614ae93e75413b79234c5a48dbad7a",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "1a2df6b1ce544bdca0cde13a8d03ea418751dce556e233c042684379f859c040",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "56ccf31510b60b3b1d14eb1571ca127b6480b9a0f27580a5d28a033cb01d02c2",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "a1675ab77e8c40ab3d9955679830d29534197219ead75ebe2d2fdd24a3e40e10",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "75f4c7e05c413403ae038c39a36e38c01534358d91a44d6516030a468dac7c64",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "6ea19468cc922118add4500d98b16a1df0a3b958755aefbfb68c11813b442bdc",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "db59ee5a7329fd1eb11223720cd629eda12184b5975de04fbcbe70cb820f48ff",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "d729243ca03c5509c1c889ac1929caeba1e6481d08a76ec0be433f80ff6c9b36",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "f5d470f40b9f29ac3ca371e38eef347af32725905c1e49f16692dd4a06989a3d",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "acd27523af899f816249097f6872e6d0c8d9c58fcbf7295be0ee40c16e40e53f",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "cbcf736054ba8b515a22fc9c96001061eb4b1aaee81554bfdcaa80251959ed25",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "8c9236d4d07d3d7691034c4a7f2dc68a4968434cfa9896db83dc1692a1f57b00",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "98dcd218cd6813d4557106504ffe4860b0f299505cf02376d57e0268f56d7d76",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "a798aa1494cc589b1ee8bc05475486eb1fa48625ecf62c97fbdc2c073da703e9",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "0bd77c763ac16feb392ca5c0ded6b4a44eac1fb44478ea4f9087deb4c1b08618",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "f88fd2ab74393e1ccb96e209f7aa69d3842c39ccb50bb23265e624418a465ed3",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "ad98a480904aeca9e8bf9e9b8bd0bb6e767d6f15c1ad91bb02479139aa9c6a51",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "f8af544be3a1060d29719c0e5d668c8ce138802603c20e3cc25c8e6512aa1c22",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "f95ad69870332ece53fdfc90413da977731c2483eb0897fe08bd5bd852b0bb1b",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "f46009f85bf594dc865ff364960b6cccec08be4ee19ab41099f09a12d97cad47",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "fd977cbf28b615aeddf2b6f6600ab958adc536383b9147a43426b2b1621d63d1",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "f75cdf14087aa6886198b15809075e215119c4767bc9b0a5431eff52f842cd13",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "9121c9dd6f86553048585216930ccbb07dca69577568c6b8d0658b1486a862fe",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "b5fecd782da0e095f114b1c202e67a62110144300456313cafc2a190280c0fc2",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "b111683ca93902d175e100bc60da3b0ac45c2280ddce48eef28617158f61244a",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "387b9037e136ae0c099daff6e2a7a5f11405653498c2bcbbe94e29a2501ead38",
+          "category": "public-game-cdn",
+          "count": 2
+        },
+        {
+          "pathSha256": "fed19be21df23191cda3f23673f3c09def7b0bca15f5d3e57d84c516d23f42bd",
+          "category": "public-game-cdn",
+          "count": 2
+        }
+      ]
+    },
+    "health": {
+      "ready": true,
+      "durableStores": 3,
+      "backend": "postgres",
+      "questionCount": 1517,
+      "currentContentVersion": true,
+      "maintenanceRecent": true
+    },
+    "browser": {
+      "views": [
+        {
+          "width": 320,
+          "height": 568,
+          "noHorizontalOverflow": true,
+          "hasPrompt": true,
+          "hasTimer": true,
+          "hasAnswerControl": true
+        },
+        {
+          "width": 1440,
+          "height": 1000,
+          "noHorizontalOverflow": true,
+          "hasPrompt": true,
+          "hasTimer": true,
+          "hasAnswerControl": true
+        }
+      ],
+      "liveAnsweringAndReveal": true,
+      "votesSent": 0,
+      "mutationRequestsBlocked": 1,
+      "requests": 360,
+      "requestCategories": {
+        "app-page-or-asset": 18,
+        "next-static": 18,
+        "public-game-cdn": 304,
+        "/api/presence": 1,
+        "/api/me": 1,
+        "/api/rounds": 11,
+        "other-app-api": 6
+      },
+      "frameworkHeadersForwarded": [
+        "next-router-prefetch",
+        "next-router-segment-prefetch",
+        "next-router-state-tree",
+        "next-url",
+        "rsc"
+      ],
+      "pageErrors": 0,
+      "freshContext": true,
+      "allCookiesStripped": true,
+      "transport": "bounded Node proxy with browser rendering",
+      "redirectsFollowed": 0
+    }
+  },
+  "accountHolderSteamLoginVerified": false,
+  "deployment": {
+    "serviceId": "srv-d9mqd1942hec73e9nlt0",
+    "deployId": "dep-db5imrt9fdbs73d19570",
+    "commit": "31961cbd762587225b4b8a814828dc0829952978",
+    "ciRunId": 38050315807,
+    "plan": "free",
+    "runtimeRoleMatchesVerifiedRole": true,
+    "proxyPolicy": "cf-connecting-ip"
+  },
+  "afterChecksPassed": true,
+  "failure": null,
+  "finishedAt": "2026-10-11T06:49:05.129Z",
+  "operatorSha256": "695558a482a668f872e602351d527f09b10a3ecb24eed7b8e25a636880536627",
+  "httpRequests": 8,
+  "browserHttpRequests": 359,
+  "httpBytes": 6823446,
+  "votesSent": 0,
+  "privateWrites": {
+    "create": 0,
+    "start": 0,
+    "leave": 0
+  }
+}

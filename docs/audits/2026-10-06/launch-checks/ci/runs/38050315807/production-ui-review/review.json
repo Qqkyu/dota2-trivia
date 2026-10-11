@@ -1,0 +1,445 @@
+{
+  "reviewedAt": "2026-10-10T12:28:15.451444+00:00",
+  "result": "All 40 targeted final control images are byte-identical to the reviewed prior production run. Representative final images preserve the four UI corrections and distinct focus states. No new visible issue was found in this spot review.",
+  "workflowRun": "38050315807",
+  "sourceCommit": "31961cbd762587225b4b8a814828dc0829952978",
+  "imageId": "sha256:3bfdaf12795a02f03a4f0bbb990bb762a2c80c895546ee88102b802a39a1b5ab",
+  "provenance": "The CI owner supplied the exact run/source/image association for these copied runner screenshots. Browser JSON has buildId null, so the raw report does not independently prove its source or image.",
+  "priorRun": "38047885476",
+  "priorCommit": "64046c2d198fcbfe556599e727ae0638423a3482",
+  "priorReview": "../../38047885476/production-ui-review/review.json",
+  "commitDiffFiles": [
+    "docs/content-review.json",
+    "scripts/visual-smoke.mjs"
+  ],
+  "appOrCssChanged": false,
+  "expectedResult": "The final image retains the corrected mute visibility, party checkmarks, selected shop underline, selected calibration double border and separate keyboard-focus outlines.",
+  "scope": "Read-only hash comparison of 40 forced-light/dark control screenshots against the prior production review, plus direct inspection of eight final representative images. The broad visual review was not repeated. No app changes or new tests.",
+  "controlComparisons": [
+    {
+      "file": "chromium-forced-volume-muted-text.png",
+      "previousSha256": "cc5d3ce1b6b5d3fa22f4b9b7011f07ed49f95ef4f2f51a039c7d287329e62f88",
+      "finalSha256": "cc5d3ce1b6b5d3fa22f4b9b7011f07ed49f95ef4f2f51a039c7d287329e62f88",
+      "identical": true,
+      "bytes": 614
+    },
+    {
+      "file": "chromium-forced-volume-enabled-text.png",
+      "previousSha256": "cc5d3ce1b6b5d3fa22f4b9b7011f07ed49f95ef4f2f51a039c7d287329e62f88",
+      "finalSha256": "cc5d3ce1b6b5d3fa22f4b9b7011f07ed49f95ef4f2f51a039c7d287329e62f88",
+      "identical": true,
+      "bytes": 614
+    },
+    {
+      "file": "chromium-forced-volume-muted-slider.png",
+      "previousSha256": "b5990bfdfda8710c67139ec41bd64366432c2ded898e9896fab2a679f5bbd44c",
+      "finalSha256": "b5990bfdfda8710c67139ec41bd64366432c2ded898e9896fab2a679f5bbd44c",
+      "identical": true,
+      "bytes": 1334
+    },
+    {
+      "file": "chromium-forced-volume-enabled-slider.png",
+      "previousSha256": "b5990bfdfda8710c67139ec41bd64366432c2ded898e9896fab2a679f5bbd44c",
+      "finalSha256": "b5990bfdfda8710c67139ec41bd64366432c2ded898e9896fab2a679f5bbd44c",
+      "identical": true,
+      "bytes": 1334
+    },
+    {
+      "file": "chromium-forced-volume-muted-button.png",
+      "previousSha256": "2140cac55e26b3bb07320db2bf6fd9358a08e193316b76bde0cf2252065b9cbd",
+      "finalSha256": "2140cac55e26b3bb07320db2bf6fd9358a08e193316b76bde0cf2252065b9cbd",
+      "identical": true,
+      "bytes": 1254
+    },
+    {
+      "file": "chromium-forced-volume-enabled-button.png",
+      "previousSha256": "6128a0007761e415ec8cf79f6dae6d15cb23c50476a72dda026507006573c5cb",
+      "finalSha256": "6128a0007761e415ec8cf79f6dae6d15cb23c50476a72dda026507006573c5cb",
+      "identical": true,
+      "bytes": 1306
+    },
+    {
+      "file": "chromium-forced-party-selected.png",
+      "previousSha256": "66b336eeae4eda6672c5735d4af10e7b3e246d6a38c14191d57f41040ffad1e6",
+      "finalSha256": "66b336eeae4eda6672c5735d4af10e7b3e246d6a38c14191d57f41040ffad1e6",
+      "identical": true,
+      "bytes": 264
+    },
+    {
+      "file": "chromium-forced-party-unselected.png",
+      "previousSha256": "6929feca4be8f2414418ca69449b981db0830b5ee32861d95c6fd5acca4febb9",
+      "finalSha256": "6929feca4be8f2414418ca69449b981db0830b5ee32861d95c6fd5acca4febb9",
+      "identical": true,
+      "bytes": 106
+    },
+    {
+      "file": "chromium-forced-party-keyboard-selected.png",
+      "previousSha256": "66b336eeae4eda6672c5735d4af10e7b3e246d6a38c14191d57f41040ffad1e6",
+      "finalSha256": "66b336eeae4eda6672c5735d4af10e7b3e246d6a38c14191d57f41040ffad1e6",
+      "identical": true,
+      "bytes": 264
+    },
+    {
+      "file": "chromium-forced-party-keyboard-unselected.png",
+      "previousSha256": "6929feca4be8f2414418ca69449b981db0830b5ee32861d95c6fd5acca4febb9",
+      "finalSha256": "6929feca4be8f2414418ca69449b981db0830b5ee32861d95c6fd5acca4febb9",
+      "identical": true,
+      "bytes": 106
+    },
+    {
+      "file": "chromium-forced-party-unselected-unfocused.png",
+      "previousSha256": "696fd669da8885917a06f861c26744467cd78e86a88cab4d12c4de12f59dce24",
+      "finalSha256": "696fd669da8885917a06f861c26744467cd78e86a88cab4d12c4de12f59dce24",
+      "identical": true,
+      "bytes": 20989
+    },
+    {
+      "file": "chromium-forced-party-unselected-keyboard-focus.png",
+      "previousSha256": "559ce1c237c343bb38d344d8fbee300772159404cd1bb04fd0c442c9b5f43cac",
+      "finalSha256": "559ce1c237c343bb38d344d8fbee300772159404cd1bb04fd0c442c9b5f43cac",
+      "identical": true,
+      "bytes": 19342
+    },
+    {
+      "file": "chromium-forced-shop-selected.png",
+      "previousSha256": "d8926bb50b707ced8497bc0f7e40d0667868beacfdad57f84d44614426d56bd3",
+      "finalSha256": "d8926bb50b707ced8497bc0f7e40d0667868beacfdad57f84d44614426d56bd3",
+      "identical": true,
+      "bytes": 692
+    },
+    {
+      "file": "chromium-forced-shop-unselected.png",
+      "previousSha256": "6a77ed17947aa059eeb3f59dd0145b7fcd68bba556c74b0588c6f64824cee365",
+      "finalSha256": "6a77ed17947aa059eeb3f59dd0145b7fcd68bba556c74b0588c6f64824cee365",
+      "identical": true,
+      "bytes": 691
+    },
+    {
+      "file": "chromium-forced-shop-unselected-unfocused.png",
+      "previousSha256": "9a7ade9457be7e5d40ea9b537a9eb8f8f16f0156b1c41c95bfe08c2b022ab8fd",
+      "finalSha256": "9a7ade9457be7e5d40ea9b537a9eb8f8f16f0156b1c41c95bfe08c2b022ab8fd",
+      "identical": true,
+      "bytes": 752
+    },
+    {
+      "file": "chromium-forced-shop-unselected-keyboard-focus.png",
+      "previousSha256": "40ca44748a8453a29d958307735ad482813a282d4efe1fcdbd706accbed18f86",
+      "finalSha256": "40ca44748a8453a29d958307735ad482813a282d4efe1fcdbd706accbed18f86",
+      "identical": true,
+      "bytes": 789
+    },
+    {
+      "file": "chromium-forced-calibration-selected.png",
+      "previousSha256": "cda582a9fa8befc80d30cf70deb79bdc6589b67ce6cf23cacaec9b5cb10f3eff",
+      "finalSha256": "cda582a9fa8befc80d30cf70deb79bdc6589b67ce6cf23cacaec9b5cb10f3eff",
+      "identical": true,
+      "bytes": 906
+    },
+    {
+      "file": "chromium-forced-calibration-unselected.png",
+      "previousSha256": "2a56263fa7762c06be8f5a18f1ca416fc604f65c0a0833e8b510ff5b2a4a869a",
+      "finalSha256": "2a56263fa7762c06be8f5a18f1ca416fc604f65c0a0833e8b510ff5b2a4a869a",
+      "identical": true,
+      "bytes": 880
+    },
+    {
+      "file": "chromium-forced-calibration-unselected-unfocused.png",
+      "previousSha256": "12199bebc7c80f62cecf5123d1267f0b5eef46191853be8ac2f0ea4c61160231",
+      "finalSha256": "12199bebc7c80f62cecf5123d1267f0b5eef46191853be8ac2f0ea4c61160231",
+      "identical": true,
+      "bytes": 951
+    },
+    {
+      "file": "chromium-forced-calibration-unselected-keyboard-focus.png",
+      "previousSha256": "7f2ccdec2bc37ff1b7142818f9555ffb2f53d69d0f207a3b42aaf5ede88a68ab",
+      "finalSha256": "7f2ccdec2bc37ff1b7142818f9555ffb2f53d69d0f207a3b42aaf5ede88a68ab",
+      "identical": true,
+      "bytes": 990
+    },
+    {
+      "file": "chromium-forced-dark-volume-muted-text.png",
+      "previousSha256": "64895136af771a448f41ba64d5b889fd8f82cdbac1c22e71a1d2938f6a471be4",
+      "finalSha256": "64895136af771a448f41ba64d5b889fd8f82cdbac1c22e71a1d2938f6a471be4",
+      "identical": true,
+      "bytes": 610
+    },
+    {
+      "file": "chromium-forced-dark-volume-enabled-text.png",
+      "previousSha256": "64895136af771a448f41ba64d5b889fd8f82cdbac1c22e71a1d2938f6a471be4",
+      "finalSha256": "64895136af771a448f41ba64d5b889fd8f82cdbac1c22e71a1d2938f6a471be4",
+      "identical": true,
+      "bytes": 610
+    },
+    {
+      "file": "chromium-forced-dark-volume-muted-slider.png",
+      "previousSha256": "240169923a7e6c62f707c998a3b79b8b13f833a5f0bef0cc51af3461d658c820",
+      "finalSha256": "240169923a7e6c62f707c998a3b79b8b13f833a5f0bef0cc51af3461d658c820",
+      "identical": true,
+      "bytes": 1282
+    },
+    {
+      "file": "chromium-forced-dark-volume-enabled-slider.png",
+      "previousSha256": "240169923a7e6c62f707c998a3b79b8b13f833a5f0bef0cc51af3461d658c820",
+      "finalSha256": "240169923a7e6c62f707c998a3b79b8b13f833a5f0bef0cc51af3461d658c820",
+      "identical": true,
+      "bytes": 1282
+    },
+    {
+      "file": "chromium-forced-dark-volume-muted-button.png",
+      "previousSha256": "80b7cce2fe21c28f33ac0cd067ca51627dbf77886a6de0cea441e792b309f7b7",
+      "finalSha256": "80b7cce2fe21c28f33ac0cd067ca51627dbf77886a6de0cea441e792b309f7b7",
+      "identical": true,
+      "bytes": 1287
+    },
+    {
+      "file": "chromium-forced-dark-volume-enabled-button.png",
+      "previousSha256": "e17121bf8486ebbc68d1482641bce0729caada5987edf7efe88acd42531f1554",
+      "finalSha256": "e17121bf8486ebbc68d1482641bce0729caada5987edf7efe88acd42531f1554",
+      "identical": true,
+      "bytes": 1308
+    },
+    {
+      "file": "chromium-forced-dark-party-selected.png",
+      "previousSha256": "6c2272345c40d4ba7d3d95ec9c7866ddafa490d3887c56ff3518ebb34a19548e",
+      "finalSha256": "6c2272345c40d4ba7d3d95ec9c7866ddafa490d3887c56ff3518ebb34a19548e",
+      "identical": true,
+      "bytes": 294
+    },
+    {
+      "file": "chromium-forced-dark-party-unselected.png",
+      "previousSha256": "95bbd7c724349b94ae8c85d7703e302d1497c0c7bffcfe85ab3425f81a19c24f",
+      "finalSha256": "95bbd7c724349b94ae8c85d7703e302d1497c0c7bffcfe85ab3425f81a19c24f",
+      "identical": true,
+      "bytes": 104
+    },
+    {
+      "file": "chromium-forced-dark-party-keyboard-selected.png",
+      "previousSha256": "6c2272345c40d4ba7d3d95ec9c7866ddafa490d3887c56ff3518ebb34a19548e",
+      "finalSha256": "6c2272345c40d4ba7d3d95ec9c7866ddafa490d3887c56ff3518ebb34a19548e",
+      "identical": true,
+      "bytes": 294
+    },
+    {
+      "file": "chromium-forced-dark-party-keyboard-unselected.png",
+      "previousSha256": "95bbd7c724349b94ae8c85d7703e302d1497c0c7bffcfe85ab3425f81a19c24f",
+      "finalSha256": "95bbd7c724349b94ae8c85d7703e302d1497c0c7bffcfe85ab3425f81a19c24f",
+      "identical": true,
+      "bytes": 104
+    },
+    {
+      "file": "chromium-forced-dark-party-unselected-unfocused.png",
+      "previousSha256": "6e75e2096eb2602b5bb363fc6612af598b61c94e89f8d51bab7a43081f7353d8",
+      "finalSha256": "6e75e2096eb2602b5bb363fc6612af598b61c94e89f8d51bab7a43081f7353d8",
+      "identical": true,
+      "bytes": 27060
+    },
+    {
+      "file": "chromium-forced-dark-party-unselected-keyboard-focus.png",
+      "previousSha256": "044fbe7ecad899e39ddcd10c8b74dbcfdb3460a41250b6cbb0032b76a94cf2ad",
+      "finalSha256": "044fbe7ecad899e39ddcd10c8b74dbcfdb3460a41250b6cbb0032b76a94cf2ad",
+      "identical": true,
+      "bytes": 26343
+    },
+    {
+      "file": "chromium-forced-dark-shop-selected.png",
+      "previousSha256": "76cd43d50e6fe4eabf3e68bb49591e9c99ac1261002abf2e070e3cf2c81fc3df",
+      "finalSha256": "76cd43d50e6fe4eabf3e68bb49591e9c99ac1261002abf2e070e3cf2c81fc3df",
+      "identical": true,
+      "bytes": 742
+    },
+    {
+      "file": "chromium-forced-dark-shop-unselected.png",
+      "previousSha256": "f1b7ba7f9343b38dd8f274b1cae9ef3565e2b5b16b4cc74da1cbd5bb033f2380",
+      "finalSha256": "f1b7ba7f9343b38dd8f274b1cae9ef3565e2b5b16b4cc74da1cbd5bb033f2380",
+      "identical": true,
+      "bytes": 737
+    },
+    {
+      "file": "chromium-forced-dark-shop-unselected-unfocused.png",
+      "previousSha256": "6859f9d3733c8a0f0ecb765a40e41b1ea31f97ad37b6b723ee7d2359c19b6a86",
+      "finalSha256": "6859f9d3733c8a0f0ecb765a40e41b1ea31f97ad37b6b723ee7d2359c19b6a86",
+      "identical": true,
+      "bytes": 795
+    },
+    {
+      "file": "chromium-forced-dark-shop-unselected-keyboard-focus.png",
+      "previousSha256": "b3d032fa0f2a1ae378ec6399d73325bc7cbd9fe43dd5472601063331d078cd1e",
+      "finalSha256": "b3d032fa0f2a1ae378ec6399d73325bc7cbd9fe43dd5472601063331d078cd1e",
+      "identical": true,
+      "bytes": 838
+    },
+    {
+      "file": "chromium-forced-dark-calibration-selected.png",
+      "previousSha256": "806962050867b63ea232cd076ea588d853b818146a1904b6080278df460b64b3",
+      "finalSha256": "806962050867b63ea232cd076ea588d853b818146a1904b6080278df460b64b3",
+      "identical": true,
+      "bytes": 1014
+    },
+    {
+      "file": "chromium-forced-dark-calibration-unselected.png",
+      "previousSha256": "69429b9f33573a863428e7a2df4dc593453c6ac4938f3bcc0e8d487b5b9c4533",
+      "finalSha256": "69429b9f33573a863428e7a2df4dc593453c6ac4938f3bcc0e8d487b5b9c4533",
+      "identical": true,
+      "bytes": 996
+    },
+    {
+      "file": "chromium-forced-dark-calibration-unselected-unfocused.png",
+      "previousSha256": "b8a6dc697a0d25733153ec615f210a0f532529661b127b3eb336a41834c35372",
+      "finalSha256": "b8a6dc697a0d25733153ec615f210a0f532529661b127b3eb336a41834c35372",
+      "identical": true,
+      "bytes": 1057
+    },
+    {
+      "file": "chromium-forced-dark-calibration-unselected-keyboard-focus.png",
+      "previousSha256": "ea2a2bbe58f3e638a7dc91871790c98279932c1b25078a57a5168ced13afad28",
+      "finalSha256": "ea2a2bbe58f3e638a7dc91871790c98279932c1b25078a57a5168ced13afad28",
+      "identical": true,
+      "bytes": 1096
+    }
+  ],
+  "representativeImages": [
+    {
+      "file": "chromium-forced-home.png",
+      "sha256": "becc365778ace99f3aa258481ca22d4899d6879d905df9d4d5d61188bd597e7c",
+      "bytes": 651611,
+      "size": [
+        1280,
+        932
+      ],
+      "directlyViewed": true
+    },
+    {
+      "file": "chromium-forced-dark-home.png",
+      "sha256": "6950000c4bd5d9462c28ccde00fe49427f55bbbb9d86d905668ac68372328044",
+      "bytes": 652978,
+      "size": [
+        1280,
+        932
+      ],
+      "directlyViewed": true
+    },
+    {
+      "file": "chromium-forced-party-selected.png",
+      "sha256": "66b336eeae4eda6672c5735d4af10e7b3e246d6a38c14191d57f41040ffad1e6",
+      "bytes": 264,
+      "size": [
+        14,
+        14
+      ],
+      "directlyViewed": true
+    },
+    {
+      "file": "chromium-forced-dark-party-unselected.png",
+      "sha256": "95bbd7c724349b94ae8c85d7703e302d1497c0c7bffcfe85ab3425f81a19c24f",
+      "bytes": 104,
+      "size": [
+        14,
+        14
+      ],
+      "directlyViewed": true
+    },
+    {
+      "file": "chromium-forced-shop-selected.png",
+      "sha256": "d8926bb50b707ced8497bc0f7e40d0667868beacfdad57f84d44614426d56bd3",
+      "bytes": 692,
+      "size": [
+        88,
+        36
+      ],
+      "directlyViewed": true
+    },
+    {
+      "file": "chromium-forced-dark-shop-unselected-keyboard-focus.png",
+      "sha256": "b3d032fa0f2a1ae378ec6399d73325bc7cbd9fe43dd5472601063331d078cd1e",
+      "bytes": 838,
+      "size": [
+        100,
+        48
+      ],
+      "directlyViewed": true
+    },
+    {
+      "file": "chromium-forced-calibration-selected.png",
+      "sha256": "cda582a9fa8befc80d30cf70deb79bdc6589b67ce6cf23cacaec9b5cb10f3eff",
+      "bytes": 906,
+      "size": [
+        97,
+        39
+      ],
+      "directlyViewed": true
+    },
+    {
+      "file": "chromium-forced-dark-calibration-unselected-keyboard-focus.png",
+      "sha256": "ea2a2bbe58f3e638a7dc91871790c98279932c1b25078a57a5168ced13afad28",
+      "bytes": 1096,
+      "size": [
+        109,
+        51
+      ],
+      "directlyViewed": true
+    }
+  ],
+  "browserReports": [
+    {
+      "engine": "chromium",
+      "version": "149.0.7827.55",
+      "startedAt": "2026-10-10T12:19:32.753Z",
+      "completedAt": "2026-10-10T12:22:22.764Z",
+      "completed": true,
+      "buildId": null,
+      "failures": [],
+      "paintingChecks": 117,
+      "passedPaintingChecks": 117,
+      "reportSha256": "4e7947dcdd62d0fe7c564b063a2ac3ce8fa29c37c682b8ecaa1d63e71fb986f2"
+    },
+    {
+      "engine": "firefox",
+      "version": "151.0",
+      "startedAt": "2026-10-10T12:22:23.339Z",
+      "completedAt": "2026-10-10T12:23:08.929Z",
+      "completed": true,
+      "buildId": null,
+      "failures": [],
+      "paintingChecks": 0,
+      "passedPaintingChecks": 0,
+      "reportSha256": "c4d9409772d730e7ed80b2b19a19796d43ef0a4265a54bd17c840e3544f3c7cb"
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "startedAt": "2026-10-10T12:23:09.478Z",
+      "completedAt": "2026-10-10T12:24:51.024Z",
+      "completed": true,
+      "buildId": null,
+      "failures": [],
+      "paintingChecks": 0,
+      "passedPaintingChecks": 0,
+      "reportSha256": "6c2b5d15510e76373ca3d65369dbb0d3de3aa9b3eb1989c3597886cb4178667f"
+    }
+  ],
+  "rawForcedAxe": [
+    {
+      "mode": "forced",
+      "states": 23,
+      "violationRuleInstances": 22,
+      "violationNodeOccurrences": 240,
+      "incompleteNodeOccurrences": 1538,
+      "browserErrors": 0
+    },
+    {
+      "mode": "forced-dark",
+      "states": 23,
+      "violationRuleInstances": 0,
+      "violationNodeOccurrences": 0,
+      "incompleteNodeOccurrences": 1534,
+      "browserErrors": 0
+    }
+  ],
+  "limits": [
+    "The spot review covers the four corrected control states and their sampled focus states. It is not a full contrast or accessibility audit.",
+    "Raw forced-light axe contrast entries remain excluded from the gate because authored colors can differ from forced-color painting. Incomplete checks remain unresolved automated checks.",
+    "Firefox and WebKit completed their mobile checks with no gate failures. They did not perform forced-color painting checks and their screenshots were not inspected here.",
+    "These browser captures do not certify physical devices, Windows high-contrast themes, screen readers or all viewports.",
+    "The overall workflow result, deployment and release decision belong to the parent CI record. This review reports only completed accessibility evidence."
+  ]
+}

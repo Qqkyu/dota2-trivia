@@ -1,0 +1,18 @@
+{
+  "at": "2026-10-10T11:05:09.465650+00:00",
+  "sourceCommit": "6e1eace126e89341052dddbd76eeb4ad4de584e6",
+  "files": [
+    {
+      "path": "src/components/queue-arcade.module.css",
+      "sha256": "f15aa01e2b069817eae1b305cd35592ecb3d7f86c810e4af70dcff132fabd815"
+    },
+    {
+      "path": "src/components/private-room-panel.module.css",
+      "sha256": "1a53bf39552f77c54eee465405dd4b8173fc175c27f952663fb91c3b873f0327"
+    },
+    {
+      "path": "src/components/calibration-dashboard.module.css",
+      "sha256": "95c2671403db42157ef79ae74228c5765140e7a3e7af442919c307ccfab60e47"
+    }
+  ]
+}

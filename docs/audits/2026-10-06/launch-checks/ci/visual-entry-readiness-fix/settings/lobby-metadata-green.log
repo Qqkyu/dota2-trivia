@@ -1,0 +1,35 @@
+{
+  "checks": {
+    "startButtons": true,
+    "defaultVolume": true,
+    "migratedVolume": true,
+    "migratedMuted": true,
+    "shareButtons": true,
+    "canonical": true,
+    "openGraphImage": true,
+    "modeCards": true,
+    "roundFamilies": true,
+    "classic": true,
+    "flashback": true,
+    "tenGames": true,
+    "noOldChoice": true,
+    "muted": true,
+    "volume": true
+  },
+  "actual": {
+    "defaultVolume": "70",
+    "migratedVolume": "70",
+    "migratedMuted": true,
+    "startButtons": 1,
+    "shareButtons": 0,
+    "canonical": "http://127.0.0.1:3000/",
+    "expectedCanonical": "http://127.0.0.1:3000/",
+    "openGraphImage": "http://127.0.0.1:3000/opengraph-image?6e152baac7db7aec",
+    "modeCards": 0,
+    "roundFamilies": 10,
+    "roundMix": "ROUND MIX\nClassic Trivia\nShopkeeper\nSpell Link\nFogged\nEcho\nSoundcheck\nQuotes\nAghanim's Lab\nOrder Up\nFlashback",
+    "copy": "QUEUE ARCADE\nSide quests, between matches\nDOTA 2 · PATCH 7.41F\n45%\nONE PUBLIC ROOM · TEN GAMES\nYour queue has\nside quests.\n\nA Dota arcade built for the gap between Find Match and Accept. Everyone plays the same endless rotation; the challenge changes every round.\n\nROUND MIX\nClassic Trivia\nShopkeeper\nSpell Link\nFogged\nEcho\nSoundcheck\nQuotes\nAghanim's Lab\nOrder Up\nFlashback\nPLAY DOTA\nPARTY\nSign in with Steam\n10\ngames in the mix\n1517\npatch-current prompts\n2×\ncrowd-breaker bonus\n0%\nyour lifetime accuracy\nQUEUE ARCADE\n00:15\nONE ROOM · ENDLESS\nThe next round could be anything.\n\nDota facts, recipes, spells, history, TI, fog, voices, sounds, and quotes—one round at a time.\n\nOne synchronized round, deadline, and answer split for everyone\nPUBLIC ROOM READY\nPublic Arcade\n15s\nQueue Arcade · Built for the seconds between “Find Match” and “Accept”\nProfile\nPrivacy\nCalibration lab\nDota 2 is a trademark of Valve Corporation. Game assets belong to their respective rights holders. This project is not affiliated with Valve.",
+    "muted": true,
+    "volume": "45"
+  }
+}

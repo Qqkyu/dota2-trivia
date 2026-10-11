@@ -1,0 +1,33 @@
+{
+  "name": "queue-arcade-ci-20261010T115945Z",
+  "id": "97673dba920d1d9952461b6d8655a1a74e0693102a0f0e72bfbe859423f6ae7e",
+  "image": "sha256:285cd0c0d0fd7be15e0900938d552db30bd6dcb92e4704d338e4d42f33e34d43",
+  "state": {
+    "Status": "running",
+    "Running": true,
+    "OOMKilled": false,
+    "StartedAt": "2026-10-10T11:59:47.259298412Z"
+  },
+  "limits": {
+    "NanoCpus": 2000000000,
+    "Memory": 5368709120,
+    "MemorySwap": 5368709120,
+    "ShmSize": 1073741824,
+    "CgroupnsMode": "private",
+    "PidMode": "",
+    "IpcMode": "private",
+    "NetworkMode": "bridge",
+    "UTSMode": "",
+    "Privileged": true,
+    "Binds": null,
+    "VolumesFrom": null
+  },
+  "mounts": [
+    {
+      "Type": "volume",
+      "Name": "queue-arcade-ci-20261010T115945Z-data",
+      "Destination": "/var/lib/docker",
+      "RW": true
+    }
+  ]
+}

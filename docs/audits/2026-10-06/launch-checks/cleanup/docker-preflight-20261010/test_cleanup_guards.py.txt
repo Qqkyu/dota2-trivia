@@ -1,0 +1,89 @@
+import copy, importlib.util, json, pathlib, tempfile, unittest
+spec=importlib.util.spec_from_file_location('cleanup', '/tmp/dota2-trivia-audit-close/cleanup-reviewed-docker.py')
+m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+
+class Guards(unittest.TestCase):
+ def setUp(self):
+  self.temp=tempfile.TemporaryDirectory();m.BASE=pathlib.Path(self.temp.name)
+  (m.BASE/'docker-cleanup-root-go.json').write_text(json.dumps({'parent':'/root','hostedChecksComplete':True,'privateBackupRetentionVerified':True,'confirmedAt':'test'}))
+  self.container={'id':m.CONTAINER,'name':m.NAME,'image':m.PG_IMAGE,'status':'exited','running':False,'mounts':[{'Type':'volume','Name':m.VOLUME,'Destination':'/var/lib/postgresql/data','Driver':'local'}],'binds':None,'mountRequests':None,'declaredVolumes':{'/var/lib/postgresql/data':{}}}
+  self.volume={'name':m.VOLUME,'driver':'local','scope':'local','options':None,'createdAt':'2026-10-06T12:33:18Z'}
+  self.images={tag:{'id':expected,'tags':[tag]} for tag,expected in m.IMAGES.items()}
+  self.volume_users=[m.CONTAINER];self.image_users={};self.reused_name=False;self.mutations=[]
+  m.RESULT={'removed':[],'problems':[]};m.command=self.command
+ def tearDown(self):self.temp.cleanup()
+ def command(self,*args):
+  if args==('ps','-aq','--no-trunc'):return m.CONTAINER if self.container else ''
+  if args==('ps','-a','--format','{{.Names}}'):return m.NAME.lstrip('/') if self.container or self.reused_name else ''
+  if args[:3]==('container','inspect','--format'):return json.dumps(self.container)
+  if args==('volume','ls','-q'):return m.VOLUME if self.volume else ''
+  if args[:3]==('volume','inspect','--format'):return json.dumps(self.volume)
+  if args[:4]==('ps','-aq','--no-trunc','--filter'):
+   if args[4].startswith('volume='):return '\n'.join(self.volume_users)
+   if args[4].startswith('ancestor='):return '\n'.join(self.image_users.get(args[4][9:],[]))
+  if args==('image','ls','--format','{{.Repository}}:{{.Tag}}'):return '\n'.join(self.images)
+  if args[:3]==('image','inspect','--format'):return json.dumps(self.images[args[-1]])
+  if args[:2]==('container','rm'):
+   self.assertEqual(args[2],m.CONTAINER);self.mutations.append(args);self.container=None;self.volume_users=[];return m.CONTAINER
+  if args[:2]==('volume','rm'):
+   self.assertFalse(self.volume_users);self.assertEqual(args[2],m.VOLUME);self.mutations.append(args);self.volume=None;return m.VOLUME
+  if args[:2]==('image','rm'):
+   self.assertEqual(args[2],'--no-prune');self.assertIn(args[3],m.IMAGES);self.mutations.append(args);del self.images[args[3]];return args[3]
+  raise AssertionError('Unexpected command '+repr(args))
+ def refuses_before_mutation(self):
+  with self.assertRaises((RuntimeError,FileNotFoundError)):m.run(True)
+  self.assertEqual(self.mutations,[])
+ def test_review_is_read_only(self):m.run(False);self.assertFalse(self.mutations);self.assertTrue(m.RESULT['completed'])
+ def test_exact_execute(self):m.run(True);self.assertEqual(len(self.mutations),8);self.assertTrue(m.RESULT['completed'])
+ def test_all_absent_is_idempotent(self):
+  self.container=None;self.volume=None;self.images={};self.volume_users=[];m.run(True);self.assertFalse(self.mutations)
+ def test_orphan_volume_refused(self):self.container=None;self.volume_users=[];self.refuses_before_mutation()
+ def test_recreated_volume_refused(self):
+  original=self.command
+  def wrapper(*args):
+   out=original(*args)
+   if args[:2]==('container','rm'):self.volume['createdAt']='2026-10-10T13:00:00Z'
+   return out
+  m.command=wrapper
+  with self.assertRaises(RuntimeError):m.run(True)
+  self.assertEqual(self.mutations,[('container','rm',m.CONTAINER)])
+ def test_missing_authorization(self):(m.BASE/'docker-cleanup-root-go.json').unlink();self.refuses_before_mutation()
+ def test_incomplete_hosted_gate(self):
+  p=m.BASE/'docker-cleanup-root-go.json';d=json.loads(p.read_text());d['hostedChecksComplete']=False;p.write_text(json.dumps(d));self.refuses_before_mutation()
+ def test_incomplete_retention_gate(self):
+  p=m.BASE/'docker-cleanup-root-go.json';d=json.loads(p.read_text());d['privateBackupRetentionVerified']=False;p.write_text(json.dumps(d));self.refuses_before_mutation()
+ def test_wrong_parent(self):
+  p=m.BASE/'docker-cleanup-root-go.json';d=json.loads(p.read_text());d['parent']='other';p.write_text(json.dumps(d));self.refuses_before_mutation()
+ def test_name_reused(self):self.container=None;self.reused_name=True;self.refuses_before_mutation()
+ def test_container_id_changed(self):self.container['id']='other';self.refuses_before_mutation()
+ def test_container_name_changed(self):self.container['name']='/other';self.refuses_before_mutation()
+ def test_container_image_changed(self):self.container['image']='other';self.refuses_before_mutation()
+ def test_container_running(self):self.container['running']=True;self.refuses_before_mutation()
+ def test_container_other_state(self):self.container['status']='created';self.refuses_before_mutation()
+ def test_container_host_bind(self):self.container['binds']=['/other:/data'];self.refuses_before_mutation()
+ def test_container_mount_request(self):self.container['mountRequests']=[{}];self.refuses_before_mutation()
+ def test_extra_mount(self):self.container['mounts'].append(copy.deepcopy(self.container['mounts'][0]));self.refuses_before_mutation()
+ def test_other_volume(self):self.container['mounts'][0]['Name']='other';self.refuses_before_mutation()
+ def test_remote_volume_driver(self):self.volume['driver']='other';self.refuses_before_mutation()
+ def test_volume_options(self):self.volume['options']={'device':'other'};self.refuses_before_mutation()
+ def test_volume_other_user(self):self.volume_users.append('other');self.refuses_before_mutation()
+ def test_missing_volume_with_container(self):self.volume=None;self.refuses_before_mutation()
+ def test_image_id_changed(self):next(iter(self.images.values()))['id']='other';self.refuses_before_mutation()
+ def test_last_image_user_stops_all_removal(self):self.image_users[list(m.IMAGES.values())[-1]]=['other'];self.refuses_before_mutation()
+ def test_extra_tag_is_preserved(self):
+  tag=next(iter(self.images));self.images[tag]['tags'].append('shared:base');m.run(True)
+  self.assertNotIn(('image','rm','--no-prune','shared:base'),self.mutations)
+ def test_new_image_user_before_mutation(self):
+  original=m.image_state;calls=0
+  def wrapper(tag,expected):
+   nonlocal calls
+   calls+=1
+   if calls==7:self.image_users[expected]=['new-user']
+   return original(tag,expected)
+  m.image_state=wrapper
+  try:
+   with self.assertRaises(RuntimeError):m.run(True)
+   self.assertFalse(any(args[0]=='image' for args in self.mutations))
+  finally:m.image_state=original
+
+if __name__=='__main__':unittest.main(verbosity=2)

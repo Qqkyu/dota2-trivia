@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "scope": "Full 22-script UI batch rerun in the owned diagnostic runner after the focused party-lobby test fix. This is a local follow-up, not a new successful GitHub workflow.",
+  "exitCode": 0,
+  "partyLobbySourceSha256": "7b47ac77cdb2c65f4c284443a46797127c6ee356639ff00858573a96ae3b5946",
+  "uiBatchSourceSha256": "cabb9b3baf299144d22b430c106fd455b09adbe58594501489e66297e3045984",
+  "scriptCount": 22,
+  "scripts": [
+    "check-pages.mjs",
+    "check-party-lobby.mjs",
+    "check-party-previews.mjs",
+    "check-party-nicks.mjs",
+    "check-party-crowd.mjs",
+    "check-public-play.mjs",
+    "check-reports-api.mjs",
+    "check-party-api.mjs",
+    "check-round-copy.mjs",
+    "check-shop-search.mjs",
+    "check-layout.mjs",
+    "check-hero-search.mjs",
+    "check-flashback-ui.mjs",
+    "check-ui-recovery.mjs",
+    "check-gameplay-recovery.mjs",
+    "check-user-journeys.mjs",
+    "check-round-accessibility.mjs",
+    "check-shop-accessibility.mjs",
+    "check-responsive-ui.mjs",
+    "check-native-feedback-sounds.mjs",
+    "check-feedback-sounds.mjs",
+    "check-rate-limit-live.mjs"
+  ],
+  "reportedChecks": {
+    "playerJourneys": 52,
+    "responsiveUiChecks": 2489,
+    "responsiveSizes": "320x568 through 3840x2160, plus 200% reflow",
+    "nativeCombinedOutputChecks": 10,
+    "tappedPcmChecks": 30,
+    "productionVoteRateLimit": "The thirteenth request returned HTTP 429 with Retry-After."
+  },
+  "remainingWorkflowChecks": "All saved-environment UI, accessibility, final visual, multiplayer and packaged cleanup preflight checks passed. Exact release candidate GitHub workflow pending.",
+  "historicalFailedRun": 38043410114,
+  "accessibilitySummary": {
+    "file": "accessibility/summary.json",
+    "sha256": "9d66a357f4069708f3db3a2d2ae18fcff9c2c88dbd5480246feae4c848ce3993"
+  },
+  "completedIndependentFlows": {
+    "file": "../visual-entry-readiness-fix/completed-flows/result.json",
+    "sha256": "35057870c65bf92b9f63c12f36df56bdaea4727c92b1f3b1348d2a61d93979fe"
+  },
+  "finalVisualProof": {
+    "file": "../visual-entry-readiness-fix/final-visual/result.json",
+    "sha256": "54b25622bfdc0f7bda6bf74e82cc01125aef38f330db21557a4802d1834bccdb"
+  },
+  "finalSourceFreeze": {
+    "file": "../visual-entry-readiness-fix/browser-wait-source-freeze.json",
+    "sha256": "824ac9e62f9745eeee8f08dfb56dbd0efd378a1fce377df8451b58c7fb23aab5"
+  }
+}

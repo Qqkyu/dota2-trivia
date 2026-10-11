@@ -1,0 +1,42 @@
+{
+  "status": "pass",
+  "scope": "Offline source and control-flow review only. No actual Docker, GitHub, network, container or source changes performed by this review.",
+  "reviewedArtifacts": {
+    "start-final-scan.py": {
+      "sha256": "f70476dddbee8c810e2e22e814be178977f450990af2e61ca77e593333a4dfe8"
+    },
+    "full-image-scan-entrypoint.sh": {
+      "sha256": "aa49f8c4f4c2949c85be42fabfb9ef3a631bee732ad82a6b7e50ecee37fe3c9b"
+    },
+    "runner-image/prepare-cgroup-v2.sh": {
+      "sha256": "ee9b3790d566e746fbf7710b1fdff53463ee69ed78e7c34cda10300c3ddd9bf1"
+    },
+    "runner-lifecycle.py": {
+      "sha256": "e51f03d8ddd01539011f07dbb0ccf920a7f9db62412a5fe9af51b6f1933fc4e9"
+    }
+  },
+  "testCount": 51,
+  "starterMockCases": 36,
+  "shellMockCases": 15,
+  "resolvedFindings": [
+    {
+      "severity": "medium",
+      "finding": "Mutable image tag was not bound to the exact image tested in CI.",
+      "resolution": "Require the saved CI container result to pass correctness and latency checks, validate and compare its image ID to the tag, and run metadata and Trivy by that immutable ID."
+    },
+    {
+      "severity": "low",
+      "finding": "Nested package metadata command could hide apk or ffmpeg failure.",
+      "resolution": "Use sh -ec with the full unpiped ffmpeg version output."
+    }
+  ],
+  "openFindings": [],
+  "limits": [
+    "Trivy uses exit-code 0 to retain all findings. The operator must parse the report and assess every finding before clearance.",
+    "Mocks test program guards and command ordering. They do not prove a real successful workflow, image identity, kernel enforcement or scanner database freshness. The actual execution must archive those inputs."
+  ],
+  "mockSetupCorrections": [
+    "The first mock attempt used the old system Node. The mock now uses the available Node 22 executable to match the runner.",
+    "The synthetic scanner cache creator lacked recursive parent creation. The mock fixture now creates that directory. Neither correction changes a helper or application source."
+  ]
+}

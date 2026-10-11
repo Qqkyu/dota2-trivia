@@ -1,0 +1,54 @@
+{
+  "workflowRun": 38050315807,
+  "workflowUrl": "https://github.com/Qqkyu/dota2-trivia/actions/runs/38050315807",
+  "workflowConclusion": "success",
+  "workflowUpdatedAt": "2026-10-10T12:27:27Z",
+  "workflowFileSha256": "c89dbe7fccbc3fbade46ffc591cba3787903b46f1f405d5109293d240c94f59f",
+  "jobId": 114207955566,
+  "runner": "queue-arcade-ci-20261010T115945Z",
+  "sourceCommit": "31961cbd762587225b4b8a814828dc0829952978",
+  "imageId": "sha256:3bfdaf12795a02f03a4f0bbb990bb762a2c80c895546ee88102b802a39a1b5ab",
+  "appImageMatchesOriginalCiContainerResult": true,
+  "sourceAndImageMatchBothScanAttempts": true,
+  "byteIdenticalAcrossAttempts": [
+    "Dockerfile.txt",
+    "ci-container-result.json",
+    "ci-tested-image-id.txt",
+    "image-metadata.json",
+    "native-metadata.json",
+    "source-commit.txt"
+  ],
+  "dockerfileMatchesCandidateCommitAndCurrentWorkingTree": true,
+  "dockerfileSha256": "a190e4a390341fdff927df2b43e961f3b9e824eac2c00cc1932fbcd9ddb62ba9",
+  "scannerVersion": "0.69.3",
+  "parsedResults": [
+    {
+      "type": "alpine",
+      "class": "os-pkgs",
+      "packageCount": 123,
+      "vulnerabilityCount": 0
+    },
+    {
+      "type": "node-pkg",
+      "class": "lang-pkgs",
+      "packageCount": 23,
+      "vulnerabilityCount": 0
+    }
+  ],
+  "parsedVulnerabilityCount": 0,
+  "allSeverities": true,
+  "includesUnfixed": true,
+  "scanReportCreatedAt": "2026-10-10T12:32:16.425331887Z",
+  "collectorFinishedAt": "2026-10-10T12:32:58.934645+00:00",
+  "database": {
+    "Version": 2,
+    "NextUpdate": "2026-10-11T07:01:36.894063051Z",
+    "UpdatedAt": "2026-10-10T07:01:36.894063512Z",
+    "DownloadedAt": "2026-10-10T12:05:42.176220361Z"
+  },
+  "databaseUpdateLogBytes": 0,
+  "databaseInterpretation": "The checked download-db-only command completed successfully and reused the database downloaded at 12:05:42 UTC. Its metadata was current under Trivy cache rules. No fresh download or independent latest-remote-database check is claimed.",
+  "currentCheckoutTrivyIgnoreOrConfigFilesAtRoot": [],
+  "scope": "Image package vulnerability scan. The report and package lists are preserved losslessly. It does not prove complete coverage of statically linked or bundled native code, or scan source, secrets, or misconfiguration.",
+  "warning": "Trivy warns that Alpine 3.24 is not on its EOL list. It still detects the OS and scans 123 Alpine packages."
+}

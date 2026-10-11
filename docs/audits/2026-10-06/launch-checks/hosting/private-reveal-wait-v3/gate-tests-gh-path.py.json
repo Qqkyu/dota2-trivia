@@ -1,0 +1,140 @@
+{
+  "checkedAt": "2026-10-11T06:36:47.246296+00:00",
+  "passed": 33,
+  "hostedRequests": 0,
+  "gateSha256": "b03614c4c333b9f67551f55bebab37fbcd93b83a21af384a07c2d397b32d346f",
+  "cases": [
+    {
+      "name": "fresh exact candidate creates value-free gate",
+      "passed": true
+    },
+    {
+      "name": "reject receipt externalHealthChecksAllowed",
+      "passed": true
+    },
+    {
+      "name": "reject receipt verification",
+      "passed": true
+    },
+    {
+      "name": "reject receipt configurationChanged",
+      "passed": true
+    },
+    {
+      "name": "reject receipt suspendAttempted",
+      "passed": true
+    },
+    {
+      "name": "reject receipt newLiveDeployId",
+      "passed": true
+    },
+    {
+      "name": "reject receipt configurationBinding",
+      "passed": true
+    },
+    {
+      "name": "reject receipt proofDigest",
+      "passed": true
+    },
+    {
+      "name": "reject receipt proofCheckedAt",
+      "passed": true
+    },
+    {
+      "name": "reject receipt checkedAt",
+      "passed": true
+    },
+    {
+      "name": "reject receipt commit",
+      "passed": true
+    },
+    {
+      "name": "reject receipt ciRunId",
+      "passed": true
+    },
+    {
+      "name": "reject proof ok",
+      "passed": true
+    },
+    {
+      "name": "reject proof policyDuringCheck",
+      "passed": true
+    },
+    {
+      "name": "reject proof deploymentAndConfigurationStable",
+      "passed": true
+    },
+    {
+      "name": "reject proof independentIpv4SourcesAgreed",
+      "passed": true
+    },
+    {
+      "name": "reject proof commit",
+      "passed": true
+    },
+    {
+      "name": "reject proof deployId",
+      "passed": true
+    },
+    {
+      "name": "reject proof ciRunId",
+      "passed": true
+    },
+    {
+      "name": "reject proof checkedAt",
+      "passed": true
+    },
+    {
+      "name": "reject nonterminal deployment",
+      "passed": true
+    },
+    {
+      "name": "reject second live deployment",
+      "passed": true
+    },
+    {
+      "name": "reject wrong live commit",
+      "passed": true
+    },
+    {
+      "name": "reject local input differs from candidate",
+      "passed": true
+    },
+    {
+      "name": "reject health redirect",
+      "passed": true
+    },
+    {
+      "name": "reject health not ready",
+      "passed": true
+    },
+    {
+      "name": "reject wrong question count",
+      "passed": true
+    },
+    {
+      "name": "reject non-durable store",
+      "passed": true
+    },
+    {
+      "name": "reject changed environment after health",
+      "passed": true
+    },
+    {
+      "name": "reject moved candidate after health",
+      "passed": true
+    },
+    {
+      "name": "reject replaced live deployment after health",
+      "passed": true
+    },
+    {
+      "name": "reject command error output",
+      "passed": true
+    },
+    {
+      "name": "reject command failure",
+      "passed": true
+    }
+  ]
+}

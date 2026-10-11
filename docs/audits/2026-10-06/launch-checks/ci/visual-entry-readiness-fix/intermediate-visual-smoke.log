@@ -1,0 +1,464 @@
+{
+  "lobby": {
+    "title": "Queue Arcade — Dota side quests between matches",
+    "heading": "Your queue has\nside quests.",
+    "startButtons": 1,
+    "shareButtons": 0,
+    "canonical": "http://127.0.0.1:3000/",
+    "openGraphImage": "http://127.0.0.1:3000/opengraph-image?6e152baac7db7aec",
+    "modeCards": 0,
+    "roundFamilies": 10,
+    "roundMix": "ROUND MIX\nClassic Trivia\nShopkeeper\nSpell Link\nFogged\nEcho\nSoundcheck\nQuotes\nAghanim's Lab\nOrder Up\nFlashback",
+    "copy": "QUEUE ARCADE\nSide quests, between matches\nDOTA 2 · PATCH 7.41F\n70%\n1 PLAYING NOW · TEN GAMES\nYour queue has\nside quests.\n\nA Dota arcade built for the gap between Find Match and Accept. Everyone plays the same endless rotation; the challenge changes every round.\n\nROUND MIX\nClassic Trivia\nShopkeeper\nSpell Link\nFogged\nEcho\nSoundcheck\nQuotes\nAghanim's Lab\nOrder Up\nFlashback\nPLAY DOTA\nPARTY\nSign in with Steam\n10\ngames in the mix\n1517\npatch-current prompts\n2×\ncrowd-breaker bonus\n0%\nyour lifetime accuracy\nQUEUE ARCADE\n00:15\nONE ROOM · ENDLESS\nThe next round could be anything.\n\nDota facts, recipes, spells, history, TI, fog, voices, sounds, and quotes—one round at a time.\n\nOne synchronized round, deadline, and answer split for everyone\nPUBLIC ROOM READY\nPublic Arcade\n15s\nQueue Arcade · Built for the seconds between “Find Match” and “Accept”\nProfile\nPrivacy\nCalibration lab\nDota 2 is a trademark of Valve Corporation. Game assets belong to their respective rights holders. This project is not affiliated with Valve.",
+    "muted": false,
+    "volume": "70",
+    "steamButtons": 1,
+    "steamButton": {
+      "width": 180,
+      "height": 58,
+      "markPath": "M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.454 1.012H7.54zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273-.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.253 0-2.265-1.014-2.265-2.265z",
+      "label": "Sign in with Steam"
+    },
+    "accountSlot": {
+      "width": 180,
+      "height": 58
+    },
+    "markCenter": 43.5,
+    "copyCenter": 43.5,
+    "brandLeft": 24,
+    "headerLeft": 24,
+    "horizontalOverflow": false
+  },
+  "profile": {
+    "title": "Profile · Queue Arcade",
+    "heading": "Keep your streak.",
+    "steamButtons": 1,
+    "steamButton": {
+      "width": 154.59375,
+      "height": 38,
+      "markPath": "M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.454 1.012H7.54zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273-.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.253 0-2.265-1.014-2.265-2.265z",
+      "label": "Sign in with Steam"
+    },
+    "anonymousPlay": true,
+    "brandLeft": 24,
+    "headerLeft": 24,
+    "horizontalOverflow": false
+  },
+  "profileChrome": {
+    "homeHref": "/",
+    "homeTag": "A",
+    "privacyHref": "/privacy",
+    "calibrationHref": "/calibration"
+  },
+  "privacyFromProfile": {
+    "url": "/privacy",
+    "heading": "Privacy, without fog.",
+    "profileHref": "/profile"
+  },
+  "profileFromPrivacy": {
+    "url": "/profile",
+    "profile": true
+  },
+  "privacyHomeLanded": {
+    "url": "/",
+    "lobby": true
+  },
+  "profileRecordsShort": {
+    "size": "short",
+    "rows": 10,
+    "recentLog": false,
+    "compareLabel": true,
+    "firstClue": true,
+    "laterClues": true,
+    "spellClues": "2/3,1/1,1/1",
+    "played": true,
+    "classicYou": "63",
+    "classicRoom": "",
+    "spellEarly": "2/3",
+    "foggedYou": "",
+    "recordsHeight": 1203.390625,
+    "horizontalOverflow": false,
+    "preview": {
+      "prompt": true,
+      "answers": false,
+      "fogPrompt": true,
+      "fogLookCue": false,
+      "spellPrompt": true,
+      "orderPrompt": true,
+      "orderCards": false,
+      "aghanimPrompt": true,
+      "aghanimArt": true,
+      "shopHorizontal": true,
+      "stageHeight": 132,
+      "hoverShift": 0,
+      "neighborShift": 0
+    }
+  },
+  "profileRecordsLong": {
+    "size": "long",
+    "rows": 10,
+    "recentLog": false,
+    "compareLabel": true,
+    "firstClue": true,
+    "laterClues": true,
+    "spellClues": "2/3,1/1,1/1",
+    "played": true,
+    "classicYou": "63",
+    "classicRoom": "45",
+    "spellEarly": "2/3",
+    "foggedYou": "",
+    "recordsHeight": 1203.390625,
+    "horizontalOverflow": false,
+    "preview": {
+      "prompt": true,
+      "answers": false,
+      "fogPrompt": true,
+      "fogLookCue": false,
+      "spellPrompt": true,
+      "orderPrompt": true,
+      "orderCards": false,
+      "aghanimPrompt": true,
+      "aghanimArt": true,
+      "shopHorizontal": true,
+      "stageHeight": 132,
+      "hoverShift": 0,
+      "neighborShift": 0
+    }
+  },
+  "privacy": {
+    "title": "Privacy · Queue Arcade",
+    "heading": "Privacy, without fog.",
+    "optionalSteam": true,
+    "deletion": true,
+    "diagnostics": true,
+    "alphaAnalytics": true,
+    "retiredSessionRating": true,
+    "horizontalOverflow": false
+  },
+  "opsGuest": {
+    "access": "signed-out",
+    "steamButtons": 1,
+    "horizontalOverflow": false
+  },
+  "legacyLink": {
+    "url": "/",
+    "modeCards": 0,
+    "startButtons": 1
+  },
+  "entryWait": {
+    "phase": "waiting",
+    "roomId": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:public",
+    "waitRoot": true,
+    "silent": false,
+    "hint": "Waiting for the next full question.",
+    "lessons": "true",
+    "tips": [
+      "shop"
+    ],
+    "tipCount": 3,
+    "nextTip": true,
+    "prevTip": true,
+    "keyDemo": true,
+    "keyAnswers": 4,
+    "keyArtwork": true,
+    "keyPrompt": "How much does Blink Dagger cost?",
+    "heroesDemo": true,
+    "shopDemo": true,
+    "shopSearch": true,
+    "countdown": 6,
+    "horizontalOverflow": false
+  },
+  "waitLayout": {
+    "tipHeightsStable": true,
+    "shopBoardStable": true,
+    "heroTypeStable": true,
+    "frames": [
+      {
+        "tip": "shop",
+        "barHeight": 530,
+        "barWidth": 1088,
+        "stageHeight": 440,
+        "stageWidth": 1052
+      },
+      {
+        "tip": "heroes",
+        "barHeight": 530,
+        "barWidth": 1088,
+        "stageHeight": 440,
+        "stageWidth": 1052
+      },
+      {
+        "tip": "keys",
+        "barHeight": 530,
+        "barWidth": 1088,
+        "stageHeight": 440,
+        "stageWidth": 1052
+      }
+    ],
+    "shopBefore": {
+      "width": 1048,
+      "height": 387,
+      "items": 108,
+      "searching": "false"
+    },
+    "shopAfter": {
+      "width": 1048,
+      "height": 387,
+      "items": 4,
+      "searching": "true"
+    },
+    "heroTypeThrough": {
+      "hero": "ax",
+      "shop": ""
+    }
+  },
+  "answering": {
+    "url": "/play",
+    "phase": "answering",
+    "roomId": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:public",
+    "roundId": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:public:round:1109248",
+    "timer": 15,
+    "game": "spell-link",
+    "answers": 0,
+    "openShop": false,
+    "recipeBuilder": false,
+    "recipeSize": 0,
+    "shopItems": 0,
+    "shopSearchField": "",
+    "heroPicker": true,
+    "valueOrder": false,
+    "valueOrderCards": 0,
+    "flashbackOrder": false,
+    "flashbackOrderCards": 0,
+    "flashbackYear": false,
+    "flashbackYearSlider": false,
+    "heroSearch": true,
+    "heroItems": 127,
+    "heroGroups": [
+      {
+        "attribute": "strength",
+        "count": 36
+      },
+      {
+        "attribute": "agility",
+        "count": 35
+      },
+      {
+        "attribute": "intelligence",
+        "count": 34
+      },
+      {
+        "attribute": "universal",
+        "count": 22
+      }
+    ],
+    "difficultyControls": 0,
+    "tipCards": 0,
+    "crowdSplitVisible": false,
+    "crowdCardVisible": false,
+    "publicRoomVisible": true,
+    "roomPresenceVisible": false,
+    "roomElapsedVisible": false,
+    "promptContext": "Ability identity",
+    "promptText": "Which hero owns this ability?",
+    "pickerFilterHint": "",
+    "copyGuard": "blocked",
+    "horizontalOverflow": false
+  },
+  "questionCopyGuard": {
+    "phase": "answering",
+    "blocked": true,
+    "userSelect": "none"
+  },
+  "revealCopyGuard": {
+    "copyGuard": "allowed",
+    "blocked": false
+  },
+  "shopTooltip": null,
+  "heroSearch": {
+    "value": "z",
+    "matches": 5,
+    "dimmed": 122,
+    "fixed": true
+  },
+  "reveal": {
+    "result": "Incorrect",
+    "percentages": 0,
+    "shopPercentages": 0,
+    "heroPercentages": 1,
+    "heroCorrect": 1,
+    "orderSequences": 0,
+    "orderValueLabels": 0,
+    "flashbackOrderSequences": 0,
+    "flashbackYearSlider": false,
+    "crowdSplit": {
+      "visible": true,
+      "kind": "open-grid",
+      "total": 1,
+      "rows": 2,
+      "countTotal": 1,
+      "correctRows": 1,
+      "selectedRows": 1
+    },
+    "recipeReveal": false,
+    "openShopReveal": false,
+    "reportReasons": 4,
+    "reportBounds": {
+      "x": 53,
+      "y": 892.34375,
+      "width": 996,
+      "height": 128.1875
+    },
+    "nextButton": false,
+    "internalSourceLabel": false,
+    "audioPrewarmRequests": 2
+  },
+  "autoAdvanced": {
+    "phase": "answering",
+    "roundId": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:public:round:1109249",
+    "roomId": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:public"
+  },
+  "historyBack": {
+    "url": "/",
+    "lobby": true
+  },
+  "historyForward": {
+    "url": "/play",
+    "answering": true,
+    "roomId": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:public"
+  },
+  "directPlay": {
+    "url": "/play",
+    "answering": true,
+    "roomId": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:public"
+  },
+  "heroCrowdStress": {
+    "kind": "open-grid",
+    "hiddenBeforeReveal": true,
+    "promptContextHiddenBeforeReveal": false,
+    "total": 127,
+    "rowCount": 5,
+    "namedRows": 4,
+    "countTotal": 127,
+    "otherCount": 123,
+    "otherPercentage": 97,
+    "correctRows": 1,
+    "selectedRows": 1,
+    "labelsVisible": true,
+    "rowsInsideCard": true,
+    "scoreVisible": true,
+    "scoreInsideCard": true,
+    "cardHeight": 377,
+    "cardInsideViewport": true,
+    "clipped": false,
+    "horizontalOverflow": false,
+    "orderSequences": 0,
+    "orderValueLabels": 0,
+    "explanationVisible": true,
+    "orderAutoSubmit": null,
+    "catalogResults": 127,
+    "catalogVisible": 127
+  },
+  "itemCrowdStress": {
+    "kind": "open-grid",
+    "hiddenBeforeReveal": true,
+    "promptContextHiddenBeforeReveal": true,
+    "total": 182,
+    "rowCount": 5,
+    "namedRows": 4,
+    "countTotal": 182,
+    "otherCount": 178,
+    "otherPercentage": 98,
+    "correctRows": 1,
+    "selectedRows": 1,
+    "labelsVisible": true,
+    "rowsInsideCard": true,
+    "scoreVisible": true,
+    "scoreInsideCard": true,
+    "cardHeight": 377,
+    "cardInsideViewport": true,
+    "clipped": false,
+    "horizontalOverflow": false,
+    "orderSequences": 0,
+    "orderValueLabels": 0,
+    "explanationVisible": true,
+    "orderAutoSubmit": null,
+    "catalogResults": 108,
+    "catalogVisible": 108
+  },
+  "orderCrowdStress": {
+    "kind": "open-grid",
+    "hiddenBeforeReveal": true,
+    "promptContextHiddenBeforeReveal": false,
+    "total": 24,
+    "rowCount": 5,
+    "namedRows": 4,
+    "countTotal": 24,
+    "otherCount": 20,
+    "otherPercentage": 83,
+    "correctRows": 1,
+    "selectedRows": 1,
+    "labelsVisible": true,
+    "rowsInsideCard": true,
+    "scoreVisible": true,
+    "scoreInsideCard": true,
+    "cardHeight": 377,
+    "cardInsideViewport": true,
+    "clipped": false,
+    "horizontalOverflow": false,
+    "orderSequences": 2,
+    "orderValueLabels": 4,
+    "explanationVisible": false,
+    "orderAutoSubmit": {
+      "locked": true,
+      "requests": 1,
+      "hasSubmittedKey": true,
+      "lockButtonAbsent": true
+    },
+    "catalogResults": null,
+    "catalogVisible": null
+  },
+  "spellLayoutStress": {
+    "visible": true,
+    "fullyVisible": true,
+    "bottomInset": 16.453125,
+    "pickerGap": 16.453125,
+    "horizontalOverflow": false
+  },
+  "aghanimLayoutStress": {
+    "clueCards": 3,
+    "firstClueVisible": true,
+    "laterCluesLocked": true,
+    "artworkVisible": true,
+    "heroItems": 127,
+    "pickerGap": 0,
+    "promptInsideViewport": true,
+    "horizontalOverflow": false
+  },
+  "classicChromeStress": {
+    "promptContextVisible": false,
+    "crowdCardVisible": false,
+    "roomCardVisible": false
+  },
+  "mobile": {
+    "headingVisible": true,
+    "startButton": true,
+    "roundFamilies": 10,
+    "steamButtons": 1,
+    "accountSlotWidth": 374,
+    "startButtonWidth": 374,
+    "horizontalOverflow": false
+  },
+  "calibration": {
+    "rows": 80,
+    "horizontalOverflow": false
+  }
+}
+file:///opt/runner/_work/dota2-trivia/dota2-trivia/scripts/visual-smoke.mjs:1734
+  throw new Error(failures.join("\n"));
+        ^
+
+Error: The one-room lobby still exposes modes or lost its compact round mix.
+    at file:///opt/runner/_work/dota2-trivia/dota2-trivia/scripts/visual-smoke.mjs:1734:9
+
+Node.js v22.23.3

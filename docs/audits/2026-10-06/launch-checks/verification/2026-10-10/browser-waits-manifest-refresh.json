@@ -1,0 +1,19 @@
+{
+  "checkedAt": "2026-10-10T10:54:09.517Z",
+  "review": "Reviewed the lobby response wait and the visual reveal-entry wait. Controlled delayed responses reproduce the premature lobby assertion. The old reveal loop exhausts its attempts before the shared vote grace ends. The corrected helper preserves the five-second usable window, accounts for response age, and passes twelve boundary and failure tests. The visual check now uses the existing 70% default and isolated v3 migration and v4 stored-setting fixtures. All saved-environment workflow checks passed. No app component, gameplay timing, question, answer, generator, or source fact changed.",
+  "changedReviewInputs": [
+    "scripts/check-party-lobby.mjs",
+    "scripts/lib/reveal-entry.mjs",
+    "scripts/visual-smoke.mjs"
+  ],
+  "addedReviewInputs": [
+    "scripts/lib/reveal-entry.mjs"
+  ],
+  "missingReviewInputs": [],
+  "previousFileCount": 125,
+  "currentFileCount": 126,
+  "previousManifestSha256": "9ebf289a61d9f26f4aa0f6655ff9cd8d8d537a94305bb78420ed37426e861567",
+  "currentManifestSha256": "b262b79baebb8608da2d27e8d5f4ad40e59ec1c84253c900be918102a66d8419",
+  "questionAndEvidenceHashesUnchanged": true,
+  "currentReviewedAt": "2026-10-10T10:54:09.495Z"
+}

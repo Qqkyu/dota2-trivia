@@ -1,0 +1,499 @@
+--- 6e1eace126e89341052dddbd76eeb4ad4de584e6/scripts/check-accessibility.mjs
++++ after/scripts/check-accessibility.mjs
+@@ -13,6 +13,7 @@
+ import path from "node:path";
+ import { pathToFileURL } from "node:url";
+ import { publicQuestionForRound } from "../src/lib/public-question.mjs";
++import { checkControlPainting } from "./lib/forced-color-checks.mjs";
+ 
+ const require = createRequire(import.meta.url);
+ const playwrightModule = process.env.PLAYWRIGHT_MODULE;
+@@ -22,11 +23,19 @@
+ const engine = process.env.BROWSER_ENGINE ?? "chromium";
+ const runName = process.env.A11Y_RUN_NAME ?? engine;
+ const outputDir = process.env.A11Y_OUTPUT_DIR ?? "/tmp/queue-arcade-deep-review/accessibility";
+-const requestedModes = (process.env.A11Y_MODES ?? "desktop,mobile,zoom200,zoom400,reduced,forced")
++const requestedModes = (process.env.A11Y_MODES ?? "desktop,mobile,zoom200,zoom400,reduced,forced,forced-dark")
+   .split(",")
+   .filter(Boolean);
+ const fixtureModes = process.env.A11Y_FIXTURE_MODES?.split(",").filter(Boolean) ?? requestedModes;
+ const fixtureNames = process.env.A11Y_FIXTURES?.split(",").filter(Boolean);
++const pagePaths = process.env.A11Y_PAGES?.split(",").filter(Boolean) ?? [
++  "/",
++  "/party",
++  "/profile",
++  "/privacy",
++  "/calibration",
++  "/ops",
++];
+ const timeoutMs = Number(process.env.A11Y_TIMEOUT_MS ?? 45000);
+ const modes = {
+   desktop: { viewport: { width: 1280, height: 900 } },
+@@ -38,7 +47,8 @@
+   zoom200: { viewport: { width: 640, height: 450 }, deviceScaleFactor: 2 },
+   zoom400: { viewport: { width: 320, height: 225 }, deviceScaleFactor: 4 },
+   reduced: { viewport: { width: 1280, height: 900 }, reducedMotion: "reduce" },
+-  forced: { viewport: { width: 1280, height: 900 }, forcedColors: "active" },
++  forced: { viewport: { width: 1280, height: 900 }, forcedColors: "active", colorScheme: "light" },
++  "forced-dark": { viewport: { width: 1280, height: 900 }, forcedColors: "active", colorScheme: "dark" },
+ };
+ const results = {
+   appUrl,
+@@ -54,6 +64,7 @@
+   pages: [],
+   fixtures: [],
+   keyboard: [],
++  painting: [],
+   failures: [],
+ };
+ await mkdir(outputDir, { recursive: true });
+@@ -280,13 +291,13 @@
+   await page.screenshot({ path: screenshot, fullPage: true, scale: "css" });
+   if (geometry.scrollWidth > modes[mode].viewport.width + 2) results.failures.push(`${label}: horizontal overflow`);
+   for (const rule of axe)
+-    if (["critical", "serious"].includes(rule.impact) && !(mode === "forced" && rule.id === "color-contrast")) {
++    if (["critical", "serious"].includes(rule.impact) && !(mode.startsWith("forced") && rule.id === "color-contrast")) {
+       // Axe uses authored colors here, although forced-color painting replaces
+       // them. Keep its raw output and inspect those screenshots separately.
+       results.failures.push(`${label}: ${rule.id}`);
+     }
+   if (errors.length) results.failures.push(`${label}: browser error`);
+-  if (mode === "forced" && !geometry.forcedColors)
++  if (mode.startsWith("forced") && !geometry.forcedColors)
+     results.failures.push(`${label}: forced-color emulation unavailable`);
+   if (mode === "reduced" && !geometry.reducedMotion)
+     results.failures.push(`${label}: reduced-motion emulation unavailable`);
+@@ -320,6 +331,16 @@
+       box: { x: rect.x, y: rect.y, width: rect.width, height: rect.height },
+     };
+   });
++}
++
++async function inspectPainting(page, kind, mode) {
++  if (mode !== "desktop" && !mode.startsWith("forced")) return;
++  const report = await checkControlPainting({ page, kind, mode, outputDir, runName });
++  results.painting.push(report);
++  for (const check of report.checks) {
++    if (!check.passed) results.failures.push(`${mode}-${kind}: ${check.name}`);
++  }
++  await save();
+ }
+ 
+ try {
+@@ -348,7 +369,7 @@
+   for (const mode of requestedModes) {
+     if (!modes[mode]) throw new Error(`Unknown mode ${mode}`);
+     if (process.env.A11Y_FIXTURES_ONLY !== "1") {
+-      for (const pathname of ["/", "/party", "/profile", "/privacy", "/calibration", "/ops"]) {
++      for (const pathname of pagePaths) {
+         const session = await makePage(mode);
+         await session.page.goto(appUrl + pathname, { waitUntil: "domcontentloaded" });
+         await session.page.waitForFunction(() => {
+@@ -403,8 +424,11 @@
+           }
+         }
+         results.pages.push(pageResult);
++        if (pathname === "/") await inspectPainting(session.page, "volume", mode);
++        if (pathname === "/calibration") await inspectPainting(session.page, "calibration", mode);
+         if (pathname === "/party") {
+           await session.page.getByTestId("private-room-choose-create").click();
++          await inspectPainting(session.page, "party", mode);
+           await session.page.getByRole("group", { name: "Games", exact: true }).getByRole("button").first().click();
+           results.pages.push(await inspect(session.page, `${mode}-party-unchecked`, session.errors, mode));
+         }
+@@ -416,6 +440,7 @@
+       : fixtures.filter((fixture) => !fixtureNames || fixtureNames.includes(fixture.name))) {
+       const session = await fixturePage(fixture, mode);
+       results.fixtures.push(await inspect(session.page, `${mode}-${fixture.name}`, session.errors, mode));
++      if (fixture.name === "shop-build") await inspectPainting(session.page, "shop", mode);
+       await session.context.close();
+       await save();
+     }
+@@ -474,7 +499,7 @@
+         await page.keyboard.press("Enter");
+         await page.keyboard.press("Tab");
+         keyboard.report = { openedFocus: await focusState(page) };
+-        if (keyboardMode === "forced") {
++        if (keyboardMode.startsWith("forced")) {
+           const menu = page.getByRole("group", { name: "Why are you reporting this question?" });
+           const first = await menu.screenshot({ path: path.join(outputDir, `${runName}-report-focus-first.png`) });
+           await page.keyboard.press("Tab");
+--- 6e1eace126e89341052dddbd76eeb4ad4de584e6/scripts/lib/forced-color-checks.mjs
++++ after/scripts/lib/forced-color-checks.mjs
+@@ -0,0 +1,260 @@
++import path from "node:path";
++import sharp from "sharp";
++
++function luminance(rgb) {
++  const values = rgb.map((value) => {
++    const channel = value / 255;
++    return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
++  });
++  return values[0] * 0.2126 + values[1] * 0.7152 + values[2] * 0.0722;
++}
++
++function contrast(first, second) {
++  const values = [luminance(first), luminance(second)].sort((a, b) => b - a);
++  return (values[0] + 0.05) / (values[1] + 0.05);
++}
++
++async function paintedPixels(buffer) {
++  const { data, info } = await sharp(buffer).removeAlpha().raw().toBuffer({ resolveWithObject: true });
++  const counts = new Map();
++  for (let index = 0; index < data.length; index += info.channels) {
++    const color = [...data.subarray(index, index + 3)];
++    const key = color.join(",");
++    const entry = counts.get(key) ?? { color, count: 0 };
++    entry.count += 1;
++    counts.set(key, entry);
++  }
++  const colors = [...counts.values()].sort((a, b) => b.count - a.count);
++  const background = colors[0].color;
++  return {
++    width: info.width,
++    height: info.height,
++    background,
++    maxContrast: Math.max(...colors.map(({ color }) => contrast(color, background))),
++    pixelsAtLeast3: colors.reduce((sum, entry) => sum + (contrast(entry.color, background) >= 3 ? entry.count : 0), 0),
++    pixelsAtLeast45: colors.reduce(
++      (sum, entry) => sum + (contrast(entry.color, background) >= 4.5 ? entry.count : 0),
++      0,
++    ),
++  };
++}
++
++async function differentPixels(first, second, area = "all", compareShape = false) {
++  const images = await Promise.all(
++    [first, second].map((buffer) => sharp(buffer).removeAlpha().raw().toBuffer({ resolveWithObject: true })),
++  );
++  if (images[0].info.width !== images[1].info.width || images[0].info.height !== images[1].info.height) {
++    return { changed: null, sameDimensions: false };
++  }
++  const { width, height, channels } = images[0].info;
++  const backgrounds = compareShape
++    ? await Promise.all([first, second].map(async (buffer) => (await paintedPixels(buffer)).background))
++    : null;
++  let changed = 0;
++  for (let y = 0; y < height; y += 1) {
++    for (let x = 0; x < width; x += 1) {
++      if (area === "bottom" && y < height - 3) continue;
++      if (area === "border" && x >= 3 && x < width - 3 && y >= 3 && y < height - 3) continue;
++      const index = (y * width + x) * channels;
++      const changedAtPixel = backgrounds
++        ? contrast([...images[0].data.subarray(index, index + 3)], backgrounds[0]) >= 3 !==
++          contrast([...images[1].data.subarray(index, index + 3)], backgrounds[1]) >= 3
++        : [0, 1, 2].some((offset) => Math.abs(images[0].data[index + offset] - images[1].data[index + offset]) > 10);
++      if (changedAtPixel) {
++        changed += 1;
++      }
++    }
++  }
++  return { changed, sameDimensions: true, compareShape };
++}
++
++async function neutralFocus(page) {
++  await page.evaluate(() => document.activeElement?.blur());
++  await page.mouse.move(0, 0);
++}
++
++async function capture(page, locator, filename, padding = 0, interiorPseudo = false) {
++  await locator.scrollIntoViewIfNeeded();
++  await page.evaluate(() => document.fonts.ready);
++  let clip;
++  if (interiorPseudo) {
++    clip = await locator.evaluate((node) => {
++      const rect = node.getBoundingClientRect();
++      const style = getComputedStyle(node);
++      const marker = getComputedStyle(node, "::after");
++      const number = (value) => Number.parseFloat(value) || 0;
++      const width = number(marker.width);
++      const height = number(marker.height);
++      // Exclude the checkbox border. Its contrast must not hide a faint mark.
++      return {
++        x: rect.right - number(style.borderRightWidth) - number(marker.right) - width + 4,
++        y: rect.bottom - number(style.borderBottomWidth) - number(marker.bottom) - height + 4,
++        width: width - 8,
++        height: height - 8,
++      };
++    });
++  } else {
++    const box = await locator.boundingBox();
++    clip = { x: box.x - padding, y: box.y - padding, width: box.width + 2 * padding, height: box.height + 2 * padding };
++  }
++  const left = Math.floor(Math.max(0, clip.x));
++  const top = Math.floor(Math.max(0, clip.y));
++  clip = {
++    x: left,
++    y: top,
++    width: Math.ceil(clip.x + clip.width) - left,
++    height: Math.ceil(clip.y + clip.height) - top,
++  };
++  const buffer = await page.screenshot({ path: filename, clip, animations: "disabled", caret: "hide", scale: "css" });
++  return { buffer, screenshot: filename, pixels: await paintedPixels(buffer) };
++}
++
++/** Check real browser paint. These checks supplement axe's authored-color results. */
++export async function checkControlPainting({ page, kind, mode, outputDir, runName }) {
++  const forced = mode.startsWith("forced");
++  const result = { kind, mode, forced, checks: [], captures: [] };
++  const check = (name, passed, detail) => result.checks.push({ name, passed: Boolean(passed), detail });
++  const shot = async (locator, name, padding = 0, interiorPseudo = false) => {
++    const capture = await captureControl(locator, name, padding, interiorPseudo);
++    result.captures.push({ name, screenshot: capture.screenshot, pixels: capture.pixels });
++    return capture;
++  };
++  const captureControl = (locator, name, padding, interiorPseudo) =>
++    capture(page, locator, path.join(outputDir, `${runName}-${mode}-${kind}-${name}.png`), padding, interiorPseudo);
++  result.media = await page.evaluate(() => ({
++    forcedColors: matchMedia("(forced-colors: active)").matches,
++    dark: matchMedia("(prefers-color-scheme: dark)").matches,
++  }));
++  check(
++    "requested color mode is active",
++    result.media.forcedColors === forced && (!forced || result.media.dark === (mode === "forced-dark")),
++    result.media,
++  );
++  await neutralFocus(page);
++
++  if (kind === "volume") {
++    const slider = page.getByTestId("game-volume");
++    const value = slider.locator("..").locator("output");
++    const mute = slider.locator("..").getByRole("button");
++    check("fixture starts muted", (await mute.getAttribute("aria-pressed")) === "false");
++    check("muted control offers enabling sound", (await mute.getAttribute("aria-label")) === "Enable game sounds");
++    const mutedButton = await shot(mute, "muted-button");
++    const mutedText = await shot(value, "muted-text");
++    const mutedSlider = await shot(slider, "muted-slider");
++    const mutedOpacity = await Promise.all(
++      [value, slider].map((locator) => locator.evaluate((node) => Number(getComputedStyle(node).opacity))),
++    );
++    await mute.click();
++    await neutralFocus(page);
++    const enabledText = await shot(value, "enabled-text");
++    const enabledSlider = await shot(slider, "enabled-slider");
++    const enabledButton = await shot(mute, "enabled-button");
++    const muteIconDifference = await differentPixels(mutedButton.buffer, enabledButton.buffer, "all", forced);
++    check(
++      "mute state has a visible icon",
++      muteIconDifference.sameDimensions && muteIconDifference.changed >= 8,
++      muteIconDifference,
++    );
++    check(
++      "enabled control offers muting sound",
++      (await mute.getAttribute("aria-label")) === "Mute game sounds" &&
++        (await mute.getAttribute("aria-pressed")) === "true",
++    );
++    check("muted volume text has painted contrast", mutedText.pixels.pixelsAtLeast45 >= 6, mutedText.pixels);
++    check("muted slider has painted contrast", mutedSlider.pixels.pixelsAtLeast3 >= 6, mutedSlider.pixels);
++    check(
++      "muting does not fade controls",
++      mutedOpacity.every((opacity) => opacity === 1),
++      { mutedOpacity },
++    );
++    check(
++      "muted and enabled text remain equally readable",
++      mutedText.pixels.maxContrast >= enabledText.pixels.maxContrast * 0.8,
++      { muted: mutedText.pixels, enabled: enabledText.pixels },
++    );
++    check(
++      "muted and enabled slider remain equally readable",
++      mutedSlider.pixels.maxContrast >= enabledSlider.pixels.maxContrast * 0.8,
++      { muted: mutedSlider.pixels, enabled: enabledSlider.pixels },
++    );
++    await mute.click();
++    check(
++      "mute state is restored",
++      (await mute.getAttribute("aria-pressed")) === "false" &&
++        (await mute.getAttribute("aria-label")) === "Enable game sounds",
++    );
++    return result;
++  }
++
++  const groupName = kind === "party" ? "Games" : kind === "shop" ? "Shop section" : "Calibration filter";
++  const group = page.getByRole("group", { name: groupName, exact: true });
++  const buttons = group.getByRole("button");
++  const first = buttons.first();
++  const second = buttons.nth(1);
++  // Recipe fixtures can open either section. Establish the state through the UI.
++  if (kind === "shop") {
++    await first.click();
++    await neutralFocus(page);
++  }
++  check("first choice starts selected", (await first.getAttribute("aria-pressed")) === "true");
++  const selected = await shot(first, "selected", 0, kind === "party");
++  await (kind === "party" ? first : second).click();
++  await neutralFocus(page);
++  check("first choice becomes unselected", (await first.getAttribute("aria-pressed")) === "false");
++  const unselected = await shot(first, "unselected", 0, kind === "party");
++  const difference = await differentPixels(
++    selected.buffer,
++    unselected.buffer,
++    kind === "shop" ? "bottom" : kind === "calibration" ? "border" : "all",
++    forced,
++  );
++  check("selected state has a visible marker", difference.sameDimensions && difference.changed >= 8, difference);
++  if (kind === "party") {
++    check("selected checkmark has painted contrast", selected.pixels.pixelsAtLeast3 >= 6, selected.pixels);
++    check("unchecked box has no painted checkmark", unselected.pixels.pixelsAtLeast3 < 6, unselected.pixels);
++  }
++  const unfocused = await shot(first, "unselected-unfocused", 6);
++  await second.focus();
++  await page.keyboard.press("Shift+Tab");
++  const focus = await first.evaluate((node) => ({
++    active: document.activeElement === node,
++    visible: node.matches(":focus-visible"),
++    selected: node.getAttribute("aria-pressed"),
++  }));
++  const focused = await shot(first, "unselected-keyboard-focus", 6);
++  const focusDifference = await differentPixels(unfocused.buffer, focused.buffer);
++  check("keyboard focuses the unselected choice", focus.active && focus.visible && focus.selected === "false", focus);
++  check(
++    "keyboard focus paints without selecting",
++    focusDifference.sameDimensions && focusDifference.changed >= 8,
++    focusDifference,
++  );
++  check("other selected choice remains selected", (await second.getAttribute("aria-pressed")) === "true");
++  if (kind === "party") {
++    await page.keyboard.press("Space");
++    check("Space selects the focused game", (await first.getAttribute("aria-pressed")) === "true");
++    const keyboardSelected = await shot(first, "keyboard-selected", 0, true);
++    await page.keyboard.press("Space");
++    check("Space clears the focused game", (await first.getAttribute("aria-pressed")) === "false");
++    const keyboardUnselected = await shot(first, "keyboard-unselected", 0, true);
++    const keyboardDifference = await differentPixels(keyboardSelected.buffer, keyboardUnselected.buffer, "all", forced);
++    check(
++      "keyboard selection paints the checkmark",
++      keyboardDifference.sameDimensions && keyboardDifference.changed >= 8,
++      keyboardDifference,
++    );
++    check(
++      "keyboard-selected checkmark has painted contrast",
++      keyboardSelected.pixels.pixelsAtLeast3 >= 6,
++      keyboardSelected.pixels,
++    );
++    check(
++      "keyboard-cleared box has no checkmark",
++      keyboardUnselected.pixels.pixelsAtLeast3 < 6,
++      keyboardUnselected.pixels,
++    );
++  }
++  await first.click();
++  await neutralFocus(page);
++  return result;
++}
+--- 6e1eace126e89341052dddbd76eeb4ad4de584e6/src/components/queue-arcade.module.css
++++ after/src/components/queue-arcade.module.css
+@@ -298,11 +298,6 @@
+   border: 0;
+   border-right: 1px solid var(--line);
+   background: transparent;
+-}
+-
+-.volumeControl[data-muted="true"] .volumeSlider,
+-.volumeControl[data-muted="true"] .volumeValue {
+-  opacity: 0.42;
+ }
+ 
+ .volumeSlider {
+@@ -3006,6 +3001,20 @@
+   background: linear-gradient(180deg, transparent, rgba(210, 163, 74, 0.08));
+ }
+ 
++@media (forced-colors: active) {
++  .shopkeeperStoreTabs button {
++    border-bottom-color: Canvas;
++    background: Canvas;
++    color: CanvasText;
++  }
++
++  .shopkeeperStoreTabs button[aria-pressed="true"] {
++    border-bottom-color: CanvasText;
++    background: Canvas;
++    color: CanvasText;
++  }
++}
++
+ /* Locked board: search packs matches but must not resize the shop. */
+ .shopkeeperGroups {
+   display: grid;
+@@ -7027,3 +7036,9 @@
+     grid-template-columns: minmax(0, 1fr);
+   }
+ }
++
++@media (forced-colors: active) {
++  .shopkeeperStoreTabs button:focus-visible {
++    outline-color: Highlight;
++  }
++}
+--- 6e1eace126e89341052dddbd76eeb4ad4de584e6/src/components/private-room-panel.module.css
++++ after/src/components/private-room-panel.module.css
+@@ -978,3 +978,23 @@
+   background: transparent;
+   content: "";
+ }
++
++@media (forced-colors: active) {
++  .gameCard::after {
++    border-color: CanvasText;
++    background: Canvas;
++    color: CanvasText;
++    content: "\2713" / "";
++    font-weight: 700;
++  }
++
++  .gameCard[data-on="false"]::after {
++    border-color: CanvasText;
++    background: Canvas;
++    content: "";
++  }
++
++  .gameCard:focus-visible {
++    outline-color: Highlight;
++  }
++}
+--- 6e1eace126e89341052dddbd76eeb4ad4de584e6/src/components/calibration-dashboard.module.css
++++ after/src/components/calibration-dashboard.module.css
+@@ -281,6 +281,21 @@
+   color: #bce5e2;
+ }
+ 
++@media (forced-colors: active) {
++  .controls button {
++    border: 3px solid ButtonBorder;
++    background: ButtonFace;
++    color: ButtonText;
++  }
++
++  .controls button[aria-pressed="true"] {
++    border-style: double;
++    border-color: ButtonText;
++    background: ButtonFace;
++    color: ButtonText;
++  }
++}
++
+ .resultMeta {
+   display: flex;
+   align-items: center;
+@@ -802,3 +817,9 @@
+     padding-block: 12px;
+   }
+ }
++
++@media (forced-colors: active) {
++  .controls button:focus-visible {
++    outline-color: Highlight;
++  }
++}
+--- 6e1eace126e89341052dddbd76eeb4ad4de584e6/.github/workflows/ci.yml
++++ after/.github/workflows/ci.yml
+@@ -145,7 +145,7 @@
+       - name: Verify browser journeys and native audio output
+         run: pnpm check:ui
+       - name: Check accessibility and keyboard flows in Chromium
+-        run: A11Y_MODES=desktop,mobile,zoom200,zoom400,reduced,forced pnpm check:accessibility
++        run: A11Y_MODES=desktop,mobile,zoom200,zoom400,reduced,forced,forced-dark pnpm check:accessibility
+       - name: Check mobile and keyboard flows in Firefox
+         run: BROWSER_ENGINE=firefox A11Y_MODES=mobile pnpm check:accessibility
+       - name: Check mobile and keyboard flows in WebKit

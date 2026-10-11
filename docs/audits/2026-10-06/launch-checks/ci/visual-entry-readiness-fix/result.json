@@ -1,0 +1,52 @@
+{
+  "status": "all saved-environment preflight checks passed; release CI pending",
+  "sharedVoteGraceMs": 800,
+  "legacyPollAttempts": 4,
+  "legacyFocusedFailures": 3,
+  "finalFocusedPasses": 12,
+  "fixedBounds": {
+    "totalMs": 60000,
+    "requestIncludingJsonMs": 5000,
+    "minimumUsableRevealMs": 5000
+  },
+  "phaseTraceValidationPassed": true,
+  "syntaxChecks": [
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-window-repro.mjs",
+      "sha256": "faa7aef33a956073e37795c1726936fa07793c082ce391e96199e8b86857d518",
+      "nodeSyntaxPassed": true
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-entry-legacy.mjs",
+      "sha256": "3c9c2a0584f68316bd09c4f3d8c90f95526df793cc864e43f55c1b55eaf43f3a",
+      "nodeSyntaxPassed": true
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/scripts/lib/reveal-entry.mjs",
+      "sha256": "5a157036ce50fcda939ba83c6a2e8a280750984a19e302addbab20a7d23350a2",
+      "nodeSyntaxPassed": true
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/scripts/visual-smoke.mjs",
+      "sha256": "3a2cd8b2b8b6447e624f9f8364c3c62f10bfe7cdb6dd757f5938372ebef4d681",
+      "nodeSyntaxPassed": true
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/tests/reveal-entry.test.mjs",
+      "sha256": "005dc1bedee8f3f3da7e500cb0100f5b62bc6d59d6b5d598f9eb1d86888530e9",
+      "nodeSyntaxPassed": true
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/scripts/visual-smoke.mjs",
+      "sha256": "8e14f037726e255d606975d9b068a630a2b155b9c6801fcd176d3c03173eaa20",
+      "nodeSyntaxPassed": true,
+      "stage": "Final settings fixture correction"
+    }
+  ],
+  "fullVisualSmoke": "passed, exit 0; see final-visual/result.json",
+  "multiplayer": "passed, exit 0; see completed-flows/result.json",
+  "packagedCleanupDryRun": "passed, exit 0; see completed-flows/result.json",
+  "finalVisualSourceSha256": "8e14f037726e255d606975d9b068a630a2b155b9c6801fcd176d3c03173eaa20",
+  "finalSourceFreezeFile": "browser-wait-source-freeze.json",
+  "releaseCi": "pending exact release candidate workflow"
+}

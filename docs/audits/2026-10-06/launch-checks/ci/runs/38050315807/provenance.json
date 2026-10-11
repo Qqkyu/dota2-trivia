@@ -1,0 +1,171 @@
+{
+  "workflowResult": "Selected fields from the completed GitHub run API. User, contact and repository profile fields are omitted.",
+  "workflowResultRawSha256": "c89dbe7fccbc3fbade46ffc591cba3787903b46f1f405d5109293d240c94f59f",
+  "copiedInputs": [
+    {
+      "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T115945Z/workflow-jobs.json",
+      "archive": "workflow-jobs.json",
+      "bytes": 12188,
+      "sha256": "04ba4a709a26d34891aebe96f35ebb36692e45bf38ad5057221ed5a6449f6b6c"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T115945Z/runtime-metadata.json",
+      "archive": "runtime-metadata.json",
+      "bytes": 837,
+      "sha256": "9745dae4d68f27a2463db02fc7df073aaac95e4013e9df24b962a7539e67faf4"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T115945Z/token-lifecycle.json",
+      "archive": "token-lifecycle.json",
+      "bytes": 120,
+      "sha256": "960de2621ba3f8cde6cadc8166a92e727d04201e0d80bf9232bfcb1e5bd53f8b"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T115945Z/container-check/container-result.json",
+      "archive": "container-result.json",
+      "bytes": 4356,
+      "sha256": "e86bf4c9b1e1f9e2efc4ac68e5d9273f13d988fa3a9e531a69a151f6ad03aeb8"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/candidate-scans/31961cbd762587225b4b8a814828dc0829952978/summary.json",
+      "archive": "candidate-security/summary.json",
+      "bytes": 700,
+      "sha256": "94290fb09553b0777b68cd4c009b1d81b32678bdda3240f56610b5350d96d90c"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/candidate-scans/31961cbd762587225b4b8a814828dc0829952978/known-secret-scan.json",
+      "archive": "candidate-security/known-secret-scan.json",
+      "bytes": 73,
+      "sha256": "9cba10fb2bc9a1f7e40905fbbbb42900f817b517110e9660fdc1af2b9ba36966"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/candidate-scans/31961cbd762587225b4b8a814828dc0829952978/corrected-known-values.json",
+      "archive": "candidate-security/corrected-known-values.json",
+      "bytes": 576,
+      "sha256": "2e19df49abba257840d5a7b98cb717c6b1405bffd3991d39cdd2e2342f62da6e"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/candidate-scans/31961cbd762587225b4b8a814828dc0829952978/additional-review.json",
+      "archive": "candidate-security/additional-review.json",
+      "bytes": 1292,
+      "sha256": "687ef8535b4bba0613577145fca513d326cf7eb453a7132cf33c2d208649b770"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/candidate-scans/31961cbd762587225b4b8a814828dc0829952978/new-reviewed-findings.json",
+      "archive": "candidate-security/new-reviewed-findings.json",
+      "bytes": 1021,
+      "sha256": "402f89073678be8b5a4d3a998bda05c0d16d6214b7342c12369dac0d7c524e9a"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T115945Z/cleanup-result.json",
+      "archive": "cleanup-result.json",
+      "bytes": 97,
+      "sha256": "8e75c8775d4721ae9a51e4e3801808c99993e00c78d11fef1b0ecb92369900c5"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T115945Z/runners-after-cleanup.json",
+      "archive": "runners-after-cleanup.json",
+      "bytes": 40,
+      "sha256": "0a37990c04105f6d4c2c21388345c6326e3d61bcd8733ff58d79c28bc80f52a3"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T115945Z/workflow-container-stop.json",
+      "archive": "workflow-container-stop.json",
+      "bytes": 113,
+      "sha256": "c42dcd1e5031255a2bf97f9c90110c6b4ecff43371f3aca98a85de845ce0851a"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/cleanup-without-raw-logs-review.json",
+      "archive": "cleanup-without-raw-logs-review.json",
+      "bytes": 350,
+      "sha256": "1992ca7897c85fd99b9e6dc8f9d42bb87c1f707e9ede8c9afc8f0b1585058742"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/cleanup-without-raw-logs.patch.txt",
+      "archive": "cleanup-without-raw-logs.patch.txt",
+      "bytes": 1288,
+      "sha256": "526a4b82544d6bfdf933c801faa5b4afe41f92e5af5595ef9c726d47b0780fd6"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/runner-cleanup-without-raw-logs.py",
+      "archive": "runner-cleanup-without-raw-logs.py.txt",
+      "bytes": 10682,
+      "sha256": "a84d967417c5f8fb0e6190396df7b494033d7d94657afa2471bc165671fa29dd"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T115945Z/cleanup-invocation.json",
+      "archive": "cleanup-invocation.json",
+      "bytes": 669,
+      "sha256": "4b78575fbe6031ec2ef0ef41e3c10e25385bf388dd2d2a47ff923240b62fa59f"
+    }
+  ],
+  "workflowLog": {
+    "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T115945Z/workflow.log",
+    "sourceSha256": "63b218a840218da78e578e1d749be6c432c8009bd3a0d0655f4ffe7d131f47c5",
+    "sourceBytes": 535547,
+    "archive": "workflow.log",
+    "archiveSha256": "4c0461f2662bbb11ccf320d5c331aa8b72999bb892593d3049063a2f21eba422",
+    "archiveBytes": 535246,
+    "redactedSyntheticIdentifiers": {
+      "roomId": 1,
+      "roundId": 1
+    },
+    "scope": "Full workflow log with two synthetic public room/round identifier values replaced. All other lines and GitHub masking remain. Visible auth strings and account IDs are the declared synthetic CI fixtures."
+  },
+  "stepResultsExtractedFromWorkflowLog": [
+    {
+      "workflowStep": "Verify browser journey silently",
+      "archive": "visual-smoke-result.json",
+      "omittedFields": [],
+      "otherFieldsUnchanged": true
+    },
+    {
+      "workflowStep": "Verify synchronized Postgres room",
+      "archive": "multiplayer-result.json",
+      "omittedFields": [
+        "roomId",
+        "roundId"
+      ],
+      "otherFieldsUnchanged": true
+    },
+    {
+      "workflowStep": "Verify packaged cleanup CLI",
+      "archive": "cleanup-dry-run-result.json",
+      "omittedFields": [],
+      "otherFieldsUnchanged": true
+    }
+  ],
+  "capacitySummary": {
+    "source": "/tmp/queue-arcade-launch-ci/evidence/queue-arcade-ci-20261010T115945Z/container-check/capacity-1.json",
+    "sourceSha256": "918537a685289c254171cc6b028e95f967ad01b65bfa2bc95adfb9a8c542427b",
+    "scope": "Aggregate synthetic workload. No room codes, identifiers, player/session rows, individual answers or chat texts are copied."
+  },
+  "runtimeMetadataScope": "Saved outer runner startup metadata. Its image field is the reusable runner image. container-result.json separately binds the tested production app image and runtime build ID.",
+  "accessibility": "Complete lossless reports, exact-run copy record, committed checker source and screenshot inventory are under accessibility.",
+  "productionUiReview": {
+    "manifest": "production-ui-review/manifest.json",
+    "sha256": "d13ad88a05a066c8233d609be1904e339721010b05a02a52172333cc6925c99a"
+  },
+  "candidateSecurityScope": "Pre-push exact raw-blob candidate review. The older six-value known-secret summary is superseded by corrected-known-values.json. Full image scan and expanded final evidence checks remain separate.",
+  "privateFilesExcluded": [
+    "environment files",
+    "database credentials",
+    "raw runtime stores",
+    "capacity player/session rows and chat texts",
+    "runner diagnostic logs",
+    "registration token values"
+  ],
+  "runnerCleanup": {
+    "reviewedHelperSha256": "a84d967417c5f8fb0e6190396df7b494033d7d94657afa2471bc165671fa29dd",
+    "reviewedOriginalSha256": "e51f03d8ddd01539011f07dbb0ccf920a7f9db62412a5fe9af51b6f1933fc4e9",
+    "patchMatchesExactSources": true,
+    "reportedResourcesRemoved": true,
+    "reportedProblems": [],
+    "reportedRemainingRegisteredRunners": 0,
+    "executionEvidenceScope": "The operator invocation record states that cleanup used this reviewed helper after automatic approval review rejected a raw runner-log-tail read. The record was made after completion. Source review confirms that the cleanup path contains no raw runner-log reads. Neither the invocation record nor the cleanup outcome is an execution attestation or file-access trace.",
+    "rawRunnerLogsCopied": false,
+    "sourceChangeScope": "Only the diagnostic-copy block was removed. Ownership, stopped-state, registration, removal and final verification checks remain unchanged.",
+    "invocationRecord": "cleanup-invocation.json",
+    "invocationRecordScope": "Operator record created after cleanup. It records the command and matching preparation and post-execution source hashes. It is not an execution attestation or file-access trace."
+  }
+}

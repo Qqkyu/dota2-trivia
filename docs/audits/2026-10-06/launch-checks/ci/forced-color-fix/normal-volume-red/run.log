@@ -1,0 +1,2 @@
+{"runName":"chromium","mode":"desktop","pages":1,"fixtures":0,"failures":5}
+{"runName":"chromium","pages":1,"fixtures":0,"failures":["desktop-volume: muted volume text has painted contrast","desktop-volume: muted slider has painted contrast","desktop-volume: muting does not fade controls","desktop-volume: muted and enabled text remain equally readable","desktop-volume: muted and enabled slider remain equally readable"],"output":"/tmp/queue-arcade-launch-ci/forced-color-fix/normal-volume-red/chromium.json"}

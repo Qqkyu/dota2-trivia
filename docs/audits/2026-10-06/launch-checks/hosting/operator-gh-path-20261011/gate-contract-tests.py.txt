@@ -1,0 +1,45 @@
+"""Proof schema checks with synthetic data and no provider calls."""
+import copy
+import datetime
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+BASE = Path('/tmp/queue-arcade-launch-checks/hosted-smoke-preparation/v2')
+spec = importlib.util.spec_from_file_location('gate_contract_under_review', BASE / 'create-gate-gh-path.py')
+gate = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(gate)
+NAMES = ['baseline', 'cloudflare-header', 'real-ip-header', 'forwarded-chain', 'combined-headers']
+CASES = []
+def valid():
+    return {'proofVersion': 2, 'changedConfiguration': False, 'operatorSecretLogged': False,
+            'rawAddressesLogged': False, 'operatorScript': {'path': 'ingress-helper-v2/check-ingress-proof.mjs', 'sha256': 'a' * 64},
+            'checks': [{'name': name, 'outcome': 'verified_egress', 'receivedVerifiedEgress': True,
+                        'suppliedHeaderDidNotControlResult': True, 'httpStatus': 200,
+                        'edgeErrorCode': None} for name in NAMES]}
+def edge(proof, index):
+    proof['checks'][index].update(outcome='edge_rejected', receivedVerifiedEgress=False, httpStatus=403, edgeErrorCode=1000)
+def run(name, mutate=lambda proof: None, allowed=False):
+    proof = valid(); mutate(proof)
+    failed = False
+    try: gate.validate_v2_proof_contract(proof, "a" * 64)
+    except (RuntimeError, ValueError, TypeError, KeyError): failed = True
+    assert failed != allowed, name
+    CASES.append({'name': name, 'passed': True})
+run('all five authenticated egress results are valid', allowed=True)
+run('both CF-supplied cases can have exact edge rejection', lambda proof: [edge(proof, 1), edge(proof, 4)], allowed=True)
+for index in [0,2,3]: run('reject edge outcome for ' + NAMES[index], lambda proof, i=index: edge(proof, i))
+for key,value in [('proofVersion',1),('proofVersion',None),('proofVersion',2.0),('changedConfiguration',True),('operatorSecretLogged',True),('rawAddressesLogged',True)]:
+    run('reject proof field ' + key + '=' + str(value), lambda proof, k=key,v=value: proof.update({k:v}))
+for key,value in [('path','scripts/check-ingress-proof.mjs'),('sha256','not-a-digest'),('sha256','b'*64)]:
+    run('reject operator ' + key, lambda proof,k=key,v=value: proof['operatorScript'].update({k:v}))
+run('reject extra operator field',lambda proof:proof['operatorScript'].update(secret='synthetic-only'))
+run('reject missing row',lambda proof:proof['checks'].pop())
+run('reject reordered rows',lambda proof:proof['checks'].reverse())
+run('reject extra row field',lambda proof:proof['checks'][0].update(extra=True))
+for key,value in [('outcome','unknown'),('receivedVerifiedEgress',False),('suppliedHeaderDidNotControlResult',False),('httpStatus',403),('httpStatus',200.0),('edgeErrorCode',1000)]:
+    run('reject invalid verified field ' + key,lambda proof,k=key,v=value:proof['checks'][0].update({k:v}))
+for key,value in [('receivedVerifiedEgress',True),('httpStatus',200),('edgeErrorCode',1001),('edgeErrorCode',1000.0),('suppliedHeaderDidNotControlResult',False)]:
+    def change(proof,k=key,v=value): edge(proof,1);proof['checks'][1][k]=v
+    run('reject invalid edge field ' + key,change)
+print(json.dumps({'checkedAt':datetime.datetime.now(datetime.timezone.utc).isoformat(),'passed':len(CASES),'hostedRequests':0,'gateSha256':hashlib.sha256((BASE/'create-gate-gh-path.py').read_bytes()).hexdigest(),'cases':CASES},indent=2))

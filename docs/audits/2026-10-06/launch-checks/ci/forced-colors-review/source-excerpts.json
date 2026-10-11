@@ -1,0 +1,47 @@
+{
+  "commit": "da28a646479fab030e9b02b187e177c0f89555b9",
+  "excerpts": [
+    {
+      "file": "src/components/queue-arcade.module.css",
+      "sha256": "f15aa01e2b069817eae1b305cd35592ecb3d7f86c810e4af70dcff132fabd815",
+      "startLine": 298,
+      "endLine": 332,
+      "text": "  border: 0;\n  border-right: 1px solid var(--line);\n  background: transparent;\n}\n\n.volumeControl[data-muted=\"true\"] .volumeSlider,\n.volumeControl[data-muted=\"true\"] .volumeValue {\n  opacity: 0.42;\n}\n\n.volumeSlider {\n  width: 72px;\n  height: 20px;\n  margin: 0 8px;\n  accent-color: #c4a46a;\n  cursor: pointer;\n  transition: opacity 160ms ease;\n}\n\n.volumeSlider:focus-visible {\n  outline: 2px solid rgba(196, 164, 106, 0.7);\n  outline-offset: 2px;\n}\n\n.volumeValue {\n  width: 34px;\n  margin-right: 6px;\n  color: var(--muted);\n  font-family: var(--font-geist-mono), monospace;\n  font-size: 11px;\n  line-height: 1;\n  text-align: right;\n  transition: opacity 160ms ease;\n}\n"
+    },
+    {
+      "file": "src/components/queue-arcade.module.css",
+      "sha256": "f15aa01e2b069817eae1b305cd35592ecb3d7f86c810e4af70dcff132fabd815",
+      "startLine": 2984,
+      "endLine": 3007,
+      "text": ".shopkeeperStoreTabs {\n  display: flex;\n  align-self: stretch;\n}\n\n.shopkeeperStoreTabs button {\n  min-width: 88px;\n  padding: 0 13px;\n  border: 0;\n  border-bottom: 2px solid transparent;\n  background: transparent;\n  color: #777a74;\n  font-family: var(--font-geist-mono), monospace;\n  font-size: 10px;\n  letter-spacing: 0.1em;\n  text-transform: uppercase;\n  cursor: pointer;\n}\n\n.shopkeeperStoreTabs button[aria-pressed=\"true\"] {\n  border-bottom-color: #d6a33f;\n  color: #e2bf72;\n  background: linear-gradient(180deg, transparent, rgba(210, 163, 74, 0.08));\n}"
+    },
+    {
+      "file": "src/components/private-room-panel.module.css",
+      "sha256": "1a53bf39552f77c54eee465405dd4b8173fc175c27f952663fb91c3b873f0327",
+      "startLine": 955,
+      "endLine": 980,
+      "text": ".gameCard {\n  position: relative;\n}\n\n.gameCard::after {\n  position: absolute;\n  right: 14px;\n  bottom: 16px;\n  display: grid;\n  width: 22px;\n  height: 22px;\n  place-items: center;\n  border: 1px solid #83c999;\n  background: #17251b\n    url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3 8 3 3 7-7' fill='none' stroke='%23a4e3b7' stroke-width='2'/%3E%3C/svg%3E\")\n    center / 16px 16px no-repeat;\n  content: \"\";\n  font-size: 15px;\n  line-height: 1;\n}\n\n.gameCard[data-on=\"false\"]::after {\n  border-color: #969d9c;\n  background: transparent;\n  content: \"\";\n}"
+    },
+    {
+      "file": "src/components/calibration-dashboard.module.css",
+      "sha256": "95c2671403db42157ef79ae74228c5765140e7a3e7af442919c307ccfab60e47",
+      "startLine": 268,
+      "endLine": 282,
+      "text": ".controls button {\n  min-height: 38px;\n  padding: 0 11px;\n  border: 1px solid var(--line);\n  background: transparent;\n  color: var(--muted);\n  font-size: 11px;\n  cursor: pointer;\n}\n\n.controls button[aria-pressed=\"true\"] {\n  border-color: rgba(111, 202, 203, 0.36);\n  background: rgba(89, 177, 177, 0.08);\n  color: #bce5e2;\n}"
+    },
+    {
+      "file": "src/components/calibration-dashboard.tsx",
+      "sha256": "a0168a3fd25e8ae73776cb6590dda4778b459b674d8b2341dc3f588f097da714",
+      "startLine": 241,
+      "endLine": 257,
+      "text": "            />\n          </label>\n          <div role=\"group\" aria-label=\"Calibration filter\">\n            {FILTERS.map((option) => (\n              <button\n                key={option.id}\n                type=\"button\"\n                aria-pressed={filter === option.id}\n                onClick={() => {\n                  setFilter(option.id);\n                  setPage(0);\n                }}\n              >\n                {option.label}\n              </button>\n            ))}\n          </div>"
+    },
+    {
+      "file": "scripts/check-accessibility.mjs",
+      "sha256": "ada35f46e03ae9a917a7705db0e62477ad2e0dd008606040b933468277d9a9e9",
+      "startLine": 275,
+      "endLine": 291,
+      "text": "    };\n  });\n  const screenshot = path.join(outputDir, `${runName}-${label}.png`);\n  // Capture CSS pixels so long pages at 400% reflow stay below browser image\n  // dimension limits. Layout and device-scale measurements remain unchanged.\n  await page.screenshot({ path: screenshot, fullPage: true, scale: \"css\" });\n  if (geometry.scrollWidth > modes[mode].viewport.width + 2) results.failures.push(`${label}: horizontal overflow`);\n  for (const rule of axe)\n    if ([\"critical\", \"serious\"].includes(rule.impact) && !(mode === \"forced\" && rule.id === \"color-contrast\")) {\n      // Axe uses authored colors here, although forced-color painting replaces\n      // them. Keep its raw output and inspect those screenshots separately.\n      results.failures.push(`${label}: ${rule.id}`);\n    }\n  if (errors.length) results.failures.push(`${label}: browser error`);\n  if (mode === \"forced\" && !geometry.forcedColors)\n    results.failures.push(`${label}: forced-color emulation unavailable`);\n  if (mode === \"reduced\" && !geometry.reducedMotion)"
+    }
+  ]
+}

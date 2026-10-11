@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+"""Focused path tests. Fixtures stay in this owned scratch directory."""
+from pathlib import Path
+import runpy
+import sys
+import tempfile
+import unittest
+
+SOURCE = Path(sys.argv.pop(1))
+MODULE = runpy.run_path(str(SOURCE))
+ERROR = MODULE['CheckError']
+WORKFLOW = 'ci/forced-color-fix/after/.github/workflows/ci.yml.txt'
+
+class WorkflowPathTests(unittest.TestCase):
+    def fixture(self):
+        folder = tempfile.TemporaryDirectory(prefix='workflow-path-', dir=Path(__file__).parent)
+        self.addCleanup(folder.cleanup)
+        root = Path(folder.name) / 'archive'
+        root.mkdir()
+        return root
+
+    def test_exact_workflow_is_included_and_verified(self):
+        root = self.fixture()
+        path = root / WORKFLOW
+        path.parent.mkdir(parents=True)
+        path.write_text('name: CI\n')
+        result = MODULE['write'](root, 'a' * 40)
+        self.assertEqual([row['path'] for row in result['files']], [WORKFLOW])
+        self.assertEqual(MODULE['verify'](root, 'a' * 40), result)
+        path.write_text('name: changed\n')
+        with self.assertRaises(ERROR):
+            MODULE['verify'](root, 'a' * 40)
+
+    def test_other_hidden_or_private_names_stay_rejected(self):
+        for name in [
+            '.github', '.github/workflows/ci.yml.txt',
+            'ci/forced-color-fix/before/.github/workflows/ci.yml.txt',
+            'ci/forced-color-fix/after/.github/workflows/other.yml.txt',
+            'ci/forced-color-fix/after/.github/workflows/ci.yml.txt.extra',
+            'ci/forced-color-fix/after/.github/workflows/ci.yml.txt/.env',
+            'ci/forced-color-fix/after/.github/.env',
+            'ci/forced-color-fix/after/.github/workflows/.env',
+            'ci/forced-color-fix/after/.github/workflows/private-render-backup',
+            'ci/forced-color-fix/after/.github/workflows/node_modules',
+            'ci/forced-color-fix/after/.github/workflows/ci.yml.txt/../other',
+            'ci/forced-color-fix/after/.github/workflows/ci.yml.txt/secret.key',
+        ]:
+            with self.subTest(name=name), self.assertRaises(ERROR):
+                MODULE['safe_name'](name)
+
+    def test_exact_workflow_file_symlink_stays_rejected(self):
+        root = self.fixture()
+        path = root / WORKFLOW
+        path.parent.mkdir(parents=True)
+        path.symlink_to(root / 'missing')
+        with self.assertRaises(ERROR):
+            MODULE['snapshot'](root)
+
+    def test_exact_workflow_directory_symlink_stays_rejected(self):
+        root = self.fixture()
+        path = root / 'ci/forced-color-fix/after/.github'
+        path.parent.mkdir(parents=True)
+        path.symlink_to(root, target_is_directory=True)
+        with self.assertRaises(ERROR):
+            MODULE['snapshot'](root)
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)

@@ -1,0 +1,69 @@
+#!/usr/bin/env python3
+"""Check scanner inputs locally without printing or writing credential values."""
+import argparse
+import datetime
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+import re
+import sys
+
+ROOT = Path('/home/kulmisiu/dev/dota2-trivia')
+TASK = Path('/tmp/dota2-trivia-audit-close')
+HELPER = TASK / 'final-exact-scan.py'
+HELPER_SHA256 = '33e6801c2adfa7adc191408d7462f4d78727c09b4c90eb5f8ff4db26212b156f'
+REVIEWS = TASK / 'reviewed-findings-through-31961cb.json'
+REVIEWS_SHA256 = '09c17ee1f1c5dbc6be2aab34d3ea9351650e529cab2ea607f592e6de60a1ff8a'
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--before-retain', action='store_true')
+    args = parser.parse_args()
+    scanner = None
+    try:
+        raw = HELPER.read_bytes()
+        if HELPER.is_symlink() or hashlib.sha256(raw).hexdigest() != HELPER_SHA256:
+            raise RuntimeError('Scanner hash differs.')
+        spec = importlib.util.spec_from_file_location('reviewed_final_scanner', HELPER)
+        scanner = importlib.util.module_from_spec(spec)
+        exec(compile(raw, str(HELPER), 'exec'), scanner.__dict__)
+        if args.before_retain:
+            recovery = Path('/tmp/queue-arcade-launch-checks/render-productionize-private')
+            tools = Path('/tmp/queue-arcade-launch-ci/secret-scan/tools')
+        else:
+            recovery = ROOT / '.local-assets/operator-recovery-20261010/render-productionize-private'
+            tools = Path('/home/kulmisiu/.cache/gitleaks/queue-arcade-audit')
+        app = scanner.configured_secrets(ROOT / '.env.local', recovery, ROOT)
+        operator = scanner.hosting_secrets(Path('/home/kulmisiu/.local/bin/gh'))
+        scanner.require(len(app) == 7 and len(operator) == 2 and len(app | operator) == 9, 'CREDENTIAL_COUNT')
+        scanner.require(scanner.sha((tools / 'gitleaks').read_bytes()) == scanner.GITLEAKS_SHA, 'GITLEAKS_BINARY_HASH')
+        scanner.derived_config((tools / 'gitleaks.toml').read_bytes())
+        reviewed, review_hash = scanner.reviewed_findings(REVIEWS)
+        scanner.require(review_hash == REVIEWS_SHA256 and len(reviewed) == 76, 'REVIEWED_FINDINGS_BASELINE')
+        print(json.dumps({
+            'checkedAt': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            'passed': True,
+            'retainedPaths': not args.before_retain,
+            'appValuesAvailable': len(app),
+            'operatorValuesAvailable': len(operator),
+            'distinctValuesAvailable': len(app | operator),
+            'requiredSteamWebKeyIncluded': True,
+            'gitleaksBinaryAndConfigurationMatch': True,
+            'reviewedFindingRecords': len(reviewed),
+            'reviewedFindingsSha256': review_hash,
+            'scannerSha256': HELPER_SHA256,
+            'credentialValuesPrinted': False,
+            'providerRequests': 0,
+            'filesWritten': 0,
+        }))
+        return 0
+    except Exception as error:
+        code = str(error) if scanner is not None and isinstance(error, scanner.ScanError) and re.fullmatch(r'[A-Z][A-Z0-9_]{1,80}', str(error)) else 'SCAN_INPUT_CHECK_FAILED'
+        print(json.dumps({'passed': False, 'failure': code, 'credentialValuesPrinted': False}))
+        return 2
+
+
+if __name__ == '__main__':
+    sys.exit(main())

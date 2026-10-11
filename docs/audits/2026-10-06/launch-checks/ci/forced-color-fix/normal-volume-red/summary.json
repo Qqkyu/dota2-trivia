@@ -1,0 +1,230 @@
+{
+  "exitCode": 1,
+  "startedAt": "2026-10-10T11:09:15.650Z",
+  "completedAt": "2026-10-10T11:09:17.161Z",
+  "completed": true,
+  "browser": "149.0.7827.55",
+  "pages": 1,
+  "fixtures": 0,
+  "checks": 10,
+  "failures": [
+    "desktop-volume: muted volume text has painted contrast",
+    "desktop-volume: muted slider has painted contrast",
+    "desktop-volume: muting does not fade controls",
+    "desktop-volume: muted and enabled text remain equally readable",
+    "desktop-volume: muted and enabled slider remain equally readable"
+  ],
+  "perControl": [
+    {
+      "kind": "volume",
+      "mode": "desktop",
+      "forced": false,
+      "checks": [
+        {
+          "name": "requested color mode is active",
+          "passed": true,
+          "detail": {
+            "forcedColors": false,
+            "dark": false
+          }
+        },
+        {
+          "name": "fixture starts muted",
+          "passed": true
+        },
+        {
+          "name": "muted control offers enabling sound",
+          "passed": true
+        },
+        {
+          "name": "enabled control offers muting sound",
+          "passed": true
+        },
+        {
+          "name": "muted volume text has painted contrast",
+          "passed": false,
+          "detail": {
+            "width": 34,
+            "height": 11,
+            "background": [
+              30,
+              20,
+              19
+            ],
+            "maxContrast": 2.1549543507062348,
+            "pixelsAtLeast3": 0,
+            "pixelsAtLeast45": 0
+          }
+        },
+        {
+          "name": "muted slider has painted contrast",
+          "passed": false,
+          "detail": {
+            "width": 72,
+            "height": 21,
+            "background": [
+              31,
+              20,
+              20
+            ],
+            "maxContrast": 2.38731090272804,
+            "pixelsAtLeast3": 0,
+            "pixelsAtLeast45": 0
+          }
+        },
+        {
+          "name": "muting does not fade controls",
+          "passed": false,
+          "detail": {
+            "mutedOpacity": [
+              0.42,
+              0.42
+            ]
+          }
+        },
+        {
+          "name": "muted and enabled text remain equally readable",
+          "passed": false,
+          "detail": {
+            "muted": {
+              "width": 34,
+              "height": 11,
+              "background": [
+                30,
+                20,
+                19
+              ],
+              "maxContrast": 2.1549543507062348,
+              "pixelsAtLeast3": 0,
+              "pixelsAtLeast45": 0
+            },
+            "enabled": {
+              "width": 34,
+              "height": 11,
+              "background": [
+                30,
+                20,
+                19
+              ],
+              "maxContrast": 6.525158754404539,
+              "pixelsAtLeast3": 49,
+              "pixelsAtLeast45": 25
+            }
+          }
+        },
+        {
+          "name": "muted and enabled slider remain equally readable",
+          "passed": false,
+          "detail": {
+            "muted": {
+              "width": 72,
+              "height": 21,
+              "background": [
+                31,
+                20,
+                20
+              ],
+              "maxContrast": 2.38731090272804,
+              "pixelsAtLeast3": 0,
+              "pixelsAtLeast45": 0
+            },
+            "enabled": {
+              "width": 72,
+              "height": 21,
+              "background": [
+                196,
+                164,
+                106
+              ],
+              "maxContrast": 7.611993406861177,
+              "pixelsAtLeast3": 1004,
+              "pixelsAtLeast45": 990
+            }
+          }
+        },
+        {
+          "name": "mute state is restored",
+          "passed": true
+        }
+      ],
+      "captures": [
+        {
+          "name": "muted-text",
+          "screenshot": "/tmp/queue-arcade-launch-ci/forced-color-fix/normal-volume-red/chromium-desktop-volume-muted-text.png",
+          "pixels": {
+            "width": 34,
+            "height": 11,
+            "background": [
+              30,
+              20,
+              19
+            ],
+            "maxContrast": 2.1549543507062348,
+            "pixelsAtLeast3": 0,
+            "pixelsAtLeast45": 0
+          }
+        },
+        {
+          "name": "muted-slider",
+          "screenshot": "/tmp/queue-arcade-launch-ci/forced-color-fix/normal-volume-red/chromium-desktop-volume-muted-slider.png",
+          "pixels": {
+            "width": 72,
+            "height": 21,
+            "background": [
+              31,
+              20,
+              20
+            ],
+            "maxContrast": 2.38731090272804,
+            "pixelsAtLeast3": 0,
+            "pixelsAtLeast45": 0
+          }
+        },
+        {
+          "name": "enabled-text",
+          "screenshot": "/tmp/queue-arcade-launch-ci/forced-color-fix/normal-volume-red/chromium-desktop-volume-enabled-text.png",
+          "pixels": {
+            "width": 34,
+            "height": 11,
+            "background": [
+              30,
+              20,
+              19
+            ],
+            "maxContrast": 6.525158754404539,
+            "pixelsAtLeast3": 49,
+            "pixelsAtLeast45": 25
+          }
+        },
+        {
+          "name": "enabled-slider",
+          "screenshot": "/tmp/queue-arcade-launch-ci/forced-color-fix/normal-volume-red/chromium-desktop-volume-enabled-slider.png",
+          "pixels": {
+            "width": 72,
+            "height": 21,
+            "background": [
+              196,
+              164,
+              106
+            ],
+            "maxContrast": 7.611993406861177,
+            "pixelsAtLeast3": 1004,
+            "pixelsAtLeast45": 990
+          }
+        }
+      ],
+      "media": {
+        "forcedColors": false,
+        "dark": false
+      }
+    }
+  ],
+  "sourceSha256": {
+    "scripts/check-accessibility.mjs": "72dee694777e5fb7d561c238e78f2748a0a2c46388bf51d559b973292dc95668",
+    "scripts/lib/forced-color-checks.mjs": "8a6900d8b4658c2f679f5508948662e9c198719e5aaf517b7ffe3a590a365256",
+    "src/components/queue-arcade.module.css": "def46b9efef80b630b607f73998317791f0433e44aff01f472d646494ca8fb52",
+    "src/components/private-room-panel.module.css": "b278310aeb677d7bec7c453ff20321d76b93c1b5c612bf1ae131efcadc738b28",
+    "src/components/calibration-dashboard.module.css": "85ac4806d0a9dce03264b59f93ce8086d82309d52071aa0d4967e78a48805a7a"
+  },
+  "scope": "Selected volume text and slider crops only; no claim of page-wide contrast compliance."
+}

@@ -1,0 +1,33 @@
+{
+  "checkedAt": "2026-10-11T07:10:42.499528+00:00",
+  "status": "blocked-before-execution",
+  "helperSha256": "724724857427caf1f02cb6523417acd7687fd339c5f793b6cc7cc3bd8e09cc47",
+  "dockerRemovalAttempted": false,
+  "dockerResourcesChanged": false,
+  "cleanupResultPresent": false,
+  "readOnlyAfterCheck": {
+    "checkedAt": "2026-10-11T07:11:08.757575+00:00",
+    "resultFile": "docker-cleanup-preflight.json",
+    "resultSha256": "92a60c02816a81116ad6b8b986f0499aa07cc0e41680b345ac42d38b008a1b93",
+    "allEightReviewedResourcesStillPresent": true,
+    "selectedMetadataExactlyMatchesOctober10Preflight": true,
+    "imageTags": [
+      "queue-arcade-launch:final",
+      "queue-arcade-assistive:orca49",
+      "queue-arcade-launch:baseline",
+      "queue-arcade-ci-runner:20261006",
+      "queue-arcade-launch-runtime-base:local",
+      "queue-arcade-launch-dependencies:local"
+    ],
+    "containerId": "0f6a9b0963a0c01c52c7815a216e7f623249bf08870d42bf48cd6dd115324890",
+    "volumeName": "b8a2f56da4718a3162e88b791b6791bb3b460d4c90abad59295ef374180789ae",
+    "removedCount": 0
+  },
+  "automaticApprovalReview": {
+    "outcome": "rejected",
+    "reason": "The command deletes six Docker image tags, a stopped container, and a volume. The reviewer found no trusted user approval for this exact destructive cleanup and did not accept the parent message or gate file as authorization.",
+    "requiredNextStep": "Obtain explicit user approval or provide new read-only evidence that resolves the stated authorization concern. Do not bypass through another agent or command."
+  },
+  "user_approval_pending": true,
+  "source_receipt_sha256": "85da5f606cf640d99b2c2dd8de21b8291e07731a45fc1a65d0bb93ecba24afde"
+}

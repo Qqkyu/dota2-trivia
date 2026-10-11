@@ -1,0 +1,110 @@
+{
+  "status": "prepared only; no actual cleanup has run",
+  "reviewed_task_directories": [
+    {
+      "path": "/tmp/queue-arcade-launch-checks",
+      "type": "directory",
+      "bytes": 21204619264,
+      "uid": 1000,
+      "mode": "0o755",
+      "modified_utc": "2026-10-10T09:59:41.762234+00:00",
+      "repo_reference_count": 112
+    },
+    {
+      "path": "/tmp/queue-arcade-deep-review",
+      "type": "directory",
+      "bytes": 3447828480,
+      "uid": 1000,
+      "mode": "0o755",
+      "modified_utc": "2026-10-06T09:35:01.705087+00:00",
+      "repo_reference_count": 58
+    },
+    {
+      "path": "/tmp/queue-arcade-health-wait-review",
+      "type": "directory",
+      "bytes": 1732608,
+      "uid": 1000,
+      "mode": "0o755",
+      "modified_utc": "2026-10-10T09:49:26.274173+00:00",
+      "repo_reference_count": 7
+    },
+    {
+      "path": "/tmp/queue-arcade-voices-replay",
+      "type": "directory",
+      "bytes": 524288,
+      "uid": 1000,
+      "mode": "0o755",
+      "modified_utc": "2026-10-06T08:44:14.421707+00:00",
+      "repo_reference_count": 1
+    },
+    {
+      "path": "/tmp/queue-arcade-launch-security",
+      "type": "directory",
+      "bytes": 707244032,
+      "uid": 1000,
+      "mode": "0o755",
+      "modified_utc": "2026-10-06T12:41:46.829167+00:00",
+      "repo_reference_count": 0
+    },
+    {
+      "path": "/tmp/queue-arcade-migrations.OfHbML",
+      "type": "directory",
+      "bytes": 125267968,
+      "uid": 1000,
+      "mode": "0o700",
+      "modified_utc": "2026-10-06T07:56:46.617665+00:00",
+      "repo_reference_count": 1
+    },
+    {
+      "path": "/tmp/queue-arcade-audit-20261006",
+      "type": "directory",
+      "bytes": 62599168,
+      "uid": 1000,
+      "mode": "0o755",
+      "modified_utc": "2026-10-06T05:20:21.228175+00:00",
+      "repo_reference_count": 17
+    },
+    {
+      "path": "/tmp/queue-arcade-pg-audit.3f4hCl",
+      "type": "directory",
+      "bytes": 105906176,
+      "uid": 1000,
+      "mode": "0o700",
+      "modified_utc": "2026-10-06T05:22:11.904523+00:00",
+      "repo_reference_count": 7
+    },
+    {
+      "path": "/tmp/queue-arcade-content-freshness-20261010",
+      "type": "directory",
+      "bytes": 1990656,
+      "uid": 1000,
+      "mode": "0o755",
+      "modified_utc": "2026-10-10T09:21:40.955205+00:00",
+      "repo_reference_count": 1
+    },
+    {
+      "path": "/tmp/queue-arcade-launch-ci",
+      "type": "directory",
+      "bytes": 1043894272,
+      "uid": 1000,
+      "mode": "0o755",
+      "modified_utc": "2026-10-10T09:49:42.534882+00:00",
+      "repo_reference_count": 16
+    },
+    {
+      "path": "/tmp/queue-arcade-fixes",
+      "type": "directory",
+      "bytes": 26525696,
+      "uid": 1000,
+      "mode": "0o755",
+      "modified_utc": "2026-10-06T07:58:03.866267+00:00",
+      "repo_reference_count": 7
+    }
+  ],
+  "reviewed_allocated_bytes": 26728132608,
+  "unclassified_name_matches_excluded_from_deletion": 814,
+  "private_recovery_root": "/home/kulmisiu/dev/dota2-trivia/.local-assets/operator-recovery-20261010",
+  "preserved_existing_env": "/home/kulmisiu/dev/dota2-trivia/.env.local",
+  "final_close_directory": "/tmp/dota2-trivia-audit-close",
+  "observed_date_utc": "2026-10-10"
+}

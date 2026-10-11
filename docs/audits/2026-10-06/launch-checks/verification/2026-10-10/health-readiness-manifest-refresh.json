@@ -1,0 +1,15 @@
+{
+  "checkedAt": "2026-10-10T09:59:12.429572+00:00",
+  "review": "The container-check deadline helper and call site were independently reviewed after reproducing exit13. Six regression cases, seven independent cases, and the actual capped workload passed. No question, answer, source fact, or generator changed.",
+  "changedReviewInputs": [
+    "scripts/check-container.mjs",
+    "scripts/lib/health-readiness.mjs"
+  ],
+  "missingReviewInputs": [],
+  "previousFileCount": 124,
+  "currentFileCount": 125,
+  "previousManifestSha256": "3b6706d2eb665edec4cbe3efbabb800011f8e3ac1832eb726d13e6142ebe4d08",
+  "currentManifestSha256": "9ebf289a61d9f26f4aa0f6655ff9cd8d8d537a94305bb78420ed37426e861567",
+  "questionAndEvidenceHashesUnchanged": true,
+  "currentReviewedAt": "2026-10-10T09:59:12.423Z"
+}

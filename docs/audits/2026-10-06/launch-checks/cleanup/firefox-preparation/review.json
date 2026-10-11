@@ -1,0 +1,13 @@
+{
+  "helper_sha256": "ff5b5982c82c3ef15916a7d2c65e734300dabbad642efc0912a6a6edba2e1615",
+  "primary_fixture_tests_passed": 21,
+  "independent_fixture_tests_passed": 26,
+  "real_metadata_dry_run_passed": true,
+  "real_bundle_hashes_checked": false,
+  "real_runtime_entries_removed": 0,
+  "existing_cache_changed": false,
+  "pinned_main_cleanup_helper_unchanged": true,
+  "pinned_main_cleanup_helper_sha256": "b08f8bbe81d15102f125acf0c77177b669ff8b9106563c83a904c53506f26a94",
+  "scope": "Only four exact empty entries in the audit source bundle. Complete source-minus-four and destination hashes must match before execution. The Windows query and Linux process/mount checks cover both exact roots.",
+  "phase": "prepared; waiting for hosted-complete go"
+}

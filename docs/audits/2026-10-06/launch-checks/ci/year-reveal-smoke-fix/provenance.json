@@ -1,0 +1,239 @@
+{
+  "copiedInputs": [
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/focused-year-red.mjs",
+      "archive": "focused-year-red.mjs.txt",
+      "bytes": 12048,
+      "sha256": "e5ff4391629e55847829faab9a7a207947cc03fe46dc0ade09dc02c824977e5c"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/focused-year-red.log",
+      "archive": "focused-year-red.log",
+      "bytes": 2872,
+      "sha256": "c45ca693f7406738809e2f08e3fe60748afcd5eff5cfb47b2475decb75632435"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/focused-year-red.exit",
+      "archive": "focused-year-red.exit",
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/visual-smoke-before.mjs",
+      "archive": "visual-smoke-before.mjs.txt",
+      "bytes": 80154,
+      "sha256": "8e14f037726e255d606975d9b068a630a2b155b9c6801fcd176d3c03173eaa20"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/focused-year-green-generator-error-2.exit",
+      "archive": "intermediate-predicate-extraction-failures/focused-year-green-generator-error-2.exit",
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/focused-year-green-generator-error-2.log",
+      "archive": "intermediate-predicate-extraction-failures/focused-year-green-generator-error-2.log",
+      "bytes": 796,
+      "sha256": "5acb61c4145803f07b5761224b66b4dcf0947878c3a64c4804a4c46b5851046c"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/focused-year-green-generator-error-2.mjs",
+      "archive": "intermediate-predicate-extraction-failures/focused-year-green-generator-error-2.mjs.txt",
+      "bytes": 17780,
+      "sha256": "eca38e240f6175da13dd03d7f74d2be1e84a19f025f2959fa19ac8782e00ffb0"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/focused-year-green-generator-error.exit",
+      "archive": "intermediate-predicate-extraction-failures/focused-year-green-generator-error.exit",
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/focused-year-green-generator-error.log",
+      "archive": "intermediate-predicate-extraction-failures/focused-year-green-generator-error.log",
+      "bytes": 811,
+      "sha256": "b0418fb29259c029619a91d6d54d2f012dfd19d7f77c264520b19415c2d47ba2"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/focused-year-green-generator-error.mjs",
+      "archive": "intermediate-predicate-extraction-failures/focused-year-green-generator-error.mjs.txt",
+      "bytes": 19071,
+      "sha256": "1b8752dd2bebdddc562e567b93f4786868b2c441ebdd8130de80780e3e23518e"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/focused-year-green.mjs",
+      "archive": "focused-year-green.mjs.txt",
+      "bytes": 16478,
+      "sha256": "3cda5b374fb96249d80fe644d873c648b056787cdee879141cefff3def86c01d"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/focused-year-green.log",
+      "archive": "focused-year-green.log",
+      "bytes": 2441,
+      "sha256": "7fb1c9a5e2e968292a6f6bb088fd28455caec6de376470083606e70809443e23"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/focused-year-green.exit",
+      "archive": "focused-year-green.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/source-check.json",
+      "archive": "source-check.json",
+      "bytes": 1067,
+      "sha256": "de87cad803a922f882ea7a25b1d0c165fbed4f0de58b7ac5b90e58f74717d1ba"
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/scripts/visual-smoke.mjs",
+      "archive": "visual-smoke-after.mjs.txt",
+      "bytes": 81936,
+      "sha256": "0064ae5cee65d0da37fe6597d8418c421967a51c4b8a475fc269ede1f3a3d010"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/predicate-guards.json",
+      "archive": "predicate-guards.json",
+      "bytes": 5698,
+      "sha256": "e208ddb22b86cd1cd99caf4139e037662217640ebda228726461e26df375d1d1"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/check-reveal-predicate.mjs",
+      "archive": "check-reveal-predicate.mjs.txt",
+      "bytes": 2245,
+      "sha256": "f9ad052035169c77f0e9aff7ba20f85784488006d315d974621d1901a3a22168"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/lint-result.json",
+      "archive": "lint-result.json",
+      "bytes": 288,
+      "sha256": "ce4b607fd5b9d40ee581b251fa37f14ad3ece37c7759b1911fdd06dc0472d3a4"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/image-source-binding.json",
+      "archive": "image-source-binding.json",
+      "bytes": 643,
+      "sha256": "b6e6dc223bc0e0f4b4aa5e140f60ef18e21787a50ee131e42074d34935e9a2f7"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/year-reveal-smoke-verification/visual-smoke.exit",
+      "archive": "verification/visual-smoke.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/year-reveal-smoke-verification/visual-smoke.started",
+      "archive": "verification/visual-smoke.started",
+      "bytes": 21,
+      "sha256": "b4a813ad5b62f1bdc861d68bc1edae782009a8143efc227f48c3454adfa40795"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/year-reveal-smoke-verification/visual-smoke.finished",
+      "archive": "verification/visual-smoke.finished",
+      "bytes": 21,
+      "sha256": "ef58d5d9303564260c455584fd62c50a1c05987458216f71a7a9bcf8fec0cbcf"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/year-reveal-smoke-verification/visual-smoke.log",
+      "archive": "verification/visual-smoke.log",
+      "bytes": 1785,
+      "sha256": "7557a255ed306fd78eb28a37fb0934243f16b26e55a9284f8ba91a354ce9c6ec"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/year-reveal-smoke-verification/multiplayer.exit",
+      "archive": "verification/multiplayer.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/year-reveal-smoke-verification/multiplayer.started",
+      "archive": "verification/multiplayer.started",
+      "bytes": 21,
+      "sha256": "ef58d5d9303564260c455584fd62c50a1c05987458216f71a7a9bcf8fec0cbcf"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/year-reveal-smoke-verification/multiplayer.finished",
+      "archive": "verification/multiplayer.finished",
+      "bytes": 21,
+      "sha256": "5ebb89dc3f622ee619ba2c88f34530e4dec9675d4600f8f62d6e6aded5c9efab"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/year-reveal-smoke-verification/cleanup-dry-run.exit",
+      "archive": "verification/cleanup-dry-run.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/year-reveal-smoke-verification/cleanup-dry-run.started",
+      "archive": "verification/cleanup-dry-run.started",
+      "bytes": 21,
+      "sha256": "5ebb89dc3f622ee619ba2c88f34530e4dec9675d4600f8f62d6e6aded5c9efab"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/year-reveal-smoke-verification/cleanup-dry-run.finished",
+      "archive": "verification/cleanup-dry-run.finished",
+      "bytes": 21,
+      "sha256": "5ebb89dc3f622ee619ba2c88f34530e4dec9675d4600f8f62d6e6aded5c9efab"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/year-reveal-smoke-verification/cleanup-dry-run.log",
+      "archive": "verification/cleanup-dry-run.log",
+      "bytes": 84,
+      "sha256": "b8316e36966c6b1bf44c90337806c907f9ceda08a9424a8bc3aae248a075595f"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/screenshots/year-smoke-1440-2011.png",
+      "archive": "screenshots/year-smoke-1440-2011.png",
+      "bytes": 568487,
+      "sha256": "c72f568bac170a3a154c3829e2d5e02522f7348da4f28061d91ef639d89f1898"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/screenshots/year-smoke-1440-2017.png",
+      "archive": "screenshots/year-smoke-1440-2017.png",
+      "bytes": 564712,
+      "sha256": "baeebb069c47cce6254c4b6748d34bc53f2acf22a68762289f55a95c5c6312d7"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/screenshots/year-smoke-320-2011.png",
+      "archive": "screenshots/year-smoke-320-2011.png",
+      "bytes": 203467,
+      "sha256": "33e184923bc4d202b394c9468de904d9c06957de78bfeb46cc6b5673ddc90e8d"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/screenshots/year-smoke-320-2017.png",
+      "archive": "screenshots/year-smoke-320-2017.png",
+      "bytes": 109523,
+      "sha256": "419bcf6a668821cbc921478eda530505a9659d721b27457c6e34bdf13dffb440"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/full-smoke-screenshots/queue-arcade-public-reveal.png",
+      "archive": "full-smoke-screenshots/queue-arcade-public-reveal.png",
+      "bytes": 631150,
+      "sha256": "6a225af8d1ecf7265cca04e29ad9f55509743b48a541fa1474623b72fa11a8bf"
+    },
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/full-smoke-screenshots/queue-arcade-public-round.png",
+      "archive": "full-smoke-screenshots/queue-arcade-public-round.png",
+      "bytes": 573459,
+      "sha256": "81aa9e228fefe1111dd7b1e5434ba554a41db9802018d269d3c195981fb0eced"
+    }
+  ],
+  "originalResult": {
+    "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/original-result.json",
+    "sha256": "2f859ab8e8b84fce1d7048c1fb783f634117f0111a231b91b9aeb75f2de00b8f",
+    "archive": "original-result-summary.json",
+    "selection": "Only game format, answer/reveal slider states, aggregate crowd result, menu dimensions and relevant flags are retained. No room or round identifiers are copied."
+  },
+  "sanitizedInputs": [
+    {
+      "source": "/tmp/queue-arcade-launch-ci/reveal-format-diagnosis/year-reveal-smoke-verification/multiplayer.log",
+      "sourceSha256": "ef7443e4819bae3a265af2b85cb8723c33dfca4279adb2b052ffc64a8155467f",
+      "archive": "verification/multiplayer.log",
+      "archiveSha256": "31f8e9762ad71e344a9146893c456771aadeb1a523c7768b4a47ee85868cbbdf",
+      "omittedFields": [
+        "roomId",
+        "roundId"
+      ],
+      "otherFieldsUnchanged": true
+    }
+  ]
+}

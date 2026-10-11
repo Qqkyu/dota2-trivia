@@ -1,0 +1,60 @@
+{
+  "sameImageId": "sha256:505a8858465f404d8ee359068eded6817bfe1fe1284831a119701c8816db29f0",
+  "sameLimits": {
+    "cpus": 0.1,
+    "memoryMiB": 512,
+    "swapMiB": 0,
+    "databaseCpus": 0.1,
+    "databaseMemoryMiB": 256
+  },
+  "attempts": [
+    {
+      "attempt": "unchanged-recheck",
+      "passed": true,
+      "startedAt": "2026-10-10T09:43:10.286000+00:00",
+      "endedAt": "2026-10-10T09:44:34.801000+00:00",
+      "latency": {
+        "targetMs": 1000,
+        "roundP95Max": 241.87,
+        "voteP95Max": 599.19,
+        "met": true
+      },
+      "correctnessPassed": true,
+      "extraObserverRequest": false
+    },
+    {
+      "attempt": "fixed-with-observation",
+      "passed": false,
+      "startedAt": "2026-10-10T09:49:32.489000+00:00",
+      "endedAt": "2026-10-10T09:52:05.995000+00:00",
+      "latency": {
+        "targetMs": 1000,
+        "roundP95Max": 1190.88,
+        "voteP95Max": 704.92,
+        "met": false
+      },
+      "correctnessPassed": true,
+      "extraObserverRequest": true
+    },
+    {
+      "attempt": "fixed-quiet",
+      "passed": true,
+      "startedAt": "2026-10-10T09:54:26.345000+00:00",
+      "endedAt": "2026-10-10T09:55:50.654000+00:00",
+      "latency": {
+        "targetMs": 1000,
+        "roundP95Max": 301.87,
+        "voteP95Max": 601.16,
+        "met": true
+      },
+      "correctnessPassed": true,
+      "extraObserverRequest": false
+    }
+  ],
+  "extraObserverScope": "One bounded local health request was made during the first fixed check. Exact overlap with individual round requests was not captured. It is not a proven explanation for the latency miss.",
+  "sourceHashes": {
+    "scripts/check-container.mjs": "14db144a2ee9308e878ba6af3f31de00bb825cad60e6d2495e89d90c7bd80698",
+    "scripts/lib/health-readiness.mjs": "f255a0c66fd073c6c4d234a6e18e639bd903c95024e1c3824632d8ee106f36f5",
+    "tests/health-readiness.test.mjs": "760d29cd758d6871bae5eb59cf547faad9f050783057bdbe639f81107d43e013"
+  }
+}

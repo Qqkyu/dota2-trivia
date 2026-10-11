@@ -1,0 +1,221 @@
+#!/usr/bin/env python3
+"""Read local audit evidence. Emit paths, digests and counts, never matched secrets.
+
+Run from the repository root. The optional output path must be inside this folder.
+This is a structural check and a narrow credential-pattern check, not a secret audit.
+"""
+from pathlib import Path, PurePosixPath
+from urllib.parse import unquote, urlsplit
+from datetime import datetime, timezone
+import argparse
+import gzip
+import hashlib
+import json
+import re
+import sys
+import tarfile
+
+REPO = Path.cwd().resolve()
+ROOT = REPO / "docs/audits/2026-10-06/launch-checks"
+OUT = ROOT / "verification/2026-10-10/final-evidence"
+HERE = Path(__file__).resolve()
+HEX = re.compile(r"[0-9a-f]{64}\Z")
+PROHIBITED_PARTS = {".git", ".aws", ".ssh", ".data", ".local-assets", "node_modules", ".next", "__pycache__", "browser-profile", "private-render-backup"}
+
+
+def prohibited_filename(name):
+    path = PurePosixPath(name)
+    return bool(set(path.parts) & PROHIBITED_PARTS) or path.name == ".env" or path.name.startswith(".env.") or path.suffix in {".dump", ".sqlite", ".sqlite3", ".db", ".pem", ".key", ".pyc"}
+
+
+def digest(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def label(path):
+    return str(path.relative_to(REPO))
+
+
+def entries(document):
+    data = document.get("files", document) if isinstance(document, dict) else document
+    if isinstance(data, dict):
+        return [{"path": p, **(m if isinstance(m, dict) else {"sha256": m})}
+                for p, m in data.items()]
+    return data if isinstance(data, list) else []
+
+
+def check_manifest(path, source=False, evidence_rows_only=False):
+    result = {"path": label(path), "manifestSha256": digest(path.read_bytes()), "checked": 0, "mismatches": []}
+    if source:
+        result["scope"] = "Historical source snapshot. Differences from current source are observations, not archive corruption."
+    seen = set()
+    rows = entries(json.loads(path.read_text()))
+    if not rows:
+        result["mismatches"].append({"path": "<manifest>", "reasons": ["manifest has no recognized file entries"]})
+    for index, item in enumerate(rows):
+        if not isinstance(item, dict):
+            result["mismatches"].append({"path": "<entry " + str(index) + ">", "reasons": ["manifest row is not an object"]})
+            continue
+        name = item.get("path", item.get("file"))
+        expected = item.get("sha256", item.get("compressedSha256"))
+        if not isinstance(name, str) or not isinstance(expected, str) or not HEX.fullmatch(expected):
+            result["mismatches"].append({"path": "<entry " + str(index) + ">", "reasons": ["manifest row has no valid path and digest"]})
+            continue
+        if evidence_rows_only and not name.startswith("docs/audits/"):
+            continue
+        result["checked"] += 1
+        reason = []
+        if name in seen:
+            reason.append("duplicate manifest path")
+        seen.add(name)
+        target = REPO / name if source or name.startswith("docs/") else path.parent / name
+        target = target.resolve()
+        if not target.is_relative_to(REPO):
+            reason.append("path escapes repository")
+        elif not target.is_file():
+            reason.append("file missing")
+        else:
+            raw = target.read_bytes()
+            if digest(raw) != expected:
+                reason.append("digest differs")
+            size = item.get("bytes", item.get("compressedBytes"))
+            if size is not None and len(raw) != size:
+                reason.append("size differs")
+            if "uncompressedSha256" in item:
+                plain = gzip.decompress(raw)
+                if digest(plain) != item["uncompressedSha256"] or len(plain) != item["uncompressedBytes"]:
+                    reason.append("uncompressed profile differs")
+        if reason:
+            result["mismatches"].append({"path": name, "reasons": reason})
+    return result
+
+
+def markdown_links(path):
+    raw = path.read_text()
+    # Preserve line numbers while excluding fenced command examples.
+    raw = re.sub(r"(?ms)^(`{3,}|~{3,})[^\n]*\n.*?^\1\s*$", lambda m: "\n" * m.group().count("\n"), raw)
+    links = list(re.finditer(r"!?\[[^\]\n]*\]\(\s*(<[^>]+>|[^\s)]+)(?:\s+[^)]*)?\)", raw))
+    links += list(re.finditer(r"(?m)^\s*\[[^\]]+\]:\s*(<[^>]+>|\S+)", raw))
+    result = []
+    for match in links:
+        href = match.group(1).strip("<>")
+        parts = urlsplit(href)
+        if parts.scheme or parts.netloc or not parts.path:
+            continue
+        name = unquote(parts.path)
+        name = re.sub(r":\d+$", "", name)
+        target = (path.parent / name).resolve()
+        result.append({"file": label(path), "line": raw.count("\n", 0, match.start()) + 1,
+                       "target": name, "exists": target.exists(),
+                       "insideRepository": target.is_relative_to(REPO)})
+    return result
+
+
+def sensitive_matches(raw, file):
+    rules = {
+        "private key": rb"-----BEGIN (?:RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----",
+        "GitHub token": rb"\b(?:gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{50,})\b",
+        "AWS access key": rb"\b(?:AKIA|ASIA)[A-Z0-9]{16}\b",
+        "Slack token": rb"\bxox[baprs]-[A-Za-z0-9-]{20,}\b",
+        "signed cloud URL": rb"https?://[^\s\"<>]+[?&](?:X-Amz-Signature|X-Goog-Signature|AWSAccessKeyId|Signature)=[^\s\"<>]+",
+    }
+    return [{"file": file, "line": raw[:m.start()].count(b"\n") + 1, "rule": name}
+            for name, pattern in rules.items() for m in re.finditer(pattern, raw)]
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output", type=Path)
+    args = parser.parse_args()
+    if not (REPO / "package.json").is_file() or not ROOT.is_dir():
+        parser.error("Run from the repository root")
+    output = args.output.resolve() if args.output else None
+    if output and (not output.is_relative_to(OUT) or output == HERE):
+        parser.error("Output must be a separate file inside final-evidence")
+    paths = sorted(p for p in ROOT.rglob("*") if not p.is_relative_to(OUT))
+    files = [p for p in paths if p.is_file() and not p.is_symlink()]
+    result = {"checkedAt": datetime.now(timezone.utc).isoformat(),
+              "scope": "Current launch-checks files excluding this final-evidence folder. Concurrent writes may require a repeat.",
+              "files": len(files), "bytes": sum(p.stat().st_size for p in files),
+              "inventory": [], "symlinks": [label(p) for p in paths if p.is_symlink()], "prohibitedFiles": [], "jsonFailures": [],
+              "jsonFiles": 0, "jsonLines": 0, "markdownFiles": 0, "localLinks": 0,
+              "brokenLinks": [], "archiveChecks": [], "narrowCredentialPatternMatches": [],
+              "evidenceManifests": [], "sourceSnapshotManifests": []}
+    for path in files:
+        raw = path.read_bytes()
+        name = label(path)
+        result["inventory"].append({"path": name, "bytes": len(raw), "sha256": digest(raw)})
+        if prohibited_filename(name):
+            result["prohibitedFiles"].append(name)
+        if path.suffix in {".json", ".jsonl"}:
+            try:
+                if path.suffix == ".json":
+                    json.loads(raw)
+                    result["jsonFiles"] += 1
+                else:
+                    for line in raw.splitlines():
+                        if line.strip():
+                            json.loads(line)
+                            result["jsonLines"] += 1
+            except (ValueError, UnicodeError) as error:
+                result["jsonFailures"].append({"file": name, "errorType": type(error).__name__})
+        if path.suffix == ".md":
+            links = markdown_links(path)
+            result["markdownFiles"] += 1
+            result["localLinks"] += len(links)
+            result["brokenLinks"].extend(x for x in links if not x["exists"] or not x["insideRepository"])
+        if path.name.endswith(".tar.gz"):
+            members = []
+            seen_members = set()
+            with tarfile.open(path, "r:gz") as archive:
+                for member in archive.getmembers():
+                    relative = PurePosixPath(member.name)
+                    safe = not relative.is_absolute() and ".." not in relative.parts and not member.issym() and not member.islnk() and (member.isfile() or member.isdir()) and not prohibited_filename(member.name) and member.name not in seen_members
+                    seen_members.add(member.name)
+                    members.append({"path": member.name, "bytes": member.size, "safePathAndType": safe})
+                    if safe and member.isfile():
+                        content = archive.extractfile(member).read()
+                        result["narrowCredentialPatternMatches"].extend(sensitive_matches(content, name + "::" + member.name))
+            result["archiveChecks"].append({"file": name, "members": members, "passed": all(m["safePathAndType"] for m in members)})
+        elif path.suffix == ".gz":
+            try:
+                plain = gzip.decompress(raw)
+                result["archiveChecks"].append({"file": name, "uncompressedBytes": len(plain), "sha256": digest(plain), "passed": True})
+                result["narrowCredentialPatternMatches"].extend(sensitive_matches(plain, name + "::uncompressed"))
+            except (OSError, EOFError):
+                result["archiveChecks"].append({"file": name, "passed": False})
+        elif b"\0" not in raw:
+            result["narrowCredentialPatternMatches"].extend(sensitive_matches(raw, name))
+        if "manifest" in path.name and path.suffix == ".json":
+            relative = str(path.relative_to(ROOT))
+            source = relative in {"database/migrations/source-manifest.json", "performance/source-manifest.json", "second-opinion/final-source-manifest.json", "second-opinion/reviewed-source-manifest.json"}
+            excluded = {"echo/model-manifests.json", "database/backup/synthetic-backup-manifest.json", "infrastructure/final-build-manifest.json", "infrastructure/node22-tool-manifest.json", "infrastructure/scanner-manifest.json", "rights/quarantine-manifest.json", "soundcheck/route-output-manifest.json"}
+            if relative not in excluded:
+                checked = check_manifest(path, source)
+                result["sourceSnapshotManifests" if source else "evidenceManifests"].append(checked)
+                if relative == "database/migrations/source-manifest.json":
+                    evidence = check_manifest(path, True, True)
+                    evidence["scope"] = "Archive evidence entries in a mixed source manifest. App source entries are reported separately."
+                    result["evidenceManifests"].append(evidence)
+    result["historicalArchive"] = check_manifest(REPO / "docs/audits/2026-10-06/deep-review/archive-manifest.json")
+    final_files = {label(p) for p in ROOT.rglob("*") if p.is_file() and not p.is_symlink() and not p.is_relative_to(OUT)}
+    initial_files = {item["path"] for item in result["inventory"]}
+    changed = [item["path"] for item in result["inventory"] if not (REPO / item["path"]).is_file() or digest((REPO / item["path"]).read_bytes()) != item["sha256"]]
+    result["concurrentChanges"] = {"added": sorted(final_files - initial_files), "removed": sorted(initial_files - final_files), "changed": changed}
+    result["structuralChecksPassed"] = not any(result[k] for k in ("symlinks", "prohibitedFiles", "jsonFailures", "brokenLinks")) and not any(m["mismatches"] for m in result["evidenceManifests"]) and not result["historicalArchive"]["mismatches"] and all(a["passed"] for a in result["archiveChecks"]) and not any(result["concurrentChanges"].values())
+    result["limits"] = ["Markdown file destinations checked; heading anchors and web links are not checked.",
+                        "Manifest checks verify listed bytes. They do not prove that a scoped manifest lists every file.",
+                        "Credential patterns are narrow. Exact candidate Gitleaks and known-secret scans are separate evidence.",
+                        "Images are included in the inventory; this script does not inspect their pixels.",
+                        "Historical source snapshots may differ from the current source. Their observations are separate from evidence corruption."]
+    if output:
+        output.write_text(json.dumps(result, indent=2) + "\n")
+    summary = {k: v for k, v in result.items() if k not in {"inventory", "archiveChecks", "sourceSnapshotManifests", "evidenceManifests"}}
+    summary["evidenceManifestCount"] = len(result["evidenceManifests"])
+    summary["evidenceManifestMismatches"] = [m for m in result["evidenceManifests"] if m["mismatches"]]
+    print(json.dumps(summary, indent=2))
+    return 0 if result["structuralChecksPassed"] and not result["narrowCredentialPatternMatches"] else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

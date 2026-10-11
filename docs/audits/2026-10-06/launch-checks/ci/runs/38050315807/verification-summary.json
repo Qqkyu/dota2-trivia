@@ -1,0 +1,43 @@
+{
+  "run": 38050315807,
+  "sourceCommit": "31961cbd762587225b4b8a814828dc0829952978",
+  "conclusion": "success",
+  "unitTests": {
+    "files": 66,
+    "tests": 1302
+  },
+  "browserAndAudio": {
+    "playerJourneys": 52,
+    "responsiveChecks": 2489,
+    "nativeOutputChecks": 10,
+    "tappedPcmChecks": 30
+  },
+  "accessibility": {
+    "pageStates": 63,
+    "fixtures": 144,
+    "generalKeyboardScenarios": 18,
+    "paintingAssertions": 117
+  },
+  "visualSmoke": {
+    "passed": true,
+    "reportBoundsMatched": true,
+    "flashbackYearReveal": "not-current-round"
+  },
+  "multiplayer": {
+    "passed": true,
+    "persistedVotes": 2,
+    "backend": "postgres",
+    "duplicateRejected": true,
+    "scope": "Synthetic account/OpenID fixtures; no real owner Steam sign-in."
+  },
+  "packagedCleanup": {
+    "ok": true,
+    "dryRun": true,
+    "rounds": 0,
+    "sessions": 0,
+    "alphaSessions": 0,
+    "steamNonces": 0
+  },
+  "workflowLogSha256": "4c0461f2662bbb11ccf320d5c331aa8b72999bb892593d3049063a2f21eba422",
+  "scope": "Completed exact-candidate GitHub CI. Full image scan, deployment and live-service checks are separate."
+}

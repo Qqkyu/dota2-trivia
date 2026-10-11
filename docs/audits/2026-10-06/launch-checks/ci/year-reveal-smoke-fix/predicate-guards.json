@@ -1,0 +1,295 @@
+{
+  "sourceSha256": "0064ae5cee65d0da37fe6597d8418c421967a51c4b8a475fc269ede1f3a3d010",
+  "checks": 48,
+  "passed": true,
+  "results": [
+    {
+      "width": 320,
+      "yearAnswer": 2017,
+      "case": "actual rendered state accepted",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2017,
+      "case": "missing board",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2017,
+      "case": "wrong phase",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2017,
+      "case": "missing correct year",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2017,
+      "case": "malformed correct year",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2017,
+      "case": "wrong visible year",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2017,
+      "case": "missing correct-year label",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2017,
+      "case": "missing submitted year",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2017,
+      "case": "wrong retained answer",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2017,
+      "case": "stale slider",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2017,
+      "case": "stale lock button",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2017,
+      "case": "wrong format reveal",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2011,
+      "case": "actual rendered state accepted",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2011,
+      "case": "missing board",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2011,
+      "case": "wrong phase",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2011,
+      "case": "missing correct year",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2011,
+      "case": "malformed correct year",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2011,
+      "case": "wrong visible year",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2011,
+      "case": "missing correct-year label",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2011,
+      "case": "missing submitted year",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2011,
+      "case": "wrong retained answer",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2011,
+      "case": "stale slider",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2011,
+      "case": "stale lock button",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "yearAnswer": 2011,
+      "case": "wrong format reveal",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2017,
+      "case": "actual rendered state accepted",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2017,
+      "case": "missing board",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2017,
+      "case": "wrong phase",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2017,
+      "case": "missing correct year",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2017,
+      "case": "malformed correct year",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2017,
+      "case": "wrong visible year",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2017,
+      "case": "missing correct-year label",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2017,
+      "case": "missing submitted year",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2017,
+      "case": "wrong retained answer",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2017,
+      "case": "stale slider",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2017,
+      "case": "stale lock button",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2017,
+      "case": "wrong format reveal",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2011,
+      "case": "actual rendered state accepted",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2011,
+      "case": "missing board",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2011,
+      "case": "wrong phase",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2011,
+      "case": "missing correct year",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2011,
+      "case": "malformed correct year",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2011,
+      "case": "wrong visible year",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2011,
+      "case": "missing correct-year label",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2011,
+      "case": "missing submitted year",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2011,
+      "case": "wrong retained answer",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2011,
+      "case": "stale slider",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2011,
+      "case": "stale lock button",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "yearAnswer": 2011,
+      "case": "wrong format reveal",
+      "pass": true
+    }
+  ]
+}

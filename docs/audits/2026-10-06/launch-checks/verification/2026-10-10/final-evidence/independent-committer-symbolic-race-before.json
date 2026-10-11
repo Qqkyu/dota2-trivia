@@ -1,0 +1,13 @@
+{
+  "scope": "Isolated temporary Git fixtures. No real repository Git writes.",
+  "gitVersion": "2.34.1",
+  "finding": "A dangling symbolic evidence ref created after the initial absence check can be replaced by an expected-zero update-ref with --no-deref. A plain create transaction with option no-deref has the same behavior.",
+  "reproduced": true,
+  "directUpdateReturnCode": 0,
+  "createTransactionReturnCode": 0,
+  "symbolicRefReplaced": true,
+  "symbolicTargetChanged": false,
+  "symrefVerifySupported": false,
+  "helperSha256": "9911c809ea13b8752246e555023c9d224078b8e8cc57d819ea520e6d11f65887",
+  "recommendedControl": "Hold a prepared Git transaction lock, recheck ref and symbolic-ref absence, then commit or abort."
+}

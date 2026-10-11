@@ -1,0 +1,28 @@
+{
+  "checkedAt": "2026-10-11T06:21:15.304643+00:00",
+  "expectedResult": "Use the installed GitHub CLI while preserving every policy, proof and receipt guard.",
+  "policySourceSha256": "0d1400014b762b3592251f8e28eae334d41adbb1f527afda70a720dffa642b54",
+  "gateSourceSha256": "73266f8def00124ac76aec8a5960850bd0cc4e87571c5c13d74f295f8cdc1d5e",
+  "preservedOriginalPolicySha256": "b4b143e325a030497251bd8176629c0f7d1bfa97d5c8e1a9d7d7b02d1526f672",
+  "preservedOriginalGateSha256": "46a7599ae2e183a5f3fe74665ab394cecc10c634ad8ca0289fc547f94cdc66c5",
+  "installedGithubCliSha256": "56b8bbbb27b066ecb33dbef9a256dc9d1314adaeff0908a752feba6c34053b40",
+  "policySuitePassed": 39,
+  "gateSuitePassed": 33,
+  "proofContractSuitePassed": 29,
+  "testEnvironment": {
+    "PATH": "/usr/bin:/bin",
+    "otherInheritedVariables": false
+  },
+  "gateOutputPathPreserved": true,
+  "onlyPolicyExecutableChanged": true,
+  "onlyGatePathAndHashChanged": true,
+  "independentReview": {
+    "agent": "/root/audit_security/gh_path_review",
+    "exactDiffsPassed": true,
+    "hashesPassed": true,
+    "policySuitePassed": 39
+  },
+  "hostedRequests": 0,
+  "providerMutations": 0,
+  "runtimeGateExecuted": false
+}
