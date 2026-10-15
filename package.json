@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "node scripts/start-production.mjs",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "sync-data": "node scripts/sync-dota-data.mjs && node scripts/backfill-quote-hints.mjs && node scripts/generate-value-order.mjs && node scripts/generate-aghanim.mjs",
@@ -45,36 +45,56 @@
     "check:round-copy": "node scripts/check-round-copy.mjs",
     "check:rate-limit": "node scripts/check-rate-limit-live.mjs",
     "check:ui": "node scripts/check-ui.mjs",
-    "check": "pnpm validate-data && pnpm test && pnpm lint && pnpm typecheck && pnpm build && pnpm validate-client-bundle && pnpm check:ui"
+    "check": "pnpm check:content-release && pnpm validate-data && pnpm test && pnpm lint && pnpm typecheck && pnpm build && pnpm validate-client-bundle && pnpm check:ui",
+    "check:config": "node scripts/check-production-config.mjs",
+    "check:headers": "node scripts/check-security-headers.mjs",
+    "db:migrate": "node scripts/migrate-db.mjs",
+    "db:cleanup": "node scripts/cleanup-db.mjs",
+    "db:backup": "node scripts/backup-db.mjs",
+    "db:restore": "node scripts/restore-db.mjs",
+    "db:grant-runtime": "node scripts/grant-runtime-db.mjs",
+    "check:content-release": "node scripts/validate-content-release.mjs",
+    "check:journeys": "node scripts/check-user-journeys.mjs",
+    "check:responsive": "node scripts/check-responsive-ui.mjs",
+    "check:accessibility": "node scripts/check-accessibility.mjs",
+    "check:capacity": "node scripts/check-capacity.mjs",
+    "check:container": "node scripts/check-container.mjs"
   },
   "engines": {
-    "node": ">=20.9.0"
+    "node": "^22.12.0 || ^24.0.0 || >=26.0.0"
   },
   "pnpm": {
     "overrides": {
+      "@next/eslint-plugin-next>fast-glob": "npm:tinyglobby@0.2.17",
       "form-data": "4.0.6",
       "nanoid": "3.3.18",
       "postcss": "8.5.23",
-      "sharp": "0.35.4"
+      "sharp": "0.35.5"
+    },
+    "patchedDependencies": {
+      "@next/eslint-plugin-next@16.3.8": "patches/@next__eslint-plugin-next@16.3.8.patch",
+      "postgres@3.4.9": "patches/postgres@3.4.9.patch"
     }
   },
   "dependencies": {
     "clsx": "2.1.1",
     "lucide-react": "1.26.0",
-    "next": "16.3.3",
+    "next": "16.3.8",
     "postgres": "3.4.9",
-    "react": "19.2.7",
-    "react-dom": "19.2.7",
-    "sharp": "0.35.4"
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "sharp": "0.35.5"
   },
   "devDependencies": {
-    "@types/node": "22.7.5",
+    "@types/node": "22.20.5",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
+    "axe-core": "4.14.0",
     "eslint": "9.39.5",
-    "eslint-config-next": "16.3.3",
+    "eslint-config-next": "16.3.8",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-prettier": "5.2.1",
+    "playwright": "1.61.1",
     "prettier": "3.3.3",
     "typescript": "5.6.3",
     "vitest": "5.0.0"

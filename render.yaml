@@ -1,0 +1,41 @@
+# Review this file before importing it. Importing a Blueprint deploys resources.
+# This preserves the current free test service. It creates no paid database or cron job.
+services:
+  - type: web
+    name: queue-arcade
+    runtime: docker
+    region: frankfurt
+    plan: free
+    numInstances: 1
+    autoDeployTrigger: "off"
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    maxShutdownDelaySeconds: 30
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_POOL_SIZE
+        value: "5"
+      - key: ARCADE_APP_URL
+        sync: false
+      - key: ARCADE_AUTH_SECRET
+        sync: false
+      - key: ARCADE_VOTER_SALT
+        sync: false
+      - key: ARCADE_DATA_COUNTRIES
+        sync: false
+      - key: ARCADE_REVIEWER_STEAM_IDS
+        sync: false
+      - key: ARCADE_AUTO_MIGRATE
+        value: "false"
+      - key: ARCADE_ALLOW_FILE_STORE
+        value: "false"
+      - key: ARCADE_ROUND_RETENTION_HOURS
+        value: "2"
+      - key: ARCADE_TRUST_PROXY
+        sync: false

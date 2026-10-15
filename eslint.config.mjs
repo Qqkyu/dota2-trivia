@@ -10,6 +10,7 @@ const config = defineConfig([
   globalIgnores([
     ".next/**",
     ".next-check/**",
+    ".next-*/**",
     "node_modules/**",
     "out/**",
     "build/**",

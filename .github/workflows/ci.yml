@@ -2,8 +2,15 @@ name: Queue Arcade CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, codex/launch-checks-20261006]
   pull_request:
+  workflow_dispatch:
+    inputs:
+      local_runner:
+        description: Use the disposable repository runner without hosted caches or artifacts
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: read
@@ -14,7 +21,8 @@ concurrency:
 
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    runs-on: ${{ (github.ref == 'refs/heads/codex/launch-checks-20261006' || inputs.local_runner == true) && fromJSON('["self-hosted", "Linux", "X64", "queue-arcade-ci-local"]') || 'ubuntu-latest' }}
+    timeout-minutes: 60
     services:
       postgres:
         image: postgres:17-alpine
@@ -31,40 +39,117 @@ jobs:
           --health-retries 10
     env:
       DATABASE_URL: postgres://queue_arcade:queue_arcade_ci@127.0.0.1:5432/queue_arcade
-      DATABASE_POOL_SIZE: 2
-      ARCADE_VOTER_SALT: queue-arcade-ci-only
+      TEST_DATABASE_URL: postgres://queue_arcade:queue_arcade_ci@127.0.0.1:5432/queue_arcade
+      LAUNCH_DATABASE_TEST_URL: postgres://queue_arcade:queue_arcade_ci@127.0.0.1:5432/queue_arcade
+      PG_BIN_DIR: /usr/lib/postgresql/17/bin
+      DATABASE_POOL_SIZE: "2"
+      ARCADE_AUTO_MIGRATE: "false"
+      ARCADE_VOTER_SALT: queue-arcade-ci-voter-salt-at-least-32-characters
       ARCADE_AUTH_SECRET: queue-arcade-ci-auth-only-at-least-32-characters
       ARCADE_APP_URL: http://127.0.0.1:3000
+      APP_URL: http://127.0.0.1:3000
       ARCADE_DATA_COUNTRIES: United States (ephemeral CI database)
       ARCADE_REVIEWER_STEAM_IDS: "76561198000000000"
       ARCADE_SMOKE_REVIEWER_STEAM_ID: "76561198000000000"
-      NEXT_TELEMETRY_DISABLED: 1
+      ARCADE_ALLOW_FILE_STORE: "false"
+      ARCADE_TRUST_PROXY: none
+      NEXT_TELEMETRY_DISABLED: "1"
     steps:
-      - uses: actions/checkout@v6
-      - uses: pnpm/action-setup@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
         with:
           version: 9.12.1
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: 22
-          cache: pnpm
+          cache: ${{ github.ref != 'refs/heads/codex/launch-checks-20261006' && inputs.local_runner != true && 'pnpm' || '' }}
+          package-manager-cache: ${{ github.ref != 'refs/heads/codex/launch-checks-20261006' && inputs.local_runner != true }}
+      - name: Install native media test tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends ffmpeg pulseaudio pulseaudio-utils
+      - name: Install PostgreSQL 17 backup tools from the signed PGDG repository
+        run: |
+          sudo install -d /usr/share/postgresql-common/pgdg
+          sudo curl --fail --silent --show-error --location --retry 3 \
+            https://www.postgresql.org/media/keys/ACCC4CF8.asc \
+            --output /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc
+          . /etc/os-release
+          printf '%s\n' \
+            'Types: deb' \
+            'URIs: https://apt.postgresql.org/pub/repos/apt' \
+            "Suites: ${VERSION_CODENAME}-pgdg" \
+            "Architectures: $(dpkg --print-architecture)" \
+            'Components: main' \
+            'Signed-By: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc' \
+            | sudo tee /etc/apt/sources.list.d/pgdg.sources > /dev/null
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends postgresql-client-17
+          "$PG_BIN_DIR/pg_dump" --version | grep -E '^pg_dump \(PostgreSQL\) 17\.'
+          "$PG_BIN_DIR/pg_restore" --version | grep -E '^pg_restore \(PostgreSQL\) 17\.'
       - run: pnpm install --frozen-lockfile
+      - name: Install browser engines for accessibility checks
+        run: pnpm exec playwright install --with-deps chromium firefox webkit
       - run: pnpm audit --prod --audit-level high
-      - run: pnpm check
+      - run: pnpm check:config
+      - run: pnpm check:content-release
+      - run: pnpm validate-data
+      - run: pnpm exec vitest run --maxWorkers=2
+      - run: pnpm lint
+      - run: pnpm typecheck
+      # The rate-limit regression starts a second isolated server from this build.
+      - run: pnpm build
+      - run: pnpm validate-client-bundle
       - name: Build production container
         run: docker build --tag queue-arcade:ci .
-      - name: Start production server
+      - name: Scan production container
+        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # 0.35.0
+        with:
+          image-ref: queue-arcade:ci
+          scan-type: image
+          scanners: vuln
+          ignore-unfixed: true
+          severity: CRITICAL,HIGH,MEDIUM
+          exit-code: "1"
+          cache: ${{ github.ref != 'refs/heads/codex/launch-checks-20261006' && inputs.local_runner != true }}
+      - name: Verify constrained container and database roles
+        env:
+          CONTAINER_ISOLATED: "1"
+          CONTAINER_IMAGE: queue-arcade:ci
+          CONTAINER_APP_PORT: "3323"
+          CONTAINER_OUTPUT: /tmp/queue-arcade-container-ci
+          CONTAINER_CPUS: "0.1"
+          CONTAINER_MEMORY_MIB: "512"
+          CONTAINER_DATABASE_CPUS: "0.1"
+          CONTAINER_DATABASE_MEMORY_MIB: "256"
+        run: pnpm check:container --skip-build
+      - name: Apply database migrations with the packaged CLI
+        run: docker run --rm --network host --env DATABASE_URL queue-arcade:ci node scripts/migrate-db.mjs
+      - name: Start production container against Postgres
         run: |
-          pnpm start > /tmp/queue-arcade-ci.log 2>&1 &
-          echo $! > /tmp/queue-arcade-ci.pid
-          for attempt in {1..30}; do
-            if curl --fail --silent http://127.0.0.1:3000/api/health > /dev/null; then
+          docker run --detach --name queue-arcade-ci --network host \
+            --env DATABASE_URL --env DATABASE_POOL_SIZE --env ARCADE_AUTO_MIGRATE \
+            --env ARCADE_VOTER_SALT --env ARCADE_AUTH_SECRET --env ARCADE_APP_URL \
+            --env ARCADE_DATA_COUNTRIES --env ARCADE_REVIEWER_STEAM_IDS \
+            --env ARCADE_ALLOW_FILE_STORE --env ARCADE_TRUST_PROXY queue-arcade:ci
+          for attempt in {1..60}; do
+            if curl --fail --silent "$APP_URL/api/health" > /dev/null; then
               exit 0
             fi
             sleep 1
           done
-          cat /tmp/queue-arcade-ci.log
+          docker logs queue-arcade-ci
           exit 1
+      - name: Verify production headers and runtime metadata
+        run: pnpm check:headers
+      - name: Verify browser journeys and native audio output
+        run: pnpm check:ui
+      - name: Check accessibility and keyboard flows in Chromium
+        run: A11Y_MODES=desktop,mobile,zoom200,zoom400,reduced,forced,forced-dark pnpm check:accessibility
+      - name: Check mobile and keyboard flows in Firefox
+        run: BROWSER_ENGINE=firefox A11Y_MODES=mobile pnpm check:accessibility
+      - name: Check mobile and keyboard flows in WebKit
+        run: BROWSER_ENGINE=webkit A11Y_MODES=mobile pnpm check:accessibility
       - name: Start muted browser
         run: |
           google-chrome --headless=new --no-sandbox --mute-audio --autoplay-policy=user-gesture-required \
@@ -83,15 +168,25 @@ jobs:
         run: node scripts/visual-smoke.mjs
       - name: Verify synchronized Postgres room
         run: pnpm check:multiplayer
-      - name: Print server log on failure
-        if: failure()
-        run: cat /tmp/queue-arcade-ci.log
-      - name: Stop production server
+      - name: Verify packaged cleanup CLI
+        run: docker exec queue-arcade-ci node scripts/cleanup-db.mjs --dry-run
+      - name: Collect container log
+        if: always()
+        run: docker logs queue-arcade-ci > /tmp/queue-arcade-ci.log 2>&1 || true
+      - name: Preserve failure logs
+        if: ${{ failure() && github.ref != 'refs/heads/codex/launch-checks-20261006' && inputs.local_runner != true }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: queue-arcade-failure-logs
+          path: |
+            /tmp/queue-arcade-ci.log
+            /tmp/queue-arcade-chrome.log
+            /tmp/queue-arcade-deep-review/accessibility/
+          retention-days: 7
+      - name: Stop test processes
         if: always()
         run: |
           if test -f /tmp/queue-arcade-chrome.pid; then
             kill "$(cat /tmp/queue-arcade-chrome.pid)" || true
           fi
-          if test -f /tmp/queue-arcade-ci.pid; then
-            kill "$(cat /tmp/queue-arcade-ci.pid)" || true
-          fi
+          docker rm --force queue-arcade-ci || true
