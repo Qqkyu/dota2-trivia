@@ -238,6 +238,10 @@ and [repeatable commands](audits/2026-10-06/launch-checks/infrastructure/checks.
 The default `CONTAINER_ISOLATED=1 pnpm check:container` builds the reviewed image and runs
 four players against a separate synthetic database. Repeat the constrained check after
 material backend changes and measure the actual host before raising the expected player count.
+The one-second p95 target (`CONTAINER_LATENCY_TARGET_MS`) fails the check on a dedicated host.
+CI sets `CONTAINER_LATENCY_ADVISORY=1` because a 0.1-CPU container on a shared GitHub runner
+gives noisy timing; correctness, memory, restart, and health assertions stay strict there, and
+the measured p95 values are printed in the job log.
 
 ## Readiness, logs, and alerts
 

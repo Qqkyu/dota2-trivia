@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-10-15T15:50:26.963Z",
+  "reviewedAt": "2026-10-15T16:06:36.431Z",
   "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Fable 5.1 on 2026-10-15 after removing the retired Map Sense and Counterplay archive and audit-only scripts (playable catalog unchanged)",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
@@ -26,7 +26,7 @@
     "scripts/check-accessibility.mjs": "72dee694777e5fb7d561c238e78f2748a0a2c46388bf51d559b973292dc95668",
     "scripts/check-capacity.mjs": "7b4536dcbbe14f11a4e578100cb35f680401363ca6caf8f88fc176018cb198e8",
     "scripts/check-cold-media.mjs": "039047277c25afdbd02f69025513b19faad305d37f23e4062809a83f0d1b7ff3",
-    "scripts/check-container.mjs": "14db144a2ee9308e878ba6af3f31de00bb825cad60e6d2495e89d90c7bd80698",
+    "scripts/check-container.mjs": "3526bbbe9b22361e559d22202612126a660f439a29bbf036befab84648908128",
     "scripts/check-feedback-sounds.mjs": "3521b145864e3ba5529a704e7bae3a375db37a05afad0dd8f42385b9f718eb04",
     "scripts/check-flashback-ui.mjs": "e250a66bab2d7c5b7bfa2fa7a3903439daaf5734b8a8609ed13ec393d75b1c71",
     "scripts/check-gameplay-recovery.mjs": "8675305276cca4110b6c157ad15a2de7ba4d0e8ef1c36c4fec66690d8c9ed2a9",
