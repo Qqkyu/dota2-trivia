@@ -193,7 +193,7 @@
 }
 
 .formatCard[data-empty="true"] {
-  opacity: 0.62;
+  opacity: 1;
 }
 
 .cardBody {
@@ -369,7 +369,7 @@
 
 .privacyNote {
   margin: 28px 0 0;
-  color: #626966;
+  color: #969d9c;
   font-size: 11px;
 }
 
@@ -437,5 +437,31 @@
   .emptyCard {
     margin-top: 45px;
     padding: 28px;
+  }
+}
+
+.heroCopy {
+  min-width: 0;
+}
+
+.page :is(button, a):focus-visible {
+  outline: 2px solid #c4a46a;
+  outline-offset: 3px;
+}
+
+@media (max-width: 520px) {
+  .hero > div:last-child {
+    flex-wrap: wrap;
+  }
+
+  .hero button,
+  .emptyCard button {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 520px) {
+  .previewStage {
+    display: none;
   }
 }

@@ -2,6 +2,9 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
+// HTML needs a fresh CSP nonce and the runtime public origin on every request.
+export const dynamic = "force-dynamic";
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",

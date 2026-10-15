@@ -215,11 +215,40 @@
 }
 
 .chart > div {
+  position: relative;
   display: grid;
   height: 100%;
   align-items: end;
   gap: 8px;
   grid-template-rows: 1fr auto;
+}
+
+.chartValue {
+  position: absolute;
+  z-index: 1;
+  bottom: 24px;
+  left: 50%;
+  width: max-content;
+  max-width: 180px;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  background: #101312;
+  color: #ecece6;
+  font-size: 12px;
+  font-weight: 400;
+  visibility: hidden;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.chart > div:focus-visible {
+  outline: 2px solid #f06a58;
+  outline-offset: 3px;
+}
+
+.chart > div:focus .chartValue,
+.chart > div:hover .chartValue {
+  visibility: visible;
 }
 
 .chart span {
@@ -464,4 +493,31 @@
   .gate section {
     padding: 28px 22px;
   }
+}
+
+.shell :is(a, button):focus-visible,
+.gate a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+@media (max-width: 720px) {
+  .headerActions a {
+    min-height: 44px;
+  }
+
+  .gate {
+    padding-inline: 12px;
+  }
+}
+
+.chart > div:nth-child(-n + 4) .chartValue {
+  left: 0;
+  transform: none;
+}
+
+.chart > div:nth-last-child(-n + 4) .chartValue {
+  right: 0;
+  left: auto;
+  transform: none;
 }

@@ -54,7 +54,7 @@
 }
 
 .gameCard[data-on="false"] {
-  opacity: 0.45;
+  opacity: 1;
 }
 
 .primary,
@@ -271,6 +271,10 @@
   width: min(100%, 520px);
 }
 
+.waitView .lobby {
+  grid-row: 1 / -1;
+}
+
 .lobby {
   position: relative;
   display: flex;
@@ -291,7 +295,11 @@
 
 .lobby .playersBlock {
   flex: 1 1 0%;
-  min-height: 144px;
+  min-height: 96px;
+}
+
+.lobby .playersScroll {
+  min-height: 48px;
 }
 
 .lobby > .chatShell {
@@ -594,7 +602,7 @@
 .waitView .chatShell .chat,
 .waitView .chat {
   min-height: 0;
-  max-height: 168px;
+  max-height: 208px;
 }
 
 .waitView .chatLog {
@@ -779,6 +787,20 @@
   cursor: pointer;
 }
 
+.chatForm button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.chatError {
+  height: 32px;
+  margin: 0;
+  overflow: auto;
+  color: #efaa9e;
+  font-size: 11px;
+  line-height: 16px;
+}
+
 .gameCard:focus-visible,
 .primary:focus-visible,
 .ghost:focus-visible,
@@ -830,4 +852,149 @@
   position: relative;
   z-index: 1;
   flex: 0 0 auto;
+}
+
+.chatLog p {
+  overflow-wrap: anywhere;
+}
+
+.playerName:focus-visible,
+.chatForm :is(input, button):focus-visible {
+  outline: 2px solid #c4a46a;
+  outline-offset: 2px;
+}
+
+@media (max-width: 960px) {
+  .playDock {
+    max-height: none;
+    grid-template-rows: minmax(96px, 200px) auto;
+  }
+
+  .playDock .chatSlot,
+  .playDock .chatShell .chat {
+    min-height: 0;
+  }
+
+  .playDock .chatLog {
+    height: 120px;
+  }
+}
+
+@media (max-width: 680px), (max-height: 600px) {
+  .waitView {
+    flex: 0 0 auto;
+    overflow: visible;
+  }
+
+  .waitView .lobby {
+    height: auto;
+    overflow: visible;
+  }
+
+  .lobby .playersBlock {
+    flex: none;
+  }
+
+  .lobby .playersScroll {
+    flex: none;
+    height: 146px;
+    min-height: 96px;
+  }
+}
+
+@media (max-width: 680px) {
+  .back,
+  .chatToggle,
+  .dashButton,
+  .codeInput,
+  .playerName,
+  .chatForm input,
+  .chatForm button {
+    min-height: 44px;
+  }
+
+  .chatForm input {
+    font-size: 16px;
+  }
+
+  .nameError {
+    max-width: min(260px, 80vw);
+    white-space: normal;
+  }
+}
+
+.setupTitle {
+  width: min(100%, 420px);
+  margin: 48px auto 0;
+  color: #f1f0ea;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 510;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+
+.setupIntro {
+  width: min(100%, 420px);
+  margin: 0 auto;
+  color: #a7afa9;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.chooseDoors {
+  width: min(100%, 420px);
+  margin-top: 12px;
+}
+
+@media (max-width: 680px) {
+  .setupTitle {
+    margin-top: 24px;
+  }
+}
+
+.gameCard {
+  position: relative;
+}
+
+.gameCard::after {
+  position: absolute;
+  right: 14px;
+  bottom: 16px;
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border: 1px solid #83c999;
+  background: #17251b
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3 8 3 3 7-7' fill='none' stroke='%23a4e3b7' stroke-width='2'/%3E%3C/svg%3E")
+    center / 16px 16px no-repeat;
+  content: "";
+  font-size: 15px;
+  line-height: 1;
+}
+
+.gameCard[data-on="false"]::after {
+  border-color: #969d9c;
+  background: transparent;
+  content: "";
+}
+
+@media (forced-colors: active) {
+  .gameCard::after {
+    border-color: CanvasText;
+    background: Canvas;
+    color: CanvasText;
+    content: "\2713" / "";
+    font-weight: 700;
+  }
+
+  .gameCard[data-on="false"]::after {
+    border-color: CanvasText;
+    background: Canvas;
+    content: "";
+  }
+
+  .gameCard:focus-visible {
+    outline-color: Highlight;
+  }
 }
