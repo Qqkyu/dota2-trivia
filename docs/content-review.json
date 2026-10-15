@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-10-15T15:19:36.350Z",
+  "reviewedAt": "2026-10-15T15:50:26.963Z",
   "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Fable 5.1 on 2026-10-15 after removing the retired Map Sense and Counterplay archive and audit-only scripts (playable catalog unchanged)",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
@@ -29,7 +29,7 @@
     "scripts/check-container.mjs": "14db144a2ee9308e878ba6af3f31de00bb825cad60e6d2495e89d90c7bd80698",
     "scripts/check-feedback-sounds.mjs": "3521b145864e3ba5529a704e7bae3a375db37a05afad0dd8f42385b9f718eb04",
     "scripts/check-flashback-ui.mjs": "e250a66bab2d7c5b7bfa2fa7a3903439daaf5734b8a8609ed13ec393d75b1c71",
-    "scripts/check-gameplay-recovery.mjs": "750504a733000aa7adac90fac408c76118857e8fdf64ae6c1c105cb5804e144f",
+    "scripts/check-gameplay-recovery.mjs": "8675305276cca4110b6c157ad15a2de7ba4d0e8ef1c36c4fec66690d8c9ed2a9",
     "scripts/check-hero-search.mjs": "f639fc99758778bb08e3ad254585e10ab94ea430a6d7657a8ebb0b726053889f",
     "scripts/check-ingress-proof.mjs": "49e49deeffdcaca8448fad91420d9fcb60d1307afd6b0ae54cc45cfa4d892948",
     "scripts/check-ingress-trust.mjs": "e9f34483045feea92dbcc405ce91d3ec1700061ca06cdb3f1c563aaecc55cd35",

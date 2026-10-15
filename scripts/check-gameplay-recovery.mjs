@@ -317,7 +317,13 @@ try {
   console.log("PASS browser commands do not submit classic answers");
   for (const kind of ["year", "hero"]) {
     const page = await setup({ kind });
-    if (kind === "hero") for (const letter of "abaddon") await keyboard(page, letter);
+    if (kind === "hero") {
+      // The hero grid attaches its typing shortcut after it mounts. Wait for the
+      // grid, then confirm the filter received every letter before moving on.
+      await page.waitFor(`document.querySelectorAll('[data-testid="hero-picker-hero"]').length > 100`);
+      for (const letter of "abaddon") await keyboard(page, letter);
+      await page.waitFor(`document.querySelector('[data-testid="hero-search"]')?.dataset.query === "abaddon"`);
+    }
     const mute = '[aria-label="Mute game sounds"], [aria-label="Enable game sounds"]';
     const original = await page.evaluate(`document.querySelector('${mute}').getAttribute('aria-pressed')`);
     await page.evaluate(`document.querySelector('${mute}').focus()`);
