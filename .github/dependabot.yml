@@ -5,6 +5,13 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    # pnpm patches pin @next/eslint-plugin-next and postgres to exact versions.
+    # Dependabot cannot re-apply a patch, so its updater fails on these three.
+    # Update them by hand: bump, refresh the patch, run pnpm check.
+    ignore:
+      - dependency-name: next
+      - dependency-name: eslint-config-next
+      - dependency-name: postgres
     groups:
       next:
         patterns:
