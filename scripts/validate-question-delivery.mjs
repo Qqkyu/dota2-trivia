@@ -445,7 +445,6 @@ const PRIVATE_MODULES = [
   "src/data/value-order-questions.json",
   "src/data/aghanim-questions.json",
   "src/data/flashback-questions.json",
-  "src/data/counterplay-questions.json",
 ];
 
 async function listSourceFiles(directory) {

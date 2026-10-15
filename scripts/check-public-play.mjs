@@ -212,7 +212,7 @@ try {
       if (rect.width < 2 || rect.height < 2) continue;
       return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2, kind: selector };
     }
-    const board = document.querySelector('[data-testid="map-sense-board"], [data-testid="flashback-year-slider"]');
+    const board = document.querySelector('[data-testid="flashback-year-slider"]');
     if (board) {
       const rect = board.getBoundingClientRect();
       return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2, kind: "board" };

@@ -1,11 +1,11 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import test from "node:test";
+import { test } from "vitest";
 import { isFlashbackOrderAnswerForQuestion, isFlashbackYearAnswerForQuestion } from "../src/lib/flashback.mjs";
 import { recipeItemsFromAnswerKey } from "../src/lib/item-picker.mjs";
 import { publicQuestionForRound } from "../src/lib/public-question.mjs";
 import { isValueOrderAnswerForQuestion } from "../src/lib/value-order.mjs";
-import { SMOKE_QUESTION_FILES, privateQuestionForReveal, smokeVoteAnswer } from "./smoke-fixtures.mjs";
+import { SMOKE_QUESTION_FILES, privateQuestionForReveal, smokeVoteAnswer } from "../scripts/smoke-fixtures.mjs";
 
 const load = async (name) => JSON.parse(await readFile(new URL(`../src/data/${name}`, import.meta.url), "utf8"));
 const pools = await Promise.all(SMOKE_QUESTION_FILES.map(load));
