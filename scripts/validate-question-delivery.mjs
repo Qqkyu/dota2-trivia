@@ -199,7 +199,7 @@ if (flashbackWinner) {
     answering.reveal === null &&
       !JSON.stringify(answering).includes("revealMedia") &&
       !JSON.stringify(answering).includes("team_logos/36") &&
-      !JSON.stringify(answering).includes("/arcade/flashback/winners/"),
+      !JSON.stringify(answering).includes("/arcade/flashback/originals/winner-"),
     "Flashback who-won still shows the winning-team picture while answers are open.",
   );
   record(
@@ -208,21 +208,21 @@ if (flashbackWinner) {
   );
 }
 
-const flashbackWinnerPhoto = flashback.find((question) => question.id === "flashback:ti7-winner");
-if (flashbackWinnerPhoto) {
-  const answeringRound = roundFor(flashbackWinnerPhoto, "flashback");
-  const answering = publicQuestionForRound(flashbackWinnerPhoto, answeringRound, answeringRound.now);
-  const revealRound = roundFor(flashbackWinnerPhoto, "flashback", "reveal", 16_000);
-  const reveal = publicQuestionForRound(flashbackWinnerPhoto, revealRound, revealRound.now);
+const flashbackWinnerCard = flashback.find((question) => question.id === "flashback:ti7-winner");
+if (flashbackWinnerCard) {
+  const answeringRound = roundFor(flashbackWinnerCard, "flashback");
+  const answering = publicQuestionForRound(flashbackWinnerCard, answeringRound, answeringRound.now);
+  const revealRound = roundFor(flashbackWinnerCard, "flashback", "reveal", 16_000);
+  const reveal = publicQuestionForRound(flashbackWinnerCard, revealRound, revealRound.now);
   record(
-    answering.reveal === null && !JSON.stringify(answering).includes("ti7-liquid"),
-    "Flashback still shows the TI7 hoist photo while answers are open.",
+    answering.reveal === null && !JSON.stringify(answering).includes("winner-team-liquid"),
+    "Flashback still shows the TI7 winner card while answers are open.",
   );
   record(
-    reveal.reveal?.media?.src === "/arcade/flashback/winners/ti7-liquid.jpg" &&
-      reveal.reveal.media.kind === "photo" &&
+    reveal.reveal?.media?.src === "/arcade/flashback/originals/winner-team-liquid.svg" &&
+      reveal.reveal.media.kind === "mark" &&
       reveal.reveal.media.alt.includes("Team Liquid"),
-    "Flashback TI7 reveal no longer uses the official hoist photo.",
+    "Flashback TI7 reveal no longer uses the original winner card.",
   );
 }
 

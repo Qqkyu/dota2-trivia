@@ -3,6 +3,7 @@
 import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { isSingleItemSoundPickerQuestion } from "../src/lib/item-picker.mjs";
 import {
   SOUNDCHECK_AUDIT,
   SOUNDCHECK_DEFINITIONS,
@@ -19,6 +20,7 @@ import {
   echoHuntCutDuration,
   echoHuntRevealStage,
   soundcheckCutDuration,
+  soundcheckClipTiming,
   soundcheckRevealStage,
 } from "../src/lib/soundcheck.mjs";
 
@@ -96,23 +98,25 @@ for (const [index, definition] of SOUNDCHECK_DEFINITIONS.entries()) {
           ? "same-hero"
           : "active-items";
   const expectedKeys = [definition.subject, ...definition.distractors].sort();
-  const expectedClipMetadata = clips.map(({ subject, event, eventFile, duration }) => ({
+  const expectedClipMetadata = clips.map(({ subject, event, eventFile, duration, startSeconds }) => ({
     subject,
     event,
     eventFile,
     duration,
+    ...(startSeconds !== undefined ? { startSeconds } : {}),
   }));
   const expectedAudioUrls = clips.map(soundcheckAudioUrl);
   for (const [clipIndex, clip] of clips.entries()) {
-    const ambiguousChoices = soundcheckSharedAudioAlternatives(clip.subject, [
-      definition.subject,
-      ...definition.distractors,
-    ]);
+    const offeredKeys = isSingleItemSoundPickerQuestion(question)
+      ? [...shopItemKeys]
+      : [definition.subject, ...definition.distractors];
+    const ambiguousChoices = soundcheckSharedAudioAlternatives(clip.subject, offeredKeys);
     if (ambiguousChoices.length) {
       failures.push(`${id}: ${clip.subject} shares its cue with option ${ambiguousChoices.join(", ")}.`);
     }
+    const playableDuration = soundcheckClipTiming(clip).duration;
     const cuts = Array.from({ length: SOUNDCHECK_REVEAL_STAGES }, (_, stage) =>
-      soundcheckCutDuration(clip.duration, stage + 1),
+      soundcheckCutDuration(playableDuration, stage + 1),
     );
     const digest = question.soundcheck?.clips?.[clipIndex]?.audioSha256;
     if (!/^[a-f0-9]{64}$/.test(digest ?? "")) {
@@ -130,17 +134,17 @@ for (const [index, definition] of SOUNDCHECK_DEFINITIONS.entries()) {
       cuts[0] <= 0 ||
       cuts[0] >= cuts[1] ||
       cuts[1] >= cuts[2] ||
-      cuts[2] !== clip.duration ||
+      cuts[2] !== playableDuration ||
       cuts[0] > 0.12 ||
       cuts[1] > 0.27 ||
-      cuts[0] / clip.duration > 0.101 ||
-      cuts[1] / clip.duration > 0.201
+      cuts[0] / playableDuration > 0.101 ||
+      cuts[1] / playableDuration > 0.201
     ) {
       failures.push(`${id}: audited clip ${clip.event} has an invalid progressive cut ${JSON.stringify(cuts)}.`);
     }
   }
   const finalPassDuration =
-    clips.reduce((total, clip) => total + soundcheckCutDuration(clip.duration, 3), 0) +
+    clips.reduce((total, clip) => total + soundcheckCutDuration(soundcheckClipTiming(clip).duration, 3), 0) +
     (isSequence ? SOUNDCHECK_SEQUENCE_GAP_SECONDS : 0);
   if (finalPassDuration > SOUNDCHECK_FINAL_REVEAL_SECONDS) {
     failures.push(`${id}: final progressive pass cannot finish before the shared deadline (${finalPassDuration}s).`);
@@ -177,11 +181,12 @@ for (const [index, definition] of SOUNDCHECK_DEFINITIONS.entries()) {
     question.soundcheck?.format !== expectedFormat ||
     question.soundcheck?.choiceScope !== expectedChoiceScope ||
     JSON.stringify(
-      question.soundcheck?.clips?.map(({ subject, event, eventFile, duration }) => ({
+      question.soundcheck?.clips?.map(({ subject, event, eventFile, duration, startSeconds }) => ({
         subject,
         event,
         eventFile,
         duration,
+        ...(startSeconds !== undefined ? { startSeconds } : {}),
       })),
     ) !== JSON.stringify(expectedClipMetadata) ||
     question.soundcheck?.audit?.reviewedAt !== SOUNDCHECK_AUDIT.reviewedAt ||

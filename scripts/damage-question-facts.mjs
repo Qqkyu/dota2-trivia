@@ -11,7 +11,7 @@ export const DAMAGE_QUESTION_FACTS = Object.freeze({
   axe_culling_blade: {
     attributeKey: "damage",
     measure: "damage",
-    note: "This is the damage dealt when the target is above the execution threshold.",
+    note: "Culling Blade deals this amount as pure damage.",
   },
   bane_enfeeble: {
     attributeKey: "enfeeble_tick_damage",
@@ -55,6 +55,7 @@ export const DAMAGE_QUESTION_FACTS = Object.freeze({
   earth_spirit_rolling_boulder: {
     attributeKey: "damage",
     measure: "base damage",
+    orderCondition: "no Strength bonus",
     note: "Rolling Boulder also adds 100% of Earth Spirit's Strength.",
   },
   furion_sprout: {
@@ -76,6 +77,7 @@ export const DAMAGE_QUESTION_FACTS = Object.freeze({
   lion_finger_of_death: {
     attributeKey: "damage",
     measure: "base damage",
+    orderCondition: "no kill stacks",
     note: "Permanent kill stacks and upgrades add damage on top.",
   },
   magnataur_reverse_polarity: {
@@ -85,6 +87,7 @@ export const DAMAGE_QUESTION_FACTS = Object.freeze({
   magnataur_skewer: {
     attributeKey: "skewer_damage",
     measure: "base damage",
+    orderCondition: "no distance bonus",
     note: "Skewer adds more damage based on distance traveled.",
   },
   mars_spear: {
@@ -93,8 +96,8 @@ export const DAMAGE_QUESTION_FACTS = Object.freeze({
   },
   mirana_starfall: {
     attributeKey: "damage",
-    measure: "damage per meteor",
-    note: "The closest enemy can be struck by a second meteor.",
+    measure: "primary-meteor damage",
+    note: "Without facet bonuses, the secondary meteor deals 80% of this amount.",
   },
   monkey_king_primal_spring: {
     attributeKey: "impact_damage",
@@ -153,7 +156,8 @@ export const DAMAGE_QUESTION_FACTS = Object.freeze({
   snapfire_scatterblast: {
     attributeKey: "damage",
     measure: "base damage",
-    note: "Point-blank targets take 30% more damage.",
+    orderCondition: "outside point-blank range",
+    note: "Point-blank targets take 25% more damage.",
   },
   sniper_assassinate: {
     attributeKey: "damage",
@@ -218,6 +222,14 @@ export const DAMAGE_QUESTION_FACTS = Object.freeze({
   },
 });
 
+const ORDER_DAMAGE_MEASURES = new Set(["damage", "base damage", "damage per healing pulse", "primary-meteor damage"]);
+
+export function damageOrderMeasurement(abilityKey) {
+  const fact = DAMAGE_QUESTION_FACTS[abilityKey];
+  if (!fact || !ORDER_DAMAGE_MEASURES.has(fact.measure)) return null;
+  return `${fact.measure}${fact.orderCondition ? `; ${fact.orderCondition}` : ""}`;
+}
+
 function possessiveAbilityName(abilityName) {
   return /s$/i.test(abilityName) ? `${abilityName}'` : `${abilityName}'s`;
 }
@@ -231,7 +243,7 @@ const DAMAGE_QUESTION_BUILDERS = Object.freeze({
   damage: (abilityName) => `how much damage does ${abilityName} deal`,
   "damage per healing pulse": (abilityName) => `how much damage does each ${abilityName} pulse deal`,
   "damage per machine": (abilityName) => `what is ${possessiveAbilityName(abilityName)} damage per machine`,
-  "damage per meteor": (abilityName) => `how much damage does each ${abilityName} meteor deal`,
+  "primary-meteor damage": (abilityName) => `what is ${possessiveAbilityName(abilityName)} primary-meteor damage`,
   "damage per second": (abilityName) => `how much damage per second does ${abilityName} deal`,
   "damage per strike": (abilityName) => `what is ${possessiveAbilityName(abilityName)} damage per strike`,
   "first-target damage": (abilityName) => `what is ${possessiveAbilityName(abilityName)} first-target damage`,
@@ -258,7 +270,7 @@ export function damageQuestionExplanation(abilityName, fact, values) {
   const levelText = values.length > 1 ? " across its levels" : "";
   const note = fact.note ? ` ${fact.note}` : "";
 
-  return `${abilityName} — ${fact.measure}: ${valueText}${levelText}, before talents and upgrades.${note}`;
+  return `${abilityName}, ${fact.measure}: ${valueText}${levelText}, before talents, facets, and added upgrade effects.${note}`;
 }
 
 function formatDamageNumber(value) {

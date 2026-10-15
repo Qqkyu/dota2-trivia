@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import { format } from "prettier";
 import { CLIENT_CONSTANT_AUDIT } from "./client-constant-audit.mjs";
 import { parseValveKeyValues } from "./valve-keyvalues.mjs";
+import { heroDisplayName } from "./hero-display-names.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const OUTPUT = join(ROOT, "src", "data", "hero-picker.json");
@@ -29,8 +30,7 @@ const definitions = parseValveKeyValues(await readFile(HEROES_PATH, "utf8")).DOT
 if (!definitions) throw new Error(`Dota hero definitions are missing from ${HEROES_PATH}.`);
 
 function displayName(key, definition) {
-  if (key === "npc_dota_hero_ringmaster") return "Ringmaster";
-  return definition.workshop_guide_name;
+  return heroDisplayName(key, definition.workshop_guide_name);
 }
 
 const enabledHeroes = Object.entries(definitions).filter(

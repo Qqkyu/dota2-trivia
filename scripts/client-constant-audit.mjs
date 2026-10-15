@@ -41,7 +41,7 @@ export const ABILITY_CONSTANT_OVERRIDES = Object.freeze({
     mana: [70],
   },
   rattletrap_power_cogs: {
-    mana: [60, 65, 70, 90],
+    mana: [90],
   },
   undying_decay: {
     mana: [110],
@@ -95,6 +95,9 @@ export const ABILITY_CONSTANT_OVERRIDES = Object.freeze({
   queenofpain_shadow_strike: {
     mana: [100, 105, 110, 115],
   },
+  rubick_fade_bolt: {
+    attributes: { damage: [85, 165, 245, 325] },
+  },
   shadow_demon_shadow_poison: {
     mana: [40],
   },
@@ -115,6 +118,9 @@ export const ABILITY_CONSTANT_OVERRIDES = Object.freeze({
   },
   treant_living_armor: {
     mana: [80],
+  },
+  vengefulspirit_magic_missile: {
+    attributes: { magic_missile_damage: [100, 180, 260, 340] },
   },
   zuus_thundergods_wrath: {
     attributes: { damage: [275, 425, 575] },

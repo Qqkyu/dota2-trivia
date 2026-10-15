@@ -268,11 +268,16 @@ try {
 
   async function joinGuests(from, to) {
     for (let index = from; index < to; index += 1) {
-      const query = new URL(`${appUrl}/api/private-rooms`);
-      query.searchParams.set("code", partyCode);
-      query.searchParams.set("playerId", `crowd-${index}-${randomUUID()}`);
-      query.searchParams.set("name", index === 1 ? "W".repeat(24) : `P${String(index).padStart(3, "0")}`);
-      const response = await fetch(query);
+      const response = await fetch(`${appUrl}/api/private-rooms`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Origin: new URL(appUrl).origin },
+        body: JSON.stringify({
+          action: "join",
+          code: partyCode,
+          playerId: `crowd-${index}-${randomUUID()}`,
+          name: index === 1 ? "W".repeat(24) : `P${String(index).padStart(3, "0")}`,
+        }),
+      });
       if (!response.ok) {
         throw new Error(`Guest ${index} could not join (${response.status}).`);
       }
@@ -379,9 +384,11 @@ try {
   await joinGuests(50, PRIVATE_ROOM_PLAYER_MAX);
   await measureAllLobbies(PRIVATE_ROOM_PLAYER_MAX);
 
-  const extra = await fetch(
-    `${appUrl}/api/private-rooms?code=${encodeURIComponent(partyCode)}&playerId=${encodeURIComponent(`crowd-late-${randomUUID()}`)}&name=Nope`,
-  );
+  const extra = await fetch(`${appUrl}/api/private-rooms`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Origin: new URL(appUrl).origin },
+    body: JSON.stringify({ action: "join", code: partyCode, playerId: `crowd-late-${randomUUID()}`, name: "Nope" }),
+  });
   const extraBody = await extra.json().catch(() => null);
   if (extra.status !== 409 || extraBody?.error !== "This party is full.") {
     throw new Error(`101st join was ${extra.status} ${JSON.stringify(extraBody)}.`);

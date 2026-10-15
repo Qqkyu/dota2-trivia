@@ -6,9 +6,10 @@
 
 import { spawn } from "node:child_process";
 import { randomUUID } from "node:crypto";
-import { access } from "node:fs/promises";
+import { access, mkdtemp, rm } from "node:fs/promises";
 import { createServer } from "node:net";
 import path from "node:path";
+import { tmpdir } from "node:os";
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -26,7 +27,7 @@ function freePort() {
 
 async function healthy(url) {
   try {
-    const response = await fetch(`${url}/api/health`, { cache: "no-store" });
+    const response = await fetch(`${url}/api/health`, { cache: "no-store", signal: AbortSignal.timeout(3_000) });
     return response.ok;
   } catch {
     return false;
@@ -42,9 +43,9 @@ try {
 
 const port = await freePort();
 const appUrl = `http://127.0.0.1:${port}`;
-const nextBin = path.join(process.cwd(), "node_modules/next/dist/bin/next");
+const dataDirectory = await mkdtemp(path.join(tmpdir(), "queue-arcade-limits-"));
 const logs = [];
-const server = spawn(process.execPath, [nextBin, "start", "-H", "127.0.0.1", "-p", String(port)], {
+const server = spawn(process.execPath, ["scripts/start-production.mjs", "-H", "127.0.0.1", "-p", String(port)], {
   stdio: ["ignore", "pipe", "pipe"],
   env: {
     ...process.env,
@@ -57,7 +58,15 @@ const server = spawn(process.execPath, [nextBin, "start", "-H", "127.0.0.1", "-p
     ARCADE_VOTER_SALT: "queue-arcade-rate-limit-check-voter-salt",
     ARCADE_AUTH_SECRET: "queue-arcade-rate-limit-check-auth-secret",
     DATABASE_URL: "",
+    ARCADE_DATA_FILE: path.join(dataDirectory, "votes.json"),
+    ARCADE_ACCOUNT_DATA_FILE: path.join(dataDirectory, "accounts.json"),
+    ARCADE_ALPHA_DATA_FILE: path.join(dataDirectory, "alpha.json"),
+    ARCADE_TRUST_PROXY: "none",
   },
+});
+let startupError = null;
+server.on("error", (error) => {
+  startupError = error;
 });
 for (const stream of [server.stdout, server.stderr]) {
   stream?.on("data", (chunk) => {
@@ -69,6 +78,7 @@ for (const stream of [server.stdout, server.stderr]) {
 try {
   const startedAt = Date.now();
   while (Date.now() - startedAt < 60_000) {
+    if (startupError) throw startupError;
     if (server.exitCode != null) {
       throw new Error(`Production server exited (${server.exitCode}).\n${logs.join("")}`);
     }
@@ -93,7 +103,7 @@ try {
   for (let attempt = 0; attempt < 13; attempt += 1) {
     const response = await fetch(`${appUrl}/api/votes`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", Origin: new URL(appUrl).origin },
       body: JSON.stringify({
         gameId: "dota2",
         mode: "mixed",
@@ -114,5 +124,12 @@ try {
   }
   console.log("Validated production vote rate limit (12 then 429).");
 } finally {
-  server.kill("SIGKILL");
+  if (server.exitCode === null) {
+    const stopped = new Promise((resolve) => server.once("exit", resolve));
+    server.kill("SIGTERM");
+    const timeout = setTimeout(() => server.kill("SIGKILL"), 5_000);
+    await stopped;
+    clearTimeout(timeout);
+  }
+  await rm(dataDirectory, { recursive: true, force: true });
 }

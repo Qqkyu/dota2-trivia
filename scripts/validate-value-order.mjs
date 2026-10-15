@@ -2,6 +2,8 @@
 
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { damageOrderMeasurement } from "./damage-question-facts.mjs";
+import { ORDER_DETAILS } from "./numeric-question-copy.mjs";
 import {
   isValueOrderAnswerForQuestion,
   isValueOrderQuestion,
@@ -20,7 +22,6 @@ const [sourceQuestions, orderQuestions] = await Promise.all([
 const sourceById = new Map(sourceQuestions.map((question) => [question.id, question]));
 const failures = [];
 
-const DIRECT_DAMAGE_PROMPT = /^How much (?:base )?damage does .+ deal(?: at max level)?\?$/;
 const FAMILY_RULES = Object.freeze({
   "item-price": {
     kind: "value-order-item",
@@ -56,7 +57,7 @@ const FAMILY_RULES = Object.freeze({
     kind: "value-order-attack-range",
     count: 12,
     cardKind: "hero",
-    prompt: "How do these heroes rank from shortest to longest attack range?",
+    prompt: "How do these heroes rank from shortest to longest base attack range?",
   },
 });
 
@@ -108,7 +109,10 @@ function sourceMatchesCard(family, source, card) {
 
 function sourceValueAndLabel(family, source, card) {
   if (family === "item-price" || family === "ability-cooldown") {
-    return { value: numericAnswer(source), label: source.answers[source.correctIndex] };
+    return {
+      value: numericAnswer(source),
+      label: `${source.answers[source.correctIndex]}${card.key === "invoker_invoke" ? " base cooldown" : ""}`,
+    };
   }
   if (family === "ability-mana") {
     const value = maxLevelMana(source);
@@ -116,7 +120,7 @@ function sourceValueAndLabel(family, source, card) {
   }
   if (family === "ability-damage") {
     const value = numericAnswer(source);
-    return { value, label: `${formatNumber(value)} damage` };
+    return { value, label: `${formatNumber(value)} ${damageOrderMeasurement(card.key)}` };
   }
   if (family === "hero-move-speed") {
     const value = numericAnswer(source);
@@ -133,7 +137,7 @@ const closeValueUniverseByFamily = new Map(
     [
       "ability-damage",
       sourceQuestions
-        .filter((question) => question.kind === "ability-damage" && DIRECT_DAMAGE_PROMPT.test(question.prompt))
+        .filter((question) => question.kind === "ability-damage" && damageOrderMeasurement(question.id.split(":")[1]))
         .map(numericAnswer),
     ],
     ["hero-move-speed", sourceQuestions.filter((question) => question.kind === "hero-move-speed").map(numericAnswer)],
@@ -175,6 +179,10 @@ for (const question of orderQuestions) {
   if (!isValueOrderQuestion(question)) {
     failures.push(`${question.id} does not satisfy the private ordering contract.`);
     continue;
+  }
+
+  if (question.detail !== ORDER_DETAILS[order.family]) {
+    failures.push(`${question.id} omits its visible comparison conditions.`);
   }
   const rule = FAMILY_RULES[order.family];
   if (
@@ -237,8 +245,18 @@ for (const question of orderQuestions) {
       ) {
         failures.push(`${question.id} card ${cardIndex + 1} drifted from its audited source.`);
       }
-      if (order.family === "ability-damage" && source && !DIRECT_DAMAGE_PROMPT.test(source.prompt)) {
-        failures.push(`${question.id} mixes a non-comparable damage metric from ${source.id}.`);
+      if (order.family === "ability-damage" && source) {
+        const measurement = damageOrderMeasurement(card.key);
+        if (
+          !measurement ||
+          !card.context?.endsWith(` · ${measurement}`) ||
+          question.detail !== ORDER_DETAILS["ability-damage"]
+        ) {
+          failures.push(`${question.id} omits the damage measurement or conditions for ${source.id}.`);
+        }
+      }
+      if (card.key === "invoker_invoke" && !card.context?.includes("before orb-level reductions")) {
+        failures.push(`${question.id} omits Invoke's orb-level condition.`);
       }
     }
   }

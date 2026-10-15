@@ -4,8 +4,10 @@ import { readFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { CLIENT_CONSTANT_AUDIT } from "./client-constant-audit.mjs";
+import { reportMissingClientSource } from "./client-audit-requirement.mjs";
 import { buildHeroQuoteHints } from "./hero-quote-hints.mjs";
 import { parseValveKeyValues } from "./valve-keyvalues.mjs";
+import { heroDisplayName } from "./hero-display-names.mjs";
 import { HERO_PICKER_QUESTION_KINDS, heroCorrectAnswerKey, isHeroPickerQuestion } from "../src/lib/hero-picker.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -106,7 +108,7 @@ try {
       .filter(([, definition]) => definition.AttributePrimary === attribute)
       .map(([key, definition]) => ({
         key,
-        name: key === "npc_dota_hero_ringmaster" ? "Ringmaster" : definition.workshop_guide_name,
+        name: heroDisplayName(key, definition.workshop_guide_name),
       }))
       .sort((left, right) => left.name.localeCompare(right.name, "en-US"))
       .map(({ key }) => key);
@@ -123,7 +125,7 @@ try {
     }
   }
 } catch (error) {
-  if (error?.code !== "ENOENT") throw error;
+  reportMissingClientSource(error, "Hero picker roster");
 }
 
 if (

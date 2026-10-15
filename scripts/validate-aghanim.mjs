@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import { containsAbilityLeak, containsAnswerLeak } from "./spell-hints.mjs";
 import { join, resolve } from "node:path";
 import { CLIENT_CONSTANT_AUDIT } from "./client-constant-audit.mjs";
+import { reportMissingClientSource } from "./client-audit-requirement.mjs";
 import { parseValveKeyValues } from "./valve-keyvalues.mjs";
 
 const ROOT = process.cwd();
@@ -41,8 +42,11 @@ record(
   source.clientBuild === CLIENT_CONSTANT_AUDIT.clientBuild,
   "The Aghanim catalog build drifted from the client audit.",
 );
-record(source.reviewedAt === "2026-08-09", "The initial editorial audit date changed unexpectedly.");
-record(/^https:\/\//.test(source.source?.url ?? ""), "The Aghanim catalog needs a public localization source.");
+record(/^\d{4}-\d{2}-\d{2}$/.test(source.reviewedAt), "The Aghanim catalog needs an editorial review date.");
+record(
+  source.sourceSnapshot?.latestPublishedPatch === source.patch,
+  "The Aghanim review needs the latest published patch from its Valve source snapshot.",
+);
 record(
   source.upgrades.length >= 80,
   `Aghanim's Lab needs at least 80 reviewed upgrades (found ${source.upgrades.length}).`,
@@ -94,6 +98,12 @@ for (const [index, upgrade] of source.upgrades.entries()) {
     typeof upgrade.clientAbilityKey === "string" && upgrade.clientAbilityKey.length > 3,
     `${label}: missing client ability key.`,
   );
+  record(
+    /^https:\/\/www\.dota2\.com\/datafeed\/herodata\?language=english&hero_id=\d+$/.test(upgrade.source?.url ?? ""),
+    `${label}: missing direct Valve hero source.`,
+  );
+  record(/^[a-f0-9]{64}$/.test(upgrade.sourceSha256 ?? ""), `${label}: missing Valve response hash.`);
+  record(upgrade.sourceRetrievedAt === source.reviewedAt, `${label}: source retrieval and review dates differ.`);
 
   record(Boolean(question), `${label}: generated question is missing.`);
   if (!question || !hero) continue;
@@ -103,7 +113,7 @@ for (const [index, upgrade] of source.upgrades.entries()) {
   record(question.prompt === "Whose upgrade is this?", `${question.id}: prompt drifted.`);
   record(question.difficulty === 2, `${question.id}: hidden scoring tier drifted.`);
   record(question.patch === source.patch, `${question.id}: patch stamp drifted.`);
-  record(question.source?.url === source.source.url, `${question.id}: source stamp drifted.`);
+  record(question.source?.url === upgrade.source?.url, `${question.id}: source stamp drifted.`);
   record(question.answers?.length === 4 && new Set(question.answers).size === 4, `${question.id}: invalid fallbacks.`);
   record(question.answerImages?.length === 4, `${question.id}: missing hero artwork fallbacks.`);
   record(question.answers?.[question.correctIndex] === hero.name, `${question.id}: correct hero name drifted.`);
@@ -191,7 +201,7 @@ try {
     record(String(ability?.[flag] ?? "") === "1", `${upgrade.heroKey}:${upgrade.clientAbilityKey} lacks ${flag}.`);
   }
 } catch (error) {
-  if (error?.code !== "ENOENT") throw error;
+  reportMissingClientSource(error, "Aghanim upgrade flags");
 }
 
 if (failures.length) throw new Error(failures.join("\n"));

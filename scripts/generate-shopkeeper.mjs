@@ -457,6 +457,7 @@ const isPurchasable = (key) => {
 };
 
 const recipes = new Map();
+const ingredientRecipes = new Map();
 for (const definition of Object.values(itemDefinitions)) {
   if (!definition?.ItemResult || !definition.ItemRequirements) continue;
   const resultKey = itemKey(definition.ItemResult);
@@ -466,6 +467,7 @@ for (const definition of Object.values(itemDefinitions)) {
       .map(itemKey)
       .filter((key) => key && !key.startsWith("recipe_")),
   );
+  ingredientRecipes.set(resultKey, [...new Set(requirementVariants.flat())]);
   const uniqueVariants = new Set(requirementVariants.map((keys) => [...keys].sort().join("+")));
   if (uniqueVariants.size !== 1) continue;
   const componentKeys = requirementVariants[0];
@@ -499,6 +501,14 @@ function requireRecipe(key) {
   return recipe;
 }
 
+function recipeScrollCost(recipe) {
+  const cost = recipe.cost - recipe.componentKeys.reduce((total, key) => total + liveCost(key), 0);
+  if (!Number.isSafeInteger(cost) || cost < 0) {
+    throw new Error(`Shopkeeper recipe cost is invalid for ${recipe.key}.`);
+  }
+  return cost;
+}
+
 function itemReference(key, count = 1) {
   const item = itemsByKey[key];
   if (!item?.dname || !item?.img) throw new Error(`Shopkeeper artwork metadata is missing for ${key}.`);
@@ -518,13 +528,10 @@ function collapsedItems(keys) {
 
 function ingredientClosure(key, seen = new Set()) {
   if (seen.has(key)) return new Set();
-  const recipe = recipes.get(key);
-  if (!recipe) return new Set([key]);
+  const components = ingredientRecipes.get(key);
+  if (!components) return new Set([key]);
   const nextSeen = new Set(seen).add(key);
-  return new Set([
-    key,
-    ...recipe.componentKeys.flatMap((componentKey) => [...ingredientClosure(componentKey, nextSeen)]),
-  ]);
+  return new Set([key, ...components.flatMap((componentKey) => [...ingredientClosure(componentKey, nextSeen)])]);
 }
 
 function placeCorrect(options, correctKey, slot) {
@@ -709,6 +716,7 @@ for (const targetKey of BUILD_RESULT_TARGETS) {
 
 for (const targetKey of REAL_RECIPE_TARGETS) {
   const target = requireRecipe(targetKey);
+  const recipeCost = recipeScrollCost(target);
   const kind = "shopkeeper-real-recipe";
   const correctSlot = nextSlot(kind);
   const wrongGroups = wrongRecipeGroups(target).sort(
@@ -729,10 +737,11 @@ for (const targetKey of REAL_RECIPE_TARGETS) {
     correctIndex: correctSlot,
     explanation: `${target.name} uses ${collapsedItems(target.componentKeys)
       .map((item) => `${item.name}${item.count > 1 ? ` ×${item.count}` : ""}`)
-      .join(", ")}.`,
+      .join(", ")}.${recipeCost === 0 ? " No recipe scroll is needed." : ""}`,
     shopkeeper: {
       format: "real-recipe",
       targetItemKey: target.key,
+      recipeCost,
       promptItems: [itemReference(target.key)],
       recipeComponentKeys: target.componentKeys,
       answerRecipeKeys,
@@ -763,7 +772,7 @@ for (const [leftKey, rightKey] of SHARED_PART_PAIRS) {
     category: "Recipes",
     difficulty: 3,
     eyebrow: "Shared Part",
-    prompt: "What component do both items use?",
+    prompt: "Which component is used directly in both recipes?",
     answers: choices.map((choice) => choice.name),
     answerImages: choices.map((choice) => choice.image),
     answerImageKind: "item",

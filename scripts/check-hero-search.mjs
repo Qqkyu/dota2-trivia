@@ -14,7 +14,7 @@ import { join } from "node:path";
 
 const appUrl = (process.env.APP_URL ?? "http://localhost:3000").replace(/\/$/, "");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const json = { "Content-Type": "application/json" };
+const json = { "Content-Type": "application/json", Origin: new URL(appUrl).origin };
 
 function freePort() {
   return new Promise((resolve, reject) => {

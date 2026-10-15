@@ -1,4 +1,11 @@
 #!/usr/bin/env node
+import {
+  buildResponseTextOwners,
+  isSubstantialResponseText,
+  quoteResponseIsUnambiguous,
+  responseSelectionAllowed,
+  responseTextsAreNearDuplicates,
+} from "./hero-response-quality.mjs";
 
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
@@ -16,6 +23,15 @@ import { NON_TRIVIA_COOLDOWN_KEYS, NON_TRIVIA_SPELL_OWNER_KEYS } from "./questio
 import { applyAbilityTextOverrides, loadAbilityTextOverrides } from "./ability-text-overrides.mjs";
 import { selectSpellOwnerCandidates, spellDifficulty, spellDistractors } from "./spell-difficulty.mjs";
 import { buildSpellHint } from "./spell-hints.mjs";
+import { heroDisplayName } from "./hero-display-names.mjs";
+import { loadSpellLinkOverrides, applySpellLinkOverride } from "./spell-link-overrides.mjs";
+import {
+  abilityNumericSource,
+  heroNumericSource,
+  itemNumericSource,
+  numericDetail,
+  possessiveName,
+} from "./numeric-question-copy.mjs";
 import {
   areShopkeeperPricesBalanced,
   eligibleShopkeeperComponents,
@@ -28,7 +44,7 @@ const META_OUTPUT = join(ROOT, "src", "data", "trivia-meta.generated.json");
 
 const PATCH = process.env.DOTA_PATCH ?? "7.41f";
 const SNAPSHOT_DATE = process.env.DOTA_SNAPSHOT_DATE ?? new Date().toISOString().slice(0, 10);
-const CONTENT_VERSION = `${PATCH}-variety-7`;
+const CONTENT_VERSION = `${PATCH}-variety-8`;
 const CDN = "https://cdn.cloudflare.steamstatic.com";
 const DOTABASE_RAW = "https://raw.githubusercontent.com/mdiller/dotabase/master";
 const DOTABASE_ASSETS = "https://dotabase.dillerm.io/vpk";
@@ -299,7 +315,7 @@ function isProperVoiceLine(response, minimumCharacters, minimumWords) {
     );
 
   return (
-    text.length >= minimumCharacters &&
+    isSubstantialResponseText(text, minimumCharacters, minimumWords) &&
     text.length <= 110 &&
     meaningfulVoiceWords(text).length >= minimumWords &&
     !vocalizations.some((word) => word.length >= 4) &&
@@ -344,13 +360,21 @@ function voiceResponseQuality(response, purpose) {
 }
 
 function rankedVoiceResponses(candidates, amount, purpose, salt) {
-  return [...candidates]
+  const ranked = candidates
+    .filter((response) => responseSelectionAllowed(response, purpose))
     .sort(
       (left, right) =>
         voiceResponseQuality(right, purpose) - voiceResponseQuality(left, purpose) ||
         hash(`${salt}:${left.key}`) - hash(`${salt}:${right.key}`),
-    )
-    .slice(0, amount);
+    );
+  const selected = [];
+  for (const candidate of ranked) {
+    if (selected.some((existing) => responseTextsAreNearDuplicates(existing.normalizedText, candidate.normalizedText)))
+      continue;
+    selected.push(candidate);
+    if (selected.length === amount) break;
+  }
+  return selected;
 }
 
 function voiceLineLeaksHero(response, hero, dotabaseHero) {
@@ -367,7 +391,7 @@ function voiceLineLeaksHero(response, hero, dotabaseHero) {
 }
 
 function heroPickerDisplayName(hero) {
-  return hero.key === "npc_dota_hero_ringmaster" ? "Ringmaster" : hero.localized_name;
+  return heroDisplayName(hero.key, hero.localized_name);
 }
 
 async function loadDataset(name, url) {
@@ -436,6 +460,7 @@ const heroes = Object.values(heroesById)
     applyHeroConstantAudit({
       ...hero,
       key: hero.name,
+      localized_name: heroDisplayName(hero.name, hero.localized_name),
       image: asset(hero.img),
       responseNames: [
         ...new Set(
@@ -483,10 +508,6 @@ const abilities = [...ownersByAbility.entries()]
     }),
   );
 
-const questionSource = {
-  label: `OpenDota constants · ${SNAPSHOT_DATE}`,
-  url: "https://docs.opendota.com/",
-};
 const clientQuestionSource = {
   label: `Dota 2 live-client audit · build ${CLIENT_CONSTANT_AUDIT.clientBuild}`,
   url: `https://www.dota2.com/patches/${CLIENT_CONSTANT_AUDIT.patch}`,
@@ -497,6 +518,7 @@ const voiceSource = {
 };
 
 const questions = [];
+const spellLinkOverrides = await loadSpellLinkOverrides(PATCH);
 
 const spellOwnerCandidates = abilities
   .filter((ability) => !NON_TRIVIA_SPELL_OWNER_KEYS.includes(ability.key))
@@ -531,7 +553,7 @@ for (const ability of selectSpellOwnerCandidates(spellOwnerCandidates, heroAbili
       answerImageKind: "hero",
       explanation: `${ability.dname} belongs to ${ability.owner.localized_name}.${ability.desc ? ` ${ability.desc}` : ""}`,
       hint: ability.spellHint,
-      source: clientQuestionSource,
+      source: abilityNumericSource(ability),
     }),
   );
 }
@@ -556,11 +578,12 @@ for (const ability of stableSample(manaAbilities, 60, "mana")) {
       difficulty: 2,
       eyebrow: `${ability.owner.localized_name} · ${ability.dname}`,
       prompt: `How much mana does ${ability.dname} cost${levelLabel}?`,
+      detail: numericDetail("mana-cost", ability.key),
       image: { src: ability.image, alt: `${ability.dname} ability icon`, kind: "ability" },
       answers: answerValues,
       correctAnswer: formatNumber(correct),
-      explanation: `${ability.dname}'s mana cost is ${values.map(formatNumber).join(" / ")}${values.length > 1 ? " across its levels" : ""}, before modifiers.`,
-      source: clientQuestionSource,
+      explanation: `${possessiveName(ability.dname)} mana cost is ${values.map(formatNumber).join(" / ")}${values.length > 1 ? " across its levels" : ""}, before modifiers.`,
+      source: abilityNumericSource(ability),
     }),
   );
 }
@@ -588,12 +611,13 @@ for (const ability of stableSample(cooldownAbilities, 52, "cooldown")) {
       category: "Cooldowns",
       difficulty: 3,
       eyebrow: `${ability.owner.localized_name} · ${ability.dname}`,
-      prompt: `What is ${ability.dname}'s cooldown${levelLabel}?`,
+      prompt: `What is the base cooldown of ${ability.dname}${levelLabel}?`,
+      detail: numericDetail("cooldown", ability.key),
       image: { src: ability.image, alt: `${ability.dname} ability icon`, kind: "ability" },
       answers: answerValues.map((answer) => `${answer}s`),
       correctAnswer: `${formatNumber(correct)}s`,
-      explanation: `${ability.dname}'s cooldown is ${values.map((value) => `${formatNumber(value)}s`).join(" / ")}${values.length > 1 ? " across its levels" : ""}, before reductions.`,
-      source: clientQuestionSource,
+      explanation: `${possessiveName(ability.dname)} cooldown is ${values.map((value) => `${formatNumber(value)}s`).join(" / ")}${values.length > 1 ? " across its levels" : ""}, before reductions.${ability.key === "invoker_invoke" ? " Each orb level reduces Invoke's cooldown by 0.3 seconds." : ""}`,
+      source: abilityNumericSource(ability),
     }),
   );
 }
@@ -625,11 +649,12 @@ for (const [abilityKey, fact] of Object.entries(DAMAGE_QUESTION_FACTS)) {
       difficulty: 3,
       eyebrow: `${ability.owner.localized_name} · ${ability.dname}`,
       prompt: damageQuestionPrompt(ability.dname, fact, values.length > 1),
+      detail: numericDetail("ability-damage", ability.key),
       image: { src: ability.image, alt: `${ability.dname} ability icon`, kind: "ability" },
       answers: answerValues.map((answer) => `${answer}${suffix}`),
       correctAnswer: `${formatNumber(correct)}${suffix}`,
       explanation: damageQuestionExplanation(ability.dname, fact, values),
-      source: clientQuestionSource,
+      source: abilityNumericSource(ability),
     }),
   );
 }
@@ -650,11 +675,12 @@ for (const hero of stableSample(
       difficulty: 2,
       eyebrow: hero.localized_name,
       prompt: `What is ${hero.localized_name}'s base movement speed?`,
+      detail: numericDetail("hero-move-speed", hero.key),
       image: { src: hero.image, alt: `${hero.localized_name} hero portrait`, kind: "hero" },
       answers: answerValues,
       correctAnswer: formatNumber(correct),
       explanation: `${hero.localized_name} has ${formatNumber(correct)} base movement speed, before boots and other modifiers.`,
-      source: clientQuestionSource,
+      source: heroNumericSource(hero),
     }),
   );
 }
@@ -671,7 +697,7 @@ const heroStatDefinitions = [
   },
   {
     key: "attack-range",
-    label: "attack range",
+    label: "base attack range",
     value: (hero) => Number(hero.attack_range),
     eligible: (hero) => hero.attack_type === "Ranged" && Number.isFinite(hero.attack_range),
     direction: "max",
@@ -710,12 +736,13 @@ for (const stat of heroStatDefinitions) {
         difficulty: stat.difficulty,
         eyebrow: `Stat Duel · ${stat.label}`,
         prompt: `Which hero has the ${comparisonWord} ${stat.label}?`,
+        detail: numericDetail("hero-stat-duel"),
         answers: answerHeroes.map((candidate) => candidate.localized_name),
         correctAnswer: hero.localized_name,
         answerImagesByValue: answerArtworkByName(answerHeroes),
         answerImageKind: "hero",
         explanation: `${hero.localized_name} leads these choices. ${values}.`,
-        source: clientQuestionSource,
+        source: heroNumericSource(...answerHeroes),
       }),
     );
   }
@@ -739,7 +766,7 @@ for (const hero of heroes) {
       answers: answerHeroes.map(heroPickerDisplayName),
       correctAnswer: heroName,
       explanation: `${heroName} was hiding behind the fog.`,
-      source: questionSource,
+      source: heroNumericSource(hero),
     }),
   );
 }
@@ -753,6 +780,8 @@ const voiceResponses = await mapWithConcurrency(voiceHeroes, 8, async (hero) => 
     return [hero, []];
   }
 });
+
+const responseTextOwners = buildResponseTextOwners(voiceResponses.flatMap(([, responses]) => responses));
 
 for (const [hero, responses] of voiceResponses) {
   const dotabaseHero = dotabaseHeroById.get(hero.id);
@@ -793,8 +822,9 @@ for (const [hero, responses] of voiceResponses) {
   const quoteCandidates = candidates.filter(
     (response) =>
       response.key !== audioLine?.key &&
-      response.normalizedText.length >= 28 &&
-      meaningfulVoiceWords(response.normalizedText).length >= 5,
+      !responseTextsAreNearDuplicates(response.normalizedText, audioLine?.normalizedText) &&
+      quoteResponseIsUnambiguous(response, responseTextOwners) &&
+      isSubstantialResponseText(response.normalizedText, 28, 5),
   );
   const quoteLines = rankedVoiceResponses(quoteCandidates, 2, "quote", `hero-quote:${hero.key}`);
   if (!audioLine && !quoteLines.length) continue;
@@ -958,12 +988,13 @@ for (const item of items) {
       category: "Items",
       difficulty: item.cost >= 3000 ? 2 : 1,
       eyebrow: item.dname,
-      prompt: `How much does ${item.dname} cost?`,
+      prompt: `How much does ${item.key === "dagon" ? "level 1 Dagon" : item.dname} cost?`,
+      detail: numericDetail("item-cost", item.key),
       image: { src: item.image, alt: `${item.dname} item icon`, kind: "item" },
       answers: [item.cost, ...distractorCosts].map((value) => `${value.toLocaleString("en-US")} gold`),
       correctAnswer: correct,
-      explanation: `${item.dname} costs ${item.cost.toLocaleString("en-US")} gold in patch ${PATCH}.`,
-      source: clientQuestionSource,
+      explanation: `${item.key === "dagon" ? "Level 1 Dagon" : item.dname} costs ${item.cost.toLocaleString("en-US")} gold in patch ${PATCH}.`,
+      source: itemNumericSource(item),
     }),
   );
 }
@@ -1092,14 +1123,23 @@ for (const item of stableSample(priceDuelAnchors, 28, "item-price-duel")) {
       difficulty: 2,
       eyebrow: "Price Duel · Main shop",
       prompt: "Which item is the most expensive?",
+      detail: numericDetail(
+        "item-price-duel",
+        item.key,
+        answerItems.map((candidate) => candidate.dname),
+      ),
       answers: answerItems.map((candidate) => candidate.dname),
       correctAnswer: item.dname,
       answerImagesByValue: Object.fromEntries(answerItems.map((candidate) => [candidate.dname, candidate.image])),
       answerImageKind: "item",
       explanation: `${item.dname} is the most expensive of these choices. ${values}.`,
-      source: clientQuestionSource,
+      source: itemNumericSource(...answerItems),
     }),
   );
+}
+
+for (let index = 0; index < questions.length; index += 1) {
+  questions[index] = applySpellLinkOverride(questions[index], spellLinkOverrides, PATCH);
 }
 
 console.log(`Checking remote assets for ${questions.length} generated questions...`);

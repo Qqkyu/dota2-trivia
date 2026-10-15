@@ -17,7 +17,7 @@ import { LIVE_ROUND_GAMES } from "../src/lib/arcade-games.mjs";
 
 const appUrl = (process.env.APP_URL ?? "http://localhost:3000").replace(/\/$/, "");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const json = { "Content-Type": "application/json" };
+const json = { "Content-Type": "application/json", Origin: new URL(appUrl).origin };
 const FORBIDDEN_COPY = [
   /later clues cost/i,
   /clues unlock with time/i,
@@ -145,6 +145,7 @@ const patchLabel = await fetch(`${appUrl}/api/health`)
 if (!patchLabel) throw new Error("Could not read the live patch from /api/health.");
 
 const seen = [];
+const activeParties = new Set();
 try {
   const version = await waitJson(`http://127.0.0.1:${port}/json/version`);
   browser = attachCdp(version.webSocketDebuggerUrl);
@@ -155,11 +156,15 @@ try {
   await page.ready;
   await page.send("Page.enable");
   await page.send("Runtime.enable");
+  await page.send("Page.addScriptToEvaluateOnNewDocument", {
+    source: `sessionStorage.setItem("queue-arcade:player:v2:tab", ${JSON.stringify(hostId)});`,
+  });
 
   for (const game of LIVE_ROUND_GAMES) {
     const code = `C${Date.now().toString(36).slice(-5).toUpperCase()}`;
     const createdParty = await post("/api/private-rooms", { playerId: hostId, code, name: "Copy", games: [game] });
     if (createdParty.status !== 200) throw new Error(`${game}: could not create a party (${createdParty.status}).`);
+    activeParties.add(code);
     const started = await post("/api/private-rooms/start", { playerId: hostId, code });
     if (started.status !== 200) throw new Error(`${game}: could not start the party (${started.status}).`);
 
@@ -284,10 +289,15 @@ try {
     if (revealNarration) throw new Error(`${game}: redundant narration returned to the reveal (${revealNarration}).`);
 
     seen.push(game);
-    await post("/api/private-rooms/leave", { playerId: hostId, code });
+    const left = await post("/api/private-rooms/leave", { playerId: hostId, code });
+    if (left.status !== 200) throw new Error(`${game}: could not leave the test party (${left.status}).`);
+    activeParties.delete(code);
   }
 
   console.log(`Validated round copy, controls, and reveals for ${seen.length} formats: ${seen.join(", ")}.`);
 } finally {
   await cleanup();
+  await Promise.allSettled(
+    [...activeParties].map((code) => post("/api/private-rooms/leave", { playerId: hostId, code })),
+  );
 }
