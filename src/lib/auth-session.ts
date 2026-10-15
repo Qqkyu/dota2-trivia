@@ -1,7 +1,12 @@
 import { randomBytes } from "node:crypto";
 import type { NextResponse } from "next/server";
 import { createAccountSession, deleteAccountSession, getUserBySession } from "@/lib/account-store";
-import { ACCOUNT_SESSION_COOKIE, ACCOUNT_SESSION_MAX_AGE_SECONDS, sessionTokenHash } from "@/lib/steam-auth.mjs";
+import {
+  ACCOUNT_SESSION_COOKIE,
+  ACCOUNT_SESSION_MAX_AGE_SECONDS,
+  accountSessionToken,
+  sessionTokenHash,
+} from "@/lib/steam-auth.mjs";
 
 export function configuredAuthSecret() {
   const configured = process.env.ARCADE_AUTH_SECRET?.trim();
@@ -41,19 +46,8 @@ export function configuredDataCountries() {
   return "the local development environment";
 }
 
-function cookieValue(request: Request, name: string) {
-  const header = request.headers.get("cookie");
-  if (!header) return null;
-  for (const part of header.split(";")) {
-    const [key, ...value] = part.trim().split("=");
-    if (key === name) return decodeURIComponent(value.join("="));
-  }
-  return null;
-}
-
 export function sessionTokenForRequest(request: Request) {
-  const token = cookieValue(request, ACCOUNT_SESSION_COOKIE);
-  return token && /^[A-Za-z0-9_-]{32,128}$/.test(token) ? token : null;
+  return accountSessionToken(request.headers.get("cookie"));
 }
 
 export async function sessionUserForRequest(request: Request) {

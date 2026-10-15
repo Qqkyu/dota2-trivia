@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { deleteAlphaVisitor } from "@/lib/alpha-store";
-import { clearAccountSessionCookie, isSameOriginMutation, sessionUserForRequest } from "@/lib/auth-session";
-import { deleteAccount, getAccountProfile } from "@/lib/account-store";
+import { clearAccountSessionCookie, sessionUserForRequest } from "@/lib/auth-session";
+import { preflightRateLimit, requestOriginAllowed } from "@/lib/api-protection";
+import { deleteAccountData, getAccountProfile } from "@/lib/account-store";
 import { DEFAULT_GAME_ID } from "@/lib/game-catalogs";
 import { logServerError } from "@/lib/server-diagnostics";
 import { refreshSteamIdentityIfNeeded } from "@/lib/steam-profile";
@@ -10,6 +10,8 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
+  const limited = preflightRateLimit(request, "profile-read", 600);
+  if (limited) return limited;
   try {
     const user = await sessionUserForRequest(request);
     if (!user) {
@@ -32,14 +34,15 @@ export async function GET(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
-  if (!isSameOriginMutation(request)) {
+  if (!requestOriginAllowed(request)) {
     return NextResponse.json({ error: "Invalid request origin." }, { status: 403 });
   }
+  const limited = preflightRateLimit(request, "profile-delete", 10);
+  if (limited) return limited;
   try {
     const user = await sessionUserForRequest(request);
     if (!user) return NextResponse.json({ error: "Sign in required." }, { status: 401 });
-    await deleteAlphaVisitor(`account:${user.id}`);
-    await deleteAccount(user.id);
+    await deleteAccountData(user.id);
     const response = NextResponse.json({ deleted: true });
     clearAccountSessionCookie(response);
     return response;

@@ -1,8 +1,9 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { isAlphaSessionId } from "@/lib/alpha-analytics.mjs";
 import { recordAlphaSessionFinish, recordAlphaSessionStart } from "@/lib/alpha-store";
-import { isSameOriginMutation, sessionUserForRequest } from "@/lib/auth-session";
-import { rateLimitRequest } from "@/lib/api-protection";
+import { sessionUserForRequest } from "@/lib/auth-session";
+import { preflightRateLimit, rateLimitRequest, readJsonBody, requestOriginAllowed } from "@/lib/api-protection";
+import { validatedGuestIdentity } from "@/lib/guest-identity.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
 
 export const runtime = "nodejs";
@@ -15,16 +16,15 @@ function isAlphaSessionAction(value: unknown): value is AlphaSessionAction {
 }
 
 export async function POST(request: NextRequest) {
-  if (!isSameOriginMutation(request)) {
+  if (!requestOriginAllowed(request)) {
     return NextResponse.json({ error: "Invalid request origin." }, { status: 403 });
   }
 
-  let body: unknown;
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: "Invalid session payload." }, { status: 400 });
-  }
+  const limited = preflightRateLimit(request, "alpha-session", 300);
+  if (limited) return limited;
+  const parsed = await readJsonBody(request);
+  if ("response" in parsed) return parsed.response;
+  const { body } = parsed;
   if (!body || typeof body !== "object") {
     return NextResponse.json({ error: "Invalid session payload." }, { status: 400 });
   }
@@ -48,7 +48,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Session storage unavailable." }, { status: 503 });
   }
 
-  const effectiveVoterId = accountUser ? `account:${accountUser.id}` : candidate.voterId;
+  const effectiveVoterId = accountUser ? `account:${accountUser.id}` : validatedGuestIdentity(candidate.voterId);
+  if (!effectiveVoterId) return NextResponse.json({ error: "Invalid player ID." }, { status: 400 });
   const rateLimited = rateLimitRequest(request, "alpha-session", effectiveVoterId, 30);
   if (rateLimited) return rateLimited;
   const identity = { sessionId: candidate.sessionId as string, voterId: effectiveVoterId };

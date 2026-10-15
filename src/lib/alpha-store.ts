@@ -1,12 +1,22 @@
-import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
+import { checkFileStoreWritable, CommittedFileWriteError, writeJsonAtomically } from "@/lib/atomic-json-file";
 import path from "node:path";
-import { ALPHA_SESSION_RETENTION_DAYS } from "@/lib/alpha-analytics.mjs";
+import { ALPHA_SESSION_RETENTION_DAYS, summarizeAlphaSessions } from "@/lib/alpha-analytics.mjs";
+import { withExistingAccount } from "@/lib/account-store";
 import { anonymousVoterHash } from "@/lib/voter-hash";
 
 export interface AlphaSessionIdentity {
   sessionId: string;
   voterId: string;
 }
+
+export interface AlphaSessionKey {
+  sessionHash: string;
+  visitorHash: string;
+  userId: string | null;
+}
+
+export type AlphaIdentity = AlphaSessionIdentity | AlphaSessionKey;
 
 export interface StoredAlphaSession {
   sessionHash: string;
@@ -16,6 +26,7 @@ export interface StoredAlphaSession {
   finishedAt: number | null;
   roundsAnswered: number;
   correctAnswers: number;
+  roundIds?: string[];
 }
 
 interface AlphaFileState {
@@ -106,17 +117,20 @@ function stateForRuntime() {
   return runtime.statePromise;
 }
 
-function hashesFor(identity: AlphaSessionIdentity) {
+export function alphaSessionKey(identity: AlphaIdentity): AlphaSessionKey {
+  if ("sessionHash" in identity) return identity;
   return {
+    userId: identity.voterId.startsWith("account:") ? identity.voterId.slice("account:".length) : null,
     sessionHash: anonymousVoterHash("alpha-session", `${identity.voterId}:${identity.sessionId}`),
     visitorHash: anonymousVoterHash("alpha-visitor", identity.voterId),
   };
 }
 
-function newSession(identity: AlphaSessionIdentity, at: number): StoredAlphaSession {
-  const hashes = hashesFor(identity);
+function newSession(identity: AlphaIdentity, at: number): StoredAlphaSession {
+  const { sessionHash, visitorHash } = alphaSessionKey(identity);
   return {
-    ...hashes,
+    sessionHash,
+    visitorHash,
     startedAt: at,
     lastSeenAt: at,
     finishedAt: null,
@@ -126,24 +140,27 @@ function newSession(identity: AlphaSessionIdentity, at: number): StoredAlphaSess
 }
 
 async function persist(state: AlphaFileState) {
-  const directory = path.dirname(runtime.filePath);
-  const temporaryPath = `${runtime.filePath}.${process.pid}.tmp`;
-  await mkdir(directory, { recursive: true });
-  await writeFile(temporaryPath, `${JSON.stringify(state)}\n`, { encoding: "utf8", mode: 0o600 });
-  await rename(temporaryPath, runtime.filePath);
+  await writeJsonAtomically(runtime.filePath, state);
 }
 
 async function mutate<T>(operation: (state: AlphaFileState) => T) {
   const task = runtime.writeQueue
     .catch(() => undefined)
     .then(async () => {
-      const state = await stateForRuntime();
+      const state = structuredClone(await stateForRuntime());
       const result = operation(state);
       const expiresBefore = Date.now() - configuredRetentionDays() * 24 * 60 * 60 * 1_000;
       for (const [sessionHash, session] of Object.entries(state.sessions)) {
         if (session.lastSeenAt < expiresBefore) delete state.sessions[sessionHash];
       }
-      await persist(state);
+      try {
+        await persist(state);
+      } catch (error) {
+        // A completed rename is already visible to readers and must also be visible in memory.
+        if (error instanceof CommittedFileWriteError) runtime.statePromise = Promise.resolve(state);
+        throw error;
+      }
+      runtime.statePromise = Promise.resolve(state);
       return result;
     });
   runtime.writeQueue = task.then(
@@ -153,9 +170,9 @@ async function mutate<T>(operation: (state: AlphaFileState) => T) {
   return task;
 }
 
-async function fileRecordStart(identity: AlphaSessionIdentity, at: number) {
+async function fileRecordStart(identity: AlphaIdentity, at: number) {
   return mutate((state) => {
-    const { sessionHash, visitorHash } = hashesFor(identity);
+    const { sessionHash, visitorHash } = alphaSessionKey(identity);
     const session = state.sessions[sessionHash] ?? newSession(identity, at);
     if (session.visitorHash !== visitorHash) throw new Error("Alpha session identity mismatch.");
     session.startedAt = Math.min(session.startedAt, at);
@@ -165,11 +182,13 @@ async function fileRecordStart(identity: AlphaSessionIdentity, at: number) {
   });
 }
 
-async function fileRecordRound(identity: AlphaSessionIdentity, correct: boolean, at: number) {
+async function fileRecordRound(identity: AlphaIdentity, correct: boolean, at: number, roundId?: string) {
   return mutate((state) => {
-    const { sessionHash, visitorHash } = hashesFor(identity);
+    const { sessionHash, visitorHash } = alphaSessionKey(identity);
     const session = state.sessions[sessionHash] ?? newSession(identity, at);
     if (session.visitorHash !== visitorHash) throw new Error("Alpha session identity mismatch.");
+    if (roundId && session.roundIds?.includes(roundId)) return { ...session };
+    if (roundId) session.roundIds = [...(session.roundIds ?? []), roundId];
     session.lastSeenAt = Math.max(session.lastSeenAt, at);
     session.roundsAnswered += 1;
     session.correctAnswers += Number(correct);
@@ -178,9 +197,9 @@ async function fileRecordRound(identity: AlphaSessionIdentity, correct: boolean,
   });
 }
 
-async function fileRecordFinish(identity: AlphaSessionIdentity, at: number) {
+async function fileRecordFinish(identity: AlphaIdentity, at: number) {
   return mutate((state) => {
-    const { sessionHash, visitorHash } = hashesFor(identity);
+    const { sessionHash, visitorHash } = alphaSessionKey(identity);
     const session = state.sessions[sessionHash] ?? newSession(identity, at);
     if (session.visitorHash !== visitorHash) throw new Error("Alpha session identity mismatch.");
     session.lastSeenAt = Math.max(session.lastSeenAt, at);
@@ -227,22 +246,45 @@ export async function getAlphaStoreHealth(): Promise<AlphaStoreHealth> {
   if (usesPostgres()) return (await postgresStore()).getPostgresAlphaStoreHealth();
   await runtime.writeQueue;
   await stateForRuntime();
+  await checkFileStoreWritable(runtime.filePath);
   return { backend: "file", ok: true, retentionDays: configuredRetentionDays() };
 }
 
-export async function recordAlphaSessionStart(identity: AlphaSessionIdentity, at: number) {
-  if (usesPostgres()) return (await postgresStore()).recordAlphaSessionStart(identity, at);
-  return fileRecordStart(identity, at);
+export async function recordAlphaSessionStart(identity: AlphaIdentity, at: number) {
+  return withSessionOwner(identity, async () => {
+    if (usesPostgres()) return (await postgresStore()).recordAlphaSessionStart(identity, at);
+    return fileRecordStart(identity, at);
+  });
 }
 
-export async function recordAlphaSessionRound(identity: AlphaSessionIdentity, correct: boolean, at: number) {
-  if (usesPostgres()) return (await postgresStore()).recordAlphaSessionRound(identity, correct, at);
-  return fileRecordRound(identity, correct, at);
+export async function recordAlphaSessionRound(identity: AlphaIdentity, correct: boolean, at: number, roundId?: string) {
+  return withSessionOwner(identity, async () => {
+    if (usesPostgres()) return (await postgresStore()).recordAlphaSessionRound(identity, correct, at, roundId);
+    return fileRecordRound(identity, correct, at, roundId);
+  });
 }
 
-export async function recordAlphaSessionFinish(identity: AlphaSessionIdentity, at: number) {
-  if (usesPostgres()) return (await postgresStore()).recordAlphaSessionFinish(identity, at);
-  return fileRecordFinish(identity, at);
+export async function recordAlphaSessionFinish(identity: AlphaIdentity, at: number) {
+  return withSessionOwner(identity, async () => {
+    if (usesPostgres()) return (await postgresStore()).recordAlphaSessionFinish(identity, at);
+    return fileRecordFinish(identity, at);
+  });
+}
+
+async function withSessionOwner<T>(identity: AlphaIdentity, operation: () => Promise<T>) {
+  const { userId } = alphaSessionKey(identity);
+  return userId ? withExistingAccount(userId, operation) : operation();
+}
+
+export async function getAlphaSummary(now = Date.now()) {
+  if (usesPostgres()) return (await postgresStore()).getAlphaSummary(now);
+  const sessions = await fileSessionsSince(now - ALPHA_SESSION_RETENTION_DAYS * 86_400_000);
+  return summarizeAlphaSessions(sessions, { now, windowDays: ALPHA_SESSION_RETENTION_DAYS, dailyDays: 14 });
+}
+
+export async function cleanupAlphaStore() {
+  if (usesPostgres()) return;
+  await mutate(() => undefined);
 }
 
 export async function getAlphaSessionsSince(since: number): Promise<StoredAlphaSession[]> {

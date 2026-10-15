@@ -1,25 +1,30 @@
 import { NextResponse } from "next/server";
-import { consumeRateLimit, rateLimitDisabled } from "@/lib/rate-limit.mjs";
-import { anonymousVoterHash } from "@/lib/voter-hash";
+import { isSameOriginMutation } from "./auth-session";
+import { validatedGuestIdentity } from "./guest-identity.mjs";
+import { admitRateLimitIdentity, consumeRateLimit, rateLimitDisabled, requestClientAddress } from "./rate-limit.mjs";
+import { anonymousVoterHash } from "./voter-hash";
 
-function clientAddress(request: Request) {
-  const direct = request.headers.get("x-real-ip")?.trim();
-  if (direct) return direct.slice(0, 128);
-  const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-  return (forwarded || "unknown").slice(0, 128);
-}
+export { readJsonBody } from "./request-body.mjs";
 
-const PLAYER_ID_PATTERN = /^[A-Za-z0-9._:-]{8,80}$/;
+// Support a 100-player party behind one NAT. The independent address cap still
+// bounds ID rotation. A separate preflight cap protects parsing and auth.
+const IP_LIMIT_MULTIPLIER = 5;
+const MIN_IP_LIMIT = 300;
 
 export function requestPlayerIdentity(request: Request, searchParams?: URLSearchParams) {
-  const raw = (searchParams?.get("playerId") ?? new URL(request.url).searchParams.get("playerId") ?? "").trim();
-  return PLAYER_ID_PATTERN.test(raw) ? raw : "anonymous";
+  const raw = searchParams?.get("playerId") ?? new URL(request.url).searchParams.get("playerId");
+  return validatedGuestIdentity(raw) ?? "anonymous";
 }
 
-export function rateLimitRequest(request: Request, scope: string, identity: string, limit: number) {
-  if (rateLimitDisabled()) return null;
-  const key = anonymousVoterHash(`rate-limit:${scope}`, `${clientAddress(request)}:${identity}`);
-  const result = consumeRateLimit({ scope, key, limit });
+export function requestOriginAllowed(request: Request) {
+  try {
+    return isSameOriginMutation(request);
+  } catch {
+    return false;
+  }
+}
+
+function rateLimitResponse(result: ReturnType<typeof consumeRateLimit>) {
   if (result.allowed) return null;
 
   return NextResponse.json(
@@ -35,4 +40,39 @@ export function rateLimitRequest(request: Request, scope: string, identity: stri
       },
     },
   );
+}
+
+export function preflightRateLimit(request: Request, scope: string, limit: number) {
+  if (rateLimitDisabled()) return null;
+  const key = anonymousVoterHash(`rate-limit:${scope}:preflight-ip`, requestClientAddress(request));
+  return rateLimitResponse(consumeRateLimit({ scope: `${scope}:preflight-ip`, key, limit }));
+}
+
+export function rateLimitRequest(
+  request: Request,
+  scope: string,
+  identity: string,
+  limit: number,
+  ipLimit = Math.max(MIN_IP_LIMIT, limit * IP_LIMIT_MULTIPLIER),
+) {
+  if (rateLimitDisabled()) return null;
+  const address = requestClientAddress(request);
+  const addressKey = anonymousVoterHash(`rate-limit:${scope}:ip`, address);
+  const addressResult = consumeRateLimit({
+    scope: `${scope}:ip`,
+    key: addressKey,
+    limit: ipLimit,
+  });
+  if (!addressResult.allowed) return rateLimitResponse(addressResult);
+
+  // Share admission across scopes so polling routes cannot fill the process-wide
+  // bucket map by rotating IDs under their larger per-address request allowance.
+  const admission = admitRateLimitIdentity({
+    key: anonymousVoterHash("rate-limit:identity-admission:ip", address),
+    identity: anonymousVoterHash("rate-limit:identity-admission:identity", identity),
+  });
+  if (!admission.allowed) return rateLimitResponse(admission);
+
+  const identityKey = anonymousVoterHash(`rate-limit:${scope}:identity`, JSON.stringify([address, identity]));
+  return rateLimitResponse(consumeRateLimit({ scope: `${scope}:identity`, key: identityKey, limit }));
 }

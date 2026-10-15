@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { rateLimitRequest } from "@/lib/api-protection";
+import { preflightRateLimit, rateLimitRequest, readJsonBody, requestOriginAllowed } from "@/lib/api-protection";
 import { privateRoomClientPayload, privateRoomIdentity } from "@/lib/private-room-rounds";
 import { addPrivateRoomMessage } from "@/lib/private-rooms.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
@@ -9,12 +9,14 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
-  let body: unknown;
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: "Invalid JSON." }, { status: 400 });
+  if (!requestOriginAllowed(request)) {
+    return NextResponse.json({ error: "Invalid request origin." }, { status: 403 });
   }
+  const limited = preflightRateLimit(request, "private-rooms-chat", 150);
+  if (limited) return limited;
+  const parsed = await readJsonBody(request);
+  if ("response" in parsed) return parsed.response;
+  const { body } = parsed;
   if (!body || typeof body !== "object") {
     return NextResponse.json({ error: "Missing chat fields." }, { status: 400 });
   }

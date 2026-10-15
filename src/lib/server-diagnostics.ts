@@ -1,4 +1,5 @@
 import { diagnosticFingerprint, safeDiagnosticPath } from "@/lib/diagnostics.mjs";
+import { diagnosticErrorCode } from "@/lib/diagnostic-error-code.mjs";
 
 function errorParts(error: unknown) {
   if (error instanceof Error) return { name: error.name, message: error.message, stack: error.stack ?? "" };
@@ -29,6 +30,7 @@ export function logServerError(event: string, error: unknown, context: Record<st
   const fingerprint = diagnosticFingerprint(`${parts.name}|${parts.message}|${parts.stack}`);
   const safeEvent = event.replace(/[^a-z0-9_.-]/gi, "-").slice(0, 80);
   const frame = firstErrorFrame(parts.stack);
+  const errorCode = diagnosticErrorCode(error);
   console.error(
     "[queue-arcade:error]",
     JSON.stringify({
@@ -37,6 +39,7 @@ export function logServerError(event: string, error: unknown, context: Record<st
       event: safeEvent,
       fingerprint,
       errorName: parts.name.slice(0, 80),
+      ...(errorCode ? { errorCode } : {}),
       ...(frame ? { frame } : {}),
       release: process.env.RENDER_GIT_COMMIT?.slice(0, 12) || "local",
     }),

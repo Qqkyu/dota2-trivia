@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { soundcheckNeedsReviewedChoices } from "./soundcheck-choices.mjs";
 
 const NON_PLAYABLE_FIELDS = new Set([
   "audit",
@@ -20,8 +21,15 @@ const PLAYABLE_PRESENTATION_REVISIONS = Object.freeze({
   "shopkeeper-upgrade-path": "open-shop-1",
 });
 
-/** @param {{ kind?: string } | null | undefined} question */
+/** @param {{ kind?: string, soundcheck?: { format?: string, clips?: { subject?: string }[] } } | null | undefined} question */
 export function questionPresentationRevision(question) {
+  if (
+    question?.kind === "soundcheck-item" &&
+    question.soundcheck?.format === "single" &&
+    soundcheckNeedsReviewedChoices(question.soundcheck.clips?.[0]?.subject)
+  ) {
+    return "reviewed-item-sound-choices-1";
+  }
   return PLAYABLE_PRESENTATION_REVISIONS[question?.kind] ?? null;
 }
 

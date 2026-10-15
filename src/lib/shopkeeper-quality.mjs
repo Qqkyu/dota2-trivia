@@ -118,7 +118,7 @@ function validItemReference(item) {
     item.key.length > 0 &&
     typeof item?.name === "string" &&
     item.name.length > 0 &&
-    /^https:\/\//.test(item?.image ?? "") &&
+    /^(?:https:\/\/|\/arcade\/items\/[a-z0-9_]+\.png$)/.test(item?.image ?? "") &&
     Number.isInteger(item?.count) &&
     item.count >= 1 &&
     item.count <= 4

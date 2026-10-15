@@ -24,6 +24,8 @@ export interface PlayerRoundRecord {
 export interface StoredPlayerRoundRecord extends PlayerRoundRecord {
   questionId: string;
   questionRevision: string;
+  /** Older records predate reveal gating and are already public. */
+  revealAt?: number;
 }
 
 export interface PlayerFormatStats {

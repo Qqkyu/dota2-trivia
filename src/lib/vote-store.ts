@@ -1,4 +1,5 @@
-import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
+import { checkFileStoreWritable, CommittedFileWriteError, writeJsonAtomically } from "@/lib/atomic-json-file";
 import path from "node:path";
 import type { CrowdResult, PlayerVote, ReportResult, VoteResult } from "@/lib/arcade-contract";
 import { emptyReportCounts, isReportReason, type ReportCounts, type ReportReason } from "@/lib/calibration";
@@ -6,6 +7,21 @@ import type { GameId } from "@/lib/game-catalogs";
 import type { QuestionReviewState, StoredQuestionReview } from "@/lib/question-review";
 import { roundScoreSummary } from "@/lib/scoring.mjs";
 import { anonymousVoterHash } from "@/lib/voter-hash";
+import type { StoredPlayerRoundRecord } from "@/lib/account-contract";
+import type { AlphaSessionKey } from "@/lib/alpha-store";
+import { withAccountDataLock } from "@/lib/account-data-lock";
+import { logServerError } from "@/lib/server-diagnostics";
+
+export interface RoundOutcomeEffects {
+  account?: { userId: string; round: StoredPlayerRoundRecord };
+  alpha?: { key: AlphaSessionKey; correct: boolean };
+}
+
+interface PendingRoundOutcome {
+  roundId: string;
+  submittedAt: number;
+  effects: RoundOutcomeEffects;
+}
 
 interface StoredPlayerVote extends PlayerVote {
   basePoints?: number;
@@ -93,6 +109,7 @@ interface PersistentVoteState {
   rounds: Record<string, StoredRound>;
   questions: Record<string, StoredQuestion>;
   reviews?: Record<string, StoredQuestionReview>;
+  pendingOutcomes?: Record<string, PendingRoundOutcome>;
 }
 
 interface RuntimeVoteStore {
@@ -272,18 +289,14 @@ function questionForMutation(
 }
 
 async function persist(state: PersistentVoteState) {
-  const directory = path.dirname(runtime.filePath);
-  const temporaryPath = `${runtime.filePath}.${process.pid}.tmp`;
-  await mkdir(directory, { recursive: true });
-  await writeFile(temporaryPath, `${JSON.stringify(state)}\n`, { encoding: "utf8", mode: 0o600 });
-  await rename(temporaryPath, runtime.filePath);
+  await writeJsonAtomically(runtime.filePath, state);
 }
 
 async function mutate<T>(operation: (state: PersistentVoteState) => T) {
   const task = runtime.writeQueue
     .catch(() => undefined)
     .then(async () => {
-      const state = await stateForRuntime();
+      const state = structuredClone(await stateForRuntime());
       state.version = 3;
       state.reviews ??= {};
       const result = operation(state);
@@ -293,7 +306,14 @@ async function mutate<T>(operation: (state: PersistentVoteState) => T) {
       for (const [roundId, round] of Object.entries(state.rounds)) {
         if (round.updatedAt < expiresBefore) delete state.rounds[roundId];
       }
-      await persist(state);
+      try {
+        await persist(state);
+      } catch (error) {
+        // A completed rename is already visible to readers and must also be visible in memory.
+        if (error instanceof CommittedFileWriteError) runtime.statePromise = Promise.resolve(state);
+        throw error;
+      }
+      runtime.statePromise = Promise.resolve(state);
       return result;
     });
 
@@ -307,7 +327,8 @@ async function mutate<T>(operation: (state: PersistentVoteState) => T) {
 async function fileGetRoundCrowd(roundId: string, roomId: string, voterId?: string, includeScores = false) {
   await runtime.writeQueue;
   const state = await stateForRuntime();
-  const round = state.rounds[roundId];
+  const storedRound = state.rounds[roundId];
+  const round = storedRound?.roomId === roomId ? storedRound : undefined;
   const hash = voterId ? anonymousVoterHash(roomId, voterId) : null;
 
   return {
@@ -392,7 +413,10 @@ async function fileSetQuestionReview(input: QuestionReviewInput): Promise<Stored
   });
 }
 
-async function fileRecordRoundVote(input: RoundVoteInput): Promise<VoteResult> {
+async function fileRecordRoundVote(
+  input: RoundVoteInput,
+  effects?: RoundOutcomeEffects,
+): Promise<Omit<VoteResult, "playerIdentity">> {
   return mutate((state) => {
     const hash = anonymousVoterHash(input.roomId, input.voterId);
     const existingRound = state.rounds[input.roundId];
@@ -437,6 +461,14 @@ async function fileRecordRoundVote(input: RoundVoteInput): Promise<VoteResult> {
     round.counts[input.answerIndex] += 1;
     round.updatedAt = input.submittedAt;
     state.rounds[input.roundId] = round;
+    if (effects && (effects.account || effects.alpha)) {
+      state.pendingOutcomes ??= {};
+      state.pendingOutcomes[`${input.roundId}:${hash}`] = {
+        roundId: input.roundId,
+        submittedAt: input.submittedAt,
+        effects: structuredClone(effects),
+      };
+    }
 
     if (input.countTowardCalibration !== false) {
       const { key, question } = questionForMutation(state, input);
@@ -505,6 +537,7 @@ export async function getVoteStoreHealth(): Promise<VoteStoreHealth> {
   if (usesPostgres()) return (await postgresStore()).getPostgresVoteStoreHealth();
   await runtime.writeQueue;
   await stateForRuntime();
+  await checkFileStoreWritable(runtime.filePath);
   return { backend: "file", ok: true };
 }
 
@@ -551,9 +584,111 @@ export async function getQuestionReviews(
   return fileGetQuestionReviews(gameId, questionRevisions);
 }
 
-export async function recordRoundVote(input: RoundVoteInput): Promise<VoteResult> {
+export async function recordRoundVote(input: RoundVoteInput): Promise<Omit<VoteResult, "playerIdentity">> {
   if (usesPostgres()) return (await postgresStore()).recordRoundVote(input);
   return fileRecordRoundVote(input);
+}
+
+async function applyOutcome(outcome: PendingRoundOutcome) {
+  const { recordPlayerRound } = await import("@/lib/account-store");
+  const { recordAlphaSessionRound } = await import("@/lib/alpha-store");
+  if (outcome.effects.account) {
+    await recordPlayerRound(outcome.effects.account.userId, outcome.effects.account.round);
+  }
+  if (outcome.effects.alpha) {
+    await recordAlphaSessionRound(
+      outcome.effects.alpha.key,
+      outcome.effects.alpha.correct,
+      outcome.submittedAt,
+      outcome.roundId,
+    );
+  }
+}
+
+async function replayOutcome(key: string) {
+  await runtime.writeQueue;
+  const pending = (await stateForRuntime()).pendingOutcomes?.[key];
+  if (!pending) return;
+  const userId = pending.effects.account?.userId ?? pending.effects.alpha?.key.userId;
+  const apply = async () => {
+    const { accountExists } = await import("@/lib/account-store");
+    if (!userId || (await accountExists(userId))) await applyOutcome(pending);
+    await mutate((state) => {
+      delete state.pendingOutcomes?.[key];
+    });
+  };
+  if (userId) await withAccountDataLock(userId, apply);
+  else await apply();
+}
+
+export async function replayPendingRoundOutcomes() {
+  if (usesPostgres()) return;
+  await runtime.writeQueue;
+  const keys = Object.keys((await stateForRuntime()).pendingOutcomes ?? {});
+  const failures: unknown[] = [];
+  for (const key of keys) {
+    try {
+      await replayOutcome(key);
+    } catch (error) {
+      failures.push(error);
+    }
+  }
+  if (failures.length) throw new AggregateError(failures, "Some vote outcomes still need recovery.");
+}
+
+export async function deleteAccountPendingOutcomes(userId: string) {
+  if (usesPostgres()) return;
+  await mutate((state) => {
+    for (const [key, outcome] of Object.entries(state.pendingOutcomes ?? {})) {
+      if (outcome.effects.account?.userId === userId || outcome.effects.alpha?.key.userId === userId) {
+        delete state.pendingOutcomes?.[key];
+      }
+    }
+  });
+}
+
+export async function cleanupVoteStore() {
+  if (usesPostgres()) return;
+  try {
+    await replayPendingRoundOutcomes();
+  } finally {
+    await mutate(() => undefined);
+  }
+}
+
+/** Commits all PostgreSQL records together; file records use a durable, idempotent outbox. */
+export async function recordRoundOutcome(
+  input: RoundVoteInput,
+  effects: RoundOutcomeEffects,
+): Promise<Omit<VoteResult, "playerIdentity">> {
+  const userId =
+    effects.account?.userId ??
+    effects.alpha?.key.userId ??
+    (input.voterId.startsWith("account:") ? input.voterId.slice("account:".length) : null);
+  const operation = async () => {
+    if (usesPostgres()) {
+      const result = await (await postgresStore()).recordRoundVote(input);
+      if (result.accepted) await applyOutcome({ roundId: input.roundId, submittedAt: input.submittedAt, effects });
+      return result;
+    }
+    const result = await fileRecordRoundVote(input, effects);
+    try {
+      await replayOutcome(`${input.roundId}:${anonymousVoterHash(input.roomId, input.voterId)}`);
+    } catch (error) {
+      logServerError("votes.outbox-pending", error);
+    }
+    return result;
+  };
+  const ownedOperation = async () => {
+    if (!userId) return operation();
+    const { withExistingAccount } = await import("@/lib/account-store");
+    return withExistingAccount(userId, operation);
+  };
+  if (usesPostgres()) {
+    const { databaseTransaction } = await import("@/lib/database-client");
+    return databaseTransaction(ownedOperation);
+  }
+  return ownedOperation();
 }
 
 export async function recordQuestionReport(input: QuestionReportInput): Promise<ReportResult> {

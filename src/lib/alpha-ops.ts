@@ -1,5 +1,5 @@
 import { ALPHA_SESSION_RETENTION_DAYS, summarizeAlphaSessions } from "@/lib/alpha-analytics.mjs";
-import { getAlphaSessionsSince } from "@/lib/alpha-store";
+import { getAlphaSummary } from "@/lib/alpha-store";
 import { PUBLIC_ARCADE_MODE, PUBLIC_ROUND_FORMATS, roundFormatForQuestion } from "@/lib/arcade-games.mjs";
 import { getCalibrationSnapshot } from "@/lib/calibration-data";
 import { DEFAULT_GAME_ID } from "@/lib/game-catalogs";
@@ -52,11 +52,7 @@ function formatSignal(answers: number, accuracy: number, reports: number, report
 }
 
 export async function getAlphaOpsSnapshot(now = Date.now()): Promise<AlphaOpsSnapshot> {
-  const since = now - ALPHA_SESSION_RETENTION_DAYS * 24 * 60 * 60 * 1_000;
-  const [storedSessions, calibration] = await Promise.all([
-    getAlphaSessionsSince(since),
-    getCalibrationSnapshot(DEFAULT_GAME_ID),
-  ]);
+  const [sessions, calibration] = await Promise.all([getAlphaSummary(now), getCalibrationSnapshot(DEFAULT_GAME_ID)]);
   const grouped = new Map(
     PUBLIC_ROUND_FORMATS.map((format) => [
       format,
@@ -90,11 +86,7 @@ export async function getAlphaOpsSnapshot(now = Date.now()): Promise<AlphaOpsSna
     generatedAt: now,
     retentionDays: ALPHA_SESSION_RETENTION_DAYS,
     activePlayers: getRoomPresence(room.id, now),
-    sessions: summarizeAlphaSessions(storedSessions, {
-      now,
-      windowDays: ALPHA_SESSION_RETENTION_DAYS,
-      dailyDays: 14,
-    }),
+    sessions,
     formats,
   };
 }

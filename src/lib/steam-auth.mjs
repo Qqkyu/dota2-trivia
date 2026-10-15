@@ -49,7 +49,7 @@ export function createSteamState({
 }
 
 export function verifySteamState(token, { secret, now = Date.now() }) {
-  if (typeof token !== "string") return null;
+  if (typeof token !== "string" || token.length > 4_096) return null;
   const [payload, signature, extra] = token.split(".");
   if (!payload || !signature || extra || !signaturesMatch(signature, signatureFor(payload, secret))) return null;
   try {
@@ -71,8 +71,8 @@ export function verifySteamState(token, { secret, now = Date.now() }) {
 
 export function steamIdFromClaimedId(claimedId) {
   if (typeof claimedId !== "string") return null;
-  const match = /^https:\/\/steamcommunity\.com\/openid\/id\/(\d{15,20})$/.exec(claimedId);
-  if (!match) return null;
+  const match = /^https?:\/\/steamcommunity\.com\/openid\/id\/(\d{15,20})$/.exec(claimedId);
+  if (!match || match[0] !== claimedId) return null;
   try {
     const steamId = BigInt(match[1]);
     return steamId > 0n && steamId <= 18_446_744_073_709_551_615n ? match[1] : null;
@@ -94,13 +94,81 @@ export function steamLoginUrl(origin, state) {
   return login;
 }
 
-export function steamVerificationBody(searchParams) {
-  const body = new URLSearchParams();
+/** Keep one immutable value for every callback field, including state. */
+export function steamCallbackParameters(searchParams) {
+  const fields = Object.create(null);
   for (const [key, value] of searchParams) {
+    if (key !== "state" && !key.startsWith("openid.")) continue;
+    if (Object.hasOwn(fields, key) || key.length > 100 || value.length > 4_096) return null;
+    fields[key] = value;
+  }
+  return Object.freeze(fields);
+}
+
+/** Validate the same immutable assertion that will be sent to Steam. */
+export function steamAssertionIdentity(fields, expectedReturnTo, now = Date.now()) {
+  if (!fields) return null;
+  const claimedId = fields["openid.claimed_id"];
+  const steamId = steamIdFromClaimedId(claimedId);
+  if (
+    fields["openid.ns"] !== STEAM_OPENID_NAMESPACE ||
+    fields["openid.mode"] !== "id_res" ||
+    fields["openid.op_endpoint"] !== STEAM_OPENID_ENDPOINT ||
+    fields["openid.return_to"] !== expectedReturnTo ||
+    fields["openid.identity"] !== claimedId ||
+    !steamId ||
+    !fields["openid.sig"] ||
+    !fields["openid.assoc_handle"]
+  )
+    return null;
+
+  const signed = (fields["openid.signed"] ?? "").split(",");
+  const required = ["op_endpoint", "claimed_id", "identity", "return_to", "response_nonce", "assoc_handle"];
+  if (new Set(signed).size !== signed.length || required.some((key) => !signed.includes(key))) return null;
+  const nonce = fields["openid.response_nonce"] ?? "";
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z[\x21-\x7e]{1,200}$/.test(nonce)) return null;
+  const issuedAt = Date.parse(nonce.slice(0, 20));
+  if (!Number.isFinite(issuedAt) || issuedAt > now + 60_000 || now - issuedAt > STEAM_STATE_MAX_AGE_MS) return null;
+  return steamId;
+}
+
+export function steamVerificationBody(parameters) {
+  const fields = parameters instanceof URLSearchParams ? steamCallbackParameters(parameters) : parameters;
+  if (!fields) throw new Error("Duplicate Steam assertion parameters.");
+  const body = new URLSearchParams();
+  for (const [key, value] of Object.entries(fields)) {
     if (key.startsWith("openid.")) body.set(key, value);
   }
   body.set("openid.mode", "check_authentication");
   return body;
+}
+
+export function steamVerificationSucceeded(text) {
+  if (typeof text !== "string" || text.length > 4_096) return false;
+  const fields = Object.create(null);
+  for (const line of text.trim().split(/\r?\n/)) {
+    const separator = line.indexOf(":");
+    if (separator < 1) return false;
+    const key = line.slice(0, separator);
+    if (Object.hasOwn(fields, key)) return false;
+    fields[key] = line.slice(separator + 1);
+  }
+  return fields.ns === STEAM_OPENID_NAMESPACE && fields.is_valid === "true";
+}
+
+export function accountSessionToken(cookieHeader) {
+  if (typeof cookieHeader !== "string") return null;
+  for (const part of cookieHeader.split(";")) {
+    const [key, ...value] = part.trim().split("=");
+    if (key !== ACCOUNT_SESSION_COOKIE) continue;
+    try {
+      const token = decodeURIComponent(value.join("="));
+      return /^[A-Za-z0-9_-]{32,128}$/.test(token) ? token : null;
+    } catch {
+      return null;
+    }
+  }
+  return null;
 }
 
 export function sessionTokenHash(token) {

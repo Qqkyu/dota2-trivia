@@ -7,6 +7,7 @@ import { seededShuffle, varietyShuffle } from "./variety.mjs";
  */
 export const SEMANTIC_REPEAT_GAP_ROUNDS = 11;
 export const SEMANTIC_SLOT_COUNT = SEMANTIC_REPEAT_GAP_ROUNDS + 1;
+export const SEMANTIC_SCHEDULE_CACHE_MAX = 64;
 
 const HERO_ANSWER_KINDS = new Set([
   "fogged-hero",
@@ -19,6 +20,18 @@ const HERO_ANSWER_KINDS = new Set([
 const ABILITY_VALUE_KINDS = new Set(["ability-damage", "cooldown", "mana-cost"]);
 const ABILITY_HERO_PREFIX_ALIASES = new Map([["sandking", "sand_king"]]);
 const preparedScheduleCache = new WeakMap();
+
+/** Coprime cadence and slot counts let every format visit every subject slot. */
+export function semanticSlotCountForFormats(formats) {
+  const gcd = (left, right) => (right ? gcd(right, left % right) : left);
+  let count = SEMANTIC_SLOT_COUNT;
+  while (gcd(count, formats.length) !== 1 && formats.length > 0) count += 1;
+  return count;
+}
+
+export function semanticScheduleCacheSize(questions) {
+  return preparedScheduleCache.get(questions)?.size ?? 0;
+}
 
 function normalizedToken(value) {
   return String(value ?? "")
@@ -168,7 +181,7 @@ function slotTargets(formatIndex, questionCount, formatCount, slotCount) {
 
 /**
  * Give every semantic subject one global slot. A hero assigned to slot 4 can
- * therefore only appear on rounds whose number is 4 modulo thirteen, regardless
+ * therefore only appear on rounds whose number is 4 modulo the slot count, regardless
  * of which question family asks about that hero.
  */
 export function createSemanticSlotPlan(questions, formats, getFormat, seed, slotCount = SEMANTIC_SLOT_COUNT) {
@@ -252,15 +265,16 @@ export function createSemanticPublicDeck(
   if (length <= 0 || !formats.length) return [];
 
   const poolSeeds = formats.map(poolSeedForFormat);
+  const slotCount = semanticSlotCountForFormats(formats);
   const cacheKey = JSON.stringify([seed, formats, poolSeeds]);
   const questionCache = preparedScheduleCache.get(questions) ?? new Map();
   let prepared = questionCache.get(cacheKey);
   if (!prepared) {
-    const plan = createSemanticSlotPlan(questions, formats, getFormat, seed);
+    const plan = createSemanticSlotPlan(questions, formats, getFormat, seed, slotCount);
     const buckets = new Map(
       formats.map((format, formatIndex) => [
         format,
-        Array.from({ length: SEMANTIC_SLOT_COUNT }, (_, slot) =>
+        Array.from({ length: slotCount }, (_, slot) =>
           varietyShuffle(
             questions.filter((question) => {
               if (getFormat(question) !== format) return false;
@@ -274,7 +288,13 @@ export function createSemanticPublicDeck(
     );
     prepared = { buckets };
     questionCache.set(cacheKey, prepared);
+    while (questionCache.size > SEMANTIC_SCHEDULE_CACHE_MAX) {
+      questionCache.delete(questionCache.keys().next().value);
+    }
     preparedScheduleCache.set(questions, questionCache);
+  } else {
+    questionCache.delete(cacheKey);
+    questionCache.set(cacheKey, prepared);
   }
   const { buckets } = prepared;
 
@@ -282,9 +302,9 @@ export function createSemanticPublicDeck(
     const roundNumber = Math.max(0, Math.floor(roundOffset + index));
     const formatIndex = roundNumber % formats.length;
     const format = formats[formatIndex];
-    const slot = roundNumber % SEMANTIC_SLOT_COUNT;
+    const slot = roundNumber % slotCount;
     const formatOccurrence = Math.floor(roundNumber / formats.length);
-    const slotOccurrence = Math.floor(formatOccurrence / SEMANTIC_SLOT_COUNT);
+    const slotOccurrence = Math.floor(formatOccurrence / slotCount);
     const bucket = buckets.get(format)?.[slot] ?? [];
 
     if (!bucket.length) {

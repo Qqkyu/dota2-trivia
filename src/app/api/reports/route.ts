@@ -1,9 +1,11 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { sessionUserForRequest } from "@/lib/auth-session";
-import { rateLimitRequest } from "@/lib/api-protection";
+import { preflightRateLimit, rateLimitRequest, readJsonBody, requestOriginAllowed } from "@/lib/api-protection";
+import { validatedGuestIdentity } from "@/lib/guest-identity.mjs";
 import { isReportReason, QUESTION_REPORT_GRACE_MS } from "@/lib/calibration";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
 import { liveRoundAt, liveRoundForSettings } from "@/lib/private-room-rounds";
+import { privateRoomMember } from "@/lib/private-rooms.mjs";
 import { parsePublicRoomSettings } from "@/lib/public-rooms";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
@@ -13,13 +15,14 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
-  let body: unknown;
-
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: "Invalid JSON." }, { status: 400 });
+  if (!requestOriginAllowed(request)) {
+    return NextResponse.json({ error: "Invalid request origin." }, { status: 403 });
   }
+  const limited = preflightRateLimit(request, "reports", 300);
+  if (limited) return limited;
+  const parsed = await readJsonBody(request);
+  if ("response" in parsed) return parsed.response;
+  const { body } = parsed;
 
   if (!body || typeof body !== "object") {
     return NextResponse.json({ error: "Missing report fields." }, { status: 400 });
@@ -52,7 +55,8 @@ export async function POST(request: NextRequest) {
     logServerError("reports.account-session", error);
     return NextResponse.json({ error: "Report storage unavailable." }, { status: 503 });
   }
-  const effectiveVoterId = accountUser ? `account:${accountUser.id}` : voterId;
+  const effectiveVoterId = accountUser ? `account:${accountUser.id}` : validatedGuestIdentity(voterId);
+  if (!effectiveVoterId) return NextResponse.json({ error: "Invalid player ID." }, { status: 400 });
   const rateLimited = rateLimitRequest(request, "reports", effectiveVoterId, 6);
   if (rateLimited) return rateLimited;
 
@@ -60,6 +64,9 @@ export async function POST(request: NextRequest) {
   const live = liveRoundForSettings(settings, submittedAt);
   if ("error" in live) {
     return NextResponse.json({ error: "That question is no longer reportable." }, { status: 409 });
+  }
+  if (live.isolated && settings.privateCode && !privateRoomMember(settings.privateCode, effectiveVoterId)) {
+    return NextResponse.json({ error: "Join the party before reporting." }, { status: 403 });
   }
   const { room, round: currentRound } = live;
   const currentRevealMatches =

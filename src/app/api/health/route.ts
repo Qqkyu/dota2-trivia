@@ -6,11 +6,15 @@ import { DEFAULT_GAME_ID, GAME_CATALOGS } from "@/lib/game-catalogs";
 import { configuredReviewerSteamIds, invalidReviewerSteamIds } from "@/lib/question-review";
 import { logServerError } from "@/lib/server-diagnostics";
 import { getVoteStoreHealth } from "@/lib/vote-store";
+import { getStoreMaintenanceStatus } from "@/lib/store-maintenance";
+import { preflightRateLimit } from "@/lib/api-protection";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
+  const limited = preflightRateLimit(request, "health", 120);
+  if (limited) return limited;
   const catalog = GAME_CATALOGS[DEFAULT_GAME_ID];
   try {
     if (process.env.NODE_ENV === "production" && !process.env.ARCADE_VOTER_SALT?.trim()) {
@@ -38,6 +42,7 @@ export async function GET(request: Request) {
         storage,
         accounts,
         alpha,
+        maintenance: getStoreMaintenanceStatus(),
         steam: { profileEnrichment: Boolean(process.env.STEAM_WEB_API_KEY?.trim()) },
         reviews: { reviewersConfigured: configuredReviewerSteamIds().length },
         content: {

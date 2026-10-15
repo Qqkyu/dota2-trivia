@@ -20,6 +20,11 @@ export const PRIVATE_ROOM_MESSAGE_MAX = 80;
 export const PRIVATE_ROOM_NAME_MAX = 24;
 /** One private room keeps at most this many seats. Leave frees a seat. */
 export const PRIVATE_ROOM_PLAYER_MAX = 100;
+export const PRIVATE_ROOM_MAX = 500;
+export const PRIVATE_ROOM_SOURCE_MAX = 20;
+export const PRIVATE_ROOM_HOST_MAX = 5;
+/** Retain recent awards so a late commit can revise the round's crowd bonus. */
+export const PRIVATE_ROOM_AWARD_HISTORY_MAX = 128;
 export const PRIVATE_ROOM_NAME_NOTICE_MS = 2_500;
 export const PRIVATE_ROOM_COUNTDOWN_MS = 3_000;
 
@@ -236,6 +241,7 @@ export function getPrivateRoom(code, now = Date.now(), viewerId) {
 }
 
 export function touchPrivateRoom(code, now = Date.now(), identity) {
+  expireIdlePrivateRooms(now);
   const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
   if (!record) return null;
   record.lastSeenAt = now;
@@ -269,7 +275,16 @@ export function addPrivateRoomScore(code, playerId, points, now = Date.now(), ro
   const awarded = Math.max(0, Number(points) || 0);
   if (roundId) {
     const pending = Array.isArray(member.pendingAwards) ? member.pendingAwards : [];
-    member.pendingAwards = [...pending.filter((entry) => entry.roundId !== roundId), { roundId, points: awarded }];
+    if (!pending.some((entry) => entry.roundId === roundId)) {
+      record.awardVersion = (record.awardVersion ?? 0) + 1;
+      const history = [...pending, { roundId, points: awarded, version: record.awardVersion }];
+      while (history.length > PRIVATE_ROOM_AWARD_HISTORY_MAX) {
+        const oldest = history.shift();
+        // Keep the accepted base score even if no reveal was read for 128 rounds.
+        if (oldest.appliedPoints === undefined) member.score = (Number(member.score) || 0) + oldest.points;
+      }
+      member.pendingAwards = history;
+    }
   } else {
     member.score = (Number(member.score) || 0) + awarded;
   }
@@ -278,21 +293,26 @@ export function addPrivateRoomScore(code, playerId, points, now = Date.now(), ro
   return publicView(record, playerId);
 }
 
-/** Apply the reveal crowd-breaker once per round. Vote-time scores are the base. */
-export function applyPrivateRoomCrowdBonus(code, roundId, multiplier, now = Date.now()) {
+/** Capture before reading votes, so an older read cannot settle a newer award. */
+export function privateRoomAwardVersion(code) {
+  return rooms.get(normalizePrivateRoomCode(code) ?? "")?.awardVersion ?? 0;
+}
+
+/** Reconcile committed awards, including a late vote that changes the crowd bonus. */
+export function applyPrivateRoomCrowdBonus(code, roundId, multiplier, now = Date.now(), snapshot) {
   const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
   if (!record || typeof roundId !== "string" || !roundId) return null;
   const factor = Math.max(1, Math.floor(Number(multiplier) || 1));
-  record.settledRoundIds ??= {};
-  if (record.settledRoundIds[roundId]) return publicView(record);
   for (const member of record.members ?? []) {
     const pending = Array.isArray(member.pendingAwards) ? member.pendingAwards : [];
     const award = pending.find((entry) => entry.roundId === roundId);
     if (!award) continue;
-    member.score = (Number(member.score) || 0) + (Number(award.points) || 0) * factor;
-    member.pendingAwards = pending.filter((entry) => entry.roundId !== roundId);
+    if (snapshot && (award.version > snapshot.awardVersion || (award.settledTotal ?? 0) > snapshot.total)) continue;
+    const points = (Number(award.points) || 0) * factor;
+    member.score = (Number(member.score) || 0) + points - (award.appliedPoints ?? 0);
+    award.appliedPoints = points;
+    if (snapshot) award.settledTotal = snapshot.total;
   }
-  record.settledRoundIds[roundId] = true;
   record.lastSeenAt = now;
   return publicView(record);
 }
@@ -301,11 +321,10 @@ export function applyPrivateRoomCrowdBonus(code, roundId, multiplier, now = Date
 export function pendingPrivateRoomRoundIds(code, currentRoundId) {
   const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
   if (!record) return [];
-  const settled = record.settledRoundIds ?? {};
   const ids = new Set();
   for (const member of record.members ?? []) {
     for (const award of member.pendingAwards ?? []) {
-      if (!award?.roundId || award.roundId === currentRoundId || settled[award.roundId]) continue;
+      if (!award?.roundId || award.roundId === currentRoundId || award.appliedPoints !== undefined) continue;
       ids.add(award.roundId);
     }
   }
@@ -316,22 +335,9 @@ export function pendingPrivateRoomRoundIds(code, currentRoundId) {
 export function flushStalePrivateRoomScores(code, currentRoundId, now = Date.now()) {
   const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
   if (!record || typeof currentRoundId !== "string" || !currentRoundId) return null;
-  record.settledRoundIds ??= {};
-  const settled = new Set();
-  for (const member of record.members ?? []) {
-    const pending = Array.isArray(member.pendingAwards) ? member.pendingAwards : [];
-    const keep = [];
-    for (const award of pending) {
-      if (award.roundId === currentRoundId || record.settledRoundIds[award.roundId]) {
-        keep.push(award);
-        continue;
-      }
-      member.score = (Number(member.score) || 0) + (Number(award.points) || 0);
-      settled.add(award.roundId);
-    }
-    member.pendingAwards = keep;
+  for (const roundId of pendingPrivateRoomRoundIds(code, currentRoundId)) {
+    applyPrivateRoomCrowdBonus(code, roundId, 1, now);
   }
-  for (const roundId of settled) record.settledRoundIds[roundId] = true;
   record.lastSeenAt = now;
   return publicView(record);
 }
@@ -354,6 +360,7 @@ export function leavePrivateRoom(code, playerId, now = Date.now()) {
 
 export function createPrivateRoom({
   hostId,
+  sourceKey = "",
   gameId,
   contentVersion,
   games,
@@ -374,12 +381,16 @@ export function createPrivateRoom({
   const selectedFormats = formatsForRoundGames(selectedGames);
   const code = normalizePrivateRoomCode(requestedCode);
   if (!code) throw new Error("Pick a party code.");
-  const existing = rooms.get(code);
-  if (existing) {
-    markAwayMembers(existing, now);
-    if ((existing.members ?? []).some((member) => !member.away)) throw new Error("That code is taken.");
-    rooms.delete(code);
+  if (rooms.has(code)) throw new Error("That code is taken.");
+  if (rooms.size >= PRIVATE_ROOM_MAX) throw new Error("Private room capacity reached.");
+  let hostRooms = 0;
+  let sourceRooms = 0;
+  for (const active of rooms.values()) {
+    if ((active.creatorId ?? active.hostId) === hostId) hostRooms += 1;
+    if (sourceKey && active.sourceKey === sourceKey) sourceRooms += 1;
   }
+  if (hostRooms >= PRIVATE_ROOM_HOST_MAX) throw new Error("Too many active parties for this player.");
+  if (sourceRooms >= PRIVATE_ROOM_SOURCE_MAX) throw new Error("Too many active parties for this connection.");
 
   const record = {
     code,
@@ -389,6 +400,9 @@ export function createPrivateRoom({
     games: selectedGames,
     formats: selectedFormats,
     hostId,
+    // Creation quotas stay with the creator when host duties change.
+    creatorId: hostId,
+    sourceKey,
     createdAt: now,
     startedAt: null,
     lastSeenAt: now,

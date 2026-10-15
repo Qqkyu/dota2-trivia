@@ -141,6 +141,7 @@ export interface TriviaQuestion {
       event: string;
       eventFile: string;
       duration: number;
+      startSeconds?: number;
       audioSha256: string;
     }>;
     audit: {
@@ -162,7 +163,8 @@ export interface TriviaQuestion {
     correctOrder: [string, string, string, string];
     audit: {
       derivedFrom: [string, string, string, string];
-      clientBuild: string;
+      sourceType: string;
+      clientBuild?: string;
     };
   };
   flashback?: {
@@ -188,6 +190,7 @@ export interface TriviaQuestion {
     componentKey?: string;
     promptItems?: ShopkeeperItemReference[];
     recipeComponentKeys?: string[];
+    recipeCost?: number;
     targetRecipeKeys?: [string[], string[]];
     answerItemKeys?: [string, string, string, string];
     answerRecipeKeys?: [string[], string[], string[], string[]];
@@ -204,6 +207,7 @@ export interface TriviaQuestion {
   source: {
     label: string;
     url: string;
+    references?: Array<{ label: string; url: string }>;
   };
   patch: string;
 }
@@ -224,7 +228,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-6-shopkeeper-6-public-arcade-4-soundcheck-11-spell-link-4-fogged-vision-5-global-score-1-order-up-4-aghanim-lab-1-flashback-18`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21`;
 const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filter(
   (question) =>
     isPlayableClassicTriviaQuestion(question) &&
