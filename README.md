@@ -1,6 +1,6 @@
 # Queue Arcade
 
-Release preparation: [current launch checks](docs/audits/2026-10-06/launch-checks/README.md). Earlier records cover the [security audit and fixes](docs/audits/2026-10-06/remediation.md) and [complete question, functional and UI review](docs/audits/2026-10-06/deep-review/README.md).
+Current state: [launch status](docs/launch-status.md). The October 2026 audit is summarized in the [launch checks](docs/audits/2026-10-06/launch-checks/README.md), the [security audit and fixes](docs/audits/2026-10-06/remediation.md), and the [complete question, functional and UI review](docs/audits/2026-10-06/deep-review/README.md). `main` keeps the written reports; the raw evidence (JSON, logs, screenshots, audio) lives on the Git tag `launch-evidence-20261010`.
 
 An unofficial browser arcade made for the gap between **Find Match** and **Accept**. Dota 2 is its first content pack: the project began as a recreation of Valve's old Queue Trivia and now rotates ten named round identities inside one endless public arcade:
 
@@ -190,8 +190,8 @@ The data generators write:
 
 The sync uses OpenDota for localized metadata and artwork, and Dotabase for hero-response metadata and playable audio
 paths. The October review checked all 1,517 live questions against current Valve data, dated primary historical
-sources, pinned response metadata and measured audio samples. Its [current per-question index](docs/audits/2026-10-06/launch-checks/question-review-index.json)
-records the evidence and limits. The completed [audio review](docs/audits/2026-10-06/launch-checks/content-review.md)
+sources, pinned response metadata and measured audio samples. Its per-question index
+(`launch-checks/question-review-index.json` on the `launch-evidence-20261010` tag) records the evidence and limits. The completed [audio review](docs/audits/2026-10-06/launch-checks/content-review.md)
 covers all 219 questions using source metadata, exact gameplay cuts, speech recognition for voices, and native
 browser output for effects. These checks do not establish subjective difficulty or physical-speaker quality.
 The 72 retired recipe rows remain outside the live catalog and were not fact-checked in this pass.
@@ -224,12 +224,9 @@ direct damage, DPS, a percentage, or one conditional part of a spell. `validate-
 against the committed deck. Set the patch and snapshot date deliberately after checking the current official gameplay
 patch; the content pack is explicitly patch-stamped in the UI.
 
-The retired Map Sense and Counterplay prototypes remain preserved but are not exposed in the lobby, included in the
-public rotation, or maintained by the normal release and asset checks. Legacy mode values are normalized into the one
-Queue Arcade room and cannot resurrect either prototype. Map Sense lives in
-`src/lib/map-sense.ts` and `src/data/map-sense-*.json`; Counterplay lives in `src/data/counterplay-questions.json`,
-`scripts/generate-counterplay.mjs`, and `scripts/counterplay-audit.mjs`. Run `pnpm validate-map-archive` or
-`pnpm validate-counterplay-archive` when deliberately working on either archived experiment.
+The Map Sense and Counterplay prototypes left the lobby in September 2026, and their archived data, generators, and
+validators were removed in October 2026. Legacy mode values are still normalized into the one Queue Arcade room and
+cannot resurrect either prototype. The last copy of the archive is on the `launch-release-20261010` tag.
 
 Soundcheck's reviewed event-to-file mappings live in `scripts/soundcheck-audit.mjs`. The generator resolves names and
 icons from current OpenDota constants, verifies each named sound event against the decompiled client event file, and
@@ -318,4 +315,4 @@ review and quarantine writes.
 
 ## Attribution
 
-Question names and artwork mappings are generated from [OpenDota](https://docs.opendota.com/); the review checks marked answers and numeric constants against current Valve API data, official patch notes and a pinned client extract. Hero-response metadata, browser-ready Soundcheck WAVs, and every audible arcade UI cue are sourced through [Dotabase](https://github.com/mdiller/dotabase). Queue Trivia's original answer click, the layered matchmaking-start event, the legacy `challenge_success` sting, and `General.InvalidTarget_Invulnerable` (“meep merp”) are independently checked against the installed client; the runtime synthesizes no substitute tones. Game assets are served from public Dota asset hosts. Steam connection uses Valve's OpenID provider and an inline Steam brand mark. The archived Map Sense terrain artwork comes from [OpenDota's public map archive](https://github.com/odota/web/tree/master/public/assets/images/dota2/map), with its historical objective changes checked against [Valve's 7.41 notes](https://www.dota2.com/patches/7.41). Archived Counterplay outcomes were checked against the matching client and mechanics sources. Dota 2 and its assets are trademarks of Valve Corporation. This fan project is not affiliated with or endorsed by Valve.
+Question names and artwork mappings are generated from [OpenDota](https://docs.opendota.com/); the review checks marked answers and numeric constants against current Valve API data, official patch notes and a pinned client extract. Hero-response metadata, browser-ready Soundcheck WAVs, and every audible arcade UI cue are sourced through [Dotabase](https://github.com/mdiller/dotabase). Queue Trivia's original answer click, the layered matchmaking-start event, the legacy `challenge_success` sting, and `General.InvalidTarget_Invulnerable` (“meep merp”) are independently checked against the installed client; the runtime synthesizes no substitute tones. Game assets are served from public Dota asset hosts. Steam connection uses Valve's OpenID provider and an inline Steam brand mark. Dota 2 and its assets are trademarks of Valve Corporation. This fan project is not affiliated with or endorsed by Valve.

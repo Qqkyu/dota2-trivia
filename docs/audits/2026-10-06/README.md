@@ -1,5 +1,11 @@
 # Queue Arcade audit for production preparation
 
+> Archive note (15 October 2026): `main` keeps only the Markdown reports from this audit.
+> Links below to JSON, logs, screenshots, audio, and helper files resolve on the Git tag
+> `launch-evidence-20261010`, which holds the complete frozen evidence tree. The findings in
+> this file describe the 6 October state; the fixes shipped in the preview release tagged
+> `launch-release-20261010`. See [launch status](../../launch-status.md) for the current state.
+
 Do not release this working tree yet. The app has working public and party flows, useful content checks, and a production build that passes. The audit also found a critical Steam login verification defect, ineffective public abuse limits, and reproducible failures in scoring, recovery, content, and persistence.
 
 This is an audit, not a remediation release. No application source, question data, dependency, deployment setting, or existing user data was changed. The report and its evidence are the only repository additions. Existing uncommitted work was included and preserved.

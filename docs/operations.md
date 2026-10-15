@@ -207,7 +207,7 @@ invalid, or repeated values use the conservative fallback bucket. It never falls
 another forwarded header. The app does not enable this mode from the `RENDER` variable.
 Confirm that the actual service overwrites forged headers and separates independent
 client addresses before enabling it. A local proxy simulation cannot establish Render's
-behavior. Record the hosted result under `docs/audits/2026-10-06/launch-checks/security/`.
+behavior. Record the hosted result in a dated note under `docs/`.
 
 Add shared limits at the public ingress before a public launch. Start with a request-body
 cap of 64 KiB and a 15-second request-body timeout. Set request-rate limits from the actual

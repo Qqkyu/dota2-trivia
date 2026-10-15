@@ -1,0 +1,76 @@
+# Launch status
+
+Updated 15 October 2026. This page replaces the old root `HANDOFF.md` and records the
+current deployment, what is left before a public soft launch, and local housekeeping.
+The October audit itself is summarized in [docs/audits/2026-10-06](audits/2026-10-06/README.md).
+
+## Git
+
+| Item | Value |
+| --- | --- |
+| Deployed source | `31961cb`, tag `launch-release-20261010` |
+| Frozen audit evidence | tag `launch-evidence-20261010` (142 MB, not on `main`) |
+| `main` | Release source rebuilt as area commits, plus the 15 October cleanup |
+
+`main` keeps the Markdown reports of the audit. The raw evidence (JSON, logs, screenshots,
+audio, helper scripts, the reusable tool map) is only on the evidence tag. Read it with
+`git show launch-evidence-20261010:docs/audits/2026-10-06/launch-checks/README.md` or check
+the tag out in a separate worktree.
+
+## Hosted preview (verified 11 October)
+
+| Item | Value |
+| --- | --- |
+| App | <https://queue-arcade.onrender.com> |
+| Render service | `srv-d9mqd1942hec73e9nlt0`, free Docker plan, Frankfurt, one instance |
+| Deploy policy | Manual deploys only; the service still points at branch `codex/launch-checks-20261006` |
+| Live deployment | `dep-db5imrt9fdbs73d19570` from `31961cb` |
+| PostgreSQL | `dpg-d9mqc4taeets73aiclsg-a`, PostgreSQL 17, restricted runtime role, empty external allowlist |
+| Trusted address header | `ARCADE_TRUST_PROXY=cf-connecting-ip` |
+| Automatic migrations | Off (`ARCADE_AUTO_MIGRATE=false`); file store off |
+
+On 15 October `/api/health` answered 200 after a 17-second cold start. The free plan sleeps
+the service; the first visitor after idle waits for it.
+
+## Deploying `main`
+
+1. Confirm the CI `verify` job is green on the `main` commit you want to ship.
+2. In Render, change the service branch from `codex/launch-checks-20261006` to `main`.
+   Keep automatic deploys off.
+3. Trigger a manual deploy of that commit. Render rebuilds the Docker image itself.
+4. After the deploy, run `APP_URL=https://queue-arcade.onrender.com pnpm check:headers`
+   and open the app once to confirm `/api/health` and a public round.
+5. Follow [operations](operations.md) for migrations, backups, and rollback. A deploy
+   restarts the process, which ends active private rooms.
+
+## Open before a public soft launch
+
+- **Steam login on the hosted app.** Protocol and local account-flow tests passed. Nobody
+  has completed an interactive hosted login with a real account yet.
+- **Availability and traffic.** The free plan sleeps and runs one instance. Private
+  rooms, chat, presence, and request limits live in that process. Keep one instance
+  until those use shared storage. Agree on backup retention and recovery targets.
+- **Capacity.** A four-player constrained run passed. A 466-player synthetic run kept all
+  votes but missed the one-second response target. It does not prove 466 live users on
+  the free plan.
+- **Device coverage.** Browser and Android emulation passed. Physical iPhone, VoiceOver,
+  and full native mobile gameplay are untested.
+- **Open issues.** GitHub #1 (Muerta Spell Link tooltips), #4 (difficulty calibration
+  from real rounds), and #5 (opaque asset tokens before public rankings) remain.
+
+## Local housekeeping
+
+- **Docker cleanup is still pending.** The audit left six image tags
+  (`queue-arcade-launch:final`, `queue-arcade-launch:baseline`,
+  `queue-arcade-launch-runtime-base:local`, `queue-arcade-launch-dependencies:local`,
+  `queue-arcade-ci-runner:20261006`, `queue-arcade-assistive:orca49`), the stopped
+  container `queue-arcade-launch-restore-pg17`, and its one anonymous volume. The `docker`
+  command is not available inside this WSL distro, so remove them from Docker Desktop.
+  The reviewed helper is on the evidence tag under `launch-checks/cleanup/docker-preflight-20261010/`.
+- **Private recovery files** stay under the ignored `.local-assets/operator-recovery-20261010/`
+  (database backup, old configuration, finalization receipts). Never copy them into Git,
+  reports, or tool output.
+- **Reusable tools** (Node 22.23.3, PostgreSQL 17 clients, Gitleaks, Trivy, browsers,
+  speech models) live under `~/.cache/`. The exact map is on the evidence tag at
+  `launch-checks/cleanup/reusable-tool-locations.json`.
+- **Local runs use Node 22** (`.nvmrc`). Node 24 also works, but CI runs 22.
