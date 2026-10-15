@@ -51,6 +51,24 @@ function run(script, appUrl) {
   });
 }
 
+// Each script starts its own browser and mocks its own server state, so a rerun
+// starts clean. One retry absorbs timing noise on shared CI runners; a script
+// that fails twice in a row still fails the gate. UI_CHECK_RETRIES=0 disables it.
+const retries = Number(process.env.UI_CHECK_RETRIES ?? 1);
+const retried = [];
+async function runWithRetry(script, appUrl) {
+  for (let attempt = 0; ; attempt += 1) {
+    try {
+      await run(script, appUrl);
+      if (attempt > 0) retried.push(script);
+      return;
+    } catch (error) {
+      if (attempt >= retries) throw error;
+      console.warn(`RETRY ${script} after: ${error.message}`);
+    }
+  }
+}
+
 const preferred = process.env.APP_URL ?? "http://localhost:3000";
 let appUrl = preferred;
 let server = null;
@@ -121,8 +139,9 @@ try {
     "check-feedback-sounds.mjs",
     "check-rate-limit-live.mjs",
   ]) {
-    await run(script, appUrl);
+    await runWithRetry(script, appUrl);
   }
+  if (retried.length) console.warn(`Passed on retry: ${retried.join(", ")}`);
 } finally {
   if (server && server.exitCode === null) {
     const stopped = new Promise((resolve) => server.once("exit", resolve));

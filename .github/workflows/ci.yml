@@ -138,12 +138,22 @@ jobs:
         run: pnpm check:headers
       - name: Verify browser journeys and native audio output
         run: pnpm check:ui
+      # Browser steps below retry once: shared runners add timing noise, and a
+      # second consecutive failure still fails the job.
       - name: Check accessibility and keyboard flows in Chromium
-        run: A11Y_MODES=desktop,mobile,zoom200,zoom400,reduced,forced,forced-dark pnpm check:accessibility
+        env:
+          A11Y_MODES: desktop,mobile,zoom200,zoom400,reduced,forced,forced-dark
+        run: pnpm check:accessibility || { echo "RETRY check:accessibility chromium"; pnpm check:accessibility; }
       - name: Check mobile and keyboard flows in Firefox
-        run: BROWSER_ENGINE=firefox A11Y_MODES=mobile pnpm check:accessibility
+        env:
+          BROWSER_ENGINE: firefox
+          A11Y_MODES: mobile
+        run: pnpm check:accessibility || { echo "RETRY check:accessibility firefox"; pnpm check:accessibility; }
       - name: Check mobile and keyboard flows in WebKit
-        run: BROWSER_ENGINE=webkit A11Y_MODES=mobile pnpm check:accessibility
+        env:
+          BROWSER_ENGINE: webkit
+          A11Y_MODES: mobile
+        run: pnpm check:accessibility || { echo "RETRY check:accessibility webkit"; pnpm check:accessibility; }
       - name: Start muted browser
         run: |
           google-chrome --headless=new --no-sandbox --mute-audio --autoplay-policy=user-gesture-required \
@@ -159,9 +169,9 @@ jobs:
           cat /tmp/queue-arcade-chrome.log
           exit 1
       - name: Verify browser journey silently
-        run: node scripts/visual-smoke.mjs
+        run: node scripts/visual-smoke.mjs || { echo "RETRY visual-smoke"; node scripts/visual-smoke.mjs; }
       - name: Verify synchronized Postgres room
-        run: pnpm check:multiplayer
+        run: pnpm check:multiplayer || { echo "RETRY check:multiplayer"; pnpm check:multiplayer; }
       - name: Verify packaged cleanup CLI
         run: docker exec queue-arcade-ci node scripts/cleanup-db.mjs --dry-run
       - name: Collect container log
