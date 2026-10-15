@@ -1,0 +1,338 @@
+{
+  "reviewedAt": "2026-10-06",
+  "scope": "Preserve original bytes locally; these files are not evidence of reuse permission and must not enter public output.",
+  "assets": [
+    {
+      "oldPublicPath": "public/arcade/flashback/ti-seattle.jpg",
+      "oldPublicUrl": "/arcade/flashback/ti-seattle.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/ti-seattle.jpg",
+      "sha256": "faa960fdb052714ecf13582d36350931a8f3ca350587b5da78daebbd0034131b",
+      "bytes": 259038,
+      "uses": [
+        {
+          "id": "flashback:ti2-winner",
+          "field": "image.src"
+        },
+        {
+          "id": "flashback:ti3-winner",
+          "field": "image.src"
+        },
+        {
+          "id": "flashback:ti2-year",
+          "field": "image.src"
+        },
+        {
+          "id": "flashback:ti3-year",
+          "field": "image.src"
+        },
+        {
+          "id": "flashback:first-seattle-ti",
+          "field": "image.src"
+        }
+      ]
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/ti1-gamescom.jpg",
+      "oldPublicUrl": "/arcade/flashback/ti1-gamescom.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/ti1-gamescom.jpg",
+      "sha256": "bbf28b76a319b66328c798ec035bdb0516fa4bc51deb075ee4e6faf6b34f32c8",
+      "bytes": 188575,
+      "uses": [
+        {
+          "id": "flashback:ti1-year",
+          "field": "image.src"
+        },
+        {
+          "id": "flashback:ti1-winner",
+          "field": "image.src"
+        },
+        {
+          "id": "flashback:ti1-city",
+          "field": "image.src"
+        }
+      ]
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/ti5-keyarena.jpg",
+      "oldPublicUrl": "/arcade/flashback/ti5-keyarena.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/ti5-keyarena.jpg",
+      "sha256": "43c6273b05cc1ca1c0dc3524fbf398aed7595d67f0d0c8a1d2545ff775001814",
+      "bytes": 229778,
+      "uses": [
+        {
+          "id": "flashback:ti5-winner",
+          "field": "image.src"
+        },
+        {
+          "id": "flashback:ti7-winner",
+          "field": "image.src"
+        },
+        {
+          "id": "flashback:ti5-year",
+          "field": "image.src"
+        },
+        {
+          "id": "flashback:ti7-year",
+          "field": "image.src"
+        }
+      ]
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/ti8-vancouver.jpg",
+      "oldPublicUrl": "/arcade/flashback/ti8-vancouver.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/ti8-vancouver.jpg",
+      "sha256": "3464e1d74caf040d26f445222d6b5ed6f3d4b9338203789f5336777dbdd8cd7c",
+      "bytes": 130586,
+      "uses": [
+        {
+          "id": "flashback:og-first-ti-year",
+          "field": "image.src"
+        },
+        {
+          "id": "flashback:ti8-winner",
+          "field": "image.src"
+        }
+      ]
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/boston-og.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/boston-og.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/boston-og.jpg",
+      "sha256": "04fda07e56fb6a53a8ebc09235c41a29fe838a61803f9f9cd9bbfd2b2882ba2f",
+      "bytes": 157993,
+      "uses": [
+        {
+          "id": "flashback:boston-major-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ]
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/falcons.png",
+      "oldPublicUrl": "/arcade/flashback/winners/falcons.png",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/falcons.png",
+      "sha256": "af366792bf1861ba0b9432c4bd6f58cc873ebec4667b0db450fd1228aa490037",
+      "bytes": 10154,
+      "uses": []
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/frankfurt-og.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/frankfurt-og.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/frankfurt-og.jpg",
+      "sha256": "b9f9978ae322169939e6128bd4835a8fafd32d6e9ef8689de84e2fac7c7455c2",
+      "bytes": 97500,
+      "uses": [
+        {
+          "id": "flashback:frankfurt-major-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ]
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/kiev-og.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/kiev-og.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/kiev-og.jpg",
+      "sha256": "aabb83368fa9da9a413727710a4d650e59eb0870602eedb53ea308e26c709d86",
+      "bytes": 259334,
+      "uses": [
+        {
+          "id": "flashback:kiev-major-winner",
+          "field": "flashback.revealMedia.src"
+        },
+        {
+          "id": "flashback:four-majors",
+          "field": "flashback.revealMedia.src"
+        }
+      ]
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/manila-og.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/manila-og.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/manila-og.jpg",
+      "sha256": "9f5ed0443e114964f8b92a6b230741159410f4487687469efff0d87a0be7c448",
+      "bytes": 290808,
+      "uses": [
+        {
+          "id": "flashback:manila-major-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ]
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/shanghai-secret.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/shanghai-secret.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/shanghai-secret.jpg",
+      "sha256": "19084cbe2e73af29ed0169df6ce64b3ea3a04bb3ff35c589014e30b19bd4a4a2",
+      "bytes": 136931,
+      "uses": [
+        {
+          "id": "flashback:shanghai-major-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ]
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/spirit.png",
+      "oldPublicUrl": "/arcade/flashback/winners/spirit.png",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/spirit.png",
+      "sha256": "ef08fc04052a9a43ca89ee3c51fc667fc9be6f194910948be197dbce65c1e3f7",
+      "bytes": 3573,
+      "uses": []
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti10-spirit.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/ti10-spirit.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti10-spirit.jpg",
+      "sha256": "bc098919d2c1516a196e802d34eefd3f7ae58f3435164a8fbfc0726050197ffe",
+      "bytes": 97736,
+      "uses": [
+        {
+          "id": "flashback:ti10-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ]
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti11-tundra.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/ti11-tundra.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti11-tundra.jpg",
+      "sha256": "6ab28b380894e9e0cd74f80bbc7eb1495d8989614105d3cf2f9ae150dfca2bad",
+      "bytes": 184792,
+      "uses": [
+        {
+          "id": "flashback:ti11-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ]
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti12-spirit.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/ti12-spirit.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti12-spirit.jpg",
+      "sha256": "2d7e0e037d5d0cc706a1fd0189fc63cde7331b102b3d58ce0d78ee39addeb6b9",
+      "bytes": 109461,
+      "uses": [
+        {
+          "id": "flashback:ti12-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ]
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti13-liquid.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/ti13-liquid.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti13-liquid.jpg",
+      "sha256": "d1b8af8ce619849b0c8c73ae1bb0c763242166c731b1e419582f1ea6cb6583c5",
+      "bytes": 264256,
+      "uses": [
+        {
+          "id": "flashback:ti13-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ]
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti14-falcons.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/ti14-falcons.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti14-falcons.jpg",
+      "sha256": "89c81bdb9b8171a2eb9b175d2fbc4758b8169f69618f5a327695644b7e562e7b",
+      "bytes": 125518,
+      "uses": [
+        {
+          "id": "flashback:ti14-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ]
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti3-alliance.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/ti3-alliance.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti3-alliance.jpg",
+      "sha256": "d0a2d8a1003e86963958a8f56e3021140667be8ba249f1c2259dae8f3304b478",
+      "bytes": 78000,
+      "uses": [
+        {
+          "id": "flashback:ti3-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ]
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti5-eg.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/ti5-eg.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti5-eg.jpg",
+      "sha256": "f9366c6aced39560266da1e026ed1134533e345757f191d13961a5304c0b3b41",
+      "bytes": 110257,
+      "uses": [
+        {
+          "id": "flashback:ti5-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ]
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti7-liquid.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/ti7-liquid.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti7-liquid.jpg",
+      "sha256": "0fe5aaefc499e8e86a4172ece400e93f223970dfb36838a96d0e86b985e2c2a7",
+      "bytes": 97448,
+      "uses": [
+        {
+          "id": "flashback:ti7-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ]
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti8-og.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/ti8-og.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti8-og.jpg",
+      "sha256": "581361634d2e078e820566a27d3a45daa70ed6233a591d553bff8997749fb3e6",
+      "bytes": 132870,
+      "uses": [
+        {
+          "id": "flashback:ti8-winner",
+          "field": "flashback.revealMedia.src"
+        },
+        {
+          "id": "flashback:back-to-back",
+          "field": "flashback.revealMedia.src"
+        }
+      ]
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti9-og.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/ti9-og.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti9-og.jpg",
+      "sha256": "b821ab925a40cdcbd5aeb38ad47489bc5ba282a4b17673b111538c8fed4d029f",
+      "bytes": 66370,
+      "uses": [
+        {
+          "id": "flashback:ti9-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ]
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/tundra.png",
+      "oldPublicUrl": "/arcade/flashback/winners/tundra.png",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/tundra.png",
+      "sha256": "274005db3c0bd04355a30ddc76cf40f1fa6d0eeb44fc9fcd5977176aad3e4110",
+      "bytes": 4598,
+      "uses": []
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/wings.png",
+      "oldPublicUrl": "/arcade/flashback/winners/wings.png",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/wings.png",
+      "sha256": "673f1b890f8d4f6348f0cf0a68ad8872654e6a0f7bab1595e2a8db107097a17b",
+      "bytes": 41814,
+      "uses": [
+        {
+          "id": "flashback:ti6-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ]
+    }
+  ]
+}

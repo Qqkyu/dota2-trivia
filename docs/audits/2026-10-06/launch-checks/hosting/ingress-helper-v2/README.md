@@ -1,0 +1,25 @@
+# Ingress proof and policy helpers, version 2
+
+The original hosted proof failed because the two requests that supplied `CF-Connecting-IP` returned HTTP 403 with a plain-text error1000 response. Its failure remains recorded. The metadata diagnostics did not prove the received client address.
+
+Cloudflare documents client-supplied `CF-Connecting-IP` as one cause of error1000. The observed result is consistent with that documented rejection. [Cloudflare error1000 documentation](https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1000/)
+
+The version 2 proof passed on the unchanged release `31961cbd762587225b4b8a814828dc0829952978` at 12:57:17 UTC on 10 October 2026. The [initial hosted receipt](hosted-ingress-proof-v2-initial.json) records three authenticated address proofs and two edge rejections. The two independent IPv4 sources agreed. The live deployment and configuration stayed stable with proxy trust set to `none`.
+
+`verified_egress` means the signed response matched the independently checked IPv4 address. It retains the exact nonce, response schema, `no-store` and counterexample checks. Only `cloudflare-header` and `combined-headers` can instead report `edge_rejected`. That outcome requires HTTP 403, a `text/plain` media type, and the exact body `error code: 1000` with only trailing ASCII whitespace. It explicitly sets `receivedVerifiedEgress` to false. Other response bodies, statuses and redirects fail the proof.
+
+The operator makes five bounded HTTPS reads with TLS verification, IPv4, an 8 KiB response cap and a ten-second absolute deadline per request. It never follows redirects. The Python wrapper retains the original candidate, live deployment, configuration, local source and secret-output checks. It verifies the new operator hash before and after the proof. The proof also records that hash.
+
+The separate policy helper accepts the exact version 2 proof schema. It binds the reviewed proof wrapper and operator, repeats the fresh hosted proof, checks all original state guards, and checks the operator again before the first provider mutation. Its provider allowlist, exact deployment checks, signed configuration receipt and failure handling remain in place. This archive records its review. Root owns any later policy change and will record that result separately in `../proxy-policy-change-v2.json`. Automatic approval review rejected the apply command before execution because the broad productionization request did not explicitly authorize this persistent trust change and redeploy. Root requested that exact approval. At the time of this archive, proxy trust remains `none`; no policy change is claimed.
+
+Eight direct Node cases and seven independent operator cases pass. The independent operator cases include a real ten-second deadline while the fake response emits data every 100 ms. All 29 Python proof cases pass. Independent schema review rejects 75 invalid variants. All 39 policy cases and three additional independent policy regressions pass. Root also reviewed the final policy diff and reran all 39 cases. These local checks made no provider calls and used no real credentials.
+
+The red Node test used `operator-before-edge.mjs`, which removes only the new edge branch from the version 2 operator. Two of eight cases failed. It is not a snapshot of the original app script. Two focused tests against the original Python proof wrapper failed across five subcases. The adapted policy suite against the original helper failed with one assertion failure and 17 errors. The corresponding version 2 suites pass.
+
+The first frozen independent policy rerun used a mock that also blocked the tests' fake redirect handler. That reviewer run failed. Its retained log and the corrected passing rerun document the test setup error. No helper code changed for that rerun.
+
+Source snapshots use `.txt` suffixes. To rerun the tests, restore their original filenames in an isolated directory and preserve their documented absolute fixture paths. The executable reviewed helpers remain under `/tmp/queue-arcade-launch-checks/ingress-helper-v2` until cleanup. These are operator tools for this deployment, not portable application source.
+
+`diagnose-ingress-proof.py.txt` is the exact first failure-classification wrapper. The two `diagnose-ingress-response` snapshots are the final five-case error1000 diagnostic. Their earlier baseline and five-case metadata versions were edited in place and were not retained. The earlier receipts remain evidence of their reported observations, but the final snapshots do not establish the source bytes used for those earlier runs.
+
+[The review result](review-result.json) separates local review, the initial hosted proof and later mutation ownership. [The frozen independent review](frozen-independent-review.json) binds the three executable hashes. [The preservation check](original-preservation.json) confirms that the original proof and policy helpers and all files in their original archives remain unchanged. The manifest binds this version 2 archive.
