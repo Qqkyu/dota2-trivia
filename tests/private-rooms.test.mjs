@@ -24,10 +24,14 @@ import {
   PRIVATE_ROOM_MEMBER_TIMEOUT_MS,
   PRIVATE_ROOM_MESSAGE_MAX,
   PRIVATE_ROOM_PLAYER_MAX,
+  PRIVATE_ROOM_MAX,
+  PRIVATE_ROOM_IDLE_MS,
+  PRIVATE_ROOM_AWARD_HISTORY_MAX,
   PRIVATE_ROOM_NAME_NOTICE_MS,
   privateRoomCodeFromRoundId,
   privateRoomCountdownMs,
   privateRoomMember,
+  privateRoomAwardVersion,
   privateRoomWaiting,
   privateRoundTiming,
   resetPrivateRoomsForTests,
@@ -405,17 +409,31 @@ describe("abandoned party codes", () => {
     expect(names(getPrivateRoom("asd", at + 1))).toEqual(["OldHost"]);
   });
 
-  it("can be created again after every tab went away", () => {
+  it("keeps the code and scores while every member is away", () => {
+    addPrivateRoomScore("asd", "old-host-aaaa", 250, at + 1);
+    expect(() =>
+      createPrivateRoom({
+        ...catalog,
+        hostId: "new-host-bbbb",
+        games: ["flashback"],
+        code: "asd",
+        now: at + PRIVATE_ROOM_MEMBER_TIMEOUT_MS + 1,
+      }),
+    ).toThrow("That code is taken.");
+    expect(getPrivateRoom("asd", at + PRIVATE_ROOM_MEMBER_TIMEOUT_MS + 1).players[0].score).toBe(250);
+  });
+
+  it("allows code reuse only after the full room idle timeout", () => {
     const reused = createPrivateRoom({
       ...catalog,
       hostId: "new-host-bbbb",
       games: ["flashback"],
       code: "asd",
       name: "NewHost",
-      now: at + PRIVATE_ROOM_MEMBER_TIMEOUT_MS,
+      now: at + PRIVATE_ROOM_IDLE_MS + 1,
     });
     expect(reused.players).toEqual([expect.objectContaining({ name: "NewHost", host: true, away: false })]);
-    expect(names(getPrivateRoom("asd", at + PRIVATE_ROOM_MEMBER_TIMEOUT_MS))).toEqual(["NewHost"]);
+    expect(names(getPrivateRoom("asd", at + PRIVATE_ROOM_IDLE_MS + 1))).toEqual(["NewHost"]);
   });
 
   it("stay taken when a guest is still in the party", () => {
@@ -442,6 +460,67 @@ describe("abandoned party codes", () => {
       }),
     ).toThrow("That code is taken.");
     expect(names(getPrivateRoom("live", stealAt))).toEqual(expect.arrayContaining(["LiveGuest"]));
+  });
+});
+
+describe("party capacity and settlement recovery", () => {
+  it("bounds rooms without removing existing parties, then frees expired capacity", () => {
+    resetPrivateRoomsForTests();
+    const now = Date.now();
+    const create = (code, time = now) =>
+      createPrivateRoom({
+        ...catalog,
+        hostId: `capacity-host-${code}`,
+        games: ["trivia"],
+        code,
+        now: time,
+      });
+    for (let index = 0; index < PRIVATE_ROOM_MAX; index += 1) create(`CAP${index}`);
+    expect(() => create("OVERFLOW")).toThrow("Private room capacity reached.");
+    expect(getPrivateRoom("CAP0", now)).not.toBeNull();
+    expect(create("OVERFLOW", now + PRIVATE_ROOM_IDLE_MS).code).toBe("OVERFLOW");
+    expect(touchPrivateRoom("OVERFLOW", now + PRIVATE_ROOM_IDLE_MS * 2)).toBeNull();
+    resetPrivateRoomsForTests();
+  });
+
+  it("reconciles a late award and updates the multiplier for earlier players", () => {
+    resetPrivateRoomsForTests();
+    const now = Date.now();
+    createPrivateRoom({ ...catalog, hostId: "late-host", games: ["trivia"], code: "LATE", now });
+    touchPrivateRoom("LATE", now, { playerId: "late-guest", name: "Guest" });
+    addPrivateRoomScore("LATE", "late-host", 100, now, "r0");
+    const oldVersion = privateRoomAwardVersion("LATE");
+    applyPrivateRoomCrowdBonus("LATE", "r0", 2, now, { awardVersion: oldVersion, total: 1 });
+    addPrivateRoomScore("LATE", "late-guest", 150, now, "r0");
+    // A reveal that began before the new commit must leave its award pending.
+    applyPrivateRoomCrowdBonus("LATE", "r0", 2, now, { awardVersion: oldVersion, total: 1 });
+    expect(pendingPrivateRoomRoundIds("LATE", "r1")).toEqual(["r0"]);
+    const version = privateRoomAwardVersion("LATE");
+    const settled = applyPrivateRoomCrowdBonus("LATE", "r0", 1, now, { awardVersion: version, total: 2 });
+    expect(settled.players.map((player) => player.score)).toEqual([100, 150]);
+    expect(pendingPrivateRoomRoundIds("LATE", "r1")).toEqual([]);
+    // An older response cannot put the larger bonus back.
+    applyPrivateRoomCrowdBonus("LATE", "r0", 2, now, { awardVersion: oldVersion, total: 1 });
+    expect(getPrivateRoom("LATE", now).players.map((player) => player.score)).toEqual([100, 150]);
+    addPrivateRoomScore("LATE", "late-guest", 150, now, "r0");
+    applyPrivateRoomCrowdBonus("LATE", "r0", 1, now, { awardVersion: version, total: 2 });
+    expect(getPrivateRoom("LATE", now).players.map((player) => player.score)).toEqual([100, 150]);
+    resetPrivateRoomsForTests();
+  });
+
+  it("bounds settlement history while preserving the accumulated score", () => {
+    resetPrivateRoomsForTests();
+    const now = Date.now();
+    createPrivateRoom({ ...catalog, hostId: "history-host", games: ["trivia"], code: "HISTORY", now });
+    for (let index = 0; index < PRIVATE_ROOM_AWARD_HISTORY_MAX * 3; index += 1) {
+      addPrivateRoomScore("HISTORY", "history-host", 10, now, `round-${index}`);
+      applyPrivateRoomCrowdBonus("HISTORY", `round-${index}`, 1, now);
+    }
+    expect(getPrivateRoom("HISTORY", now).players[0].score).toBe(PRIVATE_ROOM_AWARD_HISTORY_MAX * 30);
+    expect(globalThis.__queueArcadePrivateRooms.get("HISTORY").members[0].pendingAwards).toHaveLength(
+      PRIVATE_ROOM_AWARD_HISTORY_MAX,
+    );
+    resetPrivateRoomsForTests();
   });
 });
 
@@ -526,6 +605,8 @@ describe("party lobby polling", () => {
     expect(source).toContain("onStartedRef");
     expect(source).toContain("onWaitingChangeRef");
     expect(source).not.toMatch(/\[onStarted, onWaitingChange, playActive\]/);
-    expect(source).toContain("[initialCode, requestRoom, trackedCode]");
+    const pollingDependencies = source.match(/\[([^\]]*initialCode[^\]]*requestRoom[^\]]*trackedCode)\]/)?.[1];
+    expect(pollingDependencies).toBeDefined();
+    expect(pollingDependencies).not.toMatch(/onStarted|onWaitingChange/);
   });
 });

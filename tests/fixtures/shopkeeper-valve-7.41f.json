@@ -1,0 +1,1342 @@
+{
+  "patch": "7.41f",
+  "reviewedAt": "2026-10-06",
+  "source": {
+    "itemListUrl": "https://www.dota2.com/datafeed/itemlist?language=english",
+    "itemListSha256": "0c2d9b70f8d7db44b7850ffdcc18d2831b36c52f07938b8a6beaaed6af398f8f",
+    "itemDataUrl": "https://www.dota2.com/datafeed/itemdata?language=english&item_id={id}",
+    "scope": "Names, costs and direct recipe components from Valve public data feeds. Recipe scrolls are excluded from the component arrays."
+  },
+  "items": {
+    "abyssal_blade": {
+      "id": 208,
+      "name": "Abyssal Blade",
+      "cost": 6250,
+      "recipes": [["basher", "sange"]],
+      "sourceSha256": "7e55f89d68e3af54bbcc19334b8233ae29ca1de180f19877fd6c905b20122cbb",
+      "recipeCost": 1275,
+      "recipeSourceSha256": "2625c3875feb30f2f34109894fb03a08b5299de750482554c4640586ce297c36"
+    },
+    "aeon_disk": {
+      "id": 256,
+      "name": "Aeon Disk",
+      "cost": 3000,
+      "recipes": [["vitality_booster", "energy_booster"]],
+      "sourceSha256": "f22250d1d7e044162eb42b99ad81100b597a543a0819176cf1ac597fad5c5022"
+    },
+    "aether_lens": {
+      "id": 232,
+      "name": "Aether Lens",
+      "cost": 2275,
+      "recipes": [["energy_booster", "void_stone"]],
+      "sourceSha256": "c21fd5d08bfe49433dda55dd26cda4ff7adee1f8794811f572e9c60ad8a770a5"
+    },
+    "aghanims_shard": {
+      "id": 609,
+      "name": "Aghanim's Shard",
+      "cost": 1400,
+      "recipes": [],
+      "sourceSha256": "4bc4322e64262062d7696069396eae08e8c10ef7e381cdb832f24f298d05520e"
+    },
+    "ancient_janggo": {
+      "id": 185,
+      "name": "Drum of Endurance",
+      "cost": 1625,
+      "recipes": [["headdress", "belt_of_strength", "wind_lace"]],
+      "sourceSha256": "6a449b7ad205d973ff699d214e0d3e553e0b54ce016a420334c522715d0409cb"
+    },
+    "angels_demise": {
+      "id": 1808,
+      "name": "Khanda",
+      "cost": 5600,
+      "recipes": [["phylactery", "soul_booster"]],
+      "sourceSha256": "1a9f73f1f433c6fea242ede05152460107ba955002f4ef50ace5ab4b2f3bd2ec"
+    },
+    "arcane_blink": {
+      "id": 604,
+      "name": "Arcane Blink",
+      "cost": 6800,
+      "recipes": [["blink", "mystic_staff"]],
+      "sourceSha256": "c8d1170ca834acf8ce9efb136de0a9f6fe17d854c6737d27465e4e4e1d5e75b5"
+    },
+    "arcane_boots": {
+      "id": 180,
+      "name": "Arcane Boots",
+      "cost": 1500,
+      "recipes": [["boots", "ring_of_basilius", "wizard_hat"]],
+      "sourceSha256": "7478cb439c705fa735b1a5361be5a231568ffdd7bca32067d96c0bf56f703c49"
+    },
+    "armlet": {
+      "id": 151,
+      "name": "Armlet of Mordiggian",
+      "cost": 2500,
+      "recipes": [["helm_of_iron_will", "gloves", "blades_of_attack"]],
+      "sourceSha256": "a46f4119b8deecfebe311eaabd18eaade660755ffcf96f6c34d031ab31501b27",
+      "recipeCost": 625,
+      "recipeSourceSha256": "12af0917824f258666d5ae25d68790fc705dae01dc381fbd4087f7b57b43d6a0"
+    },
+    "assault": {
+      "id": 112,
+      "name": "Assault Cuirass",
+      "cost": 5125,
+      "recipes": [["buckler", "hyperstone", "platemail"]],
+      "sourceSha256": "ea4d07f5d334a15f5e13a129b78ce334ffed09438b56e980c80e84b5346052c6"
+    },
+    "basher": {
+      "id": 143,
+      "name": "Skull Basher",
+      "cost": 2875,
+      "recipes": [["mithril_hammer", "belt_of_strength"]],
+      "sourceSha256": "b52b39179725c0a47049a50f31cf2d825c147e423e941c1f9dc7051281fc492f"
+    },
+    "belt_of_strength": {
+      "id": 17,
+      "name": "Belt of Strength",
+      "cost": 450,
+      "recipes": [],
+      "sourceSha256": "3b286d34d2e41035f73fca772ad54d61421cd65a103c4fbe6f2d884cbd0e4ab1"
+    },
+    "bfury": {
+      "id": 145,
+      "name": "Battle Fury",
+      "cost": 3900,
+      "recipes": [["pers", "broadsword", "broadsword", "quelling_blade"]],
+      "sourceSha256": "ca013f23e119d14f4bf947372afde7e2c8b7f5c17c35e7796c14c9f2c5bf9b2a"
+    },
+    "black_king_bar": {
+      "id": 116,
+      "name": "Black King Bar",
+      "cost": 4050,
+      "recipes": [["mithril_hammer", "ogre_axe"]],
+      "sourceSha256": "1cc1c5610f0aa4fe6d4c3c7578fa62ddbde207c9d8c63f1c19f1e311bc57a247"
+    },
+    "blade_mail": {
+      "id": 127,
+      "name": "Blade Mail",
+      "cost": 2400,
+      "recipes": [["broadsword", "splintmail"]],
+      "sourceSha256": "fa0498f01fec0ac67455eaaa4a61d60f08834176f2c222a90a0f70dbca952f5c"
+    },
+    "blade_of_alacrity": {
+      "id": 22,
+      "name": "Blade of Alacrity",
+      "cost": 1000,
+      "recipes": [],
+      "sourceSha256": "bf41fdeb25da2261ddb03e19b12e398a923f01f70a28e8487a9b4df5863f782c"
+    },
+    "blades_of_attack": {
+      "id": 2,
+      "name": "Blades of Attack",
+      "cost": 450,
+      "recipes": [],
+      "sourceSha256": "bf52e75507d0bfcedec9bc9de7d3fdb1d1c2ef51f30d395428cb919ef029b773"
+    },
+    "blight_stone": {
+      "id": 240,
+      "name": "Orb of Blight",
+      "cost": 300,
+      "recipes": [],
+      "sourceSha256": "a4fdcc064590a67fa1ea8240347d964fdf62617caae2b63c6ea5482ee62f7a3d"
+    },
+    "blink": {
+      "id": 1,
+      "name": "Blink Dagger",
+      "cost": 2250,
+      "recipes": [],
+      "sourceSha256": "e5dde73fedb809a40e9fca91e526a23807cd09ba95da2850a9b50398982f4bd0"
+    },
+    "blitz_knuckles": {
+      "id": 485,
+      "name": "Blitz Knuckles",
+      "cost": 1000,
+      "recipes": [],
+      "sourceSha256": "5ac9fa45495e27d3795e3a7ad5d128cec93280f2a527b8c9adb01d3ac64557a1"
+    },
+    "blood_grenade": {
+      "id": 1123,
+      "name": "Blood Grenade",
+      "cost": 50,
+      "recipes": [],
+      "sourceSha256": "4343b84a896fa67ece24dc2499669f653e973395321c774b9afb8a9f0a28fa99"
+    },
+    "bloodstone": {
+      "id": 121,
+      "name": "Bloodstone",
+      "cost": 4700,
+      "recipes": [["veil_of_discord", "soul_booster"]],
+      "sourceSha256": "1dec2d3b4bc5982d136f3b21003db0783532d05f2f5184b2aba69a85759bd99a",
+      "recipeCost": 0,
+      "recipeSourceSha256": "06b7991dcf83646d8c341b9ec7ade779c72fc6fa54ca1194b8ba46f6560a419d"
+    },
+    "bloodthorn": {
+      "id": 250,
+      "name": "Bloodthorn",
+      "cost": 6400,
+      "recipes": [["orchid", "oblivion_staff", "javelin"]],
+      "sourceSha256": "2617274aa50753b893b40c21d477028628aa686040826ef530f947435059b441"
+    },
+    "boots": {
+      "id": 29,
+      "name": "Boots of Speed",
+      "cost": 500,
+      "recipes": [],
+      "sourceSha256": "07c5db34d77e96354c1fd59be96d17a1cb668f73fe5f203f50d30e753fd44cad"
+    },
+    "boots_of_bearing": {
+      "id": 931,
+      "name": "Boots of Bearing",
+      "cost": 4225,
+      "recipes": [["tranquil_boots", "ancient_janggo", "ring_of_tarrasque"]],
+      "sourceSha256": "445a0e05a754f7f79562cb63cde75db6fc72ef85004e176847806709ac40ba66"
+    },
+    "boots_of_elves": {
+      "id": 18,
+      "name": "Band of Elvenskin",
+      "cost": 450,
+      "recipes": [],
+      "sourceSha256": "d4e1b4720bc6f8b7395d9fcf57c89669c63e9ca5f89cf91ddcdf2a1f3a70b26c"
+    },
+    "bottle": {
+      "id": 41,
+      "name": "Bottle",
+      "cost": 675,
+      "recipes": [],
+      "sourceSha256": "000ee3a16ee3092243533ce8ac6ec203c7d256595a77bc70e75f98790acf0fd9"
+    },
+    "bracer": {
+      "id": 73,
+      "name": "Bracer",
+      "cost": 505,
+      "recipes": [["circlet", "gauntlets"]],
+      "sourceSha256": "be51646466f5ddc165a7bee97256c52f38e41a77b53868ece202dd80884efe4e"
+    },
+    "branches": {
+      "id": 16,
+      "name": "Iron Branch",
+      "cost": 55,
+      "recipes": [],
+      "sourceSha256": "1ba4507e519a9be61ab6946002dffdf1ce11c6fdb6baf6ed2181886be97a4e16"
+    },
+    "broadsword": {
+      "id": 3,
+      "name": "Broadsword",
+      "cost": 1000,
+      "recipes": [],
+      "sourceSha256": "1fce1ac22ae3f1b6c4df57a449a44864317566ea549dd7f9fcad5930103284a8"
+    },
+    "buckler": {
+      "id": 86,
+      "name": "Buckler",
+      "cost": 425,
+      "recipes": [["ring_of_protection"]],
+      "sourceSha256": "efb2af3291b904a508b66bb4c90096a5b715d3488f270e98161fe2b9c5b98359"
+    },
+    "butterfly": {
+      "id": 139,
+      "name": "Butterfly",
+      "cost": 5450,
+      "recipes": [["eagle", "claymore", "talisman_of_evasion"]],
+      "sourceSha256": "73d26098010433510758fa11e3b4fa8de4693d2e82bc46b543671ff5abe37b73"
+    },
+    "chainmail": {
+      "id": 4,
+      "name": "Chainmail",
+      "cost": 500,
+      "recipes": [],
+      "sourceSha256": "4673fc41e1e503f3e09ca3228c9fdbd55ff79cdeb3866e18debd290061bd02f6"
+    },
+    "chasm_stone": {
+      "id": 1872,
+      "name": "Chasm Stone",
+      "cost": 900,
+      "recipes": [],
+      "sourceSha256": "156baa71baa95eca8bc78d0f37f17816a7a5ab2c1188d99e7fa5f5266dc3461f"
+    },
+    "circlet": {
+      "id": 20,
+      "name": "Circlet",
+      "cost": 155,
+      "recipes": [],
+      "sourceSha256": "15bf0d50a432bd0c1fddb90aea7c38a613ba7d42a22466726850a34c049a8588"
+    },
+    "clarity": {
+      "id": 38,
+      "name": "Clarity",
+      "cost": 60,
+      "recipes": [],
+      "sourceSha256": "d4e599ed97277931d8bf35f27645b36e676ca6fdbdbb20acab64826ca4d9dcff"
+    },
+    "claymore": {
+      "id": 5,
+      "name": "Claymore",
+      "cost": 1350,
+      "recipes": [],
+      "sourceSha256": "e2af1b2ec9e3ac36beb59e7ad742ebf8e83b57d1f36c1ada732c4ccd0f628aac"
+    },
+    "cloak": {
+      "id": 31,
+      "name": "Cloak",
+      "cost": 900,
+      "recipes": [],
+      "sourceSha256": "8306ef30b967eb8a04dc81764f8dd0979f56b64fce41fba2855bbf89735065fa"
+    },
+    "consecrated_wraps": {
+      "id": 1854,
+      "name": "Consecrated Wraps",
+      "cost": 2600,
+      "recipes": [["vitality_booster", "shawl", "crown"]],
+      "sourceSha256": "473a7a068523a71407d793fee515adfe388e901cd986879a48213c356afb4fcf",
+      "recipeCost": 700,
+      "recipeSourceSha256": "2626f4b695b49e8a5920fbbf87ad478305b9fbe1c680771b10b0a19226a3d918"
+    },
+    "crellas_crozier": {
+      "id": 1856,
+      "name": "Crella's Crozier",
+      "cost": 4800,
+      "recipes": [["ghost", "soul_booster"]],
+      "sourceSha256": "2e3c817070d3d4d098c9452f21ccac4f57684a8c18c68adcec74d0c659b1a7de"
+    },
+    "crimson_guard": {
+      "id": 242,
+      "name": "Crimson Guard",
+      "cost": 3725,
+      "recipes": [["vanguard", "helm_of_iron_will"]],
+      "sourceSha256": "434bb02c600b7b497a91fbda0cd04a35fcea78c40f9e90be32bb7c8c6f0f8797"
+    },
+    "crown": {
+      "id": 261,
+      "name": "Crown",
+      "cost": 450,
+      "recipes": [],
+      "sourceSha256": "080e4219c98db03a928c95b9fc7f1df6003f888998de0330dc53fd1f873b7cec"
+    },
+    "cyclone": {
+      "id": 100,
+      "name": "Eul's Scepter of Divinity",
+      "cost": 2600,
+      "recipes": [["staff_of_wizardry", "void_stone", "wind_lace"]],
+      "sourceSha256": "52985713ad7a524062c0e49b9b15cd9740bb1e237f5e0a8303cd4887a00d88e8",
+      "recipeCost": 675,
+      "recipeSourceSha256": "0a568cdb2ef08385f5c2c32c6158c69de4cd4e3f4d3f591e4c2fb12149d81e86"
+    },
+    "dagon": {
+      "id": 104,
+      "name": "Dagon",
+      "cost": 3000,
+      "recipes": [["point_booster", "crown", "wizard_hat"]],
+      "sourceSha256": "dc83f16df2800bf921107bf88577205c016b6a5face534a8afe2496208c56f89",
+      "recipeCost": 1100,
+      "recipeSourceSha256": "9f1d1131f2f3f916aff3a15b083f2d7c67734f76d5f5cf268795ec8a5c1bb1f0"
+    },
+    "demon_edge": {
+      "id": 51,
+      "name": "Demon Edge",
+      "cost": 2200,
+      "recipes": [],
+      "sourceSha256": "4018edb799beb8b5bc892ffc33b688443860f4202ad77b0c5cebd9ce11e4f36c"
+    },
+    "desolator": {
+      "id": 168,
+      "name": "Desolator",
+      "cost": 3500,
+      "recipes": [["mithril_hammer", "mithril_hammer", "blight_stone"]],
+      "sourceSha256": "d4fcef739f0ddeb3a2b216a098f2cb46982be636013373465c8e3aafbebf53f9"
+    },
+    "devastator": {
+      "id": 1806,
+      "name": "Parasma",
+      "cost": 5975,
+      "recipes": [["witch_blade", "mystic_staff"]],
+      "sourceSha256": "85bfe481311674ecfbfd512a30cee21f1d15b8c3cf1ed02489e77a6c3e596e7a"
+    },
+    "diadem": {
+      "id": 1122,
+      "name": "Diadem",
+      "cost": 1000,
+      "recipes": [],
+      "sourceSha256": "40532ead1a8db07d3937295bc1004b11d28e8b8dcf935a9a1b37ab8cc2cdc5fb"
+    },
+    "diffusal_blade": {
+      "id": 174,
+      "name": "Diffusal Blade",
+      "cost": 2500,
+      "recipes": [["blade_of_alacrity", "robe"]],
+      "sourceSha256": "e6793fa6817a2e3a5436174011298cf62f001d7707e591563de538301406b281"
+    },
+    "disperser": {
+      "id": 1097,
+      "name": "Disperser",
+      "cost": 6100,
+      "recipes": [["diffusal_blade", "eagle"]],
+      "sourceSha256": "135dd956db0bf99bba934e69a9929f9e9e38c381bbb7fa9031f6f5d6c22898b1",
+      "recipeCost": 800,
+      "recipeSourceSha256": "1b353c26b43601a3d7b7d8c6bdc78b9306ab01465c686ecb6791bde9fc9e042d"
+    },
+    "dragon_lance": {
+      "id": 236,
+      "name": "Dragon Lance",
+      "cost": 2000,
+      "recipes": [["blade_of_alacrity", "belt_of_strength"]],
+      "sourceSha256": "7c614e25b9549e5815cfad27fd8b9f6545fce40da779cdd47fd49243d728a78a"
+    },
+    "dust": {
+      "id": 40,
+      "name": "Dust of Appearance",
+      "cost": 80,
+      "recipes": [],
+      "sourceSha256": "d9ce6ec51c6d416327ea80b0e1e3b05f631d83160e867313a3739c1980d843de"
+    },
+    "eagle": {
+      "id": 52,
+      "name": "Eaglesong",
+      "cost": 2800,
+      "recipes": [],
+      "sourceSha256": "9c3b764d7e7443c8c12909de0fc93aa6a5a76ece1489af0bd35593deee95964b"
+    },
+    "echo_sabre": {
+      "id": 252,
+      "name": "Echo Sabre",
+      "cost": 2700,
+      "recipes": [["ogre_axe", "broadsword", "void_stone"]],
+      "sourceSha256": "cf502492802e895fa2655727c5a3cbf17ce14a8d210bda743348a9ed571897a6",
+      "recipeCost": 0,
+      "recipeSourceSha256": "26e8a78b6914cdc9d3e022c6239ef2b00eb43ba8f4670ee1a724dc463fb79e59"
+    },
+    "enchanted_mango": {
+      "id": 216,
+      "name": "Enchanted Mango",
+      "cost": 65,
+      "recipes": [],
+      "sourceSha256": "f90985a2627a24373150bac9880fc463898493172013712fe58c3e6c03f9d04d"
+    },
+    "energy_booster": {
+      "id": 59,
+      "name": "Energy Booster",
+      "cost": 800,
+      "recipes": [],
+      "sourceSha256": "c3e3a40aa3467fe66562fef6dfcc00f882a9be14fc53a134a1892b95d77cfca6"
+    },
+    "essence_distiller": {
+      "id": 1852,
+      "name": "Essence Distiller",
+      "cost": 1775,
+      "recipes": [["urn_of_shadows", "chainmail", "wizard_hat"]],
+      "sourceSha256": "f6ab6f1da28736514b4bbe10fa7344de6d8a00d8db6135d119ad58681db1dbf0"
+    },
+    "ethereal_blade": {
+      "id": 176,
+      "name": "Ethereal Blade",
+      "cost": 5200,
+      "recipes": [["ultimate_orb", "ghost"]],
+      "sourceSha256": "428db4cbec4443cf477b5811ab6f757d2d441fdf3089c76c8d7982951292898c",
+      "recipeCost": 900,
+      "recipeSourceSha256": "0f80d12359219057fbd1f42862f455a31ca31edc1ce218db13d0acc3d544b83d"
+    },
+    "faerie_fire": {
+      "id": 237,
+      "name": "Faerie Fire",
+      "cost": 65,
+      "recipes": [],
+      "sourceSha256": "c08459a5e589862330de0694fc96b2b423fe81a84c43603f1c7e9db8e14a2dc5"
+    },
+    "falcon_blade": {
+      "id": 596,
+      "name": "Falcon Blade",
+      "cost": 1125,
+      "recipes": [["blades_of_attack", "fluffy_hat", "sobi_mask"]],
+      "sourceSha256": "de8bf34f460cf90c1465502c2056436660a67c46ea938e9f9969ab95059a5ada",
+      "recipeCost": 250,
+      "recipeSourceSha256": "f52e5efac36290213c707cbaccca5b9bd32370beb39a6fd15aa6352aa4890cdb"
+    },
+    "flask": {
+      "id": 39,
+      "name": "Healing Salve",
+      "cost": 100,
+      "recipes": [],
+      "sourceSha256": "6301798df672b922a4ad1afd7119dae8705b76350f03eeda65e87dfefa7730cf"
+    },
+    "fluffy_hat": {
+      "id": 593,
+      "name": "Fluffy Hat",
+      "cost": 250,
+      "recipes": [],
+      "sourceSha256": "62449579d41af729ccc350df5b601a9db8f0a361f75238a672a5a61bb7159697"
+    },
+    "force_staff": {
+      "id": 102,
+      "name": "Force Staff",
+      "cost": 2200,
+      "recipes": [["staff_of_wizardry", "fluffy_hat"]],
+      "sourceSha256": "41785479423aebe3ed84a7048a90a1c4972ef7c9320165e9ddde616fe40a81a4"
+    },
+    "gauntlets": {
+      "id": 13,
+      "name": "Gauntlets of Strength",
+      "cost": 140,
+      "recipes": [],
+      "sourceSha256": "9a8b8a8c3d4331f25498c1cef6c8c66b937c27955e54d0369d4fd62245b25c0f"
+    },
+    "gem": {
+      "id": 30,
+      "name": "Gem of True Sight",
+      "cost": 900,
+      "recipes": [],
+      "sourceSha256": "662369e04d115df965732870412fdc1abc23ab93f15dc8d047d891ab1f0b61a5"
+    },
+    "ghost": {
+      "id": 37,
+      "name": "Ghost Scepter",
+      "cost": 1500,
+      "recipes": [],
+      "sourceSha256": "d3f1c545ecc5b86dd23bd859a6e338eea48309f6dd6db74234737b6f5727e6b9"
+    },
+    "glimmer_cape": {
+      "id": 254,
+      "name": "Glimmer Cape",
+      "cost": 2150,
+      "recipes": [["shadow_amulet", "shawl"]],
+      "sourceSha256": "8bf0ec8f77098ff2b0334fb999300e6746724f9bca8f20d473c926ccbde22171"
+    },
+    "gloves": {
+      "id": 25,
+      "name": "Gloves of Haste",
+      "cost": 450,
+      "recipes": [],
+      "sourceSha256": "55403fbe98c6566d4b9764c921046ae90bc8c6e8288427c277b76d8593c5fd26"
+    },
+    "greater_crit": {
+      "id": 141,
+      "name": "Daedalus",
+      "cost": 5200,
+      "recipes": [["lesser_crit", "demon_edge"]],
+      "sourceSha256": "79e6637d30f278983f0164e978fdc44c6c93c9bfa452064d8b067a72ab5badf2",
+      "recipeCost": 1000,
+      "recipeSourceSha256": "ddad500354ab2dda4f75abe6c374c6e7a526305d8c1d751912f5227d9ca32e2b"
+    },
+    "guardian_greaves": {
+      "id": 231,
+      "name": "Guardian Greaves",
+      "cost": 4450,
+      "recipes": [["arcane_boots", "mekansm"]],
+      "sourceSha256": "61327641ad27ca0e5329e09b0dafbd3aba53eb2ef9610d229a898a9c6844e302"
+    },
+    "gungir": {
+      "id": 1466,
+      "name": "Gleipnir",
+      "cost": 4650,
+      "recipes": [["rod_of_atos", "point_booster", "chasm_stone"]],
+      "sourceSha256": "b5ff6f8d615610cfa5552f5908c50f6bdcb84ff59b304845bd9486d2390bff3a",
+      "recipeCost": 300,
+      "recipeSourceSha256": "96f8dded7d63d5cd4504c57a79108c9ec6cbdf150f1a8e183d225d7fcc39f50a"
+    },
+    "hand_of_midas": {
+      "id": 65,
+      "name": "Hand of Midas",
+      "cost": 2200,
+      "recipes": [["gloves"]],
+      "sourceSha256": "57231e905c1c161c0e5bb907ed740075a1640644e58b1c136b7455d573c2bcd3"
+    },
+    "harpoon": {
+      "id": 939,
+      "name": "Harpoon",
+      "cost": 4700,
+      "recipes": [["echo_sabre", "diadem"]],
+      "sourceSha256": "85d8bde51dac13a61850e63e1edd17d5132df168e9ca778ca47fa587ba58721d",
+      "recipeCost": 1000,
+      "recipeSourceSha256": "004b0e163806ae7d8016ba68f86527d6b9339f24f09dd438b9d9c70e121e188d"
+    },
+    "headdress": {
+      "id": 94,
+      "name": "Headdress",
+      "cost": 425,
+      "recipes": [["ring_of_regen"]],
+      "sourceSha256": "472b1873124e6fd7b502138c1a9200bc6fecd6295aaf7f033353c87a86926c07"
+    },
+    "heart": {
+      "id": 114,
+      "name": "Heart of Tarrasque",
+      "cost": 5300,
+      "recipes": [["reaver", "ring_of_tarrasque"]],
+      "sourceSha256": "6509607197577c4a8d75a4001a984ee54e771dec82fc721bb80420d0674e59f1"
+    },
+    "heavens_halberd": {
+      "id": 210,
+      "name": "Heaven's Halberd",
+      "cost": 3300,
+      "recipes": [["talisman_of_evasion", "splintmail", "ring_of_health"]],
+      "sourceSha256": "088956b0e8936be8554a617534fde4832c356aa4e9edb8a9b8b64838c59bf6df"
+    },
+    "helm_of_iron_will": {
+      "id": 6,
+      "name": "Helm of Iron Will",
+      "cost": 975,
+      "recipes": [],
+      "sourceSha256": "0dad60e98cae3cf356d23b35b4c62531b42164a30be4587dc68af0a08b4bcf88"
+    },
+    "helm_of_the_dominator": {
+      "id": 164,
+      "name": "Helm of the Dominator",
+      "cost": 2550,
+      "recipes": [["helm_of_iron_will", "crown"]],
+      "sourceSha256": "82b003fa561f89f4897ee7a4f6469ecfc02a86340ff270e174a8851c9a9f5cfc"
+    },
+    "helm_of_the_overlord": {
+      "id": 635,
+      "name": "Helm of the Overlord",
+      "cost": 5650,
+      "recipes": [["helm_of_the_dominator", "ultimate_orb"]],
+      "sourceSha256": "745e42cf2a689d98cb1c7855f44846b026633750add6ad10bd46b138986b1655",
+      "recipeCost": 300,
+      "recipeSourceSha256": "c173e59106035b110d904a4ea162a26e6edcce385dd0cd03f1f273464ab81eba"
+    },
+    "holy_locket": {
+      "id": 269,
+      "name": "Holy Locket",
+      "cost": 2250,
+      "recipes": [["magic_wand", "crown"]],
+      "sourceSha256": "2e12ca91c5129db8a642743fe3fdbd883e490f3568e435d89e8e9862234c548a"
+    },
+    "hurricane_pike": {
+      "id": 263,
+      "name": "Hurricane Pike",
+      "cost": 4550,
+      "recipes": [["force_staff", "dragon_lance"]],
+      "sourceSha256": "d7786a5c9a7087ea32f0cff73a1c1776b811b7df44fa12657db24f1833cac896",
+      "recipeCost": 350,
+      "recipeSourceSha256": "31c3c884fb076cda27471829daff973840f395994df9193139aa0e4c0f5b0358"
+    },
+    "hydras_breath": {
+      "id": 1858,
+      "name": "Hydra's Breath",
+      "cost": 5900,
+      "recipes": [["specialists_array", "dragon_lance", "orb_of_venom"]],
+      "sourceSha256": "8141ca533acf78d80b1c588697fbf9bb271af99b11a6c5315ec647669de7f604",
+      "recipeCost": 1000,
+      "recipeSourceSha256": "cc2b9eb836a022d1ffeefc72adc3af701b861113e00e15e5bbee76acc92cbfc5"
+    },
+    "hyperstone": {
+      "id": 55,
+      "name": "Hyperstone",
+      "cost": 2000,
+      "recipes": [],
+      "sourceSha256": "82dc8b67716061ef995b3568c95e574cd8b7eeab08b8c87b0a5fb664c754fb73"
+    },
+    "infused_raindrop": {
+      "id": 265,
+      "name": "Infused Raindrops",
+      "cost": 225,
+      "recipes": [],
+      "sourceSha256": "70cee59e2ac1063b94a9e6d849c5df66a841e3cbd61fa58ee8159f1835e91178"
+    },
+    "invis_sword": {
+      "id": 152,
+      "name": "Shadow Blade",
+      "cost": 3250,
+      "recipes": [["claymore", "blitz_knuckles", "shadow_amulet"]],
+      "sourceSha256": "7126905d49911e8d67194d9fb933b8d1420ac747c8aeb149079505da1a61e4a6",
+      "recipeCost": 0,
+      "recipeSourceSha256": "9510e799a376f9976364bbdd5a4dfc73333087b416ca159c788ffb7a99d87717"
+    },
+    "javelin": {
+      "id": 7,
+      "name": "Javelin",
+      "cost": 900,
+      "recipes": [],
+      "sourceSha256": "6d2c371df111e638bec33ebee36f0e362a2611e4e39730834efd16299ef05e2a"
+    },
+    "kaya": {
+      "id": 259,
+      "name": "Kaya",
+      "cost": 2100,
+      "recipes": [["staff_of_wizardry", "robe"]],
+      "sourceSha256": "b8fc835b37b16e1a75ada17c50738619ce4006ffd4dc3a696e2a994c1cfdce87"
+    },
+    "kaya_and_sange": {
+      "id": 273,
+      "name": "Kaya and Sange",
+      "cost": 4200,
+      "recipes": [["kaya", "sange"]],
+      "sourceSha256": "a20807e188e05847b9eb92887fd0eef072ff3a1a4538bbe915057e72bbf0e14b"
+    },
+    "lesser_crit": {
+      "id": 149,
+      "name": "Crystalys",
+      "cost": 2000,
+      "recipes": [["claymore", "blades_of_attack"]],
+      "sourceSha256": "04d5ab8144ba0e71f25faa241caa11943b668ee9fd041f0944eef26408e10c12"
+    },
+    "lifesteal": {
+      "id": 26,
+      "name": "Morbid Mask",
+      "cost": 900,
+      "recipes": [],
+      "sourceSha256": "647a0b6a395b19805d5b37f079dadeade77823dc5adf90b5a1fb5433075453d6"
+    },
+    "lotus_orb": {
+      "id": 226,
+      "name": "Lotus Orb",
+      "cost": 3850,
+      "recipes": [["pers", "platemail", "energy_booster"]],
+      "sourceSha256": "27c5862f7f610d90f610d57d9d274d5d180b6dbf86a7072f4b194c40a7407e59"
+    },
+    "maelstrom": {
+      "id": 166,
+      "name": "Maelstrom",
+      "cost": 2950,
+      "recipes": [["mithril_hammer", "javelin", "gloves"]],
+      "sourceSha256": "692136fb9864f255e67d587ef28a03d9121be7b0f4779ace0f7f4a5bd15fbcd6",
+      "recipeCost": 0,
+      "recipeSourceSha256": "aa46a9c237f2632624f438b706abfaab6e6131d6bd29801002afc66d9f4db295"
+    },
+    "mage_slayer": {
+      "id": 598,
+      "name": "Mage Slayer",
+      "cost": 3100,
+      "recipes": [["pers", "cloak", "blades_of_attack", "orb_of_venom"]],
+      "sourceSha256": "6971d9839843ee5d965e31f3742069942808731789ffceecd7664de41de3e5c6"
+    },
+    "magic_stick": {
+      "id": 34,
+      "name": "Magic Stick",
+      "cost": 200,
+      "recipes": [],
+      "sourceSha256": "2b86aee637fe2205ac45602703bb186c8c0d30ed67e8333b332427a24c83849c"
+    },
+    "magic_wand": {
+      "id": 36,
+      "name": "Magic Wand",
+      "cost": 460,
+      "recipes": [["magic_stick", "branches", "branches"]],
+      "sourceSha256": "0567bbff930faa955e839e32bf810f189da2023355928b5a95e4fb0e0ffc3961"
+    },
+    "manta": {
+      "id": 147,
+      "name": "Manta Style",
+      "cost": 4650,
+      "recipes": [["yasha", "diadem"]],
+      "sourceSha256": "c59ba62e2207a1cc852110d6899d1f5215ed4f32af4650e421cf9e44216fdeb8"
+    },
+    "mantle": {
+      "id": 15,
+      "name": "Mantle of Intelligence",
+      "cost": 140,
+      "recipes": [],
+      "sourceSha256": "b06b938487b61e7707b1955eb67870f3dc1bb56bdd015e1a32d7fdfed9fc1cd0"
+    },
+    "mask_of_madness": {
+      "id": 172,
+      "name": "Mask of Madness",
+      "cost": 1900,
+      "recipes": [["broadsword", "lifesteal"]],
+      "sourceSha256": "dd584ad8e16ffdd38a8071c5045b4c597c4112ec7d15cb7ffe0e5b7d7b806237"
+    },
+    "mekansm": {
+      "id": 79,
+      "name": "Mekansm",
+      "cost": 1775,
+      "recipes": [["headdress", "chainmail"]],
+      "sourceSha256": "0b3d37c51106a72b48ac584064f8c7b2320026581354dc38b67cd93315b17bfd"
+    },
+    "meteor_hammer": {
+      "id": 223,
+      "name": "Meteor Hammer",
+      "cost": 2850,
+      "recipes": [["kaya", "crown"]],
+      "sourceSha256": "974f69fe82ac1d64e79d55bc64840a2ef5578bfec31d4bbb011d1dc6812030af"
+    },
+    "mithril_hammer": {
+      "id": 8,
+      "name": "Mithril Hammer",
+      "cost": 1600,
+      "recipes": [],
+      "sourceSha256": "423c77896960c1d5cb9607ebbc9564f038b148c28e5fe2b13b103ded58cee5bc"
+    },
+    "mjollnir": {
+      "id": 158,
+      "name": "Mjollnir",
+      "cost": 5500,
+      "recipes": [["maelstrom", "hyperstone"]],
+      "sourceSha256": "c0800cdadcca8130a09ff3e6bce093a840911c3e90a9292462d89a3610e86199",
+      "recipeCost": 550,
+      "recipeSourceSha256": "701b2cf69fcdbf35a514c3fa2cf1ce51cb1d37efb4452db9f2290507f712febb"
+    },
+    "monkey_king_bar": {
+      "id": 135,
+      "name": "Monkey King Bar",
+      "cost": 5000,
+      "recipes": [["demon_edge", "blitz_knuckles", "javelin"]],
+      "sourceSha256": "132e2323d32d46a5e51f1ca30dc7dfa5bd1346651ec2614d500121fe1596e742"
+    },
+    "moon_shard": {
+      "id": 247,
+      "name": "Moon Shard",
+      "cost": 4000,
+      "recipes": [["hyperstone", "hyperstone"]],
+      "sourceSha256": "d556e243a2ec3a9d690bff9d8cc97323efb15cbd1bc2e45fde246752f189947e"
+    },
+    "mystic_staff": {
+      "id": 58,
+      "name": "Mystic Staff",
+      "cost": 2800,
+      "recipes": [],
+      "sourceSha256": "6ee0d146cdbe4e145356609a5ab01bd9f7bba19c88be96994f94e0f604741392"
+    },
+    "null_talisman": {
+      "id": 77,
+      "name": "Null Talisman",
+      "cost": 505,
+      "recipes": [["circlet", "mantle"]],
+      "sourceSha256": "fffc6536e15521d5bc6e7e18c205ea1c1dea24b9e2aa139a71589ca8e7ff7628"
+    },
+    "nullifier": {
+      "id": 225,
+      "name": "Nullifier",
+      "cost": 4350,
+      "recipes": [["relic", "splintmail"]],
+      "sourceSha256": "ec239ad006c27b294b7b8be65842dd92bbd56ceeb5223212a7daefbe209b1b69"
+    },
+    "oblivion_staff": {
+      "id": 67,
+      "name": "Oblivion Staff",
+      "cost": 1625,
+      "recipes": [["blitz_knuckles", "robe", "sobi_mask"]],
+      "sourceSha256": "2bb867b6fbe821d875f1d64f16f16dc6105ed1682ef66354d8d84463b51b963c",
+      "recipeCost": 0,
+      "recipeSourceSha256": "3836b7aebb9792dc8e8d042a3d02a205c141efe101e1fa90beda01a2cf2153fa"
+    },
+    "octarine_core": {
+      "id": 235,
+      "name": "Octarine Core",
+      "cost": 5100,
+      "recipes": [["soul_booster", "tiara_of_selemene"]],
+      "sourceSha256": "d2a5ff7689cf9f0ecacf134ff4649047743408f3e8a4cfc9455329098d77b218"
+    },
+    "ogre_axe": {
+      "id": 21,
+      "name": "Ogre Axe",
+      "cost": 1000,
+      "recipes": [],
+      "sourceSha256": "d31fc00ddc3e14512211c6d59a843ed5901115d7a7bc229cf8677639b68a08b3"
+    },
+    "orb_of_corrosion": {
+      "id": 569,
+      "name": "Orb of Corrosion",
+      "cost": 1050,
+      "recipes": [["boots_of_elves", "orb_of_frost", "blight_stone"]],
+      "sourceSha256": "d123bd489fc01ac559280898ee9aaad428e6c0369a71f7e447bf5fbc939bb5ec"
+    },
+    "orb_of_frost": {
+      "id": 1575,
+      "name": "Orb of Frost",
+      "cost": 300,
+      "recipes": [],
+      "sourceSha256": "97551cd99473aa7a16a4741dfe9822f08243c5323b030c0d8305f22a4a4bee9b"
+    },
+    "orb_of_venom": {
+      "id": 181,
+      "name": "Orb of Venom",
+      "cost": 350,
+      "recipes": [],
+      "sourceSha256": "0d4e3c94411db34f73b6d31ee24832b57c4928028d7ec21b689945bc9f63413a"
+    },
+    "orchid": {
+      "id": 98,
+      "name": "Orchid Malevolence",
+      "cost": 3275,
+      "recipes": [["oblivion_staff", "claymore"]],
+      "sourceSha256": "e563823ee9ce2894701f80217382e66060a58700d6b9b2f6a7b39292aa1dba0e"
+    },
+    "overwhelming_blink": {
+      "id": 600,
+      "name": "Overwhelming Blink",
+      "cost": 6800,
+      "recipes": [["blink", "reaver"]],
+      "sourceSha256": "01f3c9c6d50db3d75f8d920223e3b52ea51617612c57a787c560f3ceef13b9ef"
+    },
+    "pavise": {
+      "id": 1128,
+      "name": "Pavise",
+      "cost": 1350,
+      "recipes": [["wizard_hat", "fluffy_hat", "ring_of_protection"]],
+      "sourceSha256": "87dd0796eb723bcdbf1b2f2d8489aeebdb203bf5435ec4a62258893f842042fd"
+    },
+    "pers": {
+      "id": 69,
+      "name": "Perseverance",
+      "cost": 1400,
+      "recipes": [["ring_of_health", "void_stone"]],
+      "sourceSha256": "a1c57054890bb6a0501806696669f90ccd69c45ffe6ff2f21a01f2b4bb725169"
+    },
+    "phase_boots": {
+      "id": 50,
+      "name": "Phase Boots",
+      "cost": 1450,
+      "recipes": [["boots", "chainmail", "blades_of_attack"]],
+      "sourceSha256": "7102131968a5a76e419ef7e7424299ee3ce9eb34d5adee875d775f0b3a27b9f3"
+    },
+    "phylactery": {
+      "id": 1107,
+      "name": "Phylactery",
+      "cost": 2600,
+      "recipes": [["pers", "diadem"]],
+      "sourceSha256": "acd3777096faf7322a1743450df51abc9c2a79994fce31bda4418fb1638eb1d0"
+    },
+    "pipe": {
+      "id": 90,
+      "name": "Pipe of Insight",
+      "cost": 3725,
+      "recipes": [["ring_of_tarrasque", "cloak", "shawl"]],
+      "sourceSha256": "5a0a4a7ba274a457db53a7e38a372e89086aff373ab8c849adcfea10377e3835"
+    },
+    "platemail": {
+      "id": 9,
+      "name": "Platemail",
+      "cost": 1400,
+      "recipes": [],
+      "sourceSha256": "1596ff7cd63b50ef85e78b9724d844512fa4b46efc38be295077adf2b6b6f36e"
+    },
+    "point_booster": {
+      "id": 60,
+      "name": "Point Booster",
+      "cost": 1200,
+      "recipes": [],
+      "sourceSha256": "1616017e44d3c3a4f3db1c573b6bc9ffc16a6c55499b67395efd09ccafb28738"
+    },
+    "power_treads": {
+      "id": 63,
+      "name": "Power Treads",
+      "cost": 1400,
+      "recipes": [
+        ["boots", "gloves", "belt_of_strength"],
+        ["boots", "gloves", "robe"],
+        ["boots", "gloves", "boots_of_elves"]
+      ],
+      "sourceSha256": "ed66ee4b6dfc7a164e8638c6b894e027c7aba9e9935f8b4d182b2612e60e1e22"
+    },
+    "quelling_blade": {
+      "id": 11,
+      "name": "Quelling Blade",
+      "cost": 100,
+      "recipes": [],
+      "sourceSha256": "08d3ce61248219f9e98db278c5a96dab413edda29cf3540346a979649e3acf84"
+    },
+    "radiance": {
+      "id": 137,
+      "name": "Radiance",
+      "cost": 4700,
+      "recipes": [["relic", "talisman_of_evasion"]],
+      "sourceSha256": "e7e559e44efb0dd5e6b6df4acfbf72b4c4a3afd8d8c155727b0d332109dc1d42"
+    },
+    "rapier": {
+      "id": 133,
+      "name": "Divine Rapier",
+      "cost": 5600,
+      "recipes": [["relic", "demon_edge"]],
+      "sourceSha256": "39fd7499f79c9c9e29de96939ef8fc5e930faee174b9d9932032984bd055656b"
+    },
+    "reaver": {
+      "id": 53,
+      "name": "Reaver",
+      "cost": 2800,
+      "recipes": [],
+      "sourceSha256": "aabd2e6dea7aee71ed585a4e887f0e074a8fd512279cc37c3b7464f477fd2cd6"
+    },
+    "refresher": {
+      "id": 110,
+      "name": "Refresher Orb",
+      "cost": 5000,
+      "recipes": [["ring_of_tarrasque", "tiara_of_selemene"]],
+      "sourceSha256": "a72871529c6fc6f00ad0b21c247f7ff46fc3b4cf4bee40b81c036f82124c3282"
+    },
+    "relic": {
+      "id": 54,
+      "name": "Sacred Relic",
+      "cost": 3400,
+      "recipes": [],
+      "sourceSha256": "9af275e5bf6b30dedd432f01e321d34969e0af8f2765d5c993d751ab2bde8484"
+    },
+    "revenants_brooch": {
+      "id": 911,
+      "name": "Revenant's Brooch",
+      "cost": 3300,
+      "recipes": [["lesser_crit", "voodoo_mask"]],
+      "sourceSha256": "5f677985360e94863a503bf1ae47f723af5d1bae10a23a9a8bf5917661434759"
+    },
+    "ring_of_basilius": {
+      "id": 88,
+      "name": "Ring of Basilius",
+      "cost": 425,
+      "recipes": [["sobi_mask"]],
+      "sourceSha256": "bd7f4b401b31ecfadbe9a1d5efded756de8809b0a92ff2814137ba807128337a"
+    },
+    "ring_of_health": {
+      "id": 56,
+      "name": "Ring of Health",
+      "cost": 700,
+      "recipes": [],
+      "sourceSha256": "40d21b0df4b6f1edf6076f70743445fc0aac42ffed3f219f1721ab07cd9cda06"
+    },
+    "ring_of_protection": {
+      "id": 12,
+      "name": "Ring of Protection",
+      "cost": 175,
+      "recipes": [],
+      "sourceSha256": "3629686b9ae30abc1865b3b1d92fe89c0463faa3ff4ed10e26a27a442df5a4c1"
+    },
+    "ring_of_regen": {
+      "id": 27,
+      "name": "Ring of Regen",
+      "cost": 175,
+      "recipes": [],
+      "sourceSha256": "7b61ad7ee4c2db20d63773b3c52f3e95832fa6fb16cfe82d4d940ad43a09e455"
+    },
+    "ring_of_tarrasque": {
+      "id": 279,
+      "name": "Ring of Tarrasque",
+      "cost": 1700,
+      "recipes": [],
+      "sourceSha256": "93acecc5df670466a3ea17e3c0d69ee69384b5dc75976a91d05d34e71e49df45"
+    },
+    "robe": {
+      "id": 19,
+      "name": "Robe of the Magi",
+      "cost": 450,
+      "recipes": [],
+      "sourceSha256": "758e8b8053ba35f8065120c2b4c1255aae06bf299c7eebb06ae0384878268895"
+    },
+    "rod_of_atos": {
+      "id": 206,
+      "name": "Rod of Atos",
+      "cost": 2250,
+      "recipes": [["staff_of_wizardry", "vitality_booster"]],
+      "sourceSha256": "46022317eeab5eba4aad8844e646397ece714d86ae2489af3cf2ed3929dc6a7b"
+    },
+    "sange": {
+      "id": 162,
+      "name": "Sange",
+      "cost": 2100,
+      "recipes": [["ogre_axe", "belt_of_strength"]],
+      "sourceSha256": "0117b0a3f8ed35b5a8a60d0b687bfd7db7fc6b1dd2a58650251dca80e85f2037"
+    },
+    "sange_and_yasha": {
+      "id": 154,
+      "name": "Sange and Yasha",
+      "cost": 4200,
+      "recipes": [["sange", "yasha"]],
+      "sourceSha256": "3a9cc3a153929cebcf5ae885d776dcd95d7956350e51fad8a1c67f7fc9041167"
+    },
+    "satanic": {
+      "id": 156,
+      "name": "Satanic",
+      "cost": 5050,
+      "recipes": [["reaver", "claymore", "lifesteal"]],
+      "sourceSha256": "3254c028accdb752f20c3892d6a77eeed2c24c983fb6a54fe8268c88546892c7"
+    },
+    "shadow_amulet": {
+      "id": 215,
+      "name": "Shadow Amulet",
+      "cost": 900,
+      "recipes": [],
+      "sourceSha256": "ccda3379083f18c58197e44acebfb23a32c673bdf4ee825814a6ecc99df3f61d"
+    },
+    "shawl": {
+      "id": 1848,
+      "name": "Shawl",
+      "cost": 450,
+      "recipes": [],
+      "sourceSha256": "5214b4ae5e64b8a46ef6ecde0fc8f02e9d2517a146a41b3f4adbb41a7efdf6c0"
+    },
+    "sheepstick": {
+      "id": 96,
+      "name": "Scythe of Vyse",
+      "cost": 5200,
+      "recipes": [["mystic_staff", "tiara_of_selemene"]],
+      "sourceSha256": "5f13e47e6e46214bd437cc2302463cefd6d558aa6de8e0667a2e74e62cb6e2e5",
+      "recipeCost": 700,
+      "recipeSourceSha256": "5f2f4439c009e29f1157fa62b405f49ca112f47dcf7eef3f3018b58b54ed360f"
+    },
+    "shivas_guard": {
+      "id": 119,
+      "name": "Shiva's Guard",
+      "cost": 4500,
+      "recipes": [["platemail", "splintmail", "chasm_stone"]],
+      "sourceSha256": "e843e1dd55acdcbf88fc745ae8f6247212f8d5e5b644a6975f646096ecd53ea3"
+    },
+    "silver_edge": {
+      "id": 249,
+      "name": "Silver Edge",
+      "cost": 5700,
+      "recipes": [["invis_sword", "demon_edge"]],
+      "sourceSha256": "bac9bed04832cc88cfd1d73b80cc2a0d5f41f450e076cdbf764c4eeda548efb0",
+      "recipeCost": 250,
+      "recipeSourceSha256": "3da96f8cd39dfc979c5143adb89beed2258cfcea6d0c5d4579470107ffef2864"
+    },
+    "skadi": {
+      "id": 160,
+      "name": "Eye of Skadi",
+      "cost": 5900,
+      "recipes": [["ultimate_orb", "ultimate_orb", "orb_of_frost"]],
+      "sourceSha256": "763c39e9f9312ec07368c3a740e0923bb60f11c928c4b9b3f7fe909d52d9f982"
+    },
+    "slippers": {
+      "id": 14,
+      "name": "Slippers of Agility",
+      "cost": 140,
+      "recipes": [],
+      "sourceSha256": "c4dda434bec60d51464c36ba7b7b4182736af0b7fbdd55ae1b6ce8469039d841"
+    },
+    "smoke_of_deceit": {
+      "id": 188,
+      "name": "Smoke of Deceit",
+      "cost": 50,
+      "recipes": [],
+      "sourceSha256": "072b1ce80463ed86fa59679d7bb8e7d49510da938583e7a04ad4319e4f993fb0"
+    },
+    "sobi_mask": {
+      "id": 28,
+      "name": "Sage's Mask",
+      "cost": 175,
+      "recipes": [],
+      "sourceSha256": "78857558ca40352ce64c976f507188a1fe1ab50b87f32c27004b816b9d6a0b67"
+    },
+    "solar_crest": {
+      "id": 229,
+      "name": "Solar Crest",
+      "cost": 2575,
+      "recipes": [["pavise", "chainmail", "wind_lace"]],
+      "sourceSha256": "46f4d9c89af2189d35ae4f151106bc99cd45095ead0b59dfea7fa276e379e775",
+      "recipeCost": 500,
+      "recipeSourceSha256": "4029e3209822f40035c3e835f469a157215d7364280722af3a95c409025903f2"
+    },
+    "soul_booster": {
+      "id": 129,
+      "name": "Soul Booster",
+      "cost": 3000,
+      "recipes": [["point_booster", "vitality_booster", "energy_booster"]],
+      "sourceSha256": "43b3fb0dc025feab73ce1c9b765b447578051879da7205651887992866e0152b"
+    },
+    "soul_ring": {
+      "id": 178,
+      "name": "Soul Ring",
+      "cost": 805,
+      "recipes": [["ring_of_protection", "gauntlets", "gauntlets"]],
+      "sourceSha256": "53a89ac40515561a4e76289635bb8251cfb0aefe4a89af8059e5c6ce52f7d6ad"
+    },
+    "specialists_array": {
+      "id": 1076,
+      "name": "Specialist's Array",
+      "cost": 2550,
+      "recipes": [["blade_of_alacrity", "broadsword"]],
+      "sourceSha256": "3ae1785d98405d48f4cfdb887015d22f94bc7edf36e017c40462ebaa6e4a35b0"
+    },
+    "sphere": {
+      "id": 123,
+      "name": "Linken's Sphere",
+      "cost": 4800,
+      "recipes": [["pers", "ultimate_orb"]],
+      "sourceSha256": "7ccfb1b085ff735dc244cd7efa8c06d4a48dd11196c740136bf74257701f48ff"
+    },
+    "spirit_vessel": {
+      "id": 267,
+      "name": "Spirit Vessel",
+      "cost": 2725,
+      "recipes": [["urn_of_shadows", "diadem"]],
+      "sourceSha256": "3724397e0258ba75e770e4d4e67f048a6304517786c78cc967f4363074c079aa"
+    },
+    "splintmail": {
+      "id": 1847,
+      "name": "Splintmail",
+      "cost": 950,
+      "recipes": [],
+      "sourceSha256": "71bf261839eb6ac1697470174ca91a42a35fb9a714c054c2467fd4504c0e4137"
+    },
+    "staff_of_wizardry": {
+      "id": 23,
+      "name": "Staff of Wizardry",
+      "cost": 1000,
+      "recipes": [],
+      "sourceSha256": "d95bba46479f31d441ba806fe7efbf220fc5b00240fbf3e13b3ed19d848807e5"
+    },
+    "swift_blink": {
+      "id": 603,
+      "name": "Swift Blink",
+      "cost": 6800,
+      "recipes": [["blink", "eagle"]],
+      "sourceSha256": "3a93e95ed70ac3869040588fe7876e709dca33e592b93567d79f6b77ba6db980"
+    },
+    "talisman_of_evasion": {
+      "id": 32,
+      "name": "Talisman of Evasion",
+      "cost": 1300,
+      "recipes": [],
+      "sourceSha256": "ec83ed2a04339429ada1a76f79abc4dfabe38a84b3b55f482df8ae124820a8ac"
+    },
+    "tango": {
+      "id": 44,
+      "name": "Tango",
+      "cost": 90,
+      "recipes": [],
+      "sourceSha256": "eb96dd136a84ff9ed36cd56c23d0641d257140b5817bd7d0a0a06460758e4c59"
+    },
+    "tiara_of_selemene": {
+      "id": 1802,
+      "name": "Tiara of Selemene",
+      "cost": 1700,
+      "recipes": [],
+      "sourceSha256": "317a38ca085c00cdf038990b871d297f9e9a34f8244984155afc6af86b583163"
+    },
+    "tpscroll": {
+      "id": 46,
+      "name": "Town Portal Scroll",
+      "cost": 100,
+      "recipes": [],
+      "sourceSha256": "dca9a6f1c5260e5cf479f26b2970a447fc3b3c6666b339262db3aa01991c01ec"
+    },
+    "tranquil_boots": {
+      "id": 214,
+      "name": "Tranquil Boots",
+      "cost": 900,
+      "recipes": [["boots", "wind_lace", "ring_of_regen"]],
+      "sourceSha256": "4a19da502576004d4d3caa951f3e9c789b58226f5be89d081839bdfa5a967055",
+      "recipeCost": 0,
+      "recipeSourceSha256": "18e6516ca75a318b52d27ba44a7fd6611746bda2d772d12df0f00ef9f40435e0"
+    },
+    "travel_boots": {
+      "id": 48,
+      "name": "Boots of Travel",
+      "cost": 2500,
+      "recipes": [["boots"]],
+      "sourceSha256": "155ea0b10fbf31f295af427bea78270f7c5143359f39dfaad8482f23164c4fcc"
+    },
+    "ultimate_orb": {
+      "id": 24,
+      "name": "Ultimate Orb",
+      "cost": 2800,
+      "recipes": [],
+      "sourceSha256": "f9fe8ce0ca77d29b6654115cd3a5a17cd26ff3bc1f347f13ac2496848953b861"
+    },
+    "ultimate_scepter": {
+      "id": 108,
+      "name": "Aghanim's Scepter",
+      "cost": 4200,
+      "recipes": [["point_booster", "staff_of_wizardry", "ogre_axe", "blade_of_alacrity"]],
+      "sourceSha256": "fe1ca6df95a3caac333b7e8dc97e191c460b5e16e4719779224fed425ff985dd"
+    },
+    "urn_of_shadows": {
+      "id": 92,
+      "name": "Urn of Shadows",
+      "cost": 825,
+      "recipes": [["sobi_mask", "ring_of_protection", "circlet"]],
+      "sourceSha256": "e0c012652ef6bbc64ab3a525e77e6b1e67151a63373f42ba5f9f32458efb3410"
+    },
+    "vanguard": {
+      "id": 125,
+      "name": "Vanguard",
+      "cost": 1700,
+      "recipes": [["vitality_booster", "ring_of_health"]],
+      "sourceSha256": "3c9fee10cd7699e745876848f20476f4cd6abbd0288f329be959dbcb21de9c5d"
+    },
+    "veil_of_discord": {
+      "id": 190,
+      "name": "Veil of Discord",
+      "cost": 1700,
+      "recipes": [["voodoo_mask", "robe", "fluffy_hat"]],
+      "sourceSha256": "e5fbf0ff083b6369ad8c7f887f496eed050554e0a43961b75ab1ecdae53f5ec4",
+      "recipeCost": 350,
+      "recipeSourceSha256": "61818087d5dd31a84dedaa30d1eaecc7edb004e94afe13183cb3483219b15c91"
+    },
+    "vitality_booster": {
+      "id": 61,
+      "name": "Vitality Booster",
+      "cost": 1000,
+      "recipes": [],
+      "sourceSha256": "ca3d9cf3fcd860d8481102ace35763dd025554ef9a815880a35a9191d41bb54d"
+    },
+    "vladmir": {
+      "id": 81,
+      "name": "Vladmir's Offering",
+      "cost": 2200,
+      "recipes": [["buckler", "ring_of_basilius", "lifesteal", "blades_of_attack"]],
+      "sourceSha256": "2683194b682e912a772b566b84cfc7907a46416427e6437f422c5eefd3294043"
+    },
+    "void_stone": {
+      "id": 57,
+      "name": "Void Stone",
+      "cost": 700,
+      "recipes": [],
+      "sourceSha256": "9a7704c728e3ba2d46ee9684f3dd001ae6770a5baceb888964d3849610d7cba6"
+    },
+    "voodoo_mask": {
+      "id": 473,
+      "name": "Voodoo Mask",
+      "cost": 650,
+      "recipes": [],
+      "sourceSha256": "0ab05de2922278fde6bbb575748c351bac4029a7d9420c1da226b9464039b996"
+    },
+    "ward_observer": {
+      "id": 42,
+      "name": "Observer Ward",
+      "cost": 0,
+      "recipes": [],
+      "sourceSha256": "d3aed5dd7a43ae8ae452e0a14804152517e34eab85d37f3c89b534ea5a866923"
+    },
+    "ward_sentry": {
+      "id": 43,
+      "name": "Sentry Ward",
+      "cost": 50,
+      "recipes": [],
+      "sourceSha256": "b6bcd34e973bb3271db0fa947500bef70f1314f237b30dae566736c5204da3fc"
+    },
+    "wind_lace": {
+      "id": 244,
+      "name": "Wind Lace",
+      "cost": 225,
+      "recipes": [],
+      "sourceSha256": "f5f2ad67a5137dfd5535136638b4e18474a03151ac7fcfaa873d5c4565837927"
+    },
+    "wind_waker": {
+      "id": 610,
+      "name": "Wind Waker",
+      "cost": 6800,
+      "recipes": [["cyclone", "mystic_staff"]],
+      "sourceSha256": "38c85fbf4bd9f986a1da65da3de9fa1c669fb2883b8f10a4383368f1f58ee19d"
+    },
+    "witch_blade": {
+      "id": 534,
+      "name": "Witch Blade",
+      "cost": 2775,
+      "recipes": [["oblivion_staff", "chainmail", "orb_of_venom"]],
+      "sourceSha256": "91a0a5705a276776d2dfb0908ff841e5d2a37ab51227f767ff9fd3f55e7db23b",
+      "recipeCost": 300,
+      "recipeSourceSha256": "95f5a1a56eb9ed7a2bca2edced37d8ec72e96fe035ee1ffa6a7f49675d214bfd"
+    },
+    "wizard_hat": {
+      "id": 1849,
+      "name": "Wizard Hat",
+      "cost": 250,
+      "recipes": [],
+      "sourceSha256": "af2a9624e8b6a3e032d01ec07b65f4cd2b9d0e9ba726a94ec4f9e7c3b1ef6de7"
+    },
+    "wraith_band": {
+      "id": 75,
+      "name": "Wraith Band",
+      "cost": 505,
+      "recipes": [["circlet", "slippers"]],
+      "sourceSha256": "fc690bc8f12e0525d7c3f26361e8e419bde35aff92b848efa046335d4ec2a66a"
+    },
+    "yasha": {
+      "id": 170,
+      "name": "Yasha",
+      "cost": 2100,
+      "recipes": [["blade_of_alacrity", "boots_of_elves"]],
+      "sourceSha256": "d555b248d464442a7e4da23ffe2ff118564b0001929d04ddf02b2c1f1aa9ffcf"
+    },
+    "yasha_and_kaya": {
+      "id": 277,
+      "name": "Yasha and Kaya",
+      "cost": 4200,
+      "recipes": [["yasha", "kaya"]],
+      "sourceSha256": "dac62c7ef3b58b11b9cc38bb494b67ba754378072931c41f751be22e28ea4210"
+    }
+  }
+}

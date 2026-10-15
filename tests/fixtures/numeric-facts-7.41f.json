@@ -1,0 +1,4108 @@
+{
+  "observedAt": "2026-10-06",
+  "patch": "7.41f",
+  "patchEvidence": {
+    "url": "https://www.dota2.com/datafeed/patchnoteslist?language=english",
+    "sha256": "9ec57bde0c37aee9b782bd7190cc0c18b68310d90b6cba0b9f9dd3b196bd29ea",
+    "latestPublished": {
+      "patch_number": "7.41f",
+      "patch_name": "7.41f",
+      "patch_timestamp": 1789455600
+    }
+  },
+  "limitation": "Valve public profiles do not expose a patch or build identifier. These payloads were observed while 7.41f was the latest published patch.",
+  "abilities": {
+    "alchemist_chemical_rage": {
+      "id": 5369,
+      "name": "Chemical Rage",
+      "heroKey": "npc_dota_hero_alchemist",
+      "cooldowns": [60],
+      "manaCosts": [50, 75, 100],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=73",
+        "sha256": "1e869c01237a78093f39c23fd4240b477fbaf49be1ca6c25c76be11726cb2815",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "axe_culling_blade": {
+      "id": 5010,
+      "name": "Culling Blade",
+      "heroKey": "npc_dota_hero_axe",
+      "cooldowns": [80, 75, 70],
+      "manaCosts": [100, 125, 150],
+      "damageField": "damage",
+      "damage": [275, 375, 475],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2",
+        "sha256": "47f5fa1582c0ca8249449c9bc36cecee039dc6cc16fdc096d23fef64328134bb",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "bane_brain_sap": {
+      "id": 5011,
+      "name": "Brain Sap",
+      "heroKey": "npc_dota_hero_bane",
+      "cooldowns": [17, 15, 13, 11],
+      "manaCosts": [105, 120, 135, 150],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=3",
+        "sha256": "424f22f65a9b6954cbcb70975b35c2f6a302c8afac34a4b790b3f2d3bd3872c6",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "batrider_flamebreak": {
+      "id": 5321,
+      "name": "Flamebreak",
+      "heroKey": "npc_dota_hero_batrider",
+      "cooldowns": [22, 19, 16, 13],
+      "manaCosts": [110],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=65",
+        "sha256": "ce9dd60a56c89b3cf80ea6dffbb480ebbfd7dcd8b8530ce80dd594d8ed05b058",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "batrider_flaming_lasso": {
+      "id": 5323,
+      "name": "Flaming Lasso",
+      "heroKey": "npc_dota_hero_batrider",
+      "cooldowns": [90, 75, 60],
+      "manaCosts": [125, 150, 175],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=65",
+        "sha256": "ce9dd60a56c89b3cf80ea6dffbb480ebbfd7dcd8b8530ce80dd594d8ed05b058",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "beastmaster_primal_roar": {
+      "id": 5177,
+      "name": "Primal Roar",
+      "heroKey": "npc_dota_hero_beastmaster",
+      "cooldowns": [90, 75, 60],
+      "manaCosts": [100, 125, 150],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=38",
+        "sha256": "03d5175adb067ad4ab483288711ea9917c025117a8ca6c70abaf7f404c3a2379",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "bloodseeker_blood_bath": {
+      "id": 5016,
+      "name": "Blood Rite",
+      "heroKey": "npc_dota_hero_bloodseeker",
+      "cooldowns": [15, 14, 13, 12],
+      "manaCosts": [90, 100, 110, 120],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=4",
+        "sha256": "4723ca7f1b6452d8ccfd672dc75ee28eeb0f648c76d1f0f28787e44459abe220",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "bristleback_viscous_nasal_goo": {
+      "id": 5548,
+      "name": "Viscous Nasal Goo",
+      "heroKey": "npc_dota_hero_bristleback",
+      "cooldowns": [1.75],
+      "manaCosts": [12, 16, 20, 24],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=99",
+        "sha256": "b75e66b78e9c5230ce564079c9f98d3e31ac70c8d71b365174c1f52027fc2b32",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "chen_hand_of_god": {
+      "id": 5331,
+      "name": "Hand of God",
+      "heroKey": "npc_dota_hero_chen",
+      "cooldowns": [150, 130, 110],
+      "manaCosts": [200, 300, 400],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66",
+        "sha256": "fdce30cb6cf5b3b689e531d74c8c96f1142419365991a97e29c5278da39fa184",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "death_prophet_carrion_swarm": {
+      "id": 5090,
+      "name": "Crypt Swarm",
+      "heroKey": "npc_dota_hero_death_prophet",
+      "cooldowns": [9, 8, 7, 6],
+      "manaCosts": [80, 90, 100, 110],
+      "damageField": "damage",
+      "damage": [100, 175, 250, 325],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43",
+        "sha256": "a570f01798798f5e718abcd0d967aeac60666f522d235a028cb047b6aa2f559b",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "disruptor_static_storm": {
+      "id": 5461,
+      "name": "Static Storm",
+      "heroKey": "npc_dota_hero_disruptor",
+      "cooldowns": [100, 85, 70],
+      "manaCosts": [125, 175, 225],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=87",
+        "sha256": "43c1c7a8b6c75e9e77f1dbf4b93b100db55affd9ad4a68653e2bc0d30b1f5b22",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "elder_titan_ancestral_spirit": {
+      "id": 1392,
+      "name": "Astral Spirit",
+      "heroKey": "npc_dota_hero_elder_titan",
+      "cooldowns": [23, 21, 19, 17],
+      "manaCosts": [80, 90, 100, 110],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=103",
+        "sha256": "aea3dec6beb05c20a132598f78da04513a5d72ae9b30481c4a98eb50bf837a80",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "enigma_black_hole": {
+      "id": 5149,
+      "name": "Black Hole",
+      "heroKey": "npc_dota_hero_enigma",
+      "cooldowns": [180, 170, 160],
+      "manaCosts": [300, 400, 500],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=33",
+        "sha256": "6092c03c476959741aecb7509e8bb46a7b9b20823fb8917a7443ecf699d065bb",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "faceless_void_time_walk": {
+      "id": 5182,
+      "name": "Time Walk",
+      "heroKey": "npc_dota_hero_faceless_void",
+      "cooldowns": [21, 16, 11, 6],
+      "manaCosts": [40],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=41",
+        "sha256": "73ee94a3fd2be1ffb6a5d5d038543c056d095200493955c2b2aca71ac6c392ba",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "furion_force_of_nature": {
+      "id": 5247,
+      "name": "Nature's Call",
+      "heroKey": "npc_dota_hero_furion",
+      "cooldowns": [45, 40, 35, 30],
+      "manaCosts": [85, 90, 95, 100],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53",
+        "sha256": "fb8ef7935ea30c11f927b1ae1837bb5470262c27e6b55943017399535924a548",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "gyrocopter_call_down": {
+      "id": 5364,
+      "name": "Call Down",
+      "heroKey": "npc_dota_hero_gyrocopter",
+      "cooldowns": [75, 65, 55],
+      "manaCosts": [150, 200, 250],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=72",
+        "sha256": "96a21bda132a8d106a885f83f4daccf7f02ebd2be842b34023f210677ca78c75",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "hoodwink_decoy": {
+      "id": 8107,
+      "name": "Decoy",
+      "heroKey": "npc_dota_hero_hoodwink",
+      "cooldowns": [30],
+      "manaCosts": [60],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=123",
+        "sha256": "35aa04dc31ba81ed8b708637b5e16f2dd977993f6cd7c71a7a1789573fed9dbe",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "invoker_invoke": {
+      "id": 5375,
+      "name": "Invoke",
+      "heroKey": "npc_dota_hero_invoker",
+      "cooldowns": [7],
+      "manaCosts": [0],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74",
+        "sha256": "16bed6792a0c75a2c4ab2248d2c0ac5ea72a5195856e8ed6a2e5a85c2f27177b",
+        "retrievedAt": "2026-10-06"
+      },
+      "additionalValues": {
+        "cooldown_reduction_per_orb": [0.3]
+      }
+    },
+    "invoker_tornado": {
+      "id": 5382,
+      "name": "Tornado",
+      "heroKey": "npc_dota_hero_invoker",
+      "cooldowns": [27],
+      "manaCosts": [140],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74",
+        "sha256": "16bed6792a0c75a2c4ab2248d2c0ac5ea72a5195856e8ed6a2e5a85c2f27177b",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "kunkka_torrent": {
+      "id": 5031,
+      "name": "Torrent",
+      "heroKey": "npc_dota_hero_kunkka",
+      "cooldowns": [16, 14, 12, 10],
+      "manaCosts": [90],
+      "damageField": "torrent_damage",
+      "damage": [110, 180, 250, 320],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=23",
+        "sha256": "822a544e7c5f4a7b8f49af98ffb5ac9ae2732aa2143550c451246ff02a9b199f",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "largo_croak_of_genius": {
+      "id": 1661,
+      "name": "Croak of Genius",
+      "heroKey": "npc_dota_hero_largo",
+      "cooldowns": [25],
+      "manaCosts": [40],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155",
+        "sha256": "a22ff422fa3cebe8c681f5443d07b051407d340a98580ef6036cead456289ec4",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "lina_dragon_slave": {
+      "id": 5040,
+      "name": "Dragon Slave",
+      "heroKey": "npc_dota_hero_lina",
+      "cooldowns": [11, 10, 9, 8],
+      "manaCosts": [90, 100, 110, 120],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25",
+        "sha256": "4f044b61a25a83718b4443849159778830223ca4f746ae5ead81dad7441c23f2",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "lina_laguna_blade": {
+      "id": 5043,
+      "name": "Laguna Blade",
+      "heroKey": "npc_dota_hero_lina",
+      "cooldowns": [70, 60, 50],
+      "manaCosts": [150, 300, 450],
+      "damageField": "damage",
+      "damage": [400, 580, 760],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25",
+        "sha256": "4f044b61a25a83718b4443849159778830223ca4f746ae5ead81dad7441c23f2",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "lina_light_strike_array": {
+      "id": 5041,
+      "name": "Light Strike Array",
+      "heroKey": "npc_dota_hero_lina",
+      "cooldowns": [13, 11, 9, 7],
+      "manaCosts": [100, 110, 120, 130],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25",
+        "sha256": "4f044b61a25a83718b4443849159778830223ca4f746ae5ead81dad7441c23f2",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "marci_grapple": {
+      "id": 8192,
+      "name": "Dispose",
+      "heroKey": "npc_dota_hero_marci",
+      "cooldowns": [16, 14, 12, 10],
+      "manaCosts": [80],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=136",
+        "sha256": "f631da80f4e9d1b72845f9d7fcb6c5b6436b7c73469d4a7a9cae472cf2e535a0",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "marci_unleash": {
+      "id": 8198,
+      "name": "Unleash",
+      "heroKey": "npc_dota_hero_marci",
+      "cooldowns": [80, 70, 60],
+      "manaCosts": [100, 125, 150],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=136",
+        "sha256": "f631da80f4e9d1b72845f9d7fcb6c5b6436b7c73469d4a7a9cae472cf2e535a0",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "mars_gods_rebuke": {
+      "id": 6495,
+      "name": "God's Rebuke",
+      "heroKey": "npc_dota_hero_mars",
+      "cooldowns": [16, 14, 12, 10],
+      "manaCosts": [90],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=129",
+        "sha256": "954ecc277bb2abb5e21c1aaad4d0009e21ddaed738fae8b21ad23d2e46a03130",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "meepo_earthbind": {
+      "id": 5430,
+      "name": "Earthbind",
+      "heroKey": "npc_dota_hero_meepo",
+      "cooldowns": [16, 14, 12, 10],
+      "manaCosts": [70, 80, 90, 100],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=82",
+        "sha256": "18d1ddac6c9026e7c4c7fc88fd626865bc56e8e04d81bd50de29a5b150afc4bf",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "meepo_petrify": {
+      "id": 547,
+      "name": "Dig",
+      "heroKey": "npc_dota_hero_meepo",
+      "cooldowns": [40],
+      "manaCosts": [125],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=82",
+        "sha256": "18d1ddac6c9026e7c4c7fc88fd626865bc56e8e04d81bd50de29a5b150afc4bf",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "mirana_arrow": {
+      "id": 5048,
+      "name": "Sacred Arrow",
+      "heroKey": "npc_dota_hero_mirana",
+      "cooldowns": [19, 18, 17, 16],
+      "manaCosts": [90],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9",
+        "sha256": "b555bb7ec8e6157f4dbaf591bd92424f0ae77911301b167324d4f63a683c2480",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "obsidian_destroyer_objurgation": {
+      "id": 1760,
+      "name": "Objurgation",
+      "heroKey": "npc_dota_hero_obsidian_destroyer",
+      "cooldowns": [36, 33, 30, 27],
+      "manaCosts": [175],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=76",
+        "sha256": "90ec5af3d2d94f47bc529205c075684012bb9889282334eefc52bb2e5e8fbc26",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "oracle_fates_edict": {
+      "id": 5638,
+      "name": "Fate's Edict",
+      "heroKey": "npc_dota_hero_oracle",
+      "cooldowns": [17, 14, 11, 8],
+      "manaCosts": [70],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=111",
+        "sha256": "8ec3b143770f56d1823948fcf208896649f15f2d356b1d7371321cc5c694f7a3",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "oracle_rain_of_destiny": {
+      "id": 932,
+      "name": "Rain of Destiny",
+      "heroKey": "npc_dota_hero_oracle",
+      "cooldowns": [40],
+      "manaCosts": [150],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=111",
+        "sha256": "8ec3b143770f56d1823948fcf208896649f15f2d356b1d7371321cc5c694f7a3",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "phantom_assassin_fan_of_knives": {
+      "id": 662,
+      "name": "Fan of Knives",
+      "heroKey": "npc_dota_hero_phantom_assassin",
+      "cooldowns": [14],
+      "manaCosts": [80],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=44",
+        "sha256": "7ac1694bbbaaed259cf6f66436a1bc978cb60216e5f7bc3c85e1f33d09afecc9",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "pudge_dismember": {
+      "id": 5077,
+      "name": "Dismember",
+      "heroKey": "npc_dota_hero_pudge",
+      "cooldowns": [30, 25, 20],
+      "manaCosts": [100, 130, 170],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=14",
+        "sha256": "7f168db60e3be1d7b77c34a51d5b05695582ea1b773987f809fe1fd94cc0b374",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "pugna_life_drain": {
+      "id": 5189,
+      "name": "Life Drain",
+      "heroKey": "npc_dota_hero_pugna",
+      "cooldowns": [7],
+      "manaCosts": [115, 160, 205],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=45",
+        "sha256": "8e1982eef2b60777d527526a96a4f65a3e9bd2e31a34789e53a5f4a6d2ed6290",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "ringmaster_wheel": {
+      "id": 385,
+      "name": "Wheel of Wonder",
+      "heroKey": "npc_dota_hero_ringmaster",
+      "cooldowns": [90, 80, 70],
+      "manaCosts": [150, 225, 300],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=131",
+        "sha256": "5d0bf58eaac7e5f80753d7927dc83fadda2b158202d46c85fc67e563b3cf3641",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "sandking_sand_storm": {
+      "id": 5103,
+      "name": "Sand Storm",
+      "heroKey": "npc_dota_hero_sand_king",
+      "cooldowns": [40, 34, 28, 22],
+      "manaCosts": [85],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=16",
+        "sha256": "4331b1e0ec31bb1a887a880cb4e7b14e8a01778ab88377c0e52ad330fde0a7d7",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "skeleton_king_hellfire_blast": {
+      "id": 5086,
+      "name": "Wraithfire Blast",
+      "heroKey": "npc_dota_hero_skeleton_king",
+      "cooldowns": [14, 12, 10, 8],
+      "manaCosts": [95, 110, 125, 140],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=42",
+        "sha256": "3935f6b5eb5c024b55e299c888daa7bcf1d75428f4a8affd69efd390a4540e26",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "snapfire_firesnap_cookie": {
+      "id": 6483,
+      "name": "Firesnap Cookie",
+      "heroKey": "npc_dota_hero_snapfire",
+      "cooldowns": [18, 17, 16, 15],
+      "manaCosts": [105],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=128",
+        "sha256": "40106d0fd7db1a3221d5044e4191ba9402cfc54a33f9bfba67e859798ea35c2a",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "spectre_reality": {
+      "id": 5338,
+      "name": "Reality",
+      "heroKey": "npc_dota_hero_spectre",
+      "cooldowns": [1.5],
+      "manaCosts": [25],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/abilitydata?language=english&ability_id=5338",
+        "sha256": "d41b9df5343d4406a5e063231f13f20747e899657044caa3ace6c495ed1ce37f",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "spirit_breaker_charge_of_darkness": {
+      "id": 5353,
+      "name": "Charge of Darkness",
+      "heroKey": "npc_dota_hero_spirit_breaker",
+      "cooldowns": [22, 19, 16, 13],
+      "manaCosts": [80, 90, 100, 110],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=71",
+        "sha256": "f3ce0b406f7de82bac071071e1605e819dd4d77cd9f13731908dfdd92a13b248",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "spirit_breaker_nether_strike": {
+      "id": 5356,
+      "name": "Nether Strike",
+      "heroKey": "npc_dota_hero_spirit_breaker",
+      "cooldowns": [75, 55, 35],
+      "manaCosts": [125, 150, 175],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=71",
+        "sha256": "f3ce0b406f7de82bac071071e1605e819dd4d77cd9f13731908dfdd92a13b248",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "spirit_breaker_planar_pocket": {
+      "id": 987,
+      "name": "Planar Pocket",
+      "heroKey": "npc_dota_hero_spirit_breaker",
+      "cooldowns": [30],
+      "manaCosts": [100],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=71",
+        "sha256": "f3ce0b406f7de82bac071071e1605e819dd4d77cd9f13731908dfdd92a13b248",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "tinker_rearm": {
+      "id": 5153,
+      "name": "Rearm",
+      "heroKey": "npc_dota_hero_tinker",
+      "cooldowns": [5.5, 5, 4.5],
+      "manaCosts": [100, 150, 200],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34",
+        "sha256": "b53a8b50662ae237d01b23aad19f0d6fc707f687fe2de468b51e10de64c81e18",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "tiny_tree_channel": {
+      "id": 7850,
+      "name": "Tree Volley",
+      "heroKey": "npc_dota_hero_tiny",
+      "cooldowns": [17],
+      "manaCosts": [150],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=19",
+        "sha256": "5e1e42e5431c1130635c92486d17ccf7059cb3b122b4f6f1c9fb88a643f7a50a",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "undying_decay": {
+      "id": 5442,
+      "name": "Decay",
+      "heroKey": "npc_dota_hero_undying",
+      "cooldowns": [13, 10, 7, 4],
+      "manaCosts": [110],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=85",
+        "sha256": "08d9cdceeefe21029e7dd447d64db68a16c95d5cc65271bb9d2aea676914021f",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "visage_soul_assumption": {
+      "id": 5481,
+      "name": "Soul Assumption",
+      "heroKey": "npc_dota_hero_visage",
+      "cooldowns": [4],
+      "manaCosts": [110],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=92",
+        "sha256": "78591b57c037fa88bac748bb48dcc45e893f94ed551ad112ab1b4b04759dbb2e",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "warlock_fatal_bonds": {
+      "id": 5162,
+      "name": "Fatal Bonds",
+      "heroKey": "npc_dota_hero_warlock",
+      "cooldowns": [42, 34, 26, 18],
+      "manaCosts": [120, 130, 140, 150],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=37",
+        "sha256": "b460601a74a96a032981a1af38d797fc70dd99ee65fae8bfc9bd58266fc6a950",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "weaver_geminate_attack": {
+      "id": 5291,
+      "name": "Geminate Attack",
+      "heroKey": "npc_dota_hero_weaver",
+      "cooldowns": [9, 7, 5, 3],
+      "manaCosts": [0],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=63",
+        "sha256": "345b8612bf2229f1e958a78ae583108d422aaa1a0142d5377a6b98ad5ff3dc8c",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "witch_doctor_death_ward": {
+      "id": 5141,
+      "name": "Death Ward",
+      "heroKey": "npc_dota_hero_witch_doctor",
+      "cooldowns": [100, 90, 80],
+      "manaCosts": [200, 200, 200],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30",
+        "sha256": "54330c77dbf36e804cd6b25784b67b5a2c0c991c7bc5d91b0526b001a39350ad",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "zuus_arc_lightning": {
+      "id": 5110,
+      "name": "Arc Lightning",
+      "heroKey": "npc_dota_hero_zuus",
+      "cooldowns": [1.6],
+      "manaCosts": [85, 90, 95, 100],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=22",
+        "sha256": "98db1f635f8beed0870085aa0bcd89e2c61c3085394a7f317bba1c9de68444a6",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "ancient_apparition_chilling_touch": {
+      "id": 5347,
+      "name": "Chilling Touch",
+      "heroKey": "npc_dota_hero_ancient_apparition",
+      "cooldowns": [10, 7.5, 5, 2.5],
+      "manaCosts": [35],
+      "damageField": "damage",
+      "damage": [35, 65, 95, 125],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=68",
+        "sha256": "21e700f8f2457097f8333a07bdb12f738a1805f4a02568e6d5b503e05136c086",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "bane_enfeeble": {
+      "id": 5012,
+      "name": "Enfeeble",
+      "heroKey": "npc_dota_hero_bane",
+      "cooldowns": [22, 17, 12, 7],
+      "manaCosts": [100, 110, 120, 130],
+      "damageField": "enfeeble_tick_damage",
+      "damage": [12, 18, 24, 30],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=3",
+        "sha256": "424f22f65a9b6954cbcb70975b35c2f6a302c8afac34a4b790b3f2d3bd3872c6",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "bane_fiends_grip": {
+      "id": 5013,
+      "name": "Fiend's Grip",
+      "heroKey": "npc_dota_hero_bane",
+      "cooldowns": [120, 110, 100],
+      "manaCosts": [200, 300, 400],
+      "damageField": "fiend_grip_damage",
+      "damage": [70, 110, 150],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=3",
+        "sha256": "424f22f65a9b6954cbcb70975b35c2f6a302c8afac34a4b790b3f2d3bd3872c6",
+        "retrievedAt": "2026-10-06"
+      },
+      "additionalValues": {
+        "fiend_grip_tick_interval": [0.5]
+      }
+    },
+    "brewmaster_thunder_clap": {
+      "id": 5400,
+      "name": "Thunder Clap",
+      "heroKey": "npc_dota_hero_brewmaster",
+      "cooldowns": [18, 16, 14, 12],
+      "manaCosts": [100],
+      "damageField": "damage",
+      "damage": [80, 160, 240, 320],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=78",
+        "sha256": "938dc18e954fa12ee39071ba2ae3b61a0cc1df4437fc73cf57eded175e97ca35",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "dark_seer_vacuum": {
+      "id": 5255,
+      "name": "Vacuum",
+      "heroKey": "npc_dota_hero_dark_seer",
+      "cooldowns": [60, 50, 40, 30],
+      "manaCosts": [60, 90, 120, 150],
+      "damageField": "damage",
+      "damage": [70, 130, 190, 250],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=55",
+        "sha256": "eb12a9a9d26af89c1c036198160207e305d5e5aec5d4531b855ab618ffe5449a",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "dazzle_shadow_wave": {
+      "id": 5235,
+      "name": "Shadow Wave",
+      "heroKey": "npc_dota_hero_dazzle",
+      "cooldowns": [10, 9, 8, 7],
+      "manaCosts": [90],
+      "damageField": "damage",
+      "damage": [85, 105, 125, 145],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=50",
+        "sha256": "2bd5ac58af625745a1947cd01cea64b6f47dd03bc0b3956e9ce8f806982a9c15",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "dragon_knight_breathe_fire": {
+      "id": 5226,
+      "name": "Breathe Fire",
+      "heroKey": "npc_dota_hero_dragon_knight",
+      "cooldowns": [14, 13, 12, 11],
+      "manaCosts": [90, 95, 100, 105],
+      "damageField": "damage",
+      "damage": [80, 160, 240, 320],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=49",
+        "sha256": "ffa770ae93d1268e67f4bd03ea050eb016deb1f27db2049596cb218c03889a1b",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "dragon_knight_dragon_tail": {
+      "id": 5227,
+      "name": "Dragon Tail",
+      "heroKey": "npc_dota_hero_dragon_knight",
+      "cooldowns": [16, 14, 12, 10],
+      "manaCosts": [70, 80, 90, 100],
+      "damageField": "damage",
+      "damage": [60, 90, 120, 150],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=49",
+        "sha256": "ffa770ae93d1268e67f4bd03ea050eb016deb1f27db2049596cb218c03889a1b",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "earth_spirit_boulder_smash": {
+      "id": 5608,
+      "name": "Boulder Smash",
+      "heroKey": "npc_dota_hero_earth_spirit",
+      "cooldowns": [20, 17, 14, 11],
+      "manaCosts": [100],
+      "damageField": "rock_damage",
+      "damage": [110, 180, 250, 320],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=107",
+        "sha256": "97c38404824813f295c417357eb5d90889ff25dc9cd228d642d3da58257facf6",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "earth_spirit_rolling_boulder": {
+      "id": 5609,
+      "name": "Rolling Boulder",
+      "heroKey": "npc_dota_hero_earth_spirit",
+      "cooldowns": [16, 12, 8, 4],
+      "manaCosts": [50],
+      "damageField": "damage",
+      "damage": [60, 70, 80, 90],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=107",
+        "sha256": "97c38404824813f295c417357eb5d90889ff25dc9cd228d642d3da58257facf6",
+        "retrievedAt": "2026-10-06"
+      },
+      "additionalValues": {
+        "damage_str": [100]
+      }
+    },
+    "furion_sprout": {
+      "id": 5245,
+      "name": "Sprout",
+      "heroKey": "npc_dota_hero_furion",
+      "cooldowns": [14, 12, 10, 8],
+      "manaCosts": [70, 80, 90, 100],
+      "damageField": "sprout_damage",
+      "damage": [70, 130, 190, 250],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53",
+        "sha256": "fb8ef7935ea30c11f927b1ae1837bb5470262c27e6b55943017399535924a548",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "kez_talon_toss": {
+      "id": 1503,
+      "name": "Talon Toss",
+      "heroKey": "npc_dota_hero_kez",
+      "cooldowns": [13, 11, 9, 7],
+      "manaCosts": [60, 65, 70, 75],
+      "damageField": "damage",
+      "damage": [60, 120, 180, 240],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=145",
+        "sha256": "1def0d5fd2242c259b4d1b3d6d8aacd1176a898f73c58afd32149f3c0f713947",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "lion_finger_of_death": {
+      "id": 5047,
+      "name": "Finger of Death",
+      "heroKey": "npc_dota_hero_lion",
+      "cooldowns": [110, 70, 30],
+      "manaCosts": [200, 400, 600],
+      "damageField": "damage",
+      "damage": [600, 725, 850],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=26",
+        "sha256": "0e1f7f5a241f1ca82facfc2a20cc4dce909c0b59932190f1db3b2564e8a4a384",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "magnataur_reverse_polarity": {
+      "id": 5521,
+      "name": "Reverse Polarity",
+      "heroKey": "npc_dota_hero_magnataur",
+      "cooldowns": [115],
+      "manaCosts": [150, 225, 300],
+      "damageField": "polarity_damage",
+      "damage": [100, 200, 300],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=97",
+        "sha256": "0da1d6466dda8181b358fb73a4f6ce96cd6eff591decbfe4aad455f04640656f",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "magnataur_skewer": {
+      "id": 5520,
+      "name": "Skewer",
+      "heroKey": "npc_dota_hero_magnataur",
+      "cooldowns": [22, 20, 18, 16],
+      "manaCosts": [80, 80, 80, 80],
+      "damageField": "skewer_damage",
+      "damage": [80, 160, 240, 320],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=97",
+        "sha256": "0da1d6466dda8181b358fb73a4f6ce96cd6eff591decbfe4aad455f04640656f",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "mars_spear": {
+      "id": 6583,
+      "name": "Spear of Mars",
+      "heroKey": "npc_dota_hero_mars",
+      "cooldowns": [14, 13, 12, 11],
+      "manaCosts": [90, 100, 110, 120],
+      "damageField": "damage",
+      "damage": [100, 175, 250, 325],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=129",
+        "sha256": "954ecc277bb2abb5e21c1aaad4d0009e21ddaed738fae8b21ad23d2e46a03130",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "mirana_starfall": {
+      "id": 5051,
+      "name": "Starstorm",
+      "heroKey": "npc_dota_hero_mirana",
+      "cooldowns": [12, 12, 12, 12],
+      "manaCosts": [80, 90, 100, 110],
+      "damageField": "damage",
+      "damage": [75, 150, 225, 300],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9",
+        "sha256": "b555bb7ec8e6157f4dbaf591bd92424f0ae77911301b167324d4f63a683c2480",
+        "retrievedAt": "2026-10-06"
+      },
+      "additionalValues": {
+        "secondary_starfall_damage_percent": [80, 80, 80, 80]
+      }
+    },
+    "monkey_king_primal_spring": {
+      "id": 5724,
+      "name": "Primal Spring",
+      "heroKey": "npc_dota_hero_monkey_king",
+      "cooldowns": [18, 16, 14, 12],
+      "manaCosts": [100],
+      "damageField": "impact_damage",
+      "damage": [110, 200, 290, 380],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/abilitydata?language=english&ability_id=5724",
+        "sha256": "628e4f115457f7d1f9ddcb7353bdd8ba9218340c5207633e27f24c309be8f16c",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "muerta_dead_shot": {
+      "id": 5751,
+      "name": "Dead Shot",
+      "heroKey": "npc_dota_hero_muerta",
+      "cooldowns": [16, 14, 12, 10],
+      "manaCosts": [100, 120, 140, 160],
+      "damageField": "damage",
+      "damage": [100, 175, 250, 325],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=138",
+        "sha256": "6fe5b5c513f109d665c8362b62365ebc4d187540302d9c5ef6bef1ee555bd9c9",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "obsidian_destroyer_astral_imprisonment": {
+      "id": 5392,
+      "name": "Astral Imprisonment",
+      "heroKey": "npc_dota_hero_obsidian_destroyer",
+      "cooldowns": [18, 16, 14, 12],
+      "manaCosts": [150],
+      "damageField": "damage",
+      "damage": [90, 180, 270, 360],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=76",
+        "sha256": "90ec5af3d2d94f47bc529205c075684012bb9889282334eefc52bb2e5e8fbc26",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "pudge_meat_hook": {
+      "id": 5075,
+      "name": "Meat Hook",
+      "heroKey": "npc_dota_hero_pudge",
+      "cooldowns": [18, 16, 14, 12],
+      "manaCosts": [120],
+      "damageField": "damage",
+      "damage": [150, 220, 290, 360],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=14",
+        "sha256": "7f168db60e3be1d7b77c34a51d5b05695582ea1b773987f809fe1fd94cc0b374",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "queenofpain_scream_of_pain": {
+      "id": 5175,
+      "name": "Scream Of Pain",
+      "heroKey": "npc_dota_hero_queenofpain",
+      "cooldowns": [7.5, 7, 6.5, 6],
+      "manaCosts": [120],
+      "damageField": "damage",
+      "damage": [90, 175, 260, 345],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=39",
+        "sha256": "9d942ec86974a0b16b0d4eeba88d3ee69a34bba4ebbbca839aef88702d105f92",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "razor_eye_of_the_storm": {
+      "id": 5085,
+      "name": "Eye of the Storm",
+      "heroKey": "npc_dota_hero_razor",
+      "cooldowns": [80, 70, 60],
+      "manaCosts": [100, 150, 200],
+      "damageField": "damage",
+      "damage": [60, 75, 90],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=15",
+        "sha256": "2737960f1a4bf7acb5e61afa8bff57f8b5ff63dc102f35e8a7117f049aac5f73",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "rubick_fade_bolt": {
+      "id": 5450,
+      "name": "Fade Bolt",
+      "heroKey": "npc_dota_hero_rubick",
+      "cooldowns": [16, 14, 12, 10],
+      "manaCosts": [110, 125, 140, 155],
+      "damageField": "damage",
+      "damage": [85, 165, 245, 325],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=86",
+        "sha256": "f48ede505239c531253fd18a47e23ea4673354b2068fb329004e588ebe2f587c",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "shadow_shaman_ether_shock": {
+      "id": 5078,
+      "name": "Ether Shock",
+      "heroKey": "npc_dota_hero_shadow_shaman",
+      "cooldowns": [14, 12, 10, 8],
+      "manaCosts": [90, 105, 120, 135],
+      "damageField": "damage",
+      "damage": [125, 190, 255, 320],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=27",
+        "sha256": "140257a291c4f0b74cbce9b3b4dff48c6986a5bc7099032d243cb8e06f39f916",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "shredder_timber_chain": {
+      "id": 5525,
+      "name": "Timber Chain",
+      "heroKey": "npc_dota_hero_shredder",
+      "cooldowns": [4],
+      "manaCosts": [60, 70, 80, 90],
+      "damageField": "damage",
+      "damage": [45, 105, 165, 225],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=98",
+        "sha256": "c96e36b6194c05239f1ef7efd8625458cdd34670aa94d33d1a23f134c1267464",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "silencer_curse_of_the_silent": {
+      "id": 5377,
+      "name": "Arcane Curse",
+      "heroKey": "npc_dota_hero_silencer",
+      "cooldowns": [22, 20, 18, 16],
+      "manaCosts": [120, 130, 140, 150],
+      "damageField": "damage",
+      "damage": [16, 24, 32, 40],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75",
+        "sha256": "cf4ab6bcb6b8ff508c6de608291271261e070a76ce06f74d7bfa07ab64d3e815",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "skywrath_mage_mystic_flare": {
+      "id": 5584,
+      "name": "Mystic Flare",
+      "heroKey": "npc_dota_hero_skywrath_mage",
+      "cooldowns": [55, 35, 15],
+      "manaCosts": [300, 550, 800],
+      "damageField": "damage",
+      "damage": [800, 1200, 1600],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=101",
+        "sha256": "bf78f529480ca0c987f17860223f4ab7579743fd609be703062d05529a293e96",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "slark_dark_pact": {
+      "id": 5494,
+      "name": "Dark Pact",
+      "heroKey": "npc_dota_hero_slark",
+      "cooldowns": [9, 8, 7, 6],
+      "manaCosts": [65],
+      "damageField": "total_damage",
+      "damage": [75, 150, 225, 300],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=93",
+        "sha256": "9449a1c4eaa6fa29ecbf5aa3602691a29b2a42fa15756cf4462940b03df87126",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "snapfire_scatterblast": {
+      "id": 6480,
+      "name": "Scatterblast",
+      "heroKey": "npc_dota_hero_snapfire",
+      "cooldowns": [17, 14, 11, 8],
+      "manaCosts": [85, 90, 95, 100],
+      "damageField": "damage",
+      "damage": [100, 160, 220, 280],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=128",
+        "sha256": "40106d0fd7db1a3221d5044e4191ba9402cfc54a33f9bfba67e859798ea35c2a",
+        "retrievedAt": "2026-10-06"
+      },
+      "additionalValues": {
+        "point_blank_dmg_bonus_pct": [25]
+      }
+    },
+    "sniper_assassinate": {
+      "id": 5157,
+      "name": "Assassinate",
+      "heroKey": "npc_dota_hero_sniper",
+      "cooldowns": [20, 15, 10],
+      "manaCosts": [175],
+      "damageField": "damage",
+      "damage": [300, 400, 500],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=35",
+        "sha256": "022377e09d48796db5e5cbc4a319ebc39afb9ba8533a31ffa4e389a3a8f279f5",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "sniper_shrapnel": {
+      "id": 5154,
+      "name": "Shrapnel",
+      "heroKey": "npc_dota_hero_sniper",
+      "cooldowns": [0],
+      "manaCosts": [75],
+      "damageField": "shrapnel_damage",
+      "damage": [30, 45, 60, 75],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=35",
+        "sha256": "022377e09d48796db5e5cbc4a319ebc39afb9ba8533a31ffa4e389a3a8f279f5",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "storm_spirit_overload": {
+      "id": 5100,
+      "name": "Overload",
+      "heroKey": "npc_dota_hero_storm_spirit",
+      "cooldowns": [0],
+      "manaCosts": [0],
+      "damageField": "overload_damage",
+      "damage": [25, 50, 75, 100],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17",
+        "sha256": "15e30184b86d331844d34143c0ba7c3cfb11f539e5f19e55e553a19822558066",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "techies_land_mines": {
+      "id": 5599,
+      "name": "Proximity Mines",
+      "heroKey": "npc_dota_hero_techies",
+      "cooldowns": [0],
+      "manaCosts": [110, 140, 170],
+      "damageField": "damage",
+      "damage": [400, 550, 700],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=105",
+        "sha256": "5aa688c796e04302e53f37b8b4a12ee19ee3c59c642459519bb4ce23b57bd1aa",
+        "retrievedAt": "2026-10-06"
+      },
+      "additionalValues": {
+        "outer_damage": [50]
+      }
+    },
+    "terrorblade_terror_wave": {
+      "id": 425,
+      "name": "Terror Wave",
+      "heroKey": "npc_dota_hero_terrorblade",
+      "cooldowns": [90],
+      "manaCosts": [75],
+      "damageField": "damage",
+      "damage": [200],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=109",
+        "sha256": "c8234ec013a8c5a6a09e1a420da128c56b9c85da3b8953744ead0c48959b05be",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "tidehunter_gush": {
+      "id": 5118,
+      "name": "Gush",
+      "heroKey": "npc_dota_hero_tidehunter",
+      "cooldowns": [12],
+      "manaCosts": [100],
+      "damageField": "gush_damage",
+      "damage": [100, 160, 220, 280],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=29",
+        "sha256": "41f1768a339294f46e9b7837e9341c56ce3d07f80eb095931f5c52e2a6019fd3",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "tinker_march_of_the_machines": {
+      "id": 5152,
+      "name": "March of the Machines",
+      "heroKey": "npc_dota_hero_tinker",
+      "cooldowns": [35, 33, 31, 29],
+      "manaCosts": [100, 120, 140, 160],
+      "damageField": "damage",
+      "damage": [13, 22, 31, 40],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34",
+        "sha256": "b53a8b50662ae237d01b23aad19f0d6fc707f687fe2de468b51e10de64c81e18",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "tiny_toss": {
+      "id": 5107,
+      "name": "Toss",
+      "heroKey": "npc_dota_hero_tiny",
+      "cooldowns": [20, 17, 14, 11],
+      "manaCosts": [125],
+      "damageField": "toss_damage",
+      "damage": [90, 180, 270, 360],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=19",
+        "sha256": "5e1e42e5431c1130635c92486d17ccf7059cb3b122b4f6f1c9fb88a643f7a50a",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "vengefulspirit_magic_missile": {
+      "id": 5122,
+      "name": "Magic Missile",
+      "heroKey": "npc_dota_hero_vengefulspirit",
+      "cooldowns": [14, 13, 12, 11],
+      "manaCosts": [90, 95, 100, 105],
+      "damageField": "magic_missile_damage",
+      "damage": [100, 180, 260, 340],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=20",
+        "sha256": "0e7870e8c64c9e078cefe521c9d96553130496abc7e9c0f92d954c409f6016c5",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "visage_stone_form_self_cast": {
+      "id": 7116,
+      "name": "Stone Form",
+      "heroKey": "npc_dota_hero_visage",
+      "cooldowns": [0],
+      "manaCosts": [0],
+      "damageField": "stun_damage",
+      "damage": [60, 100, 140],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/abilitydata?language=english&ability_id=7116",
+        "sha256": "78d58ff2a1540e58192cc1ad4bf46ac9ebc2ec93a64624c3da86602cc275a6cd",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "windrunner_powershot": {
+      "id": 5131,
+      "name": "Powershot",
+      "heroKey": "npc_dota_hero_windrunner",
+      "cooldowns": [12, 11, 10, 9],
+      "manaCosts": [90, 100, 110, 120],
+      "damageField": "powershot_damage",
+      "damage": [170, 270, 370, 470],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=21",
+        "sha256": "a70cbf92672a6f62f806f50854bb8845b73c00280c5779269a5788c71655d341",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "zuus_static_field": {
+      "id": 5112,
+      "name": "Static Field",
+      "heroKey": "npc_dota_hero_zuus",
+      "cooldowns": [0],
+      "manaCosts": [0],
+      "damageField": "damage_health_pct",
+      "damage": [3.45],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=22",
+        "sha256": "98db1f635f8beed0870085aa0bcd89e2c61c3085394a7f317bba1c9de68444a6",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "zuus_thundergods_wrath": {
+      "id": 5113,
+      "name": "Thundergod's Wrath",
+      "heroKey": "npc_dota_hero_zuus",
+      "cooldowns": [130],
+      "manaCosts": [250, 375, 500],
+      "damageField": "damage",
+      "damage": [275, 425, 575],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=22",
+        "sha256": "98db1f635f8beed0870085aa0bcd89e2c61c3085394a7f317bba1c9de68444a6",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "alchemist_acid_spray": {
+      "id": 5365,
+      "name": "Acid Spray",
+      "heroKey": "npc_dota_hero_alchemist",
+      "cooldowns": [21],
+      "manaCosts": [120],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=73",
+        "sha256": "1e869c01237a78093f39c23fd4240b477fbaf49be1ca6c25c76be11726cb2815",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "antimage_blink": {
+      "id": 5004,
+      "name": "Blink",
+      "heroKey": "npc_dota_hero_antimage",
+      "cooldowns": [10.5, 9, 7.5, 6],
+      "manaCosts": [60, 55, 50, 45],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=1",
+        "sha256": "bd110e5daa54998cb29975abe4b689e0d3673fb75b8293c00c112efc77aff9ae",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "axe_berserkers_call": {
+      "id": 5007,
+      "name": "Berserker's Call",
+      "heroKey": "npc_dota_hero_axe",
+      "cooldowns": [18, 16, 14, 12],
+      "manaCosts": [90, 100, 110, 120],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2",
+        "sha256": "47f5fa1582c0ca8249449c9bc36cecee039dc6cc16fdc096d23fef64328134bb",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "batrider_sticky_napalm": {
+      "id": 5320,
+      "name": "Sticky Napalm",
+      "heroKey": "npc_dota_hero_batrider",
+      "cooldowns": [3],
+      "manaCosts": [22],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=65",
+        "sha256": "ce9dd60a56c89b3cf80ea6dffbb480ebbfd7dcd8b8530ce80dd594d8ed05b058",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "bristleback_hairball": {
+      "id": 643,
+      "name": "Hairball",
+      "heroKey": "npc_dota_hero_bristleback",
+      "cooldowns": [15],
+      "manaCosts": [60],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=99",
+        "sha256": "b75e66b78e9c5230ce564079c9f98d3e31ac70c8d71b365174c1f52027fc2b32",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "broodmother_insatiable_hunger": {
+      "id": 5282,
+      "name": "Insatiable Hunger",
+      "heroKey": "npc_dota_hero_broodmother",
+      "cooldowns": [45, 40, 35, 30],
+      "manaCosts": [70],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=61",
+        "sha256": "37bffb54d119d964df85bca5c968f0c9f6c9415cae84508d881b592ee7aa93ad",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "chen_zealot": {
+      "id": 1755,
+      "name": "Zealot",
+      "heroKey": "npc_dota_hero_chen",
+      "cooldowns": [10],
+      "manaCosts": [50],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66",
+        "sha256": "fdce30cb6cf5b3b689e531d74c8c96f1142419365991a97e29c5278da39fa184",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "clinkz_burning_barrage": {
+      "id": 5259,
+      "name": "Burning Barrage",
+      "heroKey": "npc_dota_hero_clinkz",
+      "cooldowns": [17],
+      "manaCosts": [40],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=56",
+        "sha256": "0b271467d5b827f14ab936b13762a2b498ebe3d21ae77efa6fd5b75a40e9743f",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "clinkz_strafe": {
+      "id": 1120,
+      "name": "Strafe",
+      "heroKey": "npc_dota_hero_clinkz",
+      "cooldowns": [30, 25, 20, 15],
+      "manaCosts": [60, 70, 80, 90],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=56",
+        "sha256": "0b271467d5b827f14ab936b13762a2b498ebe3d21ae77efa6fd5b75a40e9743f",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "dark_willow_bedlam": {
+      "id": 6340,
+      "name": "Bedlam",
+      "heroKey": "npc_dota_hero_dark_willow",
+      "cooldowns": [30],
+      "manaCosts": [100, 150, 200],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=119",
+        "sha256": "8fe4966a7e228d3067af10eec9a82d15919640949102e2cd5967076cde3f5cd8",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "dazzle_poison_touch": {
+      "id": 5233,
+      "name": "Poison Touch",
+      "heroKey": "npc_dota_hero_dazzle",
+      "cooldowns": [24, 21, 18, 15],
+      "manaCosts": [125, 130, 135, 140],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=50",
+        "sha256": "2bd5ac58af625745a1947cd01cea64b6f47dd03bc0b3956e9ce8f806982a9c15",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "disruptor_glimpse": {
+      "id": 5459,
+      "name": "Glimpse",
+      "heroKey": "npc_dota_hero_disruptor",
+      "cooldowns": [24, 22, 20, 18],
+      "manaCosts": [70, 85, 100, 115],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=87",
+        "sha256": "43c1c7a8b6c75e9e77f1dbf4b93b100db55affd9ad4a68653e2bc0d30b1f5b22",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "disruptor_kinetic_fence": {
+      "id": 1362,
+      "name": "Kinetic Fence",
+      "heroKey": "npc_dota_hero_disruptor",
+      "cooldowns": [14],
+      "manaCosts": [70],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=87",
+        "sha256": "43c1c7a8b6c75e9e77f1dbf4b93b100db55affd9ad4a68653e2bc0d30b1f5b22",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "ember_spirit_searing_chains": {
+      "id": 5603,
+      "name": "Searing Chains",
+      "heroKey": "npc_dota_hero_ember_spirit",
+      "cooldowns": [13, 12, 11, 10],
+      "manaCosts": [80, 90, 100, 110],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=106",
+        "sha256": "61c659f9b21a0aaf542746c078a3aebb15d043b90f152b77a660641166ff2bfb",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "enchantress_little_friends": {
+      "id": 981,
+      "name": "Little Friends",
+      "heroKey": "npc_dota_hero_enchantress",
+      "cooldowns": [20],
+      "manaCosts": [75],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=58",
+        "sha256": "d9c88736c13a2d7fb15cb2d9df7036f3debaf55964b07abba18311422f0b1d33",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "enchantress_natures_attendants": {
+      "id": 5269,
+      "name": "Nature's Attendants",
+      "heroKey": "npc_dota_hero_enchantress",
+      "cooldowns": [35],
+      "manaCosts": [140],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=58",
+        "sha256": "d9c88736c13a2d7fb15cb2d9df7036f3debaf55964b07abba18311422f0b1d33",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "enigma_malefice": {
+      "id": 5146,
+      "name": "Malefice",
+      "heroKey": "npc_dota_hero_enigma",
+      "cooldowns": [20, 18, 16, 14],
+      "manaCosts": [100, 110, 120, 130],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=33",
+        "sha256": "6092c03c476959741aecb7509e8bb46a7b9b20823fb8917a7443ecf699d065bb",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "furion_curse_of_the_forest": {
+      "id": 997,
+      "name": "Curse of the Oldgrowth",
+      "heroKey": "npc_dota_hero_furion",
+      "cooldowns": [18],
+      "manaCosts": [80],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53",
+        "sha256": "fb8ef7935ea30c11f927b1ae1837bb5470262c27e6b55943017399535924a548",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "furion_teleportation": {
+      "id": 5246,
+      "name": "Teleportation",
+      "heroKey": "npc_dota_hero_furion",
+      "cooldowns": [65, 50, 35, 20],
+      "manaCosts": [50, 60, 70, 80],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53",
+        "sha256": "fb8ef7935ea30c11f927b1ae1837bb5470262c27e6b55943017399535924a548",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "invoker_chaos_meteor": {
+      "id": 5385,
+      "name": "Chaos Meteor",
+      "heroKey": "npc_dota_hero_invoker",
+      "cooldowns": [50],
+      "manaCosts": [200],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74",
+        "sha256": "16bed6792a0c75a2c4ab2248d2c0ac5ea72a5195856e8ed6a2e5a85c2f27177b",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "invoker_sun_strike": {
+      "id": 5386,
+      "name": "Sun Strike",
+      "heroKey": "npc_dota_hero_invoker",
+      "cooldowns": [23],
+      "manaCosts": [175],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74",
+        "sha256": "16bed6792a0c75a2c4ab2248d2c0ac5ea72a5195856e8ed6a2e5a85c2f27177b",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "keeper_of_the_light_blinding_light": {
+      "id": 5476,
+      "name": "Blinding Light",
+      "heroKey": "npc_dota_hero_keeper_of_the_light",
+      "cooldowns": [24, 21, 18, 15],
+      "manaCosts": [120, 130, 140, 150],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=90",
+        "sha256": "0be69cac3537e4387910565019e45b7d2bcc617232277ebe57a4b4be738a67de",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "kunkka_ghostship": {
+      "id": 5035,
+      "name": "Ghostship",
+      "heroKey": "npc_dota_hero_kunkka",
+      "cooldowns": [90, 80, 70],
+      "manaCosts": [125, 175, 225],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=23",
+        "sha256": "822a544e7c5f4a7b8f49af98ffb5ac9ae2732aa2143550c451246ff02a9b199f",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "largo_song_double_time": {
+      "id": 1664,
+      "name": "Hotfeet Hustle",
+      "heroKey": "npc_dota_hero_largo",
+      "cooldowns": [0.2],
+      "manaCosts": [25, 35, 45],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155",
+        "sha256": "a22ff422fa3cebe8c681f5443d07b051407d340a98580ef6036cead456289ec4",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "magnataur_horn_toss": {
+      "id": 649,
+      "name": "Horn Toss",
+      "heroKey": "npc_dota_hero_magnataur",
+      "cooldowns": [30],
+      "manaCosts": [100],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=97",
+        "sha256": "0da1d6466dda8181b358fb73a4f6ce96cd6eff591decbfe4aad455f04640656f",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "nyx_assassin_spiked_carapace": {
+      "id": 5464,
+      "name": "Spiked Carapace",
+      "heroKey": "npc_dota_hero_nyx_assassin",
+      "cooldowns": [20, 16, 12, 8],
+      "manaCosts": [40, 40, 40, 40],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=88",
+        "sha256": "9f105f9be1549e9d328ec8951bfcd139a450f8b2b878fa00d2445888e96884bc",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "obsidian_destroyer_sanity_eclipse": {
+      "id": 5394,
+      "name": "Sanity's Eclipse",
+      "heroKey": "npc_dota_hero_obsidian_destroyer",
+      "cooldowns": [140, 130, 120],
+      "manaCosts": [200, 300, 400],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=76",
+        "sha256": "90ec5af3d2d94f47bc529205c075684012bb9889282334eefc52bb2e5e8fbc26",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "ogre_magi_fireblast": {
+      "id": 5438,
+      "name": "Fireblast",
+      "heroKey": "npc_dota_hero_ogre_magi",
+      "cooldowns": [11, 10, 9, 8],
+      "manaCosts": [70, 85, 100, 115],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=84",
+        "sha256": "31165d69eb927113b31a1c17e11c59a94ae88f6620126d6ccd72c5ea6faab43d",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "rattletrap_hookshot": {
+      "id": 5240,
+      "name": "Hookshot",
+      "heroKey": "npc_dota_hero_rattletrap",
+      "cooldowns": [60, 45, 30],
+      "manaCosts": [100, 125, 150],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=51",
+        "sha256": "7715bcbe6b96070b58a39a822948bdf1251dfc26544062dd2d0dc304d1ab9a8f",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "shadow_demon_disseminate": {
+      "id": 1001,
+      "name": "Disseminate",
+      "heroKey": "npc_dota_hero_shadow_demon",
+      "cooldowns": [26, 22, 18, 14],
+      "manaCosts": [100],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=79",
+        "sha256": "59f5ac4f4edb1708c9732f2a1fc9d388ffeb0fba57b6dd1a8806e40689610a8e",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "shadow_demon_shadow_poison": {
+      "id": 5423,
+      "name": "Shadow Poison",
+      "heroKey": "npc_dota_hero_shadow_demon",
+      "cooldowns": [2.5],
+      "manaCosts": [40],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=79",
+        "sha256": "59f5ac4f4edb1708c9732f2a1fc9d388ffeb0fba57b6dd1a8806e40689610a8e",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "shadow_shaman_urnaconda": {
+      "id": 1743,
+      "name": "Urnaconda",
+      "heroKey": "npc_dota_hero_shadow_shaman",
+      "cooldowns": [50],
+      "manaCosts": [140],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=27",
+        "sha256": "140257a291c4f0b74cbce9b3b4dff48c6986a5bc7099032d243cb8e06f39f916",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "silencer_glaives_of_wisdom": {
+      "id": 5378,
+      "name": "Glaives of Wisdom",
+      "heroKey": "npc_dota_hero_silencer",
+      "cooldowns": [0],
+      "manaCosts": [12, 14, 16, 18],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75",
+        "sha256": "cf4ab6bcb6b8ff508c6de608291271261e070a76ce06f74d7bfa07ab64d3e815",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "slark_depth_shroud": {
+      "id": 729,
+      "name": "Depth Shroud",
+      "heroKey": "npc_dota_hero_slark",
+      "cooldowns": [75],
+      "manaCosts": [75],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=93",
+        "sha256": "9449a1c4eaa6fa29ecbf5aa3602691a29b2a42fa15756cf4462940b03df87126",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "snapfire_lil_shredder": {
+      "id": 6488,
+      "name": "Lil' Shredder",
+      "heroKey": "npc_dota_hero_snapfire",
+      "cooldowns": [24, 20, 16, 12],
+      "manaCosts": [70, 80, 90, 100],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=128",
+        "sha256": "40106d0fd7db1a3221d5044e4191ba9402cfc54a33f9bfba67e859798ea35c2a",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "snapfire_mortimer_kisses": {
+      "id": 6482,
+      "name": "Mortimer Kisses",
+      "heroKey": "npc_dota_hero_snapfire",
+      "cooldowns": [120, 110, 100],
+      "manaCosts": [125, 150, 175],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=128",
+        "sha256": "40106d0fd7db1a3221d5044e4191ba9402cfc54a33f9bfba67e859798ea35c2a",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "storm_spirit_electric_vortex": {
+      "id": 5099,
+      "name": "Electric Vortex",
+      "heroKey": "npc_dota_hero_storm_spirit",
+      "cooldowns": [20, 18, 16, 14],
+      "manaCosts": [60, 70, 80, 90],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17",
+        "sha256": "15e30184b86d331844d34143c0ba7c3cfb11f539e5f19e55e553a19822558066",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "techies_suicide": {
+      "id": 5601,
+      "name": "Blast Off!",
+      "heroKey": "npc_dota_hero_techies",
+      "cooldowns": [40, 35, 30, 25],
+      "manaCosts": [100, 125, 150, 175],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=105",
+        "sha256": "5aa688c796e04302e53f37b8b4a12ee19ee3c59c642459519bb4ce23b57bd1aa",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "templar_assassin_psionic_trap": {
+      "id": 5197,
+      "name": "Psionic Trap",
+      "heroKey": "npc_dota_hero_templar_assassin",
+      "cooldowns": [11, 8, 5],
+      "manaCosts": [15, 15, 15],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=46",
+        "sha256": "91faea4138893b6514e2f333004b77aedc9c342b81fb1ab27b107321ce146c50",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "terrorblade_sunder": {
+      "id": 5622,
+      "name": "Sunder",
+      "heroKey": "npc_dota_hero_terrorblade",
+      "cooldowns": [110, 75, 40],
+      "manaCosts": [100, 75, 50],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=109",
+        "sha256": "c8234ec013a8c5a6a09e1a420da128c56b9c85da3b8953744ead0c48959b05be",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "tiny_tree_grab": {
+      "id": 5108,
+      "name": "Tree Grab",
+      "heroKey": "npc_dota_hero_tiny",
+      "cooldowns": [16, 13, 10, 7],
+      "manaCosts": [40, 35, 30, 25],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=19",
+        "sha256": "5e1e42e5431c1130635c92486d17ccf7059cb3b122b4f6f1c9fb88a643f7a50a",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "undying_soul_rip": {
+      "id": 5443,
+      "name": "Soul Rip",
+      "heroKey": "npc_dota_hero_undying",
+      "cooldowns": [15, 12, 9, 6],
+      "manaCosts": [80, 90, 100, 110],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=85",
+        "sha256": "08d9cdceeefe21029e7dd447d64db68a16c95d5cc65271bb9d2aea676914021f",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "venomancer_noxious_plague": {
+      "id": 1105,
+      "name": "Noxious Plague",
+      "heroKey": "npc_dota_hero_venomancer",
+      "cooldowns": [100, 90, 80],
+      "manaCosts": [200, 250, 300],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=40",
+        "sha256": "c70d8c09bcfb5b50f87fd3cd99e4b91dc99b0a04eeaad8e0cab6b33a6846e5d0",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "venomancer_snakebite": {
+      "id": 1749,
+      "name": "Snakebite",
+      "heroKey": "npc_dota_hero_venomancer",
+      "cooldowns": [20, 18, 16, 14],
+      "manaCosts": [70, 80, 90, 100],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=40",
+        "sha256": "c70d8c09bcfb5b50f87fd3cd99e4b91dc99b0a04eeaad8e0cab6b33a6846e5d0",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "visage_grave_chill": {
+      "id": 5480,
+      "name": "Grave Chill",
+      "heroKey": "npc_dota_hero_visage",
+      "cooldowns": [17, 15, 13, 11],
+      "manaCosts": [75],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=92",
+        "sha256": "78591b57c037fa88bac748bb48dcc45e893f94ed551ad112ab1b4b04759dbb2e",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "void_spirit_dissimilate": {
+      "id": 6470,
+      "name": "Dissimilate",
+      "heroKey": "npc_dota_hero_void_spirit",
+      "cooldowns": [20, 17, 14, 11],
+      "manaCosts": [120],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=126",
+        "sha256": "74384e2ea12e4de0bce79de0defca7564d28ab31b4abf012950eb28bcfe3328e",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "windrunner_windrun": {
+      "id": 5132,
+      "name": "Windrun",
+      "heroKey": "npc_dota_hero_windrunner",
+      "cooldowns": [14, 13, 12, 11],
+      "manaCosts": [50],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=21",
+        "sha256": "a70cbf92672a6f62f806f50854bb8845b73c00280c5779269a5788c71655d341",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "winter_wyvern_arctic_burn": {
+      "id": 5651,
+      "name": "Arctic Burn",
+      "heroKey": "npc_dota_hero_winter_wyvern",
+      "cooldowns": [29, 26, 23, 20],
+      "manaCosts": [100],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=112",
+        "sha256": "ec36ce95648d7378ebd872f44336734ef9a44fc7607260977eded3606cbbcccb",
+        "retrievedAt": "2026-10-06"
+      }
+    }
+  },
+  "heroes": {
+    "npc_dota_hero_antimage": {
+      "id": 1,
+      "name": "Anti-Mage",
+      "movementSpeed": 315,
+      "attackRange": 150,
+      "attackRate": 1.4,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=1",
+        "sha256": "bd110e5daa54998cb29975abe4b689e0d3673fb75b8293c00c112efc77aff9ae",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_morphling": {
+      "id": 10,
+      "name": "Morphling",
+      "movementSpeed": 285,
+      "attackRange": 350,
+      "attackRate": 1.5,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=10",
+        "sha256": "1a5ecde65e169408c3b08797b530e312b901e4c50e743641e2d098591a39069a",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_tusk": {
+      "id": 100,
+      "name": "Tusk",
+      "movementSpeed": 310,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=100",
+        "sha256": "dd800595bafbc9a4cf3d62036178d94a41697e469d55bea7e26cdaab14b91d70",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_skywrath_mage": {
+      "id": 101,
+      "name": "Skywrath Mage",
+      "movementSpeed": 325,
+      "attackRange": 625,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=101",
+        "sha256": "bf78f529480ca0c987f17860223f4ab7579743fd609be703062d05529a293e96",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_abaddon": {
+      "id": 102,
+      "name": "Abaddon",
+      "movementSpeed": 325,
+      "attackRange": 150,
+      "attackRate": 1.5,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=102",
+        "sha256": "c2ef6e8980b6e88b14a4621eb208b3bde8d0ca81bd57bdbd833fc6afd373c370",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_elder_titan": {
+      "id": 103,
+      "name": "Elder Titan",
+      "movementSpeed": 305,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=103",
+        "sha256": "aea3dec6beb05c20a132598f78da04513a5d72ae9b30481c4a98eb50bf837a80",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_legion_commander": {
+      "id": 104,
+      "name": "Legion Commander",
+      "movementSpeed": 325,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=104",
+        "sha256": "826f0d4d95813fe2007d1216b3681f08b1b3866a73d54d895c4c9bd2cf32c1a2",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_techies": {
+      "id": 105,
+      "name": "Techies",
+      "movementSpeed": 310,
+      "attackRange": 600,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=105",
+        "sha256": "5aa688c796e04302e53f37b8b4a12ee19ee3c59c642459519bb4ce23b57bd1aa",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_ember_spirit": {
+      "id": 106,
+      "name": "Ember Spirit",
+      "movementSpeed": 295,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=106",
+        "sha256": "61c659f9b21a0aaf542746c078a3aebb15d043b90f152b77a660641166ff2bfb",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_earth_spirit": {
+      "id": 107,
+      "name": "Earth Spirit",
+      "movementSpeed": 290,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=107",
+        "sha256": "97c38404824813f295c417357eb5d90889ff25dc9cd228d642d3da58257facf6",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_abyssal_underlord": {
+      "id": 108,
+      "name": "Underlord",
+      "movementSpeed": 290,
+      "attackRange": 200,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=108",
+        "sha256": "238e31e548e335ca33429874933087740d3ba251395a5077724f7f65dfdce5eb",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_terrorblade": {
+      "id": 109,
+      "name": "Terrorblade",
+      "movementSpeed": 315,
+      "attackRange": 150,
+      "attackRate": 1.5,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=109",
+        "sha256": "c8234ec013a8c5a6a09e1a420da128c56b9c85da3b8953744ead0c48959b05be",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_nevermore": {
+      "id": 11,
+      "name": "Shadow Fiend",
+      "movementSpeed": 305,
+      "attackRange": 525,
+      "attackRate": 1.6,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=11",
+        "sha256": "a64012d6b80b7a328d6c63142162a2c1c0450e4e126d23d59c13b45a7e2e3911",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_phoenix": {
+      "id": 110,
+      "name": "Phoenix",
+      "movementSpeed": 280,
+      "attackRange": 500,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=110",
+        "sha256": "f6d2b76bde83b64a6b80077a3a74d37498c76b896eecbffb236e5b9b01cab12a",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_oracle": {
+      "id": 111,
+      "name": "Oracle",
+      "movementSpeed": 295,
+      "attackRange": 625,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=111",
+        "sha256": "8ec3b143770f56d1823948fcf208896649f15f2d356b1d7371321cc5c694f7a3",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_winter_wyvern": {
+      "id": 112,
+      "name": "Winter Wyvern",
+      "movementSpeed": 285,
+      "attackRange": 450,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=112",
+        "sha256": "ec36ce95648d7378ebd872f44336734ef9a44fc7607260977eded3606cbbcccb",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_arc_warden": {
+      "id": 113,
+      "name": "Arc Warden",
+      "movementSpeed": 300,
+      "attackRange": 625,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=113",
+        "sha256": "b776596fed70e36849335ce93f80d3512834f680348047b96dd8f5cd9cde5ce0",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_monkey_king": {
+      "id": 114,
+      "name": "Monkey King",
+      "movementSpeed": 300,
+      "attackRange": 300,
+      "attackRate": 1.6,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=114",
+        "sha256": "d46c266715bdcd902c8e52d1c31d8181c3bef4161d19b42e0d395be02c377cfd",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_dark_willow": {
+      "id": 119,
+      "name": "Dark Willow",
+      "movementSpeed": 290,
+      "attackRange": 475,
+      "attackRate": 1.5,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=119",
+        "sha256": "8fe4966a7e228d3067af10eec9a82d15919640949102e2cd5967076cde3f5cd8",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_phantom_lancer": {
+      "id": 12,
+      "name": "Phantom Lancer",
+      "movementSpeed": 285,
+      "attackRange": 225,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=12",
+        "sha256": "7052f4f9b4487fa48d7a8b066e1b520c00f0acbe042a3d8c22c1538f91ee0eeb",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_pangolier": {
+      "id": 120,
+      "name": "Pangolier",
+      "movementSpeed": 300,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=120",
+        "sha256": "ed68e341f9380bba94a6abad3a5ecc37b9681576aec1e374315ccab5f5ac76ff",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_grimstroke": {
+      "id": 121,
+      "name": "Grimstroke",
+      "movementSpeed": 290,
+      "attackRange": 600,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=121",
+        "sha256": "b20e2f3a8dc102ae7df9558b70dca107d8e6ee5664f18bf184e9aae740eaa38e",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_hoodwink": {
+      "id": 123,
+      "name": "Hoodwink",
+      "movementSpeed": 315,
+      "attackRange": 575,
+      "attackRate": 2,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=123",
+        "sha256": "35aa04dc31ba81ed8b708637b5e16f2dd977993f6cd7c71a7a1789573fed9dbe",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_void_spirit": {
+      "id": 126,
+      "name": "Void Spirit",
+      "movementSpeed": 290,
+      "attackRange": 200,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=126",
+        "sha256": "74384e2ea12e4de0bce79de0defca7564d28ab31b4abf012950eb28bcfe3328e",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_snapfire": {
+      "id": 128,
+      "name": "Snapfire",
+      "movementSpeed": 300,
+      "attackRange": 400,
+      "attackRate": 1.8,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=128",
+        "sha256": "40106d0fd7db1a3221d5044e4191ba9402cfc54a33f9bfba67e859798ea35c2a",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_mars": {
+      "id": 129,
+      "name": "Mars",
+      "movementSpeed": 310,
+      "attackRange": 250,
+      "attackRate": 1.8,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=129",
+        "sha256": "954ecc277bb2abb5e21c1aaad4d0009e21ddaed738fae8b21ad23d2e46a03130",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_puck": {
+      "id": 13,
+      "name": "Puck",
+      "movementSpeed": 290,
+      "attackRange": 550,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=13",
+        "sha256": "aa0cf50cb9b15452922e6118ccb6e21c003d6e57b2b59672f71c03fbc30f1d20",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_ringmaster": {
+      "id": 131,
+      "name": "Ringmaster",
+      "movementSpeed": 310,
+      "attackRange": 575,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=131",
+        "sha256": "5d0bf58eaac7e5f80753d7927dc83fadda2b158202d46c85fc67e563b3cf3641",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_dawnbreaker": {
+      "id": 135,
+      "name": "Dawnbreaker",
+      "movementSpeed": 300,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=135",
+        "sha256": "8807a5a1eb265a58fb83660b7a485180d5c20731d5d1c92c7b00282fc700ed61",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_marci": {
+      "id": 136,
+      "name": "Marci",
+      "movementSpeed": 315,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=136",
+        "sha256": "f631da80f4e9d1b72845f9d7fcb6c5b6436b7c73469d4a7a9cae472cf2e535a0",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_primal_beast": {
+      "id": 137,
+      "name": "Primal Beast",
+      "movementSpeed": 305,
+      "attackRange": 150,
+      "attackRate": 1.8,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=137",
+        "sha256": "4cdaff2a7415baea7dfd0fb00f1d056fa84d04f86a45016ed3a19e278bdd5e36",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_muerta": {
+      "id": 138,
+      "name": "Muerta",
+      "movementSpeed": 295,
+      "attackRange": 575,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=138",
+        "sha256": "6fe5b5c513f109d665c8362b62365ebc4d187540302d9c5ef6bef1ee555bd9c9",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_pudge": {
+      "id": 14,
+      "name": "Pudge",
+      "movementSpeed": 280,
+      "attackRange": 175,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=14",
+        "sha256": "7f168db60e3be1d7b77c34a51d5b05695582ea1b773987f809fe1fd94cc0b374",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_kez": {
+      "id": 145,
+      "name": "Kez",
+      "movementSpeed": 310,
+      "attackRange": 225,
+      "attackRate": 1.9,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=145",
+        "sha256": "1def0d5fd2242c259b4d1b3d6d8aacd1176a898f73c58afd32149f3c0f713947",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_razor": {
+      "id": 15,
+      "name": "Razor",
+      "movementSpeed": 280,
+      "attackRange": 475,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=15",
+        "sha256": "2737960f1a4bf7acb5e61afa8bff57f8b5ff63dc102f35e8a7117f049aac5f73",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_largo": {
+      "id": 155,
+      "name": "Largo",
+      "movementSpeed": 290,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155",
+        "sha256": "a22ff422fa3cebe8c681f5443d07b051407d340a98580ef6036cead456289ec4",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_sand_king": {
+      "id": 16,
+      "name": "Sand King",
+      "movementSpeed": 290,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=16",
+        "sha256": "4331b1e0ec31bb1a887a880cb4e7b14e8a01778ab88377c0e52ad330fde0a7d7",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_storm_spirit": {
+      "id": 17,
+      "name": "Storm Spirit",
+      "movementSpeed": 285,
+      "attackRange": 480,
+      "attackRate": 1.6,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17",
+        "sha256": "15e30184b86d331844d34143c0ba7c3cfb11f539e5f19e55e553a19822558066",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_sven": {
+      "id": 18,
+      "name": "Sven",
+      "movementSpeed": 325,
+      "attackRange": 150,
+      "attackRate": 1.9,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=18",
+        "sha256": "0db5620e2a660cf0a4f5654085597f97fb3edab9c2e01f2f3d18d632ff888a40",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_tiny": {
+      "id": 19,
+      "name": "Tiny",
+      "movementSpeed": 275,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=19",
+        "sha256": "5e1e42e5431c1130635c92486d17ccf7059cb3b122b4f6f1c9fb88a643f7a50a",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_axe": {
+      "id": 2,
+      "name": "Axe",
+      "movementSpeed": 315,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2",
+        "sha256": "47f5fa1582c0ca8249449c9bc36cecee039dc6cc16fdc096d23fef64328134bb",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_vengefulspirit": {
+      "id": 20,
+      "name": "Vengeful Spirit",
+      "movementSpeed": 300,
+      "attackRange": 400,
+      "attackRate": 1.5,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=20",
+        "sha256": "0e7870e8c64c9e078cefe521c9d96553130496abc7e9c0f92d954c409f6016c5",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_windrunner": {
+      "id": 21,
+      "name": "Windranger",
+      "movementSpeed": 285,
+      "attackRange": 600,
+      "attackRate": 1.5,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=21",
+        "sha256": "a70cbf92672a6f62f806f50854bb8845b73c00280c5779269a5788c71655d341",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_zuus": {
+      "id": 22,
+      "name": "Zeus",
+      "movementSpeed": 305,
+      "attackRange": 380,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=22",
+        "sha256": "98db1f635f8beed0870085aa0bcd89e2c61c3085394a7f317bba1c9de68444a6",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_kunkka": {
+      "id": 23,
+      "name": "Kunkka",
+      "movementSpeed": 315,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=23",
+        "sha256": "822a544e7c5f4a7b8f49af98ffb5ac9ae2732aa2143550c451246ff02a9b199f",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_lina": {
+      "id": 25,
+      "name": "Lina",
+      "movementSpeed": 290,
+      "attackRange": 670,
+      "attackRate": 1.6,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25",
+        "sha256": "4f044b61a25a83718b4443849159778830223ca4f746ae5ead81dad7441c23f2",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_lion": {
+      "id": 26,
+      "name": "Lion",
+      "movementSpeed": 290,
+      "attackRange": 600,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=26",
+        "sha256": "0e1f7f5a241f1ca82facfc2a20cc4dce909c0b59932190f1db3b2564e8a4a384",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_shadow_shaman": {
+      "id": 27,
+      "name": "Shadow Shaman",
+      "movementSpeed": 285,
+      "attackRange": 400,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=27",
+        "sha256": "140257a291c4f0b74cbce9b3b4dff48c6986a5bc7099032d243cb8e06f39f916",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_slardar": {
+      "id": 28,
+      "name": "Slardar",
+      "movementSpeed": 300,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=28",
+        "sha256": "7a4ad024b64768a159229fb99c7fe2a831ee275e1f659c8b36419a781d4a6328",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_tidehunter": {
+      "id": 29,
+      "name": "Tidehunter",
+      "movementSpeed": 300,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=29",
+        "sha256": "41f1768a339294f46e9b7837e9341c56ce3d07f80eb095931f5c52e2a6019fd3",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_bane": {
+      "id": 3,
+      "name": "Bane",
+      "movementSpeed": 305,
+      "attackRange": 425,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=3",
+        "sha256": "424f22f65a9b6954cbcb70975b35c2f6a302c8afac34a4b790b3f2d3bd3872c6",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_witch_doctor": {
+      "id": 30,
+      "name": "Witch Doctor",
+      "movementSpeed": 300,
+      "attackRange": 550,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30",
+        "sha256": "54330c77dbf36e804cd6b25784b67b5a2c0c991c7bc5d91b0526b001a39350ad",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_lich": {
+      "id": 31,
+      "name": "Lich",
+      "movementSpeed": 290,
+      "attackRange": 550,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=31",
+        "sha256": "f43ce66c059b65380148172fc6e0db0d0155f51568f58f924969e714a9be328f",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_riki": {
+      "id": 32,
+      "name": "Riki",
+      "movementSpeed": 315,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=32",
+        "sha256": "3a01e12ef08b827395ae73fc84c7cd33b40a019b9dd52a63f1d5cc8589fb68b2",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_enigma": {
+      "id": 33,
+      "name": "Enigma",
+      "movementSpeed": 280,
+      "attackRange": 500,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=33",
+        "sha256": "6092c03c476959741aecb7509e8bb46a7b9b20823fb8917a7443ecf699d065bb",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_tinker": {
+      "id": 34,
+      "name": "Tinker",
+      "movementSpeed": 305,
+      "attackRange": 500,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34",
+        "sha256": "b53a8b50662ae237d01b23aad19f0d6fc707f687fe2de468b51e10de64c81e18",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_sniper": {
+      "id": 35,
+      "name": "Sniper",
+      "movementSpeed": 285,
+      "attackRange": 550,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=35",
+        "sha256": "022377e09d48796db5e5cbc4a319ebc39afb9ba8533a31ffa4e389a3a8f279f5",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_necrolyte": {
+      "id": 36,
+      "name": "Necrophos",
+      "movementSpeed": 280,
+      "attackRange": 500,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=36",
+        "sha256": "a397399debd35abf0cafca2c052de1569c61420ab07d6e39fde2f0c93899a058",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_warlock": {
+      "id": 37,
+      "name": "Warlock",
+      "movementSpeed": 300,
+      "attackRange": 600,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=37",
+        "sha256": "b460601a74a96a032981a1af38d797fc70dd99ee65fae8bfc9bd58266fc6a950",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_beastmaster": {
+      "id": 38,
+      "name": "Beastmaster",
+      "movementSpeed": 305,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=38",
+        "sha256": "03d5175adb067ad4ab483288711ea9917c025117a8ca6c70abaf7f404c3a2379",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_queenofpain": {
+      "id": 39,
+      "name": "Queen of Pain",
+      "movementSpeed": 290,
+      "attackRange": 550,
+      "attackRate": 1.5,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=39",
+        "sha256": "9d942ec86974a0b16b0d4eeba88d3ee69a34bba4ebbbca839aef88702d105f92",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_bloodseeker": {
+      "id": 4,
+      "name": "Bloodseeker",
+      "movementSpeed": 285,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=4",
+        "sha256": "4723ca7f1b6452d8ccfd672dc75ee28eeb0f648c76d1f0f28787e44459abe220",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_venomancer": {
+      "id": 40,
+      "name": "Venomancer",
+      "movementSpeed": 280,
+      "attackRange": 450,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=40",
+        "sha256": "c70d8c09bcfb5b50f87fd3cd99e4b91dc99b0a04eeaad8e0cab6b33a6846e5d0",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_faceless_void": {
+      "id": 41,
+      "name": "Faceless Void",
+      "movementSpeed": 300,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=41",
+        "sha256": "73ee94a3fd2be1ffb6a5d5d038543c056d095200493955c2b2aca71ac6c392ba",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_skeleton_king": {
+      "id": 42,
+      "name": "Wraith King",
+      "movementSpeed": 310,
+      "attackRange": 150,
+      "attackRate": 1.8,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=42",
+        "sha256": "3935f6b5eb5c024b55e299c888daa7bcf1d75428f4a8affd69efd390a4540e26",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_death_prophet": {
+      "id": 43,
+      "name": "Death Prophet",
+      "movementSpeed": 290,
+      "attackRange": 600,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43",
+        "sha256": "a570f01798798f5e718abcd0d967aeac60666f522d235a028cb047b6aa2f559b",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_phantom_assassin": {
+      "id": 44,
+      "name": "Phantom Assassin",
+      "movementSpeed": 310,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=44",
+        "sha256": "7ac1694bbbaaed259cf6f66436a1bc978cb60216e5f7bc3c85e1f33d09afecc9",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_pugna": {
+      "id": 45,
+      "name": "Pugna",
+      "movementSpeed": 325,
+      "attackRange": 630,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=45",
+        "sha256": "8e1982eef2b60777d527526a96a4f65a3e9bd2e31a34789e53a5f4a6d2ed6290",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_templar_assassin": {
+      "id": 46,
+      "name": "Templar Assassin",
+      "movementSpeed": 315,
+      "attackRange": 250,
+      "attackRate": 1.6,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=46",
+        "sha256": "91faea4138893b6514e2f333004b77aedc9c342b81fb1ab27b107321ce146c50",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_viper": {
+      "id": 47,
+      "name": "Viper",
+      "movementSpeed": 275,
+      "attackRange": 575,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=47",
+        "sha256": "078647f23ff65e14a7e1ee257baa64ed3fb6f5240c6e967ef46b7476458d29fd",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_luna": {
+      "id": 48,
+      "name": "Luna",
+      "movementSpeed": 325,
+      "attackRange": 330,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=48",
+        "sha256": "319cd3b2a790b2bc09ed36b3401be498b14be86c5915b18327182d6dd3d7c4aa",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_dragon_knight": {
+      "id": 49,
+      "name": "Dragon Knight",
+      "movementSpeed": 310,
+      "attackRange": 150,
+      "attackRate": 1.6,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=49",
+        "sha256": "ffa770ae93d1268e67f4bd03ea050eb016deb1f27db2049596cb218c03889a1b",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_crystal_maiden": {
+      "id": 5,
+      "name": "Crystal Maiden",
+      "movementSpeed": 280,
+      "attackRange": 600,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=5",
+        "sha256": "d1c3a95b1433d967ec032227aab6a23baa7bc16ec485f7e8faa32ca650c08804",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_dazzle": {
+      "id": 50,
+      "name": "Dazzle",
+      "movementSpeed": 305,
+      "attackRange": 575,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=50",
+        "sha256": "2bd5ac58af625745a1947cd01cea64b6f47dd03bc0b3956e9ce8f806982a9c15",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_rattletrap": {
+      "id": 51,
+      "name": "Clockwerk",
+      "movementSpeed": 310,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=51",
+        "sha256": "7715bcbe6b96070b58a39a822948bdf1251dfc26544062dd2d0dc304d1ab9a8f",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_leshrac": {
+      "id": 52,
+      "name": "Leshrac",
+      "movementSpeed": 325,
+      "attackRange": 575,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=52",
+        "sha256": "3dba21b803ed8d423d0c8405041e2d17cf7be053dba1d0c8fc71ebec273dd2bd",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_furion": {
+      "id": 53,
+      "name": "Nature's Prophet",
+      "movementSpeed": 295,
+      "attackRange": 600,
+      "attackRate": 1.5,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53",
+        "sha256": "fb8ef7935ea30c11f927b1ae1837bb5470262c27e6b55943017399535924a548",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_life_stealer": {
+      "id": 54,
+      "name": "Lifestealer",
+      "movementSpeed": 320,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=54",
+        "sha256": "8477ea4345745c6a83f05d94911f079b172f04afd043d8b5229a137204fdfe2b",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_dark_seer": {
+      "id": 55,
+      "name": "Dark Seer",
+      "movementSpeed": 295,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=55",
+        "sha256": "eb12a9a9d26af89c1c036198160207e305d5e5aec5d4531b855ab618ffe5449a",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_clinkz": {
+      "id": 56,
+      "name": "Clinkz",
+      "movementSpeed": 285,
+      "attackRange": 600,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=56",
+        "sha256": "0b271467d5b827f14ab936b13762a2b498ebe3d21ae77efa6fd5b75a40e9743f",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_omniknight": {
+      "id": 57,
+      "name": "Omniknight",
+      "movementSpeed": 310,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=57",
+        "sha256": "386266d8af51e916d43050f8ca59e917eb5b1406d885dcae24b9d0cd8d0c67d5",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_enchantress": {
+      "id": 58,
+      "name": "Enchantress",
+      "movementSpeed": 320,
+      "attackRange": 575,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=58",
+        "sha256": "d9c88736c13a2d7fb15cb2d9df7036f3debaf55964b07abba18311422f0b1d33",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_huskar": {
+      "id": 59,
+      "name": "Huskar",
+      "movementSpeed": 290,
+      "attackRange": 400,
+      "attackRate": 1.6,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=59",
+        "sha256": "559af7b0b80ce4acaf10617aa3f93e46469ef440f7de53421d0864937e3cae4b",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_drow_ranger": {
+      "id": 6,
+      "name": "Drow Ranger",
+      "movementSpeed": 310,
+      "attackRange": 625,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=6",
+        "sha256": "73204dd32fc78fa741e23c5205859dc9bb0b314cd87ddd16c1db05743ab448eb",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_night_stalker": {
+      "id": 60,
+      "name": "Night Stalker",
+      "movementSpeed": 295,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=60",
+        "sha256": "2a91833020ae3d8f03a7a66e93bd1f9ce840212025ce84f87f47dbb9f13bf718",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_broodmother": {
+      "id": 61,
+      "name": "Broodmother",
+      "movementSpeed": 285,
+      "attackRange": 175,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=61",
+        "sha256": "37bffb54d119d964df85bca5c968f0c9f6c9415cae84508d881b592ee7aa93ad",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_bounty_hunter": {
+      "id": 62,
+      "name": "Bounty Hunter",
+      "movementSpeed": 325,
+      "attackRange": 150,
+      "attackRate": 1.5,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=62",
+        "sha256": "51503174e7818e594cdf76b29e81fb2811d00af79f6bd8bc12a55cd26c7e9511",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_weaver": {
+      "id": 63,
+      "name": "Weaver",
+      "movementSpeed": 275,
+      "attackRange": 425,
+      "attackRate": 1.8,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=63",
+        "sha256": "345b8612bf2229f1e958a78ae583108d422aaa1a0142d5377a6b98ad5ff3dc8c",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_jakiro": {
+      "id": 64,
+      "name": "Jakiro",
+      "movementSpeed": 290,
+      "attackRange": 400,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=64",
+        "sha256": "0d064898b570ac37ba91c33067b9b45e65830348cf97a73d8aa911e15954e935",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_batrider": {
+      "id": 65,
+      "name": "Batrider",
+      "movementSpeed": 310,
+      "attackRange": 400,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=65",
+        "sha256": "ce9dd60a56c89b3cf80ea6dffbb480ebbfd7dcd8b8530ce80dd594d8ed05b058",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_chen": {
+      "id": 66,
+      "name": "Chen",
+      "movementSpeed": 305,
+      "attackRange": 650,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66",
+        "sha256": "fdce30cb6cf5b3b689e531d74c8c96f1142419365991a97e29c5278da39fa184",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_spectre": {
+      "id": 67,
+      "name": "Spectre",
+      "movementSpeed": 295,
+      "attackRange": 150,
+      "attackRate": 1.8,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=67",
+        "sha256": "bc85c8a414ff970c35178faea158c22d618986438231534aed545dd6eca8a338",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_ancient_apparition": {
+      "id": 68,
+      "name": "Ancient Apparition",
+      "movementSpeed": 285,
+      "attackRange": 675,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=68",
+        "sha256": "21e700f8f2457097f8333a07bdb12f738a1805f4a02568e6d5b503e05136c086",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_doom_bringer": {
+      "id": 69,
+      "name": "Doom",
+      "movementSpeed": 290,
+      "attackRange": 175,
+      "attackRate": 1.9,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=69",
+        "sha256": "828f71b1b781daeb20a6d0fdc1b361a826c282aa95772d27f5f962a191405719",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_earthshaker": {
+      "id": 7,
+      "name": "Earthshaker",
+      "movementSpeed": 315,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=7",
+        "sha256": "abb6e8df50096cf66f52726c6a2d7e669c96c5f59b44e465baf5eeb92db88461",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_ursa": {
+      "id": 70,
+      "name": "Ursa",
+      "movementSpeed": 310,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=70",
+        "sha256": "f3e52ec28b422197806b6f0511fd2f79fb7de3b947b6fcf747c6a4608c8d60f1",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_spirit_breaker": {
+      "id": 71,
+      "name": "Spirit Breaker",
+      "movementSpeed": 295,
+      "attackRange": 170,
+      "attackRate": 1.9,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=71",
+        "sha256": "f3ce0b406f7de82bac071071e1605e819dd4d77cd9f13731908dfdd92a13b248",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_gyrocopter": {
+      "id": 72,
+      "name": "Gyrocopter",
+      "movementSpeed": 315,
+      "attackRange": 365,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=72",
+        "sha256": "96a21bda132a8d106a885f83f4daccf7f02ebd2be842b34023f210677ca78c75",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_alchemist": {
+      "id": 73,
+      "name": "Alchemist",
+      "movementSpeed": 290,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=73",
+        "sha256": "1e869c01237a78093f39c23fd4240b477fbaf49be1ca6c25c76be11726cb2815",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_invoker": {
+      "id": 74,
+      "name": "Invoker",
+      "movementSpeed": 280,
+      "attackRange": 600,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74",
+        "sha256": "16bed6792a0c75a2c4ab2248d2c0ac5ea72a5195856e8ed6a2e5a85c2f27177b",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_silencer": {
+      "id": 75,
+      "name": "Silencer",
+      "movementSpeed": 300,
+      "attackRange": 600,
+      "attackRate": 1.6,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75",
+        "sha256": "cf4ab6bcb6b8ff508c6de608291271261e070a76ce06f74d7bfa07ab64d3e815",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_obsidian_destroyer": {
+      "id": 76,
+      "name": "Outworld Destroyer",
+      "movementSpeed": 315,
+      "attackRange": 450,
+      "attackRate": 1.9,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=76",
+        "sha256": "90ec5af3d2d94f47bc529205c075684012bb9889282334eefc52bb2e5e8fbc26",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_lycan": {
+      "id": 77,
+      "name": "Lycan",
+      "movementSpeed": 305,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=77",
+        "sha256": "4e15d4e4aad61724a505c92b83a4796d486e652915613ddea8d7093ede47228f",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_brewmaster": {
+      "id": 78,
+      "name": "Brewmaster",
+      "movementSpeed": 310,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=78",
+        "sha256": "938dc18e954fa12ee39071ba2ae3b61a0cc1df4437fc73cf57eded175e97ca35",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_shadow_demon": {
+      "id": 79,
+      "name": "Shadow Demon",
+      "movementSpeed": 290,
+      "attackRange": 500,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=79",
+        "sha256": "59f5ac4f4edb1708c9732f2a1fc9d388ffeb0fba57b6dd1a8806e40689610a8e",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_juggernaut": {
+      "id": 8,
+      "name": "Juggernaut",
+      "movementSpeed": 305,
+      "attackRange": 150,
+      "attackRate": 1.4,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=8",
+        "sha256": "a1d7fa42b8d02fd1ba35e1f76d4e220d1f409bb4963a9b712b1b3cb971d9878c",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_lone_druid": {
+      "id": 80,
+      "name": "Lone Druid",
+      "movementSpeed": 300,
+      "attackRange": 550,
+      "attackRate": 1.6,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=80",
+        "sha256": "164bb9a6b325a65be9ad615cfe0a4cb04e4c65a42b92f286774115ae0e5c32c5",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_chaos_knight": {
+      "id": 81,
+      "name": "Chaos Knight",
+      "movementSpeed": 325,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=81",
+        "sha256": "04bfadd814b365bb93cd6d7971582c4b7b1957357a95c83be6b248103b339cbb",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_meepo": {
+      "id": 82,
+      "name": "Meepo",
+      "movementSpeed": 310,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=82",
+        "sha256": "18d1ddac6c9026e7c4c7fc88fd626865bc56e8e04d81bd50de29a5b150afc4bf",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_treant": {
+      "id": 83,
+      "name": "Treant Protector",
+      "movementSpeed": 280,
+      "attackRange": 150,
+      "attackRate": 1.9,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=83",
+        "sha256": "b1b453bbdb429cca65abc8eb23d03dcf052160eeda0c497529db1086d3e55f9f",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_ogre_magi": {
+      "id": 84,
+      "name": "Ogre Magi",
+      "movementSpeed": 290,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=84",
+        "sha256": "31165d69eb927113b31a1c17e11c59a94ae88f6620126d6ccd72c5ea6faab43d",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_undying": {
+      "id": 85,
+      "name": "Undying",
+      "movementSpeed": 295,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=85",
+        "sha256": "08d9cdceeefe21029e7dd447d64db68a16c95d5cc65271bb9d2aea676914021f",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_rubick": {
+      "id": 86,
+      "name": "Rubick",
+      "movementSpeed": 290,
+      "attackRange": 550,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=86",
+        "sha256": "f48ede505239c531253fd18a47e23ea4673354b2068fb329004e588ebe2f587c",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_disruptor": {
+      "id": 87,
+      "name": "Disruptor",
+      "movementSpeed": 300,
+      "attackRange": 625,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=87",
+        "sha256": "43c1c7a8b6c75e9e77f1dbf4b93b100db55affd9ad4a68653e2bc0d30b1f5b22",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_nyx_assassin": {
+      "id": 88,
+      "name": "Nyx Assassin",
+      "movementSpeed": 310,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=88",
+        "sha256": "9f105f9be1549e9d328ec8951bfcd139a450f8b2b878fa00d2445888e96884bc",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_naga_siren": {
+      "id": 89,
+      "name": "Naga Siren",
+      "movementSpeed": 330,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=89",
+        "sha256": "2cb865193dbbc22c49fa4e86f52342553134850f10a590f6defa2e248dd8c235",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_mirana": {
+      "id": 9,
+      "name": "Mirana",
+      "movementSpeed": 285,
+      "attackRange": 630,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9",
+        "sha256": "b555bb7ec8e6157f4dbaf591bd92424f0ae77911301b167324d4f63a683c2480",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_keeper_of_the_light": {
+      "id": 90,
+      "name": "Keeper of the Light",
+      "movementSpeed": 310,
+      "attackRange": 600,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=90",
+        "sha256": "0be69cac3537e4387910565019e45b7d2bcc617232277ebe57a4b4be738a67de",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_wisp": {
+      "id": 91,
+      "name": "Io",
+      "movementSpeed": 320,
+      "attackRange": 500,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=91",
+        "sha256": "9708f342dba9bcdff6beeed420328d10ff44f9d45521131c6924fc7ebfd60136",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_visage": {
+      "id": 92,
+      "name": "Visage",
+      "movementSpeed": 285,
+      "attackRange": 600,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=92",
+        "sha256": "78591b57c037fa88bac748bb48dcc45e893f94ed551ad112ab1b4b04759dbb2e",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_slark": {
+      "id": 93,
+      "name": "Slark",
+      "movementSpeed": 300,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=93",
+        "sha256": "9449a1c4eaa6fa29ecbf5aa3602691a29b2a42fa15756cf4462940b03df87126",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_medusa": {
+      "id": 94,
+      "name": "Medusa",
+      "movementSpeed": 275,
+      "attackRange": 600,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=94",
+        "sha256": "fa6123a0efbd3234a3173dd0748c248b92499bf876573585cf59c7c3bd568106",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_troll_warlord": {
+      "id": 95,
+      "name": "Troll Warlord",
+      "movementSpeed": 290,
+      "attackRange": 500,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=95",
+        "sha256": "e73aa7b260b064e02345cf64c45dcac7fc5edb76fc313309e484b50c080febcf",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_centaur": {
+      "id": 96,
+      "name": "Centaur Warrunner",
+      "movementSpeed": 295,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=96",
+        "sha256": "6a7719f31a056e4e3098ff481e6cc85249be1133c3ead4ce8057b345e6c9db65",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_magnataur": {
+      "id": 97,
+      "name": "Magnus",
+      "movementSpeed": 305,
+      "attackRange": 200,
+      "attackRate": 1.8,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=97",
+        "sha256": "0da1d6466dda8181b358fb73a4f6ce96cd6eff591decbfe4aad455f04640656f",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_shredder": {
+      "id": 98,
+      "name": "Timbersaw",
+      "movementSpeed": 280,
+      "attackRange": 150,
+      "attackRate": 1.7,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=98",
+        "sha256": "c96e36b6194c05239f1ef7efd8625458cdd34670aa94d33d1a23f134c1267464",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "npc_dota_hero_bristleback": {
+      "id": 99,
+      "name": "Bristleback",
+      "movementSpeed": 295,
+      "attackRange": 150,
+      "attackRate": 1.8,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=99",
+        "sha256": "b75e66b78e9c5230ce564079c9f98d3e31ac70c8d71b365174c1f52027fc2b32",
+        "retrievedAt": "2026-10-06"
+      }
+    }
+  },
+  "items": {
+    "blink": {
+      "id": 1,
+      "name": "Blink Dagger",
+      "cost": 2250,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=1",
+        "sha256": "e5dde73fedb809a40e9fca91e526a23807cd09ba95da2850a9b50398982f4bd0",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "cyclone": {
+      "id": 100,
+      "name": "Eul's Scepter of Divinity",
+      "cost": 2600,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=100",
+        "sha256": "52985713ad7a524062c0e49b9b15cd9740bb1e237f5e0a8303cd4887a00d88e8",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "force_staff": {
+      "id": 102,
+      "name": "Force Staff",
+      "cost": 2200,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=102",
+        "sha256": "41785479423aebe3ed84a7048a90a1c4972ef7c9320165e9ddde616fe40a81a4",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "dagon": {
+      "id": 104,
+      "name": "Dagon",
+      "cost": 3000,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=104",
+        "sha256": "dc83f16df2800bf921107bf88577205c016b6a5face534a8afe2496208c56f89",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "ultimate_scepter": {
+      "id": 108,
+      "name": "Aghanim's Scepter",
+      "cost": 4200,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=108",
+        "sha256": "fe1ca6df95a3caac333b7e8dc97e191c460b5e16e4719779224fed425ff985dd",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "quelling_blade": {
+      "id": 11,
+      "name": "Quelling Blade",
+      "cost": 100,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=11",
+        "sha256": "08d3ce61248219f9e98db278c5a96dab413edda29cf3540346a979649e3acf84",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "refresher": {
+      "id": 110,
+      "name": "Refresher Orb",
+      "cost": 5000,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=110",
+        "sha256": "a72871529c6fc6f00ad0b21c247f7ff46fc3b4cf4bee40b81c036f82124c3282",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "assault": {
+      "id": 112,
+      "name": "Assault Cuirass",
+      "cost": 5125,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=112",
+        "sha256": "ea4d07f5d334a15f5e13a129b78ce334ffed09438b56e980c80e84b5346052c6",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "heart": {
+      "id": 114,
+      "name": "Heart of Tarrasque",
+      "cost": 5300,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=114",
+        "sha256": "6509607197577c4a8d75a4001a984ee54e771dec82fc721bb80420d0674e59f1",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "black_king_bar": {
+      "id": 116,
+      "name": "Black King Bar",
+      "cost": 4050,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=116",
+        "sha256": "1cc1c5610f0aa4fe6d4c3c7578fa62ddbde207c9d8c63f1c19f1e311bc57a247",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "shivas_guard": {
+      "id": 119,
+      "name": "Shiva's Guard",
+      "cost": 4500,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=119",
+        "sha256": "e843e1dd55acdcbf88fc745ae8f6247212f8d5e5b644a6975f646096ecd53ea3",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "bloodstone": {
+      "id": 121,
+      "name": "Bloodstone",
+      "cost": 4700,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=121",
+        "sha256": "1dec2d3b4bc5982d136f3b21003db0783532d05f2f5184b2aba69a85759bd99a",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "sphere": {
+      "id": 123,
+      "name": "Linken's Sphere",
+      "cost": 4800,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=123",
+        "sha256": "7ccfb1b085ff735dc244cd7efa8c06d4a48dd11196c740136bf74257701f48ff",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "vanguard": {
+      "id": 125,
+      "name": "Vanguard",
+      "cost": 1700,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=125",
+        "sha256": "3c9fee10cd7699e745876848f20476f4cd6abbd0288f329be959dbcb21de9c5d",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "blade_mail": {
+      "id": 127,
+      "name": "Blade Mail",
+      "cost": 2400,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=127",
+        "sha256": "fa0498f01fec0ac67455eaaa4a61d60f08834176f2c222a90a0f70dbca952f5c",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "rapier": {
+      "id": 133,
+      "name": "Divine Rapier",
+      "cost": 5600,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=133",
+        "sha256": "39fd7499f79c9c9e29de96939ef8fc5e930faee174b9d9932032984bd055656b",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "monkey_king_bar": {
+      "id": 135,
+      "name": "Monkey King Bar",
+      "cost": 5000,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=135",
+        "sha256": "132e2323d32d46a5e51f1ca30dc7dfa5bd1346651ec2614d500121fe1596e742",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "radiance": {
+      "id": 137,
+      "name": "Radiance",
+      "cost": 4700,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=137",
+        "sha256": "e7e559e44efb0dd5e6b6df4acfbf72b4c4a3afd8d8c155727b0d332109dc1d42",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "butterfly": {
+      "id": 139,
+      "name": "Butterfly",
+      "cost": 5450,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=139",
+        "sha256": "73d26098010433510758fa11e3b4fa8de4693d2e82bc46b543671ff5abe37b73",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "greater_crit": {
+      "id": 141,
+      "name": "Daedalus",
+      "cost": 5200,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=141",
+        "sha256": "79e6637d30f278983f0164e978fdc44c6c93c9bfa452064d8b067a72ab5badf2",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "basher": {
+      "id": 143,
+      "name": "Skull Basher",
+      "cost": 2875,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=143",
+        "sha256": "b52b39179725c0a47049a50f31cf2d825c147e423e941c1f9dc7051281fc492f",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "manta": {
+      "id": 147,
+      "name": "Manta Style",
+      "cost": 4650,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=147",
+        "sha256": "c59ba62e2207a1cc852110d6899d1f5215ed4f32af4650e421cf9e44216fdeb8",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "armlet": {
+      "id": 151,
+      "name": "Armlet of Mordiggian",
+      "cost": 2500,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=151",
+        "sha256": "a46f4119b8deecfebe311eaabd18eaade660755ffcf96f6c34d031ab31501b27",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "invis_sword": {
+      "id": 152,
+      "name": "Shadow Blade",
+      "cost": 3250,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=152",
+        "sha256": "7126905d49911e8d67194d9fb933b8d1420ac747c8aeb149079505da1a61e4a6",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "sange_and_yasha": {
+      "id": 154,
+      "name": "Sange and Yasha",
+      "cost": 4200,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=154",
+        "sha256": "3a9cc3a153929cebcf5ae885d776dcd95d7956350e51fad8a1c67f7fc9041167",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "satanic": {
+      "id": 156,
+      "name": "Satanic",
+      "cost": 5050,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=156",
+        "sha256": "3254c028accdb752f20c3892d6a77eeed2c24c983fb6a54fe8268c88546892c7",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "mjollnir": {
+      "id": 158,
+      "name": "Mjollnir",
+      "cost": 5500,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=158",
+        "sha256": "c0800cdadcca8130a09ff3e6bce093a840911c3e90a9292462d89a3610e86199",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "skadi": {
+      "id": 160,
+      "name": "Eye of Skadi",
+      "cost": 5900,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=160",
+        "sha256": "763c39e9f9312ec07368c3a740e0923bb60f11c928c4b9b3f7fe909d52d9f982",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "maelstrom": {
+      "id": 166,
+      "name": "Maelstrom",
+      "cost": 2950,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=166",
+        "sha256": "692136fb9864f255e67d587ef28a03d9121be7b0f4779ace0f7f4a5bd15fbcd6",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "desolator": {
+      "id": 168,
+      "name": "Desolator",
+      "cost": 3500,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=168",
+        "sha256": "d4fcef739f0ddeb3a2b216a098f2cb46982be636013373465c8e3aafbebf53f9",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "ethereal_blade": {
+      "id": 176,
+      "name": "Ethereal Blade",
+      "cost": 5200,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=176",
+        "sha256": "428db4cbec4443cf477b5811ab6f757d2d441fdf3089c76c8d7982951292898c",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "soul_ring": {
+      "id": 178,
+      "name": "Soul Ring",
+      "cost": 805,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=178",
+        "sha256": "53a89ac40515561a4e76289635bb8251cfb0aefe4a89af8059e5c6ce52f7d6ad",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "smoke_of_deceit": {
+      "id": 188,
+      "name": "Smoke of Deceit",
+      "cost": 50,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=188",
+        "sha256": "072b1ce80463ed86fa59679d7bb8e7d49510da938583e7a04ad4319e4f993fb0",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "abyssal_blade": {
+      "id": 208,
+      "name": "Abyssal Blade",
+      "cost": 6250,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=208",
+        "sha256": "7e55f89d68e3af54bbcc19334b8233ae29ca1de180f19877fd6c905b20122cbb",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "enchanted_mango": {
+      "id": 216,
+      "name": "Enchanted Mango",
+      "cost": 65,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=216",
+        "sha256": "f90985a2627a24373150bac9880fc463898493172013712fe58c3e6c03f9d04d",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "lotus_orb": {
+      "id": 226,
+      "name": "Lotus Orb",
+      "cost": 3850,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=226",
+        "sha256": "27c5862f7f610d90f610d57d9d274d5d180b6dbf86a7072f4b194c40a7407e59",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "guardian_greaves": {
+      "id": 231,
+      "name": "Guardian Greaves",
+      "cost": 4450,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=231",
+        "sha256": "61327641ad27ca0e5329e09b0dafbd3aba53eb2ef9610d229a898a9c6844e302",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "octarine_core": {
+      "id": 235,
+      "name": "Octarine Core",
+      "cost": 5100,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=235",
+        "sha256": "d2a5ff7689cf9f0ecacf134ff4649047743408f3e8a4cfc9455329098d77b218",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "crimson_guard": {
+      "id": 242,
+      "name": "Crimson Guard",
+      "cost": 3725,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=242",
+        "sha256": "434bb02c600b7b497a91fbda0cd04a35fcea78c40f9e90be32bb7c8c6f0f8797",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "moon_shard": {
+      "id": 247,
+      "name": "Moon Shard",
+      "cost": 4000,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=247",
+        "sha256": "d556e243a2ec3a9d690bff9d8cc97323efb15cbd1bc2e45fde246752f189947e",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "silver_edge": {
+      "id": 249,
+      "name": "Silver Edge",
+      "cost": 5700,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=249",
+        "sha256": "bac9bed04832cc88cfd1d73b80cc2a0d5f41f450e076cdbf764c4eeda548efb0",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "bloodthorn": {
+      "id": 250,
+      "name": "Bloodthorn",
+      "cost": 6400,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=250",
+        "sha256": "2617274aa50753b893b40c21d477028628aa686040826ef530f947435059b441",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "glimmer_cape": {
+      "id": 254,
+      "name": "Glimmer Cape",
+      "cost": 2150,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=254",
+        "sha256": "8bf0ec8f77098ff2b0334fb999300e6746724f9bca8f20d473c926ccbde22171",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "aeon_disk": {
+      "id": 256,
+      "name": "Aeon Disk",
+      "cost": 3000,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=256",
+        "sha256": "f22250d1d7e044162eb42b99ad81100b597a543a0819176cf1ac597fad5c5022",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "hurricane_pike": {
+      "id": 263,
+      "name": "Hurricane Pike",
+      "cost": 4550,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=263",
+        "sha256": "d7786a5c9a7087ea32f0cff73a1c1776b811b7df44fa12657db24f1833cac896",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "kaya_and_sange": {
+      "id": 273,
+      "name": "Kaya and Sange",
+      "cost": 4200,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=273",
+        "sha256": "a20807e188e05847b9eb92887fd0eef072ff3a1a4538bbe915057e72bbf0e14b",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "yasha_and_kaya": {
+      "id": 277,
+      "name": "Yasha and Kaya",
+      "cost": 4200,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=277",
+        "sha256": "dac62c7ef3b58b11b9cc38bb494b67ba754378072931c41f751be22e28ea4210",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "gem": {
+      "id": 30,
+      "name": "Gem of True Sight",
+      "cost": 900,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=30",
+        "sha256": "662369e04d115df965732870412fdc1abc23ab93f15dc8d047d891ab1f0b61a5",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "magic_wand": {
+      "id": 36,
+      "name": "Magic Wand",
+      "cost": 460,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=36",
+        "sha256": "0567bbff930faa955e839e32bf810f189da2023355928b5a95e4fb0e0ffc3961",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "ghost": {
+      "id": 37,
+      "name": "Ghost Scepter",
+      "cost": 1500,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=37",
+        "sha256": "d3f1c545ecc5b86dd23bd859a6e338eea48309f6dd6db74234737b6f5727e6b9",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "clarity": {
+      "id": 38,
+      "name": "Clarity",
+      "cost": 60,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=38",
+        "sha256": "d4e599ed97277931d8bf35f27645b36e676ca6fdbdbb20acab64826ca4d9dcff",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "flask": {
+      "id": 39,
+      "name": "Healing Salve",
+      "cost": 100,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=39",
+        "sha256": "6301798df672b922a4ad1afd7119dae8705b76350f03eeda65e87dfefa7730cf",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "dust": {
+      "id": 40,
+      "name": "Dust of Appearance",
+      "cost": 80,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=40",
+        "sha256": "d9ce6ec51c6d416327ea80b0e1e3b05f631d83160e867313a3739c1980d843de",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "bottle": {
+      "id": 41,
+      "name": "Bottle",
+      "cost": 675,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=41",
+        "sha256": "000ee3a16ee3092243533ce8ac6ec203c7d256595a77bc70e75f98790acf0fd9",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "ward_sentry": {
+      "id": 43,
+      "name": "Sentry Ward",
+      "cost": 50,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=43",
+        "sha256": "b6bcd34e973bb3271db0fa947500bef70f1314f237b30dae566736c5204da3fc",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "tango": {
+      "id": 44,
+      "name": "Tango",
+      "cost": 90,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=44",
+        "sha256": "eb96dd136a84ff9ed36cd56c23d0641d257140b5817bd7d0a0a06460758e4c59",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "travel_boots": {
+      "id": 48,
+      "name": "Boots of Travel",
+      "cost": 2500,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=48",
+        "sha256": "155ea0b10fbf31f295af427bea78270f7c5143359f39dfaad8482f23164c4fcc",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "phase_boots": {
+      "id": 50,
+      "name": "Phase Boots",
+      "cost": 1450,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=50",
+        "sha256": "7102131968a5a76e419ef7e7424299ee3ce9eb34d5adee875d775f0b3a27b9f3",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "falcon_blade": {
+      "id": 596,
+      "name": "Falcon Blade",
+      "cost": 1125,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=596",
+        "sha256": "de8bf34f460cf90c1465502c2056436660a67c46ea938e9f9969ab95059a5ada",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "overwhelming_blink": {
+      "id": 600,
+      "name": "Overwhelming Blink",
+      "cost": 6800,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=600",
+        "sha256": "01f3c9c6d50db3d75f8d920223e3b52ea51617612c57a787c560f3ceef13b9ef",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "swift_blink": {
+      "id": 603,
+      "name": "Swift Blink",
+      "cost": 6800,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=603",
+        "sha256": "3a93e95ed70ac3869040588fe7876e709dca33e592b93567d79f6b77ba6db980",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "arcane_blink": {
+      "id": 604,
+      "name": "Arcane Blink",
+      "cost": 6800,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=604",
+        "sha256": "c8d1170ca834acf8ce9efb136de0a9f6fe17d854c6737d27465e4e4e1d5e75b5",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "aghanims_shard": {
+      "id": 609,
+      "name": "Aghanim's Shard",
+      "cost": 1400,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=609",
+        "sha256": "4bc4322e64262062d7696069396eae08e8c10ef7e381cdb832f24f298d05520e",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "power_treads": {
+      "id": 63,
+      "name": "Power Treads",
+      "cost": 1400,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=63",
+        "sha256": "ed66ee4b6dfc7a164e8638c6b894e027c7aba9e9935f8b4d182b2612e60e1e22",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "hand_of_midas": {
+      "id": 65,
+      "name": "Hand of Midas",
+      "cost": 2200,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=65",
+        "sha256": "57231e905c1c161c0e5bb907ed740075a1640644e58b1c136b7455d573c2bcd3",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "bracer": {
+      "id": 73,
+      "name": "Bracer",
+      "cost": 505,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=73",
+        "sha256": "be51646466f5ddc165a7bee97256c52f38e41a77b53868ece202dd80884efe4e",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "wraith_band": {
+      "id": 75,
+      "name": "Wraith Band",
+      "cost": 505,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=75",
+        "sha256": "fc690bc8f12e0525d7c3f26361e8e419bde35aff92b848efa046335d4ec2a66a",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "null_talisman": {
+      "id": 77,
+      "name": "Null Talisman",
+      "cost": 505,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=77",
+        "sha256": "fffc6536e15521d5bc6e7e18c205ea1c1dea24b9e2aa139a71589ca8e7ff7628",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "mekansm": {
+      "id": 79,
+      "name": "Mekansm",
+      "cost": 1775,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=79",
+        "sha256": "0b3d37c51106a72b48ac584064f8c7b2320026581354dc38b67cd93315b17bfd",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "pipe": {
+      "id": 90,
+      "name": "Pipe of Insight",
+      "cost": 3725,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=90",
+        "sha256": "5a0a4a7ba274a457db53a7e38a372e89086aff373ab8c849adcfea10377e3835",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "sheepstick": {
+      "id": 96,
+      "name": "Scythe of Vyse",
+      "cost": 5200,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=96",
+        "sha256": "5f13e47e6e46214bd437cc2302463cefd6d558aa6de8e0667a2e74e62cb6e2e5",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "orchid": {
+      "id": 98,
+      "name": "Orchid Malevolence",
+      "cost": 3275,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=98",
+        "sha256": "e563823ee9ce2894701f80217382e66060a58700d6b9b2f6a7b39292aa1dba0e",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "travel_boots_2": {
+      "id": 220,
+      "name": "Boots of Travel 2",
+      "cost": 4500,
+      "source": {
+        "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=220",
+        "sha256": "c845cae1edd26f54736004e6269d1e910505b10a9b2f0d82767fbc3f0ac2738c",
+        "retrievedAt": "2026-10-06"
+      }
+    }
+  },
+  "semanticFacts": {
+    "miranaSecondaryMeteorPercent": 80,
+    "snapfirePointBlankBonusPercent": 25,
+    "invokeCooldownReductionPerOrbLevel": 0.3,
+    "cullingBladeDamageType": "pure"
+  }
+}

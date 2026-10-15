@@ -1,0 +1,24 @@
+{
+  "reviewedAt": "2026-10-06",
+  "questionId": "hero-voice:npc_dota_hero_troll_warlord:troll_respawn_10",
+  "heroKey": "npc_dota_hero_troll_warlord",
+  "heroName": "Troll Warlord",
+  "sourceUrl": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/troll_warlord.json",
+  "sourceSha256": "bb3d54c79009e8b9d7d228a275485d263243d9f41c3f1b38aeec4c2edd847c28",
+  "response": {
+    "name": "troll_respawn_10",
+    "fullname": "troll_warlord_troll_respawn_10",
+    "mp3": "/sounds/vo/troll_warlord/troll_respawn_10.mp3",
+    "hero_id": 95,
+    "voice_id": 95,
+    "text": "Being dead only makes me angrier.",
+    "text_simple": " being dead only makes me angrier ",
+    "criteria": "Respawn Istroll_warlord",
+    "pretty_criteria": "Respawning"
+  },
+  "audioUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_respawn_10.mp3",
+  "audioSha256": "c7f469c9be5cd351736f0a0e386cd22c5b804ceb0ef850c932df8377a7ee69cd",
+  "audioBytes": 31474,
+  "integratedLoudnessLufs": -17.77,
+  "truePeakDbfs": -1.39
+}
