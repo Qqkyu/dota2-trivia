@@ -1,6 +1,6 @@
 {
   "patch": "7.41f",
-  "contentVersion": "7.41f-variety-7",
+  "contentVersion": "7.41f-variety-8",
   "snapshotDate": "2026-09-15",
   "questionCount": 1036,
   "categoryCounts": {
@@ -48,5 +48,12 @@
     "verifiedAssetCount": 504,
     "verifiedAudioCount": 123,
     "rejectedQuestionIds": []
+  },
+  "primaryReview": {
+    "reviewedAt": "2026-10-06",
+    "latestPublishedPatch": "7.41f",
+    "evidence": "docs/audits/2026-10-06/deep-review/README.md",
+    "sourceManifest": "docs/audits/2026-10-06/deep-review/sources/valve-api-manifest.json",
+    "limitation": "Current official API responses do not include a patch or client build identifier. Audio listening and live-client behavior are separate checks."
   }
 }

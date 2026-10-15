@@ -1,11 +1,7 @@
 {
   "patch": "7.41f",
   "clientBuild": "6882",
-  "reviewedAt": "2026-08-09",
-  "source": {
-    "label": "Dota 2 live-client and OpenDota localization audit",
-    "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
-  },
+  "reviewedAt": "2026-10-06",
   "upgrades": [
     {
       "heroKey": "npc_dota_hero_antimage",
@@ -13,7 +9,13 @@
       "upgradeMode": "existing",
       "abilityName": "Blink",
       "clientAbilityKey": "antimage_blink",
-      "effect": "After using a mobility spell, the next attack within five seconds burns extra maximum mana and temporarily prevents mana gain."
+      "effect": "After using a mobility spell, the next attack within five seconds burns extra maximum mana and temporarily prevents mana gain.",
+      "source": {
+        "label": "Valve hero data: Anti-Mage",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=1"
+      },
+      "sourceSha256": "bd110e5daa54998cb29975abe4b689e0d3673fb75b8293c00c112efc77aff9ae",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_axe",
@@ -21,7 +23,13 @@
       "upgradeMode": "existing",
       "abilityName": "Counter Helix",
       "clientAbilityKey": "axe_counter_helix",
-      "effect": "The passive counter loses its cooldown, advances on the caster's own attacks, and applies stacking outgoing attack-damage reduction."
+      "effect": "The passive counter loses its cooldown, advances on the caster's attacks, and reduces affected enemies' attack damage against the caster.",
+      "source": {
+        "label": "Valve hero data: Axe",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2"
+      },
+      "sourceSha256": "47f5fa1582c0ca8249449c9bc36cecee039dc6cc16fdc096d23fef64328134bb",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_bane",
@@ -29,7 +37,13 @@
       "upgradeMode": "existing",
       "abilityName": "Fiend's Grip",
       "clientAbilityKey": "bane_fiends_grip",
-      "effect": "Creates two fragile, uncontrollable illusions that channel the same disable. Their damage does not stack."
+      "effect": "Creates two fragile, uncontrollable illusions that channel the same disable. Their damage does not stack.",
+      "source": {
+        "label": "Valve hero data: Bane",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=3"
+      },
+      "sourceSha256": "424f22f65a9b6954cbcb70975b35c2f6a302c8afac34a4b790b3f2d3bd3872c6",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_crystal_maiden",
@@ -37,7 +51,13 @@
       "upgradeMode": "new",
       "abilityName": "Crystal Clone",
       "clientAbilityKey": "crystal_maiden_crystal_clone",
-      "effect": "Slides in a direction, leaving a projectile-disjointing clone that shatters into an area disable when damaged or timed out."
+      "effect": "Slides away, disjointing incoming projectiles and leaving a clone that shatters into an area disable when damaged or expired.",
+      "source": {
+        "label": "Valve hero data: Crystal Maiden",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=5"
+      },
+      "sourceSha256": "d1c3a95b1433d967ec032227aab6a23baa7bc16ec485f7e8faa32ca650c08804",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_drow_ranger",
@@ -45,7 +65,13 @@
       "upgradeMode": "new",
       "abilityName": "Glacier",
       "clientAbilityKey": "drow_ranger_glacier",
-      "effect": "Creates an icy hill that knocks enemies away and grants high-ground bonuses, flying vision, and extra ranged attack range."
+      "effect": "Creates an icy hill that knocks enemies away, grants flying vision, and increases the attack range of ranged allies.",
+      "source": {
+        "label": "Valve hero data: Drow Ranger",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=6"
+      },
+      "sourceSha256": "73204dd32fc78fa741e23c5205859dc9bb0b314cd87ddd16c1db05743ab448eb",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_earthshaker",
@@ -53,7 +79,13 @@
       "upgradeMode": "existing",
       "abilityName": "Fissure",
       "clientAbilityKey": "earthshaker_fissure",
-      "effect": "Casting another ability releases a shorter stun along an existing terrain barrier."
+      "effect": "Casting another ability releases a shorter stun along an existing terrain barrier.",
+      "source": {
+        "label": "Valve hero data: Earthshaker",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=7"
+      },
+      "sourceSha256": "abb6e8df50096cf66f52726c6a2d7e669c96c5f59b44e465baf5eeb92db88461",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_mirana",
@@ -61,7 +93,13 @@
       "upgradeMode": "existing",
       "abilityName": "Sacred Arrow",
       "clientAbilityKey": "mirana_arrow",
-      "effect": "The projectile calls down additional area damage along its flight path and a weaker second burst on impact."
+      "effect": "The projectile calls down additional area damage along its flight path and a weaker second burst on impact.",
+      "source": {
+        "label": "Valve hero data: Mirana",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9"
+      },
+      "sourceSha256": "b555bb7ec8e6157f4dbaf591bd92424f0ae77911301b167324d4f63a683c2480",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_morphling",
@@ -69,7 +107,13 @@
       "upgradeMode": "existing",
       "abilityName": "Morph",
       "clientAbilityKey": "morphling_replicate",
-      "effect": "Creates a strong illusion of a target hero that can cast basic abilities; recasting swaps the caster into its position."
+      "effect": "Alt-cast creates a strong illusion of a target hero that can cast basic abilities; toggling again replaces it with the caster.",
+      "source": {
+        "label": "Valve hero data: Morphling",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=10"
+      },
+      "sourceSha256": "1a5ecde65e169408c3b08797b530e312b901e4c50e743641e2d098591a39069a",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_nevermore",
@@ -77,7 +121,13 @@
       "upgradeMode": "existing",
       "abilityName": "Requiem of Souls",
       "clientAbilityKey": "nevermore_requiem",
-      "effect": "The expanding ultimate returns to its caster, healing for all damage dealt on the way back."
+      "effect": "The expanding ultimate returns to its caster, healing for all damage dealt on the way back.",
+      "source": {
+        "label": "Valve hero data: Shadow Fiend",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=11"
+      },
+      "sourceSha256": "a64012d6b80b7a328d6c63142162a2c1c0450e4e126d23d59c13b45a7e2e3911",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_phantom_lancer",
@@ -85,7 +135,13 @@
       "upgradeMode": "existing",
       "abilityName": "Juxtapose",
       "clientAbilityKey": "phantom_lancer_juxtapose",
-      "effect": "Activating an illusion passive makes the caster invisible, grants movement speed, and leaves a duplicate image behind."
+      "effect": "Activating an illusion passive makes the caster invisible, grants movement speed, and leaves a duplicate image behind.",
+      "source": {
+        "label": "Valve hero data: Phantom Lancer",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=12"
+      },
+      "sourceSha256": "7052f4f9b4487fa48d7a8b066e1b520c00f0acbe042a3d8c22c1538f91ee0eeb",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_puck",
@@ -93,7 +149,13 @@
       "upgradeMode": "existing",
       "abilityName": "Dream Coil",
       "clientAbilityKey": "puck_dream_coil",
-      "effect": "All tethered enemies are attacked at 90% of the caster's attack rate, including while stunned after breaking the tether."
+      "effect": "All tethered enemies are attacked at 90% of the caster's attack rate, including while stunned after breaking the tether.",
+      "source": {
+        "label": "Valve hero data: Puck",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=13"
+      },
+      "sourceSha256": "aa0cf50cb9b15452922e6118ccb6e21c003d6e57b2b59672f71c03fbc30f1d20",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_pudge",
@@ -101,7 +163,13 @@
       "upgradeMode": "existing",
       "abilityName": "Meat Hook",
       "clientAbilityKey": "pudge_meat_hook",
-      "effect": "The hook deals bonus damage based on enemy pull distance, while hooking an ally halves its cooldown."
+      "effect": "The hook deals bonus damage based on enemy pull distance, while hooking an ally halves its cooldown.",
+      "source": {
+        "label": "Valve hero data: Pudge",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=14"
+      },
+      "sourceSha256": "7f168db60e3be1d7b77c34a51d5b05695582ea1b773987f809fe1fd94cc0b374",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_razor",
@@ -109,7 +177,13 @@
       "upgradeMode": "existing",
       "abilityName": "Eye of the Storm",
       "clientAbilityKey": "razor_eye_of_the_storm",
-      "effect": "The storm strikes two targets at once and can damage towers, barracks, and the Ancient."
+      "effect": "The storm strikes two targets at once and can damage towers, barracks, and the Ancient.",
+      "source": {
+        "label": "Valve hero data: Razor",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=15"
+      },
+      "sourceSha256": "2737960f1a4bf7acb5e61afa8bff57f8b5ff63dc102f35e8a7117f049aac5f73",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_storm_spirit",
@@ -117,7 +191,13 @@
       "upgradeMode": "existing",
       "abilityName": "Overload",
       "clientAbilityKey": "storm_spirit_overload",
-      "effect": "Activating the attack passive grants the caster and nearby allies three empowered attacks plus bonus attack speed."
+      "effect": "Activating the attack passive grants the caster and nearby allies three empowered attacks plus bonus attack speed.",
+      "source": {
+        "label": "Valve hero data: Storm Spirit",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17"
+      },
+      "sourceSha256": "15e30184b86d331844d34143c0ba7c3cfb11f539e5f19e55e553a19822558066",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_sven",
@@ -125,7 +205,13 @@
       "upgradeMode": "existing",
       "abilityName": "Storm Hammer",
       "clientAbilityKey": "sven_storm_bolt",
-      "effect": "The projectile gains cast range and a basic dispel; alt-cast adds damage and carries the caster alongside it."
+      "effect": "The projectile gains cast range and a basic dispel; alt-cast adds damage and carries the caster alongside it.",
+      "source": {
+        "label": "Valve hero data: Sven",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=18"
+      },
+      "sourceSha256": "0db5620e2a660cf0a4f5654085597f97fb3edab9c2e01f2f3d18d632ff888a40",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_tiny",
@@ -133,7 +219,13 @@
       "upgradeMode": "new",
       "abilityName": "Tree Volley",
       "clientAbilityKey": "tiny_tree_channel",
-      "effect": "Channels to hurl nearby trees toward an area, applying the caster's attacks and tree-throw bonuses."
+      "effect": "Channels to hurl nearby trees toward an area, applying the caster's attacks and tree-throw bonuses.",
+      "source": {
+        "label": "Valve hero data: Tiny",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=19"
+      },
+      "sourceSha256": "5e1e42e5431c1130635c92486d17ccf7059cb3b122b4f6f1c9fb88a643f7a50a",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_vengefulspirit",
@@ -141,7 +233,13 @@
       "upgradeMode": "existing",
       "abilityName": "Vengeance Aura",
       "clientAbilityKey": "vengefulspirit_command_aura",
-      "effect": "Death creates a full-damage spell-casting illusion; respawning while it survives moves the hero to the illusion."
+      "effect": "Death creates a full-damage spell-casting illusion; respawning while it survives moves the hero to the illusion.",
+      "source": {
+        "label": "Valve hero data: Vengeful Spirit",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=20"
+      },
+      "sourceSha256": "0e7870e8c64c9e078cefe521c9d96553130496abc7e9c0f92d954c409f6016c5",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_windrunner",
@@ -149,7 +247,13 @@
       "upgradeMode": "new",
       "abilityName": "Gale Force",
       "clientAbilityKey": "windrunner_gale_force",
-      "effect": "Creates a vector-targeted wind that pushes every enemy in its area toward the chosen direction."
+      "effect": "Creates a vector-targeted wind that pushes every enemy in its area toward the chosen direction.",
+      "source": {
+        "label": "Valve hero data: Windranger",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=21"
+      },
+      "sourceSha256": "a70cbf92672a6f62f806f50854bb8845b73c00280c5779269a5788c71655d341",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_zuus",
@@ -157,7 +261,13 @@
       "upgradeMode": "new",
       "abilityName": "Nimbus",
       "clientAbilityKey": "zuus_cloud",
-      "effect": "Creates a global-range storm cloud that repeatedly casts a lightning spell on nearby enemies."
+      "effect": "Creates a global-range storm cloud that repeatedly casts a lightning spell on nearby enemies.",
+      "source": {
+        "label": "Valve hero data: Zeus",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=22"
+      },
+      "sourceSha256": "98db1f635f8beed0870085aa0bcd89e2c61c3085394a7f317bba1c9de68444a6",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_kunkka",
@@ -165,7 +275,13 @@
       "upgradeMode": "existing",
       "abilityName": "Ghostship",
       "clientAbilityKey": "kunkka_ghostship",
-      "effect": "The ultimate summons two ships in sequence, each firing cannonball waves from both sides for partial damage."
+      "effect": "The ultimate summons two ships in sequence, each firing cannonball waves from both sides for partial damage.",
+      "source": {
+        "label": "Valve hero data: Kunkka",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=23"
+      },
+      "sourceSha256": "822a544e7c5f4a7b8f49af98ffb5ac9ae2732aa2143550c451246ff02a9b199f",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_lina",
@@ -173,7 +289,13 @@
       "upgradeMode": "new",
       "abilityName": "Flame Cloak",
       "clientAbilityKey": "lina_flame_cloak",
-      "effect": "Grants unobstructed movement, spell amplification, magic resistance, and maximum stacks of an attack-speed passive."
+      "effect": "Grants unobstructed movement, spell amplification, magic resistance, and maximum stacks of an attack-speed passive.",
+      "source": {
+        "label": "Valve hero data: Lina",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25"
+      },
+      "sourceSha256": "4f044b61a25a83718b4443849159778830223ca4f746ae5ead81dad7441c23f2",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_lion",
@@ -181,7 +303,13 @@
       "upgradeMode": "existing",
       "abilityName": "Mana Drain",
       "clientAbilityKey": "lion_mana_drain",
-      "effect": "The channel affects two additional enemies, gains break distance, and grants debuff immunity with magic resistance."
+      "effect": "The channel affects two additional enemies, gains break distance, and grants debuff immunity with magic resistance.",
+      "source": {
+        "label": "Valve hero data: Lion",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=26"
+      },
+      "sourceSha256": "0e1f7f5a241f1ca82facfc2a20cc4dce909c0b59932190f1db3b2564e8a4a384",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_shadow_shaman",
@@ -189,7 +317,13 @@
       "upgradeMode": "existing",
       "abilityName": "Shackles",
       "clientAbilityKey": "shadow_shaman_shackles",
-      "effect": "The channel can target allies and friendly wards; affected units repeatedly emit radial damage around themselves."
+      "effect": "The channel can target allies or summoned serpent wards, making affected units repeatedly emit radial damage without disabling allied targets.",
+      "source": {
+        "label": "Valve hero data: Shadow Shaman",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=27"
+      },
+      "sourceSha256": "140257a291c4f0b74cbce9b3b4dff48c6986a5bc7099032d243cb8e06f39f916",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_tidehunter",
@@ -197,7 +331,13 @@
       "upgradeMode": "new",
       "abilityName": "Dead in the Water",
       "clientAbilityKey": "tidehunter_dead_in_the_water",
-      "effect": "Attaches a heavy anchor that leashes an enemy; four hero attacks destroy it."
+      "effect": "Attaches a heavy anchor that leashes an enemy hero; four hero attacks destroy it.",
+      "source": {
+        "label": "Valve hero data: Tidehunter",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=29"
+      },
+      "sourceSha256": "41f1768a339294f46e9b7837e9341c56ce3d07f80eb095931f5c52e2a6019fd3",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_witch_doctor",
@@ -205,7 +345,13 @@
       "upgradeMode": "new",
       "abilityName": "Voodoo Switcheroo",
       "clientAbilityKey": "witch_doctor_voodoo_switcheroo",
-      "effect": "Temporarily transforms the caster into a hidden, slower-attacking version of their own summoned ward."
+      "effect": "Temporarily transforms the caster into a hidden, slower-attacking version of their own summoned ward.",
+      "source": {
+        "label": "Valve hero data: Witch Doctor",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30"
+      },
+      "sourceSha256": "54330c77dbf36e804cd6b25784b67b5a2c0c991c7bc5d91b0526b001a39350ad",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_lich",
@@ -213,7 +359,13 @@
       "upgradeMode": "existing",
       "abilityName": "Sinister Gaze",
       "clientAbilityKey": "lich_sinister_gaze",
-      "effect": "The channel becomes area-targeted and allows its caster to use other abilities while channeling."
+      "effect": "The channel becomes area-targeted and allows its caster to use other abilities while channeling.",
+      "source": {
+        "label": "Valve hero data: Lich",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=31"
+      },
+      "sourceSha256": "f43ce66c059b65380148172fc6e0db0d0155f51568f58f924969e714a9be328f",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_riki",
@@ -221,7 +373,13 @@
       "upgradeMode": "existing",
       "abilityName": "Tricks of the Trade",
       "clientAbilityKey": "riki_tricks_of_the_trade",
-      "effect": "The caster can hide inside an ally during the attack sequence, granting that ally movement speed and extending the effect."
+      "effect": "The caster can hide inside an ally during the attack sequence, granting that ally movement speed and extending the effect.",
+      "source": {
+        "label": "Valve hero data: Riki",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=32"
+      },
+      "sourceSha256": "3a01e12ef08b827395ae73fc84c7cd33b40a019b9dd52a63f1d5cc8589fb68b2",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_enigma",
@@ -229,7 +387,13 @@
       "upgradeMode": "existing",
       "abilityName": "Malefice",
       "clientAbilityKey": "enigma_malefice",
-      "effect": "Every stun pulse creates an uncontrollable summoned unit beside the target and lasts slightly longer."
+      "effect": "Each stun pulse lasts longer and creates a summoned unit beside the target; these units cannot multiply.",
+      "source": {
+        "label": "Valve hero data: Enigma",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=33"
+      },
+      "sourceSha256": "6092c03c476959741aecb7509e8bb46a7b9b20823fb8917a7443ecf699d065bb",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_tinker",
@@ -237,7 +401,13 @@
       "upgradeMode": "new",
       "abilityName": "Warp Flare",
       "clientAbilityKey": "tinker_warp_grenade",
-      "effect": "Teleports an enemy farther away, then roots them and temporarily reduces both attack and cast range."
+      "effect": "Teleports an enemy farther away, then roots them and temporarily reduces both attack and cast range.",
+      "source": {
+        "label": "Valve hero data: Tinker",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34"
+      },
+      "sourceSha256": "b53a8b50662ae237d01b23aad19f0d6fc707f687fe2de468b51e10de64c81e18",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_sniper",
@@ -245,7 +415,13 @@
       "upgradeMode": "new",
       "abilityName": "Concussive Grenade",
       "clientAbilityKey": "sniper_concussive_grenade",
-      "effect": "Launches an area grenade that damages and disarms enemies while knocking both them and the caster backward."
+      "effect": "Launches an area grenade that damages and disarms enemies while knocking both them and the caster backward.",
+      "source": {
+        "label": "Valve hero data: Sniper",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=35"
+      },
+      "sourceSha256": "022377e09d48796db5e5cbc4a319ebc39afb9ba8533a31ffa4e389a3a8f279f5",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_necrolyte",
@@ -253,7 +429,13 @@
       "upgradeMode": "new",
       "abilityName": "Death Seeker",
       "clientAbilityKey": "necrolyte_death_seeker",
-      "effect": "Transforms the caster into a traveling healing-and-damage pulse that spreads to nearby units after reaching its target."
+      "effect": "Transforms the caster into a traveling healing-and-damage pulse that spreads to nearby units after reaching its target.",
+      "source": {
+        "label": "Valve hero data: Necrophos",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=36"
+      },
+      "sourceSha256": "a397399debd35abf0cafca2c052de1569c61420ab07d6e39fde2f0c93899a058",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_beastmaster",
@@ -261,7 +443,13 @@
       "upgradeMode": "new",
       "abilityName": "Drums of Slom",
       "clientAbilityKey": "beastmaster_drums_of_slom",
-      "effect": "Nearby controlled-unit attacks accelerate repeating drumbeats that damage enemies and heal the caster's army."
+      "effect": "Nearby controlled-unit attacks accelerate repeating drumbeats that damage enemies and heal the caster's army.",
+      "source": {
+        "label": "Valve hero data: Beastmaster",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=38"
+      },
+      "sourceSha256": "03d5175adb067ad4ab483288711ea9917c025117a8ca6c70abaf7f404c3a2379",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_queenofpain",
@@ -269,7 +457,13 @@
       "upgradeMode": "existing",
       "abilityName": "Blink",
       "clientAbilityKey": "queenofpain_blink",
-      "effect": "A short-range teleport creates damaging, silencing bursts at both the departure and arrival points."
+      "effect": "A short-range teleport creates damaging, silencing bursts at both the departure and arrival points.",
+      "source": {
+        "label": "Valve hero data: Queen of Pain",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=39"
+      },
+      "sourceSha256": "9d942ec86974a0b16b0d4eeba88d3ee69a34bba4ebbbca839aef88702d105f92",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_venomancer",
@@ -277,7 +471,13 @@
       "upgradeMode": "existing",
       "abilityName": "Noxious Plague",
       "clientAbilityKey": "venomancer_noxious_plague",
-      "effect": "The infection lowers magic resistance, spreads with full impact damage from hero targets, and has a much shorter cooldown."
+      "effect": "The infection lowers magic resistance, spreads with full impact damage from hero targets, and has a much shorter cooldown.",
+      "source": {
+        "label": "Valve hero data: Venomancer",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=40"
+      },
+      "sourceSha256": "c70d8c09bcfb5b50f87fd3cd99e4b91dc99b0a04eeaad8e0cab6b33a6846e5d0",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_faceless_void",
@@ -285,7 +485,13 @@
       "upgradeMode": "new",
       "abilityName": "Reverse Time Walk",
       "clientAbilityKey": "faceless_void_time_walk_reverse",
-      "effect": "For 1.5 seconds after landing a mobility spell, recast it to return to the previous location without reverting health."
+      "effect": "For 1.5 seconds after a mobility spell, a second ability returns the caster to the previous location without changing health.",
+      "source": {
+        "label": "Valve hero data: Faceless Void",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=41"
+      },
+      "sourceSha256": "73ee94a3fd2be1ffb6a5d5d038543c056d095200493955c2b2aca71ac6c392ba",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_death_prophet",
@@ -293,7 +499,13 @@
       "upgradeMode": "existing",
       "abilityName": "Exorcism",
       "clientAbilityKey": "death_prophet_exorcism",
-      "effect": "Spells and attacks send an extra spirit through the target, dealing bonus damage before returning with healing."
+      "effect": "Spells and attacks send an extra spirit through the target, dealing bonus damage before returning with healing.",
+      "source": {
+        "label": "Valve hero data: Death Prophet",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43"
+      },
+      "sourceSha256": "a570f01798798f5e718abcd0d967aeac60666f522d235a028cb047b6aa2f559b",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_phantom_assassin",
@@ -301,7 +513,13 @@
       "upgradeMode": "new",
       "abilityName": "Fan of Knives",
       "clientAbilityKey": "phantom_assassin_fan_of_knives",
-      "effect": "Releases blades in every direction, damaging enemies by maximum health and applying Break."
+      "effect": "Releases blades in every direction, damaging enemies by maximum health and applying Break.",
+      "source": {
+        "label": "Valve hero data: Phantom Assassin",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=44"
+      },
+      "sourceSha256": "7ac1694bbbaaed259cf6f66436a1bc978cb60216e5f7bc3c85e1f33d09afecc9",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_pugna",
@@ -309,7 +527,13 @@
       "upgradeMode": "existing",
       "abilityName": "Life Drain",
       "clientAbilityKey": "pugna_life_drain",
-      "effect": "Channeling through the caster's ward refracts the effect to every enemy hero nearby at reduced strength."
+      "effect": "Channeling through the caster's ward refracts the effect to every enemy hero nearby at reduced strength.",
+      "source": {
+        "label": "Valve hero data: Pugna",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=45"
+      },
+      "sourceSha256": "8e1982eef2b60777d527526a96a4f65a3e9bd2e31a34789e53a5f4a6d2ed6290",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_viper",
@@ -317,7 +541,13 @@
       "upgradeMode": "new",
       "abilityName": "Nosedive",
       "clientAbilityKey": "viper_nose_dive",
-      "effect": "Slams into an area, creates a damaging zone, and applies a defensive poison passive to nearby enemies."
+      "effect": "Slams into an area, creates a damaging zone, and applies a defensive poison passive to nearby enemies.",
+      "source": {
+        "label": "Valve hero data: Viper",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=47"
+      },
+      "sourceSha256": "078647f23ff65e14a7e1ee257baa64ed3fb6f5240c6e967ef46b7476458d29fd",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_luna",
@@ -325,7 +555,13 @@
       "upgradeMode": "existing",
       "abilityName": "Eclipse",
       "clientAbilityKey": "luna_eclipse",
-      "effect": "The ultimate can follow an allied target or affect an area, while producing more beams without a per-unit limit."
+      "effect": "The ultimate can follow an allied target or affect an area, while producing more beams without a per-unit limit.",
+      "source": {
+        "label": "Valve hero data: Luna",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=48"
+      },
+      "sourceSha256": "319cd3b2a790b2bc09ed36b3401be498b14be86c5915b18327182d6dd3d7c4aa",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_dragon_knight",
@@ -333,7 +569,13 @@
       "upgradeMode": "new",
       "abilityName": "Fireball",
       "clientAbilityKey": "dragon_knight_fireball",
-      "effect": "Ignites a ground area, dealing lingering damage over time; its cast range is shorter while the caster is melee."
+      "effect": "Ignites a ground area, dealing lingering damage over time; its cast range is shorter while the caster is melee.",
+      "source": {
+        "label": "Valve hero data: Dragon Knight",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=49"
+      },
+      "sourceSha256": "ffa770ae93d1268e67f4bd03ea050eb016deb1f27db2049596cb218c03889a1b",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_dazzle",
@@ -341,7 +583,13 @@
       "upgradeMode": "existing",
       "abilityName": "Shadow Wave",
       "clientAbilityKey": "dazzle_shadow_wave",
-      "effect": "The bouncing heal can target enemies, damaging them, healing nearby allies, and triggering an attack against each enemy bounce."
+      "effect": "The bouncing heal can target enemies, damaging them, healing nearby allies, and making the caster attack each enemy hit.",
+      "source": {
+        "label": "Valve hero data: Dazzle",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=50"
+      },
+      "sourceSha256": "2bd5ac58af625745a1947cd01cea64b6f47dd03bc0b3956e9ce8f806982a9c15",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_rattletrap",
@@ -349,7 +597,13 @@
       "upgradeMode": "new",
       "abilityName": "Jetpack",
       "clientAbilityKey": "rattletrap_jetpack",
-      "effect": "Grants flying movement, flying vision, and speed but prevents attacking and severely limits turning."
+      "effect": "Grants flying movement, flying vision, and speed but prevents attacking and severely limits turning.",
+      "source": {
+        "label": "Valve hero data: Clockwerk",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=51"
+      },
+      "sourceSha256": "7715bcbe6b96070b58a39a822948bdf1251dfc26544062dd2d0dc304d1ab9a8f",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_leshrac",
@@ -357,7 +611,13 @@
       "upgradeMode": "new",
       "abilityName": "Nihilism",
       "clientAbilityKey": "leshrac_greater_lightning_storm",
-      "effect": "Turns the caster and nearby enemies ethereal, slowing enemies and amplifying their incoming magic damage without penalizing the caster."
+      "effect": "Turns the caster and nearby enemies ethereal; enemies move slower and take more magic damage, while the caster moves faster.",
+      "source": {
+        "label": "Valve hero data: Leshrac",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=52"
+      },
+      "sourceSha256": "3dba21b803ed8d423d0c8405041e2d17cf7be053dba1d0c8fc71ebec273dd2bd",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_furion",
@@ -365,7 +625,13 @@
       "upgradeMode": "new",
       "abilityName": "Curse of the Oldgrowth",
       "clientAbilityKey": "furion_curse_of_the_forest",
-      "effect": "Curses all nearby enemy heroes, revealing them through fog and scaling damage and slow with surrounding trees."
+      "effect": "Curses all nearby enemy heroes, revealing them through fog and scaling damage and slow with surrounding trees.",
+      "source": {
+        "label": "Valve hero data: Nature's Prophet",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53"
+      },
+      "sourceSha256": "fb8ef7935ea30c11f927b1ae1837bb5470262c27e6b55943017399535924a548",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_life_stealer",
@@ -373,7 +639,13 @@
       "upgradeMode": "existing",
       "abilityName": "Infest",
       "clientAbilityKey": "life_stealer_infest",
-      "effect": "Can enter an enemy hero, attacking from inside while gaining increased regeneration."
+      "effect": "Can enter an enemy hero, attacking from inside while gaining increased regeneration.",
+      "source": {
+        "label": "Valve hero data: Lifestealer",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=54"
+      },
+      "sourceSha256": "8477ea4345745c6a83f05d94911f079b172f04afd043d8b5229a137204fdfe2b",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_dark_seer",
@@ -381,7 +653,13 @@
       "upgradeMode": "existing",
       "abilityName": "Surge",
       "clientAbilityKey": "dark_seer_surge",
-      "effect": "Affected allies leave a seven-second damaging trail that slows enemies; alt-cast disables the trail."
+      "effect": "Affected allies leave a seven-second damaging trail that slows enemies; alt-cast disables the trail.",
+      "source": {
+        "label": "Valve hero data: Dark Seer",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=55"
+      },
+      "sourceSha256": "eb12a9a9d26af89c1c036198160207e305d5e5aec5d4531b855ab618ffe5449a",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_clinkz",
@@ -389,7 +667,13 @@
       "upgradeMode": "new",
       "abilityName": "Burning Barrage",
       "clientAbilityKey": "clinkz_burning_barrage",
-      "effect": "Channels a volley of piercing arrows that apply attack modifiers and a percentage of the caster's attack damage."
+      "effect": "Channels a volley of piercing arrows that apply attack modifiers and a percentage of the caster's attack damage.",
+      "source": {
+        "label": "Valve hero data: Clinkz",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=56"
+      },
+      "sourceSha256": "0b271467d5b827f14ab936b13762a2b498ebe3d21ae77efa6fd5b75a40e9743f",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_omniknight",
@@ -397,7 +681,13 @@
       "upgradeMode": "existing",
       "abilityName": "Purification",
       "clientAbilityKey": "omniknight_purification",
-      "effect": "Repeats the targeted heal after three seconds at 65% effectiveness."
+      "effect": "Repeats the targeted heal after three seconds at 65% effectiveness.",
+      "source": {
+        "label": "Valve hero data: Omniknight",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=57"
+      },
+      "sourceSha256": "386266d8af51e916d43050f8ca59e917eb5b1406d885dcae24b9d0cd8d0c67d5",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_enchantress",
@@ -405,7 +695,13 @@
       "upgradeMode": "new",
       "abilityName": "Little Friends",
       "clientAbilityKey": "enchantress_little_friends",
-      "effect": "Roots one enemy and compels every nearby creep—friendly, hostile, or neutral—to attack it with bonus speed."
+      "effect": "Roots one enemy and makes nearby friendly, hostile, and neutral creeps attack it with bonus movement and attack speed.",
+      "source": {
+        "label": "Valve hero data: Enchantress",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=58"
+      },
+      "sourceSha256": "d9c88736c13a2d7fb15cb2d9df7036f3debaf55964b07abba18311422f0b1d33",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_huskar",
@@ -413,7 +709,13 @@
       "upgradeMode": "existing",
       "abilityName": "Berserker's Blood",
       "clientAbilityKey": "huskar_berserkers_blood",
-      "effect": "Pay health to apply a basic self-dispel, then heal for the health spent plus a bonus for every debuff removed."
+      "effect": "Spends health for a basic self-dispel, then heals that amount after a delay, plus extra healing per debuff removed.",
+      "source": {
+        "label": "Valve hero data: Huskar",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=59"
+      },
+      "sourceSha256": "559af7b0b80ce4acaf10617aa3f93e46469ef440f7de53421d0864937e3cae4b",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_night_stalker",
@@ -421,7 +723,13 @@
       "upgradeMode": "existing",
       "abilityName": "Hunter in the Night",
       "clientAbilityKey": "night_stalker_hunter_in_the_night",
-      "effect": "Killing an enemy hero refreshes every basic ability; the associated passive also grants more movement and attack speed."
+      "effect": "Killing an enemy hero refreshes every basic ability; the associated passive also grants more movement and attack speed.",
+      "source": {
+        "label": "Valve hero data: Night Stalker",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=60"
+      },
+      "sourceSha256": "2a91833020ae3d8f03a7a66e93bd1f9ce840212025ce84f87f47dbb9f13bf718",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_broodmother",
@@ -429,7 +737,13 @@
       "upgradeMode": "new",
       "abilityName": "Spinner's Snare",
       "clientAbilityKey": "broodmother_sticky_snare",
-      "effect": "Places invisible web-line traps connected to existing webs; crossing heroes are rooted, revealed, and damaged over time."
+      "effect": "Places invisible web-line traps connected to existing webs; crossing heroes are rooted, revealed, and damaged over time.",
+      "source": {
+        "label": "Valve hero data: Broodmother",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=61"
+      },
+      "sourceSha256": "37bffb54d119d964df85bca5c968f0c9f6c9415cae84508d881b592ee7aa93ad",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_bounty_hunter",
@@ -437,7 +751,13 @@
       "upgradeMode": "new",
       "abilityName": "Friendly Shadow",
       "clientAbilityKey": "bounty_hunter_wind_walk_ally",
-      "effect": "Applies the caster's invisibility buff and all its bonuses to an ally without breaking the caster's own invisibility."
+      "effect": "Applies the caster's invisibility buff and all its bonuses to an ally without breaking the caster's own invisibility.",
+      "source": {
+        "label": "Valve hero data: Bounty Hunter",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=62"
+      },
+      "sourceSha256": "51503174e7818e594cdf76b29e81fb2811d00af79f6bd8bc12a55cd26c7e9511",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_weaver",
@@ -445,7 +765,13 @@
       "upgradeMode": "existing",
       "abilityName": "Shukuchi",
       "clientAbilityKey": "weaver_shukuchi",
-      "effect": "Enemies crossed during the movement spell are marked, then struck by a secondary attack when the caster exits."
+      "effect": "Marks enemies damaged by the movement spell, then strikes marked targets within 1200 range with a secondary attack after exiting.",
+      "source": {
+        "label": "Valve hero data: Weaver",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=63"
+      },
+      "sourceSha256": "345b8612bf2229f1e958a78ae583108d422aaa1a0142d5377a6b98ad5ff3dc8c",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_jakiro",
@@ -453,7 +779,13 @@
       "upgradeMode": "existing",
       "abilityName": "Macropyre",
       "clientAbilityKey": "jakiro_macropyre",
-      "effect": "The ground fire lasts longer, deals pure damage, and gains ice walls that heavily slow enemies crossing its edges."
+      "effect": "The ground fire lasts longer, deals pure damage, and gains ice walls that heavily slow enemies crossing its edges.",
+      "source": {
+        "label": "Valve hero data: Jakiro",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=64"
+      },
+      "sourceSha256": "0d064898b570ac37ba91c33067b9b45e65830348cf97a73d8aa911e15954e935",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_batrider",
@@ -461,7 +793,13 @@
       "upgradeMode": "existing",
       "abilityName": "Flaming Lasso",
       "clientAbilityKey": "batrider_flaming_lasso",
-      "effect": "The tether grabs its target and that target's nearest allied hero, linking the second victim to the first."
+      "effect": "The tether also grabs the target's nearest allied hero within 650 range, linking the second victim to the first.",
+      "source": {
+        "label": "Valve hero data: Batrider",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=65"
+      },
+      "sourceSha256": "ce9dd60a56c89b3cf80ea6dffbb480ebbfd7dcd8b8530ce80dd594d8ed05b058",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_chen",
@@ -469,7 +807,13 @@
       "upgradeMode": "existing",
       "abilityName": "Hand of God",
       "clientAbilityKey": "chen_hand_of_god",
-      "effect": "The global heal becomes channeled; nearby allies gain debuff immunity, magic resistance, and stronger healing over time."
+      "effect": "The global heal becomes channeled; nearby allies gain debuff immunity, magic resistance, and stronger healing over time.",
+      "source": {
+        "label": "Valve hero data: Chen",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66"
+      },
+      "sourceSha256": "fdce30cb6cf5b3b689e531d74c8c96f1142419365991a97e29c5278da39fa184",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_doom_bringer",
@@ -477,7 +821,13 @@
       "upgradeMode": "existing",
       "abilityName": "Doom",
       "clientAbilityKey": "doom_bringer_doom",
-      "effect": "The ultimate applies Break and also affects enemies near its target; self-cast instead affects enemies around the caster."
+      "effect": "The ultimate applies Break and also affects enemies near its target; self-cast instead affects enemies around the caster.",
+      "source": {
+        "label": "Valve hero data: Doom",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=69"
+      },
+      "sourceSha256": "828f71b1b781daeb20a6d0fdc1b361a826c282aa95772d27f5f962a191405719",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_spirit_breaker",
@@ -485,7 +835,13 @@
       "upgradeMode": "new",
       "abilityName": "Planar Pocket",
       "clientAbilityKey": "spirit_breaker_planar_pocket",
-      "effect": "Redirects enemy unit-targeted spells aimed near a chosen hero onto the caster while granting magic resistance."
+      "effect": "Redirects enemy heroes' unit-targeted spells from a chosen hero to the caster, who gains magic resistance.",
+      "source": {
+        "label": "Valve hero data: Spirit Breaker",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=71"
+      },
+      "sourceSha256": "f3ce0b406f7de82bac071071e1605e819dd4d77cd9f13731908dfdd92a13b248",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_gyrocopter",
@@ -493,7 +849,13 @@
       "upgradeMode": "existing",
       "abilityName": "Homing Missile",
       "clientAbilityKey": "gyrocopter_homing_missile",
-      "effect": "The tracking projectile continuously fires the caster's close-range barrage around itself after a short delay."
+      "effect": "The tracking projectile continuously fires the caster's close-range barrage around itself after a short delay.",
+      "source": {
+        "label": "Valve hero data: Gyrocopter",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=72"
+      },
+      "sourceSha256": "96a21bda132a8d106a885f83f4daccf7f02ebd2be842b34023f210677ca78c75",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_alchemist",
@@ -501,7 +863,13 @@
       "upgradeMode": "new",
       "abilityName": "Berserk Potion",
       "clientAbilityKey": "alchemist_berserk_potion",
-      "effect": "Throws a potion at an ally, applying a basic dispel plus attack speed, movement speed, and health regeneration."
+      "effect": "Throws a potion at an ally, applying a basic dispel plus attack speed, movement speed, and health regeneration.",
+      "source": {
+        "label": "Valve hero data: Alchemist",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=73"
+      },
+      "sourceSha256": "1e869c01237a78093f39c23fd4240b477fbaf49be1ca6c25c76be11726cb2815",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_invoker",
@@ -509,7 +877,13 @@
       "upgradeMode": "existing",
       "abilityName": "Ice Wall",
       "clientAbilityKey": "invoker_ice_wall",
-      "effect": "Turns a wall spell into a vector-targeted strip that roots enemies who remain inside long enough."
+      "effect": "Turns a wall spell into a vector-targeted strip that roots enemies who remain inside long enough.",
+      "source": {
+        "label": "Valve hero data: Invoker",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74"
+      },
+      "sourceSha256": "16bed6792a0c75a2c4ab2248d2c0ac5ea72a5195856e8ed6a2e5a85c2f27177b",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_obsidian_destroyer",
@@ -517,7 +891,13 @@
       "upgradeMode": "existing",
       "abilityName": "Objurgation",
       "clientAbilityKey": "obsidian_destroyer_objurgation",
-      "effect": "Prevents lethal-threshold damage, strongly dispels the caster, and grants an undispellable mana-based barrier on a long internal cooldown."
+      "effect": "Prevents damage that would drop health below 20%, then applies a strong dispel and an undispellable mana-based barrier.",
+      "source": {
+        "label": "Valve hero data: Outworld Destroyer",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=76"
+      },
+      "sourceSha256": "90ec5af3d2d94f47bc529205c075684012bb9889282334eefc52bb2e5e8fbc26",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_lycan",
@@ -525,7 +905,13 @@
       "upgradeMode": "new",
       "abilityName": "Wolf Bite",
       "clientAbilityKey": "lycan_wolf_bite",
-      "effect": "Bites an allied hero, granting transformation properties and shared lifesteal healing while the two remain near each other."
+      "effect": "Bites an allied hero, granting transformation properties and shared lifesteal healing while the two remain near each other.",
+      "source": {
+        "label": "Valve hero data: Lycan",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=77"
+      },
+      "sourceSha256": "4e15d4e4aad61724a505c92b83a4796d486e652915613ddea8d7093ede47228f",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_shadow_demon",
@@ -533,7 +919,13 @@
       "upgradeMode": "new",
       "abilityName": "Demonic Cleanse",
       "clientAbilityKey": "shadow_demon_demonic_cleanse",
-      "effect": "Continuously removes negative effects from an ally, then heals them when the duration ends."
+      "effect": "Continuously removes negative effects from an ally, then heals them when the duration ends.",
+      "source": {
+        "label": "Valve hero data: Shadow Demon",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=79"
+      },
+      "sourceSha256": "59f5ac4f4edb1708c9732f2a1fc9d388ffeb0fba57b6dd1a8806e40689610a8e",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_chaos_knight",
@@ -541,7 +933,13 @@
       "upgradeMode": "existing",
       "abilityName": "Phantasm",
       "clientAbilityKey": "chaos_knight_phantasm",
-      "effect": "Creating an illusion has a chance to create another; activating the ultimate also creates global illusions of allied heroes."
+      "effect": "Creating a copy of the caster can produce another; activating the ultimate also creates illusions of allied heroes globally.",
+      "source": {
+        "label": "Valve hero data: Chaos Knight",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=81"
+      },
+      "sourceSha256": "04bfadd814b365bb93cd6d7971582c4b7b1957357a95c83be6b248103b339cbb",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_meepo",
@@ -549,15 +947,27 @@
       "upgradeMode": "new",
       "abilityName": "Dig",
       "clientAbilityKey": "meepo_petrify",
-      "effect": "Burrows underground, becoming invulnerable and untargetable while restoring 25% maximum health over three seconds."
+      "effect": "Burrows underground, becoming invulnerable and untargetable while restoring 25% maximum health over three seconds.",
+      "source": {
+        "label": "Valve hero data: Meepo",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=82"
+      },
+      "sourceSha256": "18d1ddac6c9026e7c4c7fc88fd626865bc56e8e04d81bd50de29a5b150afc4bf",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_treant",
       "upgradeType": "shard",
       "upgradeMode": "new",
-      "abilityName": "Eyes in the Forest",
+      "abilityName": "Eyes In The Forest",
       "clientAbilityKey": "treant_eyes_in_the_forest",
-      "effect": "Enchants a tree with long-lasting, invisible, unobstructed vision until the tree or hidden eye is destroyed."
+      "effect": "Enchants a tree with an invisible eye, granting unobstructed vision for six minutes unless the eye or tree is destroyed.",
+      "source": {
+        "label": "Valve hero data: Treant Protector",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=83"
+      },
+      "sourceSha256": "b1b453bbdb429cca65abc8eb23d03dcf052160eeda0c497529db1086d3e55f9f",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_ogre_magi",
@@ -565,7 +975,13 @@
       "upgradeMode": "new",
       "abilityName": "Fire Shield",
       "clientAbilityKey": "ogre_magi_smash",
-      "effect": "Shields an ally from several hero attacks and launches a fireball back whenever damage is absorbed; towers are valid targets."
+      "effect": "Shields an ally from several hero attacks and launches a fireball back whenever damage is absorbed; towers are valid targets.",
+      "source": {
+        "label": "Valve hero data: Ogre Magi",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=84"
+      },
+      "sourceSha256": "31165d69eb927113b31a1c17e11c59a94ae88f6620126d6ccd72c5ea6faab43d",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_undying",
@@ -573,7 +989,13 @@
       "upgradeMode": "existing",
       "abilityName": "Tombstone",
       "clientAbilityKey": "undying_tombstone",
-      "effect": "Allows an allied hero to hide inside the summoned structure, with restrictions and a stun if the structure is destroyed."
+      "effect": "Allows an allied hero to hide inside the summoned structure, with restrictions and a stun if the structure is destroyed.",
+      "source": {
+        "label": "Valve hero data: Undying",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=85"
+      },
+      "sourceSha256": "08d9cdceeefe21029e7dd447d64db68a16c95d5cc65271bb9d2aea676914021f",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_rubick",
@@ -581,7 +1003,13 @@
       "upgradeMode": "existing",
       "abilityName": "Spell Steal",
       "clientAbilityKey": "rubick_spell_steal",
-      "effect": "Can hold two stolen spells at once, extends cast range, and upgrades stolen spells to their enhanced versions."
+      "effect": "Can hold two stolen spells at once, extends cast range, and upgrades stolen spells to their enhanced versions.",
+      "source": {
+        "label": "Valve hero data: Rubick",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=86"
+      },
+      "sourceSha256": "f48ede505239c531253fd18a47e23ea4673354b2068fb329004e588ebe2f587c",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_disruptor",
@@ -589,7 +1017,13 @@
       "upgradeMode": "new",
       "abilityName": "Kinetic Fence",
       "clientAbilityKey": "disruptor_kinetic_fence",
-      "effect": "Creates a kinetic wall after a short formation delay that enemies cannot cross."
+      "effect": "Creates a kinetic wall after a short formation delay that enemies cannot cross.",
+      "source": {
+        "label": "Valve hero data: Disruptor",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=87"
+      },
+      "sourceSha256": "43c1c7a8b6c75e9e77f1dbf4b93b100db55affd9ad4a68653e2bc0d30b1f5b22",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_nyx_assassin",
@@ -597,7 +1031,13 @@
       "upgradeMode": "new",
       "abilityName": "Burrow",
       "clientAbilityKey": "nyx_assassin_burrow",
-      "effect": "Digs underground in place, becoming invisible and unable to attack while gaining damage reduction and empowering several other abilities."
+      "effect": "Digs underground in place, becoming invisible and unable to attack while gaining damage reduction and empowering several other abilities.",
+      "source": {
+        "label": "Valve hero data: Nyx Assassin",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=88"
+      },
+      "sourceSha256": "9f105f9be1549e9d328ec8951bfcd139a450f8b2b878fa00d2445888e96884bc",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_naga_siren",
@@ -605,7 +1045,13 @@
       "upgradeMode": "existing",
       "abilityName": "Ensnare",
       "clientAbilityKey": "naga_siren_ensnare",
-      "effect": "The projectile gains range and speed, pierces debuff immunity, and applies Break."
+      "effect": "The projectile gains range and speed, pierces debuff immunity, and applies Break.",
+      "source": {
+        "label": "Valve hero data: Naga Siren",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=89"
+      },
+      "sourceSha256": "2cb865193dbbc22c49fa4e86f52342553134850f10a590f6defa2e248dd8c235",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_keeper_of_the_light",
@@ -613,7 +1059,13 @@
       "upgradeMode": "new",
       "abilityName": "Will-O-Wisp",
       "clientAbilityKey": "keeper_of_the_light_will_o_wisp",
-      "effect": "Summons a flickering orb that alternates on and off, repeatedly drawing nearby enemies toward it."
+      "effect": "Summons a flickering orb that alternates on and off, repeatedly drawing nearby enemies toward it.",
+      "source": {
+        "label": "Valve hero data: Keeper of the Light",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=90"
+      },
+      "sourceSha256": "0be69cac3537e4387910565019e45b7d2bcc617232277ebe57a4b4be738a67de",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_wisp",
@@ -621,7 +1073,13 @@
       "upgradeMode": "existing",
       "abilityName": "Spirits",
       "clientAbilityKey": "wisp_spirits",
-      "effect": "Continuously spawns orbiting orbs that slow enemy heroes on collision and can be detonated manually."
+      "effect": "Continuously spawns orbiting orbs that slow enemy heroes on collision and can be detonated manually.",
+      "source": {
+        "label": "Valve hero data: Io",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=91"
+      },
+      "sourceSha256": "9708f342dba9bcdff6beeed420328d10ff44f9d45521131c6924fc7ebfd60136",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_visage",
@@ -629,7 +1087,13 @@
       "upgradeMode": "existing",
       "abilityName": "Gravekeeper's Cloak",
       "clientAbilityKey": "visage_gravekeepers_cloak",
-      "effect": "Activating the defensive passive causes an invulnerable stone form that stuns nearby enemies and restores health."
+      "effect": "Activating the defensive passive causes an invulnerable stone form that stuns nearby enemies and restores health.",
+      "source": {
+        "label": "Valve hero data: Visage",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=92"
+      },
+      "sourceSha256": "78591b57c037fa88bac748bb48dcc45e893f94ed551ad112ab1b4b04759dbb2e",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_slark",
@@ -637,7 +1101,13 @@
       "upgradeMode": "new",
       "abilityName": "Depth Shroud",
       "clientAbilityKey": "slark_depth_shroud",
-      "effect": "Creates a cloud that hides all allies inside and grants them the effects of the hero's defensive ultimate."
+      "effect": "Creates a cloud that hides all allies inside and grants them the effects of the hero's defensive ultimate.",
+      "source": {
+        "label": "Valve hero data: Slark",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=93"
+      },
+      "sourceSha256": "9449a1c4eaa6fa29ecbf5aa3602691a29b2a42fa15756cf4462940b03df87126",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_medusa",
@@ -645,7 +1115,13 @@
       "upgradeMode": "new",
       "abilityName": "Cold Blooded",
       "clientAbilityKey": "medusa_cold_blooded",
-      "effect": "When targeted by a spell, fires a single-target projectile back at the caster that briefly turns them to stone."
+      "effect": "When targeted by an enemy spell, fires a single-target projectile at that caster, briefly turning them to stone.",
+      "source": {
+        "label": "Valve hero data: Medusa",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=94"
+      },
+      "sourceSha256": "fa6123a0efbd3234a3173dd0748c248b92499bf876573585cf59c7c3bd568106",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_ringmaster",
@@ -653,7 +1129,13 @@
       "upgradeMode": "new",
       "abilityName": "Spotlight",
       "clientAbilityKey": "ringmaster_spotlight",
-      "effect": "Sweeping lights reveal invisible enemies, make attacks miss, and rapidly drain the maximum health of illusions caught in the beams."
+      "effect": "Sweeping lights reveal invisible enemies, cause attacks to miss, and damage illusions each second based on their maximum health.",
+      "source": {
+        "label": "Valve hero data: Ringmaster",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=131"
+      },
+      "sourceSha256": "5d0bf58eaac7e5f80753d7927dc83fadda2b158202d46c85fc67e563b3cf3641",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_muerta",
@@ -661,7 +1143,13 @@
       "upgradeMode": "existing",
       "abilityName": "Dead Shot",
       "clientAbilityKey": "muerta_dead_shot",
-      "effect": "After ricocheting, the projectile expands, pierces enemy heroes, and fears them while dealing increased damage."
+      "effect": "After ricocheting, the projectile expands, pierces enemy heroes, and fears them while dealing increased damage.",
+      "source": {
+        "label": "Valve hero data: Muerta",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=138"
+      },
+      "sourceSha256": "6fe5b5c513f109d665c8362b62365ebc4d187540302d9c5ef6bef1ee555bd9c9",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_kez",
@@ -669,7 +1157,13 @@
       "upgradeMode": "existing",
       "abilityName": "Shodo Sai",
       "clientAbilityKey": "kez_shodo_sai",
-      "effect": "A successful parry creates a stronger mark that adds stun duration and critical damage."
+      "effect": "A successful parry creates a stronger mark that adds stun duration and critical damage.",
+      "source": {
+        "label": "Valve hero data: Kez",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=145"
+      },
+      "sourceSha256": "1def0d5fd2242c259b4d1b3d6d8aacd1176a898f73c58afd32149f3c0f713947",
+      "sourceRetrievedAt": "2026-10-06"
     },
     {
       "heroKey": "npc_dota_hero_largo",
@@ -677,7 +1171,20 @@
       "upgradeMode": "existing",
       "abilityName": "Encore",
       "clientAbilityKey": "largo_encore",
-      "effect": "Giving a unit-targeted buff to an ally also buffs the caster; self-casts copy to the nearest allied hero."
+      "effect": "Unit-targeted buffs on allied heroes also affect the caster; self-casts copy to the nearest allied hero within cast range.",
+      "source": {
+        "label": "Valve hero data: Largo",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155"
+      },
+      "sourceSha256": "a22ff422fa3cebe8c681f5443d07b051407d340a98580ef6036cead456289ec4",
+      "sourceRetrievedAt": "2026-10-06"
     }
-  ]
+  ],
+  "sourceSnapshot": {
+    "provider": "Valve hero data",
+    "retrievedAt": "2026-10-06",
+    "latestPublishedPatch": "7.41f",
+    "patchListUrl": "https://www.dota2.com/datafeed/patchnoteslist?language=english",
+    "patchListSha256": "9ec57bde0c37aee9b782bd7190cc0c18b68310d90b6cba0b9f9dd3b196bd29ea"
+  }
 }

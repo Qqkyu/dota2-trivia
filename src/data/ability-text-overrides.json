@@ -1,7 +1,7 @@
 {
   "$comment": "Hand-written tooltip text for abilities whose OpenDota description is blank. scripts/sync-dota-data.mjs uses an entry only while the upstream text stays empty, then reports it as stale. Keep the OpenDota tooltip voice and no numbers.",
   "muerta_dead_shot": "Muerta fires a spectral bullet toward the target point. The bullet damages the first enemy it hits and then ricochets sideways, damaging the next enemy in its path and briefly making that enemy flee in fear. Shooting a tree destroys the tree and ricochets the bullet from it.",
-  "muerta_the_calling": "Muerta summons a ring of revenants that circle the target area for a short time. Every enemy a revenant passes through takes damage and is slowed. Enemies inside the ring also attack more slowly.",
+  "muerta_the_calling": "Muerta summons a ring of revenants around a target area. Enemies inside the area have reduced movement speed. Revenants damage and silence enemies they pass through.",
   "muerta_gunslinger": "Whenever Muerta attacks, she has a chance to fire a second shot at another enemy near her target. The second shot is a full attack of its own.",
   "muerta_pierce_the_veil": "Muerta changes form for a short time. While she is transformed her attacks deal magical damage instead of physical damage, she gains bonus attack damage, and she can hit ethereal units."
 }

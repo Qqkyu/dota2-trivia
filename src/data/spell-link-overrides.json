@@ -1,0 +1,413 @@
+{
+  "$comment": "Reviewed Spell Link descriptions for the stated patch. These replace upstream descriptions only after question selection. Review the text and sources before changing the patch.",
+  "patch": "7.41f",
+  "records": {
+    "ability-owner:antimage_counterspell": {
+      "abilityName": "Counterspell",
+      "heroKey": "npc_dota_hero_antimage",
+      "heroName": "Anti-Mage",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=1"
+      },
+      "description": "Passively grants magic resistance. When activated, creates a shell around the caster that blocks and reflects targeted spells."
+    },
+    "ability-owner:beastmaster_summon_raptor": {
+      "abilityName": "Summon Raptors",
+      "heroKey": "npc_dota_hero_beastmaster",
+      "heroName": "Beastmaster",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=38"
+      },
+      "description": "Summons two hawks that circle the caster and dive at enemies, dealing damage and rooting them. The hawks attack faster as their attack speed increases and prioritize heroes."
+    },
+    "ability-owner:crystal_maiden_crystal_clone": {
+      "abilityName": "Crystal Clone",
+      "heroKey": "npc_dota_hero_crystal_maiden",
+      "heroName": "Crystal Maiden",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=5"
+      },
+      "description": "The caster slides in a chosen direction, leaves a frozen copy behind, and dodges incoming projectiles. When the copy takes enough damage or expires, it shatters and applies Frostbite to nearby enemies. The caster can also destroy the copy with her own spells."
+    },
+    "ability-owner:disruptor_glimpse": {
+      "abilityName": "Glimpse",
+      "heroKey": "npc_dota_hero_disruptor",
+      "heroName": "Disruptor",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=87"
+      },
+      "description": "Returns a target hero to the position they occupied four seconds earlier. Instantly kills illusions. The teleport deals damage based on the distance moved, up to a maximum."
+    },
+    "ability-owner:dragon_knight_wyrms_wrath": {
+      "abilityName": "Wyrm's Wrath",
+      "heroKey": "npc_dota_hero_dragon_knight",
+      "heroName": "Dragon Knight",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=49"
+      },
+      "description": "Passively increases the area of effect of the caster's abilities and items. The caster's attacks also deal additional magic damage to enemy units."
+    },
+    "ability-owner:earth_spirit_rolling_boulder": {
+      "abilityName": "Rolling Boulder",
+      "heroKey": "npc_dota_hero_earth_spirit",
+      "heroName": "Earth Spirit",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=107"
+      },
+      "description": "The caster becomes a boulder and rolls toward a target location after a short delay, damaging and stunning enemies. Damage scales with strength and ability level. A collision with an enemy hero or a stun stops the roll. Rolling over a Stone Remnant increases travel distance, speed, and stun duration."
+    },
+    "ability-owner:elder_titan_ancestral_spirit": {
+      "abilityName": "Astral Spirit",
+      "heroKey": "npc_dota_hero_elder_titan",
+      "heroName": "Elder Titan",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=103"
+      },
+      "description": "Sends out a spirit that damages units it passes through. When it returns, the caster gains damage and movement speed based on the units it touched. The spirit can use Echo Stomp, Return Spirit, and Natural Order."
+    },
+    "ability-owner:faceless_void_time_dilation": {
+      "abilityName": "Time Dilation",
+      "heroKey": "npc_dota_hero_faceless_void",
+      "heroName": "Faceless Void",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=41"
+      },
+      "description": "Slows the cooldown recovery of nearby enemies. Each target receives one stack plus another for each ability already on cooldown. Each stack deals damage over time and reduces movement and attack speed. The effect's duration pauses while the target is inside Chronosphere."
+    },
+    "ability-owner:grimstroke_ink_creature": {
+      "abilityName": "Phantom's Embrace",
+      "heroKey": "npc_dota_hero_grimstroke",
+      "heroName": "Grimstroke",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=121"
+      },
+      "description": "Sends a phantom toward an enemy. It attaches to the target, dealing damage and silencing them. If it survives until the attachment ends, it deals a larger burst of damage and refreshes the ability's cooldown. Each hero attack against the phantom counts as three hits."
+    },
+    "ability-owner:hoodwink_decoy": {
+      "abilityName": "Decoy",
+      "heroKey": "npc_dota_hero_hoodwink",
+      "heroName": "Hoodwink",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=123"
+      },
+      "description": "The caster becomes invisible, moves faster, and creates an illusion. The illusion aims a weaker Sharpshooter at the nearest enemy hero. An attack or targeted ability destroys it and triggers a weaker Bushwhack toward the attacker."
+    },
+    "ability-owner:jakiro_liquid_ice": {
+      "abilityName": "Liquid Frost",
+      "heroKey": "npc_dota_hero_jakiro",
+      "heroName": "Jakiro",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=64"
+      },
+      "description": "Adds ice to an attack, slowing the target's movement and increasing the damage it takes from the caster's attacks and abilities. Does not affect buildings. Shares a cooldown with Liquid Fire."
+    },
+    "ability-owner:juggernaut_healing_ward": {
+      "abilityName": "Healing Ward",
+      "heroKey": "npc_dota_hero_juggernaut",
+      "heroName": "Juggernaut",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=8"
+      },
+      "description": "Summons a movable ward that heals nearby allies for a percentage of their maximum health. The ward moves at 325 movement speed. Its duration increases with ability level."
+    },
+    "ability-owner:legion_commander_outfight_them": {
+      "abilityName": "Outfight Them!",
+      "heroKey": "npc_dota_hero_legion_commander",
+      "heroName": "Legion Commander",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=104"
+      },
+      "description": "When the caster or an allied hero within 1200 range casts an ability, that hero gains armor for six seconds. Allies receive half the armor bonus. Each stack has its own duration."
+    },
+    "ability-owner:lich_frost_shield": {
+      "abilityName": "Frost Shield",
+      "heroKey": "npc_dota_hero_lich",
+      "heroName": "Lich",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=31"
+      },
+      "description": "Places a shield around a target that reduces damage from attacks. While active, it releases a pulse of ice magic each second that damages and slows nearby enemies."
+    },
+    "ability-owner:marci_companion_run": {
+      "abilityName": "Rebound",
+      "heroKey": "npc_dota_hero_marci",
+      "heroName": "Marci",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=136"
+      },
+      "description": "Marci bounds to the targeted allied unit, choosing a direction and distance she will spring away from it. Upon reaching the unit, Marci lunges to her final destination, damaging and stunning enemies where she lands.\n\nWhen Rebound is set to alt-cast, Marci brings the target ally with her to her final destination.\n\n The ally receives 25% bonus movement speed for 4s."
+    },
+    "ability-owner:mirana_arrow": {
+      "abilityName": "Sacred Arrow",
+      "heroKey": "npc_dota_hero_mirana",
+      "heroName": "Mirana",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9"
+      },
+      "description": "Fires an arrow that damages and stuns the first enemy it hits. Longer travel increases its damage and stun duration. The maximum stun duration depends on ability level. Instantly kills the first non-ancient creep it hits."
+    },
+    "ability-owner:muerta_the_calling": {
+      "abilityName": "The Calling",
+      "heroKey": "npc_dota_hero_muerta",
+      "heroName": "Muerta",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=138"
+      },
+      "description": "Summons four revenants that circle a target area. Enemies inside the area have reduced movement speed. Each revenant damages and silences enemies it passes through."
+    },
+    "ability-owner:night_stalker_crippling_fear": {
+      "abilityName": "Crippling Fear",
+      "heroKey": "npc_dota_hero_night_stalker",
+      "heroName": "Night Stalker",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=60"
+      },
+      "description": "Creates an aura that silences nearby enemies and deals damage over time. The effect lasts longer during nighttime."
+    },
+    "ability-owner:phantom_lancer_doppelwalk": {
+      "abilityName": "Doppelganger",
+      "heroKey": "npc_dota_hero_phantom_lancer",
+      "heroName": "Phantom Lancer",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=12"
+      },
+      "description": "The caster briefly vanishes. After one second, the caster and nearby illusions appear within the target area with two new copies. Existing illusions last longer. One new copy takes normal damage but deals none. The other deals reduced damage and takes extra damage. Applies a basic dispel."
+    },
+    "ability-owner:phoenix_sun_ray": {
+      "abilityName": "Sun Ray",
+      "heroKey": "npc_dota_hero_phoenix",
+      "heroName": "Phoenix",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=110"
+      },
+      "description": "The caster spends its own health to emit a beam. It damages enemies and heals allies for a base amount plus a percentage of their maximum health. The percentage increases while the beam continues to fire."
+    },
+    "ability-owner:pudge_flesh_heap": {
+      "abilityName": "Meat Shield",
+      "heroKey": "npc_dota_hero_pudge",
+      "heroName": "Pudge",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=14"
+      },
+      "description": "The caster covers himself in a layer of flesh that blocks a fixed amount from each instance of incoming damage, regardless of damage type."
+    },
+    "ability-owner:pugna_nether_ward": {
+      "abilityName": "Nether Ward",
+      "heroKey": "npc_dota_hero_pugna",
+      "heroName": "Pugna",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=45"
+      },
+      "description": "Places a ward at the target location. When a nearby enemy hero casts a spell, the ward deals base damage plus additional damage based on the mana spent."
+    },
+    "ability-owner:rattletrap_overclocking": {
+      "abilityName": "Overclocking",
+      "heroKey": "npc_dota_hero_rattletrap",
+      "heroName": "Clockwerk",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=51"
+      },
+      "description": "Temporarily strengthens the caster's other abilities. Battery Assault hits more enemies, Power Cogs grows and grants more armor, and Rocket Flare launches extra rockets with improved effects. Hookshot gains a larger stun area and longer stun, while Jetpack moves faster. When the buff ends, the caster's movement and attack speed fall sharply."
+    },
+    "ability-owner:shadow_demon_shadow_poison": {
+      "abilityName": "Shadow Poison",
+      "heroKey": "npc_dota_hero_shadow_demon",
+      "heroName": "Shadow Demon",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=79"
+      },
+      "description": "Sends poison in a line, damaging enemies and adding stacks. For the first five stacks, delayed damage scales by 1/2/4/8/16. Each further stack adds 60 base damage. The delayed damage triggers when the effect expires or the release sub-ability is used."
+    },
+    "ability-owner:snapfire_spit_creep": {
+      "abilityName": "Spit Out",
+      "heroKey": "npc_dota_hero_snapfire",
+      "heroName": "Snapfire",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=128"
+      },
+      "description": "Mortimer launches the unit held in his mouth, dealing impact damage and stunning enemies over a large area. The impact leaves a pool of fire that slows enemies and deals damage over time based on the level of Mortimer Kisses. This ability has no minimum launch range."
+    },
+    "ability-owner:sniper_take_aim": {
+      "abilityName": "Take Aim",
+      "heroKey": "npc_dota_hero_sniper",
+      "heroName": "Sniper",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=35"
+      },
+      "description": "Passively increases attack range, with a larger bonus at higher ability levels. Activating the ability increases vision, Headshot chance, and attack range, but slows the caster and restricts vision to a forward cone."
+    },
+    "ability-owner:spirit_breaker_planar_pocket": {
+      "abilityName": "Planar Pocket",
+      "heroKey": "npc_dota_hero_spirit_breaker",
+      "heroName": "Spirit Breaker",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=71"
+      },
+      "description": "The caster gains magic resistance and distorts the space around a selected hero, redirecting enemy unit-targeted spells toward himself. The target can be an allied or enemy hero. Only spells cast by enemies of the caster are redirected."
+    },
+    "ability-owner:sven_warcry": {
+      "abilityName": "Warcry",
+      "heroKey": "npc_dota_hero_sven",
+      "heroName": "Sven",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=18"
+      },
+      "description": "The caster rallies nearby allied heroes, increasing their armor and movement speed for eight seconds."
+    },
+    "ability-owner:techies_suicide": {
+      "abilityName": "Blast Off!",
+      "heroKey": "npc_dota_hero_techies",
+      "heroName": "Techies",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=105"
+      },
+      "description": "The caster leaps into the enemy, detonating explosives on landing that damage and stun enemies in an area. The landing also deals non-lethal damage to the caster based on a percentage of current health."
+    },
+    "ability-owner:templar_assassin_meld": {
+      "abilityName": "Meld",
+      "heroKey": "npc_dota_hero_templar_assassin",
+      "heroName": "Templar Assassin",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=46"
+      },
+      "description": "The caster becomes invisible while standing still. Breaking the invisibility with an attack deals bonus damage and reduces the target's armor. Psi Blades carries the bonus damage and debuffs to enemies behind the target."
+    },
+    "ability-owner:troll_warlord_berserkers_rage": {
+      "abilityName": "Berserker's Rage",
+      "heroKey": "npc_dota_hero_troll_warlord",
+      "heroName": "Troll Warlord",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=95"
+      },
+      "description": "Switches between melee and ranged combat. In melee form, the caster gains movement speed and attacks can root enemies. In ranged form, attacks can maim enemies, adding damage and reducing their movement and attack speed."
+    },
+    "ability-owner:tusk_snowball": {
+      "abilityName": "Snowball",
+      "heroKey": "npc_dota_hero_tusk",
+      "heroName": "Tusk",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=100"
+      },
+      "description": "The caster forms a rolling ball of snow and can pull nearby allies inside by selecting them. Once launched, it damages and stuns enemies in its path. Each allied hero inside increases its damage and stun duration."
+    },
+    "ability-owner:undying_tombstone": {
+      "abilityName": "Tombstone",
+      "heroKey": "npc_dota_hero_undying",
+      "heroName": "Undying",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=85"
+      },
+      "description": "Summons a structure that repeatedly spawns zombies beside nearby enemies. Zombie attacks slow their targets. Against enemies below a health threshold, the zombies gain movement and attack speed."
+    },
+    "ability-owner:ursa_fury_swipes": {
+      "abilityName": "Fury Swipes",
+      "heroKey": "npc_dota_hero_ursa",
+      "heroName": "Ursa",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=70"
+      },
+      "description": "Repeated attacks against the same enemy deal increasing bonus damage. If the caster stops attacking that target for long enough, the bonus expires. Higher ability levels keep the effect active for longer."
+    },
+    "ability-owner:viper_nethertoxin": {
+      "abilityName": "Nethertoxin",
+      "heroKey": "npc_dota_hero_viper",
+      "heroName": "Viper",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=47"
+      },
+      "description": "Creates a toxic area that damages enemies and reduces their attack speed. Its damage increases the longer a unit stays inside."
+    },
+    "ability-owner:winter_wyvern_splinter_blast": {
+      "abilityName": "Splinter Blast",
+      "heroKey": "npc_dota_hero_winter_wyvern",
+      "heroName": "Winter Wyvern",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=112"
+      },
+      "description": "Fires a ball of ice at a target. It splits on impact, leaving that target unaffected and damaging nearby enemies with splinters. The splinters slow movement, with a stronger slow at higher ability levels."
+    },
+    "ability-owner:wisp_spirits": {
+      "abilityName": "Spirits",
+      "heroKey": "npc_dota_hero_wisp",
+      "heroName": "Io",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=91"
+      },
+      "description": "Summons five particles that orbit the caster. A particle that touches an enemy hero explodes and damages nearby enemies. Creeps take minor contact damage but do not trigger explosions. Any particles left when the duration ends also explode."
+    }
+  }
+}

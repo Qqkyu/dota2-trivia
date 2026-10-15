@@ -1,0 +1,101 @@
+{
+  "patch": "7.41f",
+  "baseClientBuild": "6882",
+  "reviewedAt": "2026-10-06",
+  "sourceUrl": "https://www.dota2.com/datafeed/patchnotes?version=7.41f&language=english",
+  "sourceSha256": "f9cd855b7b77dc8a6025f875ef21b539f539b44d832d7dfd80bbb087f745fc26",
+  "scope": "Numeric fields compared by audit-live-client.mjs. This is not a complete copy of the patch or a new client build.",
+  "changes": [
+    {
+      "catalog": "items",
+      "key": "item_greater_crit",
+      "field": "ItemCost",
+      "before": [5100],
+      "after": [5200]
+    },
+    {
+      "catalog": "items",
+      "key": "item_dragon_lance",
+      "field": "ItemCost",
+      "before": [1900],
+      "after": [2000]
+    },
+    {
+      "catalog": "items",
+      "key": "item_heart",
+      "field": "ItemCost",
+      "before": [5200],
+      "after": [5300]
+    },
+    {
+      "catalog": "items",
+      "key": "item_heavens_halberd",
+      "field": "ItemCost",
+      "before": [3400],
+      "after": [3300]
+    },
+    {
+      "catalog": "items",
+      "key": "item_hurricane_pike",
+      "field": "ItemCost",
+      "before": [4450],
+      "after": [4550]
+    },
+    {
+      "catalog": "items",
+      "key": "item_octarine_core",
+      "field": "ItemCost",
+      "before": [4900],
+      "after": [5100]
+    },
+    {
+      "catalog": "abilities",
+      "key": "broodmother_insatiable_hunger",
+      "field": "AbilityManaCost",
+      "before": [80],
+      "after": [70]
+    },
+    {
+      "catalog": "abilities",
+      "key": "rattletrap_power_cogs",
+      "field": "AbilityManaCost",
+      "before": [75],
+      "after": [90]
+    },
+    {
+      "catalog": "abilities",
+      "key": "life_stealer_rage",
+      "field": "AbilityCooldown",
+      "before": [20, 19, 18, 17],
+      "after": [21, 20, 19, 18]
+    },
+    {
+      "catalog": "abilities",
+      "key": "invoker_cold_snap",
+      "field": "AbilityCooldown",
+      "before": [18],
+      "after": [19]
+    },
+    {
+      "catalog": "abilities",
+      "key": "undying_decay",
+      "field": "AbilityManaCost",
+      "before": [100],
+      "after": [110]
+    },
+    {
+      "catalog": "abilities",
+      "key": "winter_wyvern_arctic_burn",
+      "field": "AbilityCooldown",
+      "before": [26, 24, 22, 20],
+      "after": [29, 26, 23, 20]
+    },
+    {
+      "catalog": "heroes",
+      "key": "npc_dota_hero_centaur",
+      "field": "MovementSpeed",
+      "before": [300],
+      "after": [295]
+    }
+  ]
+}
