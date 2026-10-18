@@ -41,6 +41,7 @@
     "check:round-copy": "node scripts/check-round-copy.mjs",
     "check:rate-limit": "node scripts/check-rate-limit-live.mjs",
     "check:ui": "node scripts/check-ui.mjs",
+    "check:render-snapshot": "node scripts/check-render-snapshot.mjs",
     "check": "pnpm check:content-release && pnpm validate-data && pnpm test && pnpm lint && pnpm typecheck && pnpm build && pnpm validate-client-bundle && pnpm check:ui",
     "check:config": "node scripts/check-production-config.mjs",
     "check:headers": "node scripts/check-security-headers.mjs",

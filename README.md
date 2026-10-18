@@ -252,6 +252,14 @@ pnpm check
 
 That first checks the committed content-review manifest, then validates the question deck, template rotation, answer balance, scan length, and visual/audio metadata, runs the vitest unit suite (`pnpm test`: scoring, crowd splits, rate limits, calibration, reviews, revisions, diagnostics, party rooms, room sync, Spell Link redaction, and interface copy), runs ESLint, runs strict TypeScript checking, creates an optimized production build, proves no private catalog data reached a browser bundle, and then runs the headless-Chrome and API click-throughs in `pnpm check:ui` (public play, party lobby, party audio and membership, one party round per format checking copy, controls, and reveals, reports, shop and hero-grid search with Enter picking the only match, Flashback, feedback sounds, and production rate limits). A script that fails is rerun once and reported as a retry; a second failure fails the gate. Set `UI_CHECK_RETRIES=0` to disable the retry.
 
+For refactors that must not change what players see, `pnpm check:render-snapshot --write <dir>` records the DOM
+tree, attributes, text, boxes, and computed styles of every arcade view over fixture rounds (20 formats, lobby, and
+party, at desktop and phone sizes, in answering, later-clue, locked, and reveal phases). After the change, start the
+new build and run `pnpm check:render-snapshot --compare <dir>`; any difference fails. Timer and gold digits are
+masked because they depend on the clock. The script needs a running app: serve a production build on a spare port
+(`pnpm build`, then `pnpm start` with `PORT=3400` and the file-store variables from `scripts/check-ui.mjs`) and set
+`APP_URL=http://127.0.0.1:3400`. Two captures of the same build must compare clean before trusting a diff.
+
 The UI gate also runs touch, recovery, account-switch and responsive checks. `pnpm check:responsive` tests 31 answer variants at 11 sizes from 320px to 4K. `pnpm check:journeys` runs 54 player journeys. Install the pinned browser engines with `pnpm exec playwright install --with-deps chromium firefox webkit`, then run `pnpm check:accessibility` against an isolated `APP_URL`. Set `BROWSER_ENGINE=firefox` or `BROWSER_ENGINE=webkit` for the other engines. CI runs all three. Browser emulation does not replace physical-device or screen-reader testing.
 
 `pnpm check:capacity` requires `CAPACITY_ISOLATED=1`, a separate local server/store, and the test proxy configuration documented in the script. Its default is four players and two rounds. The audited full run used 466 players. Run capacity tests separately from UI checks so synthetic users do not share rate-limit budgets. See the [load report](docs/audits/2026-10-06/deep-review/capacity/README.md).
