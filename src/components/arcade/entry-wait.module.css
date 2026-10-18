@@ -1,0 +1,25 @@
+.entryWaitHint {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.entryWaitStatus {
+  display: inline-flex;
+  min-height: 18px;
+  align-items: center;
+  gap: 7px;
+  color: var(--faint);
+  font-size: 12px;
+}
+
+.entryWaitStatus svg {
+  width: 13px;
+  height: 13px;
+  color: var(--green);
+}
+
+.entryWaitStatusError,
+.entryWaitStatusError svg {
+  color: var(--red-bright);
+}

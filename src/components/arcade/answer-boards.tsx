@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { type CSSProperties } from "react";
 import { publicCorrectIndex } from "@/lib/public-question";
 import styles from "../queue-arcade.module.css";
+import own from "./answer-boards.module.css";
 import { AnswerArtwork } from "./artwork";
 import { FlashbackOrderBoard, FlashbackYearBoard } from "./flashback-boards";
 import { HeroPicker } from "./hero-picker";
@@ -121,8 +122,8 @@ export function AnswerBoards({
             className={clsx(
               styles.answers,
               isFlashbackYearRound && styles.flashbackYears,
-              currentGame === "shopkeeper" && styles.itemAnswers,
-              (currentQuestion.answerImageKind === "hero" || currentGame === "spell-link") && styles.heroAnswers,
+              currentGame === "shopkeeper" && own.itemAnswers,
+              (currentQuestion.answerImageKind === "hero" || currentGame === "spell-link") && own.heroAnswers,
               currentGame === "fogged-vision" && styles.fogAnswers,
               currentGame === "echo-hunt" && styles.echoAnswers,
               currentGame === "soundcheck" && styles.soundcheckAnswers,
@@ -151,7 +152,7 @@ export function AnswerBoards({
                   className={clsx(
                     styles.answer,
                     (currentQuestion.answerImages || answerImagePair || shopkeeperAnswerGroup) && styles.visualAnswer,
-                    answerImagePair && styles.sequenceAnswer,
+                    answerImagePair && own.sequenceAnswer,
                     shopkeeperAnswerGroup && styles.shopkeeperRecipeAnswer,
                     phase === "answering" && isSelected && styles.answerLocked,
                     phase === "answering" && selectedIndex !== null && !isSelected && styles.answerMuted,
@@ -177,13 +178,13 @@ export function AnswerBoards({
                   {shopkeeperAnswerGroup ? (
                     <ShopkeeperTray items={shopkeeperAnswerGroup} compact testId="shopkeeper-recipe-choice" />
                   ) : answerImagePair ? (
-                    <span className={styles.sequenceAnswerChoice} data-testid="sound-sequence-choice">
+                    <span className={own.sequenceAnswerChoice} data-testid="sound-sequence-choice">
                       <AnswerArtwork
                         src={answerImagePair[0]}
                         alt={answerPairNames[0] ?? "First sound"}
                         kind={currentQuestion.answerImageKind ?? "ability"}
                       />
-                      <ArrowRight className={styles.sequenceAnswerArrow} aria-hidden="true" />
+                      <ArrowRight className={own.sequenceAnswerArrow} aria-hidden="true" />
                       <AnswerArtwork
                         src={answerImagePair[1]}
                         alt={answerPairNames[1] ?? "Second sound"}
@@ -215,7 +216,7 @@ export function AnswerBoards({
                       {isCorrect ? <Check /> : isSelected ? <X /> : null}
                     </span>
                   ) : (
-                    <span className={styles.answerChevron}>
+                    <span className={own.answerChevron}>
                       <ChevronRight />
                     </span>
                   )}

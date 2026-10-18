@@ -1,7 +1,7 @@
 import { Flag, X } from "lucide-react";
 import type { QuestionReportTarget } from "./shared";
 import { REPORT_REASON_LABELS, REPORT_REASONS } from "@/lib/calibration";
-import styles from "../queue-arcade.module.css";
+import own from "./report-carryover.module.css";
 
 import type { useArcadeRoom } from "./use-arcade-room";
 
@@ -17,8 +17,8 @@ export function ReportCarryover({
   dismissQuestionReport,
 }: ReportCarryoverProps) {
   return (
-    <aside className={styles.reportCarryover} data-testid="report-carryover" aria-label="Report previous question">
-      <div className={styles.reportCarryoverTitle}>
+    <aside className={own.reportCarryover} data-testid="report-carryover" aria-label="Report previous question">
+      <div className={own.reportCarryoverTitle}>
         <Flag />
         <span>
           <small>Report previous question</small>
@@ -29,7 +29,7 @@ export function ReportCarryover({
           <X />
         </button>
       </div>
-      <div className={styles.reportCarryoverReasons} role="group" aria-label="Why are you reporting this question?">
+      <div className={own.reportCarryoverReasons} role="group" aria-label="Why are you reporting this question?">
         {REPORT_REASONS.map((reason) => (
           <button
             key={reason}
@@ -43,7 +43,7 @@ export function ReportCarryover({
           </button>
         ))}
       </div>
-      {reportState === "error" && <small className={styles.reportCarryoverError}>Couldn’t send · try again</small>}
+      {reportState === "error" && <small className={own.reportCarryoverError}>Couldn’t send · try again</small>}
     </aside>
   );
 }

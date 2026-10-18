@@ -1,0 +1,25 @@
+.answerHeroArtwork {
+  width: 82px;
+  height: 48px;
+}
+
+.answerAbilityArtwork {
+  width: 48px;
+  height: 48px;
+}
+
+.answerArtworkImage {
+  object-fit: cover;
+}
+
+@media (max-width: 680px) {
+  .answerHeroArtwork {
+    width: 66px;
+    height: 39px;
+  }
+
+  .answerAbilityArtwork {
+    width: 39px;
+    height: 39px;
+  }
+}

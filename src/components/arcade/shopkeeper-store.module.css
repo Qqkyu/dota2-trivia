@@ -1,0 +1,191 @@
+.shopkeeperStoreToolbar {
+  position: relative;
+  display: flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 8px 6px 11px;
+  border-bottom: 1px solid rgba(210, 163, 74, 0.16);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.shopSearchBox {
+  display: flex;
+  min-width: 180px;
+  max-width: 350px;
+  height: 36px;
+  flex: 1 1 220px;
+  align-items: center;
+  gap: 4px;
+  padding: 0 7px 0 4px;
+  border: 1px solid #3d464c;
+  border-radius: 3px;
+  background: #000;
+}
+
+.shopSearchBox[data-focused="true"],
+.shopSearchBox:focus-within {
+  border-color: #63a4ff;
+  background: rgb(44, 51, 58);
+  box-shadow: 0 0 16px rgba(99, 164, 255, 0.28);
+}
+
+.shopSearchBox svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  color: #8da1b1;
+}
+
+.shopSearchBox input {
+  width: 100%;
+  min-width: 0;
+  padding: 5px 0 3px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.2;
+  outline: none;
+}
+
+.shopSearchBox input::placeholder {
+  color: #57646d;
+}
+
+.shopSearchBox[data-demo="true"] {
+  max-width: none;
+  pointer-events: none;
+}
+
+.shopSearchBox[data-demo="true"] span {
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.shopkeeperRecipeBuilder {
+  display: grid;
+  min-height: 66px;
+  align-items: center;
+  gap: 13px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  padding: 8px 10px 8px 13px;
+  border-bottom: 1px solid rgba(210, 163, 74, 0.16);
+  background: linear-gradient(90deg, rgba(210, 163, 74, 0.055), transparent 52%), rgba(0, 0, 0, 0.14);
+}
+
+.shopkeeperRecipeReveal {
+  display: flex;
+  min-height: 68px;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 7px 11px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+  background: rgba(0, 0, 0, 0.14);
+}
+
+.shopkeeperRecipeReveal > svg {
+  width: 15px;
+  flex: 0 0 auto;
+  color: #777d77;
+}
+
+.shopkeeperTooltip {
+  position: fixed;
+  z-index: 1000;
+  display: grid;
+  gap: 2px;
+  padding: 7px 9px;
+  border: 1px solid rgba(210, 163, 74, 0.3);
+  background: rgba(9, 11, 10, 0.97);
+  box-shadow: 0 9px 24px rgba(0, 0, 0, 0.46);
+  text-align: left;
+  pointer-events: none;
+}
+
+.shopkeeperTooltip[data-placement="above"] {
+  transform: translateY(-100%);
+}
+
+.shopkeeperTooltip strong {
+  color: #dcddd5;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.shopkeeperTooltip small {
+  color: #d4aa56;
+  font:
+    9px var(--font-geist-mono),
+    monospace;
+}
+
+.shopkeeperNoResults {
+  display: grid;
+  height: 100%;
+  place-items: center;
+  margin: 0;
+  color: #777c78;
+  font-size: 12px;
+}
+
+.shopkeeperRevealPicks {
+  display: flex;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 6px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+  background: rgba(0, 0, 0, 0.14);
+}
+
+.shopkeeperRevealPicks > svg {
+  width: 15px;
+  color: #777d77;
+}
+
+@media (max-width: 680px) {
+  .shopkeeperStoreToolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .shopSearchBox {
+    flex: none;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    height: 36px;
+  }
+
+  .shopkeeperRecipeBuilder {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .shopkeeperRecipeReveal {
+    gap: 7px;
+  }
+
+  .shopkeeperRevealPicks {
+    gap: 7px;
+  }
+}
+
+@media (max-width: 480px) {
+  .shopSearchBox {
+    min-width: 0;
+    max-width: none;
+  }
+}
+
+@media (max-width: 960px) {
+  .shopSearchBox {
+    height: 46px;
+  }
+}

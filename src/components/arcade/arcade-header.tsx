@@ -2,6 +2,7 @@ import { Volume2, VolumeX } from "lucide-react";
 import { ARCADE_LOBBY_PATH } from "@/lib/arcade-navigation.mjs";
 import { type PublicGameInfo } from "@/lib/game-identity";
 import styles from "../queue-arcade.module.css";
+import own from "./arcade-header.module.css";
 import { BrandMark } from "./mode-icon";
 import { MIN_GAME_VOLUME } from "./shared";
 
@@ -29,7 +30,7 @@ export function ArcadeHeader({
     <header className={styles.header}>
       <a
         href={ARCADE_LOBBY_PATH}
-        className={styles.brand}
+        className={own.brand}
         aria-label="Queue Arcade home"
         data-testid="site-home"
         onClick={(event) => {
@@ -44,14 +45,14 @@ export function ArcadeHeader({
         </span>
       </a>
 
-      <div className={styles.headerMeta}>
-        <span className={styles.patchBadge}>
+      <div className={own.headerMeta}>
+        <span className={own.patchBadge}>
           {gameInfo.label} · {gameInfo.contentLabel}
         </span>
-        <div className={styles.volumeControl} data-muted={!soundEnabled}>
+        <div className={own.volumeControl} data-muted={!soundEnabled}>
           <button
             type="button"
-            className={styles.iconButton}
+            className={own.iconButton}
             onClick={() => {
               if (soundEnabled) {
                 stopRoundAudio();
@@ -65,7 +66,7 @@ export function ArcadeHeader({
             {soundEnabled ? <Volume2 /> : <VolumeX />}
           </button>
           <input
-            className={styles.volumeSlider}
+            className={own.volumeSlider}
             data-testid="game-volume"
             type="range"
             min={MIN_GAME_VOLUME * 100}
@@ -85,7 +86,7 @@ export function ArcadeHeader({
             aria-label="Game volume"
             aria-valuetext={`${Math.round(gameVolume * 100)} percent`}
           />
-          <output className={styles.volumeValue}>{Math.round(gameVolume * 100)}%</output>
+          <output className={own.volumeValue}>{Math.round(gameVolume * 100)}%</output>
         </div>
       </div>
     </header>

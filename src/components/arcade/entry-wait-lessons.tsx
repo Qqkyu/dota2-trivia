@@ -11,6 +11,7 @@ import { HeroPicker } from "./hero-picker";
 import { EMPTY_CROWD, LETTERS, WAIT_CHOICE_QUESTION, WAIT_HERO_QUESTION, WAIT_SHOP_QUESTION } from "./shared";
 import { ShopkeeperStore } from "./shopkeeper-store";
 import styles from "../queue-arcade.module.css";
+import own from "./entry-wait-lessons.module.css";
 
 export function ClassicChoiceBoard({ question, active }: { question: PublicArcadeQuestion; active: boolean }) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -126,19 +127,19 @@ export function EntryWaitLessons() {
   if (!tip) return null;
 
   return (
-    <div className={styles.entryWaitCarousel} data-testid="entry-wait-tips" data-tip-count={tipCount}>
+    <div className={own.entryWaitCarousel} data-testid="entry-wait-tips" data-tip-count={tipCount}>
       <button
         type="button"
-        className={styles.entryWaitTipButton}
+        className={own.entryWaitTipButton}
         data-testid="entry-wait-prev-tip"
         aria-label="Previous tip"
         onClick={() => stepTip(-1)}
       >
         <ChevronLeft />
       </button>
-      <div className={styles.entryWaitTipBar} data-testid="entry-wait-tip-bar">
-        <article className={styles.entryWaitCard} data-testid="entry-wait-tip" data-tip={tip.id}>
-          <div className={styles.entryWaitCardCopy}>
+      <div className={own.entryWaitTipBar} data-testid="entry-wait-tip-bar">
+        <article className={own.entryWaitCard} data-testid="entry-wait-tip" data-tip={tip.id}>
+          <div className={own.entryWaitCardCopy}>
             <small>{ENTRY_WAIT_TIP_LABEL}</small>
             <p>
               {tip.mark && tip.body.includes(tip.mark) ? (
@@ -152,7 +153,7 @@ export function EntryWaitLessons() {
               )}
             </p>
           </div>
-          <div className={styles.entryWaitStage} data-testid="entry-wait-stage">
+          <div className={own.entryWaitStage} data-testid="entry-wait-stage">
             <div
               className={styles.entryWaitPanel}
               data-panel="keys"
@@ -199,7 +200,7 @@ export function EntryWaitLessons() {
       </div>
       <button
         type="button"
-        className={styles.entryWaitTipButton}
+        className={own.entryWaitTipButton}
         data-testid="entry-wait-next-tip"
         aria-label="Next tip"
         onClick={() => stepTip(1)}

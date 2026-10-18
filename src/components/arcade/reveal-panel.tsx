@@ -4,6 +4,7 @@ import { Check, Flag, X } from "lucide-react";
 import clsx from "clsx";
 import { REPORT_REASON_LABELS, REPORT_REASONS } from "@/lib/calibration";
 import styles from "../queue-arcade.module.css";
+import own from "./reveal-panel.module.css";
 
 import type { useArcadeRoom } from "./use-arcade-room";
 import type { deriveRoundView } from "./round-view";
@@ -36,7 +37,7 @@ export function RevealPanel({
 }: RevealPanelProps) {
   return (
     <div
-      className={clsx(styles.revealPanel, selectedWasCorrect ? styles.revealCorrect : styles.revealWrong)}
+      className={clsx(styles.revealPanel, selectedWasCorrect ? own.revealCorrect : own.revealWrong)}
       data-testid="reveal-panel"
       data-has-media={currentQuestion.reveal?.media && currentQuestion.reveal.media.kind !== "photo" ? "true" : "false"}
       data-media-kind={
@@ -44,7 +45,7 @@ export function RevealPanel({
       }
       aria-live="polite"
     >
-      <div className={styles.revealIcon}>{selectedWasCorrect ? <Check /> : <X />}</div>
+      <div className={own.revealIcon}>{selectedWasCorrect ? <Check /> : <X />}</div>
       {currentQuestion.reveal?.media && currentQuestion.reveal.media.kind !== "photo" && (
         <figure className={styles.revealMedia} data-kind="mark" data-testid="flashback-reveal-media">
           <Image
@@ -64,7 +65,7 @@ export function RevealPanel({
           {resultCallout}
         </span>
         {!isValueOrderRound && <p data-testid="reveal-explanation">{currentQuestion.reveal?.explanation}</p>}
-        <div className={styles.reportControl}>
+        <div className={own.reportControl}>
           <button
             type="button"
             className={styles.reportButton}
@@ -83,7 +84,7 @@ export function RevealPanel({
                   : "Report question"}
           </button>
           {reportTarget?.roundId === activeRoundId && !reportedReason && (
-            <div className={styles.reportMenu} role="group" aria-label="Why are you reporting this question?">
+            <div className={own.reportMenu} role="group" aria-label="Why are you reporting this question?">
               {REPORT_REASONS.map((reason) => (
                 <button
                   key={reason}

@@ -7,6 +7,7 @@ import { type PublicGameInfo } from "@/lib/game-identity";
 import { SteamAvatar } from "../steam-avatar";
 import { SteamSignIn } from "../steam-sign-in";
 import styles from "../queue-arcade.module.css";
+import own from "./arcade-lobby.module.css";
 import { QuestionArtwork } from "./artwork";
 import { ModeIcon } from "./mode-icon";
 import { accuracy, MODE_INFO, PREVIEW_QUESTION, ROUND_GAMES } from "./shared";
@@ -53,8 +54,8 @@ export function ArcadeLobby({
 }: ArcadeLobbyProps) {
   return (
     <section className={styles.lobby} id="arcade">
-      <div className={styles.lobbyCopy}>
-        <div className={styles.liveLabel}>
+      <div className={own.lobbyCopy}>
+        <div className={own.liveLabel}>
           <span />
           {activePlayers > 0
             ? `${activePlayers.toLocaleString("en-US")} playing now · Ten games`
@@ -65,14 +66,14 @@ export function ArcadeLobby({
           <br />
           <em>side quests.</em>
         </h1>
-        <p className={styles.lead}>
+        <p className={own.lead}>
           A Dota arcade built for the gap between Find Match and Accept. Everyone plays the same endless rotation; the
           challenge changes every round.
         </p>
 
-        <div className={styles.roundMix} data-testid="round-mix">
-          <span className={styles.fieldLabel}>Round mix</span>
-          <div className={styles.roundMixRail} role="group" aria-label="Round identities">
+        <div className={own.roundMix} data-testid="round-mix">
+          <span className={own.fieldLabel}>Round mix</span>
+          <div className={own.roundMixRail} role="group" aria-label="Round identities">
             {ROUND_GAMES.map((game) => (
               <span key={game} data-round-family={game}>
                 <ModeIcon mode={game} />
@@ -82,11 +83,11 @@ export function ArcadeLobby({
           </div>
         </div>
 
-        <div className={styles.lobbyActions}>
+        <div className={own.lobbyActions}>
           <button
             type="button"
             data-testid="start-arcade"
-            className={styles.primaryButton}
+            className={own.primaryButton}
             onClick={() => {
               privateCodeRef.current = "";
               setPartyOpen(false);
@@ -99,7 +100,7 @@ export function ArcadeLobby({
           </button>
           <a
             href={PARTY_ARCADE_PATH}
-            className={styles.lobbyFriends}
+            className={own.lobbyFriends}
             data-testid="private-room-open"
             onClick={(event) => {
               if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -117,11 +118,11 @@ export function ArcadeLobby({
           >
             Party
           </a>
-          <div className={styles.accountActionSlot} data-testid="account-action-slot">
+          <div className={own.accountActionSlot} data-testid="account-action-slot">
             {account === null ? (
-              <span className={styles.accountLoading} aria-hidden="true" />
+              <span className={own.accountLoading} aria-hidden="true" />
             ) : account.authenticated ? (
-              <Link href="/profile" className={styles.profileAction} data-testid="profile-action">
+              <Link href="/profile" className={own.profileAction} data-testid="profile-action">
                 <SteamAvatar
                   src={account.profile.user.avatarUrl}
                   name={account.profile.user.displayName}
@@ -134,19 +135,19 @@ export function ArcadeLobby({
                 </span>
               </Link>
             ) : (
-              <SteamSignIn returnTo="/" className={styles.steamSignIn} />
+              <SteamSignIn returnTo="/" className={own.steamSignIn} />
             )}
           </div>
         </div>
 
         {roomError ? (
-          <div className={clsx(styles.roomNotice, styles.roomNoticeError)} role="status">
+          <div className={clsx(own.roomNotice, own.roomNoticeError)} role="status">
             <Signal />
             {roomError}
           </div>
         ) : null}
 
-        <div className={styles.featureStrip}>
+        <div className={own.featureStrip}>
           <div>
             <strong>{ROUND_GAMES.length}</strong>
             <span>games in the mix</span>
@@ -172,10 +173,10 @@ export function ArcadeLobby({
         </div>
       </div>
 
-      <div className={styles.previewColumn}>
-        <div className={styles.previewHalo} />
-        <div className={styles.previewCard} data-testid="mode-preview">
-          <div className={styles.previewHeader}>
+      <div className={own.previewColumn}>
+        <div className={own.previewHalo} />
+        <div className={own.previewCard} data-testid="mode-preview">
+          <div className={own.previewHeader}>
             <span>
               <ModeIcon mode={PUBLIC_ARCADE_MODE} />
               {activeModeInfo.label}
@@ -188,14 +189,14 @@ export function ArcadeLobby({
             <h2>The next round could be anything.</h2>
             <p>{activeModeInfo.description}</p>
           </div>
-          <div className={styles.previewFooter}>
+          <div className={own.previewFooter}>
             <Users />
             One synchronized round, deadline, and answer split for everyone
           </div>
         </div>
 
-        <div className={styles.queueToast}>
-          <span className={styles.readyIcon}>
+        <div className={own.queueToast}>
+          <span className={own.readyIcon}>
             <Gamepad2 />
           </span>
           <span>

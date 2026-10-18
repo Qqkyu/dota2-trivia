@@ -1,0 +1,130 @@
+.reportCarryover {
+  position: fixed;
+  z-index: 100;
+  right: 24px;
+  bottom: 24px;
+  width: min(620px, calc(100vw - 48px));
+  padding: 13px;
+  border: 1px solid rgba(210, 214, 207, 0.23);
+  background: rgba(16, 20, 21, 0.98);
+  box-shadow: 0 20px 58px rgba(0, 0, 0, 0.62);
+}
+
+.reportCarryoverTitle {
+  display: grid;
+  min-width: 0;
+  align-items: center;
+  gap: 11px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  margin-bottom: 11px;
+}
+
+.reportCarryoverTitle > svg {
+  width: 17px;
+  color: var(--red-bright);
+}
+
+.reportCarryoverTitle > span {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.reportCarryoverTitle small {
+  color: #b98077;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.reportCarryoverTitle strong {
+  overflow: hidden;
+  margin: 4px 0 2px;
+  color: #e2e5e0;
+  font-size: 13px;
+  font-weight: 570;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reportCarryoverTitle em {
+  overflow: hidden;
+  color: #7f8784;
+  font-size: 11px;
+  font-style: normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reportCarryoverTitle > button {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: #7f8784;
+  cursor: pointer;
+}
+
+.reportCarryoverTitle > button:hover {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+.reportCarryoverTitle > button svg {
+  width: 14px;
+}
+
+.reportCarryoverReasons {
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.reportCarryoverReasons button {
+  min-height: 40px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.025);
+  color: #afb6b3;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.reportCarryoverReasons button:hover:not(:disabled),
+.reportCarryoverReasons button:focus-visible {
+  border-color: rgba(240, 106, 88, 0.4);
+  background: rgba(144, 48, 40, 0.13);
+  color: #f0d7d3;
+  outline: 0;
+}
+
+.reportCarryoverReasons button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.reportCarryoverError {
+  display: block;
+  margin-top: 8px;
+  color: #df887b;
+  font-size: 11px;
+}
+
+@media (max-width: 680px) {
+  .reportCarryover {
+    right: 10px;
+    bottom: 10px;
+    width: calc(100vw - 20px);
+  }
+
+  .reportCarryoverTitle strong {
+    white-space: normal;
+  }
+
+  .reportCarryoverReasons {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

@@ -5,6 +5,7 @@ import type { ShopkeeperItemReference } from "@/lib/trivia";
 import { SHOPKEEPER_RECIPE_IMAGE, type ShopkeeperCatalogItem } from "@/lib/shopkeeper-catalog";
 import { shopkeeperReferencesForKeys } from "./shared";
 import styles from "../queue-arcade.module.css";
+import own from "./shopkeeper-parts.module.css";
 
 export function ShopkeeperItem({ item, compact = false }: { item: ShopkeeperItemReference; compact?: boolean }) {
   return (
@@ -29,7 +30,7 @@ export function ShopkeeperTray({
 }) {
   return (
     <span
-      className={clsx(styles.shopkeeperTray, compact && styles.shopkeeperTrayCompact)}
+      className={clsx(styles.shopkeeperTray, compact && own.shopkeeperTrayCompact)}
       role="group"
       data-testid={testId}
       data-item-count={items.length}
@@ -45,7 +46,7 @@ export function ShopkeeperTray({
 
 export function ShopkeeperPick({ item, label }: { item: ShopkeeperCatalogItem | undefined; label: string }) {
   return (
-    <span className={styles.shopkeeperPick}>
+    <span className={own.shopkeeperPick}>
       <small>{label}</small>
       {item ? (
         <span>
@@ -73,7 +74,7 @@ export function ShopkeeperRecipePick({
     <span className={styles.shopkeeperRecipePick}>
       <small>{label}</small>
       {items.length ? (
-        <span className={styles.shopkeeperRecipeRevealRow}>
+        <span className={own.shopkeeperRecipeRevealRow}>
           <ShopkeeperTray items={items} compact testId="shopkeeper-recipe-reveal-tray" />
           {recipeIncluded ? (
             <span className={styles.shopkeeperRecipeIncluded} data-testid="shopkeeper-recipe-included">

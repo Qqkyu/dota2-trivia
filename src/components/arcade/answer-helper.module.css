@@ -1,0 +1,34 @@
+@keyframes signal {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 4px rgba(118, 198, 138, 0.6));
+  }
+}
+
+.answerHelperCopy {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow-wrap: anywhere;
+  line-height: 1.35;
+}
+
+.answerHelperGold {
+  margin-left: auto;
+  flex: 0 0 auto;
+  color: var(--faint);
+}
+
+.signalIcon {
+  color: var(--green);
+  animation: signal 1.4s ease-in-out infinite;
+}
+
+@media (max-width: 680px) {
+  .answerHelperGold {
+    display: none;
+  }
+}

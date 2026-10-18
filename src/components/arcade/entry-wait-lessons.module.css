@@ -1,0 +1,107 @@
+.entryWaitCarousel {
+  display: grid;
+  width: 100%;
+  align-items: stretch;
+  gap: 10px;
+  grid-template-columns: 36px minmax(0, 1fr) 36px;
+  margin: 28px 0 0;
+}
+
+.entryWaitTipButton {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  align-self: center;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.entryWaitTipButton svg {
+  width: 28px;
+  height: 28px;
+}
+
+.entryWaitTipButton:hover {
+  color: #aaa;
+}
+
+.entryWaitTipButton:active {
+  color: #fff;
+  transform: scale(0.9);
+}
+
+.entryWaitTipBar {
+  display: grid;
+  min-width: 0;
+  gap: 10px;
+  padding: 10px 18px 16px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, transparent, rgba(12, 14, 15, 0.94) 15%, rgba(12, 14, 15, 0.94) 85%, transparent);
+}
+
+.entryWaitCardCopy > small {
+  color: #9aa3ad;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.entryWaitCard {
+  display: grid;
+  min-width: 0;
+  gap: 16px;
+  grid-template-rows: auto minmax(0, 1fr);
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.entryWaitCardCopy {
+  display: grid;
+  max-width: 720px;
+  min-height: 48px;
+  gap: 4px;
+  align-content: start;
+  margin: 0 auto;
+}
+
+/* One slot for every pause tip. Next/prev must not resize the page. */
+.entryWaitStage {
+  position: relative;
+  height: min(440px, 48vh);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.entryWaitCardCopy p {
+  min-height: 1.35em;
+  margin: 0;
+  color: #b4b8b2;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.entryWaitCardCopy em {
+  display: inline;
+  color: #fff;
+  font-style: normal;
+  font-weight: 550;
+  padding: 1px 6px 2px;
+  border: 1px solid #3d464c;
+  border-radius: 3px;
+  background: #000;
+}
+
+@media (max-width: 680px) {
+  .entryWaitCarousel {
+    grid-template-columns: 28px minmax(0, 1fr) 28px;
+  }
+}

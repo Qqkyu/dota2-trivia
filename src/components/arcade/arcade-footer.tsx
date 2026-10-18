@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { type PublicGameInfo } from "@/lib/game-identity";
 import styles from "../queue-arcade.module.css";
+import own from "./arcade-footer.module.css";
 import { BrandMark } from "./mode-icon";
 
 type ArcadeFooterProps = { gameInfo: PublicGameInfo };
@@ -12,7 +13,7 @@ export function ArcadeFooter({ gameInfo }: ArcadeFooterProps) {
         <BrandMark logoUrl={gameInfo.logoUrl} />
         Queue Arcade · Built for the seconds between “Find Match” and “Accept”
       </span>
-      <span className={styles.footerMeta}>
+      <span className={own.footerMeta}>
         <Link href="/profile">Profile</Link>
         <Link href="/privacy">Privacy</Link>
         <Link href="/calibration">Calibration lab</Link>

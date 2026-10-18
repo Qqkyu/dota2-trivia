@@ -5,6 +5,7 @@ import type { TriviaArtworkKind } from "@/lib/trivia";
 import type { PublicArcadeQuestion } from "@/lib/public-question";
 import { withPlayerId } from "./shared";
 import styles from "../queue-arcade.module.css";
+import own from "./artwork.module.css";
 
 export function QuestionArtwork({
   question,
@@ -71,8 +72,8 @@ export function AnswerArtwork({ src, alt, kind }: { src: string; alt: string; ki
     <span
       className={clsx(
         styles.answerArtwork,
-        kind === "hero" && styles.answerHeroArtwork,
-        kind === "ability" && styles.answerAbilityArtwork,
+        kind === "hero" && own.answerHeroArtwork,
+        kind === "ability" && own.answerAbilityArtwork,
       )}
     >
       {failed ? (
@@ -83,7 +84,7 @@ export function AnswerArtwork({ src, alt, kind }: { src: string; alt: string; ki
           alt=""
           fill
           sizes="(max-width: 680px) 62px, 88px"
-          className={styles.answerArtworkImage}
+          className={own.answerArtworkImage}
           onError={() => setFailed(true)}
           unoptimized
         />

@@ -1,6 +1,7 @@
 import type { PublicArcadeQuestion } from "@/lib/public-question";
 import { Keyboard, ListOrdered, ShoppingBag, Signal, Users } from "lucide-react";
 import styles from "../queue-arcade.module.css";
+import own from "./answer-helper.module.css";
 import { shopkeeperAnswerAction } from "./shared";
 
 import type { useArcadeRoom } from "./use-arcade-room";
@@ -52,7 +53,7 @@ export function AnswerHelper({
           ) : (
             <Keyboard />
           )}
-          <span className={styles.answerHelperCopy}>
+          <span className={own.answerHelperCopy}>
             {isOpenShopRound
               ? isRecipeBuilderRound
                 ? shopkeeperAnswerAction(currentQuestion)
@@ -83,13 +84,13 @@ export function AnswerHelper({
                                   ? "Match the line to its hero · A–D or 1–4"
                                   : "Use A–D or 1–4 to answer"}
           </span>
-          <span className={styles.answerHelperGold}>Correct now: {liveAward?.rawPoints ?? 0} gold</span>
+          <span className={own.answerHelperGold}>Correct now: {liveAward?.rawPoints ?? 0} gold</span>
         </>
       ) : (
         <>
-          <Signal className={styles.signalIcon} />
-          <span className={styles.answerHelperCopy}>Answer locked with {Math.ceil(answerTimeLeft / 1000)}s left</span>
-          <span className={styles.answerHelperGold}>Worth {liveAward?.rawPoints ?? 0} gold if correct</span>
+          <Signal className={own.signalIcon} />
+          <span className={own.answerHelperCopy}>Answer locked with {Math.ceil(answerTimeLeft / 1000)}s left</span>
+          <span className={own.answerHelperGold}>Worth {liveAward?.rawPoints ?? 0} gold if correct</span>
         </>
       )}
     </div>

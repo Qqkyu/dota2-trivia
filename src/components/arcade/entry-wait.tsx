@@ -2,6 +2,7 @@ import { Signal } from "lucide-react";
 import clsx from "clsx";
 import { ENTRY_WAIT_HINT } from "@/lib/entry-wait-tips.mjs";
 import styles from "../queue-arcade.module.css";
+import own from "./entry-wait.module.css";
 import { EntryWaitLessons } from "./entry-wait-lessons";
 
 import type { useArcadeRoom } from "./use-arcade-room";
@@ -23,12 +24,12 @@ export function EntryWait({ roomError, entryWaitRemaining }: EntryWaitProps) {
         <strong data-testid="entry-wait-timer">
           00:{String(Math.ceil(entryWaitRemaining / 1_000)).padStart(2, "0")}
         </strong>
-        <p className={styles.entryWaitHint} data-testid="entry-wait-hint">
+        <p className={own.entryWaitHint} data-testid="entry-wait-hint">
           {ENTRY_WAIT_HINT}
         </p>
         <EntryWaitLessons />
         {roomError && (
-          <span className={clsx(styles.entryWaitStatus, styles.entryWaitStatusError)} aria-live="polite">
+          <span className={clsx(own.entryWaitStatus, own.entryWaitStatusError)} aria-live="polite">
             <Signal />
             {roomError}
           </span>

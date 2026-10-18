@@ -1,0 +1,78 @@
+.revealCorrect {
+  border-color: rgba(118, 198, 138, 0.26);
+  background: linear-gradient(90deg, rgba(52, 100, 62, 0.17), rgba(0, 0, 0, 0.12));
+}
+
+.revealWrong {
+  border-color: rgba(210, 76, 63, 0.24);
+  background: linear-gradient(90deg, rgba(110, 36, 31, 0.15), rgba(0, 0, 0, 0.12));
+}
+
+.revealIcon {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+}
+
+.revealIcon svg {
+  width: 19px;
+}
+
+.revealCorrect .revealIcon {
+  border-color: rgba(118, 198, 138, 0.42);
+  background: rgba(68, 130, 81, 0.18);
+  color: var(--green);
+}
+
+.revealWrong .revealIcon {
+  border-color: rgba(240, 106, 88, 0.35);
+  background: rgba(146, 45, 37, 0.17);
+  color: var(--red-bright);
+}
+
+.reportControl {
+  position: relative;
+  width: fit-content;
+}
+
+.reportMenu {
+  position: absolute;
+  z-index: 30;
+  bottom: calc(100% + 7px);
+  left: -10px;
+  display: grid;
+  width: min(400px, calc(100vw - 112px));
+  gap: 1px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 5px;
+  border: 1px solid rgba(210, 214, 207, 0.2);
+  background: #141819;
+  box-shadow: 0 15px 38px rgba(0, 0, 0, 0.48);
+}
+
+.reportMenu button {
+  min-height: 39px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.025);
+  color: #afb6b3;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.reportMenu button:hover,
+.reportMenu button:focus-visible {
+  border-color: rgba(240, 106, 88, 0.34);
+  background: rgba(144, 48, 40, 0.12);
+  color: #f0d7d3;
+  outline: 0;
+}
+
+@media (max-width: 680px) {
+  .reportMenu {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

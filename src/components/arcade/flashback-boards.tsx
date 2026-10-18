@@ -11,6 +11,7 @@ import type { PublicArcadeQuestion } from "@/lib/public-question";
 import { valueOrderAnswerKey, valueOrderKeysFromAnswerKey } from "@/lib/value-order.mjs";
 import { EMPTY_FLASHBACK_ORDER_CARDS, type GamePhase } from "./shared";
 import styles from "../queue-arcade.module.css";
+import own from "./flashback-boards.module.css";
 
 export function FlashbackYearBoard({
   question,
@@ -62,20 +63,20 @@ export function FlashbackYearBoard({
 
   return (
     <div
-      className={styles.flashbackYearBoard}
+      className={own.flashbackYearBoard}
       data-testid="flashback-year-board"
       data-phase={phase}
       data-locked={locked ? "true" : "false"}
       data-correct-year={correctYear ?? ""}
     >
       {phase === "reveal" && (
-        <span className={styles.flashbackYearResultText} data-testid="flashback-year-answer-label">
+        <span className={own.flashbackYearResultText} data-testid="flashback-year-answer-label">
           Correct year
         </span>
       )}
       <strong data-testid="flashback-year-readout">{shownYear ?? "Year"}</strong>
       {phase === "reveal" && (
-        <p className={styles.flashbackYearResultText} data-testid="flashback-year-your-answer">
+        <p className={own.flashbackYearResultText} data-testid="flashback-year-your-answer">
           {lockedYear !== null ? `Your answer: ${lockedYear}.` : "No answer locked."}
         </p>
       )}
@@ -93,7 +94,7 @@ export function FlashbackYearBoard({
             data-testid="flashback-year-slider"
             onInput={(event) => setCursorYear(Number(event.currentTarget.value))}
           />
-          <div className={styles.flashbackYearEnds}>
+          <div className={own.flashbackYearEnds}>
             <span>{yearMin}</span>
             <span>{yearMax}</span>
           </div>
@@ -190,8 +191,8 @@ export function FlashbackOrderBoard({
     const correctKeys = valueOrderKeysFromAnswerKey(question.reveal?.correctAnswerKey) ?? [];
     const selectedWasCorrect = Boolean(selectedKey && selectedKey === question.reveal?.correctAnswerKey);
     return (
-      <div className={styles.flashbackOrderBoard} data-testid="flashback-order-board" data-phase="reveal">
-        <ol className={styles.flashbackOrderList} data-testid="flashback-order-sequence">
+      <div className={own.flashbackOrderBoard} data-testid="flashback-order-board" data-phase="reveal">
+        <ol className={own.flashbackOrderList} data-testid="flashback-order-sequence">
           {correctKeys.map((key, index) => {
             const card = cards.find((candidate) => candidate.key === key);
             return (
@@ -207,7 +208,7 @@ export function FlashbackOrderBoard({
           })}
         </ol>
         {submittedKeys && !selectedWasCorrect && (
-          <ol className={styles.flashbackOrderList} data-yours="true">
+          <ol className={own.flashbackOrderList} data-yours="true">
             {submittedKeys.map((key, index) => {
               const card = cards.find((candidate) => candidate.key === key);
               return (
@@ -228,12 +229,12 @@ export function FlashbackOrderBoard({
 
   return (
     <div
-      className={styles.flashbackOrderBoard}
+      className={own.flashbackOrderBoard}
       data-testid="flashback-order-board"
       data-phase="answering"
       data-locked={selectedKey ? "true" : "false"}
     >
-      <div className={styles.flashbackOrderSlots} role="group" aria-label="Your order">
+      <div className={own.flashbackOrderSlots} role="group" aria-label="Your order">
         {Array.from({ length: 4 }, (_, index) => {
           const key = activeKeys[index];
           const card = cards.find((candidate) => candidate.key === key);
@@ -243,14 +244,14 @@ export function FlashbackOrderBoard({
               {card?.image ? (
                 <Image src={card.image} alt="" width={28} height={28} unoptimized />
               ) : (
-                <span className={styles.flashbackOrderSlotArt} aria-hidden="true" />
+                <span className={own.flashbackOrderSlotArt} aria-hidden="true" />
               )}
               {card ? <strong>{card.name}</strong> : <em>—</em>}
             </span>
           );
         })}
       </div>
-      <div className={styles.flashbackOrderCards} role="group" aria-label="Events to order">
+      <div className={own.flashbackOrderCards} role="group" aria-label="Events to order">
         {cards.map((card) => {
           const position = activeKeys.indexOf(card.key);
           return (
@@ -265,7 +266,7 @@ export function FlashbackOrderBoard({
             >
               <i data-empty={position < 0 ? "true" : "false"}>{position >= 0 ? position + 1 : ""}</i>
               {card.image ? (
-                <span className={styles.flashbackOrderCardArt}>
+                <span className={own.flashbackOrderCardArt}>
                   <Image src={card.image} alt="" width={72} height={72} unoptimized />
                 </span>
               ) : null}

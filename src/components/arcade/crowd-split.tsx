@@ -8,7 +8,7 @@ import { publicCorrectIndex, type PublicArcadeQuestion } from "@/lib/public-ques
 import { SHOPKEEPER_CATALOG_BY_KEY, recipeItemsFromAnswerKey } from "@/lib/shopkeeper-catalog";
 import { valueOrderKeysFromAnswerKey } from "@/lib/value-order.mjs";
 import { keyedAnswerLabel, LETTERS, shopkeeperReferencesForKeys } from "./shared";
-import styles from "../queue-arcade.module.css";
+import own from "./crowd-split.module.css";
 
 export function CrowdSplitBar({
   marker,
@@ -30,7 +30,7 @@ export function CrowdSplitBar({
 
   return (
     <div
-      className={styles.crowdSplitRow}
+      className={own.crowdSplitRow}
       role="group"
       data-testid="crowd-split-row"
       data-count={count}
@@ -40,14 +40,14 @@ export function CrowdSplitBar({
       style={{ "--crowd-share": `${percentage}%` } as CSSProperties}
       aria-label={`${label}: ${percentage}%${status ? `, ${status}` : ""}`}
     >
-      <span className={styles.crowdSplitMeta}>
-        <i className={styles.crowdSplitMarker}>{marker}</i>
+      <span className={own.crowdSplitMeta}>
+        <i className={own.crowdSplitMarker}>{marker}</i>
         <strong title={label}>{label}</strong>
         {selected && <em>You</em>}
         {correct && <Check role="img" aria-label="Correct answer" />}
         <small>{percentage}%</small>
       </span>
-      <span className={styles.crowdSplitTrack} aria-hidden="true">
+      <span className={own.crowdSplitTrack} aria-hidden="true">
         <i />
       </span>
     </div>
@@ -66,7 +66,7 @@ export function ChoiceCrowdSplit({
   const correctIndex = publicCorrectIndex(question);
 
   return (
-    <div className={styles.crowdSplit} data-testid="crowd-split" data-split-kind="choices" data-total={crowd.total}>
+    <div className={own.crowdSplit} data-testid="crowd-split" data-split-kind="choices" data-total={crowd.total}>
       {question.answers.map((answer, index) => (
         <CrowdSplitBar
           key={`${index}:${answer}`}
@@ -99,7 +99,7 @@ export function KeyedCrowdSplit({
   });
 
   return (
-    <div className={styles.crowdSplit} data-testid="crowd-split" data-split-kind="open-grid" data-total={crowd.total}>
+    <div className={own.crowdSplit} data-testid="crowd-split" data-split-kind="open-grid" data-total={crowd.total}>
       {split.rows.map(({ answerKey, count }) => {
         const hero = HERO_PICKER_BY_KEY.get(answerKey);
         const item = SHOPKEEPER_CATALOG_BY_KEY.get(answerKey);
@@ -114,13 +114,13 @@ export function KeyedCrowdSplit({
           hero || item ? (
             <Image src={(hero ?? item)?.image ?? ""} alt="" fill sizes="34px" unoptimized />
           ) : orderCards?.length === 4 ? (
-            <span className={styles.crowdSplitOrder} aria-hidden="true">
+            <span className={own.crowdSplitOrder} aria-hidden="true">
               {orderCards.map((card) => (
                 <Image key={card?.key} src={card?.image ?? ""} alt="" width={18} height={18} unoptimized />
               ))}
             </span>
           ) : recipeItems.length ? (
-            <span className={styles.crowdSplitRecipe} aria-hidden="true">
+            <span className={own.crowdSplitRecipe} aria-hidden="true">
               {recipeItems.slice(0, 3).map((recipeItem) => (
                 <Image key={recipeItem.key} src={recipeItem.image} alt="" width={20} height={15} unoptimized />
               ))}

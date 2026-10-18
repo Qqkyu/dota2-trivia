@@ -6,6 +6,7 @@ import type { PublicArcadeQuestion } from "@/lib/public-question";
 import { isValueOrderAnswerForQuestion, valueOrderAnswerKey, valueOrderKeysFromAnswerKey } from "@/lib/value-order.mjs";
 import { EMPTY_VALUE_ORDER_CARDS, type GamePhase, type PublicValueOrderCard } from "./shared";
 import styles from "../queue-arcade.module.css";
+import own from "./value-order-board.module.css";
 
 export function ValueOrderSequence({
   question,
@@ -22,14 +23,14 @@ export function ValueOrderSequence({
   const valueByKey = new Map(question.reveal?.orderValues?.map((entry) => [entry.key, entry.label]) ?? []);
 
   return (
-    <div className={styles.valueOrderSequence} data-testid="value-order-sequence">
+    <div className={own.valueOrderSequence} data-testid="value-order-sequence">
       <small>{label}</small>
       <div>
         {cardKeys.map((key, index) => {
           const card = cardByKey.get(key);
           if (!card) return null;
           return (
-            <span key={key} className={styles.valueOrderSequenceCard} data-card-kind={card.kind}>
+            <span key={key} className={own.valueOrderSequenceCard} data-card-kind={card.kind}>
               <i>{index + 1}</i>
               <Image src={card.image} alt="" width={46} height={46} unoptimized />
               <strong>{card.name}</strong>
@@ -116,7 +117,7 @@ export function ValueOrderBoard({
     const correctKeys = valueOrderKeysFromAnswerKey(question.reveal?.correctAnswerKey) ?? [];
     const selectedWasCorrect = Boolean(selectedKey && selectedKey === question.reveal?.correctAnswerKey);
     return (
-      <div className={styles.valueOrderReveal} data-testid="value-order-board" data-phase="reveal">
+      <div className={own.valueOrderReveal} data-testid="value-order-board" data-phase="reveal">
         <ValueOrderSequence question={question} cardKeys={correctKeys} label="Correct order" showValues />
         {submittedKeys && !selectedWasCorrect && (
           <ValueOrderSequence question={question} cardKeys={submittedKeys} label="Your order" />
@@ -127,12 +128,12 @@ export function ValueOrderBoard({
 
   return (
     <div
-      className={styles.valueOrderBoard}
+      className={own.valueOrderBoard}
       data-testid="value-order-board"
       data-phase="answering"
       data-locked={selectedKey ? "true" : "false"}
     >
-      <div className={styles.valueOrderSlots} role="group" aria-label="Your order">
+      <div className={own.valueOrderSlots} role="group" aria-label="Your order">
         {Array.from({ length: 4 }, (_, index) => {
           const key = activeKeys[index];
           const card = cards.find((candidate) => candidate.key === key);
@@ -152,7 +153,7 @@ export function ValueOrderBoard({
         })}
       </div>
 
-      <div className={styles.valueOrderCards} role="group" aria-label="Cards to order">
+      <div className={own.valueOrderCards} role="group" aria-label="Cards to order">
         {cards.map((card, cardIndex) => {
           const position = activeKeys.indexOf(card.key);
           return (

@@ -1,0 +1,253 @@
+.flashbackYearBoard {
+  display: grid;
+  min-height: 186px;
+  align-content: center;
+  gap: 12px;
+  margin: 0 28px 16px;
+}
+
+.flashbackYearBoard > strong {
+  color: #f0d9a0;
+  font-family: var(--font-radiance), sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+}
+
+.flashbackYearResultText {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.flashbackYearEnds {
+  display: flex;
+  width: min(100%, 640px);
+  margin: 0 auto;
+  justify-content: space-between;
+  color: #8a8d85;
+  font-size: 11px;
+}
+
+.flashbackOrderBoard {
+  display: grid;
+  gap: 12px;
+  min-height: 256px;
+  margin: 0 28px 16px;
+}
+
+.flashbackOrderSlots {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.flashbackOrderSlots > span {
+  display: grid;
+  min-width: 0;
+  height: 64px;
+  align-items: center;
+  grid-template-columns: 18px 28px minmax(0, 1fr);
+  gap: 6px;
+  padding: 0 8px;
+  overflow: hidden;
+  border: 1px solid rgba(196, 164, 106, 0.28);
+  background: rgba(8, 8, 8, 0.55);
+  color: #d8c08a;
+}
+
+.flashbackOrderSlots > span[data-filled="true"] {
+  border-color: rgba(196, 164, 106, 0.55);
+}
+
+.flashbackOrderSlots img,
+.flashbackOrderList img,
+.flashbackOrderSlots .flashbackOrderSlotArt {
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+}
+
+.flashbackOrderSlots .flashbackOrderSlotArt {
+  display: block;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.flashbackOrderSlots strong {
+  min-width: 0;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.flashbackOrderSlots i,
+.flashbackOrderList i,
+.flashbackOrderCards i {
+  color: #8a8d85;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  font-style: normal;
+}
+
+.flashbackOrderCards {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.flashbackOrderCards button {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  height: 132px;
+  align-content: start;
+  justify-items: start;
+  gap: 6px;
+  padding: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(10, 12, 12, 0.78);
+  color: #e7ecec;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-synthesis: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.flashbackOrderCardArt {
+  display: block;
+  width: 72px;
+  height: 72px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.flashbackOrderCardArt img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+}
+
+.flashbackOrderCards button > i {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border: 1px solid rgba(196, 164, 106, 0.45);
+  background: rgba(196, 164, 106, 0.16);
+  color: #f0d9a0;
+  visibility: hidden;
+}
+
+.flashbackOrderCards button[data-selected="true"] > i {
+  visibility: visible;
+}
+
+.flashbackOrderCards button[data-selected="true"] {
+  border-color: rgba(196, 164, 106, 0.7);
+  box-shadow: inset 0 0 0 1px rgba(196, 164, 106, 0.35);
+}
+
+.flashbackOrderCards strong,
+.flashbackOrderCards small {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.flashbackOrderCards strong {
+  color: #ecece8;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.flashbackOrderCards small {
+  color: #8a8d85;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.flashbackOrderList strong {
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.flashbackOrderList {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  list-style: none;
+}
+
+.flashbackOrderList li {
+  display: grid;
+  min-width: 0;
+  height: 64px;
+  align-items: center;
+  grid-template-columns: 18px 28px minmax(0, 1fr);
+  gap: 6px;
+  padding: 0 8px;
+  overflow: hidden;
+  border: 1px solid rgba(196, 164, 106, 0.22);
+  background: rgba(8, 8, 8, 0.5);
+}
+
+.flashbackOrderList li > span {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+.flashbackOrderList small {
+  overflow: hidden;
+  color: #8a8d85;
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.flashbackOrderList img {
+  width: 36px;
+  height: 36px;
+}
+
+@media (max-width: 480px) {
+  .flashbackYearBoard,
+  .flashbackOrderBoard {
+    margin-inline: 8px;
+  }
+
+  .flashbackOrderCards,
+  .flashbackOrderSlots {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .flashbackOrderCards button {
+    height: auto;
+    min-height: 100px;
+  }
+
+  .flashbackOrderCards strong,
+  .flashbackOrderCards small {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+  }
+}

@@ -19,6 +19,7 @@ import {
 import type { GamePhase } from "./shared";
 import { ShopkeeperPick, ShopkeeperRecipePick } from "./shopkeeper-parts";
 import styles from "../queue-arcade.module.css";
+import own from "./shopkeeper-store.module.css";
 
 export function searchShopItems(query: string) {
   const normalized = query.trim().toLocaleLowerCase("en-US");
@@ -227,7 +228,7 @@ export function ShopkeeperStore({
         data-answer-mode={question.answerMode}
         data-locked={selectedKey ? "true" : "false"}
       >
-        <div className={styles.shopkeeperStoreToolbar}>
+        <div className={own.shopkeeperStoreToolbar}>
           <div className={styles.shopkeeperStoreTabs} role="group" aria-label="Shop section">
             {(["basics", "upgrades"] as const).map((tab) => (
               <button
@@ -244,7 +245,7 @@ export function ShopkeeperStore({
               </button>
             ))}
           </div>
-          <label className={styles.shopSearchBox} data-focused={normalizedQuery ? "true" : "false"}>
+          <label className={own.shopSearchBox} data-focused={normalizedQuery ? "true" : "false"}>
             <Search aria-hidden="true" />
             <input
               ref={searchInputRef}
@@ -297,7 +298,7 @@ export function ShopkeeperStore({
 
         {recipeBuilder && phase === "answering" && (
           <div
-            className={styles.shopkeeperRecipeBuilder}
+            className={own.shopkeeperRecipeBuilder}
             data-testid="shopkeeper-recipe-builder"
             data-recipe-size={recipeSize}
             data-selection-count={activeRecipeKeys.length}
@@ -357,13 +358,13 @@ export function ShopkeeperStore({
         )}
 
         {phase === "reveal" && recipeBuilder ? (
-          <div className={styles.shopkeeperRecipeReveal} data-testid="shopkeeper-open-reveal">
+          <div className={own.shopkeeperRecipeReveal} data-testid="shopkeeper-open-reveal">
             <ShopkeeperRecipePick itemKeys={submittedRecipeKeys} label="Your items" />
             <ArrowRight aria-hidden="true" />
             <ShopkeeperRecipePick itemKeys={correctRecipeKeys} label="Correct items" recipeIncluded={recipeIncluded} />
           </div>
         ) : phase === "reveal" ? (
-          <div className={styles.shopkeeperRevealPicks} data-testid="shopkeeper-open-reveal">
+          <div className={own.shopkeeperRevealPicks} data-testid="shopkeeper-open-reveal">
             <ShopkeeperPick item={selectedItem} label="Your pick" />
             <ArrowRight aria-hidden="true" />
             <ShopkeeperPick
@@ -390,7 +391,7 @@ export function ShopkeeperStore({
           onScroll={() => setTooltip(null)}
         >
           {normalizedQuery && searchItems.length === 0 ? (
-            <p className={styles.shopkeeperNoResults}>No shop item matches “{query.trim()}”.</p>
+            <p className={own.shopkeeperNoResults}>No shop item matches “{query.trim()}”.</p>
           ) : (
             groups.map((group) => (
               <section key={group.key} className={styles.shopkeeperGroup} aria-label={group.label}>
@@ -464,7 +465,7 @@ export function ShopkeeperStore({
           <div
             id="shopkeeper-item-tooltip"
             role="tooltip"
-            className={styles.shopkeeperTooltip}
+            className={own.shopkeeperTooltip}
             data-testid="shopkeeper-item-tooltip"
             data-placement={tooltip.placement}
             style={{ left: tooltip.left, top: tooltip.top, width: tooltip.width }}

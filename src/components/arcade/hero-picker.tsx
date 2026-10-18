@@ -13,6 +13,7 @@ import {
 import type { PublicArcadeQuestion } from "@/lib/public-question";
 import type { GamePhase } from "./shared";
 import styles from "../queue-arcade.module.css";
+import own from "./hero-picker.module.css";
 
 export const HERO_ATTRIBUTE_ICONS = {
   strength: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png",
@@ -159,10 +160,10 @@ export function HeroPicker({
       >
         {query}
       </div>
-      <label className={styles.heroSearchField}>
+      <label className={own.heroSearchField}>
         <Search aria-hidden="true" />
         <input
-          className={styles.heroSearchInput}
+          className={own.heroSearchInput}
           data-testid="hero-search-input"
           aria-label="Filter heroes"
           type="search"
@@ -195,7 +196,7 @@ export function HeroPicker({
       {/* Fixed-height status line: the filter count while answering, the lock,
           then the correct hero's name on reveal. Nothing below it moves. */}
       <p
-        className={styles.heroPickerStatus}
+        className={own.heroPickerStatus}
         data-testid="hero-picker-status"
         data-state={correctHero ? "reveal" : selectedHero ? "locked" : "search"}
         aria-live={correctHero ? "polite" : "off"}
@@ -218,7 +219,7 @@ export function HeroPicker({
           `${HERO_PICKER_HEROES.length} heroes · type to filter`
         )}
       </p>
-      <div className={styles.heroPickerBoard} data-testid="hero-picker-board">
+      <div className={own.heroPickerBoard} data-testid="hero-picker-board">
         {HERO_PICKER_CATALOG.groups.map((group) => (
           <section
             key={group.key}
@@ -263,7 +264,7 @@ export function HeroPicker({
                     <HeroPickerPortrait hero={hero} />
                     {phase === "reveal" && count > 0 && <i>{percentage}%</i>}
                     {phase === "reveal" && (isCorrect || isSelected) && (
-                      <span className={styles.heroPickerVerdict} aria-hidden="true">
+                      <span className={own.heroPickerVerdict} aria-hidden="true">
                         {isCorrect ? <Check /> : <X />}
                       </span>
                     )}

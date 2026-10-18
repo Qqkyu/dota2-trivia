@@ -1,0 +1,129 @@
+@keyframes firstBloodReveal {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(3);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes killStreakReveal {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.6);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes firstBloodSplash {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  12% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  55% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.killStreakHud {
+  position: fixed;
+  z-index: 41;
+  top: 75px;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.killStreakHud > p {
+  margin: 0;
+  color: #fff;
+  font-family: var(--font-radiance), sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  text-shadow: 0 0 2px #000;
+  transform-origin: center center;
+}
+
+.killStreakHud em {
+  font-style: normal;
+  font-weight: 700;
+}
+
+.killStreakHud > p[data-callout="Killing Spree"] em {
+  color: #00ff40;
+}
+
+.killStreakHud > p[data-callout="Dominating"] em {
+  color: #5e00bd;
+}
+
+.killStreakHud > p[data-callout="Mega Kill"] em {
+  color: #ff0080;
+}
+
+.killStreakHud > p[data-callout="Unstoppable"] em {
+  color: #ff8000;
+}
+
+.killStreakHud > p[data-callout="Wicked Sick"] em {
+  color: #808000;
+}
+
+.killStreakHud > p[data-callout="Monster Kill"] em {
+  color: #ff80ff;
+}
+
+.killStreakHud > p[data-callout="Godlike"] em {
+  color: #ff0000;
+}
+
+.killStreakHud > p[data-callout="Beyond Godlike"] em {
+  color: #ff8000;
+}
+
+.firstBloodBanner {
+  animation: firstBloodReveal 0.2s linear;
+}
+
+.killStreakBanner {
+  animation: killStreakReveal 0.2s linear;
+}
+
+.firstBloodSplash {
+  position: fixed;
+  z-index: 39;
+  inset: 0;
+  pointer-events: none;
+  background: url("/arcade/first-blood-splash.png") center / cover no-repeat;
+  animation: firstBloodSplash 1.65s ease-out forwards;
+}

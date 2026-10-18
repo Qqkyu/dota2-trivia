@@ -15,6 +15,7 @@ import {
 import clsx from "clsx";
 import { ECHO_HUNT_REVEAL_STAGES, SOUNDCHECK_REVEAL_STAGES, soundcheckCutDuration } from "@/lib/soundcheck.mjs";
 import styles from "../queue-arcade.module.css";
+import own from "./round-prompt.module.css";
 import { QuestionArtwork } from "./artwork";
 import { classicQuestionContext, withPlayerId } from "./shared";
 import { ShopkeeperTray } from "./shopkeeper-parts";
@@ -358,7 +359,7 @@ export function RoundPrompt({
             ))}
           </div>
           {isSoundSequence && (
-            <div className={styles.soundSequenceSteps}>
+            <div className={own.soundSequenceSteps}>
               <i data-active={roundAudioState === "playing" && roundAudioClipIndex === 0}>01</i>
               <ArrowRight />
               <i data-active={roundAudioState === "playing" && roundAudioClipIndex === 1}>02</i>
@@ -459,7 +460,7 @@ export function RoundPrompt({
       <div className={styles.questionCopy}>
         {classicQuestionContext(currentQuestion) && <span>{classicQuestionContext(currentQuestion)}</span>}
         <h2>{currentQuestion.prompt}</h2>
-        {currentQuestion.detail && <p className={styles.questionDetail}>{currentQuestion.detail}</p>}
+        {currentQuestion.detail && <p className={own.questionDetail}>{currentQuestion.detail}</p>}
       </div>
     </div>
   );

@@ -1,0 +1,37 @@
+.itemAnswers,
+.heroAnswers {
+  gap: 9px;
+}
+
+.sequenceAnswer {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.sequenceAnswerChoice {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.sequenceAnswerArrow {
+  width: 17px;
+  flex: 0 0 auto;
+  color: #659399;
+}
+
+.answerChevron {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: 24px;
+  place-items: center;
+  color: var(--faint);
+}
+
+.answerChevron svg {
+  width: 15px;
+}
