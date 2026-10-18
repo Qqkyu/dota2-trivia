@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-10-15T16:29:06.610Z",
-  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Fable 5.1 on 2026-10-15 after removing the retired Map Sense and Counterplay archive and audit-only scripts (playable catalog unchanged)",
+  "reviewedAt": "2026-10-18T06:27:49.932Z",
+  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Fable 5.1 on 2026-10-18 for the component refactor and render snapshot script (playable catalog unchanged)",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
     "patch": "7.41f",
@@ -44,6 +44,7 @@
     "scripts/check-production-config.mjs": "3100c5b1a64a63c0859a13e9ec7c21cb6cda86f074d459c232007f16ccaab093",
     "scripts/check-public-play.mjs": "eeb92eb9f4dc5478372060a75c4b0e9cde723b7398c0e65d69f58a8abc42799e",
     "scripts/check-rate-limit-live.mjs": "82de8cbe9c6530172ed6e199798d42f9566dcd90dbdfa3d1acc9bb58ed27a62f",
+    "scripts/check-render-snapshot.mjs": "4f03f4ed618fd4a02d65d937c70b5376cae930352e18ac06706278e2ab5a50ab",
     "scripts/check-reports-api.mjs": "a3e1b9bd7393b36cb989640a1e23053d08697e0bea4c0f23271c1d36442b5cf2",
     "scripts/check-responsive-ui.mjs": "34c0b80f68de7b920444c762b70c1d92ca15078d8422444bf25f20975fe63df2",
     "scripts/check-round-accessibility.mjs": "65a98a1aa7e9d13f3d1bbd51013de3b475f9f5b086d4fb6383cff8f336b78125",
