@@ -4,9 +4,10 @@ import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { ROOM_SYNC_HEARTBEAT_MS, ROOM_SYNC_REQUEST_TIMEOUT_MS } from "../src/lib/room-sync.mjs";
+import { readArcadeSource } from "./lib/arcade-sources.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const component = await readFile(join(root, "src", "components", "queue-arcade.tsx"), "utf8");
+const component = await readArcadeSource(root);
 const partyPanel = await readFile(join(root, "src", "components", "private-room-panel.tsx"), "utf8");
 const failures = [];
 for (const requiredIntegration of [

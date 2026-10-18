@@ -6,11 +6,12 @@ import { fileURLToPath } from "node:url";
 import { heroCorrectAnswerKey } from "../src/lib/hero-picker.mjs";
 import { publicQuestionForRound } from "../src/lib/public-question.mjs";
 import { questionPresentationRevision } from "../src/lib/question-revision.mjs";
+import { readArcadeSource, readArcadeStyles } from "./lib/arcade-sources.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const [styles, component, questions, heroCatalog] = await Promise.all([
-  readFile(join(root, "src", "components", "queue-arcade.module.css"), "utf8"),
-  readFile(join(root, "src", "components", "queue-arcade.tsx"), "utf8"),
+  readArcadeStyles(root),
+  readArcadeSource(root),
   readFile(join(root, "src", "data", "questions.generated.json"), "utf8").then(JSON.parse),
   readFile(join(root, "src", "data", "hero-picker.json"), "utf8").then(JSON.parse),
 ]);

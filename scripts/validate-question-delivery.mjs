@@ -7,6 +7,7 @@ import { heroCorrectAnswerKey, isHeroPickerQuestion } from "../src/lib/hero-pick
 import { itemPickerCorrectAnswerKey, recipeBuilderCorrectAnswerKey } from "../src/lib/item-picker.mjs";
 import { publicQuestionForRound, publicQuestionRevision } from "../src/lib/public-question.mjs";
 import { valueOrderCorrectAnswerKey } from "../src/lib/value-order.mjs";
+import { readArcadeSource, readArcadeStyles } from "./lib/arcade-sources.mjs";
 
 const root = process.cwd();
 const readJson = async (file) => JSON.parse(await readFile(path.join(root, "src", "data", file), "utf8"));
@@ -413,16 +414,16 @@ if (aghanimUpgrade) {
   );
 }
 
-const [clientSource, clientStyles, roundsSource, votesSource, reportsSource, roundAudioSource] = await Promise.all(
+const [roundsSource, votesSource, reportsSource, roundAudioSource] = await Promise.all(
   [
-    "src/components/queue-arcade.tsx",
-    "src/components/queue-arcade.module.css",
     "src/app/api/rounds/route.ts",
     "src/app/api/votes/route.ts",
     "src/app/api/reports/route.ts",
     "src/app/api/round-audio/route.ts",
   ].map((file) => readFile(path.join(root, file), "utf8")),
 );
+const clientSource = await readArcadeSource(root);
+const clientStyles = await readArcadeStyles(root);
 record(!clientSource.includes("@/lib/game-catalogs"), "The gameplay client imports the private game catalog.");
 
 // Every "use client" module and everything it imports (transitively, value

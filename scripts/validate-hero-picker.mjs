@@ -9,14 +9,15 @@ import { buildHeroQuoteHints } from "./hero-quote-hints.mjs";
 import { parseValveKeyValues } from "./valve-keyvalues.mjs";
 import { heroDisplayName } from "./hero-display-names.mjs";
 import { HERO_PICKER_QUESTION_KINDS, heroCorrectAnswerKey, isHeroPickerQuestion } from "../src/lib/hero-picker.mjs";
+import { readArcadeSource, readArcadeStyles } from "./lib/arcade-sources.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const [catalog, questions, aghanimQuestions, component, styles, voteRoute, serializer] = await Promise.all([
   readFile(join(root, "src", "data", "hero-picker.json"), "utf8").then(JSON.parse),
   readFile(join(root, "src", "data", "questions.generated.json"), "utf8").then(JSON.parse),
   readFile(join(root, "src", "data", "aghanim-questions.json"), "utf8").then(JSON.parse),
-  readFile(join(root, "src", "components", "queue-arcade.tsx"), "utf8"),
-  readFile(join(root, "src", "components", "queue-arcade.module.css"), "utf8"),
+  readArcadeSource(root),
+  readArcadeStyles(root),
   readFile(join(root, "src", "app", "api", "votes", "route.ts"), "utf8"),
   readFile(join(root, "src", "lib", "public-question.mjs"), "utf8"),
 ]);

@@ -8,6 +8,7 @@ import {
   parseAudioRange,
   warmRoundAudio,
 } from "../src/lib/round-audio-cache.mjs";
+import { readArcadeSource } from "./lib/arcade-sources.mjs";
 
 const failures = [];
 const record = (condition, message) => {
@@ -69,14 +70,12 @@ try {
   globalThis.fetch = originalFetch;
 }
 
-const [routeSource, clientSource, cutterSource, dockerfile] = await Promise.all(
-  [
-    "src/app/api/round-audio/route.ts",
-    "src/components/queue-arcade.tsx",
-    "src/lib/cut-round-audio.mjs",
-    "Dockerfile",
-  ].map((file) => readFile(path.join(process.cwd(), file), "utf8")),
+const [routeSource, cutterSource, dockerfile] = await Promise.all(
+  ["src/app/api/round-audio/route.ts", "src/lib/cut-round-audio.mjs", "Dockerfile"].map((file) =>
+    readFile(path.join(process.cwd(), file), "utf8"),
+  ),
 );
+const clientSource = await readArcadeSource(process.cwd());
 record(
   routeSource.includes('round.id !== roundId || round.phase !== "reveal"') &&
     routeSource.includes("liveRoundAt(settings, round.number + 1, round.revealDeadline)") &&

@@ -13,8 +13,6 @@ import {
 import { LIVE_ROUND_GAMES, PUBLIC_ROUND_FORMATS } from "../src/lib/arcade-games.mjs";
 import { formatPreviewLeaksAnswer, formatPreviewsFromQuestions } from "../src/lib/format-preview.mjs";
 import { LIVE_QUESTION_COPY } from "../src/lib/round-question-copy.mjs";
-import { readFile } from "node:fs/promises";
-import path from "node:path";
 import { profileRecordsPreview } from "../src/lib/profile-records-state.mjs";
 import {
   answerStageLabel,
@@ -29,6 +27,7 @@ import {
   safeAvatarUrl,
   steamIdentityNeedsEnrichment,
 } from "../src/lib/steam-profile.mjs";
+import { readArcadeSource } from "./lib/arcade-sources.mjs";
 
 const failures = [];
 const rounds = [true, true, false, true, true, true, true, true, true, true, true].map((correct, index) => ({
@@ -280,7 +279,7 @@ if (
   failures.push("Format mastery previews leak answers or no longer show a real mini-question.");
 }
 
-const arcadeSource = await readFile(path.join(process.cwd(), "src/components/queue-arcade.tsx"), "utf8");
+const arcadeSource = await readArcadeSource(process.cwd());
 if (
   !arcadeSource.includes(LIVE_QUESTION_COPY["fogged-vision"].prompt) ||
   !arcadeSource.includes(LIVE_QUESTION_COPY["fogged-vision"].eyebrow) ||

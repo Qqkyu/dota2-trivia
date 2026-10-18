@@ -22,6 +22,7 @@ import {
   shopkeeperQuestionIssues,
 } from "../src/lib/shopkeeper-quality.mjs";
 import { varietyShuffle } from "../src/lib/variety.mjs";
+import { readArcadeSource, readArcadeStyles } from "./lib/arcade-sources.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const questions = JSON.parse(await readFile(join(root, "src", "data", "shopkeeper-questions.json"), "utf8"));
@@ -29,8 +30,8 @@ const catalog = JSON.parse(await readFile(join(root, "src", "data", "shopkeeper-
 const [voteRouteSource, postgresStoreSource, arcadeSource, arcadeStyles] = await Promise.all([
   readFile(join(root, "src", "app", "api", "votes", "route.ts"), "utf8"),
   readFile(join(root, "src", "lib", "vote-store-postgres.ts"), "utf8"),
-  readFile(join(root, "src", "components", "queue-arcade.tsx"), "utf8"),
-  readFile(join(root, "src", "components", "queue-arcade.module.css"), "utf8"),
+  readArcadeSource(root),
+  readArcadeStyles(root),
 ]);
 const failures = [];
 const ids = new Set();

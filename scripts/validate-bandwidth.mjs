@@ -5,13 +5,14 @@ import { constants } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { ROOM_SYNC_HEARTBEAT_MS } from "../src/lib/room-sync.mjs";
+import { readArcadeSource } from "./lib/arcade-sources.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const failures = [];
 const read = (path) => readFile(join(root, path), "utf8");
 
 const [component, profile, steamAvatar, nextConfig, roundsRoute, roundAudioRoute, roundAudioCache] = await Promise.all([
-  read("src/components/queue-arcade.tsx"),
+  readArcadeSource(root),
   read("src/app/profile/page.tsx"),
   read("src/components/steam-avatar.tsx"),
   read("next.config.mjs"),

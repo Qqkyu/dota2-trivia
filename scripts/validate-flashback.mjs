@@ -16,12 +16,13 @@ import {
   shouldWaitForNextRoundOnEntry,
 } from "../src/lib/arcade-entry.mjs";
 import { DOTA_SHOP_SEARCH_PLACEHOLDER, ENTRY_WAIT_HINT, ENTRY_WAIT_TIPS } from "../src/lib/entry-wait-tips.mjs";
+import { readArcadeSource, readArcadeStyles } from "./lib/arcade-sources.mjs";
 
 const questions = JSON.parse(
   await readFile(path.join(process.cwd(), "src", "data", "flashback-questions.json"), "utf8"),
 );
-const arcadeSource = await readFile(path.join(process.cwd(), "src", "components", "queue-arcade.tsx"), "utf8");
-const arcadeCss = await readFile(path.join(process.cwd(), "src", "components", "queue-arcade.module.css"), "utf8");
+const arcadeSource = await readArcadeSource(process.cwd());
+const arcadeCss = await readArcadeStyles(process.cwd());
 const failures = [];
 const record = (ok, message) => {
   if (!ok) failures.push(message);

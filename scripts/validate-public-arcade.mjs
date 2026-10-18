@@ -16,6 +16,7 @@ import { isPlayableClassicTriviaQuestion } from "../src/lib/classic-trivia-quali
 import { isPlayableShopkeeperQuestion } from "../src/lib/shopkeeper-quality.mjs";
 import { createSemanticPublicDeck } from "../src/lib/semantic-schedule.mjs";
 import { varietyShuffle } from "../src/lib/variety.mjs";
+import { readArcadeSource, readArcadeStyles } from "./lib/arcade-sources.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const readQuestions = async (file) => JSON.parse(await readFile(join(root, "src", "data", file), "utf8"));
@@ -27,8 +28,8 @@ const [generated, shopkeeper, soundcheck, valueOrder, aghanim, flashback, compon
     readQuestions("value-order-questions.json"),
     readQuestions("aghanim-questions.json"),
     readQuestions("flashback-questions.json"),
-    readFile(join(root, "src", "components", "queue-arcade.tsx"), "utf8"),
-    readFile(join(root, "src", "components", "queue-arcade.module.css"), "utf8"),
+    readArcadeSource(root),
+    readArcadeStyles(root),
   ]);
 
 const generatedLive = generated.filter(

@@ -23,12 +23,13 @@ import {
   soundcheckClipTiming,
   soundcheckRevealStage,
 } from "../src/lib/soundcheck.mjs";
+import { readArcadeSource } from "./lib/arcade-sources.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const questions = JSON.parse(await readFile(join(root, "src", "data", "soundcheck-questions.json"), "utf8"));
 const shopkeeperCatalog = JSON.parse(await readFile(join(root, "src", "data", "shopkeeper-catalog.json"), "utf8"));
 const metadata = JSON.parse(await readFile(join(root, "src", "data", "trivia-meta.generated.json"), "utf8"));
-const arcadeComponent = await readFile(join(root, "src", "components", "queue-arcade.tsx"), "utf8");
+const arcadeComponent = await readArcadeSource(root);
 const failures = [];
 const shopItemKeys = new Set(shopkeeperCatalog.groups.flatMap((group) => group.items.map((item) => item.key)));
 const ids = new Set();

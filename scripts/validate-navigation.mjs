@@ -9,6 +9,7 @@ import {
   arcadeViewForPathname,
 } from "../src/lib/arcade-navigation.mjs";
 import { LIVE_ARCADE_MODES, PUBLIC_ARCADE_MODE } from "../src/lib/arcade-games.mjs";
+import { readArcadeSource } from "./lib/arcade-sources.mjs";
 
 const modes = [...LIVE_ARCADE_MODES];
 const failures = [];
@@ -28,16 +29,16 @@ if (
   failures.push("The lobby, party, and live arcade no longer resolve to distinct canonical paths.");
 }
 
-const [chromeSource, footerSource, profileSource, privacySource, arcadeSource, partyPage] = await Promise.all(
+const [chromeSource, footerSource, profileSource, privacySource, partyPage] = await Promise.all(
   [
     "src/components/site-chrome.tsx",
     "src/components/site-footer.tsx",
     "src/app/profile/page.tsx",
     "src/app/privacy/page.tsx",
-    "src/components/queue-arcade.tsx",
     "src/app/party/page.tsx",
   ].map((file) => readFile(path.join(process.cwd(), file), "utf8")),
 );
+const arcadeSource = await readArcadeSource(process.cwd());
 if (
   !chromeSource.includes('data-testid="site-home"') ||
   !chromeSource.includes("ARCADE_LOBBY_PATH") ||
