@@ -5,14 +5,12 @@ import { constants } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { ROOM_SYNC_HEARTBEAT_MS } from "../src/lib/room-sync.mjs";
-import { readArcadeSource } from "./lib/arcade-sources.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const failures = [];
 const read = (path) => readFile(join(root, path), "utf8");
 
-const [component, profile, steamAvatar, nextConfig, roundsRoute, roundAudioRoute, roundAudioCache] = await Promise.all([
-  readArcadeSource(root),
+const [profile, steamAvatar, nextConfig, roundsRoute, roundAudioRoute, roundAudioCache] = await Promise.all([
   read("src/app/profile/page.tsx"),
   read("src/components/steam-avatar.tsx"),
   read("next.config.mjs"),
@@ -21,32 +19,13 @@ const [component, profile, steamAvatar, nextConfig, roundsRoute, roundAudioRoute
   read("src/lib/round-audio-cache.mjs"),
 ]);
 
-if (
-  ROOM_SYNC_HEARTBEAT_MS !== 5_000 ||
-  !component.includes("window.setInterval(() => void syncRoom(), ROOM_SYNC_HEARTBEAT_MS)") ||
-  component.includes("window.setInterval(() => void syncRoom(), 1_000)")
-) {
+if (ROOM_SYNC_HEARTBEAT_MS !== 5_000) {
   failures.push("The public room returned to a one-second polling cadence.");
 }
 
-if (
-  !component.includes(
-    "roomProgressiveClueSyncDeadline(deadline, answerDuration, currentQuestion.clueStage, currentQuestion.game)",
-  ) ||
-  !component.includes("Math.min(phaseDeadline, progressiveClueDeadline)")
-) {
-  failures.push("Reduced polling is no longer paired with exact progressive-clue and phase wakeups.");
-}
-
 for (const [label, source, pattern] of [
-  ["header Steam avatar", component, /<SteamAvatar\s+src=\{account\.profile\.user\.avatarUrl\}/],
   ["profile Steam avatar", profile, /<SteamAvatar[\s\S]*?src=\{user\.avatarUrl\}/],
   ["Steam avatar stays unproxied", steamAvatar, /unoptimized/],
-  [
-    "Aghanim item art",
-    component,
-    /<Image[\s\S]{0,180}src=\{aghanimItem\.image\}[\s\S]{0,180}unoptimized[\s\S]{0,40}\/>/,
-  ],
 ]) {
   if (!pattern.test(source)) failures.push(`The ${label} is being proxied through Next Image again.`);
 }

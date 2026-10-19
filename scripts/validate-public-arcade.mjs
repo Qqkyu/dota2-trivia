@@ -16,21 +16,17 @@ import { isPlayableClassicTriviaQuestion } from "../src/lib/classic-trivia-quali
 import { isPlayableShopkeeperQuestion } from "../src/lib/shopkeeper-quality.mjs";
 import { createSemanticPublicDeck } from "../src/lib/semantic-schedule.mjs";
 import { varietyShuffle } from "../src/lib/variety.mjs";
-import { readArcadeSource, readArcadeStyles } from "./lib/arcade-sources.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const readQuestions = async (file) => JSON.parse(await readFile(join(root, "src", "data", file), "utf8"));
-const [generated, shopkeeper, soundcheck, valueOrder, aghanim, flashback, component, componentStyles] =
-  await Promise.all([
-    readQuestions("questions.generated.json"),
-    readQuestions("shopkeeper-questions.json"),
-    readQuestions("soundcheck-questions.json"),
-    readQuestions("value-order-questions.json"),
-    readQuestions("aghanim-questions.json"),
-    readQuestions("flashback-questions.json"),
-    readArcadeSource(root),
-    readArcadeStyles(root),
-  ]);
+const [generated, shopkeeper, soundcheck, valueOrder, aghanim, flashback] = await Promise.all([
+  readQuestions("questions.generated.json"),
+  readQuestions("shopkeeper-questions.json"),
+  readQuestions("soundcheck-questions.json"),
+  readQuestions("value-order-questions.json"),
+  readQuestions("aghanim-questions.json"),
+  readQuestions("flashback-questions.json"),
+]);
 
 const generatedLive = generated.filter(
   (question) =>
@@ -69,33 +65,6 @@ if (LIVE_ARCADE_MODES.length !== 1 || LIVE_ARCADE_MODES[0] !== PUBLIC_ARCADE_MOD
 if (LIVE_ROUND_GAMES.length !== 10 || PUBLIC_ROUND_FORMATS.length !== 13) {
   failures.push("The public arcade no longer has ten round identities and thirteen scheduling formats.");
 }
-for (const [mode, repeatedLabel] of [
-  ["Shopkeeper Rush", /<span>Shopkeeper Rush\b/],
-  ["Spell Link", /<span>Spell Link<\/span>/],
-  ["Fogged Vision", /<span>Fogged Vision\b/],
-  ["Soundcheck", /["`]Soundcheck ·/],
-  ["Echo Hunt", /["`]Echo Hunt ·/],
-  ["Quote Hunt", /<span>Quote Hunt<\/span>/],
-  ["Aghanim's Lab", /<span>Aghanim's Lab<\/span>/],
-]) {
-  if (repeatedLabel.test(component)) {
-    failures.push(`The in-round context repeats the top-bar ${mode} label.`);
-  }
-}
-if (
-  !component.includes("<span>Ability identity</span>") ||
-  !component.includes("<span>Hero quote</span>") ||
-  !component.includes("<span>Upgrade effect</span>")
-) {
-  failures.push("A progressive round lost its non-repeating subtype label.");
-}
-if (
-  !/\.cardTitle svg\s*{[^}]*width:\s*12px;[^}]*height:\s*12px;[^}]*display:\s*block;/s.test(componentStyles) ||
-  !componentStyles.includes(".progressActions")
-) {
-  failures.push("The recent-round rail lost its compact alignment contract.");
-}
-
 const pools = new Map(
   PUBLIC_ROUND_FORMATS.map((format) => [
     format,

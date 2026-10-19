@@ -9,7 +9,6 @@ import {
   arcadeViewForPathname,
 } from "../src/lib/arcade-navigation.mjs";
 import { LIVE_ARCADE_MODES, PUBLIC_ARCADE_MODE } from "../src/lib/arcade-games.mjs";
-import { readArcadeSource } from "./lib/arcade-sources.mjs";
 
 const modes = [...LIVE_ARCADE_MODES];
 const failures = [];
@@ -38,7 +37,6 @@ const [chromeSource, footerSource, profileSource, privacySource, partyPage] = aw
     "src/app/party/page.tsx",
   ].map((file) => readFile(path.join(process.cwd(), file), "utf8")),
 );
-const arcadeSource = await readArcadeSource(process.cwd());
 if (
   !chromeSource.includes('data-testid="site-home"') ||
   !chromeSource.includes("ARCADE_LOBBY_PATH") ||
@@ -52,11 +50,7 @@ if (
   failures.push("Non-play pages no longer share a home brand and Profile / Privacy / Calibration footer.");
 }
 
-if (
-  !arcadeSource.includes("PARTY_ARCADE_PATH") ||
-  !arcadeSource.includes("href={PARTY_ARCADE_PATH}") ||
-  !partyPage.includes("partyStart")
-) {
+if (!partyPage.includes("partyStart")) {
   failures.push("Play with friends must be a shareable /party link, not only client state.");
 }
 

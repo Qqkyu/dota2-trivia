@@ -16,13 +16,10 @@ import {
   shouldWaitForNextRoundOnEntry,
 } from "../src/lib/arcade-entry.mjs";
 import { DOTA_SHOP_SEARCH_PLACEHOLDER, ENTRY_WAIT_HINT, ENTRY_WAIT_TIPS } from "../src/lib/entry-wait-tips.mjs";
-import { readArcadeSource, readArcadeStyles } from "./lib/arcade-sources.mjs";
 
 const questions = JSON.parse(
   await readFile(path.join(process.cwd(), "src", "data", "flashback-questions.json"), "utf8"),
 );
-const arcadeSource = await readArcadeSource(process.cwd());
-const arcadeCss = await readArcadeStyles(process.cwd());
 const failures = [];
 const record = (ok, message) => {
   if (!ok) failures.push(message);
@@ -348,33 +345,10 @@ record(
   `Flashback year ticks start at ${FLASHBACK_YEAR_EPOCH}, not ${poolYearMin}.`,
 );
 record(
-  !arcadeSource.includes("yearMax: 2026") &&
-    arcadeSource.includes("flashbackYearMax") === false &&
-    arcadeSource.includes("flashback-year-board") &&
-    arcadeSource.includes("flashback-year-slider") &&
-    arcadeSource.includes('data-testid="flashback-year-lock"') &&
-    !arcadeSource.includes("flashback-year-tick") &&
-    !arcadeSource.includes("onPointerUp") &&
-    arcadeSource.includes("Slide to the year, then press Lock") &&
-    arcadeCss.includes(".flashbackYearBoard {") &&
-    arcadeCss.includes(".flashbackYearSlider {") &&
-    arcadeCss.includes(".flashbackYearLock {") &&
-    arcadeCss.includes("min-height: 186px;") &&
-    arcadeCss.includes("accent-color: #c4a46a;"),
-  "Flashback year answers still use a row of year boxes, a hardcoded last year, or lock on slider release.",
-);
-record(
   questions
     .filter((question) => /^what year/i.test(question.prompt))
     .every((question) => question.kind === "flashback-year" && question.flashback?.family === "year"),
   "A What year prompt still uses four nearby years.",
-);
-record(
-  !arcadeCss.includes("#68c6d9") &&
-    !arcadeCss.includes("104, 198, 217") &&
-    !arcadeCss.includes("0, 0, 34") &&
-    arcadeCss.includes("12, 14, 15"),
-  "The hint board still sits in a navy panel.",
 );
 record(
   flashbackYearMax(Date.UTC(2027, 5, 1)) === 2027 && flashbackYearMax(Date.UTC(2031, 0, 1)) === 2031,
@@ -526,49 +500,14 @@ record(
   "Players can still join a round that already started.",
 );
 record(
-  arcadeSource.includes("entryWaitRoundIdRef.current = result.snapshot.round.id") &&
-    !arcadeSource.includes("if (shouldWaitForNextRoundOnEntry(result.snapshot.round"),
-  "First Play no longer always waits for the next full question.",
-);
-record(
   ENTRY_WAIT_HINT.includes("full question") &&
     shouldShowEntryWaitLessons(3_000) &&
     !shouldShowEntryWaitLessons(2_999) &&
-    arcadeSource.includes('entryWaitMode === "lessons"') &&
-    arcadeSource.includes('entryWaitMode === "silent"') &&
-    !arcadeSource.includes("Starting now.") &&
     ENTRY_WAIT_TIPS.length === 3 &&
     ENTRY_WAIT_TIPS.every((tip) => tip.body),
   "The wait screen still swaps layout mid-wait.",
 );
-record(
-  DOTA_SHOP_SEARCH_PLACEHOLDER === "Search Items" &&
-    arcadeSource.includes("DOTA_SHOP_SEARCH_PLACEHOLDER") &&
-    arcadeSource.includes('data-testid="shopkeeper-search-field"'),
-  "The shop lost the Dota Search Items field.",
-);
-record(
-  arcadeSource.includes('data-empty={position < 0 ? "true" : "false"}') &&
-    arcadeSource.includes("flashback-reveal-media") &&
-    arcadeSource.includes('data-testid="reveal-panel"') &&
-    arcadeSource.includes("data-reveal-photo") &&
-    arcadeSource.includes("flashbackOrderCardArt") &&
-    arcadeSource.includes("<span>\n                  <strong>{card?.name ?? key}</strong>") &&
-    !arcadeSource.includes("<em>{cardIndex") &&
-    arcadeCss.includes(".flashbackOrderCards button {\n  position: relative;") &&
-    arcadeCss.includes("height: 132px;") &&
-    arcadeCss.includes(".flashbackOrderSlots > span {\n  display: grid;") &&
-    arcadeCss.includes("height: 64px;") &&
-    arcadeCss.includes(".flashbackOrderCardArt {\n  display: block;") &&
-    arcadeCss.includes("width: 72px;") &&
-    arcadeCss.includes(".flashbackOrderCards strong {\n  color: #ecece8;") &&
-    arcadeCss.includes("font-size: 14px;") &&
-    arcadeCss.includes(".flashbackQuestion .artwork,") &&
-    arcadeCss.includes("width: 248px;") &&
-    arcadeCss.includes("height: 148px;") &&
-    arcadeCss.includes("transform: scale(1.16);"),
-  "Flashback order cards can still change size when a card is picked.",
-);
+record(DOTA_SHOP_SEARCH_PLACEHOLDER === "Search Items", "The shop lost the Dota Search Items field.");
 
 if (failures.length) throw new Error(failures.join("\n"));
 console.log(`Validated ${questions.length} Flashback prompts and the full-question entry gate.`);

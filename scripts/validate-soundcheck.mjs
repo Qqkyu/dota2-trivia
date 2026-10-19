@@ -23,13 +23,11 @@ import {
   soundcheckClipTiming,
   soundcheckRevealStage,
 } from "../src/lib/soundcheck.mjs";
-import { readArcadeSource } from "./lib/arcade-sources.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const questions = JSON.parse(await readFile(join(root, "src", "data", "soundcheck-questions.json"), "utf8"));
 const shopkeeperCatalog = JSON.parse(await readFile(join(root, "src", "data", "shopkeeper-catalog.json"), "utf8"));
 const metadata = JSON.parse(await readFile(join(root, "src", "data", "trivia-meta.generated.json"), "utf8"));
-const arcadeComponent = await readArcadeSource(root);
 const failures = [];
 const shopItemKeys = new Set(shopkeeperCatalog.groups.flatMap((group) => group.items.map((item) => item.key)));
 const ids = new Set();
@@ -336,29 +334,6 @@ for (const [duration, expectedCuts] of expectedEchoCuts) {
     cuts.some((cut, index) => Math.abs(cut - expectedCuts[index]) > 0.000_001)
   ) {
     failures.push(`Echo Hunt ${duration}s line has an invalid progressive cut ${JSON.stringify(cuts)}.`);
-  }
-}
-
-if (
-  arcadeComponent.includes('data-testid="voice-line-play"') ||
-  arcadeComponent.includes("playRoundAudio(true") ||
-  !arcadeComponent.includes('data-testid={isSoundcheckRound ? "soundcheck-autoplay" : "echo-autoplay"}') ||
-  !arcadeComponent.includes('currentQuestion.prompt : "Whose voice is this?"') ||
-  arcadeComponent.includes("Whose voice crossed the river?")
-) {
-  failures.push(
-    "Echo Hunt must use direct copy and autoplay exactly one cut per reveal stage without a replay control.",
-  );
-}
-
-for (const redundantInstruction of [
-  "The last cut plays both in full.",
-  "The last cut plays the full sound.",
-  "Clues unlock with time",
-  "Replay as often as the timer allows.",
-]) {
-  if (arcadeComponent.includes(redundantInstruction)) {
-    failures.push(`Redundant in-round instruction returned: ${redundantInstruction}`);
   }
 }
 

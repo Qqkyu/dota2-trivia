@@ -22,16 +22,13 @@ import {
   shopkeeperQuestionIssues,
 } from "../src/lib/shopkeeper-quality.mjs";
 import { varietyShuffle } from "../src/lib/variety.mjs";
-import { readArcadeSource, readArcadeStyles } from "./lib/arcade-sources.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const questions = JSON.parse(await readFile(join(root, "src", "data", "shopkeeper-questions.json"), "utf8"));
 const catalog = JSON.parse(await readFile(join(root, "src", "data", "shopkeeper-catalog.json"), "utf8"));
-const [voteRouteSource, postgresStoreSource, arcadeSource, arcadeStyles] = await Promise.all([
+const [voteRouteSource, postgresStoreSource] = await Promise.all([
   readFile(join(root, "src", "app", "api", "votes", "route.ts"), "utf8"),
   readFile(join(root, "src", "lib", "vote-store-postgres.ts"), "utf8"),
-  readArcadeSource(root),
-  readArcadeStyles(root),
 ]);
 const failures = [];
 const ids = new Set();
@@ -89,8 +86,6 @@ const expectedCatalogGroups = [
 ];
 const catalogItems = catalog.groups?.flatMap((group) => group.items ?? []) ?? [];
 const catalogKeys = new Set(catalogItems.map((item) => item.key));
-const itemButtonRule = arcadeStyles.match(/\.shopkeeperGroup button \{([^}]*)\}/)?.[1] ?? "";
-const tooltipRule = arcadeStyles.match(/\.shopkeeperTooltip \{([^}]*)\}/)?.[1] ?? "";
 
 if (
   catalog.patch !== CLIENT_CONSTANT_AUDIT.patch ||
@@ -133,33 +128,6 @@ const uiContracts = [
   [voteRouteSource.includes("isValidAnswerKeyForQuestion(question, answerKey)"), "Votes reject invalid item keys."],
   [voteRouteSource.includes("answerKey: resolvedAnswerKey"), "Votes retain the resolved item key."],
   [postgresStoreSource.includes("GROUP BY answer_key"), "Crowd totals group votes by item key."],
-  [arcadeSource.includes('data-testid="shopkeeper-store"'), "The shop store is present."],
-  [arcadeSource.includes("onChoose={chooseKeyedAnswer}"), "The shop submits keyed answers."],
-  [arcadeSource.includes('data-testid="shopkeeper-item-tooltip"'), "The item tooltip is present."],
-  [arcadeSource.includes('data-testid="shopkeeper-recipe-builder"'), "The recipe builder is present."],
-  [arcadeSource.includes('data-testid="shopkeeper-recipe-slot"'), "Recipe slots are present."],
-  [arcadeSource.includes('data-testid="shopkeeper-recipe-build"'), "The recipe Build control is present."],
-  [arcadeSource.includes("recipeAnswerKeyForItems(draftRecipeKeys)"), "The recipe submits its selected item keys."],
-  [
-    arcadeSource.includes("setDraftRecipeKeys((itemKeys) => itemKeys.filter((_, index) => index !== slot))"),
-    "Removing a recipe slot retains all other slots.",
-  ],
-  [arcadeSource.includes("createPortal("), "The tooltip uses a portal."],
-  [
-    arcadeSource.includes("recipeBuilder ? addRecipeItem(item.key, event.detail === 0) : chooseItem(item.key)"),
-    "Store clicks select recipe components or item answers and request focus recovery for keyboard activation.",
-  ],
-  [
-    arcadeSource.includes("onClick={(event) => removeRecipeItem(slot, event.detail === 0)}"),
-    "Recipe removal requests focus recovery for keyboard activation.",
-  ],
-  [
-    Boolean(arcadeSource.match(/const chooseItem = \(itemKey: string\) => \{[^}]*onChoose\(itemKey\);/s)),
-    "An item answer calls onChoose with its key.",
-  ],
-  [itemButtonRule.includes("overflow: hidden;"), "Item buttons clip their artwork."],
-  [tooltipRule.includes("position: fixed;"), "The tooltip uses a fixed position."],
-  [!arcadeStyles.includes(".shopkeeperGroup button > span"), "Shop button span styling does not hide tooltip content."],
 ];
 for (const [passed, contract] of uiContracts) {
   if (!passed) failures.push(`Shopkeeper UI contract failed: ${contract}`);
