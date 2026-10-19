@@ -1,0 +1,129 @@
+import { useEffect } from "react";
+import { type PublicArcadeQuestion } from "@/lib/public-question";
+import { PUBLIC_VOTE_ACCEPT_GRACE_MS } from "@/lib/round-timing.mjs";
+import { ROOM_SYNC_HEARTBEAT_MS, roomDeadlineSyncDelay, roomProgressiveClueSyncDeadline } from "@/lib/room-sync.mjs";
+import { type GamePhase } from "./shared";
+
+import type { Dispatch, SetStateAction } from "react";
+
+export function useRoomPolling({
+  phase,
+  syncRoom,
+  setNow,
+  setActivePlayers,
+  deadline,
+  revealDeadline,
+  entryWaitDeadline,
+  currentQuestion,
+  answerDuration,
+}: {
+  phase: GamePhase;
+  syncRoom: (force?: boolean) => Promise<void>;
+  setNow: Dispatch<SetStateAction<number>>;
+  setActivePlayers: Dispatch<SetStateAction<number>>;
+  deadline: number | null;
+  revealDeadline: number | null;
+  entryWaitDeadline: number | null;
+  currentQuestion: PublicArcadeQuestion | null;
+  answerDuration: number;
+}) {
+  useEffect(() => {
+    if (phase === "lobby") return;
+    const interval = window.setInterval(() => setNow(Date.now()), 100);
+    return () => window.clearInterval(interval);
+  }, [phase]);
+
+  useEffect(() => {
+    if (phase === "lobby") return;
+
+    const interval = window.setInterval(() => void syncRoom(), ROOM_SYNC_HEARTBEAT_MS);
+    const wakeRoom = () => {
+      setNow(Date.now());
+      void syncRoom(true);
+    };
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") wakeRoom();
+    };
+
+    window.addEventListener("focus", wakeRoom);
+    window.addEventListener("pageshow", wakeRoom);
+    window.addEventListener("online", wakeRoom);
+    document.addEventListener("visibilitychange", handleVisibility);
+    document.addEventListener("resume", wakeRoom);
+    return () => {
+      window.clearInterval(interval);
+      window.removeEventListener("focus", wakeRoom);
+      window.removeEventListener("pageshow", wakeRoom);
+      window.removeEventListener("online", wakeRoom);
+      document.removeEventListener("visibilitychange", handleVisibility);
+      document.removeEventListener("resume", wakeRoom);
+    };
+  }, [phase, syncRoom]);
+
+  useEffect(() => {
+    if (phase !== "lobby") return;
+    let active = true;
+    const loadPresence = async () => {
+      try {
+        const response = await fetch("/api/presence", { cache: "no-store" });
+        const payload: unknown = await response.json();
+        if (
+          active &&
+          response.ok &&
+          payload &&
+          typeof payload === "object" &&
+          "activePlayers" in payload &&
+          typeof payload.activePlayers === "number" &&
+          Number.isInteger(payload.activePlayers) &&
+          payload.activePlayers >= 0
+        ) {
+          setActivePlayers(payload.activePlayers);
+        }
+      } catch {
+        // Presence is decorative; room entry must stay independent from it.
+      }
+    };
+    void loadPresence();
+    const interval = window.setInterval(() => void loadPresence(), 15_000);
+    return () => {
+      active = false;
+      window.clearInterval(interval);
+    };
+  }, [phase]);
+
+  useEffect(() => {
+    const phaseDeadline =
+      phase === "answering"
+        ? deadline == null
+          ? null
+          : deadline + PUBLIC_VOTE_ACCEPT_GRACE_MS
+        : phase === "reveal"
+          ? revealDeadline
+          : phase === "waiting"
+            ? entryWaitDeadline
+            : null;
+    const progressiveClueDeadline =
+      phase === "answering" &&
+      currentQuestion &&
+      (currentQuestion.game === "spell-link" ||
+        currentQuestion.game === "quote-hunt" ||
+        currentQuestion.game === "aghanim-lab" ||
+        currentQuestion.game === "soundcheck" ||
+        currentQuestion.game === "echo-hunt" ||
+        currentQuestion.game === "fogged-vision")
+        ? roomProgressiveClueSyncDeadline(deadline, answerDuration, currentQuestion.clueStage, currentQuestion.game)
+        : null;
+    const activeDeadline =
+      phaseDeadline !== null && progressiveClueDeadline !== null
+        ? Math.min(phaseDeadline, progressiveClueDeadline)
+        : (progressiveClueDeadline ?? phaseDeadline);
+    const delay = roomDeadlineSyncDelay(activeDeadline, Date.now());
+    if (delay === null) return;
+
+    const timeout = window.setTimeout(() => {
+      setNow(Date.now());
+      void syncRoom(true);
+    }, delay);
+    return () => window.clearTimeout(timeout);
+  }, [answerDuration, currentQuestion, deadline, entryWaitDeadline, phase, revealDeadline, syncRoom]);
+}

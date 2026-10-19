@@ -1,37 +1,18 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { isReportReason, QUESTION_REPORT_GRACE_MS, REPORT_REASONS, type ReportReason } from "@/lib/calibration";
+import { REPORT_REASONS } from "@/lib/calibration";
 import type { AccountSnapshot } from "@/lib/account-contract";
-import type { RoundGame } from "@/lib/trivia";
-import type {
-  CrowdResult,
-  PlayerIdentity,
-  PublicRoomSettings,
-  ReportResult,
-  RoomSnapshot,
-} from "@/lib/arcade-contract";
-import {
-  applyGuestLifetimeStats,
-  guestPendingRoundIds,
-  forgetGuestPendingVote,
-  readGuestLifetimeStats,
-  reconcileGuestRunBest,
-  markGuestRoundSettled,
-  rememberGuestPendingVote,
-} from "@/lib/guest-accuracy.mjs";
+import type { CrowdResult, PlayerIdentity, PublicRoomSettings, RoomSnapshot } from "@/lib/arcade-contract";
+import { guestPendingRoundIds, forgetGuestPendingVote, rememberGuestPendingVote } from "@/lib/guest-accuracy.mjs";
 import { safeBrowserStorage } from "@/lib/browser-storage.mjs";
-import { updateGuestLifetimeStorage } from "@/lib/guest-lifetime-storage.mjs";
-import { shouldHandleAnswerShortcut } from "@/lib/answer-shortcuts.mjs";
 import { requestWithRetry } from "@/lib/request-retry.mjs";
 import { playerIdentityKey, samePlayerIdentity } from "@/lib/player-identity";
-import { reconcileSessionResult, sessionResultTotals, type SessionRoundResult } from "@/lib/session-results";
 import { PUBLIC_ARCADE_MODE } from "@/lib/arcade-games.mjs";
 import { shouldShowEntryWaitLessons, shouldWaitForNextRoundOnEntry } from "@/lib/arcade-entry.mjs";
 import { isFlashbackOrderAnswerForQuestion, isFlashbackYearAnswerInRange } from "@/lib/flashback.mjs";
 import { ARCADE_LOBBY_PATH, PUBLIC_ARCADE_PATH, arcadeViewForPathname } from "@/lib/arcade-navigation.mjs";
 import { DEFAULT_GAME_ID } from "@/lib/game-identity";
 import { answerFeedbackKind } from "@/lib/feedback-sounds.mjs";
-import { preventQuestionClipboard, shouldBlockQuestionClipboard } from "@/lib/question-guard.mjs";
-import { HERO_PICKER_HEROES, heroPickerPortraitSrc, isHeroCatalogKey } from "@/lib/hero-picker";
+import { isHeroCatalogKey } from "@/lib/hero-picker";
 import { crowdScoreMultiplier, scoreBreakdown } from "@/lib/scoring.mjs";
 import { isRecipeAnswerKey, isShopkeeperCatalogKey, recipeItemsFromAnswerKey } from "@/lib/shopkeeper-catalog";
 import {
@@ -47,32 +28,21 @@ import {
   type PublicArcadeQuestion,
 } from "@/lib/public-question";
 import { isValueOrderAnswerForQuestion } from "@/lib/value-order.mjs";
-import { PUBLIC_VOTE_ACCEPT_GRACE_MS } from "@/lib/round-timing.mjs";
-import {
-  createRoomSyncGate,
-  ROOM_SYNC_HEARTBEAT_MS,
-  roomDeadlineSyncDelay,
-  roomProgressiveClueSyncDeadline,
-} from "@/lib/room-sync.mjs";
-import { HERO_ATTRIBUTE_ICONS } from "./hero-picker";
+import { createRoomSyncGate } from "@/lib/room-sync.mjs";
 import { normalizeRoomSnapshot, normalizeVoteResult, publicRoomQuery } from "./room-snapshot";
-import {
-  ANSWER_DURATION_MS,
-  EMPTY_CROWD,
-  keyedAnswerLabel,
-  STORAGE_KEY,
-  withPlayerId,
-  type GamePhase,
-  type QuestionReportNotice,
-  type QuestionReportTarget,
-  type RoundAward,
-  type RoundRecord,
-} from "./shared";
+import { ANSWER_DURATION_MS, EMPTY_CROWD, withPlayerId, type GamePhase, type RoundAward } from "./shared";
 
 import type { useArcadeAudio } from "./use-arcade-audio";
 import type { usePlayerId } from "./use-player-id";
 import type { usePlayerSettings } from "./use-player-settings";
 import type { useRoundRefs } from "./use-round-refs";
+import { useHeroPreload } from "./use-hero-preload";
+import { useQuestionReports } from "./use-question-reports";
+import { useRoundFocus } from "./use-round-focus";
+import { useAlphaSession } from "./use-alpha-session";
+import { useSessionScore } from "./use-session-score";
+import { useRoomPolling } from "./use-room-polling";
+import { useAnswerShortcuts } from "./use-answer-shortcuts";
 
 export function useArcadeRoom({
   autoStart,
@@ -118,16 +88,6 @@ export function useArcadeRoom({
 
   const [roundAward, setRoundAward] = useState<RoundAward | null>(null);
 
-  const [score, setScore] = useState(0);
-
-  const scoreRef = useRef(0);
-
-  const [streak, setStreak] = useState(0);
-
-  const [correctCount, setCorrectCount] = useState(0);
-
-  const [history, setHistory] = useState<RoundRecord[]>([]);
-
   const [deadline, setDeadlineState] = useState<number | null>(null);
 
   const [revealDeadline, setRevealDeadlineState] = useState<number | null>(null);
@@ -150,8 +110,6 @@ export function useArcadeRoom({
 
   const entryRequestRef = useRef<AbortController | null>(null);
 
-  const sessionResultsRef = useRef<SessionRoundResult[]>([]);
-
   const [roomError, setRoomError] = useState<string | null>(null);
 
   const [voteError, setVoteError] = useState<string | null>(null);
@@ -160,17 +118,7 @@ export function useArcadeRoom({
 
   const [activeRoundId, setActiveRoundId] = useState("");
 
-  const [roundAnnouncement, setRoundAnnouncement] = useState<{ id: string; text: string } | null>(null);
-
   const [activePlayers, setActivePlayers] = useState(0);
-
-  const [reportState, setReportState] = useState<"idle" | "sending" | "sent" | "error">("idle");
-
-  const [reportedReason, setReportedReason] = useState<ReportReason | null>(null);
-
-  const [reportTarget, setReportTarget] = useState<QuestionReportTarget | null>(null);
-
-  const [reportNotice, setReportNotice] = useState<QuestionReportNotice | null>(null);
 
   const [privateWaiting, setPrivateWaiting] = useState(Boolean(roomCode));
 
@@ -202,8 +150,6 @@ export function useArcadeRoom({
 
   const participatedRef = useRef(false);
 
-  const runSavedRef = useRef(false);
-
   const roomSettingsRef = useRef<PublicRoomSettings | null>(null);
 
   const roomSnapshotRef = useRef<RoomSnapshot | null>(null);
@@ -211,12 +157,6 @@ export function useArcadeRoom({
   const roundStageRef = useRef<HTMLDivElement | null>(null);
 
   const roundHeadingRef = useRef<HTMLHeadingElement | null>(null);
-
-  const lastRoundControlRef = useRef<HTMLElement | null>(null);
-
-  const announcedRoundRef = useRef<string | null>(null);
-
-  const scrollToRoundRef = useRef<string | null>(null);
 
   const questionRevisionRef = useRef("");
 
@@ -230,49 +170,46 @@ export function useArcadeRoom({
 
   const prewarmedAfterRoundIdRef = useRef("");
 
-  const reportTargetRef = useRef<QuestionReportTarget | null>(null);
-
-  const reportFocusRef = useRef<string | null>(null);
-
-  const reportStateRef = useRef<"idle" | "sending" | "sent" | "error">("idle");
-
   const autoStartAttemptedRef = useRef(false);
-
-  const alphaSessionIdRef = useRef("");
-
-  const alphaSessionFinishedRef = useRef(false);
-
-  const heroPreloadsRef = useRef<HTMLImageElement[]>([]);
 
   if (roomSyncGateRef.current === null) roomSyncGateRef.current = createRoomSyncGate();
 
-  useEffect(() => {
-    const sources = [
-      ...Object.values(HERO_ATTRIBUTE_ICONS),
-      ...HERO_PICKER_HEROES.map((hero) => heroPickerPortraitSrc(hero.image)),
-    ];
-    heroPreloadsRef.current = sources.map((src) => {
-      const image = new window.Image();
-      image.decoding = "async";
-      image.fetchPriority = "low";
-      image.src = src;
-      return image;
-    });
-
-    return () => {
-      heroPreloadsRef.current = [];
-    };
-  }, []);
-
-  const updateReportTarget = useCallback((target: QuestionReportTarget | null) => {
-    reportTargetRef.current = target;
-    setReportTarget(target);
-  }, []);
-
-  const updateReportState = useCallback((state: "idle" | "sending" | "sent" | "error") => {
-    reportStateRef.current = state;
-    setReportState(state);
-  }, []);
+  useHeroPreload();
+  const reports = useQuestionReports({
+    phaseRef,
+    currentQuestionRef,
+    roundIdRef,
+    identityGenerationRef,
+    roomSettingsRef,
+    roomSnapshotRef,
+    ensurePlayerId,
+    revealDeadline,
+    activeRoundId,
+  });
+  const {
+    reportState,
+    reportedReason,
+    setReportedReason,
+    reportTarget,
+    reportNotice,
+    setReportNotice,
+    reportTargetRef,
+    reportFocusRef,
+    updateReportTarget,
+    updateReportState,
+    submitQuestionReport,
+    toggleQuestionReport,
+    dismissQuestionReport,
+  } = reports;
+  const { roundAnnouncement, scrollToRoundRef } = useRoundFocus({
+    phase,
+    currentQuestion,
+    activeRoundId,
+    roundIndex,
+    roundStageRef,
+    roundHeadingRef,
+    reportFocusRef,
+  });
 
   const answerDuration = ANSWER_DURATION_MS;
 
@@ -328,18 +265,23 @@ export function useArcadeRoom({
     return current?.authenticated ? `account:${current.profile.user.id}` : ensurePlayerId();
   }, [ensurePlayerId]);
 
-  const sendAlphaSessionEvent = useCallback(
-    async (action: "start" | "finish", sessionId: string) => {
-      const response = await fetch("/api/sessions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        keepalive: action === "finish",
-        body: JSON.stringify({ action, sessionId, voterId: ensurePlayerId() }),
-      });
-      if (!response.ok) throw new Error("Alpha session unavailable.");
-    },
-    [ensurePlayerId],
-  );
+  const { alphaSessionIdRef, alphaSessionFinishedRef, sendAlphaSessionEvent, finishAlphaSession } = useAlphaSession({
+    ensurePlayerId,
+  });
+  const {
+    score,
+    setScore,
+    scoreRef,
+    streak,
+    setStreak,
+    correctCount,
+    setCorrectCount,
+    history,
+    setHistory,
+    sessionResultsRef,
+    runSavedRef,
+    creditRound,
+  } = useSessionScore({ playerIdentityRef, alphaSessionIdRef, setLifetimeStats });
 
   const adoptPlayerIdentity = useCallback(
     (identity: PlayerIdentity | null) => {
@@ -389,13 +331,6 @@ export function useArcadeRoom({
     [loadAccount, sendAlphaSessionEvent, updateReportState, updateReportTarget],
   );
 
-  const finishAlphaSession = useCallback(() => {
-    const sessionId = alphaSessionIdRef.current;
-    if (!sessionId || alphaSessionFinishedRef.current) return;
-    alphaSessionFinishedRef.current = true;
-    void sendAlphaSessionEvent("finish", sessionId).catch(() => undefined);
-  }, [sendAlphaSessionEvent]);
-
   const requestRoomSnapshot = useCallback(
     async (settings: PublicRoomSettings, playerId: string, signal?: AbortSignal) => {
       const requestedAt = Date.now();
@@ -422,71 +357,6 @@ export function useArcadeRoom({
       };
     },
     [resultVoterId],
-  );
-
-  const creditRound = useCallback(
-    (
-      roundId: string,
-      result: {
-        correct: boolean;
-        points: number;
-        category?: PublicArcadeQuestion["category"];
-        game?: RoundGame;
-        accepted?: boolean;
-        identity: PlayerIdentity | null;
-      },
-    ) => {
-      if (!result.identity && playerIdentityRef.current) return false;
-      const scope = { playerId: playerIdentityKey(result.identity) ?? "" };
-      if (result.accepted !== false && result.identity?.kind === "account") {
-        forgetGuestPendingVote(safeBrowserStorage("session"), roundId, scope);
-      }
-      const records = reconcileSessionResult(sessionResultsRef.current, {
-        id: roundId,
-        accepted: result.accepted !== false,
-        correct: result.correct,
-        points: result.points,
-        category: result.category,
-        game: result.game,
-      });
-      if (records === sessionResultsRef.current) return false;
-      sessionResultsRef.current = records;
-      const totals = sessionResultTotals(records);
-      const nextScore = totals.score;
-      scoreRef.current = nextScore;
-      setScore(nextScore);
-      setCorrectCount(totals.correctCount);
-      setStreak(totals.streak);
-      setHistory(
-        records.filter((record): record is SessionRoundResult & RoundRecord => Boolean(record.category && record.game)),
-      );
-      if (result.accepted !== false && result.identity?.kind === "guest") {
-        const startedRun = !runSavedRef.current;
-        runSavedRef.current = true;
-        const runId = alphaSessionIdRef.current;
-        const persistLifetime = (storage: {
-          getItem: (key: string) => string | null;
-          setItem: (key: string, value: string) => void;
-        }) => {
-          const firstSettlement = markGuestRoundSettled(storage, roundId, scope);
-          const latest = readGuestLifetimeStats(storage, STORAGE_KEY);
-          const nextStats = firstSettlement
-            ? applyGuestLifetimeStats(latest, { correct: result.correct, startedRun, nextScore })
-            : latest;
-          if (runId) nextStats.bestScore = reconcileGuestRunBest(storage, runId, nextScore, latest.bestScore);
-          storage.setItem(STORAGE_KEY, JSON.stringify(nextStats));
-          return nextStats;
-        };
-        void updateGuestLifetimeStorage(safeBrowserStorage("local"), persistLifetime).then(
-          ({ value, current, persisted }) => {
-            if (persisted) forgetGuestPendingVote(safeBrowserStorage("session"), roundId, scope);
-            if (current) setLifetimeStats(value);
-          },
-        );
-      }
-      return true;
-    },
-    [],
   );
 
   const finalizeRound = useCallback(
@@ -907,106 +777,6 @@ export function useArcadeRoom({
     return () => window.clearTimeout(timeout);
   }, [autoStart, roomCode, startRun]);
 
-  const submitQuestionReport = useCallback(
-    async (reason: ReportReason) => {
-      const target = reportTargetRef.current;
-      const settings = roomSettingsRef.current;
-      if (!target || !settings || reportStateRef.current === "sending") return;
-
-      const reportIdentityGeneration = identityGenerationRef.current;
-      updateReportState("sending");
-
-      try {
-        const response = await fetch("/api/reports", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            ...settings,
-            roundId: target.roundId,
-            reason,
-            voterId: ensurePlayerId(),
-          }),
-        });
-        const payload: unknown = await response.json();
-        if (!response.ok || !payload || typeof payload !== "object") throw new Error("REPORT_FAILED");
-
-        const candidate = payload as Partial<ReportResult>;
-        if (typeof candidate.accepted !== "boolean" || !isReportReason(candidate.reason)) {
-          throw new Error("REPORT_FAILED");
-        }
-
-        if (
-          reportTargetRef.current?.roundId !== target.roundId ||
-          reportIdentityGeneration !== identityGenerationRef.current
-        )
-          return;
-
-        if (roundIdRef.current === target.roundId) {
-          setReportedReason(candidate.reason);
-          updateReportState("sent");
-        } else {
-          const currentReport = roomSnapshotRef.current?.playerReport ?? null;
-          setReportedReason(currentReport);
-          updateReportState(currentReport ? "sent" : "idle");
-        }
-        updateReportTarget(null);
-        setReportNotice({
-          reason: candidate.reason,
-          expiresAt: Date.now() + 5_000,
-        });
-      } catch {
-        if (
-          reportTargetRef.current?.roundId === target.roundId &&
-          reportIdentityGeneration === identityGenerationRef.current
-        ) {
-          updateReportState("error");
-        }
-      }
-    },
-    [ensurePlayerId, updateReportState, updateReportTarget],
-  );
-
-  const toggleQuestionReport = useCallback(() => {
-    const snapshot = roomSnapshotRef.current;
-    const question = currentQuestionRef.current;
-    const existingTarget = reportTargetRef.current;
-
-    if (existingTarget?.roundId === snapshot?.round.id) {
-      updateReportTarget(null);
-      updateReportState("idle");
-      return;
-    }
-
-    if (
-      phaseRef.current !== "reveal" ||
-      !snapshot ||
-      !question ||
-      snapshot.round.phase !== "reveal" ||
-      snapshot.round.id !== roundIdRef.current
-    ) {
-      return;
-    }
-
-    updateReportState("idle");
-    updateReportTarget({
-      roundId: snapshot.round.id,
-      prompt: question.prompt,
-      answer: question.reveal?.correctAnswerKey
-        ? keyedAnswerLabel(question.reveal.correctAnswerKey, question.eyebrow, question)
-        : (question.answers[publicCorrectIndex(question)] ?? question.eyebrow),
-      expiresAt: Math.max(Date.now() + 1_000, (revealDeadline ?? Date.now()) + QUESTION_REPORT_GRACE_MS),
-    });
-  }, [revealDeadline, updateReportState, updateReportTarget]);
-
-  const dismissQuestionReport = useCallback(() => {
-    updateReportTarget(null);
-    const currentReport = roomSnapshotRef.current?.playerReport ?? null;
-    setReportedReason(currentReport);
-    updateReportState(currentReport ? "sent" : "idle");
-  }, [updateReportState, updateReportTarget]);
-
   const submitVote = useCallback(
     async (answerIndex: number, options?: { answerKey?: string }) => {
       const snapshot = roomSnapshotRef.current;
@@ -1293,210 +1063,17 @@ export function useArcadeRoom({
     return () => window.removeEventListener("popstate", handlePopState);
   }, [returnToLobby, startRun]);
 
-  useEffect(() => {
-    if (!reportTarget) return;
-    const timeout = window.setTimeout(
-      () => {
-        if (reportTargetRef.current?.roundId !== reportTarget.roundId) return;
-        updateReportTarget(null);
-        const currentReport = roomSnapshotRef.current?.playerReport ?? null;
-        setReportedReason(currentReport);
-        updateReportState(currentReport ? "sent" : "idle");
-      },
-      Math.max(0, reportTarget.expiresAt - Date.now()),
-    );
-    return () => window.clearTimeout(timeout);
-  }, [reportTarget, updateReportState, updateReportTarget]);
-
-  useEffect(() => {
-    const rememberControl = (event: FocusEvent) => {
-      const target = event.target;
-      if (!(target instanceof HTMLElement) || target === document.body) return;
-      lastRoundControlRef.current =
-        roundStageRef.current?.contains(target) && target.matches("button, input, select, textarea") ? target : null;
-    };
-    const clearOutsideClick = (event: PointerEvent) => {
-      if (event.target instanceof Node && !roundStageRef.current?.contains(event.target))
-        lastRoundControlRef.current = null;
-    };
-    document.addEventListener("focusin", rememberControl);
-    document.addEventListener("pointerdown", clearOutsideClick);
-    return () => {
-      document.removeEventListener("focusin", rememberControl);
-      document.removeEventListener("pointerdown", clearOutsideClick);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (phase === "lobby" || phase === "waiting") {
-      announcedRoundRef.current = null;
-      return;
-    }
-    if (phase !== "answering" || !currentQuestion || currentQuestion.id !== activeRoundId) return;
-    if (announcedRoundRef.current === activeRoundId) return;
-    announcedRoundRef.current = activeRoundId;
-    setRoundAnnouncement({ id: activeRoundId, text: `Round ${roundIndex + 1}. ${currentQuestion.prompt}` });
-  }, [activeRoundId, currentQuestion, phase, roundIndex]);
-
-  useEffect(() => {
-    if (phase !== "answering" || currentQuestion?.id !== activeRoundId || scrollToRoundRef.current !== activeRoundId)
-      return;
-    scrollToRoundRef.current = null;
-    const focused = document.activeElement;
-    if (
-      focused instanceof HTMLElement &&
-      (focused.closest('[data-testid="private-room-play-dock"], [data-testid="report-carryover"]') ||
-        (focused.matches('input, textarea, select, [contenteditable="true"]') &&
-          !roundStageRef.current?.contains(focused)))
-    )
-      return;
-    if (reportFocusRef.current) return;
-    const previousControl = lastRoundControlRef.current;
-    if (
-      focused === document.body &&
-      previousControl &&
-      (!previousControl.isConnected || previousControl.matches(":disabled"))
-    ) {
-      lastRoundControlRef.current = null;
-      roundHeadingRef.current?.focus({ preventScroll: true });
-    }
-    const stage = roundStageRef.current;
-    const prompt = stage?.querySelector<HTMLElement>('[data-testid="round-prompt"] h2');
-    const timer = stage?.querySelector<HTMLElement>('[data-testid="round-timer"]');
-    if (!stage || !prompt || !timer) return;
-    const promptBounds = prompt.getBoundingClientRect();
-    const timerBounds = timer.getBoundingClientRect();
-    if (promptBounds.top < timerBounds.bottom || promptBounds.bottom > window.innerHeight || timerBounds.top < 0) {
-      stage.scrollIntoView({ block: "start", inline: "nearest", behavior: "instant" });
-    }
-  }, [activeRoundId, currentQuestion?.id, phase]);
-
-  useEffect(() => {
-    const reason = reportFocusRef.current;
-    if (!reason) return;
-    const button = document.querySelector<HTMLButtonElement>(
-      `[data-testid="report-carryover"] [data-report-reason="${reason}"]`,
-    );
-    if (button) {
-      reportFocusRef.current = null;
-      button.focus({ preventScroll: true });
-    }
-  }, [activeRoundId, reportTarget]);
-
-  useEffect(() => {
-    if (!reportNotice) return;
-    const timeout = window.setTimeout(
-      () => setReportNotice((notice) => (notice?.expiresAt === reportNotice.expiresAt ? null : notice)),
-      Math.max(0, reportNotice.expiresAt - Date.now()),
-    );
-    return () => window.clearTimeout(timeout);
-  }, [reportNotice]);
-
-  useEffect(() => {
-    if (phase === "lobby") return;
-    const interval = window.setInterval(() => setNow(Date.now()), 100);
-    return () => window.clearInterval(interval);
-  }, [phase]);
-
-  useEffect(() => {
-    if (phase === "lobby") return;
-
-    const interval = window.setInterval(() => void syncRoom(), ROOM_SYNC_HEARTBEAT_MS);
-    const wakeRoom = () => {
-      setNow(Date.now());
-      void syncRoom(true);
-    };
-    const handleVisibility = () => {
-      if (document.visibilityState === "visible") wakeRoom();
-    };
-
-    window.addEventListener("focus", wakeRoom);
-    window.addEventListener("pageshow", wakeRoom);
-    window.addEventListener("online", wakeRoom);
-    document.addEventListener("visibilitychange", handleVisibility);
-    document.addEventListener("resume", wakeRoom);
-    return () => {
-      window.clearInterval(interval);
-      window.removeEventListener("focus", wakeRoom);
-      window.removeEventListener("pageshow", wakeRoom);
-      window.removeEventListener("online", wakeRoom);
-      document.removeEventListener("visibilitychange", handleVisibility);
-      document.removeEventListener("resume", wakeRoom);
-    };
-  }, [phase, syncRoom]);
-
-  useEffect(() => {
-    if (phase !== "lobby") return;
-    let active = true;
-    const loadPresence = async () => {
-      try {
-        const response = await fetch("/api/presence", { cache: "no-store" });
-        const payload: unknown = await response.json();
-        if (
-          active &&
-          response.ok &&
-          payload &&
-          typeof payload === "object" &&
-          "activePlayers" in payload &&
-          typeof payload.activePlayers === "number" &&
-          Number.isInteger(payload.activePlayers) &&
-          payload.activePlayers >= 0
-        ) {
-          setActivePlayers(payload.activePlayers);
-        }
-      } catch {
-        // Presence is decorative; room entry must stay independent from it.
-      }
-    };
-    void loadPresence();
-    const interval = window.setInterval(() => void loadPresence(), 15_000);
-    return () => {
-      active = false;
-      window.clearInterval(interval);
-    };
-  }, [phase]);
-
-  useEffect(() => {
-    const handlePageHide = () => finishAlphaSession();
-    window.addEventListener("pagehide", handlePageHide);
-    return () => window.removeEventListener("pagehide", handlePageHide);
-  }, [finishAlphaSession]);
-
-  useEffect(() => {
-    const phaseDeadline =
-      phase === "answering"
-        ? deadline == null
-          ? null
-          : deadline + PUBLIC_VOTE_ACCEPT_GRACE_MS
-        : phase === "reveal"
-          ? revealDeadline
-          : phase === "waiting"
-            ? entryWaitDeadline
-            : null;
-    const progressiveClueDeadline =
-      phase === "answering" &&
-      currentQuestion &&
-      (currentQuestion.game === "spell-link" ||
-        currentQuestion.game === "quote-hunt" ||
-        currentQuestion.game === "aghanim-lab" ||
-        currentQuestion.game === "soundcheck" ||
-        currentQuestion.game === "echo-hunt" ||
-        currentQuestion.game === "fogged-vision")
-        ? roomProgressiveClueSyncDeadline(deadline, answerDuration, currentQuestion.clueStage, currentQuestion.game)
-        : null;
-    const activeDeadline =
-      phaseDeadline !== null && progressiveClueDeadline !== null
-        ? Math.min(phaseDeadline, progressiveClueDeadline)
-        : (progressiveClueDeadline ?? phaseDeadline);
-    const delay = roomDeadlineSyncDelay(activeDeadline, Date.now());
-    if (delay === null) return;
-
-    const timeout = window.setTimeout(() => {
-      setNow(Date.now());
-      void syncRoom(true);
-    }, delay);
-    return () => window.clearTimeout(timeout);
-  }, [answerDuration, currentQuestion, deadline, entryWaitDeadline, phase, revealDeadline, syncRoom]);
+  useRoomPolling({
+    phase,
+    syncRoom,
+    setNow,
+    setActivePlayers,
+    deadline,
+    revealDeadline,
+    entryWaitDeadline,
+    currentQuestion,
+    answerDuration,
+  });
 
   useEffect(
     () => () => {
@@ -1512,44 +1089,7 @@ export function useArcadeRoom({
     return () => window.clearTimeout(timeout);
   }, [loadAccount]);
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (!shouldHandleAnswerShortcut(event)) return;
-
-      if (phaseRef.current === "answering") {
-        if (currentQuestionRef.current && isPublicKeyedAnswerQuestion(currentQuestionRef.current)) return;
-        const keyMap: Record<string, number> = {
-          "1": 0,
-          a: 0,
-          "2": 1,
-          b: 1,
-          "3": 2,
-          c: 2,
-          "4": 3,
-          d: 3,
-        };
-        const answerIndex = keyMap[event.key.toLowerCase()];
-        if (answerIndex !== undefined) {
-          event.preventDefault();
-          chooseAnswer(answerIndex);
-        }
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [chooseAnswer]);
-
-  useEffect(() => {
-    if (!shouldBlockQuestionClipboard(phase)) return;
-    const block = (event: ClipboardEvent) => preventQuestionClipboard(event);
-    document.addEventListener("copy", block);
-    document.addEventListener("cut", block);
-    return () => {
-      document.removeEventListener("copy", block);
-      document.removeEventListener("cut", block);
-    };
-  }, [phase]);
+  useAnswerShortcuts({ phase, phaseRef, currentQuestionRef, chooseAnswer });
 
   return {
     phase,
