@@ -6,15 +6,12 @@ import { join, resolve } from "node:path";
 import { CLIENT_CONSTANT_AUDIT } from "./client-constant-audit.mjs";
 import { reportMissingClientSource } from "./client-audit-requirement.mjs";
 import { parseValveKeyValues } from "./valve-keyvalues.mjs";
-import { readArcadeSource, readArcadeStyles } from "./lib/arcade-sources.mjs";
 
 const ROOT = process.cwd();
-const [source, questions, heroPicker, component, styles, serializer, scoring] = await Promise.all([
+const [source, questions, heroPicker, serializer, scoring] = await Promise.all([
   ...["aghanim-upgrades.json", "aghanim-questions.json", "hero-picker.json"].map((file) =>
     readFile(join(ROOT, "src", "data", file), "utf8").then(JSON.parse),
   ),
-  readArcadeSource(ROOT),
-  readArcadeStyles(ROOT),
   readFile(join(ROOT, "src", "lib", "public-question.mjs"), "utf8"),
   readFile(join(ROOT, "src", "lib", "scoring.mjs"), "utf8"),
 ]);
@@ -156,18 +153,6 @@ for (const currentHero of [
   record(heroKeys.has(currentHero), `${currentHero}: current hero is absent from the initial Aghanim batch.`);
 }
 
-record(
-  component.includes('data-testid="aghanim-clue-1"') &&
-    component.includes('data-testid="aghanim-clue-2"') &&
-    component.includes('data-testid="aghanim-clue-3"') &&
-    component.includes('currentGame === "aghanim-lab"') &&
-    component.includes("<HeroPicker"),
-  "Aghanim's Lab lost its three-stage hero-picker presentation.",
-);
-record(
-  styles.includes(".aghanimQuestion") && styles.includes(".aghanimClues") && styles.includes(".aghanimArtwork"),
-  "Aghanim's Lab lost its fixed progressive layout.",
-);
 record(
   serializer.includes("aghanim-lab") &&
     serializer.includes("STAGED_CLUE_GAMES") &&

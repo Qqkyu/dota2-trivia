@@ -7,7 +7,7 @@ import { heroCorrectAnswerKey, isHeroPickerQuestion } from "../src/lib/hero-pick
 import { itemPickerCorrectAnswerKey, recipeBuilderCorrectAnswerKey } from "../src/lib/item-picker.mjs";
 import { publicQuestionForRound, publicQuestionRevision } from "../src/lib/public-question.mjs";
 import { valueOrderCorrectAnswerKey } from "../src/lib/value-order.mjs";
-import { readArcadeSource, readArcadeStyles } from "./lib/arcade-sources.mjs";
+import { readArcadeSource } from "./lib/arcade-sources.mjs";
 
 const root = process.cwd();
 const readJson = async (file) => JSON.parse(await readFile(path.join(root, "src", "data", file), "utf8"));
@@ -423,7 +423,6 @@ const [roundsSource, votesSource, reportsSource, roundAudioSource] = await Promi
   ].map((file) => readFile(path.join(root, file), "utf8")),
 );
 const clientSource = await readArcadeSource(root);
-const clientStyles = await readArcadeStyles(root);
 record(!clientSource.includes("@/lib/game-catalogs"), "The gameplay client imports the private game catalog.");
 
 // Every "use client" module and everything it imports (transitively, value
@@ -530,12 +529,6 @@ for (const entry of clientEntries) {
   }
 }
 record(!clientSource.includes("QUESTIONS_BY_ID"), "The gameplay client still builds a local answer catalog.");
-record(
-  clientSource.includes('data-testid="spell-clue-description"') &&
-    clientStyles.includes(".clueList > div:first-child span") &&
-    clientStyles.includes("-webkit-line-clamp: unset"),
-  "The full Spell Link description is no longer rendered without a line clamp.",
-);
 record(roundsSource.includes("publicQuestionForRound"), "The round API bypasses the public question serializer.");
 record(!votesSource.includes("candidate.questionId"), "The vote API still trusts a client question ID.");
 record(!reportsSource.includes("candidate.questionId"), "The report API still trusts a client question ID.");

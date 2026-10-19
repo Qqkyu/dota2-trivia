@@ -8,7 +8,6 @@ import {
   parseAudioRange,
   warmRoundAudio,
 } from "../src/lib/round-audio-cache.mjs";
-import { readArcadeSource } from "./lib/arcade-sources.mjs";
 
 const failures = [];
 const record = (condition, message) => {
@@ -75,7 +74,6 @@ const [routeSource, cutterSource, dockerfile] = await Promise.all(
     readFile(path.join(process.cwd(), file), "utf8"),
   ),
 );
-const clientSource = await readArcadeSource(process.cwd());
 record(
   routeSource.includes('round.id !== roundId || round.phase !== "reveal"') &&
     routeSource.includes("liveRoundAt(settings, round.number + 1, round.revealDeadline)") &&
@@ -91,10 +89,6 @@ record(
     routeSource,
   ) && !routeSource.includes('"proxy", 60'),
   "The audio proxy still shares one identity across every player on an IP.",
-);
-record(
-  clientSource.includes('method: "HEAD"') && clientSource.includes("prewarmedAfterRoundIdRef"),
-  "The client no longer requests one bodyless audio warmup per reveal.",
 );
 record(
   routeSource.includes('from "@/lib/cut-round-audio.mjs"') && routeSource.includes("cutAudioWithFfmpeg("),

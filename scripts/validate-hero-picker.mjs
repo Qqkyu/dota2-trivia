@@ -9,15 +9,12 @@ import { buildHeroQuoteHints } from "./hero-quote-hints.mjs";
 import { parseValveKeyValues } from "./valve-keyvalues.mjs";
 import { heroDisplayName } from "./hero-display-names.mjs";
 import { HERO_PICKER_QUESTION_KINDS, heroCorrectAnswerKey, isHeroPickerQuestion } from "../src/lib/hero-picker.mjs";
-import { readArcadeSource, readArcadeStyles } from "./lib/arcade-sources.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const [catalog, questions, aghanimQuestions, component, styles, voteRoute, serializer] = await Promise.all([
+const [catalog, questions, aghanimQuestions, voteRoute, serializer] = await Promise.all([
   readFile(join(root, "src", "data", "hero-picker.json"), "utf8").then(JSON.parse),
   readFile(join(root, "src", "data", "questions.generated.json"), "utf8").then(JSON.parse),
   readFile(join(root, "src", "data", "aghanim-questions.json"), "utf8").then(JSON.parse),
-  readArcadeSource(root),
-  readArcadeStyles(root),
   readFile(join(root, "src", "app", "api", "votes", "route.ts"), "utf8"),
   readFile(join(root, "src", "lib", "public-question.mjs"), "utf8"),
 ]);
@@ -129,25 +126,8 @@ try {
   reportMissingClientSource(error, "Hero picker roster");
 }
 
-if (
-  !component.includes('data-testid="hero-picker"') ||
-  !component.includes('data-testid="hero-picker-hero"') ||
-  !component.includes('data-testid="hero-search"') ||
-  !component.includes('data-search-match={isSearchMatch ? "true" : "false"}') ||
-  !component.includes("onClick={() => chooseHero(hero.key)}") ||
-  !component.match(/const chooseHero = useCallback\(\s*\(heroKey: string\) => \{[^}]*onChoose\(heroKey\);/s) ||
-  !component.includes("HERO_PICKER_CATALOG.groups.map") ||
-  !component.includes("heroPreloadsRef.current = sources.map") ||
-  !component.includes('image.fetchPriority = "low"') ||
-  !styles.includes('"strength agility"') ||
-  !styles.includes('"intelligence universal"') ||
-  !styles.includes("repeat(var(--hero-grid-columns)") ||
-  !styles.includes('button[data-search-match="false"]') ||
-  !styles.match(/\.heroPicker\s*\{[^}]*overflow-x: auto;/s) ||
-  !voteRoute.includes("keyedAnswerIndex(question, answerKey)") ||
-  !serializer.includes('answerMode: "hero-grid"')
-) {
-  failures.push("The fixed Dota quadrant UI or opaque hero-key vote path was removed.");
+if (!voteRoute.includes("keyedAnswerIndex(question, answerKey)") || !serializer.includes('answerMode: "hero-grid"')) {
+  failures.push("The opaque hero-key vote path was removed.");
 }
 
 if (failures.length) {

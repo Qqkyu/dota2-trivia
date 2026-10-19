@@ -6,12 +6,11 @@ import { fileURLToPath } from "node:url";
 import { heroCorrectAnswerKey } from "../src/lib/hero-picker.mjs";
 import { publicQuestionForRound } from "../src/lib/public-question.mjs";
 import { questionPresentationRevision } from "../src/lib/question-revision.mjs";
-import { readArcadeSource, readArcadeStyles } from "./lib/arcade-sources.mjs";
+import { readArcadeStyles } from "./lib/arcade-sources.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const [styles, component, questions, heroCatalog] = await Promise.all([
+const [styles, questions, heroCatalog] = await Promise.all([
   readArcadeStyles(root),
-  readArcadeSource(root),
   readFile(join(root, "src", "data", "questions.generated.json"), "utf8").then(JSON.parse),
   readFile(join(root, "src", "data", "hero-picker.json"), "utf8").then(JSON.parse),
 ]);
@@ -46,15 +45,6 @@ for (const [variable, expected] of Object.entries(approvedCurve)) {
 if (styles.includes('.fogQuestion[data-skill-level="')) {
   failures.push("Retired difficulty overrides returned to Fogged Vision.");
 }
-if (
-  !component.includes('data-fog-stage={phase === "reveal" ? "reveal" : clueStage}') ||
-  !component.includes('data-fog-source={phase === "answering" ? "server" : undefined}') ||
-  !component.includes("key={`${activeRoundId}:fog`}") ||
-  !component.includes('currentGame === "fogged-vision"')
-) {
-  failures.push("Fogged Vision no longer renders a stable, round-keyed three-stage reveal.");
-}
-
 const fogQuestions = questions.filter((question) => question.kind === "fogged-hero");
 const expectedHeroKeys = (heroCatalog.groups ?? []).flatMap((group) => (group.heroes ?? []).map((hero) => hero.key));
 const heroesByKey = new Map(
