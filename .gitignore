@@ -14,6 +14,12 @@
 /.local-assets/
 /.local/
 
+# impeccable live-mode runtime state (config.json stays tracked)
+/.impeccable/live/sessions/
+/.impeccable/live/roots.json
+/.impeccable/live/inject-journal.json
+/.impeccable/config.local.json
+
 # next.js
 /.next/
 /.next-check/
