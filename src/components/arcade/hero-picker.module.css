@@ -104,12 +104,15 @@ button[data-state="wrong"] > .heroPickerVerdict {
   font: inherit;
 }
 
+/* One gold ring on the whole field, drawn inside the row so the picker's
+   overflow cannot clip it; the inner input draws no second ring. */
 .heroSearchField:focus-within {
-  box-shadow: inset 0 0 0 2px var(--gold);
+  outline: 2px solid var(--gold);
+  outline-offset: -2px;
 }
 
-.heroSearchInput:focus {
-  outline: 0;
+.heroSearchField:focus-within .heroSearchInput:focus-visible {
+  outline: none;
 }
 
 @media (max-width: 960px) {

@@ -148,11 +148,6 @@
   background: linear-gradient(180deg, #2a3038 0%, #15191e 100%);
 }
 
-.lobbyFriends:focus-visible {
-  outline: 1px solid #c4a46a;
-  outline-offset: 2px;
-}
-
 .accountActionSlot {
   display: grid;
   width: 180px;

@@ -31,6 +31,17 @@
   box-shadow: 0 0 16px rgba(99, 164, 255, 0.28);
 }
 
+/* One focus ring on the whole field, matching the shell's gold ring; the
+   inner input must not draw a second ring inside the box. */
+.shopSearchBox:focus-within {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.shopSearchBox:focus-within input:focus-visible {
+  outline: none;
+}
+
 .shopSearchBox svg {
   width: 18px;
   height: 18px;

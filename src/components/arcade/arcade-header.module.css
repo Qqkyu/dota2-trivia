@@ -103,11 +103,6 @@
   transition: opacity 160ms ease;
 }
 
-.volumeSlider:focus-visible {
-  outline: 2px solid rgba(196, 164, 106, 0.7);
-  outline-offset: 2px;
-}
-
 .volumeValue {
   width: 34px;
   margin-right: 6px;

@@ -1081,7 +1081,6 @@
 .heroPickerGroup button:focus-visible {
   z-index: 3;
   border-color: rgba(222, 229, 222, 0.78);
-  outline: 0;
   filter: brightness(1.18);
   transform: scale(1.08);
 }
@@ -1216,7 +1215,6 @@
 .shopkeeperRecipeSlots > button:hover,
 .shopkeeperRecipeSlots > button:focus-visible {
   border-color: #dfb656;
-  outline: 0;
   filter: brightness(1.08);
 }
 
@@ -1296,7 +1294,6 @@
 .flashbackYearLock:hover:not(:disabled),
 .flashbackYearLock:focus-visible:not(:disabled) {
   border-color: #efc86d;
-  outline: 0;
   background: rgba(210, 163, 74, 0.2);
 }
 
@@ -1421,7 +1418,6 @@
 .shopkeeperGroup button:focus-visible {
   z-index: 5;
   border-color: rgba(226, 191, 114, 0.72);
-  outline: 0;
   filter: brightness(1.12);
 }
 
@@ -2567,7 +2563,6 @@
 .valueOrderControls button:hover:not(:disabled),
 .valueOrderControls button:focus-visible {
   background: rgba(104, 122, 181, 0.24);
-  outline: 0;
 }
 
 .valueOrderControls button:disabled {
@@ -3275,12 +3270,10 @@
   }
 }
 
-.heroPickerGroup button:focus-visible,
-.shopkeeperGroup button:focus-visible {
-  outline: 2px solid #f1f0ea;
-  outline-offset: -3px;
-}
-
+/* The one focus ring for every control in the arcade. Component rules may
+   change borders, backgrounds, or transforms on focus, but they must not set
+   outline, or keyboard users lose the ring. Composite text fields (shop and
+   hero search) move the ring to their container in their own modules. */
 .shell :is(button, a, input):focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 3px;
