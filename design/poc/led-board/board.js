@@ -34,8 +34,35 @@
       const muted = body.classList.toggle("muted");
       mute.setAttribute("aria-pressed", String(muted));
     });
+    volume?.addEventListener("keydown", (event) => {
+      const step = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1, Home: -10, End: 10 }[event.key];
+      if (step === undefined) return;
+      event.preventDefault();
+      level = Math.min(10, Math.max(0, level + step));
+      body.classList.remove("muted");
+      mute?.setAttribute("aria-pressed", "false");
+      $$("i", volume).forEach((cell, i) => cell.classList.toggle("lit", i < level));
+      $(".pct", volume).textContent = `${level * 10}%`;
+      volume.setAttribute("aria-valuenow", String(level * 10));
+    });
+    const ticker = $(".ticker");
     const track = $(".ticker-track");
-    if (track) track.innerHTML += track.innerHTML; // seamless loop
+    if (track) {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        // No scrolling: step through the items in place, one instant swap at a time.
+        ticker.classList.add("stepped");
+        const items = $$(".item", track);
+        let on = 0;
+        items[0].classList.add("on");
+        setInterval(() => {
+          items[on].classList.remove("on");
+          on = (on + 1) % items.length;
+          items[on].classList.add("on");
+        }, 4000);
+      } else {
+        track.innerHTML += track.innerHTML; // seamless loop
+      }
+    }
   }
 
   // ---------------------------------------------------------------- clock
