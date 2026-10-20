@@ -17,31 +17,34 @@ audio, helper scripts, the reusable tool map) is only on the evidence tag. Read 
 `git show launch-evidence-20261010:docs/audits/2026-10-06/launch-checks/README.md` or check
 the tag out in a separate worktree.
 
-## Hosted preview (verified 11 October)
+## Hosted preview (deployed 20 October)
 
 | Item | Value |
 | --- | --- |
 | App | <https://queue-arcade.onrender.com> |
 | Render service | `srv-d9mqd1942hec73e9nlt0`, free Docker plan, Frankfurt, one instance |
-| Deploy policy | Manual deploys only; the service still points at branch `codex/launch-checks-20261006` |
-| Live deployment | `dep-db5imrt9fdbs73d19570` from `31961cb` |
+| Deploy policy | Manual deploys only from branch `main` (switched on 20 October) |
+| Live deployment | `dep-dbbo841jfumc738c7tlg` from `main` at `91a8d2b` |
 | PostgreSQL | `dpg-d9mqc4taeets73aiclsg-a`, PostgreSQL 17, restricted runtime role, empty external allowlist |
 | Trusted address header | `ARCADE_TRUST_PROXY=cf-connecting-ip` |
 | Automatic migrations | Off (`ARCADE_AUTO_MIGRATE=false`); file store off |
 
-On 15 October `/api/health` answered 200 after a 17-second cold start. The free plan sleeps
-the service; the first visitor after idle waits for it.
+The 20 October deploy built in three minutes. Right after it, `/api/health` answered
+`ready` in 0.25 s, `pnpm check:headers` passed, `/api/rounds` served a live public round,
+and the Steam OpenID provider check passed. The free plan sleeps the service; the first
+visitor after idle waits about 17 s for it.
 
 ## Deploying `main`
 
 1. Confirm the CI `verify` job is green on the `main` commit you want to ship.
-2. In Render, change the service branch from `codex/launch-checks-20261006` to `main`.
-   Keep automatic deploys off.
-3. Trigger a manual deploy of that commit. Render rebuilds the Docker image itself.
-4. After the deploy, run `APP_URL=https://queue-arcade.onrender.com pnpm check:headers`
+2. Trigger a manual deploy of that commit, either in the Render dashboard or with the API
+   (`POST /v1/services/srv-d9mqd1942hec73e9nlt0/deploys` with the `commitId`, using
+   `RENDER_API_KEY`). Render rebuilds the Docker image itself. Keep automatic deploys off.
+3. After the deploy, run `APP_URL=https://queue-arcade.onrender.com pnpm check:headers`
    and open the app once to confirm `/api/health` and a public round.
-5. Follow [operations](operations.md) for migrations, backups, and rollback. A deploy
-   restarts the process, which ends active private rooms.
+4. Run `pnpm db:migrate` first only when `src/lib/database-schema.mjs` changed since the
+   last deploy. Follow [operations](operations.md) for migrations, backups, and rollback.
+   A deploy restarts the process, which ends active private rooms.
 
 ## Open before a public soft launch
 
