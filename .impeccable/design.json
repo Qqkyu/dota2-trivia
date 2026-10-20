@@ -1,8 +1,8 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-20T16:19:28Z",
+  "generatedAt": "2026-10-20T20:23:40Z",
   "title": "Design System: Queue Arcade LED board",
-  "scope": "Describes the LED-board concept under design/poc/led-board/ only. The shipped Next.js app (CSS modules under src/components) is not covered.",
+  "scope": "Describes the LED-board concept under design/poc/led-board/ only. Two layers: the shell (board.css, unprefixed tokens) and the Dota skin (theme-dota.css, dota- tokens) loaded after it by index-dota.html and play-dota.html. The shipped Next.js app (CSS modules under src/components) is not covered.",
   "extensions": {
     "colorMeta": {
       "amber": {
@@ -214,6 +214,381 @@
           "oklch(83% 0.026 82)",
           "oklch(95% 0.026 82)"
         ]
+      },
+      "dota-live": {
+        "role": "primary",
+        "displayName": "Shop gold",
+        "canonical": "oklch(81.7% 0.126 86)",
+        "tonalRamp": [
+          "oklch(15% 0.126 86)",
+          "oklch(26% 0.126 86)",
+          "oklch(38% 0.126 86)",
+          "oklch(49% 0.126 86)",
+          "oklch(60% 0.126 86)",
+          "oklch(72% 0.126 86)",
+          "oklch(83% 0.126 86)",
+          "oklch(95% 0.126 86)"
+        ]
+      },
+      "dota-lit": {
+        "role": "secondary",
+        "displayName": "Parchment",
+        "canonical": "oklch(93.5% 0.035 89)",
+        "tonalRamp": [
+          "oklch(15% 0.035 89)",
+          "oklch(26% 0.035 89)",
+          "oklch(38% 0.035 89)",
+          "oklch(49% 0.035 89)",
+          "oklch(60% 0.035 89)",
+          "oklch(72% 0.035 89)",
+          "oklch(83% 0.035 89)",
+          "oklch(95% 0.035 89)"
+        ]
+      },
+      "dota-green": {
+        "role": "secondary",
+        "displayName": "Radiant green",
+        "canonical": "oklch(79.0% 0.175 132)",
+        "tonalRamp": [
+          "oklch(15% 0.175 132)",
+          "oklch(26% 0.175 132)",
+          "oklch(38% 0.175 132)",
+          "oklch(49% 0.175 132)",
+          "oklch(60% 0.175 132)",
+          "oklch(72% 0.175 132)",
+          "oklch(83% 0.175 132)",
+          "oklch(95% 0.175 132)"
+        ]
+      },
+      "dota-red": {
+        "role": "secondary",
+        "displayName": "Dire red",
+        "canonical": "oklch(61.6% 0.196 32)",
+        "tonalRamp": [
+          "oklch(15% 0.196 32)",
+          "oklch(26% 0.196 32)",
+          "oklch(38% 0.196 32)",
+          "oklch(49% 0.196 32)",
+          "oklch(60% 0.196 32)",
+          "oklch(72% 0.196 32)",
+          "oklch(83% 0.196 32)",
+          "oklch(95% 0.196 32)"
+        ]
+      },
+      "dota-gold": {
+        "role": "tertiary",
+        "displayName": "Breaker gold (Dota)",
+        "canonical": "oklch(91.4% 0.111 90)",
+        "tonalRamp": [
+          "oklch(15% 0.111 90)",
+          "oklch(26% 0.111 90)",
+          "oklch(38% 0.111 90)",
+          "oklch(49% 0.111 90)",
+          "oklch(60% 0.111 90)",
+          "oklch(72% 0.111 90)",
+          "oklch(83% 0.111 90)",
+          "oklch(95% 0.111 90)"
+        ]
+      },
+      "dota-str": {
+        "role": "tertiary",
+        "displayName": "Strength",
+        "canonical": "oklch(62.6% 0.182 32)",
+        "tonalRamp": [
+          "oklch(15% 0.182 32)",
+          "oklch(26% 0.182 32)",
+          "oklch(38% 0.182 32)",
+          "oklch(49% 0.182 32)",
+          "oklch(60% 0.182 32)",
+          "oklch(72% 0.182 32)",
+          "oklch(83% 0.182 32)",
+          "oklch(95% 0.182 32)"
+        ]
+      },
+      "dota-agi": {
+        "role": "tertiary",
+        "displayName": "Agility",
+        "canonical": "oklch(77.6% 0.178 146)",
+        "tonalRamp": [
+          "oklch(15% 0.178 146)",
+          "oklch(26% 0.178 146)",
+          "oklch(38% 0.178 146)",
+          "oklch(49% 0.178 146)",
+          "oklch(60% 0.178 146)",
+          "oklch(72% 0.178 146)",
+          "oklch(83% 0.178 146)",
+          "oklch(95% 0.178 146)"
+        ]
+      },
+      "dota-int": {
+        "role": "tertiary",
+        "displayName": "Intelligence",
+        "canonical": "oklch(73.9% 0.126 241)",
+        "tonalRamp": [
+          "oklch(15% 0.126 241)",
+          "oklch(26% 0.126 241)",
+          "oklch(38% 0.126 241)",
+          "oklch(49% 0.126 241)",
+          "oklch(60% 0.126 241)",
+          "oklch(72% 0.126 241)",
+          "oklch(83% 0.126 241)",
+          "oklch(95% 0.126 241)"
+        ]
+      },
+      "dota-all": {
+        "role": "tertiary",
+        "displayName": "Universal",
+        "canonical": "oklch(77.1% 0.144 304)",
+        "tonalRamp": [
+          "oklch(15% 0.144 304)",
+          "oklch(26% 0.144 304)",
+          "oklch(38% 0.144 304)",
+          "oklch(49% 0.144 304)",
+          "oklch(60% 0.144 304)",
+          "oklch(72% 0.144 304)",
+          "oklch(83% 0.144 304)",
+          "oklch(95% 0.144 304)"
+        ]
+      },
+      "dota-play": {
+        "role": "tertiary",
+        "displayName": "Find Match green",
+        "canonical": "oklch(53.1% 0.134 147)",
+        "tonalRamp": [
+          "oklch(15% 0.134 147)",
+          "oklch(26% 0.134 147)",
+          "oklch(38% 0.134 147)",
+          "oklch(49% 0.134 147)",
+          "oklch(60% 0.134 147)",
+          "oklch(72% 0.134 147)",
+          "oklch(83% 0.134 147)",
+          "oklch(95% 0.134 147)"
+        ]
+      },
+      "dota-play-hover": {
+        "role": "tertiary",
+        "displayName": "Find Match green, hover",
+        "canonical": "oklch(60.6% 0.156 147)",
+        "tonalRamp": [
+          "oklch(15% 0.156 147)",
+          "oklch(26% 0.156 147)",
+          "oklch(38% 0.156 147)",
+          "oklch(49% 0.156 147)",
+          "oklch(60% 0.156 147)",
+          "oklch(72% 0.156 147)",
+          "oklch(83% 0.156 147)",
+          "oklch(95% 0.156 147)"
+        ]
+      },
+      "dota-play-ink": {
+        "role": "tertiary",
+        "displayName": "Play ink",
+        "canonical": "oklch(100% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0.000 0)",
+          "oklch(26% 0.000 0)",
+          "oklch(38% 0.000 0)",
+          "oklch(49% 0.000 0)",
+          "oklch(60% 0.000 0)",
+          "oklch(72% 0.000 0)",
+          "oklch(83% 0.000 0)",
+          "oklch(95% 0.000 0)"
+        ]
+      },
+      "dota-ground": {
+        "role": "neutral",
+        "displayName": "Slate ground",
+        "canonical": "oklch(16.4% 0.010 235)",
+        "tonalRamp": [
+          "oklch(15% 0.010 235)",
+          "oklch(26% 0.010 235)",
+          "oklch(38% 0.010 235)",
+          "oklch(49% 0.010 235)",
+          "oklch(60% 0.010 235)",
+          "oklch(72% 0.010 235)",
+          "oklch(83% 0.010 235)",
+          "oklch(95% 0.010 235)"
+        ]
+      },
+      "dota-fascia": {
+        "role": "neutral",
+        "displayName": "Fascia slate",
+        "canonical": "oklch(17.8% 0.012 238)",
+        "tonalRamp": [
+          "oklch(15% 0.012 238)",
+          "oklch(26% 0.012 238)",
+          "oklch(38% 0.012 238)",
+          "oklch(49% 0.012 238)",
+          "oklch(60% 0.012 238)",
+          "oklch(72% 0.012 238)",
+          "oklch(83% 0.012 238)",
+          "oklch(95% 0.012 238)"
+        ]
+      },
+      "dota-well": {
+        "role": "neutral",
+        "displayName": "Well",
+        "canonical": "oklch(16.9% 0.010 235)",
+        "tonalRamp": [
+          "oklch(15% 0.010 235)",
+          "oklch(26% 0.010 235)",
+          "oklch(38% 0.010 235)",
+          "oklch(49% 0.010 235)",
+          "oklch(60% 0.010 235)",
+          "oklch(72% 0.010 235)",
+          "oklch(83% 0.010 235)",
+          "oklch(95% 0.010 235)"
+        ]
+      },
+      "dota-inset": {
+        "role": "neutral",
+        "displayName": "Inset line",
+        "canonical": "oklch(13.1% 0.008 232)",
+        "tonalRamp": [
+          "oklch(15% 0.008 232)",
+          "oklch(26% 0.008 232)",
+          "oklch(38% 0.008 232)",
+          "oklch(49% 0.008 232)",
+          "oklch(60% 0.008 232)",
+          "oklch(72% 0.008 232)",
+          "oklch(83% 0.008 232)",
+          "oklch(95% 0.008 232)"
+        ]
+      },
+      "dota-module": {
+        "role": "neutral",
+        "displayName": "Module slate",
+        "canonical": "oklch(20.0% 0.015 240)",
+        "tonalRamp": [
+          "oklch(15% 0.015 240)",
+          "oklch(26% 0.015 240)",
+          "oklch(38% 0.015 240)",
+          "oklch(49% 0.015 240)",
+          "oklch(60% 0.015 240)",
+          "oklch(72% 0.015 240)",
+          "oklch(83% 0.015 240)",
+          "oklch(95% 0.015 240)"
+        ]
+      },
+      "dota-ghost": {
+        "role": "neutral",
+        "displayName": "Ghost slate",
+        "canonical": "oklch(25.4% 0.019 239)",
+        "tonalRamp": [
+          "oklch(15% 0.019 239)",
+          "oklch(26% 0.019 239)",
+          "oklch(38% 0.019 239)",
+          "oklch(49% 0.019 239)",
+          "oklch(60% 0.019 239)",
+          "oklch(72% 0.019 239)",
+          "oklch(83% 0.019 239)",
+          "oklch(95% 0.019 239)"
+        ]
+      },
+      "dota-ghost-2": {
+        "role": "neutral",
+        "displayName": "Ghost slate 2",
+        "canonical": "oklch(31.0% 0.022 238)",
+        "tonalRamp": [
+          "oklch(15% 0.022 238)",
+          "oklch(26% 0.022 238)",
+          "oklch(38% 0.022 238)",
+          "oklch(49% 0.022 238)",
+          "oklch(60% 0.022 238)",
+          "oklch(72% 0.022 238)",
+          "oklch(83% 0.022 238)",
+          "oklch(95% 0.022 238)"
+        ]
+      },
+      "dota-seam": {
+        "role": "neutral",
+        "displayName": "Gold seam",
+        "canonical": "rgba(214, 178, 94, 0.1)",
+        "tonalRamp": [
+          "oklch(15% 0.111 86)",
+          "oklch(26% 0.111 86)",
+          "oklch(38% 0.111 86)",
+          "oklch(49% 0.111 86)",
+          "oklch(60% 0.111 86)",
+          "oklch(72% 0.111 86)",
+          "oklch(83% 0.111 86)",
+          "oklch(95% 0.111 86)"
+        ]
+      },
+      "dota-seam-strong": {
+        "role": "neutral",
+        "displayName": "Gold seam strong",
+        "canonical": "rgba(214, 178, 94, 0.3)",
+        "tonalRamp": [
+          "oklch(15% 0.111 86)",
+          "oklch(26% 0.111 86)",
+          "oklch(38% 0.111 86)",
+          "oklch(49% 0.111 86)",
+          "oklch(60% 0.111 86)",
+          "oklch(72% 0.111 86)",
+          "oklch(83% 0.111 86)",
+          "oklch(95% 0.111 86)"
+        ]
+      },
+      "dota-art-frame": {
+        "role": "neutral",
+        "displayName": "Art frame gold",
+        "canonical": "rgba(214, 178, 94, 0.55)",
+        "tonalRamp": [
+          "oklch(15% 0.111 86)",
+          "oklch(26% 0.111 86)",
+          "oklch(38% 0.111 86)",
+          "oklch(49% 0.111 86)",
+          "oklch(60% 0.111 86)",
+          "oklch(72% 0.111 86)",
+          "oklch(83% 0.111 86)",
+          "oklch(95% 0.111 86)"
+        ]
+      },
+      "dota-text": {
+        "role": "neutral",
+        "displayName": "Text (Dota)",
+        "canonical": "oklch(90.5% 0.035 89)",
+        "tonalRamp": [
+          "oklch(15% 0.035 89)",
+          "oklch(26% 0.035 89)",
+          "oklch(38% 0.035 89)",
+          "oklch(49% 0.035 89)",
+          "oklch(60% 0.035 89)",
+          "oklch(72% 0.035 89)",
+          "oklch(83% 0.035 89)",
+          "oklch(95% 0.035 89)"
+        ]
+      },
+      "dota-text-2": {
+        "role": "neutral",
+        "displayName": "Text 2 (Dota)",
+        "canonical": "oklch(74.5% 0.046 87)",
+        "tonalRamp": [
+          "oklch(15% 0.046 87)",
+          "oklch(26% 0.046 87)",
+          "oklch(38% 0.046 87)",
+          "oklch(49% 0.046 87)",
+          "oklch(60% 0.046 87)",
+          "oklch(72% 0.046 87)",
+          "oklch(83% 0.046 87)",
+          "oklch(95% 0.046 87)"
+        ]
+      },
+      "dota-text-3": {
+        "role": "neutral",
+        "displayName": "Text 3 (Dota)",
+        "canonical": "oklch(61.6% 0.038 87)",
+        "tonalRamp": [
+          "oklch(15% 0.038 87)",
+          "oklch(26% 0.038 87)",
+          "oklch(38% 0.038 87)",
+          "oklch(49% 0.038 87)",
+          "oklch(60% 0.038 87)",
+          "oklch(72% 0.038 87)",
+          "oklch(83% 0.038 87)",
+          "oklch(95% 0.038 87)"
+        ]
       }
     },
     "typographyMeta": {
@@ -252,6 +627,46 @@
       "numeral": {
         "displayName": "Numeral",
         "purpose": "Scoreboard stats, keycaps, percent readouts, inline counts. Always Doto."
+      },
+      "dota-display": {
+        "displayName": "Display (Dota)",
+        "purpose": "Lobby headline in Cinzel. 2.25rem under 720px."
+      },
+      "dota-headline": {
+        "displayName": "Headline (Dota)",
+        "purpose": "The question prompt in Cinzel, max 24ch. 1.5rem with a 3.3em minimum height under 720px."
+      },
+      "dota-clock": {
+        "displayName": "Clock (Dota)",
+        "purpose": "The countdown in Barlow Condensed 800 instead of Doto. 4rem under 720px."
+      },
+      "dota-title": {
+        "displayName": "Title (Dota)",
+        "purpose": "Answer cell labels in Cinzel. 0.95rem at 0.01em under 720px."
+      },
+      "dota-action": {
+        "displayName": "Action (Dota)",
+        "purpose": "Lobby action labels in Cinzel."
+      },
+      "dota-sign": {
+        "displayName": "Sign (Dota)",
+        "purpose": "The fascia sign in Cinzel, pixel mark hidden. 1rem at 0.08em under 720px."
+      },
+      "dota-state": {
+        "displayName": "State (Dota)",
+        "purpose": "The clock-state line in Cinzel."
+      },
+      "dota-fixture": {
+        "displayName": "Fixture name (Dota)",
+        "purpose": "The bold format name in each fixture row, in Cinzel."
+      },
+      "dota-hero-status": {
+        "displayName": "Hero status (Dota)",
+        "purpose": "The hero picker status line in Cinzel."
+      },
+      "dota-numeral": {
+        "displayName": "Numeral (Dota)",
+        "purpose": "Scoreboard stats at 2rem; every other readout takes the same Barlow Condensed 800 at the shell's size. Keycaps 1.5rem (1.25rem under 720px)."
       }
     },
     "fonts": [
@@ -285,10 +700,18 @@
         "files": "design/poc/led-board/fonts/Doto-400-900.woff2",
         "license": "SIL OFL 1.1",
         "fallback": "Courier New, monospace"
+      },
+      {
+        "family": "Cinzel",
+        "weights": "400 900 (variable)",
+        "files": "design/poc/led-board/fonts/Cinzel-400-900.woff2",
+        "license": "SIL OFL 1.1",
+        "fallback": "Times New Roman, serif",
+        "skin": "dota"
       }
     ],
     "shadows": [],
-    "elevation": "None. Depth is three blacks: ground #101010, module #000000, ghost #1b1b1b. Two dot stencils (art-module screen door: 40% black dots on a 3px grid; verdict placeholder: ghost-2 dots on an 8px grid) add texture without light.",
+    "elevation": "None. Depth is three blacks: ground #101010, module #000000, ghost #1b1b1b. Two dot stencils (art-module screen door: 40% black dots on a 3px grid; verdict placeholder: ghost-2 dots on an 8px grid) add texture without light. Dota skin: flat slate ground (#0a0f12) with no seam grid; ladder ground, module #10171c, ghost #1a242b, plus a well #0b1013 under images and typed text. Every module, cell, action, and keycap carries a 1px gold hairline (rgba(214,178,94,0.3)) over a 1px #05080a inset line (zero-blur inset box-shadow); lit fills drop both. Both dot stencils are removed: the art module gets a 2px rgba(214,178,94,0.55) frame with a 1px black outline inset 3px, the verdict a 1px top rule.",
     "motion": [
       {
         "name": "swap",
@@ -334,6 +757,11 @@
         "name": "fog-stage-0",
         "value": "filter: none; transform: none",
         "purpose": "Fogged Vision at reveal. Stages swap with no transition."
+      },
+      {
+        "name": "breaker-blink-dota",
+        "value": "breaker-dota 0.5s steps(1) infinite; 50% { background: #0a0f12; color: #ffe08a }",
+        "purpose": "The Dota skin's re-declaration of the crowd-breaker blink with slate ink. Same timing; removed under reduced motion."
       }
     ],
     "breakpoints": [
@@ -428,6 +856,45 @@
       "scrollbar": "10px amber thumb on ghost track, scrollbar-width thin",
       "focusVisible": "outline 2px solid amber, outline-offset 2px",
       "link": "amber, lit white on hover, no underline"
+    },
+    "skins": {
+      "rule": "A skin is one stylesheet, theme-<game>.css, loaded after board.css. It may change palette, frames, ornament, and type faces. It may not change the layout, the phase geometry, the one-dot-per-percent bars, the full-band reveal flip, or the roles in the State Colour Law.",
+      "dota": {
+        "file": "design/poc/led-board/theme-dota.css",
+        "pages": [
+          "design/poc/led-board/index-dota.html",
+          "design/poc/led-board/play-dota.html"
+        ],
+        "review": ".impeccable/review/dota/",
+        "tokenPrefix": "dota-",
+        "mechanism": "Re-points the shell's :root colour variables and --font-dots (Doto to Barlow Condensed), adds --font-title (Cinzel) and five accents (--str, --agi, --int, --all, --play).",
+        "changes": [
+          "Palette: slate ground and modules, shop gold for the amber role, parchment for lit, Radiant green and Dire red for the results, gold seams.",
+          "Frames: 1px gold hairline over 1px dark inset line on every module, cell, action, and keycap; dropped on lit fills.",
+          "Ornament: 6px gold diamonds for LED separators, sign pixel mark hidden, 2px gold art frame with no screen door, verdict plate with a top rule, 3px attribute stripe on hero tiles, 8px attribute square before split-row names.",
+          "Type: Cinzel on eight title roles; Barlow Condensed 800 on every readout (The HUD Digits Rule); Barlow unchanged.",
+          "Lobby: Find Match green with white ink on the primary action only."
+        ],
+        "inherited": [
+          "Clock over time bar, 15 cells.",
+          "Cells light by fill; keycap inverts.",
+          "100-dot split bars, one dot per percent, 16% unlit.",
+          "700ms full-band reveal flash on every lit surface.",
+          "Reserved space for every phase; no layout shift.",
+          "Instant swaps; ticker scroll; breaker blink.",
+          "State colour roles: live, lit, right, wrong, breaker."
+        ],
+        "notUsed": "Valve's Radiance font: no licence in the repository. Cinzel is the title face.",
+        "mobile": {
+          "sign": "1rem, 0.08em, 0 12px padding",
+          "prompt": "1.5rem, min-height 3.3em",
+          "headline": "2.25rem",
+          "cell-label": "0.95rem, 0.01em",
+          "keycap": "1.25rem",
+          "clock": "4rem",
+          "volume-bar": "6px wide"
+        }
+      }
     }
   },
   "components": [
@@ -510,18 +977,67 @@
       "description": "One stat in the scoreboard band: a Doto numeral in amber over a signage caption, 14px by 24px padding, divided by 1px seams.",
       "html": "<div class=\"ds-scoreboard\"><div class=\"ds-stat\"><b>1,240</b><span>Points</span></div><div class=\"ds-stat\"><b>3</b><span>Streak</span></div><div class=\"ds-stat\"><b>7</b><span>Rounds</span></div><div class=\"ds-stat\"><b>9</b><span>Best streak</span></div><a class=\"ds-leave\" href=\"#\">Back to lobby</a></div>",
       "css": ".ds-scoreboard { display: grid; grid-template-columns: repeat(4, auto) 1fr; align-items: center; background: var(--module, #000000); } .ds-stat { padding: 14px 24px; border-right: 1px solid var(--seam-strong, rgba(255, 255, 255, 0.14)); display: grid; gap: 2px; } .ds-stat b { font-family: \"Doto\", \"Courier New\", monospace; font-weight: 800; font-size: 1.75rem; line-height: 1; color: var(--amber, #ffb000); font-variant-numeric: tabular-nums; } .ds-stat span { font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 600; font-size: 0.8125rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-2, #a99f8b); } .ds-leave { justify-self: end; padding: 0 24px; height: 100%; min-height: 72px; display: flex; align-items: center; border-left: 1px solid var(--seam-strong, rgba(255, 255, 255, 0.14)); font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text, #ece7db); text-decoration: none; } .ds-leave:hover { background: var(--ghost, #1b1b1b); color: var(--amber, #ffb000); } .ds-leave:focus-visible { outline: 2px solid var(--amber, #ffb000); outline-offset: 2px; }"
+    },
+    {
+      "name": "Fascia (Dota skin)",
+      "kind": "nav",
+      "refersTo": "dota-fascia",
+      "description": "The top strip in the Dota skin: Cinzel sign in shop gold with the pixel mark hidden, gold diamond separators, condensed ticker count, gold seam edge and dividers.",
+      "html": "<header class=\"ds-fascia\"><a class=\"ds-sign\" href=\"#\">Queue Arcade</a><div class=\"ds-ticker\"><div class=\"ds-ticker-track\"><span class=\"ds-item\"><i class=\"ds-led\"></i>Public room</span><span class=\"ds-item\"><i class=\"ds-led\"></i><em><span class=\"ds-num\">41</span> playing now</em></span><span class=\"ds-item\"><i class=\"ds-led\"></i>Dota 2 · patch 7.41f</span></div></div></header>",
+      "css": ".ds-fascia { height: 56px; display: grid; grid-template-columns: auto 1fr; align-items: stretch; background: #0c1216; border-bottom: 1px solid rgba(214, 178, 94, 0.3); color: #e9dfc6; } .ds-sign { display: flex; align-items: center; padding: 0 24px; font-family: \"Cinzel\", \"Times New Roman\", serif; font-weight: 700; font-size: 1.25rem; letter-spacing: 0.12em; text-transform: uppercase; color: #e7bd5a; text-decoration: none; border-right: 1px solid rgba(214, 178, 94, 0.3); white-space: nowrap; } .ds-sign:hover { color: #e7bd5a; } .ds-sign:focus-visible { outline: 2px solid #e7bd5a; outline-offset: 2px; } .ds-ticker { overflow: hidden; display: flex; align-items: center; min-width: 0; } .ds-ticker-track { display: flex; gap: 40px; white-space: nowrap; padding-left: 40px; font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase; color: #b9ab8c; } .ds-item { display: inline-flex; align-items: center; gap: 40px; } .ds-ticker-track em { font-style: normal; color: #e7bd5a; } .ds-num { font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 800; font-size: 1.05rem; letter-spacing: 0; } .ds-led { width: 6px; height: 6px; background: #e7bd5a; flex: none; transform: rotate(45deg); }"
+    },
+    {
+      "name": "Clock module (Dota skin)",
+      "kind": "custom",
+      "refersTo": "dota-clock",
+      "description": "The shared countdown in the Dota skin: framed slate module, Barlow Condensed 800 clock, gold diamond separators, Cinzel state line. Shop gold while answering; parchment while locked; Radiant green or Dire red at reveal.",
+      "html": "<section class=\"ds-module ds-clock-module\"><p class=\"ds-round\"><span>Round</span><span class=\"ds-num\">212</span><i class=\"ds-led\"></i><span>Classic Trivia</span><i class=\"ds-led\"></i><span>Items</span></p><p class=\"ds-clock\">00:14</p><div class=\"ds-timebar\"><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i></i></div><p class=\"ds-clock-state\">Answer now</p></section>",
+      "css": ".ds-module { background: #10171c; color: #e9dfc6; border: 1px solid rgba(214, 178, 94, 0.3); box-shadow: inset 0 0 0 1px #05080a; } .ds-clock-module { padding: 24px 28px 28px; display: grid; grid-template-rows: auto 1fr auto auto; gap: 16px; min-height: 384px; max-width: 480px; } .ds-round { margin: 0; font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase; color: #b9ab8c; display: flex; align-items: center; gap: 14px; white-space: nowrap; min-height: 1.5em; } .ds-round .ds-num { font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 800; font-size: 1.1rem; color: #e7bd5a; letter-spacing: 0; } .ds-led { width: 6px; height: 6px; background: #e7bd5a; transform: rotate(45deg); } .ds-clock { margin: 0; font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 800; font-size: clamp(6rem, 10vw, 9.5rem); line-height: 0.9; letter-spacing: 0; color: #e7bd5a; font-variant-numeric: tabular-nums; align-self: center; } .ds-timebar { display: grid; grid-template-columns: repeat(15, 1fr); gap: 4px; } .ds-timebar i { height: 14px; background: #26323a; } .ds-timebar i.lit { background: #e7bd5a; } .ds-clock-state { margin: 0; font-family: \"Cinzel\", \"Times New Roman\", serif; font-weight: 700; font-size: 1.125rem; letter-spacing: 0.1em; text-transform: uppercase; color: #e7bd5a; min-height: 1.4em; } .ds-locked .ds-clock, .ds-locked .ds-clock-state { color: #f3e9d0; } .ds-locked .ds-timebar i.lit { background: #f3e9d0; } .ds-right .ds-clock, .ds-right .ds-clock-state { color: #8fd14f; } .ds-wrong .ds-clock, .ds-wrong .ds-clock-state { color: #e2472f; }"
+    },
+    {
+      "name": "Answer row at reveal (Dota skin)",
+      "kind": "button",
+      "refersTo": "dota-answer-cell-correct",
+      "description": "The four cells at reveal in the Dota skin: framed slate cells with Cinzel labels and condensed keycaps; the correct cell fills Radiant green with the breaker-gold keycap, the picked wrong cell fills Dire red, lit fills drop their frame, the rest dim.",
+      "html": "<div class=\"ds-answers ds-reveal\"><button class=\"ds-cell ds-correct ds-breaker\" type=\"button\" disabled><span class=\"ds-head\"><span class=\"ds-key\">A</span><span class=\"ds-label\">2,250 gold</span></span><span class=\"ds-split\"><span class=\"ds-pct\">31%</span><span class=\"ds-dots\"><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span><span class=\"ds-foot\"><span class=\"ds-bonus\">2x crowd-breaker</span></span></button><button class=\"ds-cell ds-picked ds-wrong\" type=\"button\" disabled><span class=\"ds-head\"><span class=\"ds-key\">B</span><span class=\"ds-label\">1,775 gold</span></span><span class=\"ds-split\"><span class=\"ds-pct\">44%</span><span class=\"ds-dots\"><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span><span class=\"ds-foot\"></span></button><button class=\"ds-cell\" type=\"button\" disabled><span class=\"ds-head\"><span class=\"ds-key\">C</span><span class=\"ds-label\">2,600 gold</span></span><span class=\"ds-split\"><span class=\"ds-pct\">15%</span><span class=\"ds-dots\"><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span><span class=\"ds-foot\"></span></button><button class=\"ds-cell\" type=\"button\" disabled><span class=\"ds-head\"><span class=\"ds-key\">D</span><span class=\"ds-label\">2,875 gold</span></span><span class=\"ds-split\"><span class=\"ds-pct\">10%</span><span class=\"ds-dots\"><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span><span class=\"ds-foot\"></span></button></div>",
+      "css": ".ds-answers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; background: #0a0f12; } .ds-cell { height: 128px; min-width: 0; padding: 16px 18px 12px; background: #10171c; border: 1px solid rgba(214, 178, 94, 0.3); box-shadow: inset 0 0 0 1px #05080a; border-radius: 0; display: grid; grid-template-rows: auto 1fr auto; row-gap: 6px; align-items: start; text-align: left; cursor: default; color: #b9ab8c; font: inherit; } .ds-head { display: flex; align-items: center; gap: 14px; min-width: 0; } .ds-key { flex: none; width: 42px; height: 42px; display: grid; place-items: center; background: #1a242b; border: 1px solid rgba(214, 178, 94, 0.3); font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 800; font-size: 1.5rem; color: #b9ab8c; } .ds-label { font-family: \"Cinzel\", \"Times New Roman\", serif; font-weight: 700; font-size: 1.375rem; line-height: 1; letter-spacing: 0.03em; text-transform: uppercase; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .ds-split { display: grid; grid-template-columns: 4.2ch minmax(0, 1fr); align-items: center; gap: 12px; height: 28px; align-self: end; } .ds-pct { font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 800; font-size: 1.25rem; color: currentColor; } .ds-dots { display: grid; grid-template-columns: repeat(25, 5px); gap: 2px; width: 173px; } .ds-dots i { width: 5px; height: 5px; background: currentColor; opacity: 0.16; } .ds-dots i.lit { opacity: 1; } .ds-foot { display: grid; height: 20px; } .ds-foot > * { grid-area: 1 / 1; display: flex; align-items: center; white-space: nowrap; } .ds-bonus { font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 800; font-size: 0.95rem; letter-spacing: 0.1em; text-transform: uppercase; color: #0a0f12; } .ds-cell.ds-correct { background: #8fd14f; color: #0a0f12; border-color: transparent; box-shadow: none; } .ds-cell.ds-correct .ds-key { background: #0a0f12; color: #8fd14f; border-color: transparent; } .ds-cell.ds-correct.ds-breaker .ds-key { background: #ffe08a; color: #0a0f12; animation: ds-breaker 0.5s steps(1) infinite; } @keyframes ds-breaker { 50% { background: #0a0f12; color: #ffe08a; } } .ds-cell.ds-picked.ds-wrong { background: #e2472f; color: #0a0f12; border-color: transparent; box-shadow: none; } .ds-cell.ds-picked.ds-wrong .ds-key { background: #0a0f12; color: #e2472f; border-color: transparent; } @media (prefers-reduced-motion: reduce) { .ds-cell.ds-correct.ds-breaker .ds-key { animation: none; } }"
+    },
+    {
+      "name": "Primary action (Dota skin)",
+      "kind": "button",
+      "refersTo": "dota-action-primary",
+      "description": "The lobby's Play now cell in the Dota skin: Find Match green with white Cinzel label and white caption, no frame. Hover lifts to the lighter play green.",
+      "html": "<a class=\"ds-action ds-primary\" href=\"#\"><span class=\"ds-action-label\">Play now</span><span class=\"ds-action-sub\">Joins the next full round · no account needed</span></a>",
+      "css": ".ds-action { height: 128px; width: 100%; max-width: 660px; padding: 16px 20px 14px; display: grid; grid-template-rows: 1fr auto; align-items: start; text-align: left; background: #10171c; border: 1px solid rgba(214, 178, 94, 0.3); box-shadow: inset 0 0 0 1px #05080a; color: #f3e9d0; text-decoration: none; cursor: pointer; } .ds-action:hover { background: #1a242b; color: #f3e9d0; } .ds-action:focus-visible { outline: 2px solid #e7bd5a; outline-offset: 2px; } .ds-action-label { font-family: \"Cinzel\", \"Times New Roman\", serif; font-weight: 800; font-size: 1.625rem; line-height: 1; letter-spacing: 0.04em; text-transform: uppercase; } .ds-action-sub { font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.1em; text-transform: uppercase; color: #b9ab8c; } .ds-action.ds-primary { background: #27803a; color: #fff; border-color: transparent; box-shadow: none; } .ds-action.ds-primary .ds-action-sub { color: #fff; } .ds-action.ds-primary:hover { background: #2f9a45; }"
+    },
+    {
+      "name": "Hero tile (Dota skin)",
+      "kind": "chip",
+      "refersTo": "dota-hero-tile",
+      "description": "A 52x68 hero crop on the well colour with a 3px attribute stripe along the bottom edge. Inset outlines carry state as in the shell: shop gold on hover or pick, Radiant green correct, Dire red wrong; at reveal every other stripe dims to 25%.",
+      "html": "<div class=\"ds-hero-grid ds-reveal\"><button class=\"ds-tile ds-str\" type=\"button\" aria-label=\"Strength hero\"><span class=\"ds-crop\"></span></button><button class=\"ds-tile ds-agi ds-picked ds-wrong\" type=\"button\" aria-label=\"Agility hero, picked, wrong\"><span class=\"ds-crop\"></span></button><button class=\"ds-tile ds-int ds-correct\" type=\"button\" aria-label=\"Intelligence hero, correct\"><span class=\"ds-crop\"></span></button><button class=\"ds-tile ds-all ds-dim\" type=\"button\" aria-label=\"Universal hero, unpicked\"><span class=\"ds-crop\"></span></button></div>",
+      "css": ".ds-hero-grid { display: grid; grid-template-columns: repeat(auto-fill, 52px); gap: 4px; background: #10171c; padding: 20px; } .ds-tile { width: 52px; height: 68px; padding: 0; border: 0; border-radius: 0; background: #0b1013; cursor: pointer; position: relative; overflow: hidden; } .ds-tile::after { content: \"\"; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: #8f846b; } .ds-tile.ds-str::after { background: #e0523a; } .ds-tile.ds-agi::after { background: #5fd36b; } .ds-tile.ds-int::after { background: #58b4f2; } .ds-tile.ds-all::after { background: #c99cff; } .ds-reveal .ds-tile:not(.ds-correct):not(.ds-wrong)::after { opacity: 0.25; } .ds-crop { display: block; width: 100%; height: 100%; background: #26323a; } .ds-tile:hover .ds-crop, .ds-tile:focus-visible .ds-crop { outline: 3px solid #e7bd5a; outline-offset: -3px; } .ds-tile:focus-visible { outline: 0; } .ds-tile.ds-picked .ds-crop { outline: 4px solid #e7bd5a; outline-offset: -4px; } .ds-tile.ds-dim .ds-crop { opacity: 0.35; } .ds-tile.ds-correct .ds-crop { outline: 4px solid #8fd14f; outline-offset: -4px; } .ds-tile.ds-picked.ds-wrong .ds-crop { outline: 4px solid #e2472f; outline-offset: -4px; }"
+    },
+    {
+      "name": "Split row (Dota skin)",
+      "kind": "custom",
+      "refersTo": "dota-answer-cell",
+      "description": "One row of the Fogged Vision room split in the Dota skin: hero crop, an 8px attribute square, the name in signage keeping the state colour, a condensed percent, and the shell's 100-dot bar.",
+      "html": "<div class=\"ds-split-rows\"><div class=\"ds-row ds-all ds-correct\"><span class=\"ds-crop\"></span><span class=\"ds-name\">Abaddon</span><span class=\"ds-pct\">58%</span><span class=\"ds-dots\"><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div><div class=\"ds-row ds-str\"><span class=\"ds-crop\"></span><span class=\"ds-name\">Sven</span><span class=\"ds-pct\">17%</span><span class=\"ds-dots\"><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div><div class=\"ds-row ds-str ds-wrong\"><span class=\"ds-crop\"></span><span class=\"ds-name\">Tidehunter</span><span class=\"ds-pct\">12%</span><span class=\"ds-dots\"><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div></div>",
+      "css": ".ds-split-rows { background: #10171c; border: 1px solid rgba(214, 178, 94, 0.3); box-shadow: inset 0 0 0 1px #05080a; padding: 18px 20px 20px; display: grid; gap: 10px; width: 360px; } .ds-row { display: grid; grid-template-columns: 44px 1fr 4.2ch; grid-template-rows: auto auto; column-gap: 12px; row-gap: 6px; align-items: center; color: #b9ab8c; } .ds-crop { width: 44px; height: 58px; grid-row: 1 / 3; background: #0b1013; } .ds-name { font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 600; font-size: 1.25rem; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1; } .ds-name::before { content: \"\"; display: inline-block; width: 8px; height: 8px; margin-right: 8px; vertical-align: 1px; background: #8f846b; } .ds-row.ds-str .ds-name::before { background: #e0523a; } .ds-row.ds-agi .ds-name::before { background: #5fd36b; } .ds-row.ds-int .ds-name::before { background: #58b4f2; } .ds-row.ds-all .ds-name::before { background: #c99cff; } .ds-pct { font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 800; font-size: 1.25rem; text-align: right; } .ds-dots { grid-column: 2 / 4; display: grid; grid-template-columns: repeat(25, 5px); gap: 2px; width: 173px; } .ds-dots i { width: 5px; height: 5px; background: currentColor; opacity: 0.16; } .ds-dots i.lit { opacity: 1; } .ds-row.ds-correct { color: #8fd14f; } .ds-row.ds-wrong { color: #e2472f; }"
     }
   ],
   "narrative": {
     "northStar": "The Arena Ribbon Board",
-    "overview": "The public room is one arena LED ribbon board. The page is a matte black floor ruled into 96px panels by faint seams. On the floor sit pure black LED modules: the clock, the question, four answer cells, and the scoreboard band. Everything that carries state is light. Words are condensed arena signage in capitals. Numbers are dot-matrix. Reading text is plain Barlow in sentence case.\n\nNothing fades, slides, or glows. A change of state is a one-frame swap, the way a scoreboard flips. The round has four phases (entry, answering, locked, reveal) and every element keeps its box through all four, so the player's eye never has to re-find the clock or the cells. At reveal the whole band drenches in the result colour for 700ms, then drops back to black with the result still lit.\n\nThe build rejects the dark dashboard of bordered cards with one glowing accent. It has no colour gradients, no glow halos, no shadows, no rounded corners, no transitions, and no borders used to show state.",
+    "overview": "The public room is one arena LED ribbon board. The page is a matte black floor ruled into 96px panels by faint seams. On the floor sit pure black LED modules: the clock, the question, four answer cells, and the scoreboard band. Everything that carries state is light. Words are condensed arena signage in capitals. Numbers are dot-matrix. Reading text is plain Barlow in sentence case.\n\nNothing fades, slides, or glows. A change of state is a one-frame swap, the way a scoreboard flips. The round has four phases (entry, answering, locked, reveal) and every element keeps its box through all four, so the player's eye never has to re-find the clock or the cells. At reveal the whole band drenches in the result colour for 700ms, then drops back to black with the result still lit.\n\nThe build rejects the dark dashboard of bordered cards with one glowing accent. It has no colour gradients, no glow halos, no shadows, no rounded corners, no transitions, and no borders used to show state.\n\nThe board is a shell, and a game pack dresses it with a skin. The Dota skin keeps every mechanism above and swaps the material to the Dota client's register: flat dark slate instead of a seamed black floor, shop gold for the live light, Radiant green and Dire red for the result, parchment for lit text, a gold hairline frame on every panel, Cinzel for titles, and the HUD's condensed digits in place of the dot matrix. A second game pack ships its own skin file and leaves the shell alone.",
     "keyCharacteristics": [
       "Matte ground, black modules, visible seams, zero radius.",
       "One colour per state: amber live, white locked or waiting, green right, red wrong, white-gold only for the 2x crowd-breaker.",
       "Unlit elements are drawn, not hidden: ghost dots at 16% opacity, unlit bar cells in ghost grey.",
       "Dot-matrix numerals (Doto), signage capitals (Barlow Condensed), reading text (Barlow).",
       "Every state change is instant. The only loops are the ticker scroll and the crowd-breaker blink.",
-      "Every phase-dependent element reserves its space. Nothing moves between entry, answering, locked, and reveal."
+      "Every phase-dependent element reserves its space. Nothing moves between entry, answering, locked, and reveal.",
+      "Two layers: the shell owns layout, geometry, bars, the reveal flip, and the state roles; a skin owns palette, frames, ornament, and type faces."
     ],
     "rules": [
       {
@@ -563,6 +1079,31 @@
         "name": "The Instant Swap Rule",
         "section": "components",
         "body": "No element has a transition. Every state change (phase, pick, lock, reveal, hover, fog stage) is a one-frame swap of class and colour. The only animations are the ticker scroll (48s linear loop, paused on hover), the crowd-breaker keycap blink (0.5s, steps(1)), and the 700ms reveal flash, which is a class added and removed by script. Under prefers-reduced-motion: reduce the ticker stops scrolling and steps in place, the keycap blink is removed, and the flash remains as a single instant swap."
+      },
+      {
+        "name": "The Shell-and-Skin Rule",
+        "section": "overview",
+        "body": "A skin is one stylesheet, `theme-<game>.css`, loaded after `board.css`. It may change palette, frames, ornament, and type faces. It may not change the layout, the phase geometry, the one-dot-per-percent bars, the full-band reveal flip, or the roles in the State Colour Law. Every mechanism the shell documents is inherited by every skin unchanged."
+      },
+      {
+        "name": "The Attribute Mark Rule",
+        "section": "colors",
+        "body": "The four attribute colours are marks, not states. They appear only as the 3px stripe on a hero tile and the 8px square before a split-row name. The name beside the square keeps the state colour. An attribute colour never fills a surface, never colours text, and never stands in for green or red."
+      },
+      {
+        "name": "The Title Face Rule",
+        "section": "typography",
+        "body": "Cinzel takes exactly eight roles: the sign, the prompt, the headline, cell labels, action labels, the clock-state line, fixture names, and the hero status line. Every other signage role (round label, ticker, captions, sub-lines, search label, split heading, slot names, Leave link) stays Barlow Condensed, and reading text stays Barlow. The Signage Caps Rule still applies: Cinzel is set in uppercase with tracking between 0.03em and 0.12em."
+      },
+      {
+        "name": "The HUD Digits Rule",
+        "section": "typography",
+        "body": "In the Dota skin the Dot Readout Rule is replaced, not relaxed: every readout the shell sets in Doto is set in Barlow Condensed 800 instead, by re-pointing the shell's dot-font variable. The set of readouts does not change. A digit inside a label or a signage line still stays in that line's face."
+      },
+      {
+        "name": "The Hairline Frame Rule",
+        "section": "elevation",
+        "body": "In the Dota skin a frame is a 1px gold hairline over a 1px dark inset line, with no blur and no offset, drawn on every module, cell, action, and keycap at rest. The frame is never a state: a surface that lights by fill loses its frame for as long as it is lit."
       }
     ],
     "dos": [
@@ -573,7 +1114,10 @@
       "Do separate modules by 12px of ground and join stats or rows with 1px seams.",
       "Do keep the 2px amber focus ring with 2px offset on every control.",
       "Do use a 6px LED square between label items in place of punctuation.",
-      "Do swap colour across the whole band once at reveal, for 700ms, and leave the ground matte."
+      "Do swap colour across the whole band once at reveal, for 700ms, and leave the ground matte.",
+      "Do ship a new game as one `theme-<game>.css` loaded after `board.css`, changing palette, frames, ornament, and type faces only.",
+      "Do keep the hairline frame off every lit fill in the Dota skin: picked, correct, wrong, and Play now show no gold line.",
+      "Do keep attribute colours to the 3px tile stripe and the 8px split-row square."
     ],
     "donts": [
       "Don't add transitions, easing, fades, or slides. Every change is instant.",
@@ -583,7 +1127,11 @@
       "Don't use breaker gold anywhere but the 2x crowd-breaker keycap.",
       "Don't show state with a border. Fill the surface. Inset outlines are allowed only on image tiles where a fill would hide the art.",
       "Don't let a phase change move, resize, or reflow anything on the board.",
-      "Don't set a heading, label, or button in sentence case or in Barlow. Signage is Barlow Condensed uppercase."
+      "Don't set a heading, label, or button in sentence case or in Barlow. Signage is Barlow Condensed uppercase; in the Dota skin the eight title roles are Cinzel uppercase.",
+      "Don't let a skin change the layout, the phase geometry, the 100-dot bars, the reveal flip, or which role a state colour plays.",
+      "Don't use an attribute colour for state, text, or a fill.",
+      "Don't use Find Match green anywhere but the lobby's primary action.",
+      "Don't use Valve's Radiance font. The repository has no licence for it; Cinzel is the title face."
     ]
   }
 }
