@@ -1,0 +1,589 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-20T16:19:28Z",
+  "title": "Design System: Queue Arcade LED board",
+  "scope": "Describes the LED-board concept under design/poc/led-board/ only. The shipped Next.js app (CSS modules under src/components) is not covered.",
+  "extensions": {
+    "colorMeta": {
+      "amber": {
+        "role": "primary",
+        "displayName": "Amber",
+        "canonical": "oklch(81.2% 0.170 76)",
+        "tonalRamp": [
+          "oklch(15% 0.170 76)",
+          "oklch(26% 0.170 76)",
+          "oklch(38% 0.170 76)",
+          "oklch(49% 0.170 76)",
+          "oklch(60% 0.170 76)",
+          "oklch(72% 0.170 76)",
+          "oklch(83% 0.170 76)",
+          "oklch(95% 0.170 76)"
+        ]
+      },
+      "lit": {
+        "role": "secondary",
+        "displayName": "Lit white",
+        "canonical": "oklch(96.2% 0.014 89)",
+        "tonalRamp": [
+          "oklch(15% 0.014 89)",
+          "oklch(26% 0.014 89)",
+          "oklch(38% 0.014 89)",
+          "oklch(49% 0.014 89)",
+          "oklch(60% 0.014 89)",
+          "oklch(72% 0.014 89)",
+          "oklch(83% 0.014 89)",
+          "oklch(95% 0.014 89)"
+        ]
+      },
+      "green": {
+        "role": "secondary",
+        "displayName": "Right green",
+        "canonical": "oklch(80.8% 0.207 149)",
+        "tonalRamp": [
+          "oklch(15% 0.207 149)",
+          "oklch(26% 0.207 149)",
+          "oklch(38% 0.207 149)",
+          "oklch(49% 0.207 149)",
+          "oklch(60% 0.207 149)",
+          "oklch(72% 0.207 149)",
+          "oklch(83% 0.207 149)",
+          "oklch(95% 0.207 149)"
+        ]
+      },
+      "red": {
+        "role": "secondary",
+        "displayName": "Wrong red",
+        "canonical": "oklch(65.5% 0.231 26)",
+        "tonalRamp": [
+          "oklch(15% 0.231 26)",
+          "oklch(26% 0.231 26)",
+          "oklch(38% 0.231 26)",
+          "oklch(49% 0.231 26)",
+          "oklch(60% 0.231 26)",
+          "oklch(72% 0.231 26)",
+          "oklch(83% 0.231 26)",
+          "oklch(95% 0.231 26)"
+        ]
+      },
+      "gold": {
+        "role": "tertiary",
+        "displayName": "Breaker gold",
+        "canonical": "oklch(91.4% 0.111 90)",
+        "tonalRamp": [
+          "oklch(15% 0.111 90)",
+          "oklch(26% 0.111 90)",
+          "oklch(38% 0.111 90)",
+          "oklch(49% 0.111 90)",
+          "oklch(60% 0.111 90)",
+          "oklch(72% 0.111 90)",
+          "oklch(83% 0.111 90)",
+          "oklch(95% 0.111 90)"
+        ]
+      },
+      "ground": {
+        "role": "neutral",
+        "displayName": "Ground",
+        "canonical": "oklch(17.3% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(60% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(83% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "module": {
+        "role": "neutral",
+        "displayName": "Module",
+        "canonical": "oklch(0% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(60% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(83% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "ghost": {
+        "role": "neutral",
+        "displayName": "Ghost",
+        "canonical": "oklch(22.2% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(60% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(83% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "ghost-2": {
+        "role": "neutral",
+        "displayName": "Ghost 2",
+        "canonical": "oklch(28.1% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(60% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(83% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "seam": {
+        "role": "neutral",
+        "displayName": "Seam",
+        "canonical": "rgba(255, 255, 255, 0.05)",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(60% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(83% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "seam-strong": {
+        "role": "neutral",
+        "displayName": "Seam strong",
+        "canonical": "rgba(255, 255, 255, 0.14)",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(60% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(83% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Text",
+        "canonical": "oklch(92.9% 0.017 88)",
+        "tonalRamp": [
+          "oklch(15% 0.017 88)",
+          "oklch(26% 0.017 88)",
+          "oklch(38% 0.017 88)",
+          "oklch(49% 0.017 88)",
+          "oklch(60% 0.017 88)",
+          "oklch(72% 0.017 88)",
+          "oklch(83% 0.017 88)",
+          "oklch(95% 0.017 88)"
+        ]
+      },
+      "text-2": {
+        "role": "neutral",
+        "displayName": "Text 2",
+        "canonical": "oklch(70.5% 0.031 85)",
+        "tonalRamp": [
+          "oklch(15% 0.031 85)",
+          "oklch(26% 0.031 85)",
+          "oklch(38% 0.031 85)",
+          "oklch(49% 0.031 85)",
+          "oklch(60% 0.031 85)",
+          "oklch(72% 0.031 85)",
+          "oklch(83% 0.031 85)",
+          "oklch(95% 0.031 85)"
+        ]
+      },
+      "text-3": {
+        "role": "neutral",
+        "displayName": "Text 3",
+        "canonical": "oklch(62.3% 0.026 82)",
+        "tonalRamp": [
+          "oklch(15% 0.026 82)",
+          "oklch(26% 0.026 82)",
+          "oklch(38% 0.026 82)",
+          "oklch(49% 0.026 82)",
+          "oklch(60% 0.026 82)",
+          "oklch(72% 0.026 82)",
+          "oklch(83% 0.026 82)",
+          "oklch(95% 0.026 82)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Lobby headline only. Uppercase, balanced, max 16ch, emphasised phrase in amber."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "The question prompt. Uppercase, balanced, max 22ch, 1.9em minimum height."
+      },
+      "clock": {
+        "displayName": "Clock",
+        "purpose": "The shared countdown as 00:SS. Colour follows the State Colour Law."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Answer cell labels, one line with ellipsis. Action labels at weight 800 and 2rem."
+      },
+      "state": {
+        "displayName": "State",
+        "purpose": "The state line under the time bar and the hero status line. Uppercase."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Reading sentences only: verdict (64ch), pitch, scoreboard note. Sentence case."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Round label, ticker, search label, split heading. Items separated by 6px LED squares."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Scoreboard captions, cell and action sub-lines. Uppercase."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Scoreboard stats, keycaps, percent readouts, inline counts. Always Doto."
+      }
+    },
+    "fonts": [
+      {
+        "family": "Barlow Condensed",
+        "weights": [
+          500,
+          600,
+          700,
+          800
+        ],
+        "files": "design/poc/led-board/fonts/BarlowCondensed-{weight}.woff2",
+        "license": "SIL OFL 1.1",
+        "fallback": "Arial Narrow, sans-serif"
+      },
+      {
+        "family": "Barlow",
+        "weights": [
+          400,
+          500,
+          600,
+          700
+        ],
+        "files": "design/poc/led-board/fonts/Barlow-{weight}.woff2",
+        "license": "SIL OFL 1.1",
+        "fallback": "Helvetica Neue, Arial, sans-serif"
+      },
+      {
+        "family": "Doto",
+        "weights": "400 900 (variable)",
+        "files": "design/poc/led-board/fonts/Doto-400-900.woff2",
+        "license": "SIL OFL 1.1",
+        "fallback": "Courier New, monospace"
+      }
+    ],
+    "shadows": [],
+    "elevation": "None. Depth is three blacks: ground #101010, module #000000, ghost #1b1b1b. Two dot stencils (art-module screen door: 40% black dots on a 3px grid; verdict placeholder: ghost-2 dots on an 8px grid) add texture without light.",
+    "motion": [
+      {
+        "name": "swap",
+        "value": "none",
+        "purpose": "The Instant Swap Rule. No element declares a transition; every state change is a one-frame class and colour swap."
+      },
+      {
+        "name": "ticker-scroll",
+        "value": "ticker 48s linear infinite; translateX(0) to translateX(-50%); paused on hover",
+        "purpose": "The fascia ticker. The track is duplicated once for a seamless loop."
+      },
+      {
+        "name": "ticker-stepped",
+        "value": "4000ms interval, one item shown at a time",
+        "purpose": "Replaces the scroll under prefers-reduced-motion: reduce."
+      },
+      {
+        "name": "breaker-blink",
+        "value": "breaker 0.5s steps(1) infinite; 50% { background: #000; color: gold }",
+        "purpose": "The 2x crowd-breaker keycap at reveal. Removed under reduced motion."
+      },
+      {
+        "name": "reveal-flash",
+        "value": "body.flash-right | flash-wrong | flash-missed for 700ms",
+        "purpose": "The Decisive Beat. Every fascia, module, and cell background becomes the result colour with black ink; the ground stays matte; the class is removed in one frame."
+      },
+      {
+        "name": "fog-stage-3",
+        "value": "filter: blur(18px) saturate(0.35) contrast(0.6) brightness(0.7); transform: scale(1.12)",
+        "purpose": "Fogged Vision while more than 10 seconds remain."
+      },
+      {
+        "name": "fog-stage-2",
+        "value": "filter: blur(9px) saturate(0.55) contrast(0.75) brightness(0.8); transform: scale(1.08)",
+        "purpose": "Fogged Vision between 10 and 5 seconds."
+      },
+      {
+        "name": "fog-stage-1",
+        "value": "filter: blur(4px) saturate(0.7) contrast(0.85) brightness(0.9); transform: scale(1.04)",
+        "purpose": "Fogged Vision under 5 seconds."
+      },
+      {
+        "name": "fog-stage-0",
+        "value": "filter: none; transform: none",
+        "purpose": "Fogged Vision at reveal. Stages swap with no transition."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "two-column",
+        "value": "1100px",
+        "purpose": "Board columns minmax(300px, 2fr) 3fr; answers 2x2; Play spans the actions row; Leave link on its own row; fog picker stacks."
+      },
+      {
+        "name": "single-column",
+        "value": "720px",
+        "purpose": "Tokens change (seam 64px, cell 112px, fascia 84px, dot 3px, dot gap 1px). One column, 12px padding, 10px gaps, two-row fascia, Steam button hidden."
+      }
+    ],
+    "dimensions": [
+      {
+        "name": "seam-size",
+        "value": "96px",
+        "mobile": "64px",
+        "purpose": "Pitch of the ground's seam grid."
+      },
+      {
+        "name": "dot",
+        "value": "5px",
+        "mobile": "3px",
+        "purpose": "One split-bar dot, one sign pixel, one ticket LED."
+      },
+      {
+        "name": "dot-gap",
+        "value": "2px",
+        "mobile": "1px",
+        "purpose": "Gap between split-bar dots."
+      },
+      {
+        "name": "cell-h",
+        "value": "128px",
+        "mobile": "112px",
+        "purpose": "Answer cell and lobby action height."
+      },
+      {
+        "name": "fascia-h",
+        "value": "56px",
+        "mobile": "84px",
+        "purpose": "Fascia height. Two rows on mobile (52px + 32px)."
+      },
+      {
+        "name": "board-max",
+        "value": "1392px",
+        "purpose": "Maximum board width, centred, with 24px padding."
+      },
+      {
+        "name": "module-min-h",
+        "value": "384px",
+        "purpose": "Minimum height of the clock and question modules on desktop."
+      },
+      {
+        "name": "timebar-cells",
+        "value": "15",
+        "purpose": "Cells in the time bar; lit = round(seconds / total * 15)."
+      },
+      {
+        "name": "split-dots",
+        "value": "100 in 25 columns",
+        "purpose": "One dot per percent; lit count equals the percent."
+      },
+      {
+        "name": "led",
+        "value": "6px",
+        "purpose": "LED square used as a label separator; 5px in the ticket."
+      },
+      {
+        "name": "keycap",
+        "value": "42px",
+        "mobile": "32px",
+        "purpose": "Answer keycap square."
+      },
+      {
+        "name": "hero-tile",
+        "value": "52px x 68px",
+        "mobile": "44px x 58px",
+        "purpose": "Hero grid tile."
+      },
+      {
+        "name": "focus-ring",
+        "value": "2px solid amber, offset 2px",
+        "purpose": "Focus on every control; inset 0 on the search input."
+      }
+    ],
+    "browserSurfaces": {
+      "selection": "background amber, color #000",
+      "caret": "amber",
+      "scrollbar": "10px amber thumb on ghost track, scrollbar-width thin",
+      "focusVisible": "outline 2px solid amber, outline-offset 2px",
+      "link": "amber, lit white on hover, no underline"
+    }
+  },
+  "components": [
+    {
+      "name": "Fascia",
+      "kind": "nav",
+      "refersTo": "fascia",
+      "description": "The top strip: amber sign with pixel mark, scrolling ticker, mute and volume controls. 56px tall, 1px seam dividers.",
+      "html": "<header class=\"ds-fascia\"><a class=\"ds-sign\" href=\"#\"><span class=\"ds-px\"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>Queue Arcade</a><div class=\"ds-ticker\"><div class=\"ds-ticker-track\"><span class=\"ds-item\"><i class=\"ds-led\"></i>Public room</span><span class=\"ds-item\"><i class=\"ds-led\"></i><em><span class=\"ds-num\">41</span> playing now</em></span><span class=\"ds-item\"><i class=\"ds-led\"></i>Dota 2 · patch 7.41f</span><span class=\"ds-item\"><i class=\"ds-led\"></i>Next: Fogged Vision</span></div></div><div class=\"ds-controls\"><button class=\"ds-mute\" type=\"button\" aria-label=\"Mute sounds\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M11 5 6 9H2v6h4l5 4V5z\"/><path d=\"M15.5 8.5a5 5 0 0 1 0 7\"/><path d=\"M19 5a9 9 0 0 1 0 14\"/></svg></button><div class=\"ds-volume\" role=\"slider\" tabindex=\"0\" aria-label=\"Master volume\" aria-valuenow=\"70\"><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i></i><i></i><i></i><span class=\"ds-pct\">70%</span></div></div></header>",
+      "css": ".ds-fascia { height: 56px; display: grid; grid-template-columns: auto 1fr auto; align-items: stretch; background: var(--module, #000000); border-bottom: 1px solid var(--seam-strong, rgba(255, 255, 255, 0.14)); color: var(--text, #ece7db); } .ds-sign { display: flex; align-items: center; gap: 12px; padding: 0 24px; font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 800; font-size: 1.375rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber, #ffb000); text-decoration: none; border-right: 1px solid var(--seam-strong, rgba(255, 255, 255, 0.14)); white-space: nowrap; } .ds-sign:hover { color: var(--amber, #ffb000); } .ds-sign:focus-visible { outline: 2px solid var(--amber, #ffb000); outline-offset: 2px; } .ds-px { display: inline-grid; grid-template-columns: repeat(3, 5px); gap: 2px; } .ds-px i { width: 5px; height: 5px; background: var(--amber, #ffb000); } .ds-px i:nth-child(2), .ds-px i:nth-child(4), .ds-px i:nth-child(6), .ds-px i:nth-child(8) { background: var(--ghost-2, #292929); } .ds-ticker { overflow: hidden; display: flex; align-items: center; min-width: 0; } .ds-ticker-track { display: flex; gap: 40px; white-space: nowrap; padding-left: 40px; font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2, #a99f8b); } .ds-item { display: inline-flex; align-items: center; gap: 40px; } .ds-ticker-track em { font-style: normal; color: var(--amber, #ffb000); } .ds-num { font-family: \"Doto\", \"Courier New\", monospace; font-weight: 700; font-size: 1.05rem; letter-spacing: 0; } .ds-led { width: 6px; height: 6px; background: var(--amber, #ffb000); flex: none; } .ds-controls { display: flex; align-items: stretch; border-left: 1px solid var(--seam-strong, rgba(255, 255, 255, 0.14)); } .ds-controls > * { display: flex; align-items: center; gap: 3px; padding: 0 18px; border: 0; border-right: 1px solid var(--seam, rgba(255, 255, 255, 0.05)); background: var(--module, #000000); cursor: pointer; } .ds-controls > *:last-child { border-right: 0; } .ds-controls > *:hover { background: var(--ghost, #1b1b1b); } .ds-controls > *:focus-visible { outline: 2px solid var(--amber, #ffb000); outline-offset: -2px; } .ds-mute svg { width: 20px; height: 20px; stroke: var(--amber, #ffb000); fill: none; stroke-width: 2; stroke-linecap: square; stroke-linejoin: miter; } .ds-volume { cursor: default; } .ds-volume i { width: 8px; height: 18px; background: var(--ghost-2, #292929); } .ds-volume i.lit { background: var(--amber, #ffb000); } .ds-pct { font-family: \"Doto\", \"Courier New\", monospace; font-weight: 700; font-size: 0.95rem; color: var(--amber, #ffb000); margin-left: 8px; min-width: 3.2ch; text-align: right; }"
+    },
+    {
+      "name": "Clock module",
+      "kind": "custom",
+      "refersTo": "clock",
+      "description": "The shared countdown: round label, Doto clock, 15-cell time bar, state line. Amber while answering; lit white while locked or waiting; green or red at reveal.",
+      "html": "<section class=\"ds-module ds-clock-module\"><p class=\"ds-round\"><span>Round</span><span class=\"ds-num\">212</span><i class=\"ds-led\"></i><span>Classic Trivia</span><i class=\"ds-led\"></i><span>Items</span></p><p class=\"ds-clock\">00:14</p><div class=\"ds-timebar\"><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i></i></div><p class=\"ds-clock-state\">Answer now</p></section>",
+      "css": ".ds-module { background: var(--module, #000000); color: var(--text, #ece7db); } .ds-clock-module { padding: 24px 28px 28px; display: grid; grid-template-rows: auto 1fr auto auto; gap: 16px; min-height: 384px; max-width: 480px; } .ds-round { margin: 0; font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-2, #a99f8b); display: flex; align-items: center; gap: 14px; white-space: nowrap; min-height: 1.5em; } .ds-round .ds-num { font-family: \"Doto\", \"Courier New\", monospace; font-weight: 700; font-size: 1.1rem; color: var(--amber, #ffb000); letter-spacing: 0; } .ds-led { width: 6px; height: 6px; background: var(--amber, #ffb000); } .ds-clock { margin: 0; font-family: \"Doto\", \"Courier New\", monospace; font-weight: 800; font-size: clamp(5.5rem, 9vw, 8.75rem); line-height: 0.9; letter-spacing: 0.02em; color: var(--amber, #ffb000); font-variant-numeric: tabular-nums; align-self: center; } .ds-timebar { display: grid; grid-template-columns: repeat(15, 1fr); gap: 4px; } .ds-timebar i { height: 14px; background: var(--ghost-2, #292929); } .ds-timebar i.lit { background: var(--amber, #ffb000); } .ds-clock-state { margin: 0; font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 700; font-size: 1.25rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber, #ffb000); min-height: 1.4em; } .ds-locked .ds-clock, .ds-locked .ds-timebar i.lit, .ds-locked .ds-clock-state { color: var(--lit, #f6f2e8); background-color: var(--lit, #f6f2e8); } .ds-locked .ds-clock, .ds-locked .ds-clock-state { background: none; } .ds-right .ds-clock, .ds-right .ds-clock-state { color: var(--green, #3fe36f); } .ds-wrong .ds-clock, .ds-wrong .ds-clock-state { color: var(--red, #ff3b3b); }"
+    },
+    {
+      "name": "Answer cell",
+      "kind": "button",
+      "refersTo": "answer-cell",
+      "description": "One of the four answer cells while answering: ghost keycap in Doto amber, label in signage caps, a drawn 100-dot split bar, a 20px footer. Hover swaps to ghost. No transition.",
+      "html": "<button class=\"ds-cell\" type=\"button\"><span class=\"ds-head\"><span class=\"ds-key\">A</span><span class=\"ds-label\">2,250 gold</span></span><span class=\"ds-split\"><span class=\"ds-pct\">31%</span><span class=\"ds-dots\"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span><span class=\"ds-foot\"><span class=\"ds-sub\"></span></span></button>",
+      "css": ".ds-cell { height: 128px; width: 100%; max-width: 330px; min-width: 0; padding: 16px 18px 12px; background: var(--module, #000000); border: 0; border-radius: 0; display: grid; grid-template-rows: auto 1fr auto; row-gap: 6px; align-items: start; text-align: left; cursor: pointer; color: var(--lit, #f6f2e8); font: inherit; } .ds-cell:hover { background: var(--ghost, #1b1b1b); } .ds-cell:focus-visible { outline: 2px solid var(--amber, #ffb000); outline-offset: 2px; } .ds-cell:disabled { cursor: default; } .ds-head { display: flex; align-items: center; gap: 14px; min-width: 0; } .ds-key { flex: none; width: 42px; height: 42px; display: grid; place-items: center; background: var(--ghost, #1b1b1b); font-family: \"Doto\", \"Courier New\", monospace; font-weight: 800; font-size: 1.5rem; color: var(--amber, #ffb000); } .ds-label { font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 600; font-size: 1.75rem; line-height: 1; letter-spacing: 0.02em; text-transform: uppercase; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .ds-split { display: grid; grid-template-columns: 4.2ch minmax(0, 1fr); align-items: center; gap: 12px; height: 28px; align-self: end; } .ds-pct { font-family: \"Doto\", \"Courier New\", monospace; font-weight: 800; font-size: 1.25rem; color: currentColor; visibility: hidden; } .ds-dots { display: grid; grid-template-columns: repeat(25, 5px); gap: 2px; width: 173px; } .ds-dots i { width: 5px; height: 5px; background: currentColor; opacity: 0.16; } .ds-foot { display: grid; height: 20px; } .ds-sub { font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 600; font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2, #a99f8b); }"
+    },
+    {
+      "name": "Answer row at reveal",
+      "kind": "button",
+      "refersTo": "answer-cell-correct",
+      "description": "The four cells after the crowd split lands: correct cell green with the gold crowd-breaker keycap, the picked wrong cell red, the rest dimmed. Percent readouts and lit dots appear; sub-lines hide.",
+      "html": "<div class=\"ds-answers ds-reveal\"><button class=\"ds-cell ds-correct ds-breaker\" type=\"button\" disabled><span class=\"ds-head\"><span class=\"ds-key\">A</span><span class=\"ds-label\">2,250 gold</span></span><span class=\"ds-split\"><span class=\"ds-pct\">31%</span><span class=\"ds-dots\"><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span><span class=\"ds-foot\"><span class=\"ds-bonus\">2x crowd-breaker</span></span></button><button class=\"ds-cell ds-picked ds-wrong\" type=\"button\" disabled><span class=\"ds-head\"><span class=\"ds-key\">B</span><span class=\"ds-label\">1,775 gold</span></span><span class=\"ds-split\"><span class=\"ds-pct\">44%</span><span class=\"ds-dots\"><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span><span class=\"ds-foot\"><span class=\"ds-sub\"></span></span></button><button class=\"ds-cell\" type=\"button\" disabled><span class=\"ds-head\"><span class=\"ds-key\">C</span><span class=\"ds-label\">2,600 gold</span></span><span class=\"ds-split\"><span class=\"ds-pct\">15%</span><span class=\"ds-dots\"><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span><span class=\"ds-foot\"><span class=\"ds-sub\"></span></span></button><button class=\"ds-cell\" type=\"button\" disabled><span class=\"ds-head\"><span class=\"ds-key\">D</span><span class=\"ds-label\">2,875 gold</span></span><span class=\"ds-split\"><span class=\"ds-pct\">10%</span><span class=\"ds-dots\"><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span><span class=\"ds-foot\"><span class=\"ds-sub\"></span></span></button></div>",
+      "css": ".ds-answers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; background: var(--ground, #101010); } .ds-cell { height: 128px; min-width: 0; padding: 16px 18px 12px; background: var(--module, #000000); border: 0; border-radius: 0; display: grid; grid-template-rows: auto 1fr auto; row-gap: 6px; align-items: start; text-align: left; cursor: default; color: var(--lit, #f6f2e8); font: inherit; } .ds-head { display: flex; align-items: center; gap: 14px; min-width: 0; } .ds-key { flex: none; width: 42px; height: 42px; display: grid; place-items: center; background: var(--ghost, #1b1b1b); font-family: \"Doto\", \"Courier New\", monospace; font-weight: 800; font-size: 1.5rem; color: var(--amber, #ffb000); } .ds-label { font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 600; font-size: 1.75rem; line-height: 1; letter-spacing: 0.02em; text-transform: uppercase; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .ds-split { display: grid; grid-template-columns: 4.2ch minmax(0, 1fr); align-items: center; gap: 12px; height: 28px; align-self: end; } .ds-pct { font-family: \"Doto\", \"Courier New\", monospace; font-weight: 800; font-size: 1.25rem; color: currentColor; } .ds-dots { display: grid; grid-template-columns: repeat(25, 5px); gap: 2px; width: 173px; } .ds-dots i { width: 5px; height: 5px; background: currentColor; opacity: 0.16; } .ds-dots i.lit { opacity: 1; } .ds-foot { display: grid; height: 20px; } .ds-foot > * { grid-area: 1 / 1; display: flex; align-items: center; white-space: nowrap; } .ds-sub { visibility: hidden; } .ds-bonus { font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 800; font-size: 0.95rem; letter-spacing: 0.1em; text-transform: uppercase; color: #000; } .ds-reveal .ds-cell { color: var(--text-2, #a99f8b); } .ds-reveal .ds-cell .ds-key { color: var(--text-2, #a99f8b); } .ds-reveal .ds-cell.ds-correct { background: var(--green, #3fe36f); color: #000; } .ds-reveal .ds-cell.ds-correct .ds-key { background: #000; color: var(--green, #3fe36f); } .ds-reveal .ds-cell.ds-picked.ds-wrong { background: var(--red, #ff3b3b); color: #000; } .ds-reveal .ds-cell.ds-picked.ds-wrong .ds-key { background: #000; color: var(--red, #ff3b3b); } .ds-reveal .ds-cell.ds-breaker .ds-key { background: var(--gold, #ffe08a); color: #000; animation: ds-breaker 0.5s steps(1) infinite; } @keyframes ds-breaker { 50% { background: #000; color: var(--gold, #ffe08a); } } @media (prefers-reduced-motion: reduce) { .ds-reveal .ds-cell.ds-breaker .ds-key { animation: none; } }"
+    },
+    {
+      "name": "Split row",
+      "kind": "custom",
+      "refersTo": "answer-cell",
+      "description": "One row of the Fogged Vision room split at reveal: hero crop, name in signage, Doto percent, and the 100-dot bar with one lit dot per percent. The correct row is green; the player's wrong row is red.",
+      "html": "<div class=\"ds-split-rows\"><div class=\"ds-row ds-correct\"><span class=\"ds-crop\"></span><span class=\"ds-name\">Abaddon</span><span class=\"ds-pct\">58%</span><span class=\"ds-dots\"><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div><div class=\"ds-row\"><span class=\"ds-crop\"></span><span class=\"ds-name\">Sven</span><span class=\"ds-pct\">17%</span><span class=\"ds-dots\"><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div><div class=\"ds-row ds-wrong\"><span class=\"ds-crop\"></span><span class=\"ds-name\">Tidehunter</span><span class=\"ds-pct\">12%</span><span class=\"ds-dots\"><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i class=\"lit\"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div></div>",
+      "css": ".ds-split-rows { background: var(--module, #000000); padding: 18px 20px 20px; display: grid; gap: 10px; width: 360px; } .ds-row { display: grid; grid-template-columns: 44px 1fr 4.2ch; grid-template-rows: auto auto; column-gap: 12px; row-gap: 6px; align-items: center; color: var(--text-2, #a99f8b); } .ds-crop { width: 44px; height: 58px; grid-row: 1 / 3; background: var(--ghost, #1b1b1b); } .ds-name { font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 600; font-size: 1.25rem; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1; } .ds-pct { font-family: \"Doto\", \"Courier New\", monospace; font-weight: 800; font-size: 1.25rem; text-align: right; } .ds-dots { grid-column: 2 / 4; display: grid; grid-template-columns: repeat(25, 5px); gap: 2px; width: 173px; } .ds-dots i { width: 5px; height: 5px; background: currentColor; opacity: 0.16; } .ds-dots i.lit { opacity: 1; } .ds-row.ds-correct { color: var(--green, #3fe36f); } .ds-row.ds-wrong { color: var(--red, #ff3b3b); }"
+    },
+    {
+      "name": "Primary action",
+      "kind": "button",
+      "refersTo": "action-primary",
+      "description": "The lobby's Play now cell: amber fill, black ink, signage label at 2rem over a caption. Hover swaps the fill to lit white.",
+      "html": "<a class=\"ds-action ds-primary\" href=\"#\"><span class=\"ds-action-label\">Play now</span><span class=\"ds-action-sub\">Joins the next full round · no account needed</span></a>",
+      "css": ".ds-action { height: 128px; width: 100%; max-width: 660px; padding: 16px 20px 14px; display: grid; grid-template-rows: 1fr auto; align-items: start; text-align: left; background: var(--module, #000000); color: var(--lit, #f6f2e8); text-decoration: none; cursor: pointer; } .ds-action:hover { background: var(--ghost, #1b1b1b); color: var(--lit, #f6f2e8); } .ds-action:focus-visible { outline: 2px solid var(--amber, #ffb000); outline-offset: 2px; } .ds-action-label { font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 800; font-size: 2rem; line-height: 1; letter-spacing: 0.04em; text-transform: uppercase; } .ds-action-sub { font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2, #a99f8b); } .ds-action.ds-primary { background: var(--amber, #ffb000); color: #000; } .ds-action.ds-primary .ds-action-sub { color: #000; } .ds-action.ds-primary:hover { background: var(--lit, #f6f2e8); }"
+    },
+    {
+      "name": "Action",
+      "kind": "button",
+      "refersTo": "action",
+      "description": "A secondary lobby cell (Party room, Sign in with Steam): module black, lit white label, caption in text-2. Hover swaps to ghost.",
+      "html": "<a class=\"ds-action\" href=\"#\"><span class=\"ds-action-label\">Party room</span><span class=\"ds-action-sub\">Pick formats, share a code</span></a>",
+      "css": ".ds-action { height: 128px; width: 100%; max-width: 330px; padding: 16px 20px 14px; display: grid; grid-template-rows: 1fr auto; align-items: start; text-align: left; background: var(--module, #000000); color: var(--lit, #f6f2e8); text-decoration: none; cursor: pointer; } .ds-action:hover { background: var(--ghost, #1b1b1b); color: var(--lit, #f6f2e8); } .ds-action:focus-visible { outline: 2px solid var(--amber, #ffb000); outline-offset: 2px; } .ds-action-label { font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 800; font-size: 2rem; line-height: 1; letter-spacing: 0.04em; text-transform: uppercase; } .ds-action-sub { font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2, #a99f8b); }"
+    },
+    {
+      "name": "Hero search input",
+      "kind": "input",
+      "refersTo": "search-input",
+      "description": "The Fogged Vision search field: ghost fill, 1px seam stroke, signage caps in lit white, amber caret. Focus draws a 2px amber outline and turns the stroke amber.",
+      "html": "<div class=\"ds-search\"><label class=\"ds-search-label\" for=\"ds-hero\">Find the hero</label><input class=\"ds-search-input\" id=\"ds-hero\" type=\"text\" placeholder=\"Type a hero name\" autocomplete=\"off\"></div>",
+      "css": ".ds-search { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 14px; background: var(--module, #000000); padding: 18px 20px; } .ds-search-label { font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-2, #a99f8b); } .ds-search-input { height: 44px; padding: 0 14px; background: var(--ghost, #1b1b1b); border: 1px solid var(--seam-strong, rgba(255, 255, 255, 0.14)); border-radius: 0; color: var(--lit, #f6f2e8); caret-color: var(--amber, #ffb000); font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 600; font-size: 1.25rem; letter-spacing: 0.06em; text-transform: uppercase; } .ds-search-input::placeholder { color: var(--text-3, #8f8676); } .ds-search-input::selection { background: var(--amber, #ffb000); color: #000; } .ds-search-input:focus { outline: 2px solid var(--amber, #ffb000); outline-offset: 0; border-color: var(--amber, #ffb000); }"
+    },
+    {
+      "name": "Hero tile",
+      "kind": "chip",
+      "refersTo": "hero-tile",
+      "description": "A 52x68 hero crop on ghost. The one place state is an inset outline, because a fill would hide the art: amber on hover or pick, green for correct, red for wrong, unpicked tiles dimmed.",
+      "html": "<div class=\"ds-hero-grid\"><button class=\"ds-tile\" type=\"button\" aria-label=\"Hero\"><span class=\"ds-crop\"></span></button><button class=\"ds-tile ds-picked\" type=\"button\" aria-label=\"Picked hero\"><span class=\"ds-crop\"></span></button><button class=\"ds-tile ds-correct\" type=\"button\" aria-label=\"Correct hero\"><span class=\"ds-crop\"></span></button><button class=\"ds-tile ds-picked ds-wrong\" type=\"button\" aria-label=\"Wrong hero\"><span class=\"ds-crop\"></span></button><button class=\"ds-tile ds-dim\" type=\"button\" aria-label=\"Unpicked hero\"><span class=\"ds-crop\"></span></button></div>",
+      "css": ".ds-hero-grid { display: grid; grid-template-columns: repeat(auto-fill, 52px); gap: 4px; background: var(--module, #000000); padding: 20px; } .ds-tile { width: 52px; height: 68px; padding: 0; border: 0; border-radius: 0; background: var(--ghost, #1b1b1b); cursor: pointer; position: relative; overflow: hidden; } .ds-crop { display: block; width: 100%; height: 100%; background: var(--ghost-2, #292929); } .ds-tile:hover .ds-crop, .ds-tile:focus-visible .ds-crop { outline: 3px solid var(--amber, #ffb000); outline-offset: -3px; } .ds-tile:focus-visible { outline: 0; } .ds-tile.ds-picked .ds-crop { outline: 4px solid var(--amber, #ffb000); outline-offset: -4px; } .ds-tile.ds-dim .ds-crop { opacity: 0.35; } .ds-tile.ds-correct .ds-crop { outline: 4px solid var(--green, #3fe36f); outline-offset: -4px; } .ds-tile.ds-picked.ds-wrong .ds-crop { outline: 4px solid var(--red, #ff3b3b); outline-offset: -4px; }"
+    },
+    {
+      "name": "Scoreboard stat",
+      "kind": "card",
+      "refersTo": "scoreboard-stat",
+      "description": "One stat in the scoreboard band: a Doto numeral in amber over a signage caption, 14px by 24px padding, divided by 1px seams.",
+      "html": "<div class=\"ds-scoreboard\"><div class=\"ds-stat\"><b>1,240</b><span>Points</span></div><div class=\"ds-stat\"><b>3</b><span>Streak</span></div><div class=\"ds-stat\"><b>7</b><span>Rounds</span></div><div class=\"ds-stat\"><b>9</b><span>Best streak</span></div><a class=\"ds-leave\" href=\"#\">Back to lobby</a></div>",
+      "css": ".ds-scoreboard { display: grid; grid-template-columns: repeat(4, auto) 1fr; align-items: center; background: var(--module, #000000); } .ds-stat { padding: 14px 24px; border-right: 1px solid var(--seam-strong, rgba(255, 255, 255, 0.14)); display: grid; gap: 2px; } .ds-stat b { font-family: \"Doto\", \"Courier New\", monospace; font-weight: 800; font-size: 1.75rem; line-height: 1; color: var(--amber, #ffb000); font-variant-numeric: tabular-nums; } .ds-stat span { font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 600; font-size: 0.8125rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-2, #a99f8b); } .ds-leave { justify-self: end; padding: 0 24px; height: 100%; min-height: 72px; display: flex; align-items: center; border-left: 1px solid var(--seam-strong, rgba(255, 255, 255, 0.14)); font-family: \"Barlow Condensed\", \"Arial Narrow\", sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text, #ece7db); text-decoration: none; } .ds-leave:hover { background: var(--ghost, #1b1b1b); color: var(--amber, #ffb000); } .ds-leave:focus-visible { outline: 2px solid var(--amber, #ffb000); outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Arena Ribbon Board",
+    "overview": "The public room is one arena LED ribbon board. The page is a matte black floor ruled into 96px panels by faint seams. On the floor sit pure black LED modules: the clock, the question, four answer cells, and the scoreboard band. Everything that carries state is light. Words are condensed arena signage in capitals. Numbers are dot-matrix. Reading text is plain Barlow in sentence case.\n\nNothing fades, slides, or glows. A change of state is a one-frame swap, the way a scoreboard flips. The round has four phases (entry, answering, locked, reveal) and every element keeps its box through all four, so the player's eye never has to re-find the clock or the cells. At reveal the whole band drenches in the result colour for 700ms, then drops back to black with the result still lit.\n\nThe build rejects the dark dashboard of bordered cards with one glowing accent. It has no colour gradients, no glow halos, no shadows, no rounded corners, no transitions, and no borders used to show state.",
+    "keyCharacteristics": [
+      "Matte ground, black modules, visible seams, zero radius.",
+      "One colour per state: amber live, white locked or waiting, green right, red wrong, white-gold only for the 2x crowd-breaker.",
+      "Unlit elements are drawn, not hidden: ghost dots at 16% opacity, unlit bar cells in ghost grey.",
+      "Dot-matrix numerals (Doto), signage capitals (Barlow Condensed), reading text (Barlow).",
+      "Every state change is instant. The only loops are the ticker scroll and the crowd-breaker blink.",
+      "Every phase-dependent element reserves its space. Nothing moves between entry, answering, locked, and reveal."
+    ],
+    "rules": [
+      {
+        "name": "The State Colour Law",
+        "section": "colors",
+        "body": "Amber is live answering. Lit white is locked, waiting, or missed. Green is right. Red is wrong. White-gold is the 2x crowd-breaker keycap and nothing else. A colour is never used as decoration."
+      },
+      {
+        "name": "The Lit-or-Drawn Rule",
+        "section": "colors",
+        "body": "Every surface is either emitting light in one of the five colours or drawn unlit in a black or grey. There are no colour gradients, no glows, no translucent tints. A radial-gradient appears only as a dot stencil (the art module's screen-door overlay, the verdict placeholder field), never as a colour ramp."
+      },
+      {
+        "name": "The Decisive Beat Rule",
+        "section": "colors",
+        "body": "The full band changes colour once per round, at reveal. The body takes flash-right, flash-wrong, or flash-missed for 700ms: every fascia, module, and cell background becomes the result colour (green, red, or lit white), all text and indicator cells become black, and images keep their pixels. The ground stays matte. The flash is then removed in one frame and the result colour stays only on the clock, the state line, and the result cells."
+      },
+      {
+        "name": "The Signage Caps Rule",
+        "section": "typography",
+        "body": "Every heading, label, state line, and button label is Barlow Condensed in uppercase with tracking between 0.01em (display) and 0.14em (the sign). Sentence case is only for Barlow reading text."
+      },
+      {
+        "name": "The Dot Readout Rule",
+        "section": "typography",
+        "body": "A readout is Doto: the clock, the round number, percentages, points, streaks, round counts, slot counts, the volume percent, and scored amounts inside the verdict. A digit that is part of a label or a signage line stays in the signage face, as in the answer label \"2,250 gold\" and the state line \"Locked at 00:13\"."
+      },
+      {
+        "name": "The Reserved Space Rule",
+        "section": "layout",
+        "body": "Nothing moves between entry, answering, locked, and reveal. Phase-dependent text has a minimum height (prompt 1.9em, state line 1.4em, verdict 3em on desktop and 6.75em under 720px). Phase-dependent content is hidden with visibility: hidden, never display: none, so its box stays. Cell footers and split rows have fixed heights. The verdict placeholder draws a field of ghost-2 dots on an 8px grid in the verdict's box while the round runs, then swaps to text at reveal."
+      },
+      {
+        "name": "The Three Blacks Rule",
+        "section": "elevation",
+        "body": "Ground, module, and ghost are the only depth. A surface never gets a shadow, a glow, a border, or a tint to lift it."
+      },
+      {
+        "name": "The Instant Swap Rule",
+        "section": "components",
+        "body": "No element has a transition. Every state change (phase, pick, lock, reveal, hover, fog stage) is a one-frame swap of class and colour. The only animations are the ticker scroll (48s linear loop, paused on hover), the crowd-breaker keycap blink (0.5s, steps(1)), and the 700ms reveal flash, which is a class added and removed by script. Under prefers-reduced-motion: reduce the ticker stops scrolling and steps in place, the keycap blink is removed, and the flash remains as a single instant swap."
+      }
+    ],
+    "dos": [
+      "Do set every readout (clock, percent, points, counts) in Doto with tabular numerals.",
+      "Do reserve the box for every phase-dependent element: minimum heights on text, fixed heights on footers and split rows, visibility: hidden for content that is not yet shown.",
+      "Do show state by fill: a picked cell fills amber, a right cell fills green, a wrong cell fills red, each with black ink and an inverted keycap.",
+      "Do draw unlit dots and cells rather than hiding them: 16% opacity for split dots, ghost-2 for bar cells.",
+      "Do separate modules by 12px of ground and join stats or rows with 1px seams.",
+      "Do keep the 2px amber focus ring with 2px offset on every control.",
+      "Do use a 6px LED square between label items in place of punctuation.",
+      "Do swap colour across the whole band once at reveal, for 700ms, and leave the ground matte."
+    ],
+    "donts": [
+      "Don't add transitions, easing, fades, or slides. Every change is instant.",
+      "Don't use colour gradients, glows, blur halos, tints, or shadows. A radial gradient is only ever a dot stencil.",
+      "Don't round a corner.",
+      "Don't use amber for anything that is not live. It is a state, not an accent.",
+      "Don't use breaker gold anywhere but the 2x crowd-breaker keycap.",
+      "Don't show state with a border. Fill the surface. Inset outlines are allowed only on image tiles where a fill would hide the art.",
+      "Don't let a phase change move, resize, or reflow anything on the board.",
+      "Don't set a heading, label, or button in sentence case or in Barlow. Signage is Barlow Condensed uppercase."
+    ]
+  }
+}
