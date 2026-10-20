@@ -335,7 +335,7 @@
         : right
           ? `You locked it at <span class="num">00:${pad(Math.ceil(state.pickAt))}</span> for <span class="num">+${gained}</span>${majorityWrong ? " with the 2x crowd-breaker" : ""}.`
           : "Streak reset.";
-    verdict.innerHTML = `<strong>${round.explanation}</strong> ${crowd} ${you}`;
+    verdict.innerHTML = `<span class="copy"><strong>${round.explanation}</strong> ${crowd} ${you}</span>`;
     setClockState(result === "right" ? "Right" : result === "wrong" ? "Wrong" : "Missed");
   }
 
