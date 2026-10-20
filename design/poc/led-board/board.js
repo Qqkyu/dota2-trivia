@@ -212,6 +212,7 @@
       round.split.forEach(([slug, pct], i) => {
         const row = rows[i];
         row.className = "row";
+        row.dataset.attr = ((window.HEROES || []).find((h) => h.slug === slug) || {}).attr || "";
         $("img", row).src = `${CDN}/heroes/crops/${slug}.png`;
         $(".name", row).textContent = heroName(slug);
         $(".pct", row).textContent = `${pct}%`;

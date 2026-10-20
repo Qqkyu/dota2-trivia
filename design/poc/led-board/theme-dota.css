@@ -29,18 +29,16 @@
   --font-dots: "Barlow Condensed", "Arial Narrow", sans-serif;
 }
 
-/* ground: the client's slate with a soft vignette instead of panel seams */
+/* ground: the client's flat slate, no panel seams */
 body {
   background-color: var(--ground);
-  background-image: radial-gradient(ellipse 120% 70% at 50% -10%, #182530 0%, #0d1419 45%, #070b0e 100%);
-  background-size: auto;
-  background-position: 0 0;
-  background-attachment: fixed;
+  background-image: none;
 }
 ::selection { background: var(--amber); color: #0a0f12; }
 
-/* frames: every panel carries a gold hairline, the Dota panel edge */
-.module, .cell, .action { border: 1px solid var(--seam-strong); }
+/* frames: every panel carries the client's panel edge, a gold hairline over a dark inset line */
+.module, .cell, .action { border: 1px solid var(--seam-strong); box-shadow: inset 0 0 0 1px #05080a; }
+.cell.picked, .phase-reveal .cell.correct, .phase-reveal .cell.picked.wrong, .action.primary { box-shadow: none; }
 .cell.picked, .phase-reveal .cell.correct, .phase-reveal .cell.picked.wrong { border-color: transparent; }
 .action.primary { border-color: transparent; }
 .fascia { border-bottom: 1px solid var(--seam-strong); background: #0c1216; }
@@ -110,6 +108,17 @@ body {
 .phase-reveal .cell.correct, .phase-reveal .cell.picked.wrong { color: #0a0f12; }
 .phase-reveal .cell.correct .key { background: #0a0f12; color: var(--green); }
 .phase-reveal .cell.picked.wrong .key { background: #0a0f12; color: var(--red); }
+/* white-gold stays reserved for the crowd-breaker key, blink included */
+.phase-reveal .cell.correct.breaker .key { background: var(--gold); color: #0a0f12; animation: breaker-dota 0.5s steps(1) infinite; }
+@keyframes breaker-dota { 50% { background: #0a0f12; color: var(--gold); } }
+@media (prefers-reduced-motion: reduce) { .phase-reveal .cell.correct.breaker .key { animation: none; } }
+
+/* attribute mark beside split-row hero names; the name itself keeps the state colour */
+.fog-split .row .name::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; vertical-align: 1px; background: var(--text-3); }
+.fog-split .row[data-attr="str"] .name::before { background: var(--str); }
+.fog-split .row[data-attr="agi"] .name::before { background: var(--agi); }
+.fog-split .row[data-attr="int"] .name::before { background: var(--int); }
+.fog-split .row[data-attr="all"] .name::before { background: var(--all); }
 
 @media (max-width: 720px) {
   .sign { font-size: 1rem; letter-spacing: 0.08em; padding: 0 12px; }
