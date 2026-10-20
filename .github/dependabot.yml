@@ -12,6 +12,10 @@ updates:
       - dependency-name: next
       - dependency-name: eslint-config-next
       - dependency-name: postgres
+      # Major jumps (TypeScript, ESLint, @types/node, icon sets) need the full
+      # local gate and a human decision; take them by hand.
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
     groups:
       next:
         patterns:
