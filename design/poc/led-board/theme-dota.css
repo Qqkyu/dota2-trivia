@@ -1,0 +1,123 @@
+/* Queue Arcade — Dota skin for the ribbon-board shell.
+   The shell (clock over time bar, lit cells, one dot per percent, one full-band flip at reveal)
+   stays. This file swaps the material: the client's dark slate, shop gold, Radiant green,
+   Dire red, attribute colours, and a title face in Dota's register. Load it after board.css. */
+
+@font-face { font-family: "Cinzel"; src: url(fonts/Cinzel-400-900.woff2) format("woff2"); font-weight: 400 900; font-display: swap; }
+
+:root {
+  --ground: #0a0f12;
+  --module: #10171c;
+  --seam: rgba(214, 178, 94, 0.1);
+  --seam-strong: rgba(214, 178, 94, 0.3);
+  --ghost: #1a242b;
+  --ghost-2: #26323a;
+  --amber: #e7bd5a;
+  --lit: #f3e9d0;
+  --text: #e9dfc6;
+  --text-2: #b9ab8c;
+  --text-3: #8f846b;
+  --green: #8fd14f;
+  --red: #e2472f;
+  --gold: #ffe08a;
+  --str: #e0523a;
+  --agi: #5fd36b;
+  --int: #58b4f2;
+  --all: #c99cff;
+  --play: #27803a;
+  --font-title: "Cinzel", "Times New Roman", serif;
+  --font-dots: "Barlow Condensed", "Arial Narrow", sans-serif;
+}
+
+/* ground: the client's slate with a soft vignette instead of panel seams */
+body {
+  background-color: var(--ground);
+  background-image: radial-gradient(ellipse 120% 70% at 50% -10%, #182530 0%, #0d1419 45%, #070b0e 100%);
+  background-size: auto;
+  background-position: 0 0;
+  background-attachment: fixed;
+}
+::selection { background: var(--amber); color: #0a0f12; }
+
+/* frames: every panel carries a gold hairline, the Dota panel edge */
+.module, .cell, .action { border: 1px solid var(--seam-strong); }
+.cell.picked, .phase-reveal .cell.correct, .phase-reveal .cell.picked.wrong { border-color: transparent; }
+.action.primary { border-color: transparent; }
+.fascia { border-bottom: 1px solid var(--seam-strong); background: #0c1216; }
+.sign { border-right-color: var(--seam-strong); }
+.fascia-controls { border-left-color: var(--seam-strong); }
+
+/* title face: prompts, headlines, labels on the big controls */
+.sign, .prompt, .headline, .cell .label, .action .label, .clock-state, .fixtures .name b, .hero-status {
+  font-family: var(--font-title);
+  letter-spacing: 0.04em;
+}
+.sign { font-weight: 700; font-size: 1.25rem; letter-spacing: 0.12em; }
+.sign .px { display: none; }
+.prompt { font-weight: 700; font-size: clamp(1.9rem, 3vw, 2.75rem); line-height: 1.08; max-width: 24ch; }
+.headline { font-weight: 800; font-size: clamp(2.4rem, 4.4vw, 4rem); line-height: 1.02; }
+.cell .label { font-weight: 700; font-size: 1.375rem; letter-spacing: 0.03em; }
+.action .label { font-weight: 800; font-size: 1.625rem; }
+.clock-state { font-weight: 700; font-size: 1.125rem; letter-spacing: 0.1em; }
+.fixtures .name b { font-weight: 700; font-size: 1.125rem; letter-spacing: 0.03em; }
+.hero-status { font-weight: 700; font-size: 1rem; letter-spacing: 0.06em; }
+
+/* numerals: the HUD's condensed digits instead of the dot-matrix readout */
+.clock { font-family: var(--font-dots); font-weight: 800; font-size: clamp(6rem, 10vw, 9.5rem); letter-spacing: 0; }
+.round-label .num, .ticker-track .num, .cell .key, .cell .pct, .fog-split .row .pct, .scoreboard .stat b, .fixtures .count, .volume .pct, .verdict .num, .scoring .num {
+  font-family: var(--font-dots);
+  font-weight: 800;
+}
+.cell .key { font-size: 1.5rem; border: 1px solid var(--seam-strong); }
+.cell.picked .key, .phase-reveal .cell.correct .key, .phase-reveal .cell.picked.wrong .key { border-color: transparent; }
+.scoreboard .stat b { font-size: 2rem; }
+
+/* ornament: the ticker's LED squares become the client's small gold diamonds */
+.ticker-track .led, .round-label .led, .ticket .led, .scoring .led, .hero-status .led { transform: rotate(45deg); width: 6px; height: 6px; background: var(--amber); }
+.ticket .led, .scoring .led, .hero-status .led { background: var(--text-3); }
+.locked .hero-status .led { background: var(--amber); }
+
+/* art: a bevelled portrait frame, no LED pitch */
+.art-module { background: #0b1013; border: 2px solid rgba(214, 178, 94, 0.55); outline: 1px solid #000; outline-offset: -3px; }
+.art-module::after { display: none; }
+.fog-stage i { background: var(--ghost-2); }
+.fog-stage i.lit { background: var(--amber); }
+
+/* the reserved answer panel: a framed unlit plate instead of a dot pitch */
+.verdict { background-image: none; border-top: 1px solid var(--seam); }
+.phase-reveal .verdict { border-top-color: var(--seam-strong); }
+
+/* hero grid: attribute colour on every tile, the client's own grouping language */
+.hero-grid button { background: #0b1013; }
+.hero-grid button::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--text-3); }
+.hero-grid button[data-attr="str"]::after { background: var(--str); }
+.hero-grid button[data-attr="agi"]::after { background: var(--agi); }
+.hero-grid button[data-attr="int"]::after { background: var(--int); }
+.hero-grid button[data-attr="all"]::after { background: var(--all); }
+.phase-reveal .hero-grid button:not(.correct):not(.wrong)::after { opacity: 0.25; }
+.hero-search input { background: #0b1013; border-color: var(--seam-strong); }
+
+/* lobby: the Find Match green on the primary action, gold on the live row */
+.action.primary { background: var(--play); color: #fff; }
+.action.primary .label, .action.primary .sub { color: #fff; }
+.action.primary:hover { background: #2f9a45; }
+.fixtures .row { border-color: var(--seam); }
+.scoreboard .stat, .scoreboard .leave { border-color: var(--seam-strong); }
+
+/* keep the state law legible on the parchment and gold fills */
+.cell.picked, .cell.picked .sub { color: #0a0f12; }
+.cell.picked .key { background: #0a0f12; color: var(--amber); }
+.phase-reveal .cell.correct, .phase-reveal .cell.picked.wrong { color: #0a0f12; }
+.phase-reveal .cell.correct .key { background: #0a0f12; color: var(--green); }
+.phase-reveal .cell.picked.wrong .key { background: #0a0f12; color: var(--red); }
+
+@media (max-width: 720px) {
+  .sign { font-size: 1rem; letter-spacing: 0.08em; padding: 0 12px; }
+  .volume i { width: 6px; }
+  .prompt { font-size: 1.5rem; min-height: 3.3em; }
+  .headline { font-size: 2.25rem; }
+  .cell .label { font-size: 0.95rem; letter-spacing: 0.01em; }
+  .cell .key { font-size: 1.25rem; }
+  .clock { font-size: 4rem; }
+  .ticker.stepped .item.on { letter-spacing: 0.04em; }
+}

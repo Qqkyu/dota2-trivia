@@ -157,7 +157,7 @@
     const grid = $("#heroGrid");
     if (!grid || grid.children.length) return;
     grid.innerHTML = (window.HEROES || [])
-      .map((h) => `<button type="button" data-slug="${h.slug}" title="${h.name}" aria-label="${h.name}"><img src="${CDN}/heroes/crops/${h.slug}.png" alt="" loading="lazy" width="52" height="68"></button>`)
+      .map((h) => `<button type="button" data-slug="${h.slug}" data-attr="${h.attr || ""}" title="${h.name}" aria-label="${h.name}"><img src="${CDN}/heroes/crops/${h.slug}.png" alt="" loading="lazy" width="52" height="68"></button>`)
       .join("");
     grid.addEventListener("click", (event) => {
       const button = event.target.closest("button");
