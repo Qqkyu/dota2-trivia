@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Queue Arcade — Dota side quests between matches (LED board concept)</title>
+  <meta name="description" content="One live Dota arcade for the seconds between Find Match and Accept.">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="board.css">
+</head>
+<body class="lobby">
+  <header class="fascia">
+    <a class="sign" href="index.html" aria-label="Queue Arcade lobby"><span class="px" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>Queue Arcade</a>
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span class="item"><i class="led"></i>Public room open</span><span class="item"><i class="led"></i><em><span class="num">41</span> playing now</em></span><span class="item"><i class="led"></i>Dota 2 · patch 7.41f</span><span class="item"><i class="led"></i><span class="num">1517</span> audited prompts</span><span class="item"><i class="led"></i>Ten round formats, one rotation</span><span class="item"><i class="led"></i>Demo board: the room count is synthetic</span><span class="item"><i class="led"></i>Unofficial fan project, not affiliated with Valve</span>
+      </div>
+    </div>
+    <div class="fascia-controls">
+      <button class="mute" type="button" aria-label="Mute sounds" aria-pressed="false">
+        <svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/></svg>
+        <svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m22 9-6 6"/><path d="m16 9 6 6"/></svg>
+      </button>
+      <div class="volume" role="slider" aria-label="Master volume" aria-valuemin="0" aria-valuemax="100" aria-valuenow="70"></div>
+      <a class="steam" href="#steam"><img src="assets/steam-sign-in.png" alt="Sign in through Steam. This site is not associated with Valve Corp." width="180" height="35"></a>
+    </div>
+  </header>
+
+  <main class="board">
+    <section class="module clock-module">
+      <p class="round-label"><span>Public room</span><i class="led"></i><span>Live clock</span></p>
+      <p class="clock" id="clock" role="timer" aria-label="Seconds left in the live round">00:15</p>
+      <div class="timebar" id="timebar" aria-hidden="true"></div>
+      <p class="clock-state">The room is mid-round. Play joins the next full one.</p>
+    </section>
+
+    <section class="module question-module">
+      <h1 class="headline">Dota side quests <em>between matches</em></h1>
+      <p class="pitch">One public room, one 15-second clock. Everyone gets the same question, the room's split goes up on the board, and a right answer scores <strong>double</strong> when most of the crowd got it wrong. <strong>Leave the moment your match pops.</strong></p>
+      <p class="scoring" aria-label="How scoring works"><span>Faster answers score more</span><i class="led"></i><span>Streaks build</span><i class="led"></i><span>Hints cost points</span><i class="led"></i><span><span class="num">2</span>x when the room is wrong and you are right</span></p>
+    </section>
+
+    <nav class="actions" aria-label="Start">
+      <a class="action primary" href="play.html"><span class="label">Play now</span><span class="sub">Joins the next full round · no account needed</span></a>
+      <a class="action" href="#party"><span class="label">Party room</span><span class="sub">Pick formats, share a code</span></a>
+      <a class="action" href="#steam"><span class="label">Sign in with Steam</span><span class="sub">Optional · keeps records across browsers</span></a>
+    </nav>
+
+    <section class="module fixtures" aria-label="Round rotation">
+      <div class="row now"><span class="slot">Now</span><span class="name"><b>Classic Trivia</b><span>Mana, cooldowns, damage, stat comparisons, item prices</span></span><span class="count">3 slots</span></div>
+      <div class="row next"><span class="slot">Next</span><span class="name"><b>Shopkeeper Rush</b><span>Build finished items, spot exact recipes, trace upgrade paths</span></span><span class="count">2 slots</span></div>
+      <div class="row"><span class="slot">Rotation</span><span class="name"><b>Spell Link</b><span>Match an ability to its hero while timed clues unlock</span></span><span class="count">1 slot</span></div>
+      <div class="row"><span class="slot">Rotation</span><span class="name"><b>Fogged Vision</b><span>Name the hero as the portrait clears in three stages</span></span><span class="count">1 slot</span></div>
+      <div class="row"><span class="slot">Rotation</span><span class="name"><b>Echo Hunt</b><span>Two terse voice fragments before the full response unlocks</span></span><span class="count">1 slot</span></div>
+      <div class="row"><span class="slot">Rotation</span><span class="name"><b>Soundcheck</b><span>Identify verified effects through three growing audio cuts</span></span><span class="count">1 slot</span></div>
+      <div class="row"><span class="slot">Rotation</span><span class="name"><b>Quote Hunt</b><span>Match a written hero response to its speaker</span></span><span class="count">1 slot</span></div>
+      <div class="row"><span class="slot">Rotation</span><span class="name"><b>Aghanim's Lab</b><span>Name the hero from an audited Scepter or Shard effect</span></span><span class="count">1 slot</span></div>
+      <div class="row"><span class="slot">Rotation</span><span class="name"><b>Order Up</b><span>Arrange item, ability, and hero values from low to high</span></span><span class="count">1 slot</span></div>
+      <div class="row"><span class="slot">Rotation</span><span class="name"><b>Flashback</b><span>Release years, champions, patches, and community moments</span></span><span class="count">1 slot</span></div>
+    </section>
+
+    <footer class="module scoreboard">
+      <div class="stat"><b>0</b><span>Rounds here</span></div>
+      <div class="stat"><b>—</b><span>Accuracy</span></div>
+      <div class="stat"><b>—</b><span>Best streak</span></div>
+      <div class="stat"><b>—</b><span>Early solves</span></div>
+      <p class="note"><strong>Unofficial fan project.</strong> Dota 2 and its assets are trademarks of Valve Corporation. Not affiliated with or endorsed by Valve.</p>
+      <a class="leave" href="#privacy">Privacy</a>
+    </footer>
+  </main>
+
+  <script src="board.js"></script>
+</body>
+</html>

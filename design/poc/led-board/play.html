@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Public room · Queue Arcade (LED board concept)</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="board.css">
+</head>
+<body class="play format-classic phase-entry">
+  <header class="fascia">
+    <a class="sign" href="index.html" aria-label="Queue Arcade lobby"><span class="px" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>Queue Arcade</a>
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span class="item"><i class="led"></i>Public room</span><span class="item"><i class="led"></i><em><span class="num">41</span> playing now</em></span><span class="item"><i class="led"></i>Dota 2 · patch 7.41f</span><span class="item"><i class="led"></i>Next: Fogged Vision</span><span class="item"><i class="led"></i>Then: Shopkeeper Rush</span><span class="item"><i class="led"></i>Demo board: crowd and scores are synthetic</span><span class="item"><i class="led"></i>One clock for everyone</span><span class="item"><i class="led"></i>Double points when the room is wrong and you are right</span>
+      </div>
+    </div>
+    <div class="fascia-controls">
+      <button class="mute" type="button" aria-label="Mute sounds" aria-pressed="false">
+        <svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/></svg>
+        <svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m22 9-6 6"/><path d="m16 9 6 6"/></svg>
+      </button>
+      <div class="volume" role="slider" aria-label="Master volume" aria-valuemin="0" aria-valuemax="100" aria-valuenow="70"></div>
+      <a class="steam" href="#steam"><img src="assets/steam-sign-in.png" alt="Sign in through Steam. This site is not associated with Valve Corp." width="180" height="35"></a>
+    </div>
+  </header>
+
+  <main class="board">
+    <section class="module clock-module" aria-live="off">
+      <p class="round-label"><span>Round</span><span class="num" id="roundNumber">212</span><i class="led"></i><span id="roundFormat">Classic Trivia</span><i class="led"></i><span id="roundCategory">Items</span></p>
+      <p class="clock" id="clock" role="timer" aria-label="Seconds left">00:15</p>
+      <div class="timebar" id="timebar" aria-hidden="true"></div>
+      <p class="clock-state" id="clockState">Answer now</p>
+    </section>
+
+    <section class="module question-module">
+      <figure class="art-module" id="fogArt" data-fog="3">
+        <img id="art" src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blink.png" alt="Blink Dagger item icon" width="160" height="160">
+        <div class="fog-stage" id="fogStage" aria-hidden="true"><i class="lit"></i><i></i><i></i></div>
+      </figure>
+      <div class="prompt-block">
+        <h1 class="prompt" id="prompt">How much does Blink Dagger cost?</h1>
+        <p class="ticket" id="ticket"><span>Patch 7.41f</span><i class="led"></i><span>Valve public data</span><i class="led"></i><span>Total shop price</span></p>
+        <p class="verdict" id="verdict" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="answers" role="group" aria-label="Answers">
+      <button class="cell" type="button" data-key="A"><span class="head"><span class="key" aria-hidden="true">A</span><span class="label">2,250 gold</span></span><span class="split"><span class="pct">31%</span><span class="dots" aria-hidden="true"></span></span><span class="foot"><span class="sub"></span><span class="bonus">2x crowd-breaker</span></span></button>
+      <button class="cell" type="button" data-key="B"><span class="head"><span class="key" aria-hidden="true">B</span><span class="label">1,775 gold</span></span><span class="split"><span class="pct">44%</span><span class="dots" aria-hidden="true"></span></span><span class="foot"><span class="sub"></span><span class="bonus">2x crowd-breaker</span></span></button>
+      <button class="cell" type="button" data-key="C"><span class="head"><span class="key" aria-hidden="true">C</span><span class="label">2,600 gold</span></span><span class="split"><span class="pct">15%</span><span class="dots" aria-hidden="true"></span></span><span class="foot"><span class="sub"></span><span class="bonus">2x crowd-breaker</span></span></button>
+      <button class="cell" type="button" data-key="D"><span class="head"><span class="key" aria-hidden="true">D</span><span class="label">2,875 gold</span></span><span class="split"><span class="pct">10%</span><span class="dots" aria-hidden="true"></span></span><span class="foot"><span class="sub"></span><span class="bonus">2x crowd-breaker</span></span></button>
+    </section>
+
+    <section class="fog-module" aria-label="Hero picker">
+      <div class="module hero-picker">
+        <div class="hero-search">
+          <label for="heroSearch">Find the hero</label>
+          <input id="heroSearch" type="text" placeholder="Type a hero name" autocomplete="off" spellcheck="false">
+          <span class="hero-status-count sr-only">127 heroes</span>
+        </div>
+        <p class="hero-status" id="heroStatus"><i class="led"></i><span>Type a hero name. Enter picks the only match.</span></p>
+        <div class="hero-grid" id="heroGrid" role="group" aria-label="All 127 heroes"></div>
+      </div>
+      <aside class="module fog-split" id="fogSplit">
+        <h2>Room split appears at reveal</h2>
+        <div class="row"><img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/crops/abaddon.png" alt="" width="44" height="58"><span class="name">Abaddon</span><span class="pct">58%</span><span class="dots" aria-hidden="true"></span></div>
+        <div class="row"><img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/crops/sven.png" alt="" width="44" height="58"><span class="name">Sven</span><span class="pct">17%</span><span class="dots" aria-hidden="true"></span></div>
+        <div class="row"><img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/crops/tidehunter.png" alt="" width="44" height="58"><span class="name">Tidehunter</span><span class="pct">12%</span><span class="dots" aria-hidden="true"></span></div>
+        <div class="row"><img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/crops/night_stalker.png" alt="" width="44" height="58"><span class="name">Night Stalker</span><span class="pct">6%</span><span class="dots" aria-hidden="true"></span></div>
+      </aside>
+    </section>
+
+    <footer class="module scoreboard">
+      <div class="stat"><b id="points">1,240</b><span>Points</span></div>
+      <div class="stat"><b id="streak">3</b><span>Streak</span></div>
+      <div class="stat"><b id="roundsPlayed">7</b><span>Rounds</span></div>
+      <div class="stat"><b id="best">9</b><span>Best streak</span></div>
+      <p class="note"><strong>Leave whenever your match pops.</strong> Your points stay on this board, and the room keeps playing.</p>
+      <a class="leave" href="index.html">Back to lobby</a>
+    </footer>
+  </main>
+
+  <script src="heroes.js"></script>
+  <script src="board.js"></script>
+</body>
+</html>
