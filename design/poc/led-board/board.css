@@ -771,7 +771,7 @@ button { font: inherit; color: inherit; }
   .fascia { height: var(--fascia-h); grid-template-columns: auto 1fr; grid-template-rows: 52px 32px; }
   .sign { padding: 0 14px; font-size: 1.125rem; letter-spacing: 0.1em; }
   .sign .px { display: none; }
-  .ticker { grid-column: 1 / 3; grid-row: 2; border-top: 1px solid var(--seam-strong); padding: 2px 0; }
+  .ticker { grid-column: 1 / 3; grid-row: 2; border-top: 1px solid var(--seam-strong); padding: 3px 0; }
   .ticker-track { font-size: 0.875rem; padding-left: 14px; gap: 28px; }
   .ticker-track .item { gap: 28px; }
   .ticker.stepped .ticker-track { padding: 0 14px; white-space: normal; width: 100%; }
