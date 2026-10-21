@@ -30,11 +30,16 @@
     <section class="module clock-module" aria-live="off">
       <p class="round-label"><span>Round</span><span class="num" id="roundNumber">212</span><i class="led"></i><span id="roundFormat">Classic Trivia</span><i class="led"></i><span id="roundCategory">Items</span></p>
       <div class="hud">
-        <div class="hud-side radiant"><span>Radiant</span><b id="hudRadiant">–</b></div>
-        <div class="hud-clock"><i class="dial" id="dial" aria-hidden="true"></i><p class="clock" id="clock" role="timer" aria-label="Seconds left">00:15</p></div>
-        <div class="hud-side dire"><span>Dire</span><b id="hudDire">–</b></div>
+        <div class="hud-side radiant"><span>Radiant</span><b id="hudRadiant">–</b><small>answered right</small></div>
+        <div class="hud-clock">
+          <span class="dial" id="dial" aria-hidden="true"><span class="sky">
+            <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><g stroke-linecap="square"><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"/></g></svg>
+            <svg class="moon" viewBox="0 0 24 24"><path d="M14.5 2.5a9.5 9.5 0 1 0 7 16A8 8 0 0 1 14.5 2.5z"/></svg>
+          </span></span>
+          <p class="clock" id="clock" role="timer" aria-label="Seconds left">00:15</p>
+        </div>
+        <div class="hud-side dire"><span>Dire</span><b id="hudDire">–</b><small>answered wrong</small></div>
       </div>
-      <p class="hud-legend"><em>Radiant</em> answered right · <strong>Dire</strong> answered wrong</p>
       <div class="timebar" id="timebar" aria-hidden="true"></div>
       <p class="clock-state" id="clockState">Answer now</p>
     </section>
@@ -52,10 +57,10 @@
     </section>
 
     <section class="answers" role="group" aria-label="Answers">
-      <button class="cell" type="button" data-key="A"><span class="head"><span class="well"><span class="key" aria-hidden="true">A</span><i class="cd" aria-hidden="true"></i><em class="hotkey" aria-hidden="true">A</em></span><span class="label">2,250 gold</span></span><span class="split"><span class="pct">31%</span><span class="dots" aria-hidden="true"></span></span><span class="foot"><span class="sub"></span><span class="bonus">2x crowd-breaker</span></span></button>
-      <button class="cell" type="button" data-key="B"><span class="head"><span class="well"><span class="key" aria-hidden="true">B</span><i class="cd" aria-hidden="true"></i><em class="hotkey" aria-hidden="true">B</em></span><span class="label">1,775 gold</span></span><span class="split"><span class="pct">44%</span><span class="dots" aria-hidden="true"></span></span><span class="foot"><span class="sub"></span><span class="bonus">2x crowd-breaker</span></span></button>
-      <button class="cell" type="button" data-key="C"><span class="head"><span class="well"><span class="key" aria-hidden="true">C</span><i class="cd" aria-hidden="true"></i><em class="hotkey" aria-hidden="true">C</em></span><span class="label">2,600 gold</span></span><span class="split"><span class="pct">15%</span><span class="dots" aria-hidden="true"></span></span><span class="foot"><span class="sub"></span><span class="bonus">2x crowd-breaker</span></span></button>
-      <button class="cell" type="button" data-key="D"><span class="head"><span class="well"><span class="key" aria-hidden="true">D</span><i class="cd" aria-hidden="true"></i><em class="hotkey" aria-hidden="true">D</em></span><span class="label">2,875 gold</span></span><span class="split"><span class="pct">10%</span><span class="dots" aria-hidden="true"></span></span><span class="foot"><span class="sub"></span><span class="bonus">2x crowd-breaker</span></span></button>
+      <button class="cell" type="button" data-key="A"><span class="head"><span class="well"><span class="key" aria-hidden="true">A</span><i class="cd" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></i><em class="hotkey" aria-hidden="true">A</em></span><span class="label">2,250 gold</span></span><span class="split"><span class="pct">31%</span><span class="dots" aria-hidden="true"></span></span><span class="foot"><span class="sub"></span><span class="bonus">2x crowd-breaker</span></span></button>
+      <button class="cell" type="button" data-key="B"><span class="head"><span class="well"><span class="key" aria-hidden="true">B</span><i class="cd" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></i><em class="hotkey" aria-hidden="true">B</em></span><span class="label">1,775 gold</span></span><span class="split"><span class="pct">44%</span><span class="dots" aria-hidden="true"></span></span><span class="foot"><span class="sub"></span><span class="bonus">2x crowd-breaker</span></span></button>
+      <button class="cell" type="button" data-key="C"><span class="head"><span class="well"><span class="key" aria-hidden="true">C</span><i class="cd" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></i><em class="hotkey" aria-hidden="true">C</em></span><span class="label">2,600 gold</span></span><span class="split"><span class="pct">15%</span><span class="dots" aria-hidden="true"></span></span><span class="foot"><span class="sub"></span><span class="bonus">2x crowd-breaker</span></span></button>
+      <button class="cell" type="button" data-key="D"><span class="head"><span class="well"><span class="key" aria-hidden="true">D</span><i class="cd" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></i><em class="hotkey" aria-hidden="true">D</em></span><span class="label">2,875 gold</span></span><span class="split"><span class="pct">10%</span><span class="dots" aria-hidden="true"></span></span><span class="foot"><span class="sub"></span><span class="bonus">2x crowd-breaker</span></span></button>
     </section>
 
     <section class="fog-module" aria-label="Hero picker">
@@ -78,7 +83,7 @@
     </section>
 
     <footer class="module scoreboard">
-      <div class="stat"><b id="points">1,240</b><span>Points</span></div>
+      <div class="stat"><b class="gold"><span id="points">1,240</span><em class="float" id="pointsFloat"></em></b><span>Points</span></div>
       <div class="stat"><b id="streak">3</b><span>Streak <em id="streakName">Killing Spree</em></span></div>
       <div class="stat"><b id="roundsPlayed">7</b><span>Rounds</span></div>
       <div class="stat"><b id="best">9</b><span>Best streak</span></div>

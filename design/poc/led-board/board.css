@@ -416,7 +416,11 @@ button { font: inherit; color: inherit; }
 .flash-wrong .fascia, .flash-wrong .fascia *:not(img):not(svg):not(path), .flash-wrong .module, .flash-wrong .module *:not(img):not(svg):not(path), .flash-wrong .cell, .flash-wrong .cell *:not(img) { background-color: var(--red) !important; background-image: none !important; }
 .flash-missed .fascia, .flash-missed .fascia *:not(img):not(svg):not(path), .flash-missed .module, .flash-missed .module *:not(img):not(svg):not(path), .flash-missed .cell, .flash-missed .cell *:not(img) { background-color: var(--lit) !important; background-image: none !important; }
 .flash-right .mute svg, .flash-wrong .mute svg, .flash-missed .mute svg { stroke: #000 !important; }
-.flash-right .dots i, .flash-wrong .dots i, .flash-missed .dots i, .flash-right .timebar i, .flash-wrong .timebar i, .flash-missed .timebar i, .flash-right .volume i, .flash-wrong .volume i, .flash-missed .volume i, .flash-right .led, .flash-wrong .led, .flash-missed .led { background-color: #000 !important; }
+.flash-right .cell .dots i, .flash-wrong .cell .dots i, .flash-missed .cell .dots i, .flash-right .module .dots i, .flash-wrong .module .dots i, .flash-missed .module .dots i,
+.flash-right .module .timebar i, .flash-wrong .module .timebar i, .flash-missed .module .timebar i,
+.flash-right .fascia .volume i, .flash-wrong .fascia .volume i, .flash-missed .fascia .volume i,
+.flash-right .fascia .led, .flash-wrong .fascia .led, .flash-missed .fascia .led, .flash-right .module .led, .flash-wrong .module .led, .flash-missed .module .led { background-color: #000 !important; }
+.flash-right .module .timebar i:not(.lit), .flash-wrong .module .timebar i:not(.lit), .flash-missed .module .timebar i:not(.lit), .flash-right .fascia .volume i:not(.lit), .flash-wrong .fascia .volume i:not(.lit), .flash-missed .fascia .volume i:not(.lit) { background-color: rgba(0, 0, 0, 0.3) !important; }
 
 /* -- scoreboard */
 .scoreboard {
@@ -767,11 +771,11 @@ button { font: inherit; color: inherit; }
   .fascia { height: var(--fascia-h); grid-template-columns: auto 1fr; grid-template-rows: 52px 32px; }
   .sign { padding: 0 14px; font-size: 1.125rem; letter-spacing: 0.1em; }
   .sign .px { display: none; }
-  .ticker { grid-column: 1 / 3; grid-row: 2; border-top: 1px solid var(--seam-strong); padding: 4px 0; }
+  .ticker { grid-column: 1 / 3; grid-row: 2; border-top: 1px solid var(--seam-strong); padding: 2px 0; }
   .ticker-track { font-size: 0.875rem; padding-left: 14px; gap: 28px; }
   .ticker-track .item { gap: 28px; }
   .ticker.stepped .ticker-track { padding: 0 14px; white-space: normal; width: 100%; }
-  .ticker.stepped .item.on { display: flex; align-items: flex-start; gap: 10px; line-height: 1.1; letter-spacing: 0.06em; font-size: 0.8125rem; }
+  .ticker.stepped .item.on { display: flex; align-items: flex-start; gap: 10px; line-height: 1.05; letter-spacing: 0.05em; font-size: 0.75rem; }
   .ticker.stepped .item.on .led { margin-top: 4px; }
   .fascia-controls { grid-column: 2; grid-row: 1; justify-content: end; }
   .steam { display: none; }

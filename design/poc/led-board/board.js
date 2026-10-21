@@ -164,6 +164,15 @@
     grid.innerHTML = DOTA
       ? ATTRIBUTE_GROUPS.map(([key, label, icon]) => `<section class="attr-group" data-attr="${key}"><h3><img src="${CDN}/icons/${icon}.png" alt="" width="18" height="18">${label}</h3><div class="tiles">${heroes.filter((h) => h.attr === key).map(tile).join("")}</div></section>`).join("")
       : heroes.map(tile).join("");
+    if (DOTA && !$(".attr-jump")) {
+      grid.insertAdjacentHTML("beforebegin", `<div class="attr-jump" role="group" aria-label="Jump to attribute">${ATTRIBUTE_GROUPS.map(([key, label, icon]) => `<button type="button" data-attr="${key}" aria-label="${label}"><img src="${CDN}/icons/${icon}.png" alt="" width="16" height="16"><span>${label}</span></button>`).join("")}</div>`);
+      $(".attr-jump").addEventListener("click", (event) => {
+        const button = event.target.closest("button");
+        if (!button) return;
+        const section = $(`.attr-group[data-attr="${button.dataset.attr}"]`, grid);
+        if (section) grid.scrollTo({ top: section.offsetTop - grid.offsetTop, behavior: "auto" });
+      });
+    }
     grid.addEventListener("click", (event) => {
       const button = event.target.closest("button");
       if (button) pickHero(button.dataset.slug);
@@ -240,7 +249,7 @@
       $("#prompt").textContent = `Next: ${round.label}`;
       setClockState("Next round");
       $("#clockState").classList.remove("banner");
-      if (DOTA) { $("#hudRadiant").textContent = "–"; $("#hudDire").textContent = "–"; $("#dial")?.style.setProperty("--turn", "0deg"); }
+      if (DOTA) { $("#hudRadiant").textContent = "–"; $("#hudDire").textContent = "–"; $("#dial")?.style.setProperty("--turn", "0deg"); const f = $("#pointsFloat"); if (f) f.textContent = ""; }
       $$(".cell").forEach((cell) => (cell.disabled = true));
     }
     if (phase === "answering") {
@@ -334,6 +343,7 @@
     state.points += gained;
     state.rounds += 1;
     paintScore();
+    if (DOTA) { const f = $("#pointsFloat"); if (f) f.textContent = gained ? `+${gained}` : ""; }
 
     const verdict = $("#verdict");
     const crowd = majorityWrong
@@ -383,7 +393,6 @@
           if (state.pick !== null && rounds[state.index].format === "classic") {
             const cd = $(".cd", $$(".cell")[state.pick]);
             cd.style.setProperty("--cd", String(Math.max(0, ROUND - elapsed) / ROUND));
-            cd.textContent = String(left);
           }
         }
         if (rounds[state.index].format === "fogged") {
