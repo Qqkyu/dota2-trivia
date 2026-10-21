@@ -6,6 +6,9 @@
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
   const pad = (n) => String(Math.max(0, n)).padStart(2, "0");
   const CDN = "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react";
+  const DOTA = document.body.classList.contains("skin-dota");
+  const ATTRIBUTE_GROUPS = [["str", "Strength", "hero_strength"], ["agi", "Agility", "hero_agility"], ["int", "Intelligence", "hero_intelligence"], ["all", "Universal", "hero_universal"]];
+  const streakName = (streak) => (streak >= 10 ? "Beyond Godlike" : streak >= 9 ? "Godlike" : streak >= 8 ? "Monster Kill" : streak >= 7 ? "Wicked Sick" : streak >= 6 ? "Unstoppable" : streak >= 5 ? "Mega Kill" : streak >= 4 ? "Dominating" : streak >= 3 ? "Killing Spree" : "");
 
   // ---------------------------------------------------------------- fascia
   function initFascia() {
@@ -156,9 +159,11 @@
   function buildHeroGrid() {
     const grid = $("#heroGrid");
     if (!grid || grid.children.length) return;
-    grid.innerHTML = (window.HEROES || [])
-      .map((h) => `<button type="button" data-slug="${h.slug}" data-attr="${h.attr || ""}" title="${h.name}" aria-label="${h.name}"><img src="${CDN}/heroes/crops/${h.slug}.png" alt="" loading="lazy" width="52" height="68"></button>`)
-      .join("");
+    const tile = (h) => `<button type="button" data-slug="${h.slug}" data-attr="${h.attr || ""}" title="${h.name}" aria-label="${h.name}"><img src="${CDN}/heroes/crops/${h.slug}.png" alt="" loading="lazy" width="52" height="68"></button>`;
+    const heroes = window.HEROES || [];
+    grid.innerHTML = DOTA
+      ? ATTRIBUTE_GROUPS.map(([key, label, icon]) => `<section class="attr-group" data-attr="${key}"><h3><img src="${CDN}/icons/${icon}.png" alt="" width="18" height="18">${label}</h3><div class="tiles">${heroes.filter((h) => h.attr === key).map(tile).join("")}</div></section>`).join("")
+      : heroes.map(tile).join("");
     grid.addEventListener("click", (event) => {
       const button = event.target.closest("button");
       if (button) pickHero(button.dataset.slug);
@@ -234,6 +239,8 @@
       renderRound();
       $("#prompt").textContent = `Next: ${round.label}`;
       setClockState("Next round");
+      $("#clockState").classList.remove("banner");
+      if (DOTA) { $("#hudRadiant").textContent = "–"; $("#hudDire").textContent = "–"; $("#dial")?.style.setProperty("--turn", "0deg"); }
       $$(".cell").forEach((cell) => (cell.disabled = true));
     }
     if (phase === "answering") {
@@ -308,6 +315,8 @@
       $("#heroStatus").innerHTML = `<i class="led"></i><span>${right ? "Right" : state.pick ? "Wrong" : "No answer"}: ${heroName(round.hero)} was in the fog</span>`;
     }
 
+    const rightShare = round.format === "classic" ? round.split[round.correct] : (round.split.find(([slug]) => slug === round.hero) || [null, 0])[1];
+    if (DOTA) { $("#hudRadiant").textContent = `${rightShare}%`; $("#hudDire").textContent = `${100 - rightShare}%`; $("#dial")?.style.setProperty("--turn", "180deg"); }
     const result = state.pick === null ? "missed" : right ? "right" : "wrong";
     body.classList.add(`result-${result}`, `flash-${result}`);
     setTimeout(() => body.classList.remove(`flash-${result}`), 700);
@@ -337,12 +346,16 @@
           ? `You locked it at <span class="num">00:${pad(Math.ceil(state.pickAt))}</span> for <span class="num">+${gained}</span>${majorityWrong ? " with the 2x crowd-breaker" : ""}.`
           : "Streak reset.";
     verdict.innerHTML = `<span class="copy"><strong>${round.explanation}</strong> ${crowd} ${you}</span>`;
-    setClockState(result === "right" ? "Right" : result === "wrong" ? "Wrong" : "Missed");
+    const callout = right ? streakName(state.streak) : "";
+    setClockState(callout || (result === "right" ? "Right" : result === "wrong" ? "Wrong" : "Missed"));
+    $("#clockState").classList.toggle("banner", Boolean(callout));
   }
 
   function paintScore() {
     $("#points").textContent = state.points.toLocaleString("en-US");
     $("#streak").textContent = String(state.streak);
+    const name = $("#streakName");
+    if (name) name.textContent = streakName(state.streak);
     $("#roundsPlayed").textContent = String(state.rounds);
     $("#best").textContent = String(state.best);
   }
@@ -365,6 +378,14 @@
       } else if (state.phase === "answering") {
         const left = Math.ceil(ROUND - elapsed);
         paintClock(left, ROUND);
+        if (DOTA) {
+          $("#dial")?.style.setProperty("--turn", `${Math.min(90, (elapsed / ROUND) * 90)}deg`);
+          if (state.pick !== null && rounds[state.index].format === "classic") {
+            const cd = $(".cd", $$(".cell")[state.pick]);
+            cd.style.setProperty("--cd", String(Math.max(0, ROUND - elapsed) / ROUND));
+            cd.textContent = String(left);
+          }
+        }
         if (rounds[state.index].format === "fogged") {
           const stage = left > 10 ? 3 : left > 5 ? 2 : 1;
           $("#fogArt").dataset.fog = String(stage);

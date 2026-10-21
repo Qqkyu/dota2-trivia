@@ -18,12 +18,17 @@ Open <http://127.0.0.1:3470/index.html> for the lobby and
 
 `board.css` is the shell: the clock over a time bar, cells that light by fill, one dot per
 percent in every split bar, one full-band colour flip at reveal, and fixed space for every
-phase so nothing moves. `theme-dota.css` is a skin loaded after it. It changes material
-only: the client's dark slate, shop gold for live, Radiant green for right, Dire red for
-wrong, attribute colours on hero tiles, gold hairline frames, Cinzel for titles, and the
-Find Match green on the lobby's primary action. A second game pack would ship its own skin
-file and leave the shell alone. Valve's Radiance font was not used; the repository has no
-licence for it. The round loop runs on its own:
+phase so nothing moves. `theme-dota.css` is the Dota 2 skin, loaded after it on pages with
+`body.skin-dota`. It dresses the shell in the client's own rituals: Radiance type and the
+Dota 2 logo (both Valve's, used at the maintainer's decision), the HUD top bar with Radiant
+and Dire scores around the clock and the day-night dial (sun while answering, moon at
+reveal), answer cells as ability slots with hotkey badges and a cooldown sweep once an
+answer is locked, gold with the coin, kill-streak names from the app's announcer (Killing
+Spree, Dominating, and so on), the pick screen grouped by Strength, Agility, Intelligence,
+and Universal, fog of war on the Fogged Vision portrait, and the Find Match green on the
+lobby's primary action. `board.js` reads `body.skin-dota` for the grouped hero grid, the
+cooldown, the dial, and the HUD scores. A second game pack would ship its own skin file
+and leave the shell alone. The round loop runs on its own:
 3 seconds of entry countdown, a 15-second Classic Trivia round, an 8-second reveal, then a
 Fogged Vision round with the hero grid, then it repeats. Press A to D or click a cell to
 lock an answer. In Fogged Vision, type a hero name and press Enter when one hero is left.
@@ -41,7 +46,11 @@ links go nowhere.
 ## Assets and provenance
 
 - `fonts/`: Barlow, Barlow Condensed, Doto, and Cinzel, downloaded from Google Fonts, SIL
-  Open Font License 1.1 (latin subsets only).
+  Open Font License 1.1 (latin subsets only). `fonts/radiance-bold.otf` is Valve's Dota 2
+  UI face, copied from `public/fonts/` in this repository; the repository holds no licence
+  for it.
+- `assets/dota2-logo.png` is the app icon from `src/app/icon.png`, Valve's Dota 2 mark.
+- Attribute icons on the pick screen load from the public Dota asset host, as the app does.
 - Hero primary attributes in `heroes.js` come from the OpenDota hero constants.
 - `assets/steam-sign-in.png`: Valve's official "Sign in through Steam" button, copied from
   `public/assets/steam-sign-in.png` in this repository.
