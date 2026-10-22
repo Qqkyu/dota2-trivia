@@ -55,6 +55,7 @@ function LiveRoom({
   const answerLeft = round ? Math.max(0, round.answerDeadline - serverNow) : 0;
   const revealLeft = round ? Math.max(0, round.revealDeadline - serverNow) : 0;
   const live = round !== null && revealLeft > 0;
+  const between = round !== null && !live;
   const answering = live && round.phase === "answering" && answerLeft > 0;
   const joinsThisRound = answering && answerLeft >= FRESH_ROUND_MIN_REMAINING_MS;
   const revealLength = round ? Math.max(1, round.revealDeadline - round.answerDeadline) : 1;
@@ -97,8 +98,10 @@ function LiveRoom({
           </>
         ) : (
           <>
-            <span className={own.liveRoomRound}>One room, one clock</span>
-            <strong className={own.liveRoomFormat}>Connecting to the room…</strong>
+            <span className={own.liveRoomRound}>{between ? "Live now" : "One room, one clock"}</span>
+            <strong className={own.liveRoomFormat}>
+              {between ? "Next round is starting" : "Connecting to the room…"}
+            </strong>
             <div className={own.liveRoomClock}>
               <span>Each round</span>
               <strong data-testid="live-room-clock">00:{seconds(answerDuration)}</strong>
@@ -106,7 +109,11 @@ function LiveRoom({
             <div className={own.liveRoomTrack} aria-hidden="true">
               <span style={{ transform: "scaleX(1)" }} />
             </div>
-            <p className={own.liveRoomJoin}>Everyone gets the same question on the same clock.</p>
+            <p className={own.liveRoomJoin}>
+              {between
+                ? "Play now and you start with the next round."
+                : "Everyone gets the same question on the same clock."}
+            </p>
           </>
         )}
       </div>
