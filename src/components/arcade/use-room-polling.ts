@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { type PublicArcadeQuestion } from "@/lib/public-question";
 import { PUBLIC_VOTE_ACCEPT_GRACE_MS } from "@/lib/round-timing.mjs";
 import { ROOM_SYNC_HEARTBEAT_MS, roomDeadlineSyncDelay, roomProgressiveClueSyncDeadline } from "@/lib/room-sync.mjs";
-import { type GamePhase } from "./shared";
+import { type GamePhase, type LobbyPulse, normalizeLobbyPulse } from "./shared";
 
 import type { Dispatch, SetStateAction } from "react";
 
@@ -11,6 +11,7 @@ export function useRoomPolling({
   syncRoom,
   setNow,
   setActivePlayers,
+  setLobbyPulse,
   deadline,
   revealDeadline,
   entryWaitDeadline,
@@ -21,6 +22,7 @@ export function useRoomPolling({
   syncRoom: (force?: boolean) => Promise<void>;
   setNow: Dispatch<SetStateAction<number>>;
   setActivePlayers: Dispatch<SetStateAction<number>>;
+  setLobbyPulse: Dispatch<SetStateAction<LobbyPulse | null>>;
   deadline: number | null;
   revealDeadline: number | null;
   entryWaitDeadline: number | null;
@@ -78,13 +80,14 @@ export function useRoomPolling({
           payload.activePlayers >= 0
         ) {
           setActivePlayers(payload.activePlayers);
+          setLobbyPulse(normalizeLobbyPulse(payload));
         }
       } catch {
         // Presence is decorative; room entry must stay independent from it.
       }
     };
     void loadPresence();
-    const interval = window.setInterval(() => void loadPresence(), 15_000);
+    const interval = window.setInterval(() => void loadPresence(), 5_000);
     return () => {
       active = false;
       window.clearInterval(interval);

@@ -30,7 +30,14 @@ import {
 import { isValueOrderAnswerForQuestion } from "@/lib/value-order.mjs";
 import { createRoomSyncGate } from "@/lib/room-sync.mjs";
 import { normalizeRoomSnapshot, normalizeVoteResult, publicRoomQuery } from "./room-snapshot";
-import { ANSWER_DURATION_MS, EMPTY_CROWD, withPlayerId, type GamePhase, type RoundAward } from "./shared";
+import {
+  ANSWER_DURATION_MS,
+  EMPTY_CROWD,
+  withPlayerId,
+  type GamePhase,
+  type LobbyPulse,
+  type RoundAward,
+} from "./shared";
 
 import type { useArcadeAudio } from "./use-arcade-audio";
 import type { usePlayerId } from "./use-player-id";
@@ -119,6 +126,8 @@ export function useArcadeRoom({
   const [activeRoundId, setActiveRoundId] = useState("");
 
   const [activePlayers, setActivePlayers] = useState(0);
+
+  const [lobbyPulse, setLobbyPulse] = useState<LobbyPulse | null>(null);
 
   const [privateWaiting, setPrivateWaiting] = useState(Boolean(roomCode));
 
@@ -1068,6 +1077,7 @@ export function useArcadeRoom({
     syncRoom,
     setNow,
     setActivePlayers,
+    setLobbyPulse,
     deadline,
     revealDeadline,
     entryWaitDeadline,
@@ -1115,6 +1125,7 @@ export function useArcadeRoom({
     activeRoundId,
     roundAnnouncement,
     activePlayers,
+    lobbyPulse,
     reportState,
     reportedReason,
     reportTarget,

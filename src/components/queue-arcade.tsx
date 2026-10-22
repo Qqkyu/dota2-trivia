@@ -48,7 +48,7 @@ export function QueueArcade({
   const playerId = usePlayerId();
   const { ensurePlayerId } = playerId;
   const settings = usePlayerSettings({ ensurePlayerId });
-  const { soundEnabled, setSoundEnabled, gameVolume, setGameVolume, lifetimeStats, statsLoaded } = settings;
+  const { soundEnabled, setSoundEnabled, gameVolume, setGameVolume, statsLoaded } = settings;
   const refs = useRoundRefs();
   const audio = useArcadeAudio({ refs, soundEnabled, setSoundEnabled, gameVolume });
   const {
@@ -84,6 +84,7 @@ export function QueueArcade({
     activeRoundId,
     roundAnnouncement,
     activePlayers,
+    lobbyPulse,
     reportState,
     reportedReason,
     reportTarget,
@@ -173,11 +174,7 @@ export function QueueArcade({
           ? roundAnnouncement.text
           : ""}
       </div>
-      <div className={styles.backdrop} aria-hidden="true">
-        <span className={styles.backdropOrbOne} />
-        <span className={styles.backdropOrbTwo} />
-        <span className={styles.gridTexture} />
-      </div>
+      <div className={styles.backdrop} aria-hidden="true" />
 
       <ArcadeHeader
         returnToLobby={returnToLobby}
@@ -196,6 +193,7 @@ export function QueueArcade({
           account={account}
           roomError={roomError}
           activePlayers={activePlayers}
+          lobbyPulse={lobbyPulse}
           setPrivateWaiting={setPrivateWaiting}
           setPartyOpen={setPartyOpen}
           setActivePrivateCode={setActivePrivateCode}
@@ -204,10 +202,7 @@ export function QueueArcade({
           answerDuration={answerDuration}
           startRun={startRun}
           returnToLobby={returnToLobby}
-          lifetimeStats={lifetimeStats}
-          statsLoaded={statsLoaded}
           activeModeInfo={activeModeInfo}
-          gameInfo={gameInfo}
         />
       )}
 
