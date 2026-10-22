@@ -23,7 +23,7 @@
   border: 1px solid rgba(105, 214, 224, 0.2);
   color: #6e979b;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 9px;
+  font-size: 10px;
   font-style: normal;
   transition:
     border-color 140ms ease,

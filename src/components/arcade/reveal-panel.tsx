@@ -1,10 +1,12 @@
 import Image from "next/image";
-import type { PublicArcadeQuestion } from "@/lib/public-question";
+import { isPublicKeyedAnswerQuestion, publicCorrectIndex, type PublicArcadeQuestion } from "@/lib/public-question";
 import { Check, Flag, X } from "lucide-react";
 import clsx from "clsx";
 import { REPORT_REASON_LABELS, REPORT_REASONS } from "@/lib/calibration";
+import { crowdSummaryLine } from "@/lib/crowd-summary.mjs";
 import styles from "../queue-arcade.module.css";
 import own from "./reveal-panel.module.css";
+import { keyedAnswerLabel, LETTERS } from "./shared";
 
 import type { useArcadeRoom } from "./use-arcade-room";
 import type { deriveRoundView } from "./round-view";
@@ -19,8 +21,44 @@ type RevealPanelProps = { currentQuestion: PublicArcadeQuestion } & Pick<
   | "reportTarget"
   | "submitQuestionReport"
   | "toggleQuestionReport"
+  | "crowd"
+  | "selectedIndex"
+  | "selectedAnswerKey"
 > &
   Pick<ReturnType<typeof deriveRoundView>, "selectedWasCorrect" | "resultCallout" | "isValueOrderRound">;
+
+function crowdSummary(
+  question: PublicArcadeQuestion,
+  crowd: RevealPanelProps["crowd"],
+  selectedIndex: number | null,
+  selectedAnswerKey: string | null,
+) {
+  if (isPublicKeyedAnswerQuestion(question)) {
+    const correctKey = question.reveal?.correctAnswerKey ?? null;
+    const rightCount = crowd.keyCounts.find((entry) => entry.answerKey === correctKey)?.count ?? 0;
+    const top = crowd.keyCounts.reduce<(typeof crowd.keyCounts)[number] | null>(
+      (best, entry) => (best === null || entry.count > best.count ? entry : best),
+      null,
+    );
+    return crowdSummaryLine({
+      total: crowd.total,
+      rightCount,
+      playerAnswered: selectedAnswerKey !== null,
+      majorityLabel: top ? keyedAnswerLabel(top.answerKey, "another pick", question) : null,
+      majorityIsRight: !top || top.answerKey === correctKey || top.count <= rightCount,
+    });
+  }
+  const correctIndex = publicCorrectIndex(question);
+  const rightCount = correctIndex === null ? 0 : (crowd.counts[correctIndex] ?? 0);
+  const topIndex = crowd.counts.reduce((best, count, index) => (count > crowd.counts[best] ? index : best), 0);
+  return crowdSummaryLine({
+    total: crowd.total,
+    rightCount,
+    playerAnswered: selectedIndex !== null,
+    majorityLabel: `${LETTERS[topIndex]} · ${question.answers[topIndex] ?? ""}`,
+    majorityIsRight: topIndex === correctIndex || crowd.counts[topIndex] <= rightCount,
+  });
+}
 
 export function RevealPanel({
   currentQuestion,
@@ -31,6 +69,9 @@ export function RevealPanel({
   reportTarget,
   submitQuestionReport,
   toggleQuestionReport,
+  crowd,
+  selectedIndex,
+  selectedAnswerKey,
   selectedWasCorrect,
   resultCallout,
   isValueOrderRound,
@@ -65,6 +106,9 @@ export function RevealPanel({
           {resultCallout}
         </span>
         {!isValueOrderRound && <p data-testid="reveal-explanation">{currentQuestion.reveal?.explanation}</p>}
+        <p className={own.crowdLine} data-testid="crowd-summary" data-total={crowd.total}>
+          {crowdSummary(currentQuestion, crowd, selectedIndex, selectedAnswerKey)}
+        </p>
         <div className={own.reportControl}>
           <button
             type="button"
@@ -100,7 +144,7 @@ export function RevealPanel({
           )}
         </div>
       </div>
-      <div className={styles.pointsAward}>
+      <div className={styles.pointsAward} data-award={roundAward?.correct ? "scored" : "none"}>
         <small>
           {roundAward?.majorityBonus
             ? "2× crowd breaker"

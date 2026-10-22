@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { isPublicKeyedAnswerQuestion } from "@/lib/public-question";
 import styles from "../queue-arcade.module.css";
 import own from "./session-rail.module.css";
-import { ChoiceCrowdSplit, KeyedCrowdSplit } from "./crowd-split";
+import { KeyedCrowdSplit } from "./crowd-split";
 import { ModeIcon } from "./mode-icon";
 import { gameLabel } from "./shared";
 
@@ -13,15 +13,7 @@ import type { deriveRoundView } from "./round-view";
 
 type SessionRailProps = { currentQuestion: PublicArcadeQuestion } & Pick<
   ReturnType<typeof useArcadeRoom>,
-  | "phase"
-  | "currentQuestion"
-  | "roundIndex"
-  | "selectedIndex"
-  | "selectedAnswerKey"
-  | "crowd"
-  | "score"
-  | "streak"
-  | "roomError"
+  "phase" | "currentQuestion" | "roundIndex" | "selectedAnswerKey" | "crowd" | "score" | "streak" | "roomError"
 > &
   Pick<ReturnType<typeof deriveRoundView>, "currentGame" | "recentHistory" | "recentHistoryStart">;
 
@@ -29,7 +21,6 @@ export function SessionRail({
   phase,
   currentQuestion,
   roundIndex,
-  selectedIndex,
   selectedAnswerKey,
   crowd,
   score,
@@ -63,7 +54,6 @@ export function SessionRail({
                 Syncing
               </span>
             )}
-            <strong>Round {roundIndex + 1}</strong>
           </div>
         </div>
         <div className={own.roundPips}>
@@ -96,31 +86,20 @@ export function SessionRail({
         </div>
       </div>
 
-      {phase === "reveal" && (
+      {phase === "reveal" && isPublicKeyedAnswerQuestion(currentQuestion) && crowd.total > 0 && (
         <div className={own.crowdCard} data-testid="crowd-card" data-phase={phase}>
           <div className={own.cardTitle}>
             <span>
               <Radio />
-              Global split
+              Room split
             </span>
             <span className={own.livePill}>Final</span>
           </div>
           <strong>
             {crowd.total.toLocaleString("en-US")} {crowd.total === 1 ? "answer" : "answers"}
           </strong>
-          {crowd.total === 0 && <p>Nobody answered before this room’s deadline.</p>}
-          {crowd.total > 0 ? (
-            isPublicKeyedAnswerQuestion(currentQuestion) ? (
-              <KeyedCrowdSplit question={currentQuestion} crowd={crowd} selectedKey={selectedAnswerKey} />
-            ) : (
-              <ChoiceCrowdSplit question={currentQuestion} crowd={crowd} selectedIndex={selectedIndex} />
-            )
-          ) : (
-            <div className={own.crowdSplitEmpty} aria-hidden="true">
-              —
-            </div>
-          )}
-          {crowd.total > 0 && crowd.scoreSummary && (
+          <KeyedCrowdSplit question={currentQuestion} crowd={crowd} selectedKey={selectedAnswerKey} />
+          {crowd.scoreSummary && (
             <div className={own.crowdScoreSummary} data-testid="crowd-score-summary">
               <span>
                 <small>You</small>

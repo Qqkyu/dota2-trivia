@@ -304,6 +304,7 @@ export function QueueArcade({
                 role="timer"
                 aria-live="off"
                 aria-label={`${Math.ceil(answerRemaining / 1000)} seconds remaining`}
+                data-urgent={phase === "answering" && answerRemaining <= 5_000 ? "true" : "false"}
               >
                 <Clock3 />
                 <strong data-testid="round-timer">
@@ -387,6 +388,9 @@ export function QueueArcade({
                 reportTarget={reportTarget}
                 submitQuestionReport={submitQuestionReport}
                 toggleQuestionReport={toggleQuestionReport}
+                crowd={crowd}
+                selectedIndex={selectedIndex}
+                selectedAnswerKey={selectedAnswerKey}
                 selectedWasCorrect={selectedWasCorrect}
                 resultCallout={resultCallout}
                 isValueOrderRound={isValueOrderRound}
@@ -398,7 +402,6 @@ export function QueueArcade({
             phase={phase}
             currentQuestion={currentQuestion}
             roundIndex={roundIndex}
-            selectedIndex={selectedIndex}
             selectedAnswerKey={selectedAnswerKey}
             crowd={crowd}
             score={score}

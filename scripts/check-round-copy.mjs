@@ -269,7 +269,7 @@ try {
         text,
         panel: Boolean(document.querySelector('[data-testid="reveal-panel"]')),
         report: Boolean(document.querySelector('[data-testid="report-question"]')),
-        crowd: Boolean(document.querySelector('[data-testid="crowd-card"]')),
+        crowd: Boolean(document.querySelector('[data-testid="crowd-summary"]')),
         explanation: document.querySelector('[data-testid="reveal-explanation"]')?.textContent?.trim().length ?? 0,
         callout: document.querySelector('[data-testid="reveal-callout"]')?.textContent ?? "",
         patchMentions: (document.body.innerText.match(new RegExp(${JSON.stringify(patchLabel.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))}, "gi")) ?? []).length,
