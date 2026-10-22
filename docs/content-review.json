@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-10-22T14:29:43.325Z",
-  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Fable 5.1 on 2026-10-22 after updating three browser check scripts for the practice board and the reveal summary (playable catalog unchanged)",
+  "reviewedAt": "2026-10-22T14:42:28.513Z",
+  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Fable 5.1 on 2026-10-22 after updating four browser check scripts for the practice board and the reveal summary (playable catalog unchanged)",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
     "patch": "7.41f",
@@ -55,7 +55,7 @@
     "scripts/check-steam-provider.mjs": "aa5ff9e3fc524a262d160cdd9b19c5d8af2cf6614e00002bf00cbd28a91c2ec6",
     "scripts/check-ui-recovery.mjs": "7c4e338544045b0368b7719e9c55b7e5312559089de0c7555c88235c1f351e38",
     "scripts/check-ui.mjs": "0ebe2d15ebdc496a0c5311e6e53e59c8f641fe57def184aa01b2b81d0667f607",
-    "scripts/check-user-journeys.mjs": "86dbb69df776656d991446e177d308d653586e3f86177dbb7228ecd29e80dd5e",
+    "scripts/check-user-journeys.mjs": "74b5dd456d0e90f1c01dcdabb7ac3628b4e21b320ef57bc328f7632d5c2761fb",
     "scripts/cleanup-db.mjs": "630a6ced2494226ac0aa8e9a220b7cafc99df2a600a576b65d8e172aa57b9720",
     "scripts/client-audit-requirement.mjs": "b235efb3298cdcf0f354509b856e45393dd6a6760c56810b5234414628d4b35d",
     "scripts/client-constant-audit.mjs": "315352b8b2690308955c70a04d967b11e0640fbc3498ad97d852ed955e09b1b7",

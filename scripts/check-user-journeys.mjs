@@ -407,7 +407,7 @@ try {
         await page.waitFor(`document.querySelector('[data-testid="score-grid"] strong')?.textContent==='200'`);
         assert.equal(
           await page.evaluate(
-            `document.querySelectorAll('[data-testid="crowd-split-row"]')[${correct}].dataset.selected`,
+            `document.querySelectorAll('[data-testid="arcade-answer"]')[${correct}].getAttribute('aria-pressed')`,
           ),
           "true",
         );
