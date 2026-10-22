@@ -38,10 +38,12 @@ function LiveRoom({
   pulse,
   activePlayers,
   answerDuration,
+  joining,
 }: {
   pulse: LobbyPulse | null;
   activePlayers: number;
   answerDuration: number;
+  joining: boolean;
 }) {
   const [now, setNow] = useState(() => Date.now());
 
@@ -91,9 +93,11 @@ function LiveRoom({
               />
             </div>
             <p className={own.liveRoomJoin}>
-              {joinsThisRound
-                ? "Play now and this round is yours."
-                : `Play now and you start with the next round, in ${Math.ceil(revealLeft / 1_000)}s.`}
+              {joining
+                ? "Joining the next full round…"
+                : joinsThisRound
+                  ? "Play now and this round is yours."
+                  : `Play now and you start with the next round, in ${Math.ceil(revealLeft / 1_000)}s.`}
             </p>
           </>
         ) : (
@@ -110,9 +114,11 @@ function LiveRoom({
               <span style={{ transform: "scaleX(1)" }} />
             </div>
             <p className={own.liveRoomJoin}>
-              {between
-                ? "Play now and you start with the next round."
-                : "Everyone gets the same question on the same clock."}
+              {joining
+                ? "Joining the next full round…"
+                : between
+                  ? "Play now and you start with the next round."
+                  : "Everyone gets the same question on the same clock."}
             </p>
           </>
         )}
@@ -228,7 +234,12 @@ export function ArcadeLobby({
         </div>
       </div>
 
-      <LiveRoom pulse={lobbyPulse} activePlayers={activePlayers} answerDuration={answerDuration} />
+      <LiveRoom
+        pulse={lobbyPulse}
+        activePlayers={activePlayers}
+        answerDuration={answerDuration}
+        joining={phase === "waiting"}
+      />
     </section>
   );
 }
