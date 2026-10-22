@@ -4,6 +4,8 @@ import { Check, Flag, X } from "lucide-react";
 import clsx from "clsx";
 import { REPORT_REASON_LABELS, REPORT_REASONS } from "@/lib/calibration";
 import { crowdSummaryLine } from "@/lib/crowd-summary.mjs";
+import { HERO_PICKER_BY_KEY, heroPickerPortraitSrc } from "@/lib/hero-picker";
+import { SHOPKEEPER_CATALOG_BY_KEY } from "@/lib/shopkeeper-catalog";
 import styles from "../queue-arcade.module.css";
 import own from "./reveal-panel.module.css";
 import { keyedAnswerLabel, LETTERS } from "./shared";
@@ -60,6 +62,23 @@ function crowdSummary(
   });
 }
 
+/** The answer as a picture: the question's own mark, else the correct hero or item from a grid pick. */
+function revealMedia(question: PublicArcadeQuestion) {
+  const media = question.reveal?.media;
+  if (media && media.kind !== "photo") {
+    return { src: media.src, alt: media.alt, caption: media.caption ?? null, testid: "flashback-reveal-media" };
+  }
+  if (!isPublicKeyedAnswerQuestion(question)) return null;
+  const correctKey = question.reveal?.correctAnswerKey;
+  if (!correctKey) return null;
+  const hero = HERO_PICKER_BY_KEY.get(correctKey);
+  if (hero)
+    return { src: heroPickerPortraitSrc(hero.image), alt: hero.name, caption: hero.name, testid: "keyed-reveal-media" };
+  const item = SHOPKEEPER_CATALOG_BY_KEY.get(correctKey);
+  if (item) return { src: item.image, alt: item.name, caption: item.name, testid: "keyed-reveal-media" };
+  return null;
+}
+
 export function RevealPanel({
   currentQuestion,
   roundAward,
@@ -76,29 +95,20 @@ export function RevealPanel({
   resultCallout,
   isValueOrderRound,
 }: RevealPanelProps) {
+  const media = revealMedia(currentQuestion);
   return (
     <div
       className={clsx(styles.revealPanel, selectedWasCorrect ? own.revealCorrect : own.revealWrong)}
       data-testid="reveal-panel"
-      data-has-media={currentQuestion.reveal?.media && currentQuestion.reveal.media.kind !== "photo" ? "true" : "false"}
-      data-media-kind={
-        currentQuestion.reveal?.media && currentQuestion.reveal.media.kind !== "photo" ? "mark" : undefined
-      }
+      data-has-media={media ? "true" : "false"}
+      data-media-kind={media ? "mark" : undefined}
       aria-live="polite"
     >
       <div className={own.revealIcon}>{selectedWasCorrect ? <Check /> : <X />}</div>
-      {currentQuestion.reveal?.media && currentQuestion.reveal.media.kind !== "photo" && (
-        <figure className={styles.revealMedia} data-kind="mark" data-testid="flashback-reveal-media">
-          <Image
-            src={currentQuestion.reveal.media.src}
-            alt={currentQuestion.reveal.media.alt}
-            width={88}
-            height={88}
-            unoptimized
-          />
-          {currentQuestion.reveal.media.caption ? (
-            <figcaption>{currentQuestion.reveal.media.caption}</figcaption>
-          ) : null}
+      {media && (
+        <figure className={styles.revealMedia} data-kind="mark" data-testid={media.testid}>
+          <Image src={media.src} alt={media.alt} width={88} height={88} unoptimized />
+          {media.caption ? <figcaption>{media.caption}</figcaption> : null}
         </figure>
       )}
       <div className={styles.revealCopy}>

@@ -300,6 +300,7 @@ export function QueueArcade({
                 aria-live="off"
                 aria-label={`${Math.ceil(answerRemaining / 1000)} seconds remaining`}
                 data-urgent={phase === "answering" && answerRemaining <= 5_000 ? "true" : "false"}
+                data-phase={phase}
               >
                 <Clock3 />
                 <strong data-testid="round-timer">

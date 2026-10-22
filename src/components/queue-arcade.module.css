@@ -557,6 +557,10 @@
   color: var(--red-bright);
 }
 
+.timer[data-phase="reveal"] strong {
+  color: var(--green);
+}
+
 .timer[data-urgent="true"] svg {
   color: var(--red-bright);
 }
@@ -1062,6 +1066,12 @@
 .heroPicker[data-locked="true"][data-phase="answering"] button[data-state="idle"] {
   opacity: 0.4;
   filter: saturate(0.65);
+}
+
+/* At reveal only the correct pick and your pick stay lit. */
+.heroPicker[data-phase="reveal"] button[data-state="idle"] {
+  opacity: 0.28;
+  filter: saturate(0.5);
 }
 
 .heroPicker[data-searching="true"] .heroPickerGroup button[data-search-match="false"] {
@@ -2089,30 +2099,33 @@
   border-color: rgba(118, 198, 138, 0.64);
 }
 
-.fogAnswers .answer:hover {
-  border-color: rgba(107, 196, 173, 0.4);
-  background: rgba(62, 126, 109, 0.07);
-}
+/* Hover only where a pointer can hover; touch must never paint an answer before a tap. */
+@media (hover: hover) {
+  .fogAnswers .answer:hover {
+    border-color: rgba(107, 196, 173, 0.4);
+    background: rgba(62, 126, 109, 0.07);
+  }
 
-.echoAnswers .answer:hover {
-  border-color: rgba(183, 145, 229, 0.4);
-  background: rgba(104, 73, 145, 0.08);
-}
+  .echoAnswers .answer:hover {
+    border-color: rgba(183, 145, 229, 0.4);
+    background: rgba(104, 73, 145, 0.08);
+  }
 
-.soundcheckAnswers .answer:hover {
-  border-color: rgba(118, 215, 223, 0.42);
-  background: rgba(48, 143, 153, 0.08);
-}
+  .soundcheckAnswers .answer:hover {
+    border-color: rgba(118, 215, 223, 0.42);
+    background: rgba(48, 143, 153, 0.08);
+  }
 
-.quoteAnswers .answer:hover {
-  border-color: rgba(222, 164, 96, 0.4);
-  background: rgba(141, 87, 43, 0.08);
-}
+  .quoteAnswers .answer:hover {
+    border-color: rgba(222, 164, 96, 0.4);
+    background: rgba(141, 87, 43, 0.08);
+  }
 
-.answer:not(:disabled):hover {
-  border-color: rgba(240, 106, 88, 0.36);
-  background: rgba(210, 76, 63, 0.07);
-  transform: translateY(-1px);
+  .answer:not(:disabled):hover {
+    border-color: rgba(226, 181, 88, 0.42);
+    background: rgba(226, 181, 88, 0.06);
+    transform: translateY(-1px);
+  }
 }
 
 .answer:disabled {
