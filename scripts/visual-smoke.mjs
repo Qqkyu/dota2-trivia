@@ -834,7 +834,7 @@ const entryWait = await evaluate(`({
   nextTip: Boolean(document.querySelector('[data-testid="entry-wait-next-tip"]')),
   prevTip: Boolean(document.querySelector('[data-testid="entry-wait-prev-tip"]')),
   keyDemo: Boolean(document.querySelector('[data-testid="entry-wait-keys-demo"]')),
-  keyAnswers: document.querySelectorAll('[data-testid="entry-wait-keys-demo"] [data-testid="arcade-answer"]').length,
+  keyAnswers: document.querySelectorAll('[data-testid="entry-wait-keys-demo"] [data-testid="practice-answer"]').length,
   keyArtwork: Boolean(document.querySelector('[data-testid="entry-wait-keys-demo"] [data-testid="question-artwork"]')),
   keyPrompt: document.querySelector('[data-testid="entry-wait-choice-prompt"] h2')?.textContent ?? "",
   heroesDemo: Boolean(document.querySelector('[data-testid="entry-wait-heroes-demo"]')),
