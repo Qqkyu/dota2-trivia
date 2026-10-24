@@ -251,6 +251,54 @@ export function useAttention() {
   return attentive;
 }
 
+/**
+ * Keeps the audio output open while a round is live. Bluetooth speakers and
+ * some USB devices drop their link after a few seconds of silence and swallow
+ * the first few hundred milliseconds of the next sound, which is the whole pick
+ * click. A running AudioContext rendering digital silence adds nothing to the
+ * mix the sound check records; it only stops the device from sleeping between
+ * cues. It is not a media element, so the per-voice tap never sees it.
+ */
+export function useOutputKeepAlive({ phase, soundEnabled }: { phase: GamePhase; soundEnabled: boolean }) {
+  const active = phase !== "lobby" && soundEnabled;
+
+  useEffect(() => {
+    if (!active || typeof window === "undefined") return;
+    const Context =
+      window.AudioContext ?? (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+    if (!Context) return;
+    let context: AudioContext | null = null;
+    let disposed = false;
+    const start = () => {
+      if (disposed || document.hidden) return;
+      if (!context) {
+        context = new Context();
+        const silence = context.createBufferSource();
+        silence.buffer = context.createBuffer(1, context.sampleRate, context.sampleRate);
+        silence.loop = true;
+        silence.connect(context.destination);
+        silence.start();
+      }
+      if (context.state !== "running") void context.resume().catch(() => undefined);
+    };
+    const visibility = () => {
+      if (document.hidden) void context?.suspend().catch(() => undefined);
+      else start();
+    };
+    start();
+    window.addEventListener("pointerdown", start);
+    window.addEventListener("keydown", start);
+    document.addEventListener("visibilitychange", visibility);
+    return () => {
+      disposed = true;
+      window.removeEventListener("pointerdown", start);
+      window.removeEventListener("keydown", start);
+      document.removeEventListener("visibilitychange", visibility);
+      void context?.close().catch(() => undefined);
+    };
+  }, [active]);
+}
+
 export function useRoundAutoplay({
   audio,
   phase,
@@ -272,6 +320,7 @@ export function useRoundAutoplay({
 }) {
   const { roundAudioRefs, autoPlayedAudioKeyRef, playRoundAudio, roundAudioState, stopRoundAudio } = audio;
   const attentive = useAttention();
+  useOutputKeepAlive({ phase, soundEnabled });
 
   useEffect(() => {
     if (phase !== "answering") stopRoundAudio(false);

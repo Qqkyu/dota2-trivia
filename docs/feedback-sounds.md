@@ -52,6 +52,22 @@ A pick click still plays when `document.hasFocus()` is still false. That happens
 on the first click that brings the game window forward. Ownership also transfers
 on that click. Result cues stay owner-only so a background tab cannot echo.
 
+## Sleeping output devices (2026-10-24)
+
+The maintainer heard every result cue on a Bluetooth speaker but almost no pick
+clicks, and only two or three of four Order Up clicks. The click is 20 ms of
+silence and about 180 ms of sound. A Bluetooth or USB device that has dropped its
+link after a few seconds of silence needs 200 ms to over a second to wake, so the
+whole click falls into that gap while a longer cue only loses its start.
+
+The client now keeps the output open while a round is live. `useOutputKeepAlive`
+in `src/components/arcade/use-arcade-audio.ts` runs an AudioContext that renders
+digital silence from the entry wait until the lobby, suspended while the tab is
+hidden or sounds are muted. It is not a media element, so the per-voice tap does
+not count it, and it adds nothing to the native recording; `pnpm check:sounds`
+passed with it (10 native checks, 30 tapped checks). Whether a given speaker stays
+awake is only provable on that device.
+
 ## Run
 
 With the app already running at `http://localhost:3000`:
