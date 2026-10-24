@@ -834,7 +834,7 @@ const entryWait = await evaluate(`({
   nextTip: Boolean(document.querySelector('[data-testid="entry-wait-next-tip"]')),
   prevTip: Boolean(document.querySelector('[data-testid="entry-wait-prev-tip"]')),
   keyDemo: Boolean(document.querySelector('[data-testid="entry-wait-keys-demo"]')),
-  keyAnswers: document.querySelectorAll('[data-testid="entry-wait-keys-demo"] [data-testid="arcade-answer"]').length,
+  keyAnswers: document.querySelectorAll('[data-testid="entry-wait-keys-demo"] [data-testid="practice-answer"]').length,
   keyArtwork: Boolean(document.querySelector('[data-testid="entry-wait-keys-demo"] [data-testid="question-artwork"]')),
   keyPrompt: document.querySelector('[data-testid="entry-wait-choice-prompt"] h2')?.textContent ?? "",
   heroesDemo: Boolean(document.querySelector('[data-testid="entry-wait-heroes-demo"]')),
@@ -1250,8 +1250,14 @@ const reveal = await evaluate(`(() => {
       lock: Boolean(document.querySelector('[data-testid="flashback-year-lock"]')),
     },
     crowdSplit: (() => {
-      const split = document.querySelector('[data-testid="crowd-split"]');
-      const rows = [...document.querySelectorAll('[data-testid="crowd-split-row"]')];
+      // Choice rounds carry the split on the answer rows; grid picks keep the sidebar card.
+      const split =
+        document.querySelector('[data-testid="crowd-split"]') ?? document.querySelector('[data-testid="answer-grid"]');
+      const rows = [
+        ...document.querySelectorAll(
+          split?.dataset.splitKind === "answer-rows" ? '[data-testid="arcade-answer"]' : '[data-testid="crowd-split-row"]',
+        ),
+      ];
       return {
         visible: Boolean(split),
         kind: split?.dataset.splitKind,
@@ -1353,7 +1359,7 @@ const sameBounds =
   Object.keys(revealBoundsBeforeReport).every(
     (key) => Math.abs(revealBoundsBeforeReport[key] - reveal.reportBounds[key]) <= 1,
   );
-if (!lobby.title.includes("Queue Arcade") || !lobby.heading?.includes("side quests")) {
+if (!lobby.title.includes("Queue Arcade") || !lobby.heading?.toLowerCase().includes("side quests")) {
   failures.push("Queue Arcade lobby metadata or heading is missing.");
 }
 if (

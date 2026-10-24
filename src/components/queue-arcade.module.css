@@ -33,46 +33,6 @@
     linear-gradient(145deg, #0a0d0e 0%, #080a0b 48%, #0b0d0e 100%);
 }
 
-.backdrop::before {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent 49.8%, rgba(255, 255, 255, 0.015) 50%, transparent 50.2%),
-    linear-gradient(0deg, transparent 49.8%, rgba(255, 255, 255, 0.012) 50%, transparent 50.2%);
-  background-size: 78px 78px;
-  content: "";
-  mask-image: linear-gradient(to bottom, black, transparent 75%);
-}
-
-.backdropOrbOne,
-.backdropOrbTwo {
-  position: absolute;
-  width: 42rem;
-  height: 42rem;
-  border-radius: 999px;
-  filter: blur(110px);
-  opacity: 0.11;
-}
-
-.backdropOrbOne {
-  top: -18rem;
-  right: -10rem;
-  background: #aa382e;
-}
-
-.backdropOrbTwo {
-  bottom: -25rem;
-  left: -15rem;
-  background: #547b76;
-}
-
-.gridTexture {
-  position: absolute;
-  inset: 0;
-  opacity: 0.16;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
-  mix-blend-mode: soft-light;
-}
-
 .header {
   display: flex;
   width: min(100% - 48px, 1420px);
@@ -111,25 +71,25 @@
   width: min(100% - 48px, 1320px);
   min-height: calc(100vh - 156px);
   align-items: center;
-  gap: clamp(48px, 7vw, 120px);
-  grid-template-columns: minmax(0, 0.95fr) minmax(480px, 0.88fr);
+  gap: clamp(40px, 6vw, 96px);
+  grid-template-columns: minmax(0, 1fr) minmax(400px, 0.78fr);
   margin: 0 auto;
-  padding: 64px 0 76px;
+  padding: 56px 0 72px;
 }
 
 .lobby h1 {
   margin: 0;
-  font-size: clamp(58px, 6vw, 94px);
-  font-weight: 380;
-  letter-spacing: -0.068em;
-  line-height: 0.9;
+  font-family: var(--font-radiance), var(--font-geist-sans), sans-serif;
+  font-size: clamp(40px, 4.6vw, 64px);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.02;
+  text-transform: uppercase;
 }
 
 .lobby h1 em {
-  color: var(--red-bright);
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: 400;
-  letter-spacing: -0.055em;
+  color: #e2b558;
+  font-style: normal;
 }
 
 .previewQuestion {
@@ -476,7 +436,7 @@
   top: 0;
   right: 0;
   left: 0;
-  height: 3px;
+  height: 4px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.045);
 }
@@ -579,16 +539,30 @@
 }
 
 .timer svg {
-  width: 14px;
+  width: 16px;
   color: var(--muted);
 }
 
 .timer strong {
-  min-width: 28px;
+  min-width: 44px;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 19px;
-  font-weight: 450;
+  font-size: 30px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
   text-align: right;
+}
+
+.timer[data-urgent="true"] strong {
+  color: var(--red-bright);
+}
+
+.timer[data-phase="reveal"] strong {
+  color: var(--green);
+}
+
+.timer[data-urgent="true"] svg {
+  color: var(--red-bright);
 }
 
 .questionBlock {
@@ -1020,7 +994,7 @@
   margin: 0;
   color: #a7aaa5;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 550;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1092,6 +1066,12 @@
 .heroPicker[data-locked="true"][data-phase="answering"] button[data-state="idle"] {
   opacity: 0.4;
   filter: saturate(0.65);
+}
+
+/* At reveal only the correct pick and your pick stay lit. */
+.heroPicker[data-phase="reveal"] button[data-state="idle"] {
+  opacity: 0.28;
+  filter: saturate(0.5);
 }
 
 .heroPicker[data-searching="true"] .heroPickerGroup button[data-search-match="false"] {
@@ -1383,7 +1363,7 @@
   margin: 0 0 6px;
   color: #8f928a;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -1791,7 +1771,7 @@
 
 .fogArtwork > span:last-child small {
   color: #4e786d;
-  font-size: 9px;
+  font-size: 10px;
 }
 
 .fogQuestion .questionCopy > span {
@@ -2001,7 +1981,7 @@
   bottom: 10px;
   color: #8d7156;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.09em;
   text-transform: uppercase;
 }
@@ -2043,7 +2023,7 @@
 
 .quoteHints > span > b {
   color: #9b6e45;
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 500;
 }
 
@@ -2112,37 +2092,40 @@
 }
 
 .visualAnswer.answerLocked .answerArtwork {
-  border-color: rgba(240, 106, 88, 0.56);
+  border-color: rgba(226, 181, 88, 0.6);
 }
 
 .answerCorrect .answerArtwork {
   border-color: rgba(118, 198, 138, 0.64);
 }
 
-.fogAnswers .answer:hover {
-  border-color: rgba(107, 196, 173, 0.4);
-  background: rgba(62, 126, 109, 0.07);
-}
+/* Hover only where a pointer can hover; touch must never paint an answer before a tap. */
+@media (hover: hover) {
+  .fogAnswers .answer:hover {
+    border-color: rgba(107, 196, 173, 0.4);
+    background: rgba(62, 126, 109, 0.07);
+  }
 
-.echoAnswers .answer:hover {
-  border-color: rgba(183, 145, 229, 0.4);
-  background: rgba(104, 73, 145, 0.08);
-}
+  .echoAnswers .answer:hover {
+    border-color: rgba(183, 145, 229, 0.4);
+    background: rgba(104, 73, 145, 0.08);
+  }
 
-.soundcheckAnswers .answer:hover {
-  border-color: rgba(118, 215, 223, 0.42);
-  background: rgba(48, 143, 153, 0.08);
-}
+  .soundcheckAnswers .answer:hover {
+    border-color: rgba(118, 215, 223, 0.42);
+    background: rgba(48, 143, 153, 0.08);
+  }
 
-.quoteAnswers .answer:hover {
-  border-color: rgba(222, 164, 96, 0.4);
-  background: rgba(141, 87, 43, 0.08);
-}
+  .quoteAnswers .answer:hover {
+    border-color: rgba(222, 164, 96, 0.4);
+    background: rgba(141, 87, 43, 0.08);
+  }
 
-.answer:not(:disabled):hover {
-  border-color: rgba(240, 106, 88, 0.36);
-  background: rgba(210, 76, 63, 0.07);
-  transform: translateY(-1px);
+  .answer:not(:disabled):hover {
+    border-color: rgba(226, 181, 88, 0.42);
+    background: rgba(226, 181, 88, 0.06);
+    transform: translateY(-1px);
+  }
 }
 
 .answer:disabled {
@@ -2189,15 +2172,15 @@
 }
 
 .answerLocked {
-  border-color: rgba(240, 106, 88, 0.58);
-  background: rgba(210, 76, 63, 0.1);
-  box-shadow: inset 3px 0 var(--red);
+  border-color: rgba(226, 181, 88, 0.6);
+  background: rgba(226, 181, 88, 0.09);
+  box-shadow: inset 3px 0 #e2b558;
 }
 
 .answerLocked .answerKey {
-  border-color: var(--red);
-  background: var(--red);
-  color: white;
+  border-color: #e2b558;
+  background: #e2b558;
+  color: #15110a;
 }
 
 .answerMuted {
@@ -2368,9 +2351,9 @@
   padding: 0;
   border: 0;
   background: transparent;
-  color: #727a77;
+  color: #8f9693;
   font: inherit;
-  font-size: 11px;
+  font-size: 12px;
   cursor: pointer;
   transition: color 140ms ease;
 }
@@ -2449,6 +2432,12 @@
   font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+/* A zero never wears the reward colour. */
+.pointsAward[data-award="none"] small,
+.pointsAward[data-award="none"] strong {
+  color: var(--faint);
 }
 
 .sideRail {
@@ -2737,12 +2726,7 @@
   }
 
   .lobby h1 {
-    font-size: clamp(50px, 16vw, 70px);
-  }
-
-  .previewQuestion {
-    min-height: 250px;
-    padding-inline: 20px;
+    font-size: clamp(32px, 9.5vw, 44px);
   }
 
   .gameLayout {
@@ -3154,7 +3138,7 @@
   }
 
   .lobby h1 {
-    font-size: clamp(36px, 11vw, 52px);
+    font-size: clamp(28px, 9vw, 36px);
   }
 
   .gameLayout {

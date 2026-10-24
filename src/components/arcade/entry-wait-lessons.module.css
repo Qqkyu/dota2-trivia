@@ -105,3 +105,38 @@
     grid-template-columns: 28px minmax(0, 1fr) 28px;
   }
 }
+
+/* The practice board must never read as a live round. */
+.practiceLabel {
+  color: #e2b558 !important;
+}
+
+.practiceTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 9px;
+  border: 1px solid rgba(226, 181, 88, 0.36);
+  color: #e2b558;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.practiceTag svg {
+  width: 13px;
+  height: 13px;
+}
+
+.practicePicked {
+  border-color: rgba(226, 181, 88, 0.58);
+  background: rgba(226, 181, 88, 0.09);
+  box-shadow: inset 3px 0 #e2b558;
+}
+
+.practicePicked > span:first-child {
+  border-color: #e2b558;
+  background: #e2b558;
+  color: #15110a;
+}

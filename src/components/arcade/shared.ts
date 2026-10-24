@@ -102,6 +102,49 @@ export const PREVIEW_QUESTION: PublicArcadeQuestion = {
 
 export type GamePhase = "lobby" | "waiting" | "answering" | "reveal";
 
+/** What the lobby knows about the live room: the clock and the format, never a question. */
+export interface LobbyPulse {
+  round: {
+    number: number;
+    game: RoundGame;
+    phase: "answering" | "reveal";
+    answerDeadline: number;
+    revealDeadline: number;
+    answerDuration: number;
+  } | null;
+  serverOffset: number;
+}
+
+export function normalizeLobbyPulse(payload: unknown): LobbyPulse | null {
+  if (!payload || typeof payload !== "object" || !("serverNow" in payload) || typeof payload.serverNow !== "number") {
+    return null;
+  }
+  const serverOffset = payload.serverNow - Date.now();
+  const round = "round" in payload ? payload.round : null;
+  if (!round || typeof round !== "object") return { round: null, serverOffset };
+  const candidate = round as Record<string, unknown>;
+  const numbers = ["number", "answerDeadline", "revealDeadline", "answerDuration"] as const;
+  if (
+    !numbers.every((key) => typeof candidate[key] === "number" && Number.isFinite(candidate[key])) ||
+    (candidate.phase !== "answering" && candidate.phase !== "reveal") ||
+    typeof candidate.game !== "string" ||
+    !(ROUND_GAMES as readonly string[]).includes(candidate.game)
+  ) {
+    return { round: null, serverOffset };
+  }
+  return {
+    round: {
+      number: candidate.number as number,
+      game: candidate.game as RoundGame,
+      phase: candidate.phase,
+      answerDeadline: candidate.answerDeadline as number,
+      revealDeadline: candidate.revealDeadline as number,
+      answerDuration: candidate.answerDuration as number,
+    },
+    serverOffset,
+  };
+}
+
 export interface RoundAward {
   points: number;
   majorityBonus: boolean;

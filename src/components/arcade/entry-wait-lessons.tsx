@@ -14,7 +14,19 @@ import styles from "../queue-arcade.module.css";
 import own from "./entry-wait-lessons.module.css";
 
 export function ClassicChoiceBoard({ question, active }: { question: PublicArcadeQuestion; active: boolean }) {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [pick, setPick] = useState<{ index: number; active: boolean } | null>(null);
+  // A pick made while this tip was active clears itself when the tip changes or after a short beat.
+  const selectedIndex = pick && pick.active === active ? pick.index : null;
+  const setSelectedIndex = useCallback(
+    (index: number | null) => setPick(index === null ? null : { index, active }),
+    [active],
+  );
+
+  useEffect(() => {
+    if (selectedIndex === null) return;
+    const reset = window.setTimeout(() => setPick(null), 1_800);
+    return () => window.clearTimeout(reset);
+  }, [selectedIndex]);
 
   useEffect(() => {
     if (!active || selectedIndex !== null) return;
@@ -29,13 +41,13 @@ export function ClassicChoiceBoard({ question, active }: { question: PublicArcad
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [active, selectedIndex]);
+  }, [active, selectedIndex, setSelectedIndex]);
 
   return (
-    <div className={styles.entryWaitChoiceBoard} data-testid="entry-wait-keys-demo">
+    <div className={styles.entryWaitChoiceBoard} data-testid="entry-wait-keys-demo" data-practice="true">
       <div className={styles.roundHeader}>
         <div>
-          <span>Round 001</span>
+          <span className={own.practiceLabel}>Practice</span>
           <i />
           <span className={styles.roundGameLabel}>
             <RoundMark game="trivia" />
@@ -44,9 +56,9 @@ export function ClassicChoiceBoard({ question, active }: { question: PublicArcad
           <i />
           <span>{question.category}</span>
         </div>
-        <div className={styles.timer}>
+        <div className={own.practiceTag} data-testid="entry-wait-practice-tag">
           <Clock3 />
-          <strong>15</strong>
+          Not a live round
         </div>
       </div>
       <div className={styles.questionBlock} data-testid="entry-wait-choice-prompt">
@@ -56,17 +68,17 @@ export function ClassicChoiceBoard({ question, active }: { question: PublicArcad
           <h2>{question.prompt}</h2>
         </div>
       </div>
-      <div className={styles.answers} role="group" aria-label="Answer choices">
+      <div className={styles.answers} role="group" aria-label="Practice answer choices">
         {question.answers.map((answer, index) => {
           const isSelected = selectedIndex === index;
           return (
             <button
               key={answer}
               type="button"
-              data-testid="arcade-answer"
+              data-testid="practice-answer"
               className={clsx(
                 styles.answer,
-                isSelected && styles.answerLocked,
+                isSelected && own.practicePicked,
                 selectedIndex !== null && !isSelected && styles.answerMuted,
               )}
               onClick={() => {
@@ -78,7 +90,7 @@ export function ClassicChoiceBoard({ question, active }: { question: PublicArcad
               <span className={styles.answerKey}>{LETTERS[index]}</span>
               <span className={styles.answerText}>
                 {answer}
-                {isSelected ? <small>Your answer · locked</small> : null}
+                {isSelected ? <small>Picked · a live round locks it here</small> : null}
               </span>
             </button>
           );

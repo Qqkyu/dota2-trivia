@@ -508,7 +508,7 @@ const INSPECT_SOURCE = `(() => {
         issues.push("wait prompt cut: " + JSON.stringify(prompt.textContent));
       }
       const stageBox = box(stage);
-      const answers = [...document.querySelectorAll('[data-testid="entry-wait-keys-demo"] [data-testid="arcade-answer"]')];
+      const answers = [...document.querySelectorAll('[data-testid="entry-wait-keys-demo"] [data-testid="practice-answer"]')];
       if (answers.length !== 4) issues.push("wait A-D demo has " + answers.length + " answers");
       for (const answer of answers) {
         const key = answer.querySelector("span");

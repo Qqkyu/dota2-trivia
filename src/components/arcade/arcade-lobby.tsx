@@ -1,19 +1,17 @@
 import Link from "next/link";
-import { Gamepad2, Signal, Users } from "lucide-react";
+import { Signal } from "lucide-react";
 import clsx from "clsx";
-import { PUBLIC_ARCADE_MODE } from "@/lib/arcade-games.mjs";
+import { useEffect, useState } from "react";
+import { FRESH_ROUND_MIN_REMAINING_MS } from "@/lib/arcade-entry.mjs";
 import { PARTY_ARCADE_PATH } from "@/lib/arcade-navigation.mjs";
-import { type PublicGameInfo } from "@/lib/game-identity";
 import { SteamAvatar } from "../steam-avatar";
 import { SteamSignIn } from "../steam-sign-in";
 import styles from "../queue-arcade.module.css";
 import own from "./arcade-lobby.module.css";
-import { QuestionArtwork } from "./artwork";
 import { ModeIcon } from "./mode-icon";
-import { accuracy, MODE_INFO, PREVIEW_QUESTION, ROUND_GAMES } from "./shared";
+import { gameLabel, type LobbyPulse, MODE_INFO, ROUND_GAMES } from "./shared";
 
 import type { useArcadeRoom } from "./use-arcade-room";
-import type { usePlayerSettings } from "./use-player-settings";
 import type { deriveRoundView } from "./round-view";
 
 type ArcadeLobbyProps = Pick<
@@ -22,6 +20,7 @@ type ArcadeLobbyProps = Pick<
   | "account"
   | "roomError"
   | "activePlayers"
+  | "lobbyPulse"
   | "setPrivateWaiting"
   | "setPartyOpen"
   | "setActivePrivateCode"
@@ -31,14 +30,109 @@ type ArcadeLobbyProps = Pick<
   | "startRun"
   | "returnToLobby"
 > &
-  Pick<ReturnType<typeof usePlayerSettings>, "lifetimeStats" | "statsLoaded"> &
-  Pick<ReturnType<typeof deriveRoundView>, "activeModeInfo"> & { gameInfo: PublicGameInfo };
+  Pick<ReturnType<typeof deriveRoundView>, "activeModeInfo">;
+
+const seconds = (ms: number) => String(Math.max(0, Math.ceil(ms / 1_000))).padStart(2, "0");
+
+function LiveRoom({
+  pulse,
+  activePlayers,
+  answerDuration,
+  joining,
+}: {
+  pulse: LobbyPulse | null;
+  activePlayers: number;
+  answerDuration: number;
+  joining: boolean;
+}) {
+  const [now, setNow] = useState(() => Date.now());
+
+  useEffect(() => {
+    const interval = window.setInterval(() => setNow(Date.now()), 250);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  const round = pulse?.round ?? null;
+  const serverNow = now + (pulse?.serverOffset ?? 0);
+  const answerLeft = round ? Math.max(0, round.answerDeadline - serverNow) : 0;
+  const revealLeft = round ? Math.max(0, round.revealDeadline - serverNow) : 0;
+  const live = round !== null && revealLeft > 0;
+  const between = round !== null && !live;
+  const answering = live && round.phase === "answering" && answerLeft > 0;
+  const joinsThisRound = answering && answerLeft >= FRESH_ROUND_MIN_REMAINING_MS;
+  const revealLength = round ? Math.max(1, round.revealDeadline - round.answerDeadline) : 1;
+
+  return (
+    <div className={own.liveRoom} data-testid="live-room" data-live={live ? "true" : "false"}>
+      <div className={own.liveRoomHeader}>
+        <span>
+          <i className={own.liveDot} data-live={live ? "true" : "false"} aria-hidden="true" />
+          Public room
+        </span>
+        <span data-testid="live-room-players">
+          {activePlayers > 0 ? `${activePlayers.toLocaleString("en-US")} playing now` : "Room open"}
+        </span>
+      </div>
+      <div className={own.liveRoomBody}>
+        {live ? (
+          <>
+            <span className={own.liveRoomRound}>Live now</span>
+            <strong className={own.liveRoomFormat}>
+              <ModeIcon mode={round.game} />
+              {gameLabel(round.game)}
+            </strong>
+            <div className={own.liveRoomClock} data-phase={answering ? "answering" : "reveal"}>
+              <span>{answering ? "Answering" : "Reveal"}</span>
+              <strong data-testid="live-room-clock">00:{seconds(answering ? answerLeft : revealLeft)}</strong>
+            </div>
+            <div className={own.liveRoomTrack} aria-hidden="true">
+              <span
+                style={{
+                  transform: `scaleX(${answering ? answerLeft / Math.max(1, round.answerDuration) : revealLeft / revealLength})`,
+                }}
+              />
+            </div>
+            <p className={own.liveRoomJoin}>
+              {joining
+                ? "Joining the next full round…"
+                : joinsThisRound
+                  ? "Play now and this round is yours."
+                  : `Play now and you start with the next round, in ${Math.ceil(revealLeft / 1_000)}s.`}
+            </p>
+          </>
+        ) : (
+          <>
+            <span className={own.liveRoomRound}>{between ? "Live now" : "One room, one clock"}</span>
+            <strong className={own.liveRoomFormat}>
+              {between ? "Next round is starting" : "Connecting to the room…"}
+            </strong>
+            <div className={own.liveRoomClock}>
+              <span>Each round</span>
+              <strong data-testid="live-room-clock">00:{seconds(answerDuration)}</strong>
+            </div>
+            <div className={own.liveRoomTrack} aria-hidden="true">
+              <span style={{ transform: "scaleX(1)" }} />
+            </div>
+            <p className={own.liveRoomJoin}>
+              {joining
+                ? "Joining the next full round…"
+                : between
+                  ? "Play now and you start with the next round."
+                  : "Everyone gets the same question on the same clock."}
+            </p>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export function ArcadeLobby({
   phase,
   account,
   roomError,
   activePlayers,
+  lobbyPulse,
   setPrivateWaiting,
   setPartyOpen,
   setActivePrivateCode,
@@ -47,41 +141,21 @@ export function ArcadeLobby({
   answerDuration,
   startRun,
   returnToLobby,
-  lifetimeStats,
-  statsLoaded,
   activeModeInfo,
-  gameInfo,
 }: ArcadeLobbyProps) {
   return (
     <section className={styles.lobby} id="arcade">
       <div className={own.lobbyCopy}>
-        <div className={own.liveLabel}>
-          <span />
-          {activePlayers > 0
-            ? `${activePlayers.toLocaleString("en-US")} playing now · Ten games`
-            : "One public room · Ten games"}
-        </div>
         <h1>
-          Your queue has
+          Dota side quests
           <br />
-          <em>side quests.</em>
+          <em>between matches</em>
         </h1>
         <p className={own.lead}>
-          A Dota arcade built for the gap between Find Match and Accept. Everyone plays the same endless rotation; the
-          challenge changes every round.
+          One public room, one {Math.round(answerDuration / 1_000)}-second clock. Everyone gets the same question, the
+          room&rsquo;s split goes up at the reveal, and a right answer scores <strong>double</strong> when most of the
+          crowd got it wrong.
         </p>
-
-        <div className={own.roundMix} data-testid="round-mix">
-          <span className={own.fieldLabel}>Round mix</span>
-          <div className={own.roundMixRail} role="group" aria-label="Round identities">
-            {ROUND_GAMES.map((game) => (
-              <span key={game} data-round-family={game}>
-                <ModeIcon mode={game} />
-                <strong>{MODE_INFO[game].shortLabel}</strong>
-              </span>
-            ))}
-          </div>
-        </div>
 
         <div className={own.lobbyActions}>
           <button
@@ -147,65 +221,25 @@ export function ArcadeLobby({
           </div>
         ) : null}
 
-        <div className={own.featureStrip}>
-          <div>
-            <strong>{ROUND_GAMES.length}</strong>
-            <span>games in the mix</span>
-          </div>
-          <div>
-            <strong>{gameInfo.questionCount}</strong>
-            <span>patch-current prompts</span>
-          </div>
-          <div>
-            <strong>2×</strong>
-            <span>crowd-breaker bonus</span>
-          </div>
-          <div>
-            <strong>
-              {account?.authenticated
-                ? `${account.profile.stats.accuracy}%`
-                : statsLoaded
-                  ? `${accuracy(lifetimeStats.correct, lifetimeStats.answered)}%`
-                  : "—"}
-            </strong>
-            <span>your lifetime accuracy</span>
-          </div>
+        <div className={own.rotation} data-testid="round-mix">
+          <span className={own.fieldLabel}>Ten games, one rotation</span>
+          <ul className={own.rotationList} aria-label="Round identities">
+            {ROUND_GAMES.map((game) => (
+              <li key={game} data-round-family={game}>
+                <ModeIcon mode={game} />
+                {MODE_INFO[game].shortLabel}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
-      <div className={own.previewColumn}>
-        <div className={own.previewHalo} />
-        <div className={own.previewCard} data-testid="mode-preview">
-          <div className={own.previewHeader}>
-            <span>
-              <ModeIcon mode={PUBLIC_ARCADE_MODE} />
-              {activeModeInfo.label}
-            </span>
-            <strong>00:{String(answerDuration / 1000).padStart(2, "0")}</strong>
-          </div>
-          <div className={styles.previewQuestion}>
-            <QuestionArtwork question={PREVIEW_QUESTION} />
-            <span>{activeModeInfo.eyebrow}</span>
-            <h2>The next round could be anything.</h2>
-            <p>{activeModeInfo.description}</p>
-          </div>
-          <div className={own.previewFooter}>
-            <Users />
-            One synchronized round, deadline, and answer split for everyone
-          </div>
-        </div>
-
-        <div className={own.queueToast}>
-          <span className={own.readyIcon}>
-            <Gamepad2 />
-          </span>
-          <span>
-            <small>Public room ready</small>
-            {activeModeInfo.shortLabel}
-          </span>
-          <strong>{answerDuration / 1000}s</strong>
-        </div>
-      </div>
+      <LiveRoom
+        pulse={lobbyPulse}
+        activePlayers={activePlayers}
+        answerDuration={answerDuration}
+        joining={phase === "waiting"}
+      />
     </section>
   );
 }

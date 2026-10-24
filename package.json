@@ -70,14 +70,14 @@
       "sharp": "0.35.5"
     },
     "patchedDependencies": {
-      "@next/eslint-plugin-next@16.3.8": "patches/@next__eslint-plugin-next@16.3.8.patch",
+      "@next/eslint-plugin-next@16.4.3": "patches/@next__eslint-plugin-next@16.4.3.patch",
       "postgres@3.4.9": "patches/postgres@3.4.9.patch"
     }
   },
   "dependencies": {
     "clsx": "2.1.1",
     "lucide-react": "1.26.0",
-    "next": "16.3.8",
+    "next": "16.4.3",
     "postgres": "3.4.9",
     "react": "19.3.1",
     "react-dom": "19.3.1",
@@ -89,7 +89,7 @@
     "@types/react-dom": "19.3.0",
     "axe-core": "4.14.0",
     "eslint": "9.39.5",
-    "eslint-config-next": "16.3.8",
+    "eslint-config-next": "16.4.3",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-prettier": "5.2.1",
     "playwright": "1.64.1",

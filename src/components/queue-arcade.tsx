@@ -48,7 +48,7 @@ export function QueueArcade({
   const playerId = usePlayerId();
   const { ensurePlayerId } = playerId;
   const settings = usePlayerSettings({ ensurePlayerId });
-  const { soundEnabled, setSoundEnabled, gameVolume, setGameVolume, lifetimeStats, statsLoaded } = settings;
+  const { soundEnabled, setSoundEnabled, gameVolume, setGameVolume, statsLoaded } = settings;
   const refs = useRoundRefs();
   const audio = useArcadeAudio({ refs, soundEnabled, setSoundEnabled, gameVolume });
   const {
@@ -84,6 +84,7 @@ export function QueueArcade({
     activeRoundId,
     roundAnnouncement,
     activePlayers,
+    lobbyPulse,
     reportState,
     reportedReason,
     reportTarget,
@@ -173,11 +174,7 @@ export function QueueArcade({
           ? roundAnnouncement.text
           : ""}
       </div>
-      <div className={styles.backdrop} aria-hidden="true">
-        <span className={styles.backdropOrbOne} />
-        <span className={styles.backdropOrbTwo} />
-        <span className={styles.gridTexture} />
-      </div>
+      <div className={styles.backdrop} aria-hidden="true" />
 
       <ArcadeHeader
         returnToLobby={returnToLobby}
@@ -196,6 +193,7 @@ export function QueueArcade({
           account={account}
           roomError={roomError}
           activePlayers={activePlayers}
+          lobbyPulse={lobbyPulse}
           setPrivateWaiting={setPrivateWaiting}
           setPartyOpen={setPartyOpen}
           setActivePrivateCode={setActivePrivateCode}
@@ -204,10 +202,7 @@ export function QueueArcade({
           answerDuration={answerDuration}
           startRun={startRun}
           returnToLobby={returnToLobby}
-          lifetimeStats={lifetimeStats}
-          statsLoaded={statsLoaded}
           activeModeInfo={activeModeInfo}
-          gameInfo={gameInfo}
         />
       )}
 
@@ -304,6 +299,8 @@ export function QueueArcade({
                 role="timer"
                 aria-live="off"
                 aria-label={`${Math.ceil(answerRemaining / 1000)} seconds remaining`}
+                data-urgent={phase === "answering" && answerRemaining <= 5_000 ? "true" : "false"}
+                data-phase={phase}
               >
                 <Clock3 />
                 <strong data-testid="round-timer">
@@ -349,6 +346,8 @@ export function QueueArcade({
               selectedIndex={selectedIndex}
               selectedAnswerKey={selectedAnswerKey}
               crowd={crowd}
+              roundAward={roundAward}
+              resultCallout={resultCallout}
               activeRoundId={activeRoundId}
               chooseAnswer={chooseAnswer}
               chooseKeyedAnswer={chooseKeyedAnswer}
@@ -387,6 +386,9 @@ export function QueueArcade({
                 reportTarget={reportTarget}
                 submitQuestionReport={submitQuestionReport}
                 toggleQuestionReport={toggleQuestionReport}
+                crowd={crowd}
+                selectedIndex={selectedIndex}
+                selectedAnswerKey={selectedAnswerKey}
                 selectedWasCorrect={selectedWasCorrect}
                 resultCallout={resultCallout}
                 isValueOrderRound={isValueOrderRound}
@@ -398,12 +400,12 @@ export function QueueArcade({
             phase={phase}
             currentQuestion={currentQuestion}
             roundIndex={roundIndex}
-            selectedIndex={selectedIndex}
             selectedAnswerKey={selectedAnswerKey}
             crowd={crowd}
             score={score}
             streak={streak}
             roomError={roomError}
+            activePlayers={activePlayers}
             currentGame={currentGame}
             recentHistory={recentHistory}
             recentHistoryStart={recentHistoryStart}

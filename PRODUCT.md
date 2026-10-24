@@ -58,7 +58,7 @@ mobile ten-question quiz, and Dota Slash is not a dependable replacement.
 - The Dota client is open on the same machine. Its audio and the Accept prompt compete with
   the arcade for attention. Tabs go hidden and come back.
 - Every browser shares one server-owned public room per game and content version. A new
-  player joins the live question only when at least eight seconds remain; otherwise they wait
+  player joins the live question only when at least 13 seconds remain; otherwise they wait
   on a synchronized countdown for the next full round.
 - Players who are silent for 90 seconds in a party are tagged Away but keep seat and score;
   only Leave removes anyone (maintainer rule).

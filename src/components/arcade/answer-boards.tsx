@@ -27,11 +27,13 @@ type AnswerBoardsProps = { currentQuestion: PublicArcadeQuestion } & Pick<
   | "activeRoundId"
   | "chooseAnswer"
   | "chooseKeyedAnswer"
+  | "roundAward"
 > &
   Pick<ReturnType<typeof useArcadeAudio>, "playPickSound"> &
   Pick<
     ReturnType<typeof deriveRoundView>,
     | "currentGame"
+    | "resultCallout"
     | "isOpenShopRound"
     | "isHeroPickerRound"
     | "isValueOrderRound"
@@ -50,6 +52,8 @@ export function AnswerBoards({
   chooseKeyedAnswer,
   playPickSound,
   currentGame,
+  resultCallout,
+  roundAward,
   isOpenShopRound,
   isHeroPickerRound,
   isValueOrderRound,
@@ -78,6 +82,8 @@ export function AnswerBoards({
           selectedKey={selectedAnswerKey}
           crowd={crowd}
           onChoose={chooseKeyedAnswer}
+          resultCallout={phase === "reveal" ? resultCallout : null}
+          roundAward={roundAward}
         />
       )}
 
@@ -132,6 +138,8 @@ export function AnswerBoards({
             role="group"
             aria-label="Answer choices"
             data-testid="answer-grid"
+            data-split-kind="answer-rows"
+            data-total={phase === "reveal" ? crowd.total : undefined}
           >
             {currentQuestion.answers.map((answer, index) => {
               const isSelected = selectedIndex === index;
@@ -149,6 +157,9 @@ export function AnswerBoards({
                   key={`${currentQuestion.id}:${answer}`}
                   type="button"
                   data-testid="arcade-answer"
+                  data-count={phase === "reveal" ? crowd.counts[index] : undefined}
+                  data-correct={phase === "reveal" ? String(isCorrect) : undefined}
+                  data-selected={phase === "reveal" ? String(isSelected) : undefined}
                   className={clsx(
                     styles.answer,
                     (currentQuestion.answerImages || answerImagePair || shopkeeperAnswerGroup) && styles.visualAnswer,

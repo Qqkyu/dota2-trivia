@@ -32,6 +32,14 @@
   color: var(--red-bright);
 }
 
+.crowdLine {
+  margin: 0 0 6px;
+  color: #b9bfbb;
+  font-size: 12px;
+  font-weight: 540;
+  line-height: 1.4;
+}
+
 .reportControl {
   position: relative;
   width: fit-content;
