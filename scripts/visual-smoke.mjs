@@ -1250,8 +1250,14 @@ const reveal = await evaluate(`(() => {
       lock: Boolean(document.querySelector('[data-testid="flashback-year-lock"]')),
     },
     crowdSplit: (() => {
-      const split = document.querySelector('[data-testid="crowd-split"]');
-      const rows = [...document.querySelectorAll('[data-testid="crowd-split-row"]')];
+      // Choice rounds carry the split on the answer rows; grid picks keep the sidebar card.
+      const split =
+        document.querySelector('[data-testid="crowd-split"]') ?? document.querySelector('[data-testid="answer-grid"]');
+      const rows = [
+        ...document.querySelectorAll(
+          split?.dataset.splitKind === "answer-rows" ? '[data-testid="arcade-answer"]' : '[data-testid="crowd-split-row"]',
+        ),
+      ];
       return {
         visible: Boolean(split),
         kind: split?.dataset.splitKind,
@@ -1353,7 +1359,7 @@ const sameBounds =
   Object.keys(revealBoundsBeforeReport).every(
     (key) => Math.abs(revealBoundsBeforeReport[key] - reveal.reportBounds[key]) <= 1,
   );
-if (!lobby.title.includes("Queue Arcade") || !lobby.heading?.includes("side quests")) {
+if (!lobby.title.includes("Queue Arcade") || !lobby.heading?.toLowerCase().includes("side quests")) {
   failures.push("Queue Arcade lobby metadata or heading is missing.");
 }
 if (

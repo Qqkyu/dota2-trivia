@@ -222,7 +222,7 @@ export function ArcadeLobby({
         ) : null}
 
         <div className={own.rotation} data-testid="round-mix">
-          <span className={own.fieldLabel}>Ten formats, one rotation</span>
+          <span className={own.fieldLabel}>Ten games, one rotation</span>
           <ul className={own.rotationList} aria-label="Round identities">
             {ROUND_GAMES.map((game) => (
               <li key={game} data-round-family={game}>
