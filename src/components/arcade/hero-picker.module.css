@@ -22,8 +22,20 @@
   font-weight: 600;
 }
 
+.heroPickerStatus[data-state="reveal"] {
+  color: #d6d9d3;
+}
+
 .heroPickerStatus[data-state="reveal"] strong {
   color: #8fd39a;
+}
+
+.heroPickerStatus span[data-result="scored"] {
+  color: #e2b558;
+}
+
+.heroPickerStatus span[data-result="none"] {
+  color: #e07d72;
 }
 
 .heroPickerBoard {

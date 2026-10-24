@@ -27,11 +27,13 @@ type AnswerBoardsProps = { currentQuestion: PublicArcadeQuestion } & Pick<
   | "activeRoundId"
   | "chooseAnswer"
   | "chooseKeyedAnswer"
+  | "roundAward"
 > &
   Pick<ReturnType<typeof useArcadeAudio>, "playPickSound"> &
   Pick<
     ReturnType<typeof deriveRoundView>,
     | "currentGame"
+    | "resultCallout"
     | "isOpenShopRound"
     | "isHeroPickerRound"
     | "isValueOrderRound"
@@ -50,6 +52,8 @@ export function AnswerBoards({
   chooseKeyedAnswer,
   playPickSound,
   currentGame,
+  resultCallout,
+  roundAward,
   isOpenShopRound,
   isHeroPickerRound,
   isValueOrderRound,
@@ -78,6 +82,8 @@ export function AnswerBoards({
           selectedKey={selectedAnswerKey}
           crowd={crowd}
           onChoose={chooseKeyedAnswer}
+          resultCallout={phase === "reveal" ? resultCallout : null}
+          roundAward={roundAward}
         />
       )}
 

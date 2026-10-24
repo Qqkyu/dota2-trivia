@@ -346,6 +346,8 @@ export function QueueArcade({
               selectedIndex={selectedIndex}
               selectedAnswerKey={selectedAnswerKey}
               crowd={crowd}
+              roundAward={roundAward}
+              resultCallout={resultCallout}
               activeRoundId={activeRoundId}
               chooseAnswer={chooseAnswer}
               chooseKeyedAnswer={chooseKeyedAnswer}
@@ -403,6 +405,7 @@ export function QueueArcade({
             score={score}
             streak={streak}
             roomError={roomError}
+            activePlayers={activePlayers}
             currentGame={currentGame}
             recentHistory={recentHistory}
             recentHistoryStart={recentHistoryStart}

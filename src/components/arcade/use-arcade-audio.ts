@@ -4,7 +4,7 @@ import { claimAudioTab } from "@/lib/audio-tab.mjs";
 import { type PublicArcadeQuestion } from "@/lib/public-question";
 import { echoHuntCutDuration, soundcheckCutDuration } from "@/lib/soundcheck.mjs";
 import { audioUrlStage, roundAudioSourceKey, waitForAudioCut, waitForAudioGap, waitForMediaEvent } from "./round-audio";
-import { type GamePhase } from "./shared";
+import { ANSWER_DURATION_MS, REVEAL_DURATION_MS, type GamePhase } from "./shared";
 
 import type { useRoundRefs } from "./use-round-refs";
 
@@ -198,6 +198,59 @@ export function useArcadeAudio({
   };
 }
 
+/** One full round of lost focus means the player is in a match, not glancing at the client. */
+const ATTENTION_GRACE_MS = ANSWER_DURATION_MS + REVEAL_DURATION_MS;
+
+/**
+ * True while this page has the player's attention: visible, and focused or
+ * unfocused for less than one round. Round clips autoplay only then, so the
+ * arcade never talks over a match after Accept. Pick and result cues are not
+ * gated here; ADR 0001 covers those.
+ */
+export function useAttention() {
+  const [attentive, setAttentive] = useState(true);
+
+  useEffect(() => {
+    let timer: number | null = null;
+    const clear = () => {
+      if (timer !== null) window.clearTimeout(timer);
+      timer = null;
+    };
+    const away = () => {
+      if (timer !== null) return;
+      timer = window.setTimeout(() => {
+        timer = null;
+        setAttentive(false);
+      }, ATTENTION_GRACE_MS);
+    };
+    const back = () => {
+      clear();
+      setAttentive(true);
+    };
+    const visibility = () => {
+      if (document.hidden) {
+        clear();
+        setAttentive(false);
+      } else if (document.hasFocus()) {
+        back();
+      } else {
+        away();
+      }
+    };
+    window.addEventListener("blur", away);
+    window.addEventListener("focus", back);
+    document.addEventListener("visibilitychange", visibility);
+    return () => {
+      clear();
+      window.removeEventListener("blur", away);
+      window.removeEventListener("focus", back);
+      document.removeEventListener("visibilitychange", visibility);
+    };
+  }, []);
+
+  return attentive;
+}
+
 export function useRoundAutoplay({
   audio,
   phase,
@@ -218,6 +271,7 @@ export function useRoundAutoplay({
   soundEnabled: boolean;
 }) {
   const { roundAudioRefs, autoPlayedAudioKeyRef, playRoundAudio, roundAudioState, stopRoundAudio } = audio;
+  const attentive = useAttention();
 
   useEffect(() => {
     if (phase !== "answering") stopRoundAudio(false);
@@ -233,6 +287,7 @@ export function useRoundAutoplay({
       !hasRoundAudio ||
       !currentQuestion?.audio ||
       !soundEnabled ||
+      !attentive ||
       !roundAudioRefs.current.some(Boolean) ||
       (srcStage !== null && srcStage !== clueStage) ||
       autoPlayedAudioKeyRef.current === autoplayKey
@@ -243,6 +298,7 @@ export function useRoundAutoplay({
     playRoundAudio(false, isProgressiveAudioRound ? clueStage : 1);
   }, [
     activeRoundId,
+    attentive,
     clueStage,
     currentQuestion,
     currentQuestion?.audio,

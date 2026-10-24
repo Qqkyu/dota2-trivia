@@ -11,7 +11,7 @@ import {
   type HeroPickerHero,
 } from "@/lib/hero-picker";
 import type { PublicArcadeQuestion } from "@/lib/public-question";
-import type { GamePhase } from "./shared";
+import type { GamePhase, RoundAward } from "./shared";
 import styles from "../queue-arcade.module.css";
 import own from "./hero-picker.module.css";
 
@@ -48,12 +48,17 @@ export function HeroPicker({
   selectedKey,
   crowd,
   onChoose,
+  resultCallout = null,
+  roundAward = null,
 }: {
   question: PublicArcadeQuestion;
   phase: GamePhase;
   selectedKey: string | null;
   crowd: CrowdResult;
   onChoose: (heroKey: string) => void;
+  /** At reveal: the verdict and the gold, so the payoff shows above the grid without moving it. */
+  resultCallout?: string | null;
+  roundAward?: RoundAward | null;
 }) {
   const [query, setQuery] = useState("");
   const [searchFlash, setSearchFlash] = useState(false);
@@ -204,6 +209,12 @@ export function HeroPicker({
         {correctHero ? (
           <>
             Answer: <strong>{correctHero.name}</strong>
+            {resultCallout ? (
+              <span data-result={roundAward?.correct ? "scored" : "none"} data-testid="hero-picker-result">
+                · {resultCallout}
+                {roundAward?.correct ? ` · +${roundAward.points.toLocaleString("en-US")} gold` : ""}
+              </span>
+            ) : null}
             {selectedHero && selectedHero.key !== correctHero.key ? (
               <span>· You picked {selectedHero.name}</span>
             ) : null}

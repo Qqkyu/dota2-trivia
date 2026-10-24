@@ -50,10 +50,17 @@
   }
 }
 
+@keyframes hudFade {
+  to {
+    opacity: 0;
+  }
+}
+
+/* Sits under the round header (app header 88 + stage padding 28 + header 64) and clears it on phones too. */
 .killStreakHud {
   position: fixed;
   z-index: 41;
-  top: 75px;
+  top: 184px;
   right: 0;
   left: 0;
   display: flex;
@@ -112,11 +119,36 @@
 }
 
 .firstBloodBanner {
-  animation: firstBloodReveal 0.2s linear;
+  animation:
+    firstBloodReveal 0.2s linear,
+    hudFade 0.45s ease 2.4s forwards;
 }
 
 .killStreakBanner {
-  animation: killStreakReveal 0.2s linear;
+  animation:
+    killStreakReveal 0.2s linear,
+    hudFade 0.45s ease 2.2s forwards;
+}
+
+@media (max-width: 680px) {
+  .killStreakHud {
+    top: 160px;
+  }
+
+  .killStreakHud > p {
+    font-size: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .firstBloodBanner,
+  .killStreakBanner {
+    animation: hudFade 0.3s ease 2.4s forwards;
+  }
+
+  .firstBloodSplash {
+    display: none;
+  }
 }
 
 .firstBloodSplash {
