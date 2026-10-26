@@ -111,17 +111,32 @@ export interface LobbyPulse {
     answerDeadline: number;
     revealDeadline: number;
     answerDuration: number;
+    nextGame: RoundGame | null;
   } | null;
+  /** The server clock when this pulse was produced; rendered as-is until the client ticks. */
+  serverNow: number;
   serverOffset: number;
+}
+
+/** What the server sends: the page embeds one of these so the first paint has the real clock. */
+export interface LobbyPulsePayload {
+  activePlayers: number;
+  serverNow: number;
+  round: LobbyPulse["round"];
+}
+
+export function lobbyPulseFromPayload(payload: LobbyPulsePayload): LobbyPulse {
+  return { round: payload.round, serverNow: payload.serverNow, serverOffset: payload.serverNow - Date.now() };
 }
 
 export function normalizeLobbyPulse(payload: unknown): LobbyPulse | null {
   if (!payload || typeof payload !== "object" || !("serverNow" in payload) || typeof payload.serverNow !== "number") {
     return null;
   }
-  const serverOffset = payload.serverNow - Date.now();
+  const serverNow = payload.serverNow;
+  const serverOffset = serverNow - Date.now();
   const round = "round" in payload ? payload.round : null;
-  if (!round || typeof round !== "object") return { round: null, serverOffset };
+  if (!round || typeof round !== "object") return { round: null, serverNow, serverOffset };
   const candidate = round as Record<string, unknown>;
   const numbers = ["number", "answerDeadline", "revealDeadline", "answerDuration"] as const;
   if (
@@ -130,7 +145,7 @@ export function normalizeLobbyPulse(payload: unknown): LobbyPulse | null {
     typeof candidate.game !== "string" ||
     !(ROUND_GAMES as readonly string[]).includes(candidate.game)
   ) {
-    return { round: null, serverOffset };
+    return { round: null, serverNow, serverOffset };
   }
   return {
     round: {
@@ -140,7 +155,12 @@ export function normalizeLobbyPulse(payload: unknown): LobbyPulse | null {
       answerDeadline: candidate.answerDeadline as number,
       revealDeadline: candidate.revealDeadline as number,
       answerDuration: candidate.answerDuration as number,
+      nextGame:
+        typeof candidate.nextGame === "string" && (ROUND_GAMES as readonly string[]).includes(candidate.nextGame)
+          ? (candidate.nextGame as RoundGame)
+          : null,
     },
+    serverNow,
     serverOffset,
   };
 }

@@ -24,6 +24,7 @@ import { ArcadeHeader } from "./arcade/arcade-header";
 import { ArcadeLobby } from "./arcade/arcade-lobby";
 import { EntryWait } from "./arcade/entry-wait";
 import { KillStreakHud } from "./arcade/kill-streak-hud";
+import type { LobbyPulsePayload } from "./arcade/shared";
 import { RoundPrompt } from "./arcade/round-prompt";
 import { AnswerBoards } from "./arcade/answer-boards";
 import { AnswerHelper } from "./arcade/answer-helper";
@@ -38,12 +39,14 @@ export function QueueArcade({
   roomCode,
   gameInfo,
   formatPreviews = {},
+  initialPulse = null,
 }: {
   autoStart?: boolean;
   partyStart?: boolean;
   roomCode?: string;
   gameInfo: PublicGameInfo;
   formatPreviews?: Record<string, FormatPreview | null | undefined>;
+  initialPulse?: LobbyPulsePayload | null;
 }) {
   const playerId = usePlayerId();
   const { ensurePlayerId } = playerId;
@@ -65,7 +68,7 @@ export function QueueArcade({
     stopRoundAudio,
     playRoundAudio,
   } = audio;
-  const room = useArcadeRoom({ autoStart, partyStart, roomCode, refs, playerId, settings, audio });
+  const room = useArcadeRoom({ autoStart, partyStart, roomCode, refs, playerId, settings, audio, initialPulse });
   const {
     phase,
     currentQuestion,

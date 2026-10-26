@@ -65,6 +65,7 @@ export function useRoomPolling({
   useEffect(() => {
     if (phase !== "lobby") return;
     let active = true;
+    let boundary: number | undefined;
     const loadPresence = async () => {
       try {
         const response = await fetch("/api/presence", { cache: "no-store" });
@@ -80,7 +81,14 @@ export function useRoomPolling({
           payload.activePlayers >= 0
         ) {
           setActivePlayers(payload.activePlayers);
-          setLobbyPulse(normalizeLobbyPulse(payload));
+          const pulse = normalizeLobbyPulse(payload);
+          setLobbyPulse(pulse);
+          // Refetch right after this round ends so the next format shows up at the boundary, not on the next tick.
+          if (pulse?.round) {
+            window.clearTimeout(boundary);
+            const wait = pulse.round.revealDeadline - (Date.now() + pulse.serverOffset) + 300;
+            boundary = window.setTimeout(() => void loadPresence(), Math.max(300, wait));
+          }
         }
       } catch {
         // Presence is decorative; room entry must stay independent from it.
@@ -91,6 +99,7 @@ export function useRoomPolling({
     return () => {
       active = false;
       window.clearInterval(interval);
+      window.clearTimeout(boundary);
     };
   }, [phase]);
 
