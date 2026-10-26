@@ -3,6 +3,7 @@ import { Signal } from "lucide-react";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { FRESH_ROUND_MIN_REMAINING_MS } from "@/lib/arcade-entry.mjs";
+import { lobbyRoundAt } from "@/lib/lobby-round.mjs";
 import { PARTY_ARCADE_PATH } from "@/lib/arcade-navigation.mjs";
 import { SteamAvatar } from "../steam-avatar";
 import { SteamSignIn } from "../steam-sign-in";
@@ -37,36 +38,38 @@ const seconds = (ms: number) => String(Math.max(0, Math.ceil(ms / 1_000))).padSt
 function LiveRoom({
   pulse,
   activePlayers,
-  answerDuration,
   joining,
 }: {
   pulse: LobbyPulse | null;
   activePlayers: number;
-  answerDuration: number;
   joining: boolean;
 }) {
-  const [now, setNow] = useState(() => Date.now());
+  // Before the first tick the card renders the server's own clock, so the server
+  // and the client paint the same digits and nothing flickers on load.
+  const [now, setNow] = useState<number | null>(null);
 
   useEffect(() => {
     const interval = window.setInterval(() => setNow(Date.now()), 250);
     return () => window.clearInterval(interval);
   }, []);
 
-  const round = pulse?.round ?? null;
-  const serverNow = now + (pulse?.serverOffset ?? 0);
-  const answerLeft = round ? Math.max(0, round.answerDeadline - serverNow) : 0;
-  const revealLeft = round ? Math.max(0, round.revealDeadline - serverNow) : 0;
-  const live = round !== null && revealLeft > 0;
-  const between = round !== null && !live;
-  const answering = live && round.phase === "answering" && answerLeft > 0;
+  const serverNow = pulse ? (now === null ? pulse.serverNow : now + pulse.serverOffset) : null;
+  const round = pulse?.round && serverNow !== null ? lobbyRoundAt(pulse.round, serverNow) : null;
+  const game = (round?.game ?? null) as NonNullable<LobbyPulse["round"]>["game"] | null;
+  const answerLeft = round && serverNow !== null ? Math.max(0, round.answerDeadline - serverNow) : 0;
+  const nextRoundIn = round && serverNow !== null ? Math.max(0, round.revealDeadline - serverNow) : 0;
+  const answering = round !== null && answerLeft > 0;
   const joinsThisRound = answering && answerLeft >= FRESH_ROUND_MIN_REMAINING_MS;
-  const revealLength = round ? Math.max(1, round.revealDeadline - round.answerDeadline) : 1;
+  const period = round ? round.answerDuration + Math.max(1, round.revealDeadline - round.answerDeadline) : 1;
+  // One number that only counts down: the seconds until the next round starts.
+  const clockMs = nextRoundIn;
+  const clockSpan = period;
 
   return (
-    <div className={own.liveRoom} data-testid="live-room" data-live={live ? "true" : "false"}>
+    <div className={own.liveRoom} data-testid="live-room" data-live={round ? "true" : "false"}>
       <div className={own.liveRoomHeader}>
         <span>
-          <i className={own.liveDot} data-live={live ? "true" : "false"} aria-hidden="true" />
+          <i className={own.liveDot} data-live={round ? "true" : "false"} aria-hidden="true" />
           Public room
         </span>
         <span data-testid="live-room-players">
@@ -74,54 +77,37 @@ function LiveRoom({
         </span>
       </div>
       <div className={own.liveRoomBody}>
-        {live ? (
-          <>
-            <span className={own.liveRoomRound}>Live now</span>
-            <strong className={own.liveRoomFormat}>
-              <ModeIcon mode={round.game} />
-              {gameLabel(round.game)}
-            </strong>
-            <div className={own.liveRoomClock} data-phase={answering ? "answering" : "reveal"}>
-              <span>{answering ? "Answering" : "Reveal"}</span>
-              <strong data-testid="live-room-clock">00:{seconds(answering ? answerLeft : revealLeft)}</strong>
-            </div>
-            <div className={own.liveRoomTrack} aria-hidden="true">
-              <span
-                style={{
-                  transform: `scaleX(${answering ? answerLeft / Math.max(1, round.answerDuration) : revealLeft / revealLength})`,
-                }}
-              />
-            </div>
-            <p className={own.liveRoomJoin}>
-              {joining
-                ? "Joining the next full round…"
-                : joinsThisRound
-                  ? "Play now and this round is yours."
-                  : `Play now and you start with the next round, in ${Math.ceil(revealLeft / 1_000)}s.`}
-            </p>
-          </>
-        ) : (
-          <>
-            <span className={own.liveRoomRound}>{between ? "Live now" : "One room, one clock"}</span>
-            <strong className={own.liveRoomFormat}>
-              {between ? "Next round is starting" : "Connecting to the room…"}
-            </strong>
-            <div className={own.liveRoomClock}>
-              <span>Each round</span>
-              <strong data-testid="live-room-clock">00:{seconds(answerDuration)}</strong>
-            </div>
-            <div className={own.liveRoomTrack} aria-hidden="true">
-              <span style={{ transform: "scaleX(1)" }} />
-            </div>
-            <p className={own.liveRoomJoin}>
-              {joining
-                ? "Joining the next full round…"
-                : between
-                  ? "Play now and you start with the next round."
-                  : "Everyone gets the same question on the same clock."}
-            </p>
-          </>
-        )}
+        <span className={own.liveRoomRound}>
+          {round ? `Live now · ${answering ? "Answering" : "Reveal"}` : "One room, one clock"}
+        </span>
+        <strong className={own.liveRoomFormat} data-testid="live-room-format">
+          {game ? (
+            <>
+              <ModeIcon mode={game} />
+              {gameLabel(game)}
+            </>
+          ) : round ? (
+            "Next round"
+          ) : (
+            "Connecting to the room…"
+          )}
+        </strong>
+        <div className={own.liveRoomClock} data-phase={joinsThisRound ? "join" : "next"}>
+          <span>Next round in</span>
+          <strong data-testid="live-room-clock">{round ? `00:${seconds(clockMs)}` : "--:--"}</strong>
+        </div>
+        <div className={own.liveRoomTrack} aria-hidden="true">
+          <span style={{ transform: `scaleX(${round ? Math.min(1, clockMs / clockSpan) : 0})` }} />
+        </div>
+        <p className={own.liveRoomJoin}>
+          {joining
+            ? "Joining the next full round…"
+            : joinsThisRound
+              ? "Play now and this round is yours."
+              : round
+                ? "Play now and you start with the next round."
+                : "Everyone gets the same question on the same clock."}
+        </p>
       </div>
     </div>
   );
@@ -234,12 +220,7 @@ export function ArcadeLobby({
         </div>
       </div>
 
-      <LiveRoom
-        pulse={lobbyPulse}
-        activePlayers={activePlayers}
-        answerDuration={answerDuration}
-        joining={phase === "waiting"}
-      />
+      <LiveRoom pulse={lobbyPulse} activePlayers={activePlayers} joining={phase === "waiting"} />
     </section>
   );
 }

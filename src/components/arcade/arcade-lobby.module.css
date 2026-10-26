@@ -395,7 +395,7 @@
   line-height: 1;
 }
 
-.liveRoomClock[data-phase="reveal"] > strong {
+.liveRoomClock[data-phase="join"] > strong {
   color: var(--green);
 }
 

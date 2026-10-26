@@ -33,9 +33,11 @@ import { normalizeRoomSnapshot, normalizeVoteResult, publicRoomQuery } from "./r
 import {
   ANSWER_DURATION_MS,
   EMPTY_CROWD,
+  lobbyPulseFromPayload,
   withPlayerId,
   type GamePhase,
   type LobbyPulse,
+  type LobbyPulsePayload,
   type RoundAward,
 } from "./shared";
 
@@ -59,10 +61,12 @@ export function useArcadeRoom({
   playerId,
   settings,
   audio,
+  initialPulse = null,
 }: {
   autoStart: boolean;
   partyStart: boolean;
   roomCode?: string;
+  initialPulse?: LobbyPulsePayload | null;
   refs: ReturnType<typeof useRoundRefs>;
   playerId: ReturnType<typeof usePlayerId>;
   settings: ReturnType<typeof usePlayerSettings>;
@@ -125,9 +129,11 @@ export function useArcadeRoom({
 
   const [activeRoundId, setActiveRoundId] = useState("");
 
-  const [activePlayers, setActivePlayers] = useState(0);
+  const [activePlayers, setActivePlayers] = useState(initialPulse?.activePlayers ?? 0);
 
-  const [lobbyPulse, setLobbyPulse] = useState<LobbyPulse | null>(null);
+  const [lobbyPulse, setLobbyPulse] = useState<LobbyPulse | null>(() =>
+    initialPulse ? lobbyPulseFromPayload(initialPulse) : null,
+  );
 
   const [privateWaiting, setPrivateWaiting] = useState(Boolean(roomCode));
 
