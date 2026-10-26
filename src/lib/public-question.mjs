@@ -1,3 +1,4 @@
+import { roundClipGain } from "./round-audio-loudness.mjs";
 import {
   FLASHBACK_YEAR_EPOCH,
   flashbackOrderCorrectAnswerKey,
@@ -59,6 +60,7 @@ function publicRoundAudio(round, audio, now) {
   return {
     src: clips[0],
     ...(audio.clips ? { clips } : {}),
+    gains: sources.map((source) => roundClipGain(source)),
   };
 }
 

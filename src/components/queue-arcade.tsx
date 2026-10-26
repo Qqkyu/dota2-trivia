@@ -23,6 +23,7 @@ import { deriveRoundView } from "./arcade/round-view";
 import { ArcadeHeader } from "./arcade/arcade-header";
 import { ArcadeLobby } from "./arcade/arcade-lobby";
 import { EntryWait } from "./arcade/entry-wait";
+import { AudioDiagnosticsPanel } from "./arcade/audio-diagnostics-panel";
 import { KillStreakHud } from "./arcade/kill-streak-hud";
 import type { LobbyPulsePayload } from "./arcade/shared";
 import { RoundPrompt } from "./arcade/round-prompt";
@@ -249,6 +250,7 @@ export function QueueArcade({
       {phase === "reveal" && isKillStreakCallout && (
         <KillStreakHud streakCallout={streakCallout} streakBanner={streakBanner} />
       )}
+      <AudioDiagnosticsPanel playSound={audio.playSound} soundEnabled={soundEnabled} gameVolume={gameVolume} />
 
       {(phase === "answering" || phase === "reveal") && currentQuestion && (
         <section
