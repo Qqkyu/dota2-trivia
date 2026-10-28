@@ -1,3 +1,4 @@
+import { elementClipVolume } from "@/lib/round-clip-volume.mjs";
 import { Volume2, VolumeX } from "lucide-react";
 import { ARCADE_LOBBY_PATH } from "@/lib/arcade-navigation.mjs";
 import { type PublicGameInfo } from "@/lib/game-identity";
@@ -76,7 +77,7 @@ export function ArcadeHeader({
             onChange={(event) => {
               const nextVolume = Number(event.currentTarget.value) / 100;
               document.querySelectorAll<HTMLAudioElement>('audio[data-testid="round-audio-clip"]').forEach((audio) => {
-                audio.volume = nextVolume;
+                audio.volume = elementClipVolume(nextVolume, audio);
               });
               feedbackPlayerRef.current?.preload();
               feedbackPlayerRef.current?.setVolume(nextVolume);
