@@ -4,7 +4,8 @@ import { claimAudioTab } from "@/lib/audio-tab.mjs";
 import { type PublicArcadeQuestion } from "@/lib/public-question";
 import { echoHuntCutDuration, soundcheckCutDuration } from "@/lib/soundcheck.mjs";
 import { audioUrlStage, roundAudioSourceKey, waitForAudioCut, waitForAudioGap, waitForMediaEvent } from "./round-audio";
-import { ANSWER_DURATION_MS, REVEAL_DURATION_MS, type GamePhase } from "./shared";
+import { audioProbe, recordAudioEvent } from "@/lib/audio-diagnostics.mjs";
+import { type GamePhase } from "./shared";
 
 import type { useRoundRefs } from "./use-round-refs";
 
@@ -43,7 +44,19 @@ export function useArcadeAudio({
   const playSound = useCallback(
     (kind: "lock" | "correct" | "wrong" | "start") => {
       if (kind === "lock") audioTabRef.current?.claimFromInput();
-      feedbackPlayerRef.current?.play(kind, { enabled: soundEnabled, volume: gameVolume });
+      const result = feedbackPlayerRef.current?.play(kind, { enabled: soundEnabled, volume: gameVolume }) as
+        | { requested: boolean; started: Promise<boolean>; reason?: string }
+        | undefined;
+      const event = recordAudioEvent("cue", {
+        cue: kind,
+        requested: result?.requested ?? false,
+        reason: result?.requested ? undefined : (result?.reason ?? "no-player"),
+        owner: audioTabRef.current?.isOwner() ?? null,
+        volume: gameVolume,
+      });
+      if (result?.requested) {
+        void result.started.then((ok) => recordAudioEvent("cue-started", { cue: kind, ok, request: event.seq }));
+      }
     },
     [gameVolume, soundEnabled],
   );
@@ -63,6 +76,7 @@ export function useArcadeAudio({
       stopRoundAudio();
     });
     audioTabRef.current = tab;
+    audioProbe.owner = () => tab.isOwner();
     const player = createFeedbackPlayer({ isOwner: tab.isOwner });
     feedbackPlayerRef.current = player;
     return () => {
@@ -75,10 +89,16 @@ export function useArcadeAudio({
 
   const playRoundAudio = useCallback(
     (enableSound = true, revealStage = 1) => {
-      if (!audioTabRef.current?.isOwner()) return;
+      if (!audioTabRef.current?.isOwner()) {
+        recordAudioEvent("round-skip", { reason: "other-tab" });
+        return;
+      }
       stopRoundAudio(false);
       const audios = roundAudioRefs.current.filter((audio): audio is HTMLAudioElement => Boolean(audio));
-      if (!audios.length) return;
+      if (!audios.length) {
+        recordAudioEvent("round-skip", { reason: "no-elements" });
+        return;
+      }
 
       const question = currentQuestionRef.current;
       const isSoundcheck = question?.game === "soundcheck";
@@ -93,14 +113,20 @@ export function useArcadeAudio({
       roundAudioAbortRef.current = controller;
       setRoundAudioClipIndex(0);
       setRoundAudioState("loading");
+      recordAudioEvent("round", { state: "loading", stage: revealStage, clips: audios.length, game: question?.game });
 
       void (async () => {
         for (const [clipIndex, audio] of audios.entries()) {
-          audio.volume = gameVolume;
+          audio.volume = Math.min(1, gameVolume * (question?.audio?.gains?.[clipIndex] ?? 1));
           audio.currentTime = 0;
           if (audio.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) {
             const readyResult = await waitForMediaEvent(audio, "canplay", controller.signal);
             if (readyResult !== "complete") {
+              recordAudioEvent("round", {
+                state: readyResult === "error" ? "error" : "aborted",
+                clip: clipIndex,
+                at: "canplay",
+              });
               if (readyResult === "error") setRoundAudioState("error");
               return;
             }
@@ -109,9 +135,19 @@ export function useArcadeAudio({
 
           setRoundAudioClipIndex(clipIndex);
           setRoundAudioState("playing");
+          audio.addEventListener("playing", () => recordAudioEvent("round-playing", { clip: clipIndex }), {
+            once: true,
+          });
           try {
             await audio.play();
+            recordAudioEvent("round-play", { clip: clipIndex, ok: true, volume: Math.round(audio.volume * 100) / 100 });
           } catch (error) {
+            recordAudioEvent("round-play", {
+              clip: clipIndex,
+              ok: false,
+              error: error instanceof DOMException ? error.name : String(error),
+              aborted: controller.signal.aborted,
+            });
             if (!controller.signal.aborted) {
               setRoundAudioState(
                 error instanceof DOMException && error.name === "NotAllowedError" ? "blocked" : "error",
@@ -139,6 +175,11 @@ export function useArcadeAudio({
               ? await waitForAudioCut(audio, clipDuration * 1_000, controller.signal)
               : await waitForMediaEvent(audio, "ended", controller.signal);
           if (endedResult !== "complete") {
+            recordAudioEvent("round", {
+              state: endedResult === "error" ? "error" : "aborted",
+              clip: clipIndex,
+              at: "ended",
+            });
             if (endedResult === "error") setRoundAudioState("error");
             return;
           }
@@ -198,59 +239,6 @@ export function useArcadeAudio({
   };
 }
 
-/** One full round of lost focus means the player is in a match, not glancing at the client. */
-const ATTENTION_GRACE_MS = ANSWER_DURATION_MS + REVEAL_DURATION_MS;
-
-/**
- * True while this page has the player's attention: visible, and focused or
- * unfocused for less than one round. Round clips autoplay only then, so the
- * arcade never talks over a match after Accept. Pick and result cues are not
- * gated here; ADR 0001 covers those.
- */
-export function useAttention() {
-  const [attentive, setAttentive] = useState(true);
-
-  useEffect(() => {
-    let timer: number | null = null;
-    const clear = () => {
-      if (timer !== null) window.clearTimeout(timer);
-      timer = null;
-    };
-    const away = () => {
-      if (timer !== null) return;
-      timer = window.setTimeout(() => {
-        timer = null;
-        setAttentive(false);
-      }, ATTENTION_GRACE_MS);
-    };
-    const back = () => {
-      clear();
-      setAttentive(true);
-    };
-    const visibility = () => {
-      if (document.hidden) {
-        clear();
-        setAttentive(false);
-      } else if (document.hasFocus()) {
-        back();
-      } else {
-        away();
-      }
-    };
-    window.addEventListener("blur", away);
-    window.addEventListener("focus", back);
-    document.addEventListener("visibilitychange", visibility);
-    return () => {
-      clear();
-      window.removeEventListener("blur", away);
-      window.removeEventListener("focus", back);
-      document.removeEventListener("visibilitychange", visibility);
-    };
-  }, []);
-
-  return attentive;
-}
-
 /**
  * Keeps the audio output open while a round is live. Bluetooth speakers and
  * some USB devices drop their link after a few seconds of silence and swallow
@@ -273,6 +261,13 @@ export function useOutputKeepAlive({ phase, soundEnabled }: { phase: GamePhase; 
       if (disposed || document.hidden) return;
       if (!context) {
         context = new Context();
+        const created = context;
+        audioProbe.keepAlive = created.state;
+        recordAudioEvent("keepalive", { state: created.state });
+        created.addEventListener("statechange", () => {
+          audioProbe.keepAlive = created.state;
+          recordAudioEvent("keepalive", { state: created.state });
+        });
         const silence = context.createBufferSource();
         silence.buffer = context.createBuffer(1, context.sampleRate, context.sampleRate);
         silence.loop = true;
@@ -295,6 +290,7 @@ export function useOutputKeepAlive({ phase, soundEnabled }: { phase: GamePhase; 
       window.removeEventListener("keydown", start);
       document.removeEventListener("visibilitychange", visibility);
       void context?.close().catch(() => undefined);
+      audioProbe.keepAlive = "closed";
     };
   }, [active]);
 }
@@ -319,7 +315,6 @@ export function useRoundAutoplay({
   soundEnabled: boolean;
 }) {
   const { roundAudioRefs, autoPlayedAudioKeyRef, playRoundAudio, roundAudioState, stopRoundAudio } = audio;
-  const attentive = useAttention();
   useOutputKeepAlive({ phase, soundEnabled });
 
   useEffect(() => {
@@ -336,7 +331,6 @@ export function useRoundAutoplay({
       !hasRoundAudio ||
       !currentQuestion?.audio ||
       !soundEnabled ||
-      !attentive ||
       !roundAudioRefs.current.some(Boolean) ||
       (srcStage !== null && srcStage !== clueStage) ||
       autoPlayedAudioKeyRef.current === autoplayKey
@@ -347,7 +341,6 @@ export function useRoundAutoplay({
     playRoundAudio(false, isProgressiveAudioRound ? clueStage : 1);
   }, [
     activeRoundId,
-    attentive,
     clueStage,
     currentQuestion,
     currentQuestion?.audio,

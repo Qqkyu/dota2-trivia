@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-10-24T09:49:50.676Z",
-  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Fable 5.1 on 2026-10-24 after updating the visual smoke script for the uppercase headline and the answer-row split (playable catalog unchanged)",
+  "reviewedAt": "2026-10-26T17:34:17.052Z",
+  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Fable 5.1 on 2026-10-26 after adding the audio loudness sync script and table (playable catalog unchanged)",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
     "patch": "7.41f",
@@ -93,6 +93,7 @@
     "scripts/spell-hints.mjs": "487b165ed0f3abef4f2ab2c39486f7a48a1599599d0f8a5a96ad7745da5a9302",
     "scripts/spell-link-overrides.mjs": "0c9a975cc6f5aa0566af84c5571e359c64d664f807cdfa284a173cb4c3e04ea8",
     "scripts/start-production.mjs": "53dc0d474b69613a07f07edeeb7ac74e9faf5a381ee46fe5f8f6c272fee72aa3",
+    "scripts/sync-audio-loudness.mjs": "5e9d375557736aee4c208537c95897a8bdb9af9efcef2ba37da76429b01670a6",
     "scripts/sync-dota-data.mjs": "1cdbe8e8fd0b725fef0e1e1e113e9201811e9cc46dcc0ebda4e1825d5e8dd2c9",
     "scripts/validate-aghanim.mjs": "6ce6a2de3908d0feede7f8685ce00df46b2f3f1d185f253114bbf8dfb9f36499",
     "scripts/validate-audio-preload.mjs": "f977133111084423262aa9cc7e48e214a5f98664da1f4354067d519a4b11a621",
@@ -121,6 +122,7 @@
     "src/data/ability-text-overrides.json": "c67a922160843be2f70af20c5febc5078f8a27e8d16d851d77aa2f3b03d55dab",
     "src/data/aghanim-questions.json": "7cbe040efd07b0b676c05b25235f53baa124d2bfe43abd5b758c7a8acbfc001e",
     "src/data/aghanim-upgrades.json": "1dff4dcee3c9214273a49fba7f53d96318dbb4a87f285634386669dbcb350665",
+    "src/data/audio-loudness.json": "527f17793481a1392aecf0ae0a5860f71ee40634180789807231e9b54e4b90b0",
     "src/data/client-audit-snapshot.json": "3da9facb2bf97666801c319864f149bdaabeb506a11a624b3bbc1a3723993376",
     "src/data/client-patch-deltas.json": "04e461e885e29fe0e8b03f968b1959dff72c8b3b7ec7d1bbce0a0a342a4b21dc",
     "src/data/flashback-questions.json": "d24501989ca28d91517d18e55e9cddf9eac7851bfd842580aab41c32c6d60bf5",

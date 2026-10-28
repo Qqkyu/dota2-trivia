@@ -57,6 +57,8 @@ export interface PublicArcadeQuestion {
   audio?: {
     src: string;
     clips?: string[];
+    /** Per-clip attenuation to the feedback cues' loudness; see scripts/sync-audio-loudness.mjs. */
+    gains?: number[];
   };
   soundcheck?: {
     family: "ability" | "item";

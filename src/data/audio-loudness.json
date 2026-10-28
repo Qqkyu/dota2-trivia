@@ -1,0 +1,925 @@
+{
+  "targetLufs": -23,
+  "clips": {
+    "https://dotabase.dillerm.io/vpk/sounds/ambient/chicken.wav": {
+      "lufs": -13.5,
+      "gain": 0.335
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/abyssal_blade.wav": {
+      "lufs": -10.4,
+      "gain": 0.234
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/black_king_bar.wav": {
+      "lufs": -8.5,
+      "gain": 0.188
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/bloodstone_cast.wav": {
+      "lufs": -11.3,
+      "gain": 0.26
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/bloodthorn.wav": {
+      "lufs": -7,
+      "gain": 0.158
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/dagon.wav": {
+      "lufs": -7.6,
+      "gain": 0.17
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/disperser_target_ally.wav": {
+      "lufs": -12.2,
+      "gain": 0.288
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/dota_item_arcane_boots.wav": {
+      "lufs": -12,
+      "gain": 0.282
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/dota_item_blade_mail.wav": {
+      "lufs": -6.4,
+      "gain": 0.148
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/dota_item_cyclone.wav": {
+      "lufs": -8,
+      "gain": 0.178
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/dust_of_appearance.wav": {
+      "lufs": -14.4,
+      "gain": 0.372
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/ethereal_blade_cast.wav": {
+      "lufs": -14.9,
+      "gain": 0.394
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/force_staff.wav": {
+      "lufs": -7.5,
+      "gain": 0.168
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/gleipnir_cast.wav": {
+      "lufs": -9.5,
+      "gain": 0.211
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/glimmer_cape.wav": {
+      "lufs": -13.1,
+      "gain": 0.32
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/guardian_greaves.wav": {
+      "lufs": -13.9,
+      "gain": 0.351
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/harpoon_cast.wav": {
+      "lufs": -18.1,
+      "gain": 0.569
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/healing_salve.wav": {
+      "lufs": -13.7,
+      "gain": 0.343
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/heavens_halberd.wav": {
+      "lufs": -6.9,
+      "gain": 0.157
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/hurricane_pike.wav": {
+      "lufs": -14.2,
+      "gain": 0.363
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/item_armlet_activate.wav": {
+      "lufs": -6.9,
+      "gain": 0.157
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/item_diffusalblade.wav": {
+      "lufs": -11.6,
+      "gain": 0.269
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/item_ghost_sceptre.wav": {
+      "lufs": -8.7,
+      "gain": 0.193
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/item_handofmidas.wav": {
+      "lufs": -8.4,
+      "gain": 0.186
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/item_mjoll_on.wav": {
+      "lufs": -7.6,
+      "gain": 0.17
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/item_satanic.wav": {
+      "lufs": -8.4,
+      "gain": 0.186
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/linkens_sphere.wav": {
+      "lufs": -14.4,
+      "gain": 0.372
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/lotus_cast.wav": {
+      "lufs": -9.9,
+      "gain": 0.221
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/manta.wav": {
+      "lufs": -7.9,
+      "gain": 0.176
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/mask_of_madness.wav": {
+      "lufs": -8.4,
+      "gain": 0.186
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/mek_cast.wav": {
+      "lufs": -8.1,
+      "gain": 0.18
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/meteor_fall.wav": {
+      "lufs": -12,
+      "gain": 0.282
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/moon_shard.wav": {
+      "lufs": -10.1,
+      "gain": 0.226
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/nullifier_cast.wav": {
+      "lufs": -11.3,
+      "gain": 0.26
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/orchid.wav": {
+      "lufs": -7.8,
+      "gain": 0.174
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/pavise_target.wav": {
+      "lufs": -21.1,
+      "gain": 0.804
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/phase_boots_activate.wav": {
+      "lufs": -11.8,
+      "gain": 0.275
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/pipe.wav": {
+      "lufs": -7.1,
+      "gain": 0.16
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/refresher.wav": {
+      "lufs": -8.6,
+      "gain": 0.191
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/rod_of_atos.wav": {
+      "lufs": -9.5,
+      "gain": 0.211
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/shivas_guard.wav": {
+      "lufs": -5.8,
+      "gain": 0.138
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/silver_edge_target.wav": {
+      "lufs": -12.5,
+      "gain": 0.299
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/smoke_of_deceit.wav": {
+      "lufs": -14.1,
+      "gain": 0.359
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/soul_ring.wav": {
+      "lufs": -10.2,
+      "gain": 0.229
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/spirit_vessel_cast.wav": {
+      "lufs": -9.1,
+      "gain": 0.202
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/star_emblem_ally.wav": {
+      "lufs": -7.9,
+      "gain": 0.176
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/tango.wav": {
+      "lufs": -21.5,
+      "gain": 0.841
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/urn_of_shadows.wav": {
+      "lufs": -7.9,
+      "gain": 0.176
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/items/veil_of_discord.wav": {
+      "lufs": -10.4,
+      "gain": 0.234
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/misc/morph_in.wav": {
+      "lufs": -7.2,
+      "gain": 0.162
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/abaddon/abad_kill_03.mp3": {
+      "lufs": -17.6,
+      "gain": 0.537
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/abyssal_underlord/abys_firstblood_01.mp3": {
+      "lufs": -15.3,
+      "gain": 0.412
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/alchemist/alch_ability_concoc_15.mp3": {
+      "lufs": -16.7,
+      "gain": 0.484
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_blink_02.mp3": {
+      "lufs": -19.7,
+      "gain": 0.684
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/antimage/anti_respawn_06.mp3": {
+      "lufs": -14.6,
+      "gain": 0.38
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/arc_warden/arcwar_kill_07.mp3": {
+      "lufs": -16.2,
+      "gain": 0.457
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/axe/axe_deny_15.mp3": {
+      "lufs": -16.4,
+      "gain": 0.468
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/bane/bane_kill_06.mp3": {
+      "lufs": -19.7,
+      "gain": 0.684
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/batrider/bat_kill_06.mp3": {
+      "lufs": -16.1,
+      "gain": 0.452
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/beastmaster/beas_win_02.mp3": {
+      "lufs": -14.4,
+      "gain": 0.372
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/bloodseeker/blod_kill_05.mp3": {
+      "lufs": -18.1,
+      "gain": 0.569
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/bounty_hunter/bount_ability_track_04.mp3": {
+      "lufs": -17.9,
+      "gain": 0.556
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/brewmaster/brew_firstblood_03.mp3": {
+      "lufs": -18.3,
+      "gain": 0.582
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/bristleback/bristle_kill_06.mp3": {
+      "lufs": -15.2,
+      "gain": 0.407
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/broodmother/broo_firstblood_02.mp3": {
+      "lufs": -15.5,
+      "gain": 0.422
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/centaur/cent_firstblood_01.mp3": {
+      "lufs": -17.2,
+      "gain": 0.513
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/chaos_knight/chaknight_kill_01.mp3": {
+      "lufs": -24.1,
+      "gain": 1
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/chen/chen_ability_penit_01.mp3": {
+      "lufs": -17.6,
+      "gain": 0.537
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/clinkz/clinkz_kill_03.mp3": {
+      "lufs": -19.4,
+      "gain": 0.661
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/crystalmaiden/cm_firstblood_01.mp3": {
+      "lufs": -16,
+      "gain": 0.447
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/dark_seer/dkseer_kill_09.mp3": {
+      "lufs": -24.2,
+      "gain": 1
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/dark_willow/sylph_kill_10.mp3": {
+      "lufs": -16.3,
+      "gain": 0.462
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/dawnbreaker/valora_firstblood_04.mp3": {
+      "lufs": -15.5,
+      "gain": 0.422
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/dazzle/dazz_win_03.mp3": {
+      "lufs": -16.1,
+      "gain": 0.452
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/death_prophet/dpro_respawn_14.mp3": {
+      "lufs": -16.9,
+      "gain": 0.495
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/disruptor/dis_spawn_04.mp3": {
+      "lufs": -17.7,
+      "gain": 0.543
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/doom_bringer/doom_kill_01.mp3": {
+      "lufs": -15.2,
+      "gain": 0.407
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/dragon_knight/drag_kill_11.mp3": {
+      "lufs": -18.8,
+      "gain": 0.617
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/drowranger/drow_firstblood_01.mp3": {
+      "lufs": -15.8,
+      "gain": 0.437
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/earth_spirit/earthspi_respawn_06.mp3": {
+      "lufs": -16.4,
+      "gain": 0.468
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/earthshaker/erth_kill_11.mp3": {
+      "lufs": -18.6,
+      "gain": 0.603
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/elder_titan/elder_kill_13.mp3": {
+      "lufs": -18.2,
+      "gain": 0.575
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/ember_spirit/embr_firstblood_02.mp3": {
+      "lufs": -17.2,
+      "gain": 0.513
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/enchantress/ench_spawn_05.mp3": {
+      "lufs": -13.1,
+      "gain": 0.32
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/enigma/enig_spawn_08.mp3": {
+      "lufs": -17.1,
+      "gain": 0.507
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/faceless_void/face_respawn_08.mp3": {
+      "lufs": -13.8,
+      "gain": 0.347
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/furion/furi_kill_03.mp3": {
+      "lufs": -16.1,
+      "gain": 0.452
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/grimstroke/grimstroke_firstblood_04.mp3": {
+      "lufs": -16,
+      "gain": 0.447
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/gyrocopter/gyro_call_down_11.mp3": {
+      "lufs": -13.7,
+      "gain": 0.343
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/hoodwink/hoodwink_firstblood_05.mp3": {
+      "lufs": -15.7,
+      "gain": 0.432
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/huskar/husk_respawn_01.mp3": {
+      "lufs": -20.7,
+      "gain": 0.767
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/invoker/kidvo_la_first_02.mp3": {
+      "lufs": -16,
+      "gain": 0.447
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/jakiro/jak_kill_11.mp3": {
+      "lufs": -14.6,
+      "gain": 0.38
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/juggernaut/jug_respawn_06.mp3": {
+      "lufs": -20.2,
+      "gain": 0.724
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/keeper_of_the_light/keep_firstblood_01.mp3": {
+      "lufs": -17.5,
+      "gain": 0.531
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/kez/kez_attack_10.mp3": {
+      "lufs": -15.2,
+      "gain": 0.407
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/kunkka/kunk_firstblood_01.mp3": {
+      "lufs": -15.8,
+      "gain": 0.437
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/largo/largo_rival_239.mp3": {
+      "lufs": -16.1,
+      "gain": 0.452
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/legion_commander/legcom_firstblood_01.mp3": {
+      "lufs": -12,
+      "gain": 0.282
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/leshrac/lesh_kill_10.mp3": {
+      "lufs": -17.3,
+      "gain": 0.519
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/lich/lich_respawn_08.mp3": {
+      "lufs": -15.3,
+      "gain": 0.412
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/life_stealer/lifest_respawn_02.mp3": {
+      "lufs": -18.9,
+      "gain": 0.624
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/lina/lina_firstblood_01.mp3": {
+      "lufs": -21.8,
+      "gain": 0.871
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/lion/lion_kill_04.mp3": {
+      "lufs": -22.9,
+      "gain": 0.989
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/lone_druid/lone_druid_level_09.mp3": {
+      "lufs": -19.5,
+      "gain": 0.668
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/luna/luna_kill_06.mp3": {
+      "lufs": -18.8,
+      "gain": 0.617
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/lycan/lycan_kill_11.mp3": {
+      "lufs": -23,
+      "gain": 1
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/magnataur/magn_levelup_09.mp3": {
+      "lufs": -14.8,
+      "gain": 0.389
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/mars/mars_kill_05.mp3": {
+      "lufs": -15.6,
+      "gain": 0.427
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/medusa/medus_firstblood_01.mp3": {
+      "lufs": -17.7,
+      "gain": 0.543
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/meepo/meepo_kill_06.mp3": {
+      "lufs": -15.5,
+      "gain": 0.422
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/mirana/mir_firstblood_01.mp3": {
+      "lufs": -16.7,
+      "gain": 0.484
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/monkey_king/monkey_firstblood_03.mp3": {
+      "lufs": -17.8,
+      "gain": 0.55
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/morphling/mrph_kill_09.mp3": {
+      "lufs": -16.3,
+      "gain": 0.462
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/muerta/muerta_pierce_the_veil_01.mp3": {
+      "lufs": -15.7,
+      "gain": 0.432
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/naga_siren/naga_kill_04.mp3": {
+      "lufs": -17.9,
+      "gain": 0.556
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/necrolyte/necr_kill_03.mp3": {
+      "lufs": -18.9,
+      "gain": 0.624
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/nevermore/nev_kill_11.mp3": {
+      "lufs": -18.3,
+      "gain": 0.582
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/night_stalker/nstalk_kill_10.mp3": {
+      "lufs": -15.9,
+      "gain": 0.442
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/nyx_assassin/nyx_kill_09.mp3": {
+      "lufs": -17.8,
+      "gain": 0.55
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/ogre_magi/ogmag_firstblood_01.mp3": {
+      "lufs": -13.4,
+      "gain": 0.331
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/omniknight/omni_firstblood_01.mp3": {
+      "lufs": -16.4,
+      "gain": 0.468
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/oracle/orac_kill_13.mp3": {
+      "lufs": -19.8,
+      "gain": 0.692
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/outworld_destroyer/odest_kill_06.mp3": {
+      "lufs": -17.9,
+      "gain": 0.556
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/pangolin/pangolin_firstblood_04.mp3": {
+      "lufs": -16.2,
+      "gain": 0.457
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/phantom_assassin/phass_kill_10.mp3": {
+      "lufs": -17,
+      "gain": 0.501
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/phantom_lancer/plance_firstblood_01.mp3": {
+      "lufs": -17,
+      "gain": 0.501
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/puck/puck_firstblood_02.mp3": {
+      "lufs": -16,
+      "gain": 0.447
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/pudge/pud_level_09.mp3": {
+      "lufs": -17.1,
+      "gain": 0.507
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/pugna/pugna_kill_07.mp3": {
+      "lufs": -18.3,
+      "gain": 0.582
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/queenofpain/pain_ability_screamofpain_03.mp3": {
+      "lufs": -23,
+      "gain": 1
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/rattletrap/ratt_kill_09.mp3": {
+      "lufs": -15.3,
+      "gain": 0.412
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/razor/raz_firstblood_01.mp3": {
+      "lufs": -15.4,
+      "gain": 0.417
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/riki/riki_kill_12.mp3": {
+      "lufs": -19,
+      "gain": 0.631
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/ringmaster/ringmaster_win_04.mp3": {
+      "lufs": -15.6,
+      "gain": 0.427
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/rubick/rubick_move_21.mp3": {
+      "lufs": -15.9,
+      "gain": 0.442
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/sandking/skg_kill_09.mp3": {
+      "lufs": -17.1,
+      "gain": 0.507
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/shadow_demon/shadow_demon_kill_01.mp3": {
+      "lufs": -22.2,
+      "gain": 0.912
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/shadowshaman/shad_respawn_07.mp3": {
+      "lufs": -18.9,
+      "gain": 0.624
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/shredder/timb_respawn_02.mp3": {
+      "lufs": -18.9,
+      "gain": 0.624
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/silencer/silen_ability_intsteal_01.mp3": {
+      "lufs": -19.6,
+      "gain": 0.676
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/skeleton_king/wraith_firstblood_01.mp3": {
+      "lufs": -16.5,
+      "gain": 0.473
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/skywrath_mage/drag_kill_01.mp3": {
+      "lufs": -18.6,
+      "gain": 0.603
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/slardar/slar_kill_02.mp3": {
+      "lufs": -14.9,
+      "gain": 0.394
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/slark/slark_kill_03.mp3": {
+      "lufs": -14.9,
+      "gain": 0.394
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/snapfire/snapfire_firstblood_03.mp3": {
+      "lufs": -15.8,
+      "gain": 0.437
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/sniper/snip_kill_08.mp3": {
+      "lufs": -21.5,
+      "gain": 0.841
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/spectre/spec_spawn_02.mp3": {
+      "lufs": -18.6,
+      "gain": 0.603
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/spirit_breaker/spir_ability_charge_07.mp3": {
+      "lufs": -18.2,
+      "gain": 0.575
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/stormspirit/stormspirit_levelup_06.mp3": {
+      "lufs": -14.2,
+      "gain": 0.363
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/sven/sven_kill_01.mp3": {
+      "lufs": -14.4,
+      "gain": 0.372
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/techies/tech_firstblood_02.mp3": {
+      "lufs": -14.8,
+      "gain": 0.389
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/templar_assassin/temp_kill_04.mp3": {
+      "lufs": -17.2,
+      "gain": 0.513
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/terrorblade/terr_kill_09.mp3": {
+      "lufs": -19.6,
+      "gain": 0.676
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/tidehunter/tide_firstblood_01.mp3": {
+      "lufs": -14.8,
+      "gain": 0.389
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/tinker/tink_ability_marchofthemachines_02.mp3": {
+      "lufs": -18.9,
+      "gain": 0.624
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/tiny/tiny_firstblood_02.mp3": {
+      "lufs": -15.2,
+      "gain": 0.407
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/treant/treant_respawn_15.mp3": {
+      "lufs": -18.6,
+      "gain": 0.603
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_respawn_10.mp3": {
+      "lufs": -17.8,
+      "gain": 0.55
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/tusk/tusk_kill_05.mp3": {
+      "lufs": -14.1,
+      "gain": 0.359
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/undying/undying_firstblood_01.mp3": {
+      "lufs": -13.9,
+      "gain": 0.351
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/ursa/ursa_kill_03.mp3": {
+      "lufs": -14.2,
+      "gain": 0.363
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/vengefulspirit/vng_levelup_02.mp3": {
+      "lufs": -14.9,
+      "gain": 0.394
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/venomancer/venm_firstblood_03.mp3": {
+      "lufs": -18.4,
+      "gain": 0.589
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/viper/vipe_firstblood_02.mp3": {
+      "lufs": -17.8,
+      "gain": 0.55
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/visage/visa_rare_02.mp3": {
+      "lufs": -16.6,
+      "gain": 0.479
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/void_spirit/voidspir_kill_08.mp3": {
+      "lufs": -16.3,
+      "gain": 0.462
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/warlock/warl_respawn_01.mp3": {
+      "lufs": -15.8,
+      "gain": 0.437
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/weaver/weav_kill_06.mp3": {
+      "lufs": -16.7,
+      "gain": 0.484
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/windrunner/wind_kill_05.mp3": {
+      "lufs": -22,
+      "gain": 0.891
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/winter_wyvern/winwyv_cast_01.mp3": {
+      "lufs": -15.6,
+      "gain": 0.427
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/witchdoctor/wdoc_kill_07.mp3": {
+      "lufs": -16.2,
+      "gain": 0.457
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/vo/zuus/zuus_respawn_06.mp3": {
+      "lufs": -17.5,
+      "gain": 0.531
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/antimage/blink_out.wav": {
+      "lufs": -13.5,
+      "gain": 0.335
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/axe/culling_blade_success.wav": {
+      "lufs": -8.5,
+      "gain": 0.188
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dark_seer/dota_dark_seer_vacuum.wav": {
+      "lufs": -7.3,
+      "gain": 0.164
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dark_willow/bramble_cast.wav": {
+      "lufs": -16.2,
+      "gain": 0.457
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dark_willow/ley_target.wav": {
+      "lufs": -13.1,
+      "gain": 0.32
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dawnbreaker/celestial_hammer_cast.wav": {
+      "lufs": -8.4,
+      "gain": 0.186
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/disruptor/glimpse_end.wav": {
+      "lufs": -12.3,
+      "gain": 0.292
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/earth_spirit/rolling_boulder_cast.wav": {
+      "lufs": -7.3,
+      "gain": 0.164
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/earthshaker/echo_slam.wav": {
+      "lufs": -7.9,
+      "gain": 0.176
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/ember_spirit/searing_chains_target01.wav": {
+      "lufs": -12.5,
+      "gain": 0.299
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/ember_spirit/sleight_of_fist_cast.wav": {
+      "lufs": -11.3,
+      "gain": 0.26
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/enigma/black_hole_chasm.wav": {
+      "lufs": -7.4,
+      "gain": 0.166
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/faceless_void/chronosphere.wav": {
+      "lufs": -11.1,
+      "gain": 0.254
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/grimstroke/dark_artistry_cast.wav": {
+      "lufs": -13.5,
+      "gain": 0.335
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/hoodwink/bushwhack_cast.wav": {
+      "lufs": -15.6,
+      "gain": 0.427
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/invoker/sunstrike_ignite.wav": {
+      "lufs": -8,
+      "gain": 0.178
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/juggernaut/omnislash_attack1.wav": {
+      "lufs": -14.4,
+      "gain": 0.372
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/kez/echo_katana_cast.wav": {
+      "lufs": -19.2,
+      "gain": 0.646
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/kunkka/ability_ghost_ship_bell.wav": {
+      "lufs": -17.7,
+      "gain": 0.543
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/legion_commander/duel_cast.wav": {
+      "lufs": -11.5,
+      "gain": 0.266
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lich/chain_frost_impact_hero01.wav": {
+      "lufs": -9.1,
+      "gain": 0.202
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lich/frost_nova.wav": {
+      "lufs": -14.6,
+      "gain": 0.38
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lion/lion_impale_target_hit1.wav": {
+      "lufs": -13.5,
+      "gain": 0.335
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lion/lion_voodoo.wav": {
+      "lufs": -8,
+      "gain": 0.178
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/magnataur/reverse_polarity.wav": {
+      "lufs": -7.9,
+      "gain": 0.176
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/mars/shield_bash.wav": {
+      "lufs": -9.7,
+      "gain": 0.216
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/mirana/starfall.wav": {
+      "lufs": -12.3,
+      "gain": 0.292
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/muerta/deadshot_cast.wav": {
+      "lufs": -7.8,
+      "gain": 0.174
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/nyx/spiked_carapace.wav": {
+      "lufs": -5.1,
+      "gain": 0.127
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/oracle/edict_cast.wav": {
+      "lufs": -12.9,
+      "gain": 0.313
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/pangolier/tail_thump.wav": {
+      "lufs": -9.7,
+      "gain": 0.216
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/phoenix/super_nova_explode.wav": {
+      "lufs": -8.3,
+      "gain": 0.184
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/primal_beast/onslaught_cast.wav": {
+      "lufs": -6.9,
+      "gain": 0.157
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/puck/waning_rift.wav": {
+      "lufs": -14.2,
+      "gain": 0.363
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/pudge/hook_throw.wav": {
+      "lufs": -17.3,
+      "gain": 0.519
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/queenofpain/queenofpain_screamofpain.wav": {
+      "lufs": -6.6,
+      "gain": 0.151
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/queenofpain/queenofpain_shadowstrike.wav": {
+      "lufs": -9.7,
+      "gain": 0.216
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/ringmaster/whip_cast.wav": {
+      "lufs": -12,
+      "gain": 0.282
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/sand_king/sand_king_epicenter_spell.wav": {
+      "lufs": -7.9,
+      "gain": 0.176
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shadow_demon/demonic_purge_cast.wav": {
+      "lufs": -8.4,
+      "gain": 0.186
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shadow_demon/disruption.wav": {
+      "lufs": -9.5,
+      "gain": 0.211
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/skeleton_king/reincarnate.wav": {
+      "lufs": -11.3,
+      "gain": 0.26
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/skywrath/concussive_shot_cast.wav": {
+      "lufs": -10,
+      "gain": 0.224
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/skywrath/mystic_flare_cast.wav": {
+      "lufs": -9.4,
+      "gain": 0.209
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/slark/dark_pact_cast.wav": {
+      "lufs": -5.8,
+      "gain": 0.138
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/snapfire/cookie_cast.wav": {
+      "lufs": -19.3,
+      "gain": 0.653
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/snapfire/shotgun_target.wav": {
+      "lufs": -13.3,
+      "gain": 0.327
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/sniper/sniper_assassinate_load.wav": {
+      "lufs": -10.2,
+      "gain": 0.229
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/tidehunter/tidehunter_ravage.wav": {
+      "lufs": -2.7,
+      "gain": 0.097
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/tusk/ice_shards_cast.wav": {
+      "lufs": -10.9,
+      "gain": 0.248
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/void_spirit/pulse_cast.wav": {
+      "lufs": -8.6,
+      "gain": 0.191
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/void_spirit/remnant_triggered.wav": {
+      "lufs": -14,
+      "gain": 0.355
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/warlock/fatal_bonds_cast.wav": {
+      "lufs": -12.8,
+      "gain": 0.309
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/warlock/rain_of_chaos_cast.wav": {
+      "lufs": -12.3,
+      "gain": 0.292
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/windrunner/shackleshot_cast.wav": {
+      "lufs": -9.9,
+      "gain": 0.221
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/witch_doctor/deathward_attack.wav": {
+      "lufs": -13.8,
+      "gain": 0.347
+    },
+    "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/zuus/gods_wrath_cast.wav": {
+      "lufs": -10.9,
+      "gain": 0.248
+    }
+  }
+}

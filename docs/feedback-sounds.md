@@ -68,6 +68,26 @@ not count it, and it adds nothing to the native recording; `pnpm check:sounds`
 passed with it (10 native checks, 30 tapped checks). Whether a given speaker stays
 awake is only provable on that device.
 
+## Loudness (2026-10-26)
+
+Round clips come straight from the game files. Measured with EBU R128 they sit
+between -24 and -3 LUFS (Tidehunter's Ravage: -2.7 LUFS) while the cues sit near
+-23 LUFS, so an ability sound could land 20 dB louder than the click before it.
+`scripts/sync-audio-loudness.mjs` (part of `pnpm sync-data`) measures every clip
+once with ffmpeg and writes `src/data/audio-loudness.json`; the public question
+carries a per-clip `gains` array and the client multiplies its volume by it.
+Gains only attenuate, so quiet clips are left alone.
+
+## Diagnostics (2026-10-26)
+
+Open the site with `?audio-debug=1` to show the sound diagnostics panel for the
+rest of that tab's session (`?audio-debug=0` hides it). It lists every cue and
+round clip the client asked the browser to play, with the player's answer
+(requested, skipped and why, started), the tab's focus and ownership, the
+output keep-alive state and the volume. "Test cues" plays lock, correct, wrong
+and start in a row; "Copy log" puts the whole log on the clipboard as JSON. A
+silent pick on a real speaker is diagnosed from that log, not from a guess.
+
 ## Run
 
 With the app already running at `http://localhost:3000`:
