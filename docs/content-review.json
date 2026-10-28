@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-10-26T17:34:17.052Z",
-  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Fable 5.1 on 2026-10-26 after adding the audio loudness sync script and table (playable catalog unchanged)",
+  "reviewedAt": "2026-10-28T17:51:08.686Z",
+  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Fable 5.1 on 2026-10-28 after fixing nine Flashback questions whose distractors gave the answer away (wording and distractors only; facts and sources unchanged)",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
     "patch": "7.41f",
@@ -125,7 +125,7 @@
     "src/data/audio-loudness.json": "527f17793481a1392aecf0ae0a5860f71ee40634180789807231e9b54e4b90b0",
     "src/data/client-audit-snapshot.json": "3da9facb2bf97666801c319864f149bdaabeb506a11a624b3bbc1a3723993376",
     "src/data/client-patch-deltas.json": "04e461e885e29fe0e8b03f968b1959dff72c8b3b7ec7d1bbce0a0a342a4b21dc",
-    "src/data/flashback-questions.json": "d24501989ca28d91517d18e55e9cddf9eac7851bfd842580aab41c32c6d60bf5",
+    "src/data/flashback-questions.json": "84d082bc96edc30ff1bc86a19698e3e1be7ba097bea42bf64c30bee3a526751f",
     "src/data/hero-picker.json": "8f62cdb5ab1e5e626ca3dc5a71e7132406f9b3751ebe08e8648f1e004bda5ad6",
     "src/data/questions.generated.json": "4e730f3f38c07bc51c10292b6e7e73223e72fafcf88c8c44c43cc466af561c5f",
     "src/data/shopkeeper-catalog.json": "2524c866bea88f41581b38c796913f2e095d008ce0466467e73760e3066bcf26",
