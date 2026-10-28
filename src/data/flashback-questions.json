@@ -1602,7 +1602,7 @@
     "difficulty": 1,
     "eyebrow": "The fourth stat",
     "prompt": "Patch 7.33 added which new hero attribute?",
-    "answers": ["Agility", "Intelligence", "Strength", "Universal"],
+    "answers": ["Adaptive", "Versatile", "Balanced", "Universal"],
     "correctIndex": 3,
     "explanation": "7.33 added Universal heroes. They have no primary attribute and gain attack damage from all three stats.",
     "flashback": {
@@ -1627,8 +1627,8 @@
     "category": "History",
     "difficulty": 1,
     "eyebrow": "Halloween 2013",
-    "prompt": "Which Halloween event did Valve delay until November 2013?",
-    "answers": ["Diretide", "Siltbreaker", "Nemestice", "Frostivus"],
+    "prompt": "Which event slipped to November 2013 after fans demanded it?",
+    "answers": ["Diretide", "Frostivus", "Wraith-Night", "The Greeviling"],
     "correctIndex": 0,
     "explanation": "Valve apologized for missing Halloween 2013 and released Diretide with the Three Spirits update in November.",
     "flashback": {
@@ -1730,7 +1730,7 @@
     "difficulty": 2,
     "eyebrow": "Lane shopping",
     "prompt": "Which shop did patch 7.23 remove from the map?",
-    "answers": ["Home Shop", "Neutral Shop", "Secret Shop", "Side Shop"],
+    "answers": ["Base Shop", "Secret Shop", "Fountain Shop", "Side Shop"],
     "correctIndex": 3,
     "explanation": "7.23, the Outlanders update, removed both side shops. Outposts took those spots, and every player got their own courier.",
     "flashback": {
@@ -2802,7 +2802,7 @@
     "category": "History",
     "difficulty": 2,
     "eyebrow": "Corner portals",
-    "prompt": "Patch 7.33 added which portals in the map corners?",
+    "prompt": "Patch 7.33 added which structure in the map corners?",
     "answers": ["Outposts", "Side Shops", "Watchers", "Twin Gates"],
     "correctIndex": 3,
     "explanation": "New Frontiers added Twin Gates in opposite corners so teams could jump across the map.",
@@ -2829,7 +2829,7 @@
     "difficulty": 2,
     "eyebrow": "Minute 20",
     "prompt": "Patch 7.33 added which 20-minute mini-boss behind each offlane?",
-    "answers": ["Tormentors", "Ancients", "Courier", "Roshan"],
+    "answers": ["Tormentors", "Ancients", "Watchers", "Roshan"],
     "correctIndex": 0,
     "explanation": "In 7.33, Tormentors first spawned at 20:00 behind the offlanes. A kill granted Aghanim's Shard to an eligible low-net-worth teammate.",
     "flashback": {
@@ -5118,7 +5118,7 @@
     "difficulty": 2,
     "eyebrow": "Stand for XP",
     "prompt": "Patch 7.38 replaced Wisdom Runes with what?",
-    "answers": ["Shrines of Wisdom", "Outposts", "Side Shops", "Lotus Pools"],
+    "answers": ["Shrines of Wisdom", "Wells of Wisdom", "Wisdom Altars", "Wisdom Lotuses"],
     "correctIndex": 0,
     "explanation": "Wandering Waters turned Wisdom Runes into Shrines of Wisdom. You stand in them for the XP.",
     "flashback": {
@@ -5335,8 +5335,8 @@
     "category": "History",
     "difficulty": 2,
     "eyebrow": "Third death",
-    "prompt": "Besides Cheese and Aegis, what refresh item can late Roshan drop?",
-    "answers": ["Smoke", "Cheese", "Refresher Shard", "Tango"],
+    "prompt": "Besides Cheese and Aegis, what else can a late Roshan drop?",
+    "answers": ["Smoke of Deceit", "Blink Dagger", "Refresher Shard", "Tango"],
     "correctIndex": 2,
     "explanation": "On later deaths Roshan can drop a Refresher Shard that resets ability cooldowns. Since patch 7.41, it does not reset item cooldowns.",
     "flashback": {
@@ -5402,8 +5402,8 @@
     "category": "History",
     "difficulty": 2,
     "eyebrow": "Free vision",
-    "prompt": "Which ward became free in patch 7.23?",
-    "answers": ["Observer Ward", "Smoke of Deceit", "Town Portal Scroll", "Sentry Ward"],
+    "prompt": "Which consumable became free in patch 7.23?",
+    "answers": ["Observer Ward", "Sentry Ward", "Smoke of Deceit", "Town Portal Scroll"],
     "correctIndex": 0,
     "explanation": "7.23 made Observer Wards cost no gold.",
     "flashback": {
@@ -5491,7 +5491,7 @@
     "difficulty": 2,
     "eyebrow": "The arcade hit",
     "prompt": "Which Dota arcade custom game led Valve to make Underlords?",
-    "answers": ["Underlords", "Battlegrounds", "Artifact", "Auto Chess"],
+    "answers": ["Dota IMBA", "Overthrow", "Legends of Dota", "Auto Chess"],
     "correctIndex": 3,
     "explanation": "Drodo Studio made Dota Auto Chess. Valve's Dota Underlords followed in June 2019.",
     "flashback": {
@@ -6792,7 +6792,7 @@
     "difficulty": 2,
     "eyebrow": "Rap god",
     "prompt": "What is ODPixel's real name?",
-    "answers": ["On Demand", "Own Desk", "Outworld Destroyer", "Owen Davies"],
+    "answers": ["Oliver Dean", "Oscar Dunn", "Olly Dawson", "Owen Davies"],
     "correctIndex": 3,
     "explanation": "ODPixel is the Dota commentator Owen Davies.",
     "flashback": {
