@@ -5,11 +5,15 @@ export const DOTA_FEEDBACK_SOUNDS = Object.freeze({
       Object.freeze({
         // Native media output fades its first few milliseconds. Keep the click's
         // attack intact by placing 20 ms of silence before the original samples.
+        // The original click sits 6 dB under the other cues (-29 LUFS against
+        // -23), so the runtime file carries the samples at 1.6x and plays at
+        // gain 1: the click lands at the cues' loudness and survives low volume.
         src: "/assets/dota2/sounds/panorama_generic_button_click_01_padded.wav",
+        runtimeGain: 1.6,
         source: "sounds/ui/panorama/panorama_generic_button_click_01.wav",
         durationSeconds: 0.539615,
-        sha256: "4b0c2a51cf3fc4206855813a1c8253dfaf1e894d638b9da223a7f6884e756eea",
-        gain: 0.8,
+        sha256: "372b44d1c2add87bd4fa310f8b346ffdf0dc832815c85b7be0b67b1d02c7d6fe",
+        gain: 1,
       }),
     ]),
   }),

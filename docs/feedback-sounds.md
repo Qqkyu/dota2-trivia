@@ -39,8 +39,12 @@ energy after subtracting the expected single copy.
 
 The runtime pick WAV has 20 ms of silence before the original samples. This
 protects its short attack from the native output's initial fade. The original
-WAV remains in the repo. The asset validator requires the runtime file to retain
-every original stereo sample, with only the silent lead-in added. Gain is unchanged.
+WAV remains in the repo. Since 2026-10-28 the runtime file carries every original
+stereo sample at 1.6x (the original click measured -29 LUFS against -23 for the
+other cues, and at a 15% slider it was the first sound to vanish) and plays at
+gain 1 instead of 0.8, which puts it at the cues' loudness. The asset validator
+requires the runtime file to equal the original samples at that documented gain,
+with only the silent lead-in added.
 
 The last game tab used owns audio. Focus or trusted input transfers ownership;
 the old tab stops its sounds and drops pending results. Returning to an old tab

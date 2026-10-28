@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-10-28T17:51:08.686Z",
-  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Fable 5.1 on 2026-10-28 after fixing nine Flashback questions whose distractors gave the answer away (wording and distractors only; facts and sources unchanged)",
+  "reviewedAt": "2026-10-28T20:15:10.753Z",
+  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Fable 5.1 on 2026-10-28 after raising the runtime pick click to the cues' loudness (validator updated for the documented runtime gain; playable catalog unchanged)",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
     "patch": "7.41f",
@@ -100,7 +100,7 @@
     "scripts/validate-bandwidth.mjs": "a845a01d2714e6586291366c36a685cb89b351c6b77cf23edcd2c644acaf4d0c",
     "scripts/validate-client-bundle.mjs": "c6f7952f5e9f7027e095fea5a255bc723ec520fd7c31df55c042a7711728041d",
     "scripts/validate-content-release.mjs": "4242a20a046d842921230175caa22c75039d46540bf0f67e556f4f34753d9472",
-    "scripts/validate-feedback-sounds.mjs": "91612d638710b91c886af743984ffc6ead5513391a050ded7ecc41b1b5eccaf6",
+    "scripts/validate-feedback-sounds.mjs": "9364b29bc71c53618875504ba88079d05443edb605ae9b9b6ee84141996a58be",
     "scripts/validate-flashback.mjs": "52a41588823592d68eed493240f4deb2daa0da52cff10a15e4a514ab88d73947",
     "scripts/validate-fogged-vision.mjs": "7ee8f465ee83adaf60990211ccb97495b584f93b2290c13e3537afd9da64b108",
     "scripts/validate-hero-picker.mjs": "b7702c1484a26374d9af57ee8b2618b1dc47d03926870f8a4c95d342c7faa601",
