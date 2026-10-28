@@ -13,7 +13,7 @@ const expectedEvents = {
   start: "ui.matchmaking_find",
 };
 const expectedGains = {
-  lock: [0.8],
+  lock: [1],
   correct: [1],
   wrong: [1],
   start: [0.6, 1],
@@ -76,15 +76,22 @@ const originalChannels = wavChannels(originalClick);
 const paddedChannels = wavChannels(
   await readFile(new URL(`../public${DOTA_FEEDBACK_SOUNDS.lock.clips[0].src}`, import.meta.url)),
 );
+// Channels decode as floats in [-1, 1); compare in the 16-bit integer domain
+// the runtime file was written in: round(original * runtimeGain), clamped.
+const runtimeGain = DOTA_FEEDBACK_SOUNDS.lock.clips[0].runtimeGain;
+const toInt16 = (value) => Math.round(value * 32768);
+const scaled = (value) => Math.max(-32768, Math.min(32767, Math.floor(toInt16(value) * runtimeGain + 0.5)));
 for (const [channel, original] of originalChannels.entries()) {
   const padded = paddedChannels[channel];
   if (
     !padded ||
     padded.length !== original.length + 882 ||
     padded.slice(0, 882).some((value) => value !== 0) ||
-    original.some((value, index) => value !== padded[index + 882])
+    original.some((value, index) => scaled(value) !== toInt16(padded[index + 882]))
   ) {
-    failures.push("The runtime pick must preserve every original sample after exactly 20 ms of silence.");
+    failures.push(
+      "The runtime pick must carry every original sample at the documented runtime gain after exactly 20 ms of silence.",
+    );
   }
 }
 
@@ -94,5 +101,5 @@ if (failures.length) {
 }
 
 console.log(
-  "Validated four Dota UI events, five runtime WAVs, and the lossless pick lead-in. Native output is checked by pnpm check:sounds.",
+  "Validated four Dota UI events, five runtime WAVs, and the pick lead-in at the documented runtime gain. Native output is checked by pnpm check:sounds.",
 );

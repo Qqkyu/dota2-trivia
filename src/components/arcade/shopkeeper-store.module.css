@@ -24,15 +24,12 @@
   background: #000;
 }
 
-.shopSearchBox[data-focused="true"],
-.shopSearchBox:focus-within {
-  border-color: #63a4ff;
+/* A typed query lifts the field; focus draws exactly one ring, the shell's
+   gold one. No blue border or glow on focus, so nothing reads as a second ring. */
+.shopSearchBox[data-focused="true"] {
   background: rgb(44, 51, 58);
-  box-shadow: 0 0 16px rgba(99, 164, 255, 0.28);
 }
 
-/* One focus ring on the whole field, matching the shell's gold ring; the
-   inner input must not draw a second ring inside the box. */
 .shopSearchBox:focus-within {
   outline: 2px solid var(--gold);
   outline-offset: 3px;
