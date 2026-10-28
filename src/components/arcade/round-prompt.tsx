@@ -16,6 +16,7 @@ import clsx from "clsx";
 import { ECHO_HUNT_REVEAL_STAGES, SOUNDCHECK_REVEAL_STAGES, soundcheckCutDuration } from "@/lib/soundcheck.mjs";
 import styles from "../queue-arcade.module.css";
 import own from "./round-prompt.module.css";
+import { elementClipVolume } from "@/lib/round-clip-volume.mjs";
 import { QuestionArtwork } from "./artwork";
 import { classicQuestionContext, withPlayerId } from "./shared";
 import { ShopkeeperTray } from "./shopkeeper-parts";
@@ -290,6 +291,7 @@ export function RoundPrompt({
             }}
             data-testid="round-audio-clip"
             data-clip-index={clipIndex + 1}
+            data-gain={currentQuestion.audio?.gains?.[clipIndex] ?? 1}
             data-cut-duration={
               isSoundcheckRound
                 ? soundcheckCutDuration(currentQuestion.soundcheck?.clips[clipIndex]?.duration ?? 0, clueStage)
@@ -302,7 +304,7 @@ export function RoundPrompt({
             aria-hidden="true"
             onLoadStart={() => setRoundAudioState("loading")}
             onCanPlay={(event) => {
-              event.currentTarget.volume = gameVolume;
+              event.currentTarget.volume = elementClipVolume(gameVolume, event.currentTarget);
               const duration = event.currentTarget.duration;
               if (Number.isFinite(duration) && roundAudioDurations[audioSource] !== duration) {
                 setRoundAudioDurations((current) =>

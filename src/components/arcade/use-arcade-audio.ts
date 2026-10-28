@@ -5,6 +5,7 @@ import { type PublicArcadeQuestion } from "@/lib/public-question";
 import { echoHuntCutDuration, soundcheckCutDuration } from "@/lib/soundcheck.mjs";
 import { audioUrlStage, roundAudioSourceKey, waitForAudioCut, waitForAudioGap, waitForMediaEvent } from "./round-audio";
 import { audioProbe, recordAudioEvent } from "@/lib/audio-diagnostics.mjs";
+import { elementClipVolume } from "@/lib/round-clip-volume.mjs";
 import { type GamePhase } from "./shared";
 
 import type { useRoundRefs } from "./use-round-refs";
@@ -117,7 +118,7 @@ export function useArcadeAudio({
 
       void (async () => {
         for (const [clipIndex, audio] of audios.entries()) {
-          audio.volume = Math.min(1, gameVolume * (question?.audio?.gains?.[clipIndex] ?? 1));
+          audio.volume = elementClipVolume(gameVolume, audio);
           audio.currentTime = 0;
           if (audio.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) {
             const readyResult = await waitForMediaEvent(audio, "canplay", controller.signal);
