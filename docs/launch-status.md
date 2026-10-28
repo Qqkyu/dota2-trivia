@@ -24,7 +24,7 @@ the tag out in a separate worktree.
 | App | <https://queue-arcade.onrender.com> |
 | Render service | `srv-d9mqd1942hec73e9nlt0`, free Docker plan, Frankfurt, one instance |
 | Deploy policy | Manual deploys only from branch `main` (switched on 20 October) |
-| Live deployment | `dep-dbh3hsu7bikc73elqar0` from `main` at `95e1504` (loudness gains, ?audio-debug=1 diagnostics, Flashback distractor fixes; 2026-10-28) |
+| Live deployment | `dep-dbh3soks728c73aqo750` from `main` at `b143c53` (clip gain applied on every volume write; 2026-10-28) |
 | PostgreSQL | `dpg-d9mqc4taeets73aiclsg-a`, PostgreSQL 17, restricted runtime role, empty external allowlist |
 | Trusted address header | `ARCADE_TRUST_PROXY=cf-connecting-ip` |
 | Automatic migrations | Off (`ARCADE_AUTO_MIGRATE=false`); file store off |
