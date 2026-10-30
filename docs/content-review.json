@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-10-28T20:15:10.753Z",
-  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Fable 5.1 on 2026-10-28 after raising the runtime pick click to the cues' loudness (validator updated for the documented runtime gain; playable catalog unchanged)",
+  "reviewedAt": "2026-10-30T14:36:58.287Z",
+  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Fable 5.1 on 2026-10-30 after budgeting the native stale-result check for the keep-alive noise floor (playable catalog unchanged)",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
     "patch": "7.41f",
@@ -34,7 +34,7 @@
     "scripts/check-ingress-proof.mjs": "49e49deeffdcaca8448fad91420d9fcb60d1307afd6b0ae54cc45cfa4d892948",
     "scripts/check-ingress-trust.mjs": "e9f34483045feea92dbcc405ce91d3ec1700061ca06cdb3f1c563aaecc55cd35",
     "scripts/check-layout.mjs": "740e762f3d1ac29e06813c29b38b8113d423e11dbfcecdd2f019e6e63f7f5fda",
-    "scripts/check-native-feedback-sounds.mjs": "74d5cc36619d7c4faf87be48b080e2533799b12d2bbd7a3927d27c290dd953ec",
+    "scripts/check-native-feedback-sounds.mjs": "b1fdc6ffd1654256bf8a9287ff297bb98a0e1aff6d8d3041a87ce8322755a9c9",
     "scripts/check-pages.mjs": "1a401e653ad0b500988c960d63375c8fa08840c2b9354555065a73fc9e540d16",
     "scripts/check-party-api.mjs": "cc1add586175b7f3f5b1323e805ba8c613fc9fba201ffd0ae67db6a73323f60b",
     "scripts/check-party-crowd.mjs": "51e3e00dacab7b7bfcc80fcb23997c11efeea98d2a566eea3dfb2136b1a0b7f5",

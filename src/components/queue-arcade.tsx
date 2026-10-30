@@ -23,6 +23,7 @@ import { deriveRoundView } from "./arcade/round-view";
 import { ArcadeHeader } from "./arcade/arcade-header";
 import { ArcadeLobby } from "./arcade/arcade-lobby";
 import { EntryWait } from "./arcade/entry-wait";
+import { withAudioDebug } from "@/lib/audio-diagnostics.mjs";
 import { AudioDiagnosticsPanel } from "./arcade/audio-diagnostics-panel";
 import { KillStreakHud } from "./arcade/kill-streak-hud";
 import type { LobbyPulsePayload } from "./arcade/shared";
@@ -237,7 +238,7 @@ export function QueueArcade({
             setActivePrivateCode("");
             setPartyInviteCode("");
             if (window.location.pathname !== ARCADE_LOBBY_PATH || window.location.search) {
-              window.history.pushState({ queueArcadeView: "lobby" }, "", ARCADE_LOBBY_PATH);
+              window.history.pushState({ queueArcadeView: "lobby" }, "", withAudioDebug(ARCADE_LOBBY_PATH));
             }
           }}
         />

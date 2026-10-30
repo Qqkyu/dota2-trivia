@@ -30,6 +30,7 @@ import {
 import { isValueOrderAnswerForQuestion } from "@/lib/value-order.mjs";
 import { createRoomSyncGate } from "@/lib/room-sync.mjs";
 import { normalizeRoomSnapshot, normalizeVoteResult, publicRoomQuery } from "./room-snapshot";
+import { withAudioDebug } from "@/lib/audio-diagnostics.mjs";
 import {
   ANSWER_DURATION_MS,
   EMPTY_CROWD,
@@ -750,7 +751,7 @@ export function useArcadeRoom({
         }
         applyRoomSnapshot(result.snapshot, result.clockOffset, result.receivedAt);
         void sendAlphaSessionEvent("start", alphaSessionId).catch(() => undefined);
-        const playHref = privateCode ? `${PUBLIC_ARCADE_PATH}?room=${privateCode}` : PUBLIC_ARCADE_PATH;
+        const playHref = withAudioDebug(privateCode ? `${PUBLIC_ARCADE_PATH}?room=${privateCode}` : PUBLIC_ARCADE_PATH);
         if (updateHistory && `${window.location.pathname}${window.location.search}` !== playHref) {
           window.history.pushState({ queueArcadeView: "play" }, "", playHref);
         }
@@ -1026,7 +1027,7 @@ export function useArcadeRoom({
 
       if (historyAction !== "none" && (window.location.pathname !== ARCADE_LOBBY_PATH || window.location.search)) {
         const method = historyAction === "replace" ? "replaceState" : "pushState";
-        window.history[method]({ queueArcadeView: "lobby" }, "", ARCADE_LOBBY_PATH);
+        window.history[method]({ queueArcadeView: "lobby" }, "", withAudioDebug(ARCADE_LOBBY_PATH));
       }
     },
     [

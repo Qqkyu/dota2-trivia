@@ -3,6 +3,7 @@ import { Signal } from "lucide-react";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { FRESH_ROUND_MIN_REMAINING_MS } from "@/lib/arcade-entry.mjs";
+import { withAudioDebug } from "@/lib/audio-diagnostics.mjs";
 import { lobbyRoundAt } from "@/lib/lobby-round.mjs";
 import { PARTY_ARCADE_PATH } from "@/lib/arcade-navigation.mjs";
 import { SteamAvatar } from "../steam-avatar";
@@ -172,7 +173,7 @@ export function ArcadeLobby({
               setPrivateWaiting(false);
               setPartyOpen(true);
               if (window.location.pathname !== PARTY_ARCADE_PATH) {
-                window.history.pushState({ queueArcadeView: "party" }, "", PARTY_ARCADE_PATH);
+                window.history.pushState({ queueArcadeView: "party" }, "", withAudioDebug(PARTY_ARCADE_PATH));
               }
             }}
           >
