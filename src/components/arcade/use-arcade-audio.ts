@@ -269,8 +269,15 @@ export function useOutputKeepAlive({ phase, soundEnabled }: { phase: GamePhase; 
           audioProbe.keepAlive = created.state;
           recordAudioEvent("keepalive", { state: created.state });
         });
+        // Not digital silence: some Bluetooth speakers idle their amplifier on a
+        // silent signal and swallow the next sound's start, so the loop carries
+        // noise with -54 dBFS peaks, inaudible on a speaker and under 0.1% of a
+        // cue's energy. The native sound check budgets for this floor.
         const silence = context.createBufferSource();
-        silence.buffer = context.createBuffer(1, context.sampleRate, context.sampleRate);
+        const buffer = context.createBuffer(1, context.sampleRate, context.sampleRate);
+        const samples = buffer.getChannelData(0);
+        for (let index = 0; index < samples.length; index += 1) samples[index] = (Math.random() * 2 - 1) * 0.002;
+        silence.buffer = buffer;
         silence.loop = true;
         silence.connect(context.destination);
         silence.start();

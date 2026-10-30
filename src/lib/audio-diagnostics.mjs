@@ -40,15 +40,26 @@ export function subscribeAudioEvents(listener) {
   return () => listeners.delete(listener);
 }
 
-/** `?audio-debug=1` turns the panel on for this tab; `?audio-debug=0` turns it off. */
+/**
+ * `?audio-debug=1` turns the panel on for this browser until `?audio-debug=0`
+ * turns it off. The flag lives in localStorage, so a new tab, a reload or the
+ * client-side move to /play keeps the panel; `withAudioDebug` also keeps the
+ * query on the URL so the state stays visible.
+ */
 export function audioDiagnosticsEnabled() {
   if (typeof window === "undefined") return false;
   try {
     const flag = new URLSearchParams(window.location.search).get("audio-debug");
-    if (flag === "1") window.sessionStorage.setItem(STORAGE_KEY, "1");
-    if (flag === "0") window.sessionStorage.removeItem(STORAGE_KEY);
-    return window.sessionStorage.getItem(STORAGE_KEY) === "1";
+    if (flag === "1") window.localStorage.setItem(STORAGE_KEY, "1");
+    if (flag === "0") window.localStorage.removeItem(STORAGE_KEY);
+    return window.localStorage.getItem(STORAGE_KEY) === "1";
   } catch {
     return false;
   }
+}
+
+/** Keep `?audio-debug=1` on in-app navigation while the panel is on. */
+export function withAudioDebug(href) {
+  if (!audioDiagnosticsEnabled() || typeof href !== "string") return href;
+  return href.includes("audio-debug=") ? href : `${href}${href.includes("?") ? "&" : "?"}audio-debug=1`;
 }

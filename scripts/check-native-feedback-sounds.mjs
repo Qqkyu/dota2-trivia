@@ -226,8 +226,11 @@ try {
         await client.browser.send("Target.activateTarget", { targetId: client.targetId });
         await client.page.waitFor("document.hidden === false");
         await delay(500);
+        // The output keep-alive adds a noise floor with -54 dBFS peaks per live
+        // tab (about 0.03 energy over this 500 ms window per tab). A replayed
+        // wrong cue measures above 7 here even at 70% volume.
         assert(
-          output.read(mark).every((channel) => sampleEnergy(channel) < 0.00001),
+          output.read(mark).every((channel) => sampleEnergy(channel) < 0.5),
           "Returning to the older tab replayed a stale result",
         );
         await client.page.evaluate('window.__soundFixture.set("first")');
