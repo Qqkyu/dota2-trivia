@@ -17,6 +17,7 @@ export function useRoomPolling({
   entryWaitDeadline,
   currentQuestion,
   answerDuration,
+  lastSnapshotRequestedAt,
 }: {
   phase: GamePhase;
   syncRoom: (force?: boolean) => Promise<void>;
@@ -28,6 +29,7 @@ export function useRoomPolling({
   entryWaitDeadline: number | null;
   currentQuestion: PublicArcadeQuestion | null;
   answerDuration: number;
+  lastSnapshotRequestedAt: number;
 }) {
   useEffect(() => {
     if (phase === "lobby") return;
@@ -131,11 +133,25 @@ export function useRoomPolling({
         : (progressiveClueDeadline ?? phaseDeadline);
     const delay = roomDeadlineSyncDelay(activeDeadline, Date.now());
     if (delay === null) return;
+    // The deadline has passed and the room already answered a request sent after
+    // it with this same phase: the clocks disagree. Leave that to the heartbeat
+    // rather than polling in a tight loop. A snapshot requested before the
+    // deadline is simply stale, so sync again now.
+    if (delay === 0 && activeDeadline !== null && lastSnapshotRequestedAt > activeDeadline) return;
 
     const timeout = window.setTimeout(() => {
       setNow(Date.now());
       void syncRoom(true);
     }, delay);
     return () => window.clearTimeout(timeout);
-  }, [answerDuration, currentQuestion, deadline, entryWaitDeadline, phase, revealDeadline, syncRoom]);
+  }, [
+    answerDuration,
+    currentQuestion,
+    deadline,
+    entryWaitDeadline,
+    lastSnapshotRequestedAt,
+    phase,
+    revealDeadline,
+    syncRoom,
+  ]);
 }

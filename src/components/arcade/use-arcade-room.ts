@@ -132,6 +132,9 @@ export function useArcadeRoom({
 
   const [activePlayers, setActivePlayers] = useState(initialPulse?.activePlayers ?? 0);
 
+  /** When the latest applied snapshot was requested; a deadline wake that finds it older than the deadline re-syncs at once. */
+  const [lastSnapshotRequestedAt, setLastSnapshotRequestedAt] = useState(0);
+
   const [lobbyPulse, setLobbyPulse] = useState<LobbyPulse | null>(() =>
     initialPulse ? lobbyPulseFromPayload(initialPulse) : null,
   );
@@ -356,7 +359,9 @@ export function useArcadeRoom({
         {
           cache: "no-store",
           signal,
-        },
+          // Ahead of any image still loading: on a slow link the snapshot is what moves the round.
+          priority: "high",
+        } as RequestInit,
       );
       const payload: unknown = await response.json();
       const receivedAt = Date.now();
@@ -368,6 +373,7 @@ export function useArcadeRoom({
       return {
         snapshot,
         identityGeneration,
+        requestedAt,
         receivedAt,
         clockOffset: (requestedAt + receivedAt) / 2 - snapshot.serverNow,
       };
@@ -648,6 +654,7 @@ export function useArcadeRoom({
           )
             return;
           applyRoomSnapshot(result.snapshot, result.clockOffset, result.receivedAt);
+          setLastSnapshotRequestedAt(result.requestedAt);
         } catch {
           if (gate.isCurrent(attempt.generation) && roomSettingsRef.current === settings) {
             setRoomError("Connection interrupted · retrying automatically");
@@ -1090,6 +1097,7 @@ export function useArcadeRoom({
     entryWaitDeadline,
     currentQuestion,
     answerDuration,
+    lastSnapshotRequestedAt,
   });
 
   useEffect(

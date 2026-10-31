@@ -6,19 +6,24 @@ import "./globals.css";
 export const dynamic = "force-dynamic";
 
 const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
+  src: "./fonts/GeistVF.woff2",
   variable: "--font-geist-sans",
   weight: "100 900",
+  display: "swap",
 });
 const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
+  src: "./fonts/GeistMonoVF.woff2",
   variable: "--font-geist-mono",
   weight: "100 900",
+  display: "swap",
 });
+// Subset of radiance-bold.otf (Latin, digits, punctuation) as WOFF2: 16 KB
+// instead of 48 KB on the wire, and text paints in the fallback until it lands.
 const radianceBold = localFont({
-  src: "./fonts/radiance-bold.otf",
+  src: "./fonts/radiance-bold.woff2",
   variable: "--font-radiance",
   weight: "700",
+  display: "swap",
 });
 
 const metadataBase = new URL(process.env.ARCADE_APP_URL?.trim() || "http://localhost:3000");

@@ -1,14 +1,30 @@
 import { ECHO_HUNT_FINAL_REVEAL_SECONDS, SOUNDCHECK_FINAL_REVEAL_SECONDS } from "./soundcheck.mjs";
 
-export const ROOM_SYNC_REQUEST_TIMEOUT_MS = 5_000;
+// On a 3G link a snapshot can take several seconds while images load beside
+// it; a 5 s timeout plus "force always replaces" aborted poll after poll and
+// left the client stuck on the entry wait.
+export const ROOM_SYNC_REQUEST_TIMEOUT_MS = 10_000;
+export const ROOM_SYNC_FORCE_REPLACE_AFTER_MS = 1_500;
 export const ROOM_SYNC_DEADLINE_GRACE_MS = 75;
 export const ROOM_SYNC_HEARTBEAT_MS = 5_000;
 
-export function roomSyncAttemptAction(pendingStartedAt, now, force = false, timeoutMs = ROOM_SYNC_REQUEST_TIMEOUT_MS) {
+/**
+ * A forced wake (a deadline just passed) reuses a poll that is still young:
+ * its answer is at most a round trip older than a fresh one would be, and the
+ * deadline logic re-syncs if that answer turns out to predate the deadline.
+ */
+export function roomSyncAttemptAction(
+  pendingStartedAt,
+  now,
+  force = false,
+  timeoutMs = ROOM_SYNC_REQUEST_TIMEOUT_MS,
+  forceReplaceAfterMs = ROOM_SYNC_FORCE_REPLACE_AFTER_MS,
+) {
   if (!Number.isFinite(pendingStartedAt)) return "start";
 
   const elapsed = now - pendingStartedAt;
-  if (force || !Number.isFinite(now) || elapsed < 0 || elapsed >= timeoutMs) return "replace";
+  if (!Number.isFinite(now) || elapsed < 0 || elapsed >= timeoutMs) return "replace";
+  if (force && elapsed >= forceReplaceAfterMs) return "replace";
   return "reuse";
 }
 
