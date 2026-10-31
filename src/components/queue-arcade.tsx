@@ -393,8 +393,6 @@ export function QueueArcade({
                 submitQuestionReport={submitQuestionReport}
                 toggleQuestionReport={toggleQuestionReport}
                 crowd={crowd}
-                selectedIndex={selectedIndex}
-                selectedAnswerKey={selectedAnswerKey}
                 selectedWasCorrect={selectedWasCorrect}
                 resultCallout={resultCallout}
                 isValueOrderRound={isValueOrderRound}

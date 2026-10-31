@@ -24,17 +24,10 @@ type RevealPanelProps = { currentQuestion: PublicArcadeQuestion } & Pick<
   | "submitQuestionReport"
   | "toggleQuestionReport"
   | "crowd"
-  | "selectedIndex"
-  | "selectedAnswerKey"
 > &
   Pick<ReturnType<typeof deriveRoundView>, "selectedWasCorrect" | "resultCallout" | "isValueOrderRound">;
 
-function crowdSummary(
-  question: PublicArcadeQuestion,
-  crowd: RevealPanelProps["crowd"],
-  selectedIndex: number | null,
-  selectedAnswerKey: string | null,
-) {
+function crowdSummary(question: PublicArcadeQuestion, crowd: RevealPanelProps["crowd"]) {
   if (isPublicKeyedAnswerQuestion(question)) {
     const correctKey = question.reveal?.correctAnswerKey ?? null;
     const rightCount = crowd.keyCounts.find((entry) => entry.answerKey === correctKey)?.count ?? 0;
@@ -45,7 +38,6 @@ function crowdSummary(
     return crowdSummaryLine({
       total: crowd.total,
       rightCount,
-      playerAnswered: selectedAnswerKey !== null,
       majorityLabel: top ? keyedAnswerLabel(top.answerKey, "another pick", question) : null,
       majorityIsRight: !top || top.answerKey === correctKey || top.count <= rightCount,
     });
@@ -56,7 +48,6 @@ function crowdSummary(
   return crowdSummaryLine({
     total: crowd.total,
     rightCount,
-    playerAnswered: selectedIndex !== null,
     majorityLabel: `${LETTERS[topIndex]} · ${question.answers[topIndex] ?? ""}`,
     majorityIsRight: topIndex === correctIndex || crowd.counts[topIndex] <= rightCount,
   });
@@ -89,8 +80,6 @@ export function RevealPanel({
   submitQuestionReport,
   toggleQuestionReport,
   crowd,
-  selectedIndex,
-  selectedAnswerKey,
   selectedWasCorrect,
   resultCallout,
   isValueOrderRound,
@@ -117,7 +106,7 @@ export function RevealPanel({
         </span>
         {!isValueOrderRound && <p data-testid="reveal-explanation">{currentQuestion.reveal?.explanation}</p>}
         <p className={own.crowdLine} data-testid="crowd-summary" data-total={crowd.total}>
-          {crowdSummary(currentQuestion, crowd, selectedIndex, selectedAnswerKey)}
+          {crowdSummary(currentQuestion, crowd)}
         </p>
         <div className={own.reportControl}>
           <button
