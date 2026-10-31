@@ -183,13 +183,17 @@ export function EntryWaitLessons() {
               aria-hidden={tip.id !== "heroes"}
               inert={tip.id !== "heroes"}
             >
-              <HeroPicker
-                question={WAIT_HERO_QUESTION}
-                phase="answering"
-                selectedKey={null}
-                crowd={EMPTY_CROWD}
-                onChoose={() => undefined}
-              />
+              {/* Mounted only while shown: both grids at once put 238 images on
+                  the wire during the wait and starved the room sync on 3G. */}
+              {tip.id === "heroes" && (
+                <HeroPicker
+                  question={WAIT_HERO_QUESTION}
+                  phase="answering"
+                  selectedKey={null}
+                  crowd={EMPTY_CROWD}
+                  onChoose={() => undefined}
+                />
+              )}
             </div>
             <div
               className={styles.entryWaitPanel}
@@ -199,13 +203,15 @@ export function EntryWaitLessons() {
               aria-hidden={tip.id !== "shop"}
               inert={tip.id !== "shop"}
             >
-              <ShopkeeperStore
-                question={WAIT_SHOP_QUESTION}
-                phase="answering"
-                selectedKey={null}
-                crowd={EMPTY_CROWD}
-                onChoose={() => undefined}
-              />
+              {tip.id === "shop" && (
+                <ShopkeeperStore
+                  question={WAIT_SHOP_QUESTION}
+                  phase="answering"
+                  selectedKey={null}
+                  crowd={EMPTY_CROWD}
+                  onChoose={() => undefined}
+                />
+              )}
             </div>
           </div>
         </article>

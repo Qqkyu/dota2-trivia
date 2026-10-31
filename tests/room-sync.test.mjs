@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   createRoomSyncGate,
   ROOM_SYNC_DEADLINE_GRACE_MS,
+  ROOM_SYNC_FORCE_REPLACE_AFTER_MS,
   ROOM_SYNC_HEARTBEAT_MS,
   ROOM_SYNC_REQUEST_TIMEOUT_MS,
   roomDeadlineSyncDelay,
@@ -29,9 +30,15 @@ describe("createRoomSyncGate", () => {
     expect(gate.isCurrent(replacement.generation)).toBe(true);
 
     gate.attach(replacement.generation, new Promise(() => undefined));
-    const wake = gate.begin(startedAt + ROOM_SYNC_REQUEST_TIMEOUT_MS + 1, true);
+    // A forced wake reuses a young poll instead of aborting it.
+    const youngWake = gate.begin(startedAt + ROOM_SYNC_REQUEST_TIMEOUT_MS + 1, true);
+    expect(youngWake).toMatchObject({ action: "reuse", generation: replacement.generation });
+    expect(replacement.signal.aborted).toBe(false);
+    const wake = gate.begin(startedAt + ROOM_SYNC_REQUEST_TIMEOUT_MS + ROOM_SYNC_FORCE_REPLACE_AFTER_MS, true);
     gate.finish(replacement.generation);
-    const afterStaleFinish = gate.begin(startedAt + ROOM_SYNC_REQUEST_TIMEOUT_MS + 2);
+    const afterStaleFinish = gate.begin(
+      startedAt + ROOM_SYNC_REQUEST_TIMEOUT_MS + ROOM_SYNC_FORCE_REPLACE_AFTER_MS + 1,
+    );
     expect(wake.action).toBe("replace");
     expect(replacement.signal.aborted).toBe(true);
     expect(gate.isCurrent(wake.generation)).toBe(true);
@@ -39,7 +46,9 @@ describe("createRoomSyncGate", () => {
 
     gate.cancel();
     expect(wake.signal.aborted).toBe(true);
-    expect(gate.begin(startedAt + ROOM_SYNC_REQUEST_TIMEOUT_MS + 3).action).toBe("start");
+    expect(gate.begin(startedAt + ROOM_SYNC_REQUEST_TIMEOUT_MS + ROOM_SYNC_FORCE_REPLACE_AFTER_MS + 3).action).toBe(
+      "start",
+    );
   });
 });
 
