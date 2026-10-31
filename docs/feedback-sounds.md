@@ -68,9 +68,12 @@ The client now keeps the output open while a round is live. `useOutputKeepAlive`
 in `src/components/arcade/use-arcade-audio.ts` runs an AudioContext that renders
 digital silence from the entry wait until the lobby, suspended while the tab is
 hidden or sounds are muted. It is not a media element, so the per-voice tap does
-not count it. Since 2026-10-30 the loop is not digital silence but noise with
--54 dBFS peaks, because some Bluetooth speakers idle their amplifier on a silent
-signal and eat the next sound's start; the native check's "stale result on the
+not count it. Since 2026-10-30 the loop is not digital silence, because some Bluetooth
+speakers idle their amplifier on a silent signal and eat the next sound's start.
+White noise at -54 dBFS peaks fixed the dropped clicks on the maintainer's JBL
+but was an audible hiss; since 2026-10-31 the loop is a 20 Hz sine at -54 dBFS,
+which a small speaker cannot reproduce. The diagnostics panel switches the loop
+between tone, silence and off (`queue-arcade:keep-alive` in localStorage); the native check's "stale result on the
 old tab" assertion budgets for that floor (energy under 0.5 over 500 ms, where a
 replayed cue measures above 7). `pnpm check:sounds` passes with it. Whether a
 given speaker stays awake is only provable on that device.

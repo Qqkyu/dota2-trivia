@@ -4,8 +4,11 @@ import {
   audioEvents,
   audioProbe,
   clearAudioEvents,
+  keepAliveMode,
   recordAudioEvent,
+  setKeepAliveMode,
   subscribeAudioEvents,
+  subscribeKeepAliveMode,
 } from "@/lib/audio-diagnostics.mjs";
 import own from "./audio-diagnostics-panel.module.css";
 
@@ -40,6 +43,7 @@ export function AudioDiagnosticsPanel({
     () => audioDiagnosticsEnabled(),
     () => false,
   );
+  const mode = useSyncExternalStore(subscribeKeepAliveMode, keepAliveMode, () => "tone");
   const [events, setEvents] = useState<AudioEvent[]>(() => audioEvents() as AudioEvent[]);
   const [probe, setProbe] = useState({ focus: true, hidden: false, owner: null as boolean | null, keepAlive: "none" });
   const [note, setNote] = useState("");
@@ -69,7 +73,15 @@ export function AudioDiagnosticsPanel({
   };
   const copyLog = () => {
     const text = JSON.stringify(
-      { at: new Date().toISOString(), userAgent: navigator.userAgent, probe, soundEnabled, gameVolume, events },
+      {
+        at: new Date().toISOString(),
+        userAgent: navigator.userAgent,
+        probe,
+        keepAlive: mode,
+        soundEnabled,
+        gameVolume,
+        events,
+      },
       null,
       1,
     );
@@ -95,6 +107,20 @@ export function AudioDiagnosticsPanel({
             Clear
           </button>
         </span>
+      </div>
+      <div className={own.modes} role="group" aria-label="Output keep-alive">
+        <span>Keep-alive:</span>
+        {(["tone", "silence", "off"] as const).map((option) => (
+          <button
+            key={option}
+            type="button"
+            aria-pressed={mode === option}
+            data-active={mode === option ? "true" : "false"}
+            onClick={() => setKeepAliveMode(option)}
+          >
+            {option}
+          </button>
+        ))}
       </div>
       <div className={own.status}>
         focus={String(probe.focus)} hidden={String(probe.hidden)} owner={String(probe.owner)} keepAlive=
