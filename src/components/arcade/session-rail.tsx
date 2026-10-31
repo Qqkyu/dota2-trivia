@@ -40,14 +40,8 @@ export function SessionRail({
   recentHistoryStart,
 }: SessionRailProps) {
   const answered = crowd.total.toLocaleString("en-US");
-  const roomLine =
-    phase === "answering"
-      ? crowd.total === 0
-        ? "No answer locked yet."
-        : `${answered} ${crowd.total === 1 ? "answer" : "answers"} locked so far.`
-      : crowd.total === 0
-        ? "Nobody answered this round."
-        : `${answered} answered this round.`;
+  // The same shape for a room of one as for a full room; no "only you" copy.
+  const roomLine = phase === "answering" ? `${answered} locked so far.` : `${answered} answered this round.`;
   return (
     <div className={styles.sideRail} role="region" aria-label="Your session">
       <div className={own.scoreGrid} data-testid="score-grid">
@@ -72,7 +66,7 @@ export function SessionRail({
           <span className={own.livePill}>{phase === "answering" ? "Live" : "Final"}</span>
         </div>
         <strong data-testid="room-card-players">
-          {activePlayers > 1 ? `${activePlayers.toLocaleString("en-US")} playing now` : "Only you in the room"}
+          {activePlayers > 0 ? `${activePlayers.toLocaleString("en-US")} playing now` : "Room open"}
         </strong>
         <p data-testid="room-card-answers">{roomLine}</p>
       </div>
