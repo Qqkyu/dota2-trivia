@@ -58,6 +58,42 @@ export function audioDiagnosticsEnabled() {
   }
 }
 
+const KEEP_ALIVE_KEY = "queue-arcade:keep-alive";
+const KEEP_ALIVE_MODES = ["tone", "silence", "off"];
+const modeListeners = new Set();
+
+/**
+ * What the output keep-alive plays while a round is live: a 20 Hz tone
+ * (default; a speaker cannot reproduce it, but it keeps the amplifier from
+ * idling), digital silence (keeps the stream open only), or nothing. The panel
+ * switches it so a silent pick can be compared across the three.
+ */
+export function keepAliveMode() {
+  if (typeof window === "undefined") return "tone";
+  try {
+    const stored = window.localStorage.getItem(KEEP_ALIVE_KEY);
+    return KEEP_ALIVE_MODES.includes(stored) ? stored : "tone";
+  } catch {
+    return "tone";
+  }
+}
+
+export function setKeepAliveMode(mode) {
+  if (!KEEP_ALIVE_MODES.includes(mode)) return;
+  try {
+    window.localStorage.setItem(KEEP_ALIVE_KEY, mode);
+  } catch {
+    // Storage can be disabled; the hook falls back to the default.
+  }
+  recordAudioEvent("keepalive-mode", { mode });
+  for (const listener of modeListeners) listener();
+}
+
+export function subscribeKeepAliveMode(listener) {
+  modeListeners.add(listener);
+  return () => modeListeners.delete(listener);
+}
+
 /** Keep `?audio-debug=1` on in-app navigation while the panel is on. */
 export function withAudioDebug(href) {
   if (!audioDiagnosticsEnabled() || typeof href !== "string") return href;

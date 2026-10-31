@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createFeedbackPlayer } from "@/lib/feedback-player.mjs";
 import { claimAudioTab } from "@/lib/audio-tab.mjs";
 import { type PublicArcadeQuestion } from "@/lib/public-question";
 import { echoHuntCutDuration, soundcheckCutDuration } from "@/lib/soundcheck.mjs";
 import { audioUrlStage, roundAudioSourceKey, waitForAudioCut, waitForAudioGap, waitForMediaEvent } from "./round-audio";
-import { audioProbe, recordAudioEvent } from "@/lib/audio-diagnostics.mjs";
+import { audioProbe, keepAliveMode, recordAudioEvent, subscribeKeepAliveMode } from "@/lib/audio-diagnostics.mjs";
 import { elementClipVolume } from "@/lib/round-clip-volume.mjs";
 import { type GamePhase } from "./shared";
 
@@ -249,10 +249,14 @@ export function useArcadeAudio({
  * cues. It is not a media element, so the per-voice tap never sees it.
  */
 export function useOutputKeepAlive({ phase, soundEnabled }: { phase: GamePhase; soundEnabled: boolean }) {
-  const active = phase !== "lobby" && soundEnabled;
+  const mode = useSyncExternalStore(subscribeKeepAliveMode, keepAliveMode, () => "tone");
+  const active = phase !== "lobby" && soundEnabled && mode !== "off";
 
   useEffect(() => {
-    if (!active || typeof window === "undefined") return;
+    if (!active || typeof window === "undefined") {
+      audioProbe.keepAlive = mode === "off" ? "off" : "inactive";
+      return;
+    }
     const Context =
       window.AudioContext ?? (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
     if (!Context) return;
@@ -263,20 +267,25 @@ export function useOutputKeepAlive({ phase, soundEnabled }: { phase: GamePhase; 
       if (!context) {
         context = new Context();
         const created = context;
-        audioProbe.keepAlive = created.state;
-        recordAudioEvent("keepalive", { state: created.state });
+        audioProbe.keepAlive = `${created.state} (${mode})`;
+        recordAudioEvent("keepalive", { state: created.state, mode });
         created.addEventListener("statechange", () => {
-          audioProbe.keepAlive = created.state;
-          recordAudioEvent("keepalive", { state: created.state });
+          audioProbe.keepAlive = `${created.state} (${mode})`;
+          recordAudioEvent("keepalive", { state: created.state, mode });
         });
-        // Not digital silence: some Bluetooth speakers idle their amplifier on a
-        // silent signal and swallow the next sound's start, so the loop carries
-        // noise with -54 dBFS peaks, inaudible on a speaker and under 0.1% of a
-        // cue's energy. The native sound check budgets for this floor.
+        // Some Bluetooth speakers idle their amplifier on a silent signal and
+        // swallow the next sound's start, so by default the loop carries a 20 Hz
+        // sine at -54 dBFS: below what a speaker can reproduce (white noise at
+        // this level was an audible hiss), under 0.1% of a cue's energy, and
+        // within the floor the native sound check budgets for.
         const silence = context.createBufferSource();
         const buffer = context.createBuffer(1, context.sampleRate, context.sampleRate);
-        const samples = buffer.getChannelData(0);
-        for (let index = 0; index < samples.length; index += 1) samples[index] = (Math.random() * 2 - 1) * 0.002;
+        if (mode === "tone") {
+          const samples = buffer.getChannelData(0);
+          for (let index = 0; index < samples.length; index += 1) {
+            samples[index] = Math.sin((2 * Math.PI * 20 * index) / context.sampleRate) * 0.002;
+          }
+        }
         silence.buffer = buffer;
         silence.loop = true;
         silence.connect(context.destination);
@@ -298,9 +307,9 @@ export function useOutputKeepAlive({ phase, soundEnabled }: { phase: GamePhase; 
       window.removeEventListener("keydown", start);
       document.removeEventListener("visibilitychange", visibility);
       void context?.close().catch(() => undefined);
-      audioProbe.keepAlive = "closed";
+      audioProbe.keepAlive = mode === "off" ? "off" : "closed";
     };
-  }, [active]);
+  }, [active, mode]);
 }
 
 export function useRoundAutoplay({

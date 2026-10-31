@@ -15,7 +15,28 @@
   font-family: var(--font-geist-mono), monospace;
   font-size: 11px;
   line-height: 1.4;
-  grid-template-rows: auto auto minmax(0, 1fr);
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+}
+
+.modes {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #a7aaa5;
+}
+
+.modes button {
+  padding: 2px 7px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: transparent;
+  color: #d6d9d3;
+  font: inherit;
+  cursor: pointer;
+}
+
+.modes button[data-active="true"] {
+  border-color: #e2b558;
+  color: #e2b558;
 }
 
 .head {
