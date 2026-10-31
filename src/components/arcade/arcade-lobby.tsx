@@ -6,6 +6,7 @@ import { FRESH_ROUND_MIN_REMAINING_MS } from "@/lib/arcade-entry.mjs";
 import { withAudioDebug } from "@/lib/audio-diagnostics.mjs";
 import { lobbyRoundAt } from "@/lib/lobby-round.mjs";
 import { PARTY_ARCADE_PATH } from "@/lib/arcade-navigation.mjs";
+import { LinkStatusLabel } from "../link-status-label";
 import { SteamAvatar } from "../steam-avatar";
 import { SteamSignIn } from "../steam-sign-in";
 import styles from "../queue-arcade.module.css";
@@ -192,7 +193,11 @@ export function ArcadeLobby({
                 />
                 <span>
                   <strong>{account.profile.user.displayName}</strong>
-                  <small>{account.profile.stats.accuracy}% accuracy</small>
+                  <small>
+                    <LinkStatusLabel pending="Opening your records…">
+                      {account.profile.stats.accuracy}% accuracy
+                    </LinkStatusLabel>
+                  </small>
                 </span>
               </Link>
             ) : (
