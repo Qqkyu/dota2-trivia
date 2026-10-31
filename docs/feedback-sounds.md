@@ -98,6 +98,17 @@ output keep-alive state and the volume. "Test cues" plays lock, correct, wrong
 and start in a row; "Copy log" puts the whole log on the clipboard as JSON. A
 silent pick on a real speaker is diagnosed from that log, not from a guess.
 
+## Field evidence (2026-10-31)
+
+The maintainer's diagnostics log from the live site, Chrome 156 on Windows with a
+JBL Bluetooth speaker at a 30% slider: 11 lock clicks, 7 result cues and 3 voice
+clips, every one `requested=true` and `ok=true`, owner and focus true. Nothing
+was skipped. With the keep-alive switched to "off", the wrong cue arrived as a
+distant, cave-like tail: the same file with its attack swallowed by the
+amplifier waking up. With "tone" or "silence" it sounded right, and no click
+dropped. The earlier "cave / echo" wrong-cue reports and the silent clicks are
+the same device behaviour; the browser side was never the cause. Keep "tone".
+
 ## Run
 
 With the app already running at `http://localhost:3000`:
