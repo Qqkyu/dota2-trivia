@@ -143,7 +143,11 @@ try {
   await page.send("Page.enable");
   await page.send("Runtime.enable");
   await page.send("Page.navigate", { url: `${appUrl}/profile?recordsPreview=short` });
-  await page.waitFor(`Boolean(document.querySelector('[data-testid^="format-preview-stage-"]'))`);
+  // Wait for a stage that has laid out, not merely one that exists: on a busy
+  // machine the first stage measured 0 px once per gate and failed the run.
+  await page.waitFor(
+    `(() => { const stage = document.querySelector('[data-testid^="format-preview-stage-"]'); return Boolean(stage) && stage.getBoundingClientRect().height > 0; })()`,
+  );
   const profileShots = await page.send("Page.captureScreenshot", { format: "png" });
   await writeFile("/tmp/profile-previews.png", Buffer.from(profileShots.data, "base64"));
   const profileStages = await page.evaluate(MEASURE_STAGES);

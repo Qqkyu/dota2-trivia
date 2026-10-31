@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-10-30T14:36:58.287Z",
-  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Fable 5.1 on 2026-10-30 after budgeting the native stale-result check for the keep-alive noise floor (playable catalog unchanged)",
+  "reviewedAt": "2026-10-31T14:27:34.251Z",
+  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Fable 5.1 on 2026-10-31 after making the party preview check wait for a laid-out profile stage (playable catalog unchanged)",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
     "patch": "7.41f",
@@ -40,7 +40,7 @@
     "scripts/check-party-crowd.mjs": "51e3e00dacab7b7bfcc80fcb23997c11efeea98d2a566eea3dfb2136b1a0b7f5",
     "scripts/check-party-lobby.mjs": "7b47ac77cdb2c65f4c284443a46797127c6ee356639ff00858573a96ae3b5946",
     "scripts/check-party-nicks.mjs": "36dfe4f3375c9e9e26c29968fd00be3c6446a26f40dccd509f3e8742993a4bac",
-    "scripts/check-party-previews.mjs": "9ad4c293abd5a5456695e6a4b133ab0c99970e1dcde649849dcd1d512939d25d",
+    "scripts/check-party-previews.mjs": "18c0e66ac4fd0e6cad83cf2704020c3c73a56f3601e90cfaba80fb9c929a7892",
     "scripts/check-production-config.mjs": "3100c5b1a64a63c0859a13e9ec7c21cb6cda86f074d459c232007f16ccaab093",
     "scripts/check-public-play.mjs": "eeb92eb9f4dc5478372060a75c4b0e9cde723b7398c0e65d69f58a8abc42799e",
     "scripts/check-rate-limit-live.mjs": "82de8cbe9c6530172ed6e199798d42f9566dcd90dbdfa3d1acc9bb58ed27a62f",
