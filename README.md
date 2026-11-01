@@ -104,7 +104,8 @@ Without that key, profile enrichment still uses public Steam Community XML when 
 ## Production alpha
 
 The repository includes a non-root standalone `Dockerfile` and a manual-deploy
-[Render test-service Blueprint](render.yaml). Use one application instance with Postgres.
+[Render Blueprint](render.yaml) for the existing service (see `docs/operations.md` before
+applying it). Use one application instance with Postgres.
 Private rooms, chat, and presence live in process memory and end when that process restarts.
 The launch checks verified the existing Render database, restored its backup locally,
 applied the reviewed migrations, and configured a restricted application role. See the
