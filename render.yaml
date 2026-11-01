@@ -1,11 +1,31 @@
-# Review this file before importing it. Importing a Blueprint deploys resources.
-# This preserves the current free test service. It creates no paid database or cron job.
+# Blueprint for the existing `queue-arcade` web service.
+#
+# Applying it changes one thing on the live service: the instance plan, from
+# `free` to `0.5c-512mb` ($7 a month, 512 MB, never sleeps). Every other field
+# below matches the live service as read from the Render API on 2026-11-01.
+#
+# STOP CHECK. Before you click "Deploy Blueprint", the review screen must show
+# `queue-arcade` as a change to the existing service (plan free -> 0.5c-512mb).
+# If it says it will create `queue-arcade`, or shows a notice that the Blueprint
+# matches existing resources and adds a suffix to the name, cancel: that path
+# makes a second paid service with no secrets. See docs/operations.md.
+#
+# Secrets are left out on purpose. Render keeps environment variables a
+# Blueprint does not mention, while a `sync: false` entry is prompted for at
+# creation and could replace DATABASE_URL, ARCADE_AUTH_SECRET, ARCADE_VOTER_SALT,
+# STEAM_WEB_API_KEY or ARCADE_REVIEWER_STEAM_IDS. Manage those in the dashboard.
+#
+# The database `queue-arcade-db` (0.1c-256mb, PostgreSQL 17) is not managed here
+# on purpose, so no Blueprint sync can resize or recreate it.
+#
+# When the public address changes (custom domain), update ARCADE_APP_URL here in
+# the same change, or the next sync puts the old address back.
 services:
   - type: web
     name: queue-arcade
     runtime: docker
     region: frankfurt
-    plan: free
+    plan: 0.5c-512mb
     numInstances: 1
     autoDeployTrigger: "off"
     dockerfilePath: ./Dockerfile
@@ -13,29 +33,19 @@ services:
     healthCheckPath: /api/health
     maxShutdownDelaySeconds: 30
     envVars:
-      - key: NODE_ENV
-        value: production
       - key: NEXT_TELEMETRY_DISABLED
         value: "1"
-      - key: DATABASE_URL
-        sync: false
       - key: DATABASE_POOL_SIZE
         value: "5"
       - key: ARCADE_APP_URL
-        sync: false
-      - key: ARCADE_AUTH_SECRET
-        sync: false
-      - key: ARCADE_VOTER_SALT
-        sync: false
+        value: https://queue-arcade.onrender.com
       - key: ARCADE_DATA_COUNTRIES
-        sync: false
-      - key: ARCADE_REVIEWER_STEAM_IDS
-        sync: false
+        value: Germany
+      - key: ARCADE_TRUST_PROXY
+        value: cf-connecting-ip
       - key: ARCADE_AUTO_MIGRATE
         value: "false"
       - key: ARCADE_ALLOW_FILE_STORE
         value: "false"
       - key: ARCADE_ROUND_RETENTION_HOURS
         value: "2"
-      - key: ARCADE_TRUST_PROXY
-        sync: false

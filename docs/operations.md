@@ -45,12 +45,32 @@ Changing from file storage to `DATABASE_URL` selects a separate store. It does n
 local JSON records. Decide whether to discard test data or implement and verify an import
 before changing backends. Do not copy live data into CI.
 
-## Render test service
+## Render service Blueprint
 
-[`render.yaml`](../render.yaml) describes one free Docker web service in Frankfurt with
-manual deploys, a readiness check, and no database or paid cron resource. Importing a
-Blueprint can create or change resources. Review it against the existing `queue-arcade`
-service before applying it. No Blueprint was applied as part of these local changes.
+[`render.yaml`](../render.yaml) describes the existing `queue-arcade` Docker web service in
+Frankfurt: one instance on the `0.5c-512mb` plan ($7 a month, never sleeps), manual deploys,
+and a readiness check at `/api/health`. On 2026-11-01 a field-by-field comparison with the
+Render API found every value equal to the live service except the plan, which was still
+`free`. The Blueprint manages no database and holds no secrets. Render keeps environment
+variables a Blueprint does not mention, so `DATABASE_URL`, `ARCADE_AUTH_SECRET`,
+`ARCADE_VOTER_SALT`, `STEAM_WEB_API_KEY` and `ARCADE_REVIEWER_STEAM_IDS` stay as set in the
+dashboard. Applying the Blueprint is a purchase; the maintainer applies it.
+
+To apply it:
+
+1. In the Render Dashboard choose New, Blueprint, connect `Qqkyu/dota2-trivia`, branch `main`,
+   path `render.yaml`.
+2. In the review, `queue-arcade` must appear as a change to the existing service, plan `free`
+   to `0.5c-512mb`, and nothing else. If it appears as a new resource, or Render says the
+   Blueprint matches existing resources and will add a suffix to the name, cancel. That path
+   creates a second paid service with no secrets.
+3. Deploy the Blueprint. The service restarts once on the new plan.
+4. In the Blueprint's settings set Auto Sync to No, so later edits to `render.yaml` apply only
+   on a manual sync.
+
+A sync overwrites dashboard settings that conflict with the file, so keep `render.yaml` in
+step with the dashboard. Change `ARCADE_APP_URL` in the file in the same change that moves
+the app to a custom domain.
 
 The launch checks verified the existing database and restored its Render export into an
 isolated local PostgreSQL 17 instance. The reviewed migrations preserved all 58 original
@@ -58,15 +78,13 @@ rows and their original-column hashes. The service now has a restricted runtime 
 with automatic migrations and deployments disabled. See the
 [hosting record](audits/2026-10-06/launch-checks/hosting/README.md) for the current deployment
 and ingress results. Confirm one instance and autoscaling disabled before later releases.
-The Blueprint leaves credentials, origin, and secrets for the operator to supply.
 
-A free service can sleep and is suitable for testing. It cannot supply continuous private
-rooms or retention cleanup while asleep. A production launch needs an agreed uptime and
-backup plan. Render's pre-deploy command is available on paid services; this Blueprint
-therefore does not use it. Run the migration CLI through an approved network path before
-manual deployment. If the database is internal-only, use the host's approved job/shell
-facility or a temporary restricted connection; do not open unrestricted database access.
-No service purchase, resume, or upgrade is required to review this repository.
+On the free plan the service slept after idle and could not run private rooms or retention
+cleanup while asleep; the paid plan removes that. Render's pre-deploy command is available
+on paid services, but this Blueprint does not use it. Run the migration CLI through an
+approved network path before a manual deploy. If the database is internal-only, use the
+host's approved job/shell facility or a temporary restricted connection; do not open
+unrestricted database access.
 
 Sources: [Render Blueprints](https://render.com/docs/blueprint-spec),
 [free service limits](https://render.com/docs/free), and
