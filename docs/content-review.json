@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-11-01T14:30:15.488Z",
-  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Opus 5.5 on 2026-11-01 after adding the deploy handoff, party-ended and deploy scripts (playable catalog unchanged)",
+  "reviewedAt": "2026-11-01T19:24:59.446Z",
+  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Opus 5.5 on 2026-11-01 after the deploy script read its handoff report from the Render logs (playable catalog unchanged)",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
     "patch": "7.41f",
@@ -65,7 +65,7 @@
     "scripts/damage-question-facts.mjs": "57b73c8e7989e48713264569f061dd9acab2e23b123e33108c4be594e2d94af5",
     "scripts/database-backup.mjs": "f4060a7274dc009df6438c699cb57824fd1ea93c5cd9ef9e916340693ee2266b",
     "scripts/database-runtime-grants.mjs": "daff662cdd93f519447c5e2670f83700028d306bb7fc8debf16fbdcc57d6ef02",
-    "scripts/deploy-production.mjs": "2930beaac6b57f670c891390d4041c2249d07c02a2a43e3d0a1423af5ae27f3b",
+    "scripts/deploy-production.mjs": "373ecb177a543e626420d00c714ded9747d3e14c3b3ae38c7c092e3a61e3ee5b",
     "scripts/generate-aghanim.mjs": "5bf4f55569ee19b7676369bbb8404ca5fbc7ad668554a0caad77c7612a005788",
     "scripts/generate-hero-picker.mjs": "e48ee68fea01a1738dce8089166aaefb2f0283e0c8c7340aae348b25db443641",
     "scripts/generate-shopkeeper.mjs": "7c09ed125bba0398d6e823e3554406e66ed58cb0873679e3cdddf35656acb98f",
