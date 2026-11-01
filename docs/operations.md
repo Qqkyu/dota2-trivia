@@ -69,8 +69,14 @@ To apply it:
    on a manual sync.
 
 A sync overwrites dashboard settings that conflict with the file, so keep `render.yaml` in
-step with the dashboard. Change `ARCADE_APP_URL` in the file in the same change that moves
-the app to a custom domain.
+step with the dashboard.
+
+The public address is `https://queuearcade.com` (since 2026-11-01). Its DNS is at
+Cloudflare: CNAME records for `@` and `www` to `queue-arcade.onrender.com`, proxy status DNS
+only. Render issues the certificate and redirects `www` to the root. `ARCADE_APP_URL` must
+equal that origin: votes, sessions, reports and private-room actions are accepted only from
+it, and `src/proxy.ts` sends page requests on `*.onrender.com` there with a 308. Change
+`ARCADE_APP_URL` and `domains` in `render.yaml` together with the dashboard.
 
 The launch checks verified the existing database and restored its Render export into an
 isolated local PostgreSQL 17 instance. The reviewed migrations preserved all 58 original

@@ -21,7 +21,7 @@ the tag out in a separate worktree.
 
 | Item | Value |
 | --- | --- |
-| App | <https://queue-arcade.onrender.com> |
+| App | <https://queuearcade.com> (custom domain since 2026-11-01; `queue-arcade.onrender.com` pages redirect to it) |
 | Render service | `srv-d9mqd1942hec73e9nlt0`, Docker, plan `0.5c-512mb` ($7 a month, no sleep) since 2026-11-01, Frankfurt, one instance; managed by Blueprint `exs-dbjg5p2jnfac73ftd3f0` from `render.yaml`, Auto Sync off |
 | Deploy policy | Manual deploys only from branch `main` (switched on 20 October) |
 | Live deployment | `dep-dbjg63m7bikc73fc32og` from `main` at `3b37bd9` (plan change to `0.5c-512mb` through the Blueprint; same code as the 2026-10-31 deploy) |
@@ -40,7 +40,7 @@ service and the first visitor after idle waited about 17 s; the paid plan does n
 2. Trigger a manual deploy of that commit, either in the Render dashboard or with the API
    (`POST /v1/services/srv-d9mqd1942hec73e9nlt0/deploys` with the `commitId`, using
    `RENDER_API_KEY`). Render rebuilds the Docker image itself. Keep automatic deploys off.
-3. After the deploy, run `APP_URL=https://queue-arcade.onrender.com pnpm check:headers`
+3. After the deploy, run `APP_URL=https://queuearcade.com pnpm check:headers`
    and open the app once to confirm `/api/health` and a public round.
 4. Run `pnpm db:migrate` first only when `src/lib/database-schema.mjs` changed since the
    last deploy. Follow [operations](operations.md) for migrations, backups, and rollback.

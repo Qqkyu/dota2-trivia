@@ -18,8 +18,11 @@
 # The database `queue-arcade-db` (0.1c-256mb, PostgreSQL 17) is not managed here
 # on purpose, so no Blueprint sync can resize or recreate it.
 #
-# When the public address changes (custom domain), update ARCADE_APP_URL here in
-# the same change, or the next sync puts the old address back.
+# The public address is the custom domain queuearcade.com (Cloudflare DNS, two
+# CNAMEs to queue-arcade.onrender.com, DNS only). Render redirects www to the root.
+# Change ARCADE_APP_URL and `domains` together, or the next sync puts the old
+# address back. Each custom domain beyond the workspace's included two costs
+# $0.25 a month; adding one is the maintainer's purchase.
 services:
   - type: web
     name: queue-arcade
@@ -32,13 +35,15 @@ services:
     dockerContext: .
     healthCheckPath: /api/health
     maxShutdownDelaySeconds: 30
+    domains:
+      - queuearcade.com
     envVars:
       - key: NEXT_TELEMETRY_DISABLED
         value: "1"
       - key: DATABASE_POOL_SIZE
         value: "5"
       - key: ARCADE_APP_URL
-        value: https://queue-arcade.onrender.com
+        value: https://queuearcade.com
       - key: ARCADE_DATA_COUNTRIES
         value: Germany
       - key: ARCADE_TRUST_PROXY
