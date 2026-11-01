@@ -619,11 +619,9 @@ try {
     throw new Error(`Create did not say the code is taken (${JSON.stringify(takenCode)}).`);
   }
   const peekOnce = await fetch(`${appUrl}/api/private-rooms?code=${encodeURIComponent(partyCode)}&peek=1`);
-  const peekAgain = await fetch(`${appUrl}/api/private-rooms?code=${encodeURIComponent(partyCode)}&peek=1`);
-  const peekPlayers = (await peekOnce.json()).privateRoom?.players ?? [];
-  const peekPlayersAgain = (await peekAgain.json()).privateRoom?.players ?? [];
-  if (!peekOnce.ok || peekPlayers.length !== peekPlayersAgain.length) {
-    throw new Error("Peeking at a party added a player.");
+  const peekBody = await peekOnce.json();
+  if (!peekOnce.ok || peekBody.exists !== true || "privateRoom" in peekBody) {
+    throw new Error(`Peeking at a party returned more than "the code is taken" (${JSON.stringify(peekBody)}).`);
   }
   await clickTestId("private-room-leave");
   await page.waitFor(`document.querySelector('[data-testid="private-room-setup"]')?.dataset.path === "choose"`);
