@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-11-01T11:50:17.915Z",
-  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Opus 5.5 on 2026-11-01 after the party API and lobby checks moved from the code-only peek to member reads (playable catalog unchanged)",
+  "reviewedAt": "2026-11-01T13:22:22.143Z",
+  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Opus 5.5 on 2026-11-01 after adding the party test-bot script (playable catalog unchanged)",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
     "patch": "7.41f",
@@ -84,6 +84,7 @@
     "scripts/migrate-db.mjs": "143e3e88cfe513e414ee3ee4b385a24af4ae235e25c68e01cf79769ce98b3ceb",
     "scripts/multiplayer-smoke.mjs": "f5803730be83dfe6b4b8006a2e9d29dd72fe1659306925f3c272057925fd795a",
     "scripts/numeric-question-copy.mjs": "3af6de7711f3dd999fdf14446d10e0e1a55e24a21d09c16de8d3f566fe55f2dc",
+    "scripts/party-bots.mjs": "c0fa6316b61cdff8eba421e2b8a1d31ac361cb6443f24b0fac0657c4055e21ad",
     "scripts/question-quality-audit.mjs": "ced39b30fe16ad686736ee99b2fcf788b10d7503d56aed7ecfb380e06bba405f",
     "scripts/restore-db.mjs": "4ea8c0e5ad5fb896664299fe50d5f487ae01032b3e0ae3b8524e19c1c461b9a2",
     "scripts/room-resume-smoke.mjs": "03fa4d75415585fd31476df4dde007ef1196c992dd584a7ca65489c71c1b9739",
