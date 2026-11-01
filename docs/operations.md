@@ -78,6 +78,17 @@ equal that origin: votes, sessions, reports and private-room actions are accepte
 it, and `src/proxy.ts` sends page requests on `*.onrender.com` there with a 308. Change
 `ARCADE_APP_URL` and `domains` in `render.yaml` together with the dashboard.
 
+Render's edge cache should serve the `/api/art` images and the `/_next/static` files. A new
+player loads about 400 images, and without the cache each one costs the server a request.
+`render.yaml` has no field for it. In the service settings, under Edge Caching, set
+Cacheable file types to Common static files. The API field is `serviceDetails.cache.profile`
+with the value `origin-controlled`. Never choose All files. With it, an API route without a
+`Cache-Control` header would be cached and served to every player. Common static files never
+caches HTML or API responses, because their paths have no file extension. Every deploy purges
+the cache, and a Blueprint sync may reset the setting, so check it after a sync. To check,
+request one art URL twice; the second response carries `cf-cache-status: HIT`. On 2026-11-01
+the API setting alone left every response at `DYNAMIC`, even after a deploy.
+
 The launch checks verified the existing database and restored its Render export into an
 isolated local PostgreSQL 17 instance. The reviewed migrations preserved all 58 original
 rows and their original-column hashes. The service now has a restricted runtime role,
