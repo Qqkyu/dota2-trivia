@@ -10,11 +10,12 @@
 import { spawn } from "node:child_process";
 import { firstPartyRequests } from "./lib/first-party-requests.mjs";
 import { randomUUID } from "node:crypto";
-import { mkdtemp, rm } from "node:fs/promises";
+import { mkdtemp } from "node:fs/promises";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { LIVE_ROUND_GAMES } from "../src/lib/arcade-games.mjs";
+import { stopChrome } from "./lib/stop-chrome.mjs";
 
 const appUrl = (process.env.APP_URL ?? "http://localhost:3000").replace(/\/$/, "");
 const requests = firstPartyRequests(appUrl);
@@ -137,8 +138,7 @@ async function cleanup() {
   } catch {
     // gone
   }
-  chrome.kill("SIGKILL");
-  await rm(userDataDir, { recursive: true, force: true }).catch(() => undefined);
+  await stopChrome(chrome, userDataDir);
 }
 
 const hostId = `copy-host-${randomUUID()}`;

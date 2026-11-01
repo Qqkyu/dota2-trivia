@@ -7,10 +7,11 @@
 
 import { spawn } from "node:child_process";
 import { randomUUID } from "node:crypto";
-import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, writeFile } from "node:fs/promises";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { stopChrome } from "./lib/stop-chrome.mjs";
 
 const appUrl = (process.env.APP_URL ?? "http://localhost:3000").replace(/\/$/, "");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -124,8 +125,7 @@ async function cleanup() {
   } catch {
     // gone
   }
-  chrome.kill("SIGKILL");
-  await rm(userDataDir, { recursive: true, force: true }).catch(() => undefined);
+  await stopChrome(chrome, userDataDir);
 }
 
 async function pressKey(key, code = key.length === 1 ? `Key${key.toUpperCase()}` : key) {

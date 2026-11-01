@@ -6,10 +6,11 @@
  */
 import { spawn } from "node:child_process";
 import { randomUUID } from "node:crypto";
-import { mkdtemp, rm } from "node:fs/promises";
+import { mkdtemp } from "node:fs/promises";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { stopChrome } from "./lib/stop-chrome.mjs";
 
 const appUrl = (process.env.APP_URL ?? "http://localhost:3000").replace(/\/$/, "");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -221,7 +222,5 @@ try {
       // gone
     }
   }
-  chrome.kill("SIGKILL");
-  await delay(200);
-  await rm(userDataDir, { recursive: true, force: true }).catch(() => undefined);
+  await stopChrome(chrome, userDataDir);
 }
