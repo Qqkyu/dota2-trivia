@@ -325,3 +325,7 @@ review and quarantine writes.
 ## Attribution
 
 Question names and artwork mappings are generated from [OpenDota](https://docs.opendota.com/); the review checks marked answers and numeric constants against current Valve API data, official patch notes and a pinned client extract. Hero-response metadata, browser-ready Soundcheck WAVs, and every audible arcade UI cue are sourced through [Dotabase](https://github.com/mdiller/dotabase). Queue Trivia's original answer click, the layered matchmaking-start event, the legacy `challenge_success` sting, and `General.InvalidTarget_Invulnerable` (“meep merp”) are independently checked against the installed client; the runtime synthesizes no substitute tones. Game assets are served from public Dota asset hosts. Steam connection uses Valve's OpenID provider and an inline Steam brand mark. Dota 2 and its assets are trademarks of Valve Corporation. This fan project is not affiliated with or endorsed by Valve.
+
+## License
+
+The source code is under the [MIT license](LICENSE). Valve's Dota 2 content, the Radiance font and other bundled game assets are not; see [NOTICE](NOTICE.md).
