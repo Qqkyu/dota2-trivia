@@ -6,6 +6,7 @@ import type { PublicArcadeQuestion } from "@/lib/public-question";
 import { withPlayerId } from "./shared";
 import styles from "../queue-arcade.module.css";
 import own from "./artwork.module.css";
+import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
 
 export function QuestionArtwork({
   question,
@@ -49,7 +50,7 @@ export function QuestionArtwork({
         </span>
       ) : (
         <Image
-          src={withPlayerId(image.src)}
+          src={firstPartyArtSrc(withPlayerId(image.src))}
           alt={concealIdentity ? "" : image.alt}
           fill
           sizes="(max-width: 700px) 112px, 150px"
@@ -80,7 +81,7 @@ export function AnswerArtwork({ src, alt, kind }: { src: string; alt: string; ki
         <span>{alt.slice(0, 2).toUpperCase()}</span>
       ) : (
         <Image
-          src={src}
+          src={firstPartyArtSrc(src)}
           alt=""
           fill
           sizes="(max-width: 680px) 62px, 88px"

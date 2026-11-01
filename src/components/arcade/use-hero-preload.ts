@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { HERO_PICKER_HEROES, heroPickerPortraitSrc } from "@/lib/hero-picker";
 import { SHOPKEEPER_CATALOG_ITEMS } from "@/lib/shopkeeper-catalog";
 import { HERO_ATTRIBUTE_ICONS } from "./hero-picker";
+import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
 
 /**
  * Three in flight at a time. Firing all 300 icons at once saturated a 500 kbps
@@ -26,11 +27,12 @@ export function useHeroPreload() {
     const connection = (navigator as Navigator & { connection?: NetworkInformation }).connection;
     if (connection?.saveData) return;
     const fastEnough = !connection?.effectiveType || connection.effectiveType === "4g";
+    // Everything goes through this site's art route, so a preload never contacts Valve.
     const queue = [
       ...Object.values(HERO_ATTRIBUTE_ICONS),
       ...HERO_PICKER_HEROES.map((hero) => heroPickerPortraitSrc(hero.image)),
       ...(fastEnough ? SHOPKEEPER_CATALOG_ITEMS.map((item) => item.image) : []),
-    ];
+    ].map((src) => firstPartyArtSrc(src));
     const next = () => {
       if (stoppedRef.current) return;
       const src = queue.shift();

@@ -21,12 +21,11 @@ function configuredRetentionDays() {
   return ALPHA_SESSION_RETENTION_DAYS;
 }
 
+/** A visit counts on its own; see alphaSessionKey in alpha-store.ts. */
 function hashesFor(identity: AlphaIdentity) {
   if ("sessionHash" in identity) return identity;
-  return {
-    sessionHash: anonymousVoterHash("alpha-session", `${identity.voterId}:${identity.sessionId}`),
-    visitorHash: anonymousVoterHash("alpha-visitor", identity.voterId),
-  };
+  const sessionHash = anonymousVoterHash("alpha-session", identity.sessionId);
+  return { sessionHash, visitorHash: sessionHash };
 }
 
 function storedSession(row: AlphaSessionRow): StoredAlphaSession {
@@ -47,7 +46,7 @@ function ensureSchema() {
 
 function ownerId(identity: AlphaIdentity) {
   if ("sessionHash" in identity) return identity.userId;
-  return identity.voterId.startsWith("account:") ? identity.voterId.slice("account:".length) : null;
+  return null;
 }
 
 export async function getPostgresAlphaStoreHealth(): Promise<AlphaStoreHealth> {

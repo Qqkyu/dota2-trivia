@@ -5,12 +5,14 @@
  */
 
 import { spawn } from "node:child_process";
+import { firstPartyRequests } from "./lib/first-party-requests.mjs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
 const appUrl = process.env.APP_URL ?? "http://localhost:3000";
+const requests = firstPartyRequests(appUrl);
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function freePort() {
@@ -39,12 +41,13 @@ async function waitJson(url, timeout = 15_000) {
   throw new Error(`Chrome debug HTTP did not open at ${url}`);
 }
 
-function attachCdp(webSocketDebuggerUrl) {
+function attachCdp(webSocketDebuggerUrl, onEvent = () => undefined) {
   const socket = new WebSocket(webSocketDebuggerUrl);
   const pending = new Map();
   let requestId = 0;
   socket.addEventListener("message", (message) => {
     const payload = JSON.parse(message.data);
+    if (payload.method) onEvent(payload);
     if (!payload.id) return;
     const request = pending.get(payload.id);
     if (!request) return;
@@ -138,10 +141,11 @@ try {
   const created = await browser.send("Target.createTarget", { url: "about:blank" });
   const listed = await fetch(`http://127.0.0.1:${port}/json/list`).then((response) => response.json());
   const target = listed.find((entry) => entry.id === created.targetId);
-  page = attachCdp(target.webSocketDebuggerUrl);
+  page = attachCdp(target.webSocketDebuggerUrl, requests.onEvent);
   await page.ready;
   await page.send("Page.enable");
   await page.send("Runtime.enable");
+  await page.send("Network.enable");
   await page.send("Page.navigate", { url: `${appUrl}/profile?recordsPreview=short` });
   // Wait for a stage that has laid out, not merely one that exists: on a busy
   // machine the first stage measured 0 px once per gate and failed the run.
@@ -539,3 +543,4 @@ try {
 } finally {
   await cleanup();
 }
+console.log(`Validated ${requests.assert("party previews")} requests stayed on this site.`);

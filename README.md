@@ -50,6 +50,7 @@ You don't need one. Without an account, your stats stay in your browser. Sign in
 
 - The server works out the current round from a fixed start time. Every browser gets the same question and deadline, and a server restart does not reset the public room. The server stores answers in Postgres.
 - Answers stay on the server until the reveal. During a question the browser gets only the prompt, the choices and the clues that have unlocked. The server makes each fog stage and sound cut itself, so file names give nothing away.
+- Your browser talks only to queuearcade.com. Valve's art comes through the site's own `/api/art` route, so a player's IP address never reaches Valve.
 - Deploys do not stop the game. A new server waits up to 10 minutes for open parties to finish, then takes over during a reveal. See [deploys without disruption](docs/operations.md#deploys-without-disruption).
 - Names and artwork come from [OpenDota](https://www.opendota.com/), voice lines and sounds through [Dotabase](https://github.com/mdiller/dotabase). Scripts in `scripts/` rebuild the question data and check it against an extract of the Dota client.
 
@@ -74,7 +75,7 @@ More detail:
 
 ## Credits
 
-Names and artwork come from [OpenDota](https://docs.opendota.com/). Hero voice lines, sound effects and interface sounds come from the game files through [Dotabase](https://github.com/mdiller/dotabase). Game art loads from Valve's public asset hosts. Dota 2 and its assets are trademarks of Valve Corporation. This is a fan project. Valve does not endorse it and is not involved.
+Names and artwork come from [OpenDota](https://docs.opendota.com/). Hero voice lines, sound effects and interface sounds come from the game files through [Dotabase](https://github.com/mdiller/dotabase). Game art comes from Valve's public asset hosts, and the site serves it from its own domain. Dota 2 and its assets are trademarks of Valve Corporation. This is a fan project. Valve does not endorse it and is not involved.
 
 ## License
 

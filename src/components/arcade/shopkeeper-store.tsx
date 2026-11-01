@@ -20,6 +20,7 @@ import type { GamePhase } from "./shared";
 import { ShopkeeperPick, ShopkeeperRecipePick } from "./shopkeeper-parts";
 import styles from "../queue-arcade.module.css";
 import own from "./shopkeeper-store.module.css";
+import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
 
 export function searchShopItems(query: string) {
   const normalized = query.trim().toLocaleLowerCase("en-US");
@@ -323,7 +324,7 @@ export function ShopkeeperStore({
                     onClick={(event) => removeRecipeItem(slot, event.detail === 0)}
                     disabled={selectedKey !== null}
                   >
-                    <Image src={item.image} alt="" fill sizes="58px" unoptimized />
+                    <Image src={firstPartyArtSrc(item.image)} alt="" fill sizes="58px" unoptimized />
                     <X aria-hidden="true" />
                   </button>
                 ) : (
@@ -334,7 +335,7 @@ export function ShopkeeperStore({
               })}
               {recipeIncluded ? (
                 <span className={styles.shopkeeperRecipeIncluded} data-testid="shopkeeper-recipe-included">
-                  <Image src={SHOPKEEPER_RECIPE_IMAGE} alt="" width={36} height={27} unoptimized />
+                  <Image src={firstPartyArtSrc(SHOPKEEPER_RECIPE_IMAGE)} alt="" width={36} height={27} unoptimized />
                   <small>Included</small>
                 </span>
               ) : recipeCost === 0 ? (
@@ -444,7 +445,14 @@ export function ShopkeeperStore({
                         aria-describedby={tooltip?.item.key === item.key ? "shopkeeper-item-tooltip" : undefined}
                         aria-pressed={isSelected}
                       >
-                        <Image src={item.image} alt="" fill sizes="48px" loading="eager" unoptimized />
+                        <Image
+                          src={firstPartyArtSrc(item.image)}
+                          alt=""
+                          fill
+                          sizes="48px"
+                          loading="eager"
+                          unoptimized
+                        />
                         {recipeBuilder && selectedCount > 0 ? (
                           <i>×{selectedCount}</i>
                         ) : phase === "reveal" && count > 0 ? (

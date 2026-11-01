@@ -12,6 +12,7 @@ import { valueOrderAnswerKey, valueOrderKeysFromAnswerKey } from "@/lib/value-or
 import { EMPTY_FLASHBACK_ORDER_CARDS, type GamePhase } from "./shared";
 import styles from "../queue-arcade.module.css";
 import own from "./flashback-boards.module.css";
+import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
 
 export function FlashbackYearBoard({
   question,
@@ -198,7 +199,9 @@ export function FlashbackOrderBoard({
             return (
               <li key={key} data-correct="true">
                 <i>{index + 1}</i>
-                {card?.image ? <Image src={card.image} alt="" width={36} height={36} unoptimized /> : null}
+                {card?.image ? (
+                  <Image src={firstPartyArtSrc(card.image)} alt="" width={36} height={36} unoptimized />
+                ) : null}
                 <span>
                   <strong>{card?.name ?? key}</strong>
                   {card?.context ? <small>{card.context}</small> : null}
@@ -214,7 +217,9 @@ export function FlashbackOrderBoard({
               return (
                 <li key={key}>
                   <i>{index + 1}</i>
-                  {card?.image ? <Image src={card.image} alt="" width={36} height={36} unoptimized /> : null}
+                  {card?.image ? (
+                    <Image src={firstPartyArtSrc(card.image)} alt="" width={36} height={36} unoptimized />
+                  ) : null}
                   <span>
                     <strong>{card?.name ?? key}</strong>
                   </span>
@@ -242,7 +247,7 @@ export function FlashbackOrderBoard({
             <span key={index} data-filled={card ? "true" : "false"}>
               <i>{index + 1}</i>
               {card?.image ? (
-                <Image src={card.image} alt="" width={28} height={28} unoptimized />
+                <Image src={firstPartyArtSrc(card.image)} alt="" width={28} height={28} unoptimized />
               ) : (
                 <span className={own.flashbackOrderSlotArt} aria-hidden="true" />
               )}
@@ -267,7 +272,7 @@ export function FlashbackOrderBoard({
               <i data-empty={position < 0 ? "true" : "false"}>{position >= 0 ? position + 1 : ""}</i>
               {card.image ? (
                 <span className={own.flashbackOrderCardArt}>
-                  <Image src={card.image} alt="" width={72} height={72} unoptimized />
+                  <Image src={firstPartyArtSrc(card.image)} alt="" width={72} height={72} unoptimized />
                 </span>
               ) : null}
               <strong>{card.name}</strong>

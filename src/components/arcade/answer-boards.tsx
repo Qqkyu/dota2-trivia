@@ -16,6 +16,7 @@ import { ValueOrderBoard } from "./value-order-board";
 import type { useArcadeAudio } from "./use-arcade-audio";
 import type { useArcadeRoom } from "./use-arcade-room";
 import type { deriveRoundView } from "./round-view";
+import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
 
 type AnswerBoardsProps = { currentQuestion: PublicArcadeQuestion } & Pick<
   ReturnType<typeof useArcadeRoom>,
@@ -191,20 +192,20 @@ export function AnswerBoards({
                   ) : answerImagePair ? (
                     <span className={own.sequenceAnswerChoice} data-testid="sound-sequence-choice">
                       <AnswerArtwork
-                        src={answerImagePair[0]}
+                        src={firstPartyArtSrc(answerImagePair[0])}
                         alt={answerPairNames[0] ?? "First sound"}
                         kind={currentQuestion.answerImageKind ?? "ability"}
                       />
                       <ArrowRight className={own.sequenceAnswerArrow} aria-hidden="true" />
                       <AnswerArtwork
-                        src={answerImagePair[1]}
+                        src={firstPartyArtSrc(answerImagePair[1])}
                         alt={answerPairNames[1] ?? "Second sound"}
                         kind={currentQuestion.answerImageKind ?? "ability"}
                       />
                     </span>
                   ) : currentQuestion.answerImages?.[index] ? (
                     <AnswerArtwork
-                      src={currentQuestion.answerImages[index]}
+                      src={firstPartyArtSrc(currentQuestion.answerImages[index])}
                       alt={answer}
                       kind={
                         currentQuestion.answerImageKind ??

@@ -7,6 +7,7 @@ import { isValueOrderAnswerForQuestion, valueOrderAnswerKey, valueOrderKeysFromA
 import { EMPTY_VALUE_ORDER_CARDS, type GamePhase, type PublicValueOrderCard } from "./shared";
 import styles from "../queue-arcade.module.css";
 import own from "./value-order-board.module.css";
+import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
 
 export function ValueOrderSequence({
   question,
@@ -32,7 +33,7 @@ export function ValueOrderSequence({
           return (
             <span key={key} className={own.valueOrderSequenceCard} data-card-kind={card.kind}>
               <i>{index + 1}</i>
-              <Image src={card.image} alt="" width={46} height={46} unoptimized />
+              <Image src={firstPartyArtSrc(card.image)} alt="" width={46} height={46} unoptimized />
               <strong>{card.name}</strong>
               {showValues && <em>{valueByKey.get(key) ?? "—"}</em>}
             </span>
@@ -142,7 +143,7 @@ export function ValueOrderBoard({
               <i>{index + 1}</i>
               {card ? (
                 <>
-                  <Image src={card.image} alt="" width={42} height={42} unoptimized />
+                  <Image src={firstPartyArtSrc(card.image)} alt="" width={42} height={42} unoptimized />
                   <strong>{card.name}</strong>
                 </>
               ) : (
@@ -169,7 +170,7 @@ export function ValueOrderBoard({
               aria-pressed={position >= 0}
             >
               {position >= 0 && <i>{position + 1}</i>}
-              <Image src={card.image} alt="" width={72} height={72} unoptimized />
+              <Image src={firstPartyArtSrc(card.image)} alt="" width={72} height={72} unoptimized />
               <span>
                 {card.context && <small>{card.context}</small>}
                 <strong>{card.name}</strong>

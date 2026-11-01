@@ -136,8 +136,11 @@ describe("file store integrity", () => {
     expect(
       await account.updateSteamUser(user.id, { ...identity, displayName: "Late name", authenticatedAt: now + 1 }),
     ).toBeNull();
-    await expect(alpha.recordAlphaSessionStart(alphaIdentity, now + 1)).rejects.toThrow("no longer exists");
-    expect(await alpha.getAlphaSessionsSince(0)).toEqual([]);
+    // Visits are never linked to an account, so a late analytics event stays an anonymous visit.
+    await alpha.recordAlphaSessionStart(alphaIdentity, now + 1);
+    const visits = await alpha.getAlphaSessionsSince(0);
+    expect(visits.length).toBeGreaterThan(0);
+    expect(JSON.stringify(visits)).not.toContain(user.id);
     expect(await account.accountExists(user.id)).toBe(false);
   });
 

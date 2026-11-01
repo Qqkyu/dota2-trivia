@@ -5,6 +5,7 @@ import { RoundMark } from "@/components/round-mark";
 import { LIVE_QUESTION_COPY, LIVE_ROUND_HEADER_LABELS } from "@/lib/round-question-copy.mjs";
 import arcade from "./queue-arcade.module.css";
 import look from "./format-look.module.css";
+import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
 
 const STAGE_CLASS: Record<string, string | undefined> = {
   shopkeeper: arcade.shopkeeperStage,
@@ -43,7 +44,7 @@ function Artwork({ src, fogged = false, className }: { src?: string | null; fogg
       <div className={arcade.artGlow} />
       {src ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img className={clsx(arcade.artImage, look.artImage)} src={src} alt="" />
+        <img className={clsx(arcade.artImage, look.artImage)} src={firstPartyArtSrc(src)} alt="" />
       ) : (
         <span className={arcade.artFallback}>{fogged ? "?" : ""}</span>
       )}
@@ -101,7 +102,7 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
                   <span className={arcade.shopkeeperItemArt}>
                     {item.image ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={item.image} alt="" />
+                      <img src={firstPartyArtSrc(item.image)} alt="" />
                     ) : null}
                     {(item.count ?? 1) > 1 ? <b>×{item.count}</b> : null}
                   </span>
@@ -164,7 +165,7 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
         <div className={arcade.aghanimArtwork}>
           {preview?.image?.src ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img className={look.aghanimArt} src={preview.image.src} alt="" />
+            <img className={look.aghanimArt} src={firstPartyArtSrc(preview.image.src)} alt="" />
           ) : (
             <Gem aria-hidden="true" />
           )}

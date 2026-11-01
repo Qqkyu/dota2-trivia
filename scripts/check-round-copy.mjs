@@ -8,6 +8,7 @@
  */
 
 import { spawn } from "node:child_process";
+import { firstPartyRequests } from "./lib/first-party-requests.mjs";
 import { randomUUID } from "node:crypto";
 import { mkdtemp, rm } from "node:fs/promises";
 import { createServer } from "node:net";
@@ -16,6 +17,7 @@ import { join } from "node:path";
 import { LIVE_ROUND_GAMES } from "../src/lib/arcade-games.mjs";
 
 const appUrl = (process.env.APP_URL ?? "http://localhost:3000").replace(/\/$/, "");
+const requests = firstPartyRequests(appUrl);
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const json = { "Content-Type": "application/json", Origin: new URL(appUrl).origin };
 const FORBIDDEN_COPY = [
@@ -52,12 +54,13 @@ async function waitJson(url, timeout = 15_000) {
   throw new Error(`Chrome debug HTTP did not open at ${url}`);
 }
 
-function attachCdp(webSocketDebuggerUrl) {
+function attachCdp(webSocketDebuggerUrl, onEvent = () => undefined) {
   const socket = new WebSocket(webSocketDebuggerUrl);
   const pending = new Map();
   let requestId = 0;
   socket.addEventListener("message", (message) => {
     const payload = JSON.parse(message.data);
+    if (payload.method) onEvent(payload);
     if (!payload.id) return;
     const request = pending.get(payload.id);
     if (!request) return;
@@ -152,10 +155,11 @@ try {
   await browser.ready;
   const created = await browser.send("Target.createTarget", { url: "about:blank" });
   const listed = await fetch(`http://127.0.0.1:${port}/json/list`).then((response) => response.json());
-  page = attachCdp(listed.find((entry) => entry.id === created.targetId).webSocketDebuggerUrl);
+  page = attachCdp(listed.find((entry) => entry.id === created.targetId).webSocketDebuggerUrl, requests.onEvent);
   await page.ready;
   await page.send("Page.enable");
   await page.send("Runtime.enable");
+  await page.send("Network.enable");
   await page.send("Page.addScriptToEvaluateOnNewDocument", {
     source: `sessionStorage.setItem("queue-arcade:player:v2:tab", ${JSON.stringify(hostId)});`,
   });
@@ -294,7 +298,10 @@ try {
     activeParties.delete(code);
   }
 
-  console.log(`Validated round copy, controls, and reveals for ${seen.length} formats: ${seen.join(", ")}.`);
+  const requestCount = requests.assert("round copy");
+  console.log(
+    `Validated round copy, controls, and reveals for ${seen.length} formats: ${seen.join(", ")}. All ${requestCount} requests stayed on this site.`,
+  );
 } finally {
   await cleanup();
   await Promise.allSettled(

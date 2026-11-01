@@ -14,6 +14,7 @@ import type { PublicArcadeQuestion } from "@/lib/public-question";
 import type { GamePhase, RoundAward } from "./shared";
 import styles from "../queue-arcade.module.css";
 import own from "./hero-picker.module.css";
+import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
 
 export const HERO_ATTRIBUTE_ICONS = {
   strength: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png",
@@ -240,7 +241,13 @@ export function HeroPicker({
             aria-label={`${group.label} heroes`}
           >
             <h3>
-              <Image src={HERO_ATTRIBUTE_ICONS[group.key]} alt="" width={18} height={18} unoptimized />
+              <Image
+                src={firstPartyArtSrc(HERO_ATTRIBUTE_ICONS[group.key])}
+                alt=""
+                width={18}
+                height={18}
+                unoptimized
+              />
               {group.label}
             </h3>
             <div>

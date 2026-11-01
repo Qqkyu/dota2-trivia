@@ -21,6 +21,7 @@ import { touchRoomPresence } from "@/lib/room-presence.mjs";
 import { recoveryRoundNumbers } from "@/lib/round-recovery.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
 import { getPlayerQuestionReport, getRoundCrowd } from "@/lib/vote-store";
+import { firstPartyArtTree } from "@/lib/steam-art.mjs";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -186,7 +187,9 @@ export async function GET(request: NextRequest) {
         round: publicRound,
         questionRevision,
         question:
-          knownQuestionRevision === questionRevision ? null : publicQuestionForRound(question, round, serverNow),
+          knownQuestionRevision === questionRevision
+            ? null
+            : firstPartyArtTree(publicQuestionForRound(question, round, serverNow)),
         presence: { activePlayers },
         crowd: {
           counts: round.phase === "reveal" ? result.counts : HIDDEN_COUNTS,
