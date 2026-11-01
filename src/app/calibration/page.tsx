@@ -12,6 +12,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Calibration Lab",
   description: "Aggregate Queue Arcade question accuracy and player reports.",
+  robots: { index: false, follow: true },
 };
 
 export default async function CalibrationPage() {

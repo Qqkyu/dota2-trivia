@@ -31,15 +31,14 @@ const metadataBase = new URL(process.env.ARCADE_APP_URL?.trim() || "http://local
 export const metadata: Metadata = {
   metadataBase,
   title: {
-    default: "Queue Arcade — Dota side quests between matches",
+    default: "Queue Arcade — Dota 2 trivia and minigames between matches",
     template: "%s · Queue Arcade",
   },
   description:
-    "One synchronized Dota 2 queue-time arcade with rotating trivia, recipes, spells, Aghanim upgrades, fog, voices, sounds, quotes, and live public-room reveals.",
+    "Free Dota 2 trivia for the wait between Find Match and Accept: 15-second rounds on heroes, items, spells, voice lines and patch history, with the whole room's answers at every reveal.",
   applicationName: "Queue Arcade",
   category: "game",
-  keywords: ["Dota 2", "minigames", "trivia", "quiz", "queue time", "abilities", "Aghanim", "items", "heroes"],
-  alternates: { canonical: "/" },
+  keywords: ["Dota 2", "Dota 2 trivia", "Dota 2 quiz", "minigames", "queue time", "heroes", "items", "abilities"],
   openGraph: {
     type: "website",
     url: "/",

@@ -18,7 +18,7 @@ import { logServerError } from "@/lib/server-diagnostics";
 import { refreshSteamIdentityIfNeeded } from "@/lib/steam-profile";
 import styles from "./profile.module.css";
 
-export const metadata: Metadata = { title: "Profile" };
+export const metadata: Metadata = { title: "Profile", robots: { index: false, follow: true } };
 export const dynamic = "force-dynamic";
 
 const formatPreviews = formatPreviewsFromQuestions(triviaQuestions);
