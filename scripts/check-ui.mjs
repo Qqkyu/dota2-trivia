@@ -116,6 +116,8 @@ if (!(await healthy(appUrl))) {
 
 try {
   for (const script of [
+    // First: it needs a live server with no other open party.
+    "check-deploy-handoff.mjs",
     "check-pages.mjs",
     "check-party-lobby.mjs",
     "check-party-previews.mjs",
@@ -124,6 +126,7 @@ try {
     "check-public-play.mjs",
     "check-reports-api.mjs",
     "check-party-api.mjs",
+    "check-party-ended.mjs",
     "check-round-copy.mjs",
     "check-shop-search.mjs",
     "check-layout.mjs",

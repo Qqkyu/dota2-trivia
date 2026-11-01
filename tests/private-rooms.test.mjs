@@ -610,3 +610,39 @@ describe("party lobby polling", () => {
     expect(pollingDependencies).not.toMatch(/onStarted|onWaitingChange/);
   });
 });
+
+describe("privateRoomStats", () => {
+  it("counts parties with someone still polling, not abandoned ones", async () => {
+    const {
+      createPrivateRoom,
+      privateRoomStats,
+      resetPrivateRoomsForTests,
+      touchPrivateRoom,
+      PRIVATE_ROOM_MEMBER_TIMEOUT_MS,
+    } = await import("../src/lib/private-rooms.mjs");
+    resetPrivateRoomsForTests();
+    const start = 4_000_000_000_000;
+    createPrivateRoom({
+      hostId: "guest-stats-host-1",
+      gameId: "dota2",
+      contentVersion: "t",
+      games: ["trivia"],
+      code: "STATSA",
+      now: start,
+    });
+    createPrivateRoom({
+      hostId: "guest-stats-host-2",
+      gameId: "dota2",
+      contentVersion: "t",
+      games: ["trivia"],
+      code: "STATSB",
+      now: start,
+    });
+    expect(privateRoomStats(start + 1_000).open).toBe(2);
+    const later = start + PRIVATE_ROOM_MEMBER_TIMEOUT_MS + 1_000;
+    touchPrivateRoom("STATSA", later, { playerId: "guest-stats-host-1", name: "" });
+    expect(privateRoomStats(later).open).toBe(1);
+    resetPrivateRoomsForTests();
+    expect(privateRoomStats(later).open).toBe(0);
+  });
+});

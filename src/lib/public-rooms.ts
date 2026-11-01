@@ -22,6 +22,17 @@ function configuredEpoch() {
   return Number.isFinite(parsed) ? parsed : DEFAULT_ROUND_EPOCH_MS;
 }
 
+/** Where the shared public clock is: the round number, its phase, and the time spent in that phase. */
+export function publicRoundClock(now = Date.now()) {
+  const cycle = PUBLIC_ROUND_ANSWER_MS + PUBLIC_ROUND_REVEAL_MS;
+  const sinceEpoch = Math.max(0, now - configuredEpoch());
+  const number = Math.floor(sinceEpoch / cycle);
+  const intoRound = sinceEpoch - number * cycle;
+  return intoRound < PUBLIC_ROUND_ANSWER_MS
+    ? { number, phase: "answering" as const, msIntoPhase: intoRound }
+    : { number, phase: "reveal" as const, msIntoPhase: intoRound - PUBLIC_ROUND_ANSWER_MS };
+}
+
 function normalizedFilter(): KnowledgeFilter {
   return "Mixed";
 }

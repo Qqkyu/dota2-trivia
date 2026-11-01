@@ -138,6 +138,44 @@ with the override. `tests/eslint-glob-compatibility.test.mjs` checks directory p
 actual Next lint rules. Review the override and patch together when updating the plugin.
 Dependabot configuration covers weekly npm, image, and GitHub Action update proposals.
 
+## Deploys without disruption
+
+Deploy with:
+
+```sh
+RENDER_API_KEY=... pnpm run deploy:production
+```
+
+The script deploys `origin/main` only if that tree passed `pnpm check` on this machine
+(`.check-pass.json`, written by the last step of `pnpm check`); commits after it may change
+Markdown files only. It waits until no party is open on the live server (`--max-wait=30`
+minutes), starts the Render deploy, reports when traffic moved and where the public clock was,
+and runs `check:headers` and the public-play journey against production.
+
+What a deploy does to players:
+
+- **Public room:** nothing. Its schedule follows the clock and every answer is in Postgres.
+- **Parties:** they live in the server's memory, so a switch ends them. The new server
+  (`ARCADE_DEPLOY_HANDOFF=on`) holds its health check while the live server reports an open
+  party, at most 10 minutes, then the deploy goes ahead. A tab whose party is gone returns to
+  the party screen and says the party ended because the server restarted.
+- **Data updates:** a new content version gives the public room a new identity and a new
+  question order. The new server passes its health check only 1 to 4 seconds into a reveal,
+  so traffic moves while players look at a result. The client keeps that reveal and starts
+  the next round on the new room. A switch mid-question would swap the question.
+- **Open tabs:** they keep the old page code. Keep API changes additive for one release.
+- **Database changes:** the old server keeps running until the switch. Add columns first,
+  deploy, then remove old ones in a later release.
+
+The new server passes at once when nothing healthy answers at `ARCADE_APP_URL` (first boot,
+crash) and never waits again after its first pass. Render cancels a deploy whose server is
+not healthy within 15 minutes; the handoff stops waiting after 12. Every decision is logged
+as `[queue-arcade:handoff]` in the Render logs. If a deploy misbehaves, roll back to the
+previous deploy in the Render dashboard; that switch is also zero-downtime.
+
+`scripts/check-deploy-handoff.mjs` (in `check:ui`) starts two extra servers to prove the
+party wait and the reveal window; `scripts/check-party-ended.mjs` covers the tab side.
+
 ## Migrations, rollback, and backups
 
 The migration ledger lives in `queue_arcade_schema_migrations`. Migrations run under a

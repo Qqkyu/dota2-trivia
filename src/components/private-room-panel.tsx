@@ -24,6 +24,8 @@ import {
 } from "@/lib/private-rooms.mjs";
 import styles from "./private-room-panel.module.css";
 
+const PARTY_GONE_AFTER_MISSES = 2;
+
 export interface PrivateChatMessage {
   id: string;
   name: string;
@@ -223,6 +225,9 @@ export function PrivateRoomPanel({
   onStarted,
   onWaitingChange,
   onClose,
+  onEnded,
+  notice = null,
+  onDismissNotice,
 }: {
   gameOptions: PartyGameOption[];
   playerId: () => string;
@@ -232,6 +237,11 @@ export function PrivateRoomPanel({
   onStarted: (code: string) => void;
   onWaitingChange?: (waiting: boolean) => void;
   onClose?: () => void;
+  /** The server no longer knows this party (it restarted, for example for a deploy). */
+  onEnded?: () => void;
+  /** Shown on the choose screen until the player acts. */
+  notice?: string | null;
+  onDismissNotice?: () => void;
 }) {
   const [screen, setScreen] = useState<PartyScreen>(initialCode ? "wait" : "choose");
   const [selected, setSelected] = useState<string[]>(() => gameOptions.map((game) => game.id));
@@ -262,6 +272,8 @@ export function PrivateRoomPanel({
   const appliedSequenceRef = useRef(0);
   const onStartedRef = useRef(onStarted);
   const onWaitingChangeRef = useRef(onWaitingChange);
+  const onEndedRef = useRef(onEnded);
+  const partyMissesRef = useRef(0);
   const playerIdRef = useRef(playerId);
   const joinInputRef = useRef<HTMLInputElement | null>(null);
   const nameInputRef = useRef<HTMLInputElement | null>(null);
@@ -284,8 +296,9 @@ export function PrivateRoomPanel({
   useEffect(() => {
     onStartedRef.current = onStarted;
     onWaitingChangeRef.current = onWaitingChange;
+    onEndedRef.current = onEnded;
     playerIdRef.current = playerId;
-  }, [onStarted, onWaitingChange, playerId]);
+  }, [onEnded, onStarted, onWaitingChange, playerId]);
 
   useEffect(() => {
     if (!room?.waiting || !room.countdownMs) {
@@ -445,7 +458,8 @@ export function PrivateRoomPanel({
           { signal: controller.signal, attempts: 1 },
         );
         if (controller.signal.aborted || generation !== requestGenerationRef.current) return null;
-        if (!response.ok) throw new Error(payload.error ?? "Request failed.");
+        if (!response.ok)
+          throw Object.assign(new Error(payload.error ?? "Request failed."), { status: response.status });
         if (sequence < appliedSequenceRef.current) return null;
         appliedSequenceRef.current = sequence;
         return applyPayload(payload);
@@ -522,9 +536,26 @@ export function PrivateRoomPanel({
             ...(!trackedCode && !playActive ? { name: nameRef.current } : {}),
           }),
         });
+        partyMissesRef.current = 0;
       } catch (cause) {
         if (abort.signal.aborted) return;
         if (cause instanceof Error && cause.name === "AbortError") return;
+        // A party this tab is in, or is playing, that the server no longer knows has ended:
+        // parties live in server memory, so a restart ends them. Two misses in a row rule out a fluke.
+        if ((trackedCode || playActive) && (cause as { status?: number }).status === 404) {
+          partyMissesRef.current += 1;
+          if (partyMissesRef.current >= PARTY_GONE_AFTER_MISSES) {
+            abort.abort();
+            partyMissesRef.current = 0;
+            requestGenerationRef.current += 1;
+            setRoom(null);
+            setError(null);
+            setFailedInitialCode(code);
+            setScreen("choose");
+            onEndedRef.current?.();
+          }
+          return;
+        }
         setError(cause instanceof Error ? cause.message : "Request failed.");
         if (!trackedCode) {
           setFailedInitialCode(code);
@@ -816,6 +847,7 @@ export function PrivateRoomPanel({
       data-testid="private-room-leave"
       onClick={() => {
         cancelRequests();
+        onDismissNotice?.();
         if (screen === "wait") {
           leaveParty();
           onClose?.();
@@ -993,9 +1025,10 @@ export function PrivateRoomPanel({
     </div>
   );
 
-  const setupError = error ? (
+  const setupMessage = error ?? (screen === "choose" ? notice : null);
+  const setupError = setupMessage ? (
     <p id="party-code-error" className={styles.error} role="alert" data-testid="private-room-error">
-      {error}
+      {setupMessage}
     </p>
   ) : null;
 
@@ -1014,6 +1047,7 @@ export function PrivateRoomPanel({
             onClick={() => {
               setError(null);
               setErrorField(null);
+              onDismissNotice?.();
               setScreen("create");
             }}
           >
@@ -1026,6 +1060,7 @@ export function PrivateRoomPanel({
             onClick={() => {
               setError(null);
               setErrorField(null);
+              onDismissNotice?.();
               setScreen("join");
             }}
           >

@@ -9,7 +9,13 @@ import { playerIdentityKey, samePlayerIdentity } from "@/lib/player-identity";
 import { PUBLIC_ARCADE_MODE } from "@/lib/arcade-games.mjs";
 import { shouldShowEntryWaitLessons, shouldWaitForNextRoundOnEntry } from "@/lib/arcade-entry.mjs";
 import { isFlashbackOrderAnswerForQuestion, isFlashbackYearAnswerInRange } from "@/lib/flashback.mjs";
-import { ARCADE_LOBBY_PATH, PUBLIC_ARCADE_PATH, arcadeViewForPathname } from "@/lib/arcade-navigation.mjs";
+import {
+  ARCADE_LOBBY_PATH,
+  PARTY_ARCADE_PATH,
+  PUBLIC_ARCADE_PATH,
+  arcadeViewForPathname,
+} from "@/lib/arcade-navigation.mjs";
+import { PARTY_ENDED_NOTICE } from "@/lib/private-rooms.mjs";
 import { DEFAULT_GAME_ID } from "@/lib/game-identity";
 import { answerFeedbackKind } from "@/lib/feedback-sounds.mjs";
 import { isHeroCatalogKey } from "@/lib/hero-picker";
@@ -146,6 +152,8 @@ export function useArcadeRoom({
   const [activePrivateCode, setActivePrivateCode] = useState(roomCode ?? "");
 
   const [partyInviteCode, setPartyInviteCode] = useState(roomCode ?? "");
+
+  const [partyNotice, setPartyNotice] = useState<string | null>(null);
 
   const privateCodeRef = useRef(roomCode ?? "");
 
@@ -450,6 +458,18 @@ export function useArcadeRoom({
     (snapshot: RoomSnapshot, clockOffset: number, receivedAt: number) => {
       const localAnswerDeadline = snapshot.round.answerDeadline + clockOffset;
       const localRevealDeadline = snapshot.round.revealDeadline + clockOffset;
+      const previous = roomSnapshotRef.current;
+      if (
+        previous &&
+        !privateCodeRef.current &&
+        previous.room.id !== snapshot.room.id &&
+        previous.round.number === snapshot.round.number &&
+        snapshot.serverNow >= previous.round.answerDeadline
+      ) {
+        // A data update replaced the public room after this question closed. Keep this
+        // round's reveal; the next round starts on the new room.
+        return;
+      }
       const identityChanged = adoptPlayerIdentity(snapshot.playerIdentity);
       const isNewRound = roundIdRef.current !== snapshot.round.id || identityChanged;
       const hadRound = Boolean(roundIdRef.current) && !identityChanged;
@@ -1049,6 +1069,16 @@ export function useArcadeRoom({
     ],
   );
 
+  /** The server lost the party (a restart): back to the party screen, saying why. */
+  const endParty = useCallback(() => {
+    returnToLobby("none");
+    setPartyNotice(PARTY_ENDED_NOTICE);
+    setPartyOpen(true);
+    window.history.replaceState({ queueArcadeView: "party" }, "", withAudioDebug(PARTY_ARCADE_PATH));
+  }, [returnToLobby]);
+
+  const dismissPartyNotice = useCallback(() => setPartyNotice(null), []);
+
   useEffect(() => {
     const handlePopState = () => {
       const view = arcadeViewForPathname(window.location.pathname);
@@ -1155,6 +1185,9 @@ export function useArcadeRoom({
     setPartyInviteCode,
     privateCodeRef,
     partyMode,
+    partyNotice,
+    endParty,
+    dismissPartyNotice,
     entryWaitMode,
     roundStageRef,
     roundHeadingRef,

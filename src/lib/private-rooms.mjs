@@ -27,6 +27,9 @@ export const PRIVATE_ROOM_HOST_MAX = 5;
 export const PRIVATE_ROOM_AWARD_HISTORY_MAX = 128;
 export const PRIVATE_ROOM_NAME_NOTICE_MS = 2_500;
 export const PRIVATE_ROOM_COUNTDOWN_MS = 3_000;
+/** Shown on the party screen when the server no longer knows a party this tab was in. */
+export const PARTY_ENDED_NOTICE =
+  "This party ended because the server restarted. Create a new party or join another code.";
 
 const globalStore = globalThis;
 const rooms = globalStore.__queueArcadePrivateRooms ?? new Map();
@@ -228,6 +231,22 @@ function markAwayMembers(record, now) {
   const host = (record.members ?? []).find((member) => member.playerId === record.hostId);
   const active = (record.members ?? []).find((member) => !member.away);
   if ((!host || host.away) && active) record.hostId = active.playerId;
+}
+
+/**
+ * Parties where someone is still polling. A deploy that replaced the server now
+ * would end them, because parties live in this process's memory.
+ */
+export function privateRoomStats(now = Date.now()) {
+  let open = 0;
+  for (const record of rooms.values()) {
+    if (now >= record.lastSeenAt && now - record.lastSeenAt >= PRIVATE_ROOM_IDLE_MS) continue;
+    const present = (record.members ?? []).some(
+      (member) => now < member.lastSeenAt || now - member.lastSeenAt < PRIVATE_ROOM_MEMBER_TIMEOUT_MS,
+    );
+    if (present) open += 1;
+  }
+  return { open };
 }
 
 export function getPrivateRoom(code, now = Date.now(), viewerId) {
