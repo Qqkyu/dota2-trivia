@@ -102,6 +102,9 @@ export function QueueArcade({
     setPartyInviteCode,
     privateCodeRef,
     partyMode,
+    partyNotice,
+    endParty,
+    dismissPartyNotice,
     entryWaitMode,
     roundStageRef,
     roundHeadingRef,
@@ -224,7 +227,11 @@ export function QueueArcade({
           initialCode={activePrivateCode || partyInviteCode || undefined}
           playActive={false}
           onWaitingChange={handlePartyWaiting}
+          onEnded={endParty}
+          notice={partyNotice}
+          onDismissNotice={dismissPartyNotice}
           onStarted={(code) => {
+            dismissPartyNotice();
             privateCodeRef.current = code;
             setActivePrivateCode(code);
             setPartyInviteCode(code);
@@ -232,6 +239,7 @@ export function QueueArcade({
             void startRun(true, code);
           }}
           onClose={() => {
+            dismissPartyNotice();
             setPartyOpen(false);
             setPrivateWaiting(false);
             privateCodeRef.current = "";
@@ -439,6 +447,7 @@ export function QueueArcade({
           playActive
           onStarted={ignorePartyStart}
           onWaitingChange={handlePartyWaiting}
+          onEnded={endParty}
         />
       ) : null}
 

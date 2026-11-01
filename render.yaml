@@ -54,3 +54,5 @@ services:
         value: "false"
       - key: ARCADE_ROUND_RETENTION_HOURS
         value: "2"
+      - key: ARCADE_DEPLOY_HANDOFF
+        value: "on"

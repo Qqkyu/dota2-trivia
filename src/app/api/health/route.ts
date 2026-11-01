@@ -8,6 +8,9 @@ import { logServerError } from "@/lib/server-diagnostics";
 import { getVoteStoreHealth } from "@/lib/vote-store";
 import { getStoreMaintenanceStatus } from "@/lib/store-maintenance";
 import { preflightRateLimit } from "@/lib/api-protection";
+import { handoffReadiness, instanceId, releaseId } from "@/lib/deploy-handoff.mjs";
+import { privateRoomStats } from "@/lib/private-rooms.mjs";
+import { publicRoundClock } from "@/lib/public-rooms";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -36,9 +39,25 @@ export async function GET(request: Request) {
       getAccountStoreHealth(),
       getAlphaStoreHealth(),
     ]);
+    // A fresh server takes traffic only when the switch cannot cut a party or a question.
+    const now = Date.now();
+    const handoff = await handoffReadiness({
+      origin: configuredApplicationOrigin(request),
+      clock: publicRoundClock(now),
+      now,
+    });
+    if (!handoff.ready) {
+      return NextResponse.json(
+        { status: "warming", wait: handoff.reason, release: releaseId(), instance: instanceId() },
+        { status: 503, headers: { "Cache-Control": "no-store" } },
+      );
+    }
     return NextResponse.json(
       {
         status: "ready",
+        release: releaseId(),
+        instance: instanceId(),
+        parties: privateRoomStats(now),
         storage,
         accounts,
         alpha,
