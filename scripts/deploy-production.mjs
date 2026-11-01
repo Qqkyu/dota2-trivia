@@ -58,6 +58,54 @@ async function live(path) {
   }
 }
 
+/** The new server's handoff decisions and Render's switch time, from the Render logs. */
+async function reportHandoff(since, attempt = 1) {
+  try {
+    const { ownerId } = await render(`/services/${SERVICE_ID}`);
+    const read = async (text) => {
+      const query = new URLSearchParams({
+        ownerId,
+        resource: SERVICE_ID,
+        startTime: since,
+        endTime: new Date().toISOString(),
+        limit: "100",
+        direction: "forward",
+        text,
+      });
+      return ((await render(`/logs?${query}`)).logs ?? []).map((entry) => ({
+        at: Date.parse(entry.timestamp),
+        message: String(entry.message ?? "").replace(/\u001b\[[0-9;]*m/g, ""),
+      }));
+    };
+    const decisions = (await read("queue-arcade:handoff")).map((entry) => ({
+      ...entry,
+      ...JSON.parse(entry.message.slice(entry.message.indexOf("{"))),
+    }));
+    const passed = decisions.find((entry) => entry.ready);
+    for (const decision of decisions.filter((entry) => !entry.ready && entry.instance === passed?.instance)) {
+      const why =
+        decision.reason === "parties"
+          ? `${decision.openParties} open part${decision.openParties === 1 ? "y" : "ies"}`
+          : "a reveal";
+      say(`New server waited for ${why} (from ${new Date(decision.at).toISOString().slice(11, 19)} UTC).`);
+    }
+    const switched = passed && (await read("Your service is live")).find((entry) => entry.at >= Date.parse(passed.at));
+    if (!passed || !switched) {
+      if (attempt < 3) {
+        await delay(5_000);
+        return reportHandoff(since, attempt + 1);
+      }
+      return say("Handoff details are not in the Render logs yet.");
+    }
+    const intoPhase = passed.msIntoPhase + (switched.at - Date.parse(passed.at));
+    say(
+      `New server passed ${(passed.msIntoPhase / 1000).toFixed(1)}s into the ${passed.phase === "reveal" ? "reveal" : "question"} of round ${passed.round} after ${Math.round(passed.waitedMs / 1000)}s (${passed.reason}); Render switched ${((switched.at - Date.parse(passed.at)) / 1000).toFixed(1)}s later, about ${(intoPhase / 1000).toFixed(1)}s into that ${passed.phase === "reveal" ? "7-second reveal" : "question"}.`,
+    );
+  } catch (error) {
+    say(`Could not read the handoff from the Render logs (${error.message}).`);
+  }
+}
+
 function runCheck(script) {
   return new Promise((resolve) => {
     const child = spawn(process.execPath, [script], { stdio: "inherit", env: { ...process.env, APP_URL } });
@@ -126,45 +174,20 @@ const deploy = await render(`/services/${SERVICE_ID}/deploys`, {
 });
 say(`Deploy ${deploy.id} started: https://dashboard.render.com/web/${SERVICE_ID}/deploys/${deploy.id}`);
 let status = deploy.status;
-let switchedAt = null;
-let switchClock = null;
-let after = null;
-let lastStatusCheck = 0;
-let liveSince = null;
+const deployStartedAt = new Date().toISOString();
 const FAILED = new Set(["build_failed", "update_failed", "canceled", "deactivated", "pre_deploy_failed"]);
-for (;;) {
-  if (Date.now() - lastStatusCheck >= 5_000 && status !== "live") {
-    const next = (await render(`/services/${SERVICE_ID}/deploys/${deploy.id}`)).status;
-    if (next !== status) say(`Deploy status: ${next}`);
-    status = next;
-    lastStatusCheck = Date.now();
-    if (status === "live") liveSince = Date.now();
-  }
-  if (FAILED.has(status)) break;
-  if (!switchedAt && (status === "update_in_progress" || status === "live")) {
-    const health = await live("/api/health");
-    if (health?.instance && before.instance !== health.instance) {
-      switchedAt = Date.now();
-      after = health;
-      const presence = await live("/api/presence");
-      const round = presence?.round;
-      if (round && typeof presence.serverNow === "number") {
-        const intoReveal = presence.serverNow - round.answerDeadline;
-        switchClock =
-          intoReveal >= 0
-            ? `${(intoReveal / 1000).toFixed(1)}s into the reveal of round ${round.number}`
-            : `${((presence.serverNow - (round.answerDeadline - round.answerDuration)) / 1000).toFixed(1)}s into the question of round ${round.number}`;
-      }
-      say(`Traffic moved to instance ${health.instance}${switchClock ? ` (${switchClock})` : ""}.`);
-    }
-  }
-  if (status === "live" && (switchedAt || Date.now() - liveSince > 30_000)) break;
-  await delay(2_000);
+while (status !== "live" && !FAILED.has(status)) {
+  await delay(5_000);
+  const next = (await render(`/services/${SERVICE_ID}/deploys/${deploy.id}`)).status;
+  if (next !== status) say(`Deploy status: ${next}`);
+  status = next;
 }
 if (status !== "live") fail(`Render reports ${status}. The previous version keeps serving.`);
+await reportHandoff(deployStartedAt);
 
 // 4. Verify the new server and run the live checks.
-after ??= await live("/api/health");
+const after = await live("/api/health");
+if (after?.instance && after.instance === before.instance) fail("the live instance did not change.");
 const expected = commit.slice(0, 12);
 if (after?.release && after.release !== "local" && after.release !== expected) {
   fail(`live release is ${after.release}, expected ${expected}.`);
