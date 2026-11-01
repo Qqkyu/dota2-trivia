@@ -22,21 +22,21 @@ the tag out in a separate worktree.
 | Item | Value |
 | --- | --- |
 | App | <https://queue-arcade.onrender.com> |
-| Render service | `srv-d9mqd1942hec73e9nlt0`, free Docker plan, Frankfurt, one instance |
+| Render service | `srv-d9mqd1942hec73e9nlt0`, Docker, plan `0.5c-512mb` ($7 a month, no sleep) since 2026-11-01, Frankfurt, one instance; managed by Blueprint `exs-dbjg5p2jnfac73ftd3f0` from `render.yaml`, Auto Sync off |
 | Deploy policy | Manual deploys only from branch `main` (switched on 20 October) |
-| Live deployment | `dep-dbivk5dg1s2s73eckuk0` from `main` at `3b37bd9` (slow-link room sync, paced preloads, WOFF2 fonts; 2026-10-31) |
+| Live deployment | `dep-dbjg63m7bikc73fc32og` from `main` at `3b37bd9` (plan change to `0.5c-512mb` through the Blueprint; same code as the 2026-10-31 deploy) |
 | PostgreSQL | `dpg-d9mqc4taeets73aiclsg-a`, PostgreSQL 17, restricted runtime role, empty external allowlist |
 | Trusted address header | `ARCADE_TRUST_PROXY=cf-connecting-ip` |
 | Automatic migrations | Off (`ARCADE_AUTO_MIGRATE=false`); file store off |
 
 The 20 October deploy built in three minutes. Right after it, `/api/health` answered
 `ready` in 0.25 s, `pnpm check:headers` passed, `/api/rounds` served a live public round,
-and the Steam OpenID provider check passed. The free plan sleeps the service; the first
-visitor after idle waits about 17 s for it.
+and the Steam OpenID provider check passed. Until 1 November the free plan slept the
+service and the first visitor after idle waited about 17 s; the paid plan does not sleep.
 
 ## Deploying `main`
 
-1. Confirm the CI `verify` job is green on the `main` commit you want to ship.
+1. Run the full local gate (`pnpm check`) on the `main` commit you want to ship.
 2. Trigger a manual deploy of that commit, either in the Render dashboard or with the API
    (`POST /v1/services/srv-d9mqd1942hec73e9nlt0/deploys` with the `commitId`, using
    `RENDER_API_KEY`). Render rebuilds the Docker image itself. Keep automatic deploys off.
@@ -48,16 +48,18 @@ visitor after idle waits about 17 s for it.
 
 ## Open before a public soft launch
 
-- **Steam login on the hosted app.** Protocol and local account-flow tests passed. Nobody
-  has completed an interactive hosted login with a real account yet.
-- **Availability and traffic.** The free plan sleeps and runs one instance. Private
-  rooms, chat, presence, and request limits live in that process. Keep one instance
-  until those use shared storage. Agree on backup retention and recovery targets.
+Steam login on the hosted app was confirmed by the maintainer with a real account on
+2026-10-31.
+
+
+- **Availability and traffic.** One paid instance, no sleep. Private rooms, chat,
+  presence, and request limits live in that process. Keep one instance until those use
+  shared storage. The database has Render point-in-time recovery with a 3-day window.
 - **Capacity.** A four-player constrained run passed. A 466-player synthetic run kept all
   votes but missed the one-second response target. It does not prove 466 live users on
-  the free plan.
-- **Device coverage.** Browser and Android emulation passed. Physical iPhone, VoiceOver,
-  and full native mobile gameplay are untested.
+  one instance.
+- **Device coverage.** Players are expected on desktop PCs. Browser checks and Android
+  emulation passed; phones are not a launch target.
 - **Open issues.** GitHub #1 (Muerta Spell Link tooltips), #4 (difficulty calibration
   from real rounds), and #5 (opaque asset tokens before public rankings) remain.
 
