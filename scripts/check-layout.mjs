@@ -6,11 +6,12 @@
  */
 
 import { spawn } from "node:child_process";
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, readFile, writeFile } from "node:fs/promises";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { publicQuestionForRound } from "../src/lib/public-question.mjs";
+import { stopChrome } from "./lib/stop-chrome.mjs";
 
 const appUrl = (process.env.APP_URL ?? "http://localhost:3000").replace(/\/$/, "");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -590,8 +591,7 @@ async function cleanup() {
   } catch {
     // gone
   }
-  chrome.kill("SIGKILL");
-  await rm(userDataDir, { recursive: true, force: true }).catch(() => undefined);
+  await stopChrome(chrome, userDataDir);
 }
 
 try {
