@@ -24,7 +24,11 @@ export const dynamic = "force-dynamic";
 const formatPreviews = formatPreviewsFromQuestions(triviaQuestions);
 
 interface ProfilePageProps {
-  searchParams: Promise<{ authError?: string | string[]; recordsPreview?: string | string[] }>;
+  searchParams: Promise<{
+    authError?: string | string[];
+    recordsPreview?: string | string[];
+    signOut?: string | string[];
+  }>;
 }
 
 export default async function ProfilePage({ searchParams }: ProfilePageProps) {
@@ -119,7 +123,7 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
               View Steam profile ↗
             </a>
           </div>
-          <ProfileActions />
+          <ProfileActions signOutFailed={params.signOut === "failed"} />
         </section>
 
         <section className={styles.stats} aria-label="Lifetime records">

@@ -15,7 +15,9 @@ export async function POST(request: NextRequest) {
   try {
     await revokeAccountSession(request);
   } catch (error) {
+    // The stored session would stay valid, so do not pretend the sign-out worked.
     logServerError("auth.logout", error);
+    return NextResponse.redirect(new URL("/profile?signOut=failed", configuredApplicationOrigin(request)), 303);
   }
   const response = NextResponse.redirect(new URL("/", configuredApplicationOrigin(request)), 303);
   clearAccountSessionCookie(response);

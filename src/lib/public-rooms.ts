@@ -4,6 +4,7 @@ import { GAME_CATALOGS, isGameId } from "@/lib/game-catalogs";
 import { PUBLIC_ARCADE_MODE, roundFormatForQuestion } from "@/lib/arcade-games.mjs";
 import { normalizePrivateRoomCode } from "@/lib/private-rooms.mjs";
 import { PUBLIC_VOTE_ACCEPT_GRACE_MS as voteAcceptGrace, roundPhaseAt } from "@/lib/round-timing.mjs";
+import { deckSeedSecret } from "@/lib/deck-seed.mjs";
 
 export const PUBLIC_ROUND_REVEAL_MS = 7_000;
 export const PUBLIC_ROOM_BATCH_LENGTH = 24;
@@ -58,7 +59,7 @@ export function publicRoomFor(settings: PublicRoomSettings): PublicRoom {
 }
 
 function rawRoomBatch(room: PublicRoom, batchNumber: number) {
-  const seed = `public-room:${room.id}:questions`;
+  const seed = `public-room:${room.id}:questions:${deckSeedSecret()}`;
   const deck = GAME_CATALOGS[room.gameId].createDeck(
     seed,
     room.mode,

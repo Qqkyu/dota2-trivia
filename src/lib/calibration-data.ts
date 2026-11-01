@@ -78,6 +78,33 @@ export function publicCalibrationSnapshot(
   };
 }
 
+const SHARED_SNAPSHOT_TTL_MS = 30_000;
+const sharedSnapshots = ((
+  globalThis as typeof globalThis & {
+    __queueArcadeCalibrationSnapshots?: Map<GameId, { expiresAt: number; snapshot: Promise<CalibrationSnapshot> }>;
+  }
+).__queueArcadeCalibrationSnapshots ??= new Map());
+
+/**
+ * Public readers share one snapshot for 30 seconds. It is the heaviest public read:
+ * every stored total and review across the whole catalog. Reviewers read fresh.
+ */
+export function getSharedCalibrationSnapshot(gameId: GameId = DEFAULT_GAME_ID, now = Date.now()) {
+  const cached = sharedSnapshots.get(gameId);
+  if (cached && cached.expiresAt > now) return cached.snapshot;
+  const snapshot = getCalibrationSnapshot(gameId);
+  sharedSnapshots.set(gameId, { expiresAt: now + SHARED_SNAPSHOT_TTL_MS, snapshot });
+  snapshot.catch(() => {
+    if (sharedSnapshots.get(gameId)?.snapshot === snapshot) sharedSnapshots.delete(gameId);
+  });
+  return snapshot;
+}
+
+/** A review changed: the next public read builds a new snapshot. */
+export function forgetSharedCalibrationSnapshot(gameId: GameId) {
+  sharedSnapshots.delete(gameId);
+}
+
 export async function getCalibrationSnapshot(gameId: GameId = DEFAULT_GAME_ID): Promise<CalibrationSnapshot> {
   const catalog = GAME_CATALOGS[gameId];
   const questionRevisions = new Map(
