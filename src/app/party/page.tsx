@@ -8,6 +8,7 @@ const formatPreviews = formatPreviewsFromQuestions(triviaQuestions);
 
 export const metadata: Metadata = {
   title: "Party",
+  robots: { index: false, follow: true },
 };
 
 export default function PartyPage() {

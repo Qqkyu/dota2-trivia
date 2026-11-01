@@ -10,6 +10,7 @@ const formatPreviews = formatPreviewsFromQuestions(triviaQuestions);
 
 export const metadata: Metadata = {
   title: "Play",
+  robots: { index: false, follow: true },
 };
 
 interface PlayProps {

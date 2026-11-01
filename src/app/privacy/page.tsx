@@ -3,7 +3,12 @@ import { SiteChrome } from "@/components/site-chrome";
 import { configuredDataCountries } from "@/lib/auth-session";
 import styles from "./privacy.module.css";
 
-export const metadata: Metadata = { title: "Privacy" };
+export const metadata: Metadata = {
+  title: "Privacy",
+  description:
+    "What Queue Arcade stores when you play anonymously or connect Steam, where it is kept, and for how long.",
+  alternates: { canonical: "/privacy" },
+};
 export const dynamic = "force-dynamic";
 
 export default function PrivacyPage() {
