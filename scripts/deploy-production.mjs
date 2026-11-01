@@ -186,8 +186,14 @@ if (status !== "live") fail(`Render reports ${status}. The previous version keep
 await reportHandoff(deployStartedAt);
 
 // 4. Verify the new server and run the live checks.
-const after = await live("/api/health");
-if (after?.instance && after.instance === before.instance) fail("the live instance did not change.");
+// Right after the switch the old server can still answer for a few seconds (on 2026-11-01
+// one check 1 s after the switch reached it), so ask again for up to a minute.
+let after = await live("/api/health");
+for (let tries = 0; tries < 20 && (!after?.instance || after.instance === before.instance); tries += 1) {
+  await delay(3_000);
+  after = await live("/api/health");
+}
+if (after?.instance && after.instance === before.instance) fail("the live instance did not change within a minute.");
 const expected = commit.slice(0, 12);
 if (after?.release && after.release !== "local" && after.release !== expected) {
   fail(`live release is ${after.release}, expected ${expected}.`);
