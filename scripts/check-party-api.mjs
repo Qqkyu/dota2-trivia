@@ -108,9 +108,19 @@ if (spoofedChat.status !== 200 || lastMessage?.name !== "Host" || lastMessage?.t
   throw new Error(`Chat did not use the roster name (${spoofedChat.status} ${JSON.stringify(lastMessage)}).`);
 }
 const peek = await fetch(`${appUrl}/api/private-rooms?code=${code}&peek=1`).then((response) => response.json());
-const peekNames = new Set(peek.privateRoom?.players?.map((player) => player.name) ?? []);
-if (!peekNames.has("Host") || !peekNames.has("Guest") || peekNames.size !== 2) {
-  throw new Error(`A stranger's vote joined the roster (${JSON.stringify(peek.privateRoom?.players)}).`);
+if (peek.exists !== true || "privateRoom" in peek || JSON.stringify(peek).includes("gg")) {
+  throw new Error(`A code-only peek exposed more than the code being taken (${JSON.stringify(peek)}).`);
+}
+const strangerRead = await fetch(`${appUrl}/api/private-rooms?code=${code}&playerId=${strangerId}`);
+if (strangerRead.status !== 403) {
+  throw new Error(`A stranger could read the party roster (${strangerRead.status}).`);
+}
+const roster = await fetch(`${appUrl}/api/private-rooms?code=${code}&playerId=${hostId}`).then((response) =>
+  response.json(),
+);
+const rosterNames = new Set(roster.privateRoom?.players?.map((player) => player.name) ?? []);
+if (!rosterNames.has("Host") || !rosterNames.has("Guest") || rosterNames.size !== 2) {
+  throw new Error(`A stranger's vote joined the roster (${JSON.stringify(roster.privateRoom?.players)}).`);
 }
 
 const hostLeft = await post("/api/private-rooms/leave", { playerId: hostId, code });

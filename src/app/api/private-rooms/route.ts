@@ -29,14 +29,14 @@ export async function GET(request: NextRequest) {
 
   try {
     if (peek) {
+      // Only says whether the code is in use. The roster and chat stay with members:
+      // a party code can be three letters, so it is not a secret.
       const rateLimited = rateLimitRequest(request, "private-rooms-peek", code, 60);
       if (rateLimited) return rateLimited;
-      const now = Date.now();
-      const record = getPrivateRoom(code, now);
-      if (!record) return NextResponse.json({ error: "Unknown private room." }, { status: 404 });
-      return NextResponse.json(privateRoomClientPayload(record, "", now), {
-        headers: { "Cache-Control": "no-store" },
-      });
+      if (!getPrivateRoom(code, Date.now())) {
+        return NextResponse.json({ error: "Unknown private room." }, { status: 404 });
+      }
+      return NextResponse.json({ exists: true }, { headers: { "Cache-Control": "no-store" } });
     }
     const identity = await privateRoomIdentity(request, queryPlayerId);
     if (!identity) return NextResponse.json({ error: "Invalid player ID." }, { status: 400 });

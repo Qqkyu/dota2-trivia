@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-10-31T14:27:34.251Z",
-  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Fable 5.1 on 2026-10-31 after making the party preview check wait for a laid-out profile stage (playable catalog unchanged)",
+  "reviewedAt": "2026-11-01T11:50:17.915Z",
+  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Opus 5.5 on 2026-11-01 after the party API and lobby checks moved from the code-only peek to member reads (playable catalog unchanged)",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
     "patch": "7.41f",
@@ -36,9 +36,9 @@
     "scripts/check-layout.mjs": "740e762f3d1ac29e06813c29b38b8113d423e11dbfcecdd2f019e6e63f7f5fda",
     "scripts/check-native-feedback-sounds.mjs": "b1fdc6ffd1654256bf8a9287ff297bb98a0e1aff6d8d3041a87ce8322755a9c9",
     "scripts/check-pages.mjs": "1a401e653ad0b500988c960d63375c8fa08840c2b9354555065a73fc9e540d16",
-    "scripts/check-party-api.mjs": "cc1add586175b7f3f5b1323e805ba8c613fc9fba201ffd0ae67db6a73323f60b",
+    "scripts/check-party-api.mjs": "16743860ab8446779d410b713347840a752dc7e5dc2d05626a6e85cfcd719f9f",
     "scripts/check-party-crowd.mjs": "51e3e00dacab7b7bfcc80fcb23997c11efeea98d2a566eea3dfb2136b1a0b7f5",
-    "scripts/check-party-lobby.mjs": "7b47ac77cdb2c65f4c284443a46797127c6ee356639ff00858573a96ae3b5946",
+    "scripts/check-party-lobby.mjs": "7ed0eef2a8c58e38f6fffdc574ac46c18d9aa6bd13faebb030842ec6be40e0aa",
     "scripts/check-party-nicks.mjs": "36dfe4f3375c9e9e26c29968fd00be3c6446a26f40dccd509f3e8742993a4bac",
     "scripts/check-party-previews.mjs": "18c0e66ac4fd0e6cad83cf2704020c3c73a56f3601e90cfaba80fb9c929a7892",
     "scripts/check-production-config.mjs": "3100c5b1a64a63c0859a13e9ec7c21cb6cda86f074d459c232007f16ccaab093",

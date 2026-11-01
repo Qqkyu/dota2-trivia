@@ -1,3 +1,17 @@
+// Dota art is served with no query string, and older item art with one fixed version
+// query. Every other query is refused: each distinct URL would cost the optimizer a new
+// upstream download and resize, so callers could otherwise mint endless work.
+const STEAM_ART_HOSTS = ["cdn.cloudflare.steamstatic.com", "cdn.steamstatic.com"];
+const STEAM_ART_QUERIES = ["", "?t=1593393829403"];
+const STEAM_AVATAR_HOSTS = [
+  "avatars.steamstatic.com",
+  "avatars.akamai.steamstatic.com",
+  "avatars.cloudflare.steamstatic.com",
+  "avatars.fastly.steamstatic.com",
+  "media.steampowered.com",
+  "steamcdn-a.akamaihd.net",
+];
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "standalone",
@@ -39,25 +53,13 @@ const nextConfig = {
   },
   images: {
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "cdn.cloudflare.steamstatic.com",
-        pathname: "/apps/dota2/images/**",
-      },
-      {
-        protocol: "https",
-        hostname: "cdn.steamstatic.com",
-        pathname: "/apps/dota2/images/**",
-      },
-      ...[
-        "avatars.steamstatic.com",
-        "avatars.akamai.steamstatic.com",
-        "avatars.cloudflare.steamstatic.com",
-        "avatars.fastly.steamstatic.com",
-        "media.steampowered.com",
-        "steamcdn-a.akamaihd.net",
-      ].map((hostname) => ({ protocol: "https", hostname, pathname: "/**" })),
+      ...STEAM_ART_HOSTS.flatMap((hostname) =>
+        STEAM_ART_QUERIES.map((search) => ({ protocol: "https", hostname, pathname: "/apps/dota2/images/**", search })),
+      ),
+      ...STEAM_AVATAR_HOSTS.map((hostname) => ({ protocol: "https", hostname, pathname: "/**", search: "" })),
     ],
+    // Resized images live on the instance disk; drop the least recently used past 128 MB.
+    maximumDiskCacheSize: 128 * 1024 * 1024,
   },
 };
 

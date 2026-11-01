@@ -19,6 +19,7 @@ import {
   publicRoundAt,
 } from "@/lib/public-rooms";
 import { roundPhaseAt } from "@/lib/round-timing.mjs";
+import { deckSeedSecret } from "@/lib/deck-seed.mjs";
 
 export async function privateRoomIdentity(request: Request, bodyPlayerId?: unknown) {
   const accountUser = await sessionUserForRequest(request);
@@ -47,7 +48,7 @@ function questionForPrivateRound(record: NonNullable<ReturnType<typeof getPrivat
   const batchNumber = Math.floor(roundNumber / PUBLIC_ROOM_BATCH_LENGTH);
   const index = roundNumber % PUBLIC_ROOM_BATCH_LENGTH;
   const deck = catalog.createDeck(
-    `private-room:${record.roomId}:${record.startedAt}:questions`,
+    `private-room:${record.roomId}:${record.startedAt}:questions:${deckSeedSecret()}`,
     PUBLIC_ARCADE_MODE,
     "Mixed",
     PUBLIC_ROOM_BATCH_LENGTH,

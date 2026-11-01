@@ -1,7 +1,12 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { sessionUserForRequest } from "@/lib/auth-session";
 import { preflightRateLimit, rateLimitRequest, readJsonBody, requestOriginAllowed } from "@/lib/api-protection";
-import { getCalibrationSnapshot, publicCalibrationSnapshot } from "@/lib/calibration-data";
+import {
+  forgetSharedCalibrationSnapshot,
+  getCalibrationSnapshot,
+  getSharedCalibrationSnapshot,
+  publicCalibrationSnapshot,
+} from "@/lib/calibration-data";
 import { DEFAULT_GAME_ID, GAME_CATALOGS, isGameId } from "@/lib/game-catalogs";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { effectiveQuestionReviewStatus, isQuestionReviewer, isQuestionReviewState } from "@/lib/question-review";
@@ -20,11 +25,10 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const [snapshot, user] = await Promise.all([
-      getCalibrationSnapshot(candidate),
-      sessionUserForRequest(request).catch(() => null),
-    ]);
-    return NextResponse.json(isQuestionReviewer(user) ? snapshot : publicCalibrationSnapshot(snapshot), {
+    const user = await sessionUserForRequest(request).catch(() => null);
+    const reviewer = isQuestionReviewer(user);
+    const snapshot = reviewer ? await getCalibrationSnapshot(candidate) : await getSharedCalibrationSnapshot(candidate);
+    return NextResponse.json(reviewer ? snapshot : publicCalibrationSnapshot(snapshot), {
       headers: {
         "Cache-Control": "no-store",
       },
@@ -89,6 +93,7 @@ export async function PATCH(request: NextRequest) {
       signalStatusAtReview: record.signal.status,
       updatedAt: Date.now(),
     });
+    forgetSharedCalibrationSnapshot(candidate.gameId);
     return NextResponse.json(
       {
         review: {

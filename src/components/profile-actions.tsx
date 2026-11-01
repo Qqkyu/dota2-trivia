@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export function ProfileActions() {
+export function ProfileActions({ signOutFailed = false }: { signOutFailed?: boolean }) {
   const router = useRouter();
   const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState(false);
@@ -28,6 +28,7 @@ export function ProfileActions() {
       <form action="/api/auth/logout" method="post">
         <button type="submit">Sign out</button>
       </form>
+      {signOutFailed && <small role="alert">Couldn’t sign out. Try again.</small>}
       <button type="button" data-danger="true" onClick={() => void deleteProfile()} disabled={deleting}>
         {deleting ? "Deleting…" : "Delete profile"}
       </button>
