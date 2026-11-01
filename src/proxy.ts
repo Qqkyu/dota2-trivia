@@ -1,7 +1,18 @@
 import { randomBytes } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
+import { canonicalRedirectUrl } from "@/lib/canonical-host.mjs";
 
 export function proxy(request: NextRequest) {
+  // One public origin: pages reached through the Render subdomain move to ARCADE_APP_URL,
+  // because votes and sessions are only accepted from that origin. Inert while it is the
+  // onrender.com address itself.
+  const canonical = canonicalRedirectUrl(
+    `${request.nextUrl.pathname}${request.nextUrl.search}`,
+    request.headers.get("x-forwarded-host") ?? request.headers.get("host"),
+    process.env.ARCADE_APP_URL,
+  );
+  if (canonical) return NextResponse.redirect(canonical, 308);
+
   const nonce = randomBytes(16).toString("base64");
   const development = process.env.NODE_ENV === "development";
   // Dev-only allowance so impeccable live mode can load. Guarded by NODE_ENV.
