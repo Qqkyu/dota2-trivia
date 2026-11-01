@@ -267,6 +267,19 @@ CI sets `CONTAINER_LATENCY_ADVISORY=1` because a 0.1-CPU container on a shared G
 gives noisy timing; correctness, memory, restart, and health assertions stay strict there, and
 the measured p95 values are printed in the job log.
 
+### Test bots in a party
+
+To try a party with more players, create it in the browser, then run:
+
+```sh
+node scripts/party-bots.mjs --code=ABCD --bots=5 --minutes=30
+```
+
+Press Start as the host after the bots appear. They are named "Bot 1", "Bot 2" and so on,
+answer about 85% of rounds at random, and leave at the time limit or on Ctrl-C. Up to 20 bots;
+`--url=http://127.0.0.1:3000` points them at a local server. They join private parties only:
+party votes never reach the public room, question calibration, profiles or alpha sessions.
+
 ## Readiness, logs, and alerts
 
 Probe `GET /api/health` from outside the host every minute. It checks configuration and all
