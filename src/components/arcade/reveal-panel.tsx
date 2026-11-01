@@ -12,6 +12,7 @@ import { keyedAnswerLabel, LETTERS } from "./shared";
 
 import type { useArcadeRoom } from "./use-arcade-room";
 import type { deriveRoundView } from "./round-view";
+import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
 
 type RevealPanelProps = { currentQuestion: PublicArcadeQuestion } & Pick<
   ReturnType<typeof useArcadeRoom>,
@@ -96,7 +97,7 @@ export function RevealPanel({
       <div className={own.revealIcon}>{selectedWasCorrect ? <Check /> : <X />}</div>
       {media && (
         <figure className={styles.revealMedia} data-kind="mark" data-testid={media.testid}>
-          <Image src={media.src} alt={media.alt} width={88} height={88} unoptimized />
+          <Image src={firstPartyArtSrc(media.src)} alt={media.alt} width={88} height={88} unoptimized />
           {media.caption ? <figcaption>{media.caption}</figcaption> : null}
         </figure>
       )}

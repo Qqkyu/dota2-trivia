@@ -3,18 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { cookies } from "next/headers";
-import {
-  Activity,
-  AlertTriangle,
-  ArrowLeft,
-  BarChart3,
-  Clock3,
-  Gamepad2,
-  RefreshCw,
-  Repeat2,
-  ShieldCheck,
-  Users,
-} from "lucide-react";
+import { Activity, AlertTriangle, ArrowLeft, BarChart3, Clock3, Gamepad2, RefreshCw, ShieldCheck } from "lucide-react";
 import { SiteChrome } from "@/components/site-chrome";
 import { SiteFooter } from "@/components/site-footer";
 import { SteamSignIn } from "@/components/steam-sign-in";
@@ -24,6 +13,7 @@ import { DEFAULT_GAME_ID, GAME_CATALOGS } from "@/lib/game-catalogs";
 import { isQuestionReviewer } from "@/lib/question-review";
 import { ACCOUNT_SESSION_COOKIE, sessionTokenHash } from "@/lib/steam-auth.mjs";
 import styles from "./ops.module.css";
+import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
 
 export const dynamic = "force-dynamic";
 
@@ -88,7 +78,7 @@ export default async function OpsPage() {
       <header className={styles.header}>
         <Link href="/" className={styles.brand}>
           <span>
-            <Image src={catalog.logoUrl} alt="" width={28} height={28} unoptimized />
+            <Image src={firstPartyArtSrc(catalog.logoUrl)} alt="" width={28} height={28} unoptimized />
           </span>
           <span>
             <strong>Queue Arcade</strong>
@@ -133,18 +123,6 @@ export default async function OpsPage() {
           <small>{sessions.averageMinutes} min average</small>
         </article>
         <article>
-          <Users />
-          <span>Players</span>
-          <strong>{sessions.players.toLocaleString("en-US")}</strong>
-          <small>salted anonymous count</small>
-        </article>
-        <article>
-          <Repeat2 />
-          <span>Return rate</span>
-          <strong>{sessions.returnRate}%</strong>
-          <small>{sessions.returningPlayers} came back</small>
-        </article>
-        <article>
           <BarChart3 />
           <span>Rounds / visit</span>
           <strong>{sessions.roundsPerSession}</strong>
@@ -164,8 +142,8 @@ export default async function OpsPage() {
                 key={day.date}
                 role="listitem"
                 tabIndex={0}
-                aria-label={`${day.date}: ${day.rounds} rounds, ${day.players} players`}
-                title={`${day.date}: ${day.rounds} rounds, ${day.players} players`}
+                aria-label={`${day.date}: ${day.rounds} rounds, ${day.sessions} visits`}
+                title={`${day.date}: ${day.rounds} rounds, ${day.sessions} visits`}
               >
                 <span
                   aria-hidden="true"
@@ -173,7 +151,7 @@ export default async function OpsPage() {
                 />
                 <small>{day.date.slice(5)}</small>
                 <strong className={styles.chartValue}>
-                  {day.rounds} rounds, {day.players} players
+                  {day.rounds} rounds, {day.sessions} visits
                 </strong>
               </div>
             ))}

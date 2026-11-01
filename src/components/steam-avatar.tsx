@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import clsx from "clsx";
 import styles from "./steam-avatar.module.css";
+import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
 
 export function SteamAvatar({
   src,
@@ -26,7 +27,7 @@ export function SteamAvatar({
     return (
       <Image
         className={className}
-        src={src}
+        src={firstPartyArtSrc(src)}
         alt=""
         width={width}
         height={height}

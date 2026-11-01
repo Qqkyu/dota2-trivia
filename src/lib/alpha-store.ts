@@ -117,13 +117,16 @@ function stateForRuntime() {
   return runtime.statePromise;
 }
 
+/**
+ * Each visit counts on its own. Its key comes from the random visit ID the page makes
+ * in memory, never from the player ID the browser stores: EU rules require consent for
+ * analytics that read a stored identifier, and the game needs that ID only to play.
+ * So visits are not linked to each other or to an account.
+ */
 export function alphaSessionKey(identity: AlphaIdentity): AlphaSessionKey {
   if ("sessionHash" in identity) return identity;
-  return {
-    userId: identity.voterId.startsWith("account:") ? identity.voterId.slice("account:".length) : null,
-    sessionHash: anonymousVoterHash("alpha-session", `${identity.voterId}:${identity.sessionId}`),
-    visitorHash: anonymousVoterHash("alpha-visitor", identity.voterId),
-  };
+  const sessionHash = anonymousVoterHash("alpha-session", identity.sessionId);
+  return { userId: null, sessionHash, visitorHash: sessionHash };
 }
 
 function newSession(identity: AlphaIdentity, at: number): StoredAlphaSession {

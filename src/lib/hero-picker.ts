@@ -5,6 +5,7 @@ import {
   heroKeyFromArtwork as findHeroKeyFromArtwork,
   isHeroPickerQuestion as hasHeroPickerAnswer,
 } from "@/lib/hero-picker.mjs";
+import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
 
 export interface HeroPickerHero {
   key: string;
@@ -31,7 +32,7 @@ export const HERO_PICKER_HEROES = HERO_PICKER_CATALOG.groups.flatMap((group) => 
 export const HERO_PICKER_BY_KEY = new Map(HERO_PICKER_HEROES.map((hero) => [hero.key, hero]));
 
 export function heroPickerPortraitSrc(image: string) {
-  return image.replace("/dota_react/heroes/", "/dota_react/heroes/icons/");
+  return firstPartyArtSrc(image.replace("/dota_react/heroes/", "/dota_react/heroes/icons/"));
 }
 
 export function preloadHeroPickerPortraits() {

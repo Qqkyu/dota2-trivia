@@ -6,12 +6,13 @@ import { SHOPKEEPER_RECIPE_IMAGE, type ShopkeeperCatalogItem } from "@/lib/shopk
 import { shopkeeperReferencesForKeys } from "./shared";
 import styles from "../queue-arcade.module.css";
 import own from "./shopkeeper-parts.module.css";
+import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
 
 export function ShopkeeperItem({ item, compact = false }: { item: ShopkeeperItemReference; compact?: boolean }) {
   return (
     <span className={clsx(styles.shopkeeperItem, compact && styles.shopkeeperItemCompact)}>
       <span className={styles.shopkeeperItemArt}>
-        <Image src={item.image} alt="" fill sizes={compact ? "54px" : "82px"} unoptimized />
+        <Image src={firstPartyArtSrc(item.image)} alt="" fill sizes={compact ? "54px" : "82px"} unoptimized />
         {item.count > 1 && <b>×{item.count}</b>}
       </span>
       <strong>{item.name}</strong>
@@ -50,7 +51,7 @@ export function ShopkeeperPick({ item, label }: { item: ShopkeeperCatalogItem | 
       <small>{label}</small>
       {item ? (
         <span>
-          <Image src={item.image} alt="" width={42} height={31} unoptimized />
+          <Image src={firstPartyArtSrc(item.image)} alt="" width={42} height={31} unoptimized />
           <strong>{item.name}</strong>
         </span>
       ) : (
@@ -78,7 +79,7 @@ export function ShopkeeperRecipePick({
           <ShopkeeperTray items={items} compact testId="shopkeeper-recipe-reveal-tray" />
           {recipeIncluded ? (
             <span className={styles.shopkeeperRecipeIncluded} data-testid="shopkeeper-recipe-included">
-              <Image src={SHOPKEEPER_RECIPE_IMAGE} alt="" width={36} height={27} unoptimized />
+              <Image src={firstPartyArtSrc(SHOPKEEPER_RECIPE_IMAGE)} alt="" width={36} height={27} unoptimized />
               <small>Included</small>
             </span>
           ) : null}

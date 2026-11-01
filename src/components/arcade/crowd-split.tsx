@@ -9,6 +9,7 @@ import { SHOPKEEPER_CATALOG_BY_KEY, recipeItemsFromAnswerKey } from "@/lib/shopk
 import { valueOrderKeysFromAnswerKey } from "@/lib/value-order.mjs";
 import { keyedAnswerLabel, LETTERS, shopkeeperReferencesForKeys } from "./shared";
 import own from "./crowd-split.module.css";
+import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
 
 export function CrowdSplitBar({
   marker,
@@ -112,17 +113,31 @@ export function KeyedCrowdSplit({
         const label = keyedAnswerLabel(answerKey, "Unknown pick", question);
         const marker =
           hero || item ? (
-            <Image src={(hero ?? item)?.image ?? ""} alt="" fill sizes="34px" unoptimized />
+            <Image src={firstPartyArtSrc((hero ?? item)?.image ?? "")} alt="" fill sizes="34px" unoptimized />
           ) : orderCards?.length === 4 ? (
             <span className={own.crowdSplitOrder} aria-hidden="true">
               {orderCards.map((card) => (
-                <Image key={card?.key} src={card?.image ?? ""} alt="" width={18} height={18} unoptimized />
+                <Image
+                  key={card?.key}
+                  src={firstPartyArtSrc(card?.image ?? "")}
+                  alt=""
+                  width={18}
+                  height={18}
+                  unoptimized
+                />
               ))}
             </span>
           ) : recipeItems.length ? (
             <span className={own.crowdSplitRecipe} aria-hidden="true">
               {recipeItems.slice(0, 3).map((recipeItem) => (
-                <Image key={recipeItem.key} src={recipeItem.image} alt="" width={20} height={15} unoptimized />
+                <Image
+                  key={recipeItem.key}
+                  src={firstPartyArtSrc(recipeItem.image)}
+                  alt=""
+                  width={20}
+                  height={15}
+                  unoptimized
+                />
               ))}
             </span>
           ) : (

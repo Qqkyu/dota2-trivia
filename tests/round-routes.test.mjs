@@ -134,6 +134,7 @@ function fixture() {
     "@/lib/question-revision.mjs": { questionCalibrationRevision: () => "revision" },
     "@/lib/scoring.mjs": score,
     "@/lib/round-recovery.mjs": recovery,
+    "@/lib/steam-art.mjs": { firstPartyArtTree: (value) => value },
     "@/lib/server-diagnostics": {
       logServerError: (_name, error) => {
         throw error;

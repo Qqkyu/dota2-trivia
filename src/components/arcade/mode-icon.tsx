@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import type { ArcadeMode, RoundGame } from "@/lib/trivia";
 import styles from "../queue-arcade.module.css";
+import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
 
 export function ModeIcon({ mode }: { mode: ArcadeMode | RoundGame }) {
   if (mode === "mixed") return <Shuffle />;
@@ -32,7 +33,7 @@ export function ModeIcon({ mode }: { mode: ArcadeMode | RoundGame }) {
 export function BrandMark({ logoUrl }: { logoUrl: string }) {
   return (
     <span className={styles.brandMark} aria-hidden="true">
-      <Image src={logoUrl} alt="" width={30} height={30} unoptimized />
+      <Image src={firstPartyArtSrc(logoUrl)} alt="" width={30} height={30} unoptimized />
     </span>
   );
 }

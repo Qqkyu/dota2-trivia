@@ -25,6 +25,7 @@ import type { useArcadeAudio } from "./use-arcade-audio";
 import type { useArcadeRoom } from "./use-arcade-room";
 import type { usePlayerSettings } from "./use-player-settings";
 import type { deriveRoundView } from "./round-view";
+import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
 
 type RoundPromptProps = Pick<ReturnType<typeof useArcadeRoom>, "phase" | "activeRoundId"> & {
   currentQuestion: PublicArcadeQuestion;
@@ -200,7 +201,7 @@ export function RoundPrompt({
       <div className={styles.aghanimArtwork} data-testid="aghanim-artwork">
         {aghanimItem ? (
           <Image
-            src={aghanimItem.image}
+            src={firstPartyArtSrc(aghanimItem.image)}
             alt={aghanimUpgradeLabel ?? "Aghanim upgrade"}
             fill
             sizes="128px"

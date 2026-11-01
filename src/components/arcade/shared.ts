@@ -30,7 +30,8 @@ export function storedPlayerId() {
 }
 
 export function withPlayerId(url: string, playerId = storedPlayerId()) {
-  if (!url.startsWith("/api/") || !playerId || url.includes("playerId=")) return url;
+  // Art is the same for everyone: it never needs the player ID.
+  if (!url.startsWith("/api/") || url.startsWith("/api/art/") || !playerId || url.includes("playerId=")) return url;
   return `${url}${url.includes("?") ? "&" : "?"}playerId=${encodeURIComponent(playerId)}`;
 }
 

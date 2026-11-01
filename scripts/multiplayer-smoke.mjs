@@ -153,14 +153,12 @@ const smokeAccount = await seedPostgresAccount();
 try {
   const accountHeaders = smokeAccount?.headers ?? {};
   const secondAccountHeaders = smokeAccount?.secondHeaders ?? accountHeaders;
-  const effectiveAlphaVoterId = smokeAccount ? `account:${smokeAccount.userId}` : firstPlayer;
   const alphaSalt = process.env.ARCADE_VOTER_SALT || "queue-arcade-local-v1";
+  // A visit counts on its own: its hash comes from the random visit ID only.
   const alphaSessionHash = createHash("sha256")
-    .update(`${alphaSalt}:alpha-session:${effectiveAlphaVoterId}:${alphaSessionId}`)
+    .update(`${alphaSalt}:alpha-session:${alphaSessionId}`)
     .digest("base64url");
-  const alphaVisitorHash = createHash("sha256")
-    .update(`${alphaSalt}:alpha-visitor:${effectiveAlphaVoterId}`)
-    .digest("base64url");
+  const alphaVisitorHash = alphaSessionHash;
 
   const guestOpsResponse = await fetch(`${appUrl}/ops`, { cache: "no-store" });
   const guestOpsPage = await guestOpsResponse.text();

@@ -30,6 +30,9 @@ if (!privacy.includes('data-testid="site-chrome"') || !privacy.includes('data-te
 if (!privacy.includes('href="mailto:') || privacy.includes('href="https://github.com/Qqkyu/dota2-trivia/issues"')) {
   throw new Error("Privacy contact must work without access to the private repository.");
 }
+if (!privacy.includes('href="mailto:contact@queuearcade.com"') || !privacy.includes("Michał Kuliński")) {
+  throw new Error("The privacy page does not name the controller and the contact address.");
+}
 
 const home = await page("/");
 if (!home.includes('data-testid="start-arcade"') || !home.includes('data-testid="private-room-open"')) {

@@ -21,6 +21,7 @@ import { REPORT_REASON_LABELS, type CalibrationStatus, type ReportReason } from 
 import type { CalibrationRecord, CalibrationSnapshot } from "@/lib/calibration-data";
 import type { QuestionReviewState, QuestionReviewStatus } from "@/lib/question-review";
 import styles from "./calibration-dashboard.module.css";
+import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
 
 type CalibrationFilter = "all" | "review" | "reported" | "reviewed" | "quarantined";
 
@@ -156,7 +157,7 @@ export function CalibrationDashboard({
       <header className={styles.header}>
         <Link href="/" className={styles.brand}>
           <span>
-            <Image src={logoUrl} alt="" width={28} height={28} unoptimized />
+            <Image src={firstPartyArtSrc(logoUrl)} alt="" width={28} height={28} unoptimized />
           </span>
           <span>
             <strong>Queue Arcade</strong>

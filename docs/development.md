@@ -293,9 +293,7 @@ browser-supplied question ID. It opens with the reveal and keeps the just-finish
 rollover grace period. The browser corrects for server clock offset and schedules exact phase and progressive-clue
 refreshes. A five-second recovery heartbeat plus focus, visibility, page-resume, and network wakeups repair missed timers.
 
-Remote Steam artwork bypasses the application image proxy, the compact app icon replaces the former multi-size ICO, and
-stable local Dota feedback cues carry a 30-day browser cache policy. Answer-sensitive Echo Hunt and Soundcheck audio remains
-behind the current-round private proxy so its upstream filename cannot reveal an answer before the deadline.
+Valve art and Steam avatars load through `/api/art/<host>/<path>` (`src/lib/steam-art.mjs`), which allows only the Dota art folder on Valve's two art hosts and the Steam avatar hosts, fetches each file once, and keeps it in a bounded memory cache. The browser therefore contacts only this site, and the Content Security Policy allows images from this site only. Next's image optimizer is off. The compact app icon replaces the former multi-size ICO, and stable local Dota feedback cues carry a 30-day browser cache policy. Answer-sensitive Echo Hunt and Soundcheck audio remains behind the current-round private proxy so its upstream filename cannot reveal an answer before the deadline.
 
 First-time room entry is gated separately from the shared clock. A player joins the active question when at least 13 seconds remain; otherwise the client holds on a synchronized countdown and begins with the next full round. Existing players never pause or leave the global timeline.
 

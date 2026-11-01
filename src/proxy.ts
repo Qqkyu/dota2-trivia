@@ -23,7 +23,8 @@ export function proxy(request: NextRequest) {
     `script-src 'self' 'nonce-${nonce}'${development ? " 'unsafe-eval'" + liveDev : " 'strict-dynamic'"}`,
     // Timers, fog, progress bars, and positioning use React style attributes.
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: blob: https://*.steamstatic.com https://media.steampowered.com https://steamcdn-a.akamaihd.net https://www.dota2.com",
+    // Valve art comes through /api/art, so no image host outside this site is allowed.
+    "img-src 'self' data: blob:",
     "font-src 'self' data:",
     "media-src 'self' blob:",
     `connect-src 'self'${development ? " ws: wss:" + liveDev : ""}`,
