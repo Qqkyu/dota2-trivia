@@ -47,8 +47,9 @@ describe("first-party Steam art", () => {
   });
 
   it("maps Steam avatars and leaves local sources alone", () => {
-    expect(firstPartyArtSrc("https://avatars.steamstatic.com/abc123_full.jpg")).toBe(
-      "/api/art/avatars.steamstatic.com/abc123_full.jpg",
+    const avatar = `${"ab".repeat(20)}_full.jpg`;
+    expect(firstPartyArtSrc(`https://avatars.steamstatic.com/${avatar}`)).toBe(
+      `/api/art/avatars.steamstatic.com/${avatar}`,
     );
     expect(firstPartyArtSrc("/api/round-image?roundId=x")).toBe("/api/round-image?roundId=x");
     expect(firstPartyArtSrc("/arcade/first-blood-splash.png")).toBe("/arcade/first-blood-splash.png");
@@ -66,7 +67,15 @@ describe("first-party Steam art", () => {
     expect(steamArtTarget("cdn.steamstatic.com", ["apps", "570", "header.jpg"])).toBe(null);
     expect(steamArtTarget("cdn.steamstatic.com", ["apps", "dota2", "images", "..", "secret.png"])).toBe(null);
     expect(steamArtTarget("cdn.steamstatic.com", ["apps", "dota2", "images", "a%2Fb.png"])).toBe(null);
-    expect(steamArtTarget("avatars.steamstatic.com", ["abc_full.jpg"], "?size=1")).toBe(null);
+    const avatar = `${"ab".repeat(20)}_full.jpg`;
+    expect(steamArtTarget("avatars.steamstatic.com", [avatar])).not.toBe(null);
+    expect(steamArtTarget("avatars.steamstatic.com", [`${"ab".repeat(20)}.jpg`])).not.toBe(null);
+    expect(
+      steamArtTarget("steamcdn-a.akamaihd.net", ["steamcommunity", "public", "images", "avatars", "ab", avatar]),
+    ).not.toBe(null);
+    expect(steamArtTarget("avatars.steamstatic.com", [avatar], "?size=1")).toBe(null);
+    expect(steamArtTarget("avatars.steamstatic.com", ["abc_full.jpg"])).toBe(null);
+    expect(steamArtTarget("steamcdn-a.akamaihd.net", ["steam", "apps", "570", "header.jpg"])).toBe(null);
     expect(steamArtTarget("cdn.steamstatic.com", [])).toBe(null);
   });
 

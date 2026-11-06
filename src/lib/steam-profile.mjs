@@ -17,7 +17,7 @@ export function safeAvatarUrl(value) {
   try {
     const url = new URL(value);
     if (url.protocol !== "https:" || !AVATAR_HOSTS.has(url.hostname)) return null;
-    // The image optimizer accepts avatar URLs only without a query string.
+    // /api/art serves avatars only without a query string.
     url.search = "";
     url.hash = "";
     return url.href;
