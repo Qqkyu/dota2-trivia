@@ -161,16 +161,17 @@ describe.skipIf(!databaseUrl)("PostgreSQL store transactions", () => {
     expect(summary).toEqual(summarizeAlphaSessions(sessions, { now, windowDays: 30, dailyDays: 14 }));
   }, 15_000);
 
-  it("removes owned analytics and rejects enrichment and writes after deletion", async () => {
+  it("rejects enrichment after deletion and keeps late analytics anonymous", async () => {
     const now = Date.now();
     const user = await account.upsertSteamUser({ ...identity, authenticatedAt: now });
     const alphaIdentity = { voterId: `account:${user.id}`, sessionId: "owned-session" };
     await alpha.recordAlphaSessionStart(alphaIdentity, now);
     await account.deleteAccountData(user.id);
     expect(await account.updateSteamUser(user.id, { ...identity, authenticatedAt: now + 1 })).toBeNull();
-    await expect(alpha.recordAlphaSessionStart(alphaIdentity, now + 1)).rejects.toThrow("no longer exists");
+    // Visits are never linked to an account, so a late analytics event stays an anonymous visit.
+    await alpha.recordAlphaSessionStart(alphaIdentity, now + 1);
     expect(await sql`SELECT * FROM queue_arcade_user_identities`).toHaveLength(0);
-    expect(await sql`SELECT * FROM queue_arcade_alpha_sessions`).toHaveLength(0);
+    expect(await sql`SELECT * FROM queue_arcade_alpha_sessions WHERE user_id IS NOT NULL`).toHaveLength(0);
   });
 
   it("finishes account deletion while a Steam login updates the same identity", async () => {

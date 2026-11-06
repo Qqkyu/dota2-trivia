@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 const CONTACT = "contact@queuearcade.com";
-const UPDATED = "1 November 2026";
+const UPDATED = "6 November 2026";
 
 export default function PrivacyPage() {
   const dataCountries = configuredDataCountries();
@@ -68,13 +68,14 @@ export default function PrivacyPage() {
               45 seconds.
             </li>
             <li>
-              Question reports, with a salted hash of your player ID, so one player&apos;s report counts once. Reports
-              stay as long as the question does.
+              Question reports, with a salted hash of your player ID, so one player&apos;s report counts once. The
+              server deletes that hash after 90 days and keeps only the number of reports.
             </li>
             <li>Party names and chat stay in server memory only and are gone when the party ends.</li>
             <li>
-              Crash reports. If the page fails, your browser sends the error type, a short fingerprint and the page
-              path. It does not send error text, stack traces, URL queries or any ID.
+              Crash reports. If the page fails, your browser sends the error type, a short fingerprint, the page path
+              and, if there is one, the framework&apos;s error code. It does not send error text, stack traces, URL
+              queries or any ID.
             </li>
             <li>
               Your IP address, as a salted hash in memory only. It limits abuse such as vote flooding for about a
@@ -146,7 +147,7 @@ export default function PrivacyPage() {
             <li>single answers: two hours;</li>
             <li>visit records: 30 days;</li>
             <li>Steam sign-in sessions: 30 days;</li>
-            <li>question reports: as long as the question;</li>
+            <li>the player hash on a question report: 90 days;</li>
             <li>your Steam profile and its results: until you delete the profile.</li>
           </ul>
           <p>
