@@ -10,6 +10,15 @@ const MAX_RATE_LIMIT_BUCKETS = 20_000;
 const MAX_IDENTITIES_PER_ADDRESS = 150;
 for (const bucket of buckets.values()) expiry.nextAt = Math.min(expiry.nextAt, bucket.resetAt);
 
+/** One IPv6 customer usually owns a whole /64, so a limit per full address limits nothing. */
+function ipv6Prefix(canonical) {
+  const [head = "", tail] = canonical.split("::");
+  const left = head ? head.split(":") : [];
+  const right = tail ? tail.split(":") : [];
+  const groups = tail === undefined ? left : [...left, ...Array(8 - left.length - right.length).fill("0"), ...right];
+  return `${groups.slice(0, 4).join(":")}::/64`;
+}
+
 function canonicalAddress(value) {
   const address = value?.trim();
   if (!address || address.length > 45 || address.includes("%")) return "unknown";
@@ -19,7 +28,7 @@ function canonicalAddress(value) {
 
   const canonical = new URL(`http://[${address}]/`).hostname.slice(1, -1);
   const mapped = /^::ffff:([a-f0-9]{1,4}):([a-f0-9]{1,4})$/.exec(canonical);
-  if (!mapped) return canonical;
+  if (!mapped) return ipv6Prefix(canonical);
   const high = Number.parseInt(mapped[1], 16);
   const low = Number.parseInt(mapped[2], 16);
   return `${high >>> 8}.${high & 255}.${low >>> 8}.${low & 255}`;

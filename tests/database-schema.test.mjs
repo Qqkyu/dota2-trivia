@@ -194,15 +194,25 @@ describe.skipIf(!databaseUrl)("PostgreSQL schema and cleanup", () => {
         ('boundary', 'visitor', 1, ${now - 30 * day}),
         ('current', 'visitor', 1, ${now})
     `;
-    await sql`INSERT INTO queue_arcade_alpha_round_events VALUES ('expired', 'round')`;
+    await sql`
+      INSERT INTO queue_arcade_alpha_round_events VALUES
+        ('expired', 'round'), ('current', 'public:round:7'), ('current', 'r1_hashed')
+    `;
+    await sql`
+      INSERT INTO queue_arcade_question_reporters (
+        game_id, question_id, question_revision, reporter_hash, reason, submitted_at
+      ) VALUES
+        ('dota2', 'question', 'revision', 'old', 'unclear', ${now - 90 * day - 1}),
+        ('dota2', 'question', 'revision', 'recent', 'unclear', ${now - 90 * day})
+    `;
     await sql`
       INSERT INTO queue_arcade_steam_nonces VALUES ('expired', ${now - 1}), ('boundary', ${now}), ('current', ${now + 1})
     `;
     const options = { now, roundRetentionHours: 2, alphaRetentionDays: 30 };
     const preview = await cleanupDatabase(sql, { ...options, dryRun: true });
-    expect(preview).toEqual({ dryRun: true, rounds: 1, sessions: 2, alphaSessions: 1, steamNonces: 2 });
+    expect(preview).toEqual({ dryRun: true, rounds: 1, sessions: 2, alphaSessions: 1, steamNonces: 2, reporters: 1 });
     expect(await sql`SELECT * FROM queue_arcade_round_votes`).toHaveLength(3);
-    expect(await sql`SELECT * FROM queue_arcade_alpha_round_events`).toHaveLength(1);
+    expect(await sql`SELECT * FROM queue_arcade_alpha_round_events`).toHaveLength(3);
     expect(await sql`SELECT * FROM queue_arcade_steam_nonces`).toHaveLength(3);
     expect(await cleanupDatabase(sql, options)).toEqual({ ...preview, dryRun: false });
     expect(await sql`SELECT round_id FROM queue_arcade_round_votes ORDER BY round_id`).toEqual([
@@ -210,7 +220,9 @@ describe.skipIf(!databaseUrl)("PostgreSQL schema and cleanup", () => {
       { round_id: "current" },
     ]);
     expect(await sql`SELECT token_hash FROM queue_arcade_user_sessions`).toEqual([{ token_hash: "current" }]);
-    expect(await sql`SELECT * FROM queue_arcade_alpha_round_events`).toHaveLength(0);
+    expect(await sql`SELECT round_id FROM queue_arcade_alpha_round_events`).toEqual([{ round_id: "r1_hashed" }]);
+    expect(await sql`SELECT reporter_hash FROM queue_arcade_question_reporters`).toEqual([{ reporter_hash: "recent" }]);
+    expect(await sql`SELECT * FROM queue_arcade_alpha_sessions WHERE visitor_hash <> session_hash`).toEqual([]);
     expect(await sql`SELECT nonce_hash FROM queue_arcade_steam_nonces`).toEqual([{ nonce_hash: "current" }]);
     expect(await sql`SELECT * FROM queue_arcade_alpha_sessions`).toHaveLength(2);
     expect(await sql`SELECT * FROM queue_arcade_player_rounds`).toHaveLength(1);
@@ -221,6 +233,7 @@ describe.skipIf(!databaseUrl)("PostgreSQL schema and cleanup", () => {
       sessions: 0,
       alphaSessions: 0,
       steamNonces: 0,
+      reporters: 0,
     });
   });
 
@@ -248,6 +261,7 @@ describe.skipIf(!databaseUrl)("PostgreSQL schema and cleanup", () => {
       sessions: 0,
       alphaSessions: 0,
       steamNonces: 0,
+      reporters: 0,
     });
     const cleaned = await execute(process.execPath, ["scripts/cleanup-db.mjs"], { env });
     expect(JSON.parse(cleaned.stdout)).toEqual({
@@ -257,6 +271,7 @@ describe.skipIf(!databaseUrl)("PostgreSQL schema and cleanup", () => {
       sessions: 0,
       alphaSessions: 0,
       steamNonces: 0,
+      reporters: 0,
     });
   });
 

@@ -316,9 +316,13 @@ export function databaseRetention(env = process.env) {
   };
 }
 
+export const REPORTER_RETENTION_DAYS = 90;
+
 /**
  * Run after migrations. Dry runs use a read-only transaction and do not create tables.
  * Saved player results and aggregate question statistics are not raw session data.
+ * Reporter hashes only stop one player reporting a question twice; the report counts
+ * live in the question statistics and stay.
  * @param {import("postgres").Sql} sql
  * @param {{ now?: number; roundRetentionHours?: number; alphaRetentionDays?: number; dryRun?: boolean }} options
  */
@@ -337,7 +341,8 @@ export async function cleanupDatabase(sql, options = {}) {
   );
   const roundsBefore = Math.floor(now - roundRetentionHours * 60 * 60 * 1_000);
   const alphaBefore = Math.floor(now - alphaRetentionDays * 24 * 60 * 60 * 1_000);
-  if (![now, roundsBefore, alphaBefore].every(Number.isSafeInteger) || now < 0) {
+  const reportersBefore = Math.floor(now - REPORTER_RETENTION_DAYS * 24 * 60 * 60 * 1_000);
+  if (![now, roundsBefore, alphaBefore, reportersBefore].every(Number.isSafeInteger) || now < 0) {
     throw new Error("Cleanup timestamps must be safe integer milliseconds.");
   }
   const dryRun = options.dryRun === true;
@@ -348,7 +353,8 @@ export async function cleanupDatabase(sql, options = {}) {
           (SELECT COUNT(*) FROM queue_arcade_rounds WHERE updated_at < ${roundsBefore}) AS rounds,
           (SELECT COUNT(*) FROM queue_arcade_user_sessions WHERE expires_at <= ${now}) AS sessions,
           (SELECT COUNT(*) FROM queue_arcade_alpha_sessions WHERE last_seen_at < ${alphaBefore}) AS alpha_sessions,
-          (SELECT COUNT(*) FROM queue_arcade_steam_nonces WHERE expires_at <= ${now}) AS steam_nonces
+          (SELECT COUNT(*) FROM queue_arcade_steam_nonces WHERE expires_at <= ${now}) AS steam_nonces,
+          (SELECT COUNT(*) FROM queue_arcade_question_reporters WHERE submitted_at < ${reportersBefore}) AS reporters
       `;
       return {
         dryRun,
@@ -356,6 +362,7 @@ export async function cleanupDatabase(sql, options = {}) {
         sessions: Number(counts.sessions),
         alphaSessions: Number(counts.alpha_sessions),
         steamNonces: Number(counts.steam_nonces),
+        reporters: Number(counts.reporters),
       };
     }
     await transaction`SET LOCAL lock_timeout = '60s'`;
@@ -365,12 +372,23 @@ export async function cleanupDatabase(sql, options = {}) {
     const alphaSessions =
       await transaction`DELETE FROM queue_arcade_alpha_sessions WHERE last_seen_at < ${alphaBefore}`;
     const steamNonces = await transaction`DELETE FROM queue_arcade_steam_nonces WHERE expires_at <= ${now}`;
+    const reporters =
+      await transaction`DELETE FROM queue_arcade_question_reporters WHERE submitted_at < ${reportersBefore}`;
+    // Visits written before they were unlinked keep their links until they expire, about
+    // 2026-12-07. Both statements match nothing after that and can be removed.
+    await transaction`
+      UPDATE queue_arcade_alpha_sessions
+      SET user_id = NULL, visitor_hash = session_hash
+      WHERE user_id IS NOT NULL OR visitor_hash <> session_hash
+    `;
+    await transaction`DELETE FROM queue_arcade_alpha_round_events WHERE left(round_id, 3) <> 'r1_'`;
     return {
       dryRun,
       rounds: rounds.count,
       sessions: sessions.count,
       alphaSessions: alphaSessions.count,
       steamNonces: steamNonces.count,
+      reporters: reporters.count,
     };
   });
 }

@@ -6,6 +6,7 @@ import {
   REPORT_REASONS,
   calibrationSignal,
   hideCalibrationAnswerCounts,
+  publicAnswersOpen,
   reportTotal,
 } from "../src/lib/calibration.mjs";
 
@@ -39,6 +40,16 @@ describe("calibrationSignal", () => {
     expect(watched).toMatchObject({ status: "reported", label: "Watch reports" });
     expect(reviewed).toMatchObject({ status: "reported", label: "Review reports", reportTotal: 3 });
     expect(reportTotal({ ...noReports, unclear: 3 })).toBe(3);
+  });
+});
+
+describe("publicAnswersOpen", () => {
+  it("allows a new public snapshot only in the early part of a reveal", () => {
+    expect(publicAnswersOpen({ phase: "answering", msIntoPhase: 0 }, 7_000)).toBe(true);
+    expect(publicAnswersOpen({ phase: "answering", msIntoPhase: 14_999 }, 7_000)).toBe(true);
+    expect(publicAnswersOpen({ phase: "reveal", msIntoPhase: 0 }, 7_000)).toBe(false);
+    expect(publicAnswersOpen({ phase: "reveal", msIntoPhase: 4_999 }, 7_000)).toBe(false);
+    expect(publicAnswersOpen({ phase: "reveal", msIntoPhase: 5_000 }, 7_000)).toBe(true);
   });
 });
 
@@ -80,23 +91,20 @@ describe("hideCalibrationAnswerCounts", () => {
     expect(publicRecord.questionId).toBe("rev-spear");
   });
 
-  it("hides live totals for the open public question", () => {
-    const publicRecord = hideCalibrationAnswerCounts(
-      {
-        questionId: "ability-owner:huskar_burning_spear",
-        questionRevision: "rev-spear",
-        game: "spell-link",
-        kind: "spell-owner",
-        eyebrow: "Burning Spear",
-        total: 1,
-        updatedAt: 99,
-        reportTotal: 0,
-        signal: { status: "collecting", accuracy: 1, sampleReady: false },
-      },
-      "ability-owner:huskar_burning_spear",
-    );
-    expect(publicRecord.total).toBe(0);
-    expect(publicRecord.updatedAt).toBe(0);
+  it("treats every record alike, so no record marks the open public question", () => {
+    const publicRecord = hideCalibrationAnswerCounts({
+      questionId: "ability-owner:huskar_burning_spear",
+      questionRevision: "rev-spear",
+      game: "spell-link",
+      kind: "spell-owner",
+      eyebrow: "Burning Spear",
+      total: 1,
+      updatedAt: 99,
+      reportTotal: 0,
+      signal: { status: "collecting", accuracy: 1, sampleReady: false },
+    });
+    expect(publicRecord.total).toBe(1);
+    expect(publicRecord.updatedAt).toBe(99);
     expect(publicRecord.eyebrow).toBe("Spell Link");
   });
 });

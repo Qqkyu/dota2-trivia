@@ -242,9 +242,10 @@ recovery before reopening the service.
 ## Retention and maintenance
 
 A maintenance worker runs at startup and every 60 seconds while the process is running.
-It removes expired raw rounds/votes, expired sessions and Steam nonces, and alpha sessions
-older than 30 days. `ARCADE_ROUND_RETENTION_HOURS` defaults to two hours. Question aggregates,
-reports, and saved account results have separate product retention rules. Maintenance also
+It removes expired raw rounds/votes, expired sessions and Steam nonces, alpha sessions
+older than 30 days, and reporter hashes older than 90 days. `ARCADE_ROUND_RETENTION_HOURS`
+defaults to two hours. Question aggregates, report counts, and saved account results have
+separate product retention rules. Maintenance also
 retries pending account-result synchronization. Watch `storage.maintenance` failures.
 
 For a host that can stop or sleep, arrange an independent hourly job with the runtime

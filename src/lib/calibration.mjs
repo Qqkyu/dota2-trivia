@@ -16,18 +16,29 @@ export function reportTotal(reports) {
   return REPORT_REASONS.reduce((total, reason) => total + Math.max(0, reports?.[reason] ?? 0), 0);
 }
 
+/**
+ * True while a public snapshot built now could hold votes for the open public question.
+ * Votes count on arrival, so two fresh snapshots would differ on exactly that question,
+ * and its revision maps to its answer through the public catalog. The margin covers the
+ * time a build takes when it starts late in a reveal.
+ *
+ * @param {{ phase: "answering" | "reveal"; msIntoPhase: number }} clock
+ * @param {number} revealMs
+ */
+export function publicAnswersOpen(clock, revealMs, marginMs = 2_000) {
+  return clock.phase === "answering" || clock.msIntoPhase >= revealMs - marginMs;
+}
+
 /** Anonymous calibration may show totals and reports, not whether answers were right. */
-export function hideCalibrationAnswerCounts(record, liveQuestionId) {
+export function hideCalibrationAnswerCounts(record) {
   const reports = Math.max(0, Number(record.reportTotal) || 0);
   const lockedSpellLink = record.game === "spell-link" || record.kind === "spell-owner";
-  const hideLiveCounts = Boolean(liveQuestionId && record.questionId === liveQuestionId);
   return {
     ...record,
     questionId: record.questionRevision,
     ...(lockedSpellLink ? { eyebrow: "Spell Link" } : {}),
     counts: [0, 0, 0, 0],
     correct: 0,
-    ...(hideLiveCounts ? { total: 0, updatedAt: 0 } : {}),
     signal: {
       status: reports > 0 ? "reported" : "collecting",
       label: reports > 0 ? (record.signal?.label ?? "Watch reports") : "Collecting",

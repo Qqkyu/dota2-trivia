@@ -136,7 +136,7 @@ describe.skipIf(!databaseUrl)("PostgreSQL snapshot backup and isolated restore",
               revealAt: now + index + 15_800,
             },
           },
-          alpha: { key: alpha.alphaSessionKey({ voterId, sessionId: "recovery-session" }), correct },
+          alpha: { key: alpha.alphaSessionKey({ voterId, sessionId: `recovery-session-${voterId}` }), correct },
         },
       );
       if (result.accepted) committed += 1;

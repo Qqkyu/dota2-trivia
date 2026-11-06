@@ -4,14 +4,17 @@ import { STEAM_AVATAR_HOSTS } from "./steam-profile.mjs";
  * Valve's game art and Steam avatars load from this site (`/api/art/<host>/<path>`), not
  * from Valve. Under the GDPR, a site needs a legal basis before it lets a visitor's
  * browser send their IP address to a third party; serving the files itself removes the
- * transfer. Only these hosts, the Dota art folder, and the query strings the app ships
- * are allowed, so the route cannot be used to fetch anything else.
+ * transfer. Only the Dota art folder on the art hosts, avatar files on the avatar hosts,
+ * and the query strings the app ships are allowed, so the route fetches nothing else.
  */
 export const STEAM_ART_HOSTS = new Set(["cdn.cloudflare.steamstatic.com", "cdn.steamstatic.com"]);
 export const STEAM_ART_PATH_PREFIX = "/apps/dota2/images/";
 /** Older item art carries one fixed version query. */
 export const STEAM_ART_QUERIES = new Set(["", "?t=1593393829403"]);
 const AVATAR_HOSTS = new Set(STEAM_AVATAR_HOSTS);
+/** `<40 hex>_full.jpg`, at the root on current hosts and in a two-letter folder on older ones. */
+const AVATAR_PATH =
+  /^\/(?:steamcommunity\/public\/images\/avatars\/[0-9a-f]{2}\/)?[0-9a-f]{40}(?:_medium|_full)?\.jpg$/;
 const SEGMENT = /^[A-Za-z0-9._-]+$/;
 export const ART_ROUTE = "/api/art";
 
@@ -33,7 +36,7 @@ export function steamArtTarget(host, segments, search = "") {
   if (STEAM_ART_HOSTS.has(host)) {
     if (!path.startsWith(STEAM_ART_PATH_PREFIX) || !STEAM_ART_QUERIES.has(search)) return null;
   } else if (AVATAR_HOSTS.has(host)) {
-    if (search !== "") return null;
+    if (search !== "" || !AVATAR_PATH.test(path)) return null;
   } else {
     return null;
   }

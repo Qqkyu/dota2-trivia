@@ -28,6 +28,14 @@ function hashesFor(identity: AlphaIdentity) {
   return { sessionHash, visitorHash: sessionHash };
 }
 
+/**
+ * Stops a visit counting a round twice. A plain round ID would let a join with a player's
+ * saved results link their visits, so the table keeps only this hash of visit and round.
+ */
+function alphaRoundKey(sessionHash: string, roundId: string) {
+  return `r1_${anonymousVoterHash("alpha-round", `${sessionHash}:${roundId}`)}`;
+}
+
 function storedSession(row: AlphaSessionRow): StoredAlphaSession {
   return {
     sessionHash: row.session_hash,
@@ -83,7 +91,7 @@ export async function recordAlphaSessionRound(identity: AlphaIdentity, correct: 
     if (roundId) {
       const inserted = await sql`
         INSERT INTO queue_arcade_alpha_round_events (session_hash, round_id)
-        VALUES (${sessionHash}, ${roundId})
+        VALUES (${sessionHash}, ${alphaRoundKey(sessionHash, roundId)})
         ON CONFLICT DO NOTHING RETURNING round_id
       `;
       if (!inserted.length) return;
