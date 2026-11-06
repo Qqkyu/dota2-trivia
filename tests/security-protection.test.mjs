@@ -49,6 +49,15 @@ describe("request source policy", () => {
     expect(requestClientAddress(request, "bad-policy")).toBe("unknown");
     expect(requestClientAddress(request, "cf-connecting-ip")).toBe("203.0.113.42");
     expect(requestClientAddress(request, "x-real-ip")).toBe("192.0.2.12");
+    const ipv6 = (address) =>
+      requestClientAddress(
+        new Request("https://example.test", { headers: { "cf-connecting-ip": address } }),
+        "cf-connecting-ip",
+      );
+    expect(ipv6("2001:db8:1:2:aaaa::1")).toBe("2001:db8:1:2::/64");
+    expect(ipv6("2001:db8:1:2:bbbb:cccc:dddd:eeee")).toBe("2001:db8:1:2::/64");
+    expect(ipv6("2001:db8::1")).toBe("2001:db8:0:0::/64");
+    expect(ipv6("::1")).toBe("0:0:0:0::/64");
     expect(requestClientAddress(request, "x-forwarded-for")).toBe("198.51.100.24");
   });
 
@@ -64,7 +73,7 @@ describe("request source policy", () => {
 
   it.each([
     ["192.0.2.12", "192.0.2.12"],
-    ["2001:0DB8:0:0:0:0:0:1", "2001:db8::1"],
+    ["2001:0DB8:0:0:0:0:0:1", "2001:db8:0:0::/64"],
     ["::ffff:192.0.2.12", "192.0.2.12"],
     ["::ffff:c000:20c", "192.0.2.12"],
   ])("reads only the configured Cloudflare address %s", (input, expected) => {
@@ -90,8 +99,8 @@ describe("request source policy", () => {
 
   it("canonicalizes equivalent IPv6 and IPv4-mapped addresses", () => {
     const address = (value) => requestClientAddress(requestFor("guest-player", { "x-real-ip": value }), "x-real-ip");
-    expect(address("2001:0DB8:0:0:0:0:0:1")).toBe("2001:db8::1");
-    expect(address("2001:db8::1")).toBe("2001:db8::1");
+    expect(address("2001:0DB8:0:0:0:0:0:1")).toBe("2001:db8:0:0::/64");
+    expect(address("2001:db8::1")).toBe("2001:db8:0:0::/64");
     expect(address("::ffff:192.0.2.12")).toBe("192.0.2.12");
     expect(address("::ffff:c000:20c")).toBe("192.0.2.12");
   });
