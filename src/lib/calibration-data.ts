@@ -1,4 +1,3 @@
-import { PUBLIC_ARCADE_MODE } from "@/lib/arcade-games.mjs";
 import {
   calibrationSignal,
   emptyReportCounts,
@@ -6,9 +5,9 @@ import {
   type CalibrationSignal,
   type ReportCounts,
 } from "@/lib/calibration";
-import { hideCalibrationAnswerCounts } from "@/lib/calibration.mjs";
+import { hideCalibrationAnswerCounts, publicAnswersOpen } from "@/lib/calibration.mjs";
 import { DEFAULT_GAME_ID, GAME_CATALOGS, type GameId } from "@/lib/game-catalogs";
-import { currentPublicRound } from "@/lib/public-rooms";
+import { PUBLIC_ROUND_REVEAL_MS, publicRoundClock } from "@/lib/public-rooms";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import {
   effectiveQuestionReviewStatus,
@@ -61,20 +60,10 @@ export interface CalibrationSnapshot {
   records: CalibrationRecord[];
 }
 
-function livePublicAnsweringQuestionId(now = Date.now()) {
-  const { round } = currentPublicRound({ gameId: DEFAULT_GAME_ID, mode: PUBLIC_ARCADE_MODE, filter: "Mixed" }, now);
-  return round.phase === "answering" ? round.questionId : null;
-}
-
-export function publicCalibrationSnapshot(
-  snapshot: CalibrationSnapshot,
-  liveAnsweringQuestionId: string | null = livePublicAnsweringQuestionId(),
-): CalibrationSnapshot {
+export function publicCalibrationSnapshot(snapshot: CalibrationSnapshot): CalibrationSnapshot {
   return {
     ...snapshot,
-    records: snapshot.records.map(
-      (record) => hideCalibrationAnswerCounts(record, liveAnsweringQuestionId) as CalibrationRecord,
-    ),
+    records: snapshot.records.map((record) => hideCalibrationAnswerCounts(record) as CalibrationRecord),
   };
 }
 
@@ -88,10 +77,17 @@ const sharedSnapshots = ((
 /**
  * Public readers share one snapshot for 30 seconds. It is the heaviest public read:
  * every stored total and review across the whole catalog. Reviewers read fresh.
+ *
+ * An expired snapshot is rebuilt only in a reveal, so no public snapshot can show votes
+ * for the open question (see publicAnswersOpen). A reader during answering gets the last
+ * one. The one exception is the first read after a restart or a review, when there is
+ * no last snapshot.
  */
 export function getSharedCalibrationSnapshot(gameId: GameId = DEFAULT_GAME_ID, now = Date.now()) {
   const cached = sharedSnapshots.get(gameId);
-  if (cached && cached.expiresAt > now) return cached.snapshot;
+  if (cached && (cached.expiresAt > now || publicAnswersOpen(publicRoundClock(now), PUBLIC_ROUND_REVEAL_MS))) {
+    return cached.snapshot;
+  }
   const snapshot = getCalibrationSnapshot(gameId);
   sharedSnapshots.set(gameId, { expiresAt: now + SHARED_SNAPSHOT_TTL_MS, snapshot });
   snapshot.catch(() => {
