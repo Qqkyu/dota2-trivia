@@ -86,8 +86,10 @@ with the value `origin-controlled`. Never choose All files. With it, an API rout
 `Cache-Control` header would be cached and served to every player. Common static files never
 caches HTML or API responses, because their paths have no file extension. Every deploy purges
 the cache, and a Blueprint sync may reset the setting, so check it after a sync. To check,
-request one art URL twice; the second response carries `cf-cache-status: HIT`. On 2026-11-01
-the API setting alone left every response at `DYNAMIC`, even after a deploy.
+request one art URL twice; the second response carries `cf-cache-status: HIT`. Change this
+setting in the dashboard. On 2026-11-01 the API stored the value but every response stayed
+`DYNAMIC`, even after a deploy and a purge. Saving None and then Common static files in the
+dashboard on 2026-11-06 turned the cache on.
 
 The launch checks verified the existing database and restored its Render export into an
 isolated local PostgreSQL 17 instance. The reviewed migrations preserved all 58 original
