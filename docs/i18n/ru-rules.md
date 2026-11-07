@@ -6,16 +6,19 @@ Queue Arcade is a browser trivia game for the wait between Find Match and Accept
 
 ## Source of truth
 
-Valve's Russian client text decides any term. Pairs are in `~/.cache/queue-arcade-valve/hero-*-russian.json` next to `hero-*-english.json`, from `https://www.dota2.com/datafeed/herodata?language=russian&hero_id=<id>`. A reader's memory of the game does not overrule it. Search those files before you call a term wrong.
+Valve's Russian client text decides any term. Pairs are in `~/.cache/queue-arcade-valve/hero-*-russian.json` next to `hero-*-english.json`, from `https://www.dota2.com/datafeed/herodata?language=russian&hero_id=<id>`. Items and map objects are in `https://www.dota2.com/datafeed/itemlist?language=russian` and `https://www.dota2.com/datafeed/patchnotes?language=russian&version=<patch>`. A reader's memory of the game does not overrule them. A mirror of the client's `dota_russian.txt` is at `~/.cache/queue-arcade-valve/dota_russian.d2vpkr.txt`. Search these sources before you call a term wrong. When a term in this sheet disagrees with Valve, Valve wins and the sheet gets corrected.
 
 ## Names
 
 - Names of heroes, items, abilities and talents stay in Latin letters, as in the client: Pudge, Blink Dagger, Meat Hook, Aghanim's Scepter, Aghanim's Shard.
 - Latin names do not decline. Build the sentence so the name needs no ending: "у героя Pudge", "предмет Blink Dagger", "способность Meat Hook".
 - A past-tense verb needs a gender, and a Latin name does not show one. Write "герой {name}" and keep the verb masculine, or rebuild the sentence without a past verb.
-- Team, tournament and event names stay in Latin: Team Spirit, OG, The International, Wings Gaming. "TI9" stays as written.
+- Team, tournament and event names stay in Latin: Team Spirit, OG, The International, Wings Gaming, Diretide, Frostivus. "TI9" stays as written. The client translates some event names, but players and answer options use the Latin ones.
 - Roshan is "Рошан" and declines, as in the client ("Рошана"). This is the exception.
 - "Queue Arcade" and "Dota 2" stay as written.
+- Cities and countries are in Cyrillic (Шанхай, Гамбург) except inside a tournament name. Real people's names are in Cyrillic when they are writers or public figures with a Russian spelling; player and caster handles stay in Latin.
+- Never repeat a word in two languages: not "Команда Team Spirit", not "Студия ... Studio".
+- A Latin event name with a past or neuter verb takes "событие": "событие Diretide вышло".
 
 ## Client terms
 
@@ -26,18 +29,30 @@ Valve's Russian client text decides any term. Pairs are in `~/.cache/queue-arcad
 | damage / pure damage / magic | урон / чистый урон / магический |
 | stun | оглушение, оглушает |
 | silence | безмолвие, накладывает безмолвие |
-| root | обездвиживание, обездвиживает |
+| root | оцепенение, цепенеет (Valve; "обездвиживает" only where Valve has it) |
 | dispel | развеивание, развеивает |
 | debuff immunity, spell immunity | невосприимчивость к эффектам |
-| channeled | поддерживаемая способность, поддерживать |
+| channeled | прерываемая способность, "ПРЕРЫВАЕМАЯ" in Valve notes |
 | interrupt | прерывать |
 | illusion | иллюзия |
 | creep, ancient creep | крип, древний крип |
 | ward, Observer, Sentry | вард |
-| Watcher | Наблюдатель |
+| summoned ward (Healing Ward, Serpent Ward, Death Ward, Nether Ward) | тотем |
+| disjoint | сбивает с цели летящие снаряды |
+| vector targeted | векторное применение |
+| disable | контроль; never "обезвреживать" |
+| Watcher | Смотритель; the verb is "включать" |
 | Outpost | Аванпост |
-| Wisdom Shrine | Святилище мудрости |
-| Secret Shop | Тайная лавка |
+| Wisdom Shrine | алтарь мудрости |
+| Madstone | безумруд |
+| enchantment (neutral) | чары |
+| Selemene | Селемине, does not decline |
+| Inai | Инай |
+| Muerta's veil | вуаль |
+| Secret Shop | Потайная лавка |
+| Base Shop | Лавка на базе |
+| Shrine | Святыня |
+| net worth | общая ценность |
 | shop | лавка |
 | recipe | рецепт |
 | talent | талант |
@@ -59,18 +74,27 @@ Kill streak announcer names are the only ones that may stay in English, as they 
 - Use ё, as the client does.
 - Numbers: gold is "золота" in sentences and "зол." in tight lists. Seconds are "сек." with a space. Match scores use a colon, 3:2. Decimals use a comma. Thousands use a non-breaking space.
 - Quotes: «ёлочки». Dash: — with spaces. No curly English quotes.
-- Dates: 9 июля 2013.
+- Dates: "9 июля 2013". In a full sentence a year takes "году": "в 2013 году"; a bare year is for lists and answer options.
+- Never put two numbers side by side: "15 декабря 2025 в патче 7.40", not "патче 7.23 26 ноября" or "Dota 2 9 июля".
+- A film or TV series is "сериал", not "серия".
 
 ## Fairness
 
 - Never add a fact, lose a fact, or change what the answer depends on. Keep every number and qualifier ("before talents", "at max level").
 - A clue must not name the hero or the ability, in Latin or in Cyrillic, and must not get easier or harder.
 - Answer options must stay parallel and must not give away the right one by length or form.
+- If a wrong option has the same name as Valve's Russian term for the right answer, change the option. The Russian question must have one right answer.
+- A question must not use a masculine noun when an option is a woman; "Какого ведущего" rules out Sheever.
+- A label must not share a word with the right option, and the grammatical number of the question must fit every option.
 - Keep `{n0}`, `{x1}`, `{q0}`, `{p0}` and `{name}` slots exactly, with the same count. Slots may move within the sentence.
 
 ## Hero quotes
 
 Write the line as that hero would say it in Russian, with the hero's voice and rhythm. Do not translate word by word. If a pun cannot survive, keep the attitude and rebuild it. Plain beats clever.
+
+Russian shows gender where English hides it. A past-tense verb or an adjective about the speaker ("я вернулась", "я готов") tells the player the hero's gender and can rule out answer options. Quote Hunt lines must not show the speaker's gender: use the present or future tense, a noun, or an impersonal form. This is a fairness rule, so it beats a closer translation.
+
+Use the Russian idiom, not the literal one: "дело в шляпе", never "в мешке". Keep required dashes: "Жить — значит...".
 
 ## Interface
 
