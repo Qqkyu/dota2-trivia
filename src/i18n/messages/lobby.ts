@@ -45,6 +45,11 @@ export const lobby = {
     "Dota 2 is a trademark of Valve Corporation. Game assets belong to their respective rights holders. This project is not affiliated with Valve.",
 
   // Lobby.
+  "lobby.live.gamesToday": {
+    one: "{games} game played in the last 24 hours",
+    other: "{games} games played in the last 24 hours",
+  },
+  "session.communityShare": "All players in this round type: {share}% right",
   "lobby.title": "Dota side quests",
   "lobby.titleAccent": "between matches",
   "lobby.lead":

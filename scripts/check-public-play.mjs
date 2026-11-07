@@ -280,21 +280,24 @@ try {
     return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
   })()`);
   if (!reason) throw new Error("Report reasons did not open.");
-  await page.send("Input.dispatchMouseEvent", {
-    type: "mousePressed",
-    x: reason.x,
-    y: reason.y,
-    button: "left",
-    clickCount: 1,
-  });
-  await page.send("Input.dispatchMouseEvent", {
-    type: "mouseReleased",
-    x: reason.x,
-    y: reason.y,
-    button: "left",
-    clickCount: 1,
-  });
-  await page.waitFor(`Boolean(document.querySelector('[data-testid="report-confirmation"]'))`, 8_000);
+  // A live check must not file a false report against a real question.
+  if (/^https?:\/\/(?:127\.0\.0\.1|localhost)[:/]/.test(`${appUrl}/`)) {
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mousePressed",
+      x: reason.x,
+      y: reason.y,
+      button: "left",
+      clickCount: 1,
+    });
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mouseReleased",
+      x: reason.x,
+      y: reason.y,
+      button: "left",
+      clickCount: 1,
+    });
+    await page.waitFor(`Boolean(document.querySelector('[data-testid="report-confirmation"]'))`, 8_000);
+  }
 
   console.log(`Validated public play lobby → answer → reveal (${answer.kind}).`);
 } finally {

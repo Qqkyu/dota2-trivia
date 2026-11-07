@@ -11,6 +11,8 @@ export interface CrowdResult {
     count: number;
   }>;
   scoreSummary: CrowdScoreSummary | null;
+  /** All-time share of right answers for this round type; only at a reveal. */
+  community?: { share: number; total: number } | null;
 }
 
 export interface CrowdScoreSummary {

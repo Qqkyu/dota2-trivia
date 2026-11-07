@@ -978,7 +978,12 @@ for (const item of items) {
       return true;
     })
     .slice(0, 8);
-  const distractorCosts = stableSample(nearbyCosts, 3, `item-cost:${item.key}`).map((candidate) => candidate.cost);
+  // Prices far from the real one make the question trivial: 60 gold among 460, 505 and 675.
+  const closeCosts = nearbyCosts.filter((candidate) => Math.abs(candidate.cost - item.cost) / item.cost < 0.5);
+  const distractorCosts =
+    closeCosts.length >= 3
+      ? stableSample(closeCosts, 3, `item-cost:${item.key}`).map((candidate) => candidate.cost)
+      : [0.8, 1.25, 1.5].map((factor) => Math.round((item.cost * factor) / 5) * 5);
   const correct = `${item.cost.toLocaleString("en-US")} gold`;
 
   questions.push(

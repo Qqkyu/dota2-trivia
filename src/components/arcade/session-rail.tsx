@@ -154,6 +154,11 @@ export function SessionRail({
               </span>
             </div>
           )}
+          {crowd.community && (
+            <p className={own.crowdCommunity} data-testid="crowd-community">
+              {t("session.communityShare", { share: crowd.community.share })}
+            </p>
+          )}
         </div>
       )}
     </div>

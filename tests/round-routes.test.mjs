@@ -136,6 +136,7 @@ function fixture() {
     "@/lib/round-recovery.mjs": recovery,
     "@/lib/steam-art.mjs": { firstPartyArtTree: (value) => value },
     "@/lib/question-locale": { localizeQuestion: (value) => value },
+    "@/lib/community-stats": { roundTypeAccuracy: () => null },
     "@/i18n/server": { requestLocale: () => "en", translatorFor: () => (key) => key },
     "@/lib/server-diagnostics": {
       logServerError: (_name, error) => {

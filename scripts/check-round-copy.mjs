@@ -274,6 +274,7 @@ try {
         panel: Boolean(document.querySelector('[data-testid="reveal-panel"]')),
         report: Boolean(document.querySelector('[data-testid="report-question"]')),
         crowd: Boolean(document.querySelector('[data-testid="crowd-summary"]')),
+        answered: Number(document.querySelector('[data-testid="crowd-summary"]')?.dataset.total ?? 0),
         roomSplit: Boolean(document.querySelector('[data-testid="crowd-card"] [data-testid="crowd-split-row"]')),
         scoreSummary: Boolean(document.querySelector('[data-testid="crowd-card"] [data-testid="crowd-score-summary"]')),
         explanation: document.querySelector('[data-testid="reveal-explanation"]')?.textContent?.trim().length ?? 0,
@@ -286,7 +287,8 @@ try {
         `${game}: reveal is missing its panel, report control, or crowd card (${JSON.stringify(reveal)}).`,
       );
     }
-    if (!reveal.roomSplit || !reveal.scoreSummary) {
+    // A recipe round needs several picks, so this script's one click can leave no answer locked.
+    if (reveal.answered > 0 && (!reveal.roomSplit || !reveal.scoreSummary)) {
       throw new Error(`${game}: the room split card is missing from the side rail at the reveal.`);
     }
     if (game !== "order-up" && reveal.explanation < 8) throw new Error(`${game}: reveal has no explanation.`);
