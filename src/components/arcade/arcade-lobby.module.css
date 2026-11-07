@@ -53,6 +53,7 @@
 .rotationList li {
   display: grid;
   min-width: 0;
+  align-content: start;
   align-items: center;
   column-gap: 7px;
   grid-template-columns: 14px minmax(0, 1fr);
