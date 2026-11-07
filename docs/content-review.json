@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-11-07T13:14:11.973Z",
-  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Opus 5.5 on 2026-11-07 after the room split check (playable catalog unchanged)",
+  "reviewedAt": "2026-11-07T13:35:39.407Z",
+  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Opus 5.5 on 2026-11-07 after the live check and deploy script changes (playable catalog unchanged)",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
     "patch": "7.41f",
@@ -45,7 +45,7 @@
     "scripts/check-party-nicks.mjs": "b93407244821f95823e62eb787ffecb9d60617f87a885318970d610a867942b0",
     "scripts/check-party-previews.mjs": "8adbd742c8c86d1de0df914b3afd5e2f58c77d617aa2899e291aeef914e10399",
     "scripts/check-production-config.mjs": "3100c5b1a64a63c0859a13e9ec7c21cb6cda86f074d459c232007f16ccaab093",
-    "scripts/check-public-play.mjs": "869d2f239cdb1e78ce5f0d756ed90ae85e5e814371af6565671490e6b91c119c",
+    "scripts/check-public-play.mjs": "5de182c9b1e805b910df0949242f8c357d732f52e4a3d97c3efbd659f7c7c0f7",
     "scripts/check-rate-limit-live.mjs": "82de8cbe9c6530172ed6e199798d42f9566dcd90dbdfa3d1acc9bb58ed27a62f",
     "scripts/check-render-snapshot.mjs": "4f03f4ed618fd4a02d65d937c70b5376cae930352e18ac06706278e2ab5a50ab",
     "scripts/check-reports-api.mjs": "a3e1b9bd7393b36cb989640a1e23053d08697e0bea4c0f23271c1d36442b5cf2",
@@ -67,7 +67,7 @@
     "scripts/damage-question-facts.mjs": "57b73c8e7989e48713264569f061dd9acab2e23b123e33108c4be594e2d94af5",
     "scripts/database-backup.mjs": "f4060a7274dc009df6438c699cb57824fd1ea93c5cd9ef9e916340693ee2266b",
     "scripts/database-runtime-grants.mjs": "daff662cdd93f519447c5e2670f83700028d306bb7fc8debf16fbdcc57d6ef02",
-    "scripts/deploy-production.mjs": "05b21704bee7c70153df258601ad8e8ce44c07558e23aa55f50b10977b8d5e13",
+    "scripts/deploy-production.mjs": "d95ad4d50c1ca30d5038a7e9ebe67346baabb192eb3155c8d5595b822f1224f5",
     "scripts/generate-aghanim.mjs": "5bf4f55569ee19b7676369bbb8404ca5fbc7ad668554a0caad77c7612a005788",
     "scripts/generate-hero-picker.mjs": "e48ee68fea01a1738dce8089166aaefb2f0283e0c8c7340aae348b25db443641",
     "scripts/generate-shopkeeper.mjs": "7c09ed125bba0398d6e823e3554406e66ed58cb0873679e3cdddf35656acb98f",

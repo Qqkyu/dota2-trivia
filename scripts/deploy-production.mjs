@@ -202,6 +202,9 @@ say(
   `Live: release ${after?.release ?? "?"}, instance ${after?.instance ?? "?"}, open parties ${after?.parties?.open ?? "?"}.`,
 );
 if (!flag("skip-live-checks")) {
+  // Twice on 2026-11-07 a page opened seconds after the switch got a 404 for a script chunk and
+  // never hydrated, while the old and new servers overlapped. Check once that window has passed.
+  await delay(30_000);
   const headers = await runCheck("scripts/check-security-headers.mjs");
   const play = await runCheck("scripts/check-public-play.mjs");
   if (!headers || !play) fail("a live check failed. Roll back in the Render dashboard if players are affected.");
