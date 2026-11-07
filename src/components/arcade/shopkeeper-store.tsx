@@ -40,6 +40,7 @@ export function ShopkeeperStore({
   phase,
   selectedKey,
   crowd,
+  showShares,
   onChoose,
   onPick,
 }: {
@@ -47,6 +48,8 @@ export function ShopkeeperStore({
   phase: GamePhase;
   selectedKey: string | null;
   crowd: CrowdResult;
+  /** A party has no Room split card, so the shares go on the grid. */
+  showShares: boolean;
   onChoose: (itemKey: string) => void;
   onPick?: () => void;
 }) {
@@ -478,7 +481,7 @@ export function ShopkeeperStore({
                         />
                         {recipeBuilder && selectedCount > 0 ? (
                           <i>×{selectedCount}</i>
-                        ) : phase === "reveal" && count > 0 ? (
+                        ) : showShares && phase === "reveal" && count > 0 ? (
                           <i>{percentage}%</i>
                         ) : null}
                       </button>

@@ -30,7 +30,9 @@ type RevealPanelProps = { currentQuestion: PublicArcadeQuestion } & Pick<
   | "toggleQuestionReport"
   | "crowd"
 > &
-  Pick<ReturnType<typeof deriveRoundView>, "selectedWasCorrect" | "resultCallout" | "isValueOrderRound">;
+  Pick<ReturnType<typeof deriveRoundView>, "selectedWasCorrect" | "resultCallout" | "isValueOrderRound"> & {
+    partyPlay: boolean;
+  };
 
 function crowdSummary(
   question: PublicArcadeQuestion,
@@ -86,7 +88,7 @@ function revealMedia(question: PublicArcadeQuestion) {
   if (!correctKey) return null;
   const hero = HERO_PICKER_BY_KEY.get(correctKey);
   if (hero)
-    return { src: heroPickerPortraitSrc(hero.image), alt: hero.name, caption: hero.name, testid: "keyed-reveal-media" };
+    return { src: heroPickerPortraitSrc(hero.image), alt: hero.name, caption: null, testid: "keyed-reveal-media" };
   const item = SHOPKEEPER_CATALOG_BY_KEY.get(correctKey);
   if (item) return { src: item.image, alt: item.name, caption: item.name, testid: "keyed-reveal-media" };
   return null;
@@ -105,6 +107,7 @@ export function RevealPanel({
   selectedWasCorrect,
   resultCallout,
   isValueOrderRound,
+  partyPlay,
 }: RevealPanelProps) {
   const { t, number } = useLocale();
   const media = revealMedia(currentQuestion);
@@ -128,9 +131,12 @@ export function RevealPanel({
           {t(revealCalloutKey(resultCallout))}
         </span>
         {!isValueOrderRound && <p data-testid="reveal-explanation">{currentQuestion.reveal?.explanation}</p>}
-        <p className={own.crowdLine} data-testid="crowd-summary" data-total={crowd.total}>
-          {crowdSummary(currentQuestion, crowd, t, number)}
-        </p>
+        {/* In the public room the Room split card has these numbers. A party has no side rail. */}
+        {partyPlay && (
+          <p className={own.crowdLine} data-testid="crowd-summary" data-total={crowd.total}>
+            {crowdSummary(currentQuestion, crowd, t, number)}
+          </p>
+        )}
         <div className={own.reportControl}>
           <button
             type="button"
@@ -174,7 +180,7 @@ export function RevealPanel({
               ? roundAward.cluePenalty
                 ? t("round.reveal.speedHints", { speed: roundAward.speedBonus, penalty: roundAward.cluePenalty })
                 : t("round.reveal.speed", { speed: roundAward.speedBonus })
-              : t("round.reveal.noScore")}
+              : "\u00a0"}
         </small>
         <strong>+{roundAward?.points ?? 0}</strong>
         <span>{t("round.reveal.gold")}</span>

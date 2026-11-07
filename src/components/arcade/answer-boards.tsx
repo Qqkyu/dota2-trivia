@@ -19,7 +19,7 @@ import type { useArcadeRoom } from "./use-arcade-room";
 import type { deriveRoundView } from "./round-view";
 import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
 
-type AnswerBoardsProps = { currentQuestion: PublicArcadeQuestion } & Pick<
+type AnswerBoardsProps = { currentQuestion: PublicArcadeQuestion; partyPlay: boolean } & Pick<
   ReturnType<typeof useArcadeRoom>,
   | "phase"
   | "currentQuestion"
@@ -49,6 +49,7 @@ export function AnswerBoards({
   selectedIndex,
   selectedAnswerKey,
   crowd,
+  partyPlay,
   activeRoundId,
   chooseAnswer,
   chooseKeyedAnswer,
@@ -72,6 +73,7 @@ export function AnswerBoards({
           phase={phase}
           selectedKey={selectedAnswerKey}
           crowd={crowd}
+          showShares={partyPlay}
           onChoose={chooseKeyedAnswer}
           onPick={playPickSound}
         />
@@ -84,6 +86,7 @@ export function AnswerBoards({
           phase={phase}
           selectedKey={selectedAnswerKey}
           crowd={crowd}
+          showShares={partyPlay}
           onChoose={chooseKeyedAnswer}
           resultCallout={phase === "reveal" ? resultCallout : null}
           roundAward={roundAward}
@@ -152,7 +155,7 @@ export function AnswerBoards({
               const shopkeeperAnswerGroup = currentQuestion.shopkeeper?.answerGroups?.[index];
               const answerPairNames = answerImagePair ? answer.split(" → ") : [];
               const resultStyle = {
-                "--result-width": `${percentage}%`,
+                "--result-width": `${partyPlay ? percentage : 0}%`,
               } as CSSProperties;
 
               return (
@@ -230,7 +233,7 @@ export function AnswerBoards({
                   )}
                   {phase === "reveal" ? (
                     <span className={styles.answerResult}>
-                      <strong>{percentage}%</strong>
+                      {partyPlay && <strong>{percentage}%</strong>}
                       {isCorrect ? <Check /> : isSelected ? <X /> : null}
                     </span>
                   ) : (

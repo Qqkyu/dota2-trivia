@@ -45,10 +45,9 @@ export function SessionRail({
   const { t, number } = useLocale();
   const answered = number(crowd.total);
   // The same shape for a room of one as for a full room; no "only you" copy.
-  const roomLine = t(phase === "answering" ? "session.lockedSoFar" : "session.answeredThisRound", {
-    count: crowd.total,
-    answers: answered,
-  });
+  // Only while answering: at the reveal the Room split card has the count. The blank line holds the card's height.
+  const roomLine =
+    phase === "answering" ? t("session.lockedSoFar", { count: crowd.total, answers: answered }) : "\u00a0";
   return (
     <div className={styles.sideRail} role="region" aria-label={t("session.region")}>
       <div className={own.scoreGrid} data-testid="score-grid">
@@ -128,7 +127,6 @@ export function SessionRail({
               <Radio />
               {t("session.roomSplit")}
             </span>
-            <span className={own.livePill}>{t("session.final")}</span>
           </div>
           <strong>{t("session.answerTotal", { count: crowd.total, answers: answered })}</strong>
           {isPublicKeyedAnswerQuestion(currentQuestion) ? (

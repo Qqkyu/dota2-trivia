@@ -503,7 +503,7 @@ record(
   "Players can still join a round that already started.",
 );
 record(
-  lobbyMessages.includes('"wait.hint": "Waiting for the next full question."') &&
+  lobbyMessages.includes('"wait.hint": "Until the next round"') &&
     shouldShowEntryWaitLessons(3_000) &&
     !shouldShowEntryWaitLessons(2_999) &&
     ENTRY_WAIT_TIPS.length === 3 &&

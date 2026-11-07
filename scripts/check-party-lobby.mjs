@@ -296,7 +296,7 @@ try {
   const labelWhileTyped = await page.evaluate(
     `document.querySelector('[data-testid="private-room-code-label"]')?.textContent?.trim() ?? ""`,
   );
-  if (labelWhileTyped !== "Party code") {
+  if (labelWhileTyped !== "Choose a party code") {
     throw new Error("Party code label vanished after typing.");
   }
   for (let n = 0; n < 12; n += 1) {

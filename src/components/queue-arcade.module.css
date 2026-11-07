@@ -451,6 +451,25 @@
   transition: transform 100ms linear;
 }
 
+.timerLabel {
+  color: var(--faint);
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.timerLabel[data-visible="false"] {
+  visibility: hidden;
+}
+
+@media (max-width: 680px) {
+  .timerLabel {
+    display: none;
+  }
+}
+
 .roundHeader {
   display: flex;
   min-height: 64px;
@@ -1119,7 +1138,8 @@
   background: rgba(4, 6, 6, 0.9);
   color: #dde2dc;
   font:
-    normal 7px "Geist Mono Cyrillic", var(--font-geist-mono),
+    normal 7px "Geist Mono Cyrillic",
+    var(--font-geist-mono),
     monospace;
 }
 
@@ -1144,7 +1164,8 @@
 .shopkeeperRecipePick > small {
   color: #8a8d85;
   font:
-    8px "Geist Mono Cyrillic", var(--font-geist-mono),
+    8px "Geist Mono Cyrillic",
+    var(--font-geist-mono),
     monospace;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1153,7 +1174,8 @@
 .shopkeeperRecipeBuilderLabel strong {
   color: #d8b45e;
   font:
-    12px "Geist Mono Cyrillic", var(--font-geist-mono),
+    12px "Geist Mono Cyrillic",
+    var(--font-geist-mono),
     monospace;
   font-weight: 550;
 }
@@ -1184,7 +1206,8 @@
   border-style: dashed;
   color: #62563d;
   font:
-    17px "Geist Mono Cyrillic", var(--font-geist-mono),
+    17px "Geist Mono Cyrillic",
+    var(--font-geist-mono),
     monospace;
 }
 
@@ -1216,7 +1239,8 @@
 
 .shopkeeperRecipeIncluded small {
   font:
-    8px "Geist Mono Cyrillic", var(--font-geist-mono),
+    8px "Geist Mono Cyrillic",
+    var(--font-geist-mono),
     monospace;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1256,7 +1280,8 @@
   background: linear-gradient(180deg, rgba(226, 175, 73, 0.18), rgba(110, 77, 20, 0.13));
   color: #e6c477;
   font:
-    10px "Geist Mono Cyrillic", var(--font-geist-mono),
+    10px "Geist Mono Cyrillic",
+    var(--font-geist-mono),
     monospace;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1433,7 +1458,8 @@
   background: rgba(5, 7, 6, 0.88);
   color: #e2d4ae;
   font:
-    normal 8px "Geist Mono Cyrillic", var(--font-geist-mono),
+    normal 8px "Geist Mono Cyrillic",
+    var(--font-geist-mono),
     monospace;
 }
 
@@ -2017,7 +2043,8 @@
   background: rgba(222, 164, 96, 0.045);
   color: #d8c1a6;
   font:
-    10px "Geist Mono Cyrillic", var(--font-geist-mono),
+    10px "Geist Mono Cyrillic",
+    var(--font-geist-mono),
     monospace;
 }
 
@@ -2542,7 +2569,8 @@
   background: rgba(104, 122, 181, 0.06);
   color: #aeb7d6;
   font:
-    10px "Geist Mono Cyrillic", var(--font-geist-mono),
+    10px "Geist Mono Cyrillic",
+    var(--font-geist-mono),
     monospace;
   letter-spacing: 0.06em;
   text-transform: uppercase;

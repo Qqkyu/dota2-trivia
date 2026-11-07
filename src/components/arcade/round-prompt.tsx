@@ -166,13 +166,8 @@ export function RoundPrompt({
             <span className={styles.artCorner} />
           </div>
         )}
-        <span>
-          {t("round.prompt.clue", { stage: clueStage })}
-          <small>/ 3</small>
-        </span>
       </div>
       <div className={styles.questionCopy}>
-        <span>{t("round.prompt.spell.eyebrow")}</span>
         <h2>{t("round.prompt.spell.prompt")}</h2>
         <div className={styles.clueList} data-testid="spell-clue-list">
           <div
@@ -218,13 +213,8 @@ export function RoundPrompt({
         ) : (
           <Gem aria-hidden="true" />
         )}
-        <span>
-          {t("round.prompt.clue", { stage: clueStage })}
-          <small>/ 3</small>
-        </span>
       </div>
       <div className={styles.questionCopy}>
-        <span>{t("round.prompt.aghanim.eyebrow")}</span>
         <h2>{currentQuestion.prompt}</h2>
         <div className={clsx(styles.clueList, styles.aghanimClues)}>
           <div className={styles.clueUnlocked} data-testid="aghanim-clue-1">
@@ -241,12 +231,16 @@ export function RoundPrompt({
                       : "round.prompt.aghanim.existingAbility",
                     { upgrade: aghanimUpgradeLabel },
                   )
-                : t("round.prompt.aghanim.details")}
+                : t("round.prompt.aghanim.details", { seconds: firstClueAt })}
             </span>
           </div>
           <div className={clueStage >= 3 ? styles.clueUnlocked : styles.clueLocked} data-testid="aghanim-clue-3">
             <strong>03</strong>
-            <span>{clueStage >= 3 ? currentQuestion.aghanim?.abilityName : t("round.prompt.aghanim.abilityName")}</span>
+            <span>
+              {clueStage >= 3
+                ? currentQuestion.aghanim?.abilityName
+                : t("round.prompt.aghanim.abilityName", { seconds: finalClueAt })}
+            </span>
           </div>
         </div>
       </div>
@@ -270,13 +264,7 @@ export function RoundPrompt({
         )}
       </div>
       <div className={styles.questionCopy}>
-        <span>{t("round.prompt.fog.eyebrow")}</span>
         <h2>{t("round.prompt.fog.prompt")}</h2>
-        <div className={styles.fogMeter} role="img" aria-label={t("round.prompt.fog.meterAria", { stage: clueStage })}>
-          {Array.from({ length: 3 }, (_, index) => (
-            <span key={index} className={index < clueStage ? styles.fogMeterActive : undefined} />
-          ))}
-        </div>
       </div>
     </div>
   ) : currentGame === "echo-hunt" || isSoundcheckRound ? (
@@ -398,38 +386,16 @@ export function RoundPrompt({
         </span>
       </div>
       <div className={styles.questionCopy}>
-        <span>
-          {isSoundcheckRound
-            ? isSoundSequence
+        {isSoundcheckRound && (
+          <span>
+            {isSoundSequence
               ? t("round.prompt.soundcheck.sequence")
               : currentQuestion.soundcheck?.family === "item"
                 ? t("round.prompt.soundcheck.item")
-                : t("round.prompt.soundcheck.ability")
-            : t("round.prompt.echo.eyebrow")}
-        </span>
-        <h2>{isSoundcheckRound ? currentQuestion.prompt : t("round.prompt.echo.prompt")}</h2>
-        {isProgressiveAudioRound && (
-          <div
-            className={styles.soundRevealMeter}
-            role="img"
-            aria-label={t(
-              isSoundcheckRound ? "round.prompt.audio.soundMeterAria" : "round.prompt.audio.voiceMeterAria",
-              {
-                stage: clueStage,
-                total: isSoundcheckRound ? SOUNDCHECK_REVEAL_STAGES : ECHO_HUNT_REVEAL_STAGES,
-              },
-            )}
-          >
-            {Array.from(
-              {
-                length: isSoundcheckRound ? SOUNDCHECK_REVEAL_STAGES : ECHO_HUNT_REVEAL_STAGES,
-              },
-              (_, index) => (
-                <span key={index} className={index < clueStage ? styles.soundRevealMeterActive : undefined} />
-              ),
-            )}
-          </div>
+                : t("round.prompt.soundcheck.ability")}
+          </span>
         )}
+        <h2>{isSoundcheckRound ? currentQuestion.prompt : t("round.prompt.echo.prompt")}</h2>
       </div>
     </div>
   ) : currentGame === "quote-hunt" ? (
@@ -440,10 +406,8 @@ export function RoundPrompt({
       <div className={styles.quoteCard} data-testid="hero-quote">
         <MessageSquareQuote />
         <blockquote>{t("round.prompt.quote.text", { quote: currentQuestion.detail ?? "" })}</blockquote>
-        <span>{t("round.prompt.quote.cardLabel")}</span>
       </div>
       <div className={styles.questionCopy}>
-        <span>{t("round.prompt.quote.eyebrow")}</span>
         <h2>{t("round.prompt.quote.prompt")}</h2>
         <div
           className={styles.quoteHints}

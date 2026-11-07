@@ -1018,7 +1018,7 @@ export function PrivateRoomPanel({
   const codeField = (
     <div className={styles.codeField}>
       <label htmlFor="party-code-input" data-testid="private-room-code-label">
-        {t("party.code")}
+        {t(screen === "create" ? "party.codeNew" : "party.code")}
       </label>
       <input
         ref={joinInputRef}
@@ -1054,7 +1054,6 @@ export function PrivateRoomPanel({
     return (
       <section className={styles.view} data-testid="private-room-setup" data-path="choose">
         <h1 className={styles.setupTitle}>{t("party.setup.title")}</h1>
-        <p className={styles.setupIntro}>{t("party.setup.intro")}</p>
         {back}
         {setupError}
         <div className={styles.chooseDoors}>

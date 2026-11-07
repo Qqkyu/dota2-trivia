@@ -10,7 +10,7 @@ import type { deriveRoundView } from "./round-view";
 
 type AnswerHelperProps = { currentQuestion: PublicArcadeQuestion } & Pick<
   ReturnType<typeof useArcadeRoom>,
-  "currentQuestion" | "selectedIndex" | "answerTimeLeft"
+  "currentQuestion" | "selectedIndex"
 > &
   Pick<
     ReturnType<typeof deriveRoundView>,
@@ -29,7 +29,6 @@ type AnswerHelperProps = { currentQuestion: PublicArcadeQuestion } & Pick<
 export function AnswerHelper({
   currentQuestion,
   selectedIndex,
-  answerTimeLeft,
   currentGame,
   isRecipeBuilderRound,
   isOpenShopRound,
@@ -67,7 +66,7 @@ export function AnswerHelper({
                 : isValueOrderRound
                   ? t("round.helper.order")
                   : isFlashbackOrderRound
-                    ? t("round.helper.flashbackOrder")
+                    ? t("round.helper.order")
                     : isFlashbackYearRound
                       ? t("round.helper.flashbackYear")
                       : currentGame === "shopkeeper"
@@ -93,9 +92,7 @@ export function AnswerHelper({
       ) : (
         <>
           <Signal className={own.signalIcon} />
-          <span className={own.answerHelperCopy}>
-            {t("round.helper.locked", { seconds: Math.ceil(answerTimeLeft / 1000) })}
-          </span>
+          <span className={own.answerHelperCopy}>{t("round.helper.locked")}</span>
           <span className={own.answerHelperGold}>{t("round.helper.worth", { points: liveAward?.rawPoints ?? 0 })}</span>
         </>
       )}
