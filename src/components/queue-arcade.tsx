@@ -411,6 +411,7 @@ export function QueueArcade({
             phase={phase}
             currentQuestion={currentQuestion}
             roundIndex={roundIndex}
+            selectedIndex={selectedIndex}
             selectedAnswerKey={selectedAnswerKey}
             crowd={crowd}
             score={score}

@@ -274,6 +274,8 @@ try {
         panel: Boolean(document.querySelector('[data-testid="reveal-panel"]')),
         report: Boolean(document.querySelector('[data-testid="report-question"]')),
         crowd: Boolean(document.querySelector('[data-testid="crowd-summary"]')),
+        roomSplit: Boolean(document.querySelector('[data-testid="crowd-card"] [data-testid="crowd-split-row"]')),
+        scoreSummary: Boolean(document.querySelector('[data-testid="crowd-card"] [data-testid="crowd-score-summary"]')),
         explanation: document.querySelector('[data-testid="reveal-explanation"]')?.textContent?.trim().length ?? 0,
         callout: document.querySelector('[data-testid="reveal-callout"]')?.textContent ?? "",
         patchMentions: (document.body.innerText.match(new RegExp(${JSON.stringify(patchLabel.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))}, "gi")) ?? []).length,
@@ -283,6 +285,9 @@ try {
       throw new Error(
         `${game}: reveal is missing its panel, report control, or crowd card (${JSON.stringify(reveal)}).`,
       );
+    }
+    if (!reveal.roomSplit || !reveal.scoreSummary) {
+      throw new Error(`${game}: the room split card is missing from the side rail at the reveal.`);
     }
     if (game !== "order-up" && reveal.explanation < 8) throw new Error(`${game}: reveal has no explanation.`);
     if (!/Correct|Incorrect|Time expired|Blood|Spree|Dominating|Kill|Unstoppable|Sick|Godlike/i.test(reveal.callout)) {
