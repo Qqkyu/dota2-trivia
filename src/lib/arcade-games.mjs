@@ -40,6 +40,20 @@ export const ROUND_GAME_SHORT_LABEL_KEYS = Object.freeze({
   flashback: "game.flashback.short",
 });
 
+/** A few words on what each round asks, for players who have not seen it yet. */
+export const ROUND_GAME_HINT_KEYS = Object.freeze({
+  trivia: "game.trivia.hint",
+  shopkeeper: "game.shopkeeper.hint",
+  "spell-link": "game.spellLink.hint",
+  "fogged-vision": "game.foggedVision.hint",
+  "echo-hunt": "game.echoHunt.hint",
+  soundcheck: "game.soundcheck.hint",
+  "quote-hunt": "game.quoteHunt.hint",
+  "aghanim-lab": "game.aghanimLab.hint",
+  "order-up": "game.orderUp.hint",
+  flashback: "game.flashback.hint",
+});
+
 /** Queue Arcade has one shared public room. Round identities are not separate queues. */
 export const PUBLIC_ARCADE_MODE = "mixed";
 export const LIVE_ARCADE_MODES = Object.freeze([PUBLIC_ARCADE_MODE]);

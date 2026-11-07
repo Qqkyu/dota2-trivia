@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { splitAccent } from "@/i18n/format.mjs";
 import { useLocale } from "@/i18n/provider";
 import { FRESH_ROUND_MIN_REMAINING_MS } from "@/lib/arcade-entry.mjs";
-import { ROUND_GAME_LABEL_KEYS, ROUND_GAME_SHORT_LABEL_KEYS } from "@/lib/arcade-games.mjs";
+import { ROUND_GAME_HINT_KEYS, ROUND_GAME_LABEL_KEYS, ROUND_GAME_SHORT_LABEL_KEYS } from "@/lib/arcade-games.mjs";
 import { withAudioDebug } from "@/lib/audio-diagnostics.mjs";
 import { lobbyRoundAt } from "@/lib/lobby-round.mjs";
 import { PARTY_ARCADE_PATH } from "@/lib/arcade-navigation.mjs";
@@ -224,7 +224,8 @@ export function ArcadeLobby({
             {ROUND_GAMES.map((game) => (
               <li key={game} data-round-family={game}>
                 <ModeIcon mode={game} />
-                {t(ROUND_GAME_SHORT_LABEL_KEYS[game])}
+                <strong>{t(ROUND_GAME_SHORT_LABEL_KEYS[game])}</strong>
+                <small>{t(ROUND_GAME_HINT_KEYS[game])}</small>
               </li>
             ))}
           </ul>
