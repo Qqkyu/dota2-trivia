@@ -114,12 +114,6 @@ function LiveRoom({
                 ? t("lobby.live.joinNextRound")
                 : t("lobby.live.sameQuestion")}
         </p>
-        {/* Always rendered, so the card keeps its height before the number arrives. */}
-        <p className={own.liveRoomToday} data-testid="live-room-today">
-          {pulse?.gamesToday
-            ? t("lobby.live.gamesToday", { count: pulse.gamesToday, games: number(pulse.gamesToday) })
-            : "\u00a0"}
-        </p>
       </div>
     </div>
   );

@@ -1,4 +1,3 @@
-import { getAlphaSessionsSince } from "@/lib/alpha-store";
 import { DEFAULT_GAME_ID, GAME_CATALOGS } from "@/lib/game-catalogs";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
@@ -13,11 +12,9 @@ import { getQuestionStats } from "@/lib/vote-store";
  * poll and the round snapshot never wait on the database.
  */
 const REFRESH_MS = 60_000;
-const DAY_MS = 86_400_000;
 const MIN_ROUND_TYPE_ANSWERS = 20;
 
 interface CommunityStats {
-  gamesToday: number;
   roundTypes: Map<RoundGame, { total: number; correct: number }>;
 }
 
@@ -27,14 +24,11 @@ const state = ((
   }
 ).__queueArcadeCommunityStats ??= { stats: null, refreshedAt: 0, refreshing: false });
 
-async function readStats(now: number): Promise<CommunityStats> {
+async function readStats(): Promise<CommunityStats> {
   const catalog = GAME_CATALOGS[DEFAULT_GAME_ID];
   const questions = new Map(catalog.questions.map((question) => [question.id, question]));
   const revisions = new Map(catalog.questions.map((question) => [question.id, questionCalibrationRevision(question)]));
-  const [sessions, stored] = await Promise.all([
-    getAlphaSessionsSince(now - DAY_MS),
-    getQuestionStats(DEFAULT_GAME_ID, catalog.contentVersion, revisions),
-  ]);
+  const stored = await getQuestionStats(DEFAULT_GAME_ID, catalog.contentVersion, revisions);
   const roundTypes: CommunityStats["roundTypes"] = new Map();
   for (const stats of stored) {
     const question = questions.get(stats.questionId);
@@ -45,14 +39,14 @@ async function readStats(now: number): Promise<CommunityStats> {
     entry.correct += stats.counts[question.correctIndex] ?? 0;
     roundTypes.set(game, entry);
   }
-  return { gamesToday: sessions.filter((session) => session.roundsAnswered > 0).length, roundTypes };
+  return { roundTypes };
 }
 
 function latestStats(now = Date.now()) {
   if (process.env.ARCADE_COMMUNITY_STATS === "off") return null;
   if (!state.refreshing && now - state.refreshedAt >= REFRESH_MS) {
     state.refreshing = true;
-    void readStats(now)
+    void readStats()
       .then((stats) => {
         state.stats = stats;
         state.refreshedAt = now;
@@ -69,10 +63,6 @@ function latestStats(now = Date.now()) {
 }
 
 /** Visits with at least one answer in the last 24 hours. Visits are not linked, so these are not people. */
-export function gamesPlayedToday(now = Date.now()) {
-  return latestStats(now)?.gamesToday ?? null;
-}
-
 /** All-time share of right answers for a round type, once there are enough answers to mean something. */
 export function roundTypeAccuracy(game: RoundGame, now = Date.now()) {
   const entry = latestStats(now)?.roundTypes.get(game);
