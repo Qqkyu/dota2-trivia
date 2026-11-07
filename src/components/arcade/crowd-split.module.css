@@ -134,15 +134,27 @@
   margin-left: -10px;
 }
 
+.crowdSplitMeta[data-ordered="true"] {
+  grid-template-columns: auto minmax(0, 1fr) auto auto 34px;
+}
+
+.crowdSplitMeta[data-ordered="true"] .crowdSplitMarker {
+  width: auto;
+  padding: 0 1px;
+}
+
+/* Keeps the column, so the percentages stay in line. Screen readers get the names from the row label. */
+.crowdSplitMeta[data-ordered="true"] > strong {
+  visibility: hidden;
+}
+
 .crowdSplitOrder {
-  display: grid;
-  width: 42px;
-  gap: 1px;
-  grid-template-columns: repeat(2, 18px);
+  display: flex;
+  gap: 2px;
 }
 
 .crowdSplitOrder img {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   object-fit: cover;
 }

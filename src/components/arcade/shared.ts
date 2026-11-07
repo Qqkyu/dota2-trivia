@@ -9,7 +9,7 @@ import { accuracyRate } from "@/lib/dota-flavor.mjs";
 import { flashbackYearFromAnswerKey } from "@/lib/flashback.mjs";
 import { HERO_PICKER_BY_KEY } from "@/lib/hero-picker";
 import { SHOPKEEPER_CATALOG_BY_KEY, recipeItemsFromAnswerKey } from "@/lib/shopkeeper-catalog";
-import { valueOrderKeysFromAnswerKey } from "@/lib/value-order.mjs";
+import { orderCardsForAnswerKey } from "@/lib/value-order.mjs";
 import type { PublicArcadeQuestion } from "@/lib/public-question";
 
 export const REVEAL_DURATION_MS = 7_000;
@@ -247,11 +247,11 @@ export function shopkeeperReferencesForKeys(itemKeys: string[]): ShopkeeperItemR
 }
 
 export function valueOrderAnswerLabel(question: PublicArcadeQuestion, answerKey: string) {
-  const keys = valueOrderKeysFromAnswerKey(answerKey);
-  if (!keys || !question.valueOrder) return null;
-  const cardByKey = new Map(question.valueOrder.cards.map((card) => [card.key, card]));
-  const cards = keys.map((key) => cardByKey.get(key));
-  return cards.every(Boolean) ? cards.map((card) => card?.name).join(" → ") : null;
+  return (
+    orderCardsForAnswerKey(question, answerKey)
+      ?.map((card: { name: string }) => card.name)
+      .join(" → ") ?? null
+  );
 }
 
 export function keyedAnswerLabel(answerKey: string, fallback: string, question?: PublicArcadeQuestion) {

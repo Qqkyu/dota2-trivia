@@ -24,6 +24,15 @@ export function valueOrderAnswerKey(cardKeys) {
   return `${VALUE_ORDER_ANSWER_PREFIX}${cardKeys.join(",")}`;
 }
 
+/** The cards of an order answer, in the picked order. Order Up and Flashback keep them in different places. */
+export function orderCardsForAnswerKey(question, answerKey) {
+  const keys = valueOrderKeysFromAnswerKey(answerKey);
+  const cards = question?.valueOrder?.cards ?? question?.flashback?.cards;
+  if (!keys || !Array.isArray(cards)) return null;
+  const picked = keys.map((key) => cards.find((card) => card.key === key));
+  return picked.every(Boolean) ? picked : null;
+}
+
 export function valueOrderKeysFromAnswerKey(answerKey) {
   if (typeof answerKey !== "string" || !answerKey.startsWith(VALUE_ORDER_ANSWER_PREFIX)) return null;
   const cardKeys = answerKey.slice(VALUE_ORDER_ANSWER_PREFIX.length).split(",");
