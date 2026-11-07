@@ -1,7 +1,30 @@
+/* Russian text only: browsers download these when a Cyrillic glyph appears on the page. */
+@font-face {
+  font-family: "Geist Cyrillic";
+  src: url("/fonts/geist-cyrillic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0400-045F, U+0490-0491, U+2116;
+}
+@font-face {
+  font-family: "Geist Mono Cyrillic";
+  src: url("/fonts/geist-mono-cyrillic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0400-045F, U+0490-0491, U+2116;
+}
+@font-face {
+  font-family: "Radiance Cyrillic";
+  src: url("/fonts/radiance-cyrillic.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+0400-045F, U+0490-0491, U+2116;
+}
+
 :root {
   background: #090b0c;
   color: #f1f0ea;
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: "Geist Cyrillic", var(--font-geist-sans), Arial, Helvetica, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
@@ -21,7 +44,7 @@ body {
   min-height: 100vh;
   margin: 0;
   background: #090b0c;
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: "Geist Cyrillic", var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
 button,

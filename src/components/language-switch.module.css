@@ -1,0 +1,27 @@
+.switch {
+  display: inline-flex;
+  flex: none;
+  gap: 2px;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.switch a {
+  padding: 4px 6px;
+  border-radius: 4px;
+  color: inherit;
+  opacity: 0.55;
+  text-decoration: none;
+}
+
+.switch a:hover,
+.switch a:focus-visible {
+  opacity: 1;
+}
+
+.switch a[aria-current="true"] {
+  opacity: 1;
+  background: rgb(255 255 255 / 10%);
+}

@@ -4,6 +4,7 @@ import { ARCADE_LOBBY_PATH } from "@/lib/arcade-navigation.mjs";
 import { type PublicGameInfo } from "@/lib/game-identity";
 import styles from "../queue-arcade.module.css";
 import own from "./arcade-header.module.css";
+import { LanguageSwitch } from "../language-switch";
 import { BrandMark } from "./mode-icon";
 import { MIN_GAME_VOLUME } from "./shared";
 
@@ -47,6 +48,7 @@ export function ArcadeHeader({
       </a>
 
       <div className={own.headerMeta}>
+        <LanguageSwitch />
         <span className={own.patchBadge}>
           {gameInfo.label} · {gameInfo.contentLabel}
         </span>

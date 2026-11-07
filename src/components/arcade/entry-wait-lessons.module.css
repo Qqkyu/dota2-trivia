@@ -46,7 +46,7 @@
 
 .entryWaitCardCopy > small {
   color: #9aa3ad;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 11px;
   letter-spacing: 0.14em;
   text-align: center;
@@ -118,7 +118,7 @@
   padding: 5px 9px;
   border: 1px solid rgba(226, 181, 88, 0.36);
   color: #e2b558;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;

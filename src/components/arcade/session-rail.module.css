@@ -33,7 +33,7 @@
 
 .scoreGrid strong {
   margin-top: 5px;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 22px;
   font-weight: 470;
 }
@@ -106,7 +106,7 @@
 
 .cardTitle > strong {
   color: var(--faint);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   font-weight: 450;
 }
@@ -119,14 +119,14 @@
 
 .progressActions > strong {
   color: var(--faint);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   font-weight: 450;
 }
 
 .roomSyncStatus {
   color: var(--red-bright);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -145,7 +145,7 @@
   place-items: center;
   border: 1px solid var(--line);
   color: var(--faint);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
 }
 
@@ -181,7 +181,7 @@
   border: 1px solid rgba(240, 106, 88, 0.28);
   background: rgba(210, 76, 63, 0.07);
   color: var(--red-bright);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   letter-spacing: 0.1em;
 }
@@ -189,7 +189,7 @@
 .crowdCard > strong {
   display: block;
   margin-top: 16px;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 22px;
   font-weight: 450;
 }
@@ -237,7 +237,7 @@
 
 .crowdScoreSummary strong {
   color: #d4d8d4;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 13px;
   font-weight: 550;
 }

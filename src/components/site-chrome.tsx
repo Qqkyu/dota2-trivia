@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import { ARCADE_LOBBY_PATH } from "@/lib/arcade-navigation.mjs";
 import { publicGameInfo } from "@/lib/game-catalogs";
+import { LanguageSwitch } from "@/components/language-switch";
 import { SiteFooter, type SiteChromePage } from "@/components/site-footer";
 import styles from "./site-chrome.module.css";
 import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
@@ -20,6 +21,7 @@ export function SiteChrome({ children, current }: { children: ReactNode; current
             <small>Side quests, between matches</small>
           </span>
         </a>
+        <LanguageSwitch />
       </header>
       <div className={styles.body}>{children}</div>
       <SiteFooter current={current} />

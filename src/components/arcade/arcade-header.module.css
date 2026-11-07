@@ -42,7 +42,7 @@
   padding: 0 10px;
   border: 1px solid var(--line);
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 11px;
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -107,7 +107,7 @@
   width: 34px;
   margin-right: 6px;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 11px;
   line-height: 1;
   text-align: right;

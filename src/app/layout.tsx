@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { LocaleProvider } from "@/i18n/provider";
+import { getLocale, messagesFor } from "@/i18n/server";
 import "./globals.css";
 
 // HTML needs a fresh CSP nonce and the runtime public origin on every request.
@@ -58,14 +60,19 @@ export const viewport: Viewport = {
   themeColor: "#090b0c",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} ${radianceBold.variable}`}>{children}</body>
+    <html lang={locale}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${radianceBold.variable}`}>
+        <LocaleProvider locale={locale} messages={messagesFor(locale)}>
+          {children}
+        </LocaleProvider>
+      </body>
     </html>
   );
 }

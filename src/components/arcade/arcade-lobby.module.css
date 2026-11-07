@@ -30,7 +30,7 @@
   display: block;
   margin-bottom: 10px;
   color: var(--faint);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -182,7 +182,7 @@
   border: 1px solid rgba(112, 197, 136, 0.3);
   background: #101716;
   color: #76ca8e;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 11px;
   object-fit: cover;
 }
@@ -207,7 +207,7 @@
 .profileAction small {
   margin-top: 2px;
   color: #7e9786;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -309,7 +309,7 @@
   border-bottom: 1px solid var(--line);
   background: rgba(0, 0, 0, 0.16);
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -346,7 +346,7 @@
 
 .liveRoomRound {
   color: var(--faint);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -380,7 +380,7 @@
 
 .liveRoomClock > span {
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -388,7 +388,7 @@
 
 .liveRoomClock > strong {
   color: #f1efe8;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 56px;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
