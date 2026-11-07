@@ -40,7 +40,7 @@ function englishLeft(text) {
     .split("\n")
     .map((line) => line.trim())
     .filter((line) => ENGLISH.test(line) && !/[а-яё]{3}/i.test(line))
-    .filter((line) => !/^(?:The International|Queue Arcade|Dota 2)/.test(line));
+    .filter((line) => !/^(?:The International|The Underhollow|Queue Arcade|Dota 2)/.test(line));
 }
 
 function freePort() {
