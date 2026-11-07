@@ -2,7 +2,9 @@
 
 Goal: a newcomer understands any screen in about 10 seconds, text stays short, and each fact shows in one place. This audit read the code and did not watch a player. Nothing here is built yet. Every text change also needs a Russian change and a native-reader pass.
 
-## Decision needed: where the answer split lives
+Maintainer decisions, 2026-11-07: Option A below. All small fixes approved. Design for the public room first; a party gets a change only if it comes along for free or party play is plainly bad. No help page. If the UI can't explain something, such as ranking, add a small "?" button with a short tooltip at that spot.
+
+## Where the answer split lives
 
 At the reveal the count and split repeat in the reveal sentence (`round.crowd.summary`), the Room card (`session.answeredThisRound`), the Room split card (`session.answerTotal`, `session-rail.tsx:124-163`) and on the answers (`answer-boards.tsx:233`, `hero-picker.tsx:302`, `shopkeeper-store.tsx:481`).
 
