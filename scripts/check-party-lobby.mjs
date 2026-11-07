@@ -255,7 +255,7 @@ try {
   const codeLabel = await page.evaluate(
     `document.querySelector('[data-testid="private-room-code-label"]')?.textContent?.trim() ?? ""`,
   );
-  if (codeLabel !== "Party code" && codeLabel !== "Choose a party code") throw new Error(`Party code has no label (${JSON.stringify(codeLabel)}).`);
+  if (codeLabel !== "Party code") throw new Error(`Party code has no label (${JSON.stringify(codeLabel)}).`);
   // Keep the join request pending long enough to exercise the loading state.
   await page.send("Network.enable");
   await page.send("Network.emulateNetworkConditions", {
@@ -296,7 +296,7 @@ try {
   const labelWhileTyped = await page.evaluate(
     `document.querySelector('[data-testid="private-room-code-label"]')?.textContent?.trim() ?? ""`,
   );
-  if (labelWhileTyped !== "Party code" && labelWhileTyped !== "Choose a party code") {
+  if (labelWhileTyped !== "Choose a party code") {
     throw new Error("Party code label vanished after typing.");
   }
   for (let n = 0; n < 12; n += 1) {
