@@ -9,7 +9,7 @@ import { accuracyRate } from "@/lib/dota-flavor.mjs";
 import { flashbackYearFromAnswerKey } from "@/lib/flashback.mjs";
 import { HERO_PICKER_BY_KEY } from "@/lib/hero-picker";
 import { SHOPKEEPER_CATALOG_BY_KEY, recipeItemsFromAnswerKey } from "@/lib/shopkeeper-catalog";
-import { valueOrderKeysFromAnswerKey } from "@/lib/value-order.mjs";
+import { orderCardsForAnswerKey } from "@/lib/value-order.mjs";
 import type { PublicArcadeQuestion } from "@/lib/public-question";
 
 export const REVEAL_DURATION_MS = 7_000;
@@ -122,7 +122,6 @@ export interface LobbyPulse {
   /** The server clock when this pulse was produced; rendered as-is until the client ticks. */
   serverNow: number;
   serverOffset: number;
-  gamesToday: number | null;
 }
 
 /** What the server sends: the page embeds one of these so the first paint has the real clock. */
@@ -130,13 +129,11 @@ export interface LobbyPulsePayload {
   activePlayers: number;
   serverNow: number;
   round: LobbyPulse["round"];
-  gamesToday: number | null;
 }
 
 export function lobbyPulseFromPayload(payload: LobbyPulsePayload): LobbyPulse {
   return {
     round: payload.round,
-    gamesToday: payload.gamesToday,
     serverNow: payload.serverNow,
     serverOffset: payload.serverNow - Date.now(),
   };
@@ -148,9 +145,8 @@ export function normalizeLobbyPulse(payload: unknown): LobbyPulse | null {
   }
   const serverNow = payload.serverNow;
   const serverOffset = serverNow - Date.now();
-  const gamesToday = "gamesToday" in payload && typeof payload.gamesToday === "number" ? payload.gamesToday : null;
   const round = "round" in payload ? payload.round : null;
-  if (!round || typeof round !== "object") return { round: null, serverNow, serverOffset, gamesToday };
+  if (!round || typeof round !== "object") return { round: null, serverNow, serverOffset };
   const candidate = round as Record<string, unknown>;
   const numbers = ["number", "answerDeadline", "revealDeadline", "answerDuration"] as const;
   if (
@@ -159,7 +155,7 @@ export function normalizeLobbyPulse(payload: unknown): LobbyPulse | null {
     typeof candidate.game !== "string" ||
     !(ROUND_GAMES as readonly string[]).includes(candidate.game)
   ) {
-    return { round: null, serverNow, serverOffset, gamesToday };
+    return { round: null, serverNow, serverOffset };
   }
   return {
     round: {
@@ -176,7 +172,6 @@ export function normalizeLobbyPulse(payload: unknown): LobbyPulse | null {
     },
     serverNow,
     serverOffset,
-    gamesToday,
   };
 }
 
@@ -247,11 +242,11 @@ export function shopkeeperReferencesForKeys(itemKeys: string[]): ShopkeeperItemR
 }
 
 export function valueOrderAnswerLabel(question: PublicArcadeQuestion, answerKey: string) {
-  const keys = valueOrderKeysFromAnswerKey(answerKey);
-  if (!keys || !question.valueOrder) return null;
-  const cardByKey = new Map(question.valueOrder.cards.map((card) => [card.key, card]));
-  const cards = keys.map((key) => cardByKey.get(key));
-  return cards.every(Boolean) ? cards.map((card) => card?.name).join(" → ") : null;
+  return (
+    orderCardsForAnswerKey(question, answerKey)
+      ?.map((card: { name: string }) => card.name)
+      .join(" → ") ?? null
+  );
 }
 
 export function keyedAnswerLabel(answerKey: string, fallback: string, question?: PublicArcadeQuestion) {

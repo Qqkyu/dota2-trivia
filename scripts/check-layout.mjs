@@ -10,7 +10,9 @@ import { mkdtemp, readFile, writeFile } from "node:fs/promises";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import path from "node:path";
+import { flashbackYearAnswerKey } from "../src/lib/flashback.mjs";
 import { publicQuestionForRound } from "../src/lib/public-question.mjs";
+import { valueOrderAnswerKey } from "../src/lib/value-order.mjs";
 import { stopChrome } from "./lib/stop-chrome.mjs";
 
 const appUrl = (process.env.APP_URL ?? "http://localhost:3000").replace(/\/$/, "");
@@ -20,6 +22,10 @@ const dataFile = (name) => path.join(process.cwd(), "src", "data", name);
 const VIEWPORTS = [
   { name: "phone", width: 420, height: 800 },
   { name: "desktop", width: 1400, height: 900 },
+  // Players are on PCs, and many windows are not maximized.
+  { name: "laptop", width: 1366, height: 768 },
+  { name: "small-laptop", width: 1280, height: 720 },
+  { name: "half-window", width: 1000, height: 800 },
 ];
 
 function pick(list, predicate, label) {
@@ -187,6 +193,46 @@ const fixtures = {
   },
 };
 
+function revealQuestion(raw, game) {
+  const now = Date.now();
+  return publicQuestionForRound(
+    raw,
+    { id: "layout-placeholder", phase: "reveal", game, answerDeadline: now - 1_000, answerDuration: 15_000 },
+    now,
+  );
+}
+
+function orderReveal(raw, correctOrder, game) {
+  const [a, b, c, d] = correctOrder;
+  return {
+    game,
+    question: revealQuestion(raw, game),
+    keyCounts: [
+      { answerKey: valueOrderAnswerKey([d, c, b, a]), count: 3 },
+      { answerKey: valueOrderAnswerKey(correctOrder), count: 2 },
+      { answerKey: valueOrderAnswerKey([b, a, d, c]), count: 1 },
+    ],
+  };
+}
+
+const flashbackOrderRaw = pick(flashback, (q) => q.kind === "flashback-order", "flashback-order");
+const flashbackYearRaw = pick(flashback, (q) => q.flashback?.family === "year", "flashback-year");
+const valueOrderRaw = pick(valueOrder, (q) => q.valueOrder?.correctOrder?.length === 4, "value-order");
+const flashbackYear = revealQuestion(flashbackYearRaw, "flashback").reveal.correctAnswerKey;
+
+const revealFixtures = {
+  "flashback-order": orderReveal(flashbackOrderRaw, flashbackOrderRaw.flashback.correctOrder, "flashback"),
+  "value-order": orderReveal(valueOrderRaw, valueOrderRaw.valueOrder.correctOrder, "order-up"),
+  "flashback-year": {
+    game: "flashback",
+    question: revealQuestion(flashbackYearRaw, "flashback"),
+    keyCounts: [
+      { answerKey: flashbackYearAnswerKey(flashbackYearRaw.flashback.correctYear - 2), count: 3 },
+      { answerKey: flashbackYear, count: 2 },
+    ],
+  },
+};
+
 function freePort() {
   return new Promise((resolve, reject) => {
     const server = createServer();
@@ -288,6 +334,21 @@ const INSPECT_SOURCE = `(() => {
     }
     return null;
   }
+  /** Clipped with no way to reach it. A box that scrolls can hold more than it shows. */
+  function unreachable(el) {
+    const r = el.getBoundingClientRect();
+    let p = el.parentElement;
+    while (p && p !== document.documentElement) {
+      const cs = getComputedStyle(p);
+      if (/(auto|scroll)/.test(cs.overflowX) && p.scrollWidth > p.clientWidth) return clippedByHidden(p);
+      if (/(hidden|clip)/.test(cs.overflowX)) {
+        const pr = p.getBoundingClientRect();
+        if (r.left < pr.left - 2 || r.right > pr.right + 2) return clippedByHidden(el);
+      }
+      p = p.parentElement;
+    }
+    return r.right > window.innerWidth + 2 ? (el.dataset?.testid || el.tagName) + " off screen" : null;
+  }
   function textCut(el) {
     if (!el) return false;
     if (el.scrollWidth > el.clientWidth + 3) return true;
@@ -299,6 +360,18 @@ const INSPECT_SOURCE = `(() => {
   }
   window.__queueArcadeInspectLayout = function inspectLayout(phone) {
     const issues = [];
+    // Every choice must be on screen, or inside a box that really scrolls.
+    for (const choice of document.querySelectorAll(
+      '[data-testid="shopkeeper-store-item"], [data-testid="hero-picker-hero"], [data-testid="arcade-answer"], [data-testid="value-order-card"], [data-testid="flashback-order-card"]',
+    )) {
+      const cut = unreachable(choice);
+      if (cut) {
+        issues.push(cut);
+        break;
+      }
+    }
+    const rail = document.querySelector('[data-testid="score-grid"]')?.getBoundingClientRect();
+    if (rail && rail.right > window.innerWidth + 2) issues.push("side rail runs off screen");
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     if (document.documentElement.scrollWidth > vw + 2) {
@@ -609,6 +682,7 @@ try {
   await page.send("Page.addScriptToEvaluateOnNewDocument", {
     source: `(() => {
       const fixtures = ${JSON.stringify(fixtures)};
+      const revealFixtures = ${JSON.stringify(revealFixtures)};
       const originalFetch = window.fetch.bind(window);
       window.__queueArcadeLayout = { kind: null, served: 0, wait: false };
       Object.defineProperty(HTMLMediaElement.prototype, "play", {
@@ -669,6 +743,37 @@ try {
             payload.questionRevision = "layout-gate";
             payload.playerVote = null;
             payload.playerReport = null;
+            return new Response(JSON.stringify(payload), {
+              status: 200,
+              headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+            });
+          }
+          const revealFixture = revealFixtures[state.revealKind];
+          if (revealFixture) {
+            const revealId = "layout-reveal-" + state.revealKind;
+            const total = revealFixture.keyCounts.reduce((sum, entry) => sum + entry.count, 0);
+            payload.serverNow = now;
+            payload.round = {
+              ...payload.round,
+              id: revealId,
+              phase: "reveal",
+              game: revealFixture.game,
+              startedAt: now - 20_000,
+              answerDeadline: now - 1_000,
+              revealDeadline: now + 60_000,
+              answerDuration: 15_000
+            };
+            payload.questionRevision = revealId + ":reveal";
+            payload.question = { ...revealFixture.question, id: revealId, game: revealFixture.game };
+            payload.playerVote = { answerIndex: 0, answerKey: revealFixture.keyCounts[0].answerKey, submittedAt: now - 2_000 };
+            payload.playerReport = null;
+            payload.crowd = {
+              counts: [total, 0, 0, 0],
+              total,
+              positions: [],
+              keyCounts: revealFixture.keyCounts,
+              scoreSummary: { correctCount: 1, average: 120, best: 200, playerPoints: 0 }
+            };
             return new Response(JSON.stringify(payload), {
               status: 200,
               headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
@@ -789,6 +894,54 @@ try {
     await delay(280);
   }
 
+  /** A wrong pick leads the table, so every row has to name its answer from the round's own cards. */
+  async function inspectReveal(kind, viewportName) {
+    await page.evaluate(`(() => {
+      window.__queueArcadeLayout.revealKind = ${JSON.stringify(kind)};
+      window.dispatchEvent(new Event("focus"));
+      return true;
+    })()`);
+    await page.waitFor(
+      `document.querySelector("main")?.dataset.phase === "reveal" &&
+        document.querySelector("main")?.dataset.roundId === ${JSON.stringify("layout-reveal-" + kind)} &&
+        Boolean(document.querySelector('[data-testid="crowd-split-row"]'))`,
+      16_000,
+    );
+    await delay(650);
+    const issues = await page.evaluate(`(() => {
+      const issues = [];
+      const rows = [...document.querySelectorAll('[data-testid="crowd-split-row"]')];
+      if (rows.length !== ${revealFixtures[kind].keyCounts.length}) issues.push("table has " + rows.length + " rows");
+      for (const row of rows) {
+        const marker = row.querySelector("i");
+        const box = marker?.getBoundingClientRect();
+        if (/Unknown pick|Неизвестный/.test(row.getAttribute("aria-label") ?? "")) issues.push("row with an unknown pick");
+        if (marker?.textContent.trim() === "?") issues.push("row with a ? marker");
+        const art = [...(marker?.querySelectorAll("img") ?? [])];
+        if (${kind !== "flashback-year"} && art.length !== 4) issues.push("order row shows " + art.length + " cards");
+        for (const image of art) {
+          const r = image.getBoundingClientRect();
+          if (r.left < box.left || r.right > box.right + 0.5 || r.top < box.top || r.bottom > box.bottom + 0.5) {
+            issues.push("order card clipped by its marker");
+          }
+        }
+        if (row.getBoundingClientRect().right > window.innerWidth + 2) issues.push("row runs off screen");
+      }
+      if (new Set(rows.map((row) => Math.round(row.getBoundingClientRect().height))).size > 1) issues.push("rows differ in height");
+      for (const card of document.querySelectorAll('[data-testid="flashback-order-board"] li')) {
+        const art = card.querySelector("img")?.getBoundingClientRect();
+        const text = card.querySelector("span")?.getBoundingClientRect();
+        if (art && text && art.right > text.left) issues.push("order card art covers its text");
+      }
+      if (/another pick/.test(document.querySelector('[data-testid="crowd-summary"]')?.textContent ?? "")) {
+        issues.push("summary says another pick");
+      }
+      return [...new Set(issues)];
+    })()`);
+    await screenshot(`${viewportName}-reveal-${kind}`);
+    if (issues.length) failures.push(`${viewportName}/reveal-${kind}: ${issues.join("; ")}`);
+  }
+
   for (const viewport of VIEWPORTS) {
     await setViewport(viewport);
     await go(appUrl);
@@ -857,6 +1010,8 @@ try {
       await showFixture(kind);
       await inspectPlay(kind, viewport.name);
     }
+
+    for (const kind of Object.keys(revealFixtures)) await inspectReveal(kind, viewport.name);
   }
 
   if (failures.length) {

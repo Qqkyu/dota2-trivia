@@ -140,7 +140,6 @@ export function useArcadeRoom({
 
   const [activeRoundId, setActiveRoundId] = useState("");
 
-  const [gamesToday, setGamesToday] = useState<number | null>(initialPulse?.gamesToday ?? null);
   const [activePlayers, setActivePlayers] = useState(initialPulse?.activePlayers ?? 0);
 
   /** When the latest applied snapshot was requested; a deadline wake that finds it older than the deadline re-syncs at once. */
@@ -495,7 +494,6 @@ export function useArcadeRoom({
       setActiveRoomId(snapshot.room.id);
       setActiveRoundId(snapshot.round.id);
       setActivePlayers(snapshot.presence.activePlayers);
-      setGamesToday(snapshot.presence.gamesToday ?? null);
       setCrowd(snapshot.crowd);
       setRoomError(null);
       setNow(receivedAt);
@@ -1172,7 +1170,6 @@ export function useArcadeRoom({
     activeRoundId,
     roundAnnouncement,
     activePlayers,
-    gamesToday,
     lobbyPulse,
     reportState,
     reportedReason,

@@ -1,13 +1,14 @@
 import Image from "next/image";
-import { Check } from "lucide-react";
+import { CalendarDays, Check } from "lucide-react";
 import type { CSSProperties, ReactNode } from "react";
 import { useLocale } from "@/i18n/provider";
 import type { CrowdResult } from "@/lib/arcade-contract";
 import { crowdPercentage, keyedCrowdSplitRows } from "@/lib/crowd-split.mjs";
+import { flashbackYearFromAnswerKey } from "@/lib/flashback.mjs";
 import { HERO_PICKER_BY_KEY } from "@/lib/hero-picker";
 import { publicCorrectIndex, type PublicArcadeQuestion } from "@/lib/public-question";
 import { SHOPKEEPER_CATALOG_BY_KEY, recipeItemsFromAnswerKey } from "@/lib/shopkeeper-catalog";
-import { valueOrderKeysFromAnswerKey } from "@/lib/value-order.mjs";
+import { orderCardsForAnswerKey } from "@/lib/value-order.mjs";
 import { keyedAnswerLabel, LETTERS, shopkeeperReferencesForKeys } from "./shared";
 import own from "./crowd-split.module.css";
 import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
@@ -19,6 +20,7 @@ export function CrowdSplitBar({
   total,
   correct = false,
   selected = false,
+  ordered = false,
 }: {
   marker: ReactNode;
   label: string;
@@ -26,6 +28,8 @@ export function CrowdSplitBar({
   total: number;
   correct?: boolean;
   selected?: boolean;
+  /** The marker is the whole answer: four cards in order. Their names do not fit in the rail. */
+  ordered?: boolean;
 }) {
   const { t } = useLocale();
   const percentage = crowdPercentage(count, total);
@@ -50,8 +54,10 @@ export function CrowdSplitBar({
       style={{ "--crowd-share": `${percentage}%` } as CSSProperties}
       aria-label={t(rowKey, { label, percentage })}
     >
-      <span className={own.crowdSplitMeta}>
-        <i className={own.crowdSplitMarker}>{marker}</i>
+      <span className={own.crowdSplitMeta} data-ordered={ordered ? "true" : undefined}>
+        <i className={own.crowdSplitMarker} title={ordered ? label : undefined}>
+          {marker}
+        </i>
         <strong title={label}>{label}</strong>
         {selected && <em>{t("round.split.you")}</em>}
         {correct && <Check role="img" aria-label={t("round.split.correctAria")} />}
@@ -116,25 +122,15 @@ export function KeyedCrowdSplit({
         const item = SHOPKEEPER_CATALOG_BY_KEY.get(answerKey);
         const recipeKeys = recipeItemsFromAnswerKey(answerKey);
         const recipeItems = recipeKeys ? shopkeeperReferencesForKeys(recipeKeys) : [];
-        const orderKeys = valueOrderKeysFromAnswerKey(answerKey);
-        const orderCards = orderKeys
-          ?.map((key) => question.valueOrder?.cards.find((card) => card.key === key))
-          .filter((card) => Boolean(card));
+        const orderCards: { key: string; image: string }[] | null = orderCardsForAnswerKey(question, answerKey);
         const label = keyedAnswerLabel(answerKey, t("round.split.unknownPick"), question);
         const marker =
           hero || item ? (
             <Image src={firstPartyArtSrc((hero ?? item)?.image ?? "")} alt="" fill sizes="34px" unoptimized />
-          ) : orderCards?.length === 4 ? (
+          ) : orderCards ? (
             <span className={own.crowdSplitOrder} aria-hidden="true">
               {orderCards.map((card) => (
-                <Image
-                  key={card?.key}
-                  src={firstPartyArtSrc(card?.image ?? "")}
-                  alt=""
-                  width={18}
-                  height={18}
-                  unoptimized
-                />
+                <Image key={card.key} src={firstPartyArtSrc(card.image)} alt="" width={22} height={22} unoptimized />
               ))}
             </span>
           ) : recipeItems.length ? (
@@ -150,6 +146,8 @@ export function KeyedCrowdSplit({
                 />
               ))}
             </span>
+          ) : flashbackYearFromAnswerKey(answerKey) !== null ? (
+            <CalendarDays size={13} aria-hidden="true" />
           ) : (
             "?"
           );
@@ -163,6 +161,7 @@ export function KeyedCrowdSplit({
             total={crowd.total}
             correct={answerKey === correctKey}
             selected={answerKey === selectedKey}
+            ordered={Boolean(orderCards)}
           />
         );
       })}

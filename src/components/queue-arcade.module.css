@@ -1343,10 +1343,10 @@
 /* Locked board: search packs matches but must not resize the shop. */
 .shopkeeperGroups {
   display: grid;
-  min-width: 880px;
   height: 224px;
   gap: 7px;
-  grid-template-columns: repeat(6, minmax(136px, 1fr));
+  /* All six groups fit down to about a 1040px window; below that this box scrolls. */
+  grid-template-columns: repeat(6, minmax(104px, 1fr));
   padding: 9px;
   overflow: auto;
   scrollbar-color: rgba(210, 163, 74, 0.35) rgba(0, 0, 0, 0.2);

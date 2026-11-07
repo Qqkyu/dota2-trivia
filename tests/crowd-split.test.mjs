@@ -2,7 +2,9 @@ import { describe, expect, it } from "vitest";
 import heroCatalog from "../src/data/hero-picker.json" with { type: "json" };
 import itemCatalog from "../src/data/shopkeeper-catalog.json" with { type: "json" };
 import { crowdPercentage, keyedCrowdSplitRows, prioritizedKeyCounts } from "../src/lib/crowd-split.mjs";
-import { valueOrderAnswerKey } from "../src/lib/value-order.mjs";
+import flashbackQuestions from "../src/data/flashback-questions.json" with { type: "json" };
+import valueOrderQuestions from "../src/data/value-order-questions.json" with { type: "json" };
+import { orderCardsForAnswerKey, valueOrderAnswerKey } from "../src/lib/value-order.mjs";
 
 const fixture = [
   { answerKey: "axe", count: 8 },
@@ -12,6 +14,28 @@ const fixture = [
   { answerKey: "enigma", count: 2 },
   { answerKey: "furion", count: 1 },
 ];
+
+describe("orderCardsForAnswerKey", () => {
+  const orderRounds = [...flashbackQuestions, ...valueOrderQuestions].filter(
+    (question) => question.flashback?.correctOrder ?? question.valueOrder?.correctOrder,
+  );
+
+  it("names the picked order in Flashback and Order Up rounds", () => {
+    expect(orderRounds.some((question) => question.flashback)).toBe(true);
+    expect(orderRounds.some((question) => question.valueOrder)).toBe(true);
+    for (const question of orderRounds) {
+      const order = question.flashback?.correctOrder ?? question.valueOrder.correctOrder;
+      const cards = orderCardsForAnswerKey(question, valueOrderAnswerKey(order));
+      expect(cards?.map((card) => card.key)).toEqual(order);
+    }
+  });
+
+  it("does not guess when a card is not in the round", () => {
+    const [question] = orderRounds;
+    const order = question.flashback?.correctOrder ?? question.valueOrder.correctOrder;
+    expect(orderCardsForAnswerKey(question, valueOrderAnswerKey([...order.slice(0, 3), "missing_card"]))).toBeNull();
+  });
+});
 
 describe("crowdPercentage", () => {
   it("rounds to whole percents and survives an empty room", () => {

@@ -2,12 +2,6 @@ import type { Messages } from "../types";
 
 /** Russian text. Rules: docs/i18n/ru-rules.md. `tests/i18n.test.mjs` checks the keys and slots. */
 export const ru: Messages = {
-  "roomStatus.gamesToday": {
-    one: "{games} игра за сутки",
-    few: "{games} игры за сутки",
-    many: "{games} игр за сутки",
-    other: "{games} игры за сутки",
-  },
   "session.communityShare": "Все игроки в этом типе раундов: {share}% верных",
   "kind.ability-damage": "урон способности",
   "kind.aghanim-upgrade": "улучшение Aghanim",

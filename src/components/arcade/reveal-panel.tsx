@@ -9,6 +9,7 @@ import { crowdSummaryLine } from "@/lib/crowd-summary.mjs";
 import { revealCalloutKey } from "@/lib/dota-flavor.mjs";
 import { HERO_PICKER_BY_KEY, heroPickerPortraitSrc } from "@/lib/hero-picker";
 import { SHOPKEEPER_CATALOG_BY_KEY } from "@/lib/shopkeeper-catalog";
+import { valueOrderKeysFromAnswerKey } from "@/lib/value-order.mjs";
 import styles from "../queue-arcade.module.css";
 import own from "./reveal-panel.module.css";
 import { keyedAnswerLabel, LETTERS } from "./shared";
@@ -48,7 +49,11 @@ function crowdSummary(
       {
         total: crowd.total,
         rightCount,
-        majorityLabel: top ? keyedAnswerLabel(top.answerKey, t("round.crowd.anotherPick"), question) : null,
+        // Four names in a row are too long for this sentence; the room card shows that order.
+        majorityLabel:
+          top && !valueOrderKeysFromAnswerKey(top.answerKey)
+            ? keyedAnswerLabel(top.answerKey, t("round.crowd.anotherPick"), question)
+            : null,
         majorityIsRight: !top || top.answerKey === correctKey || top.count <= rightCount,
       },
       t,

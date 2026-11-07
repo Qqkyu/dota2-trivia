@@ -77,11 +77,9 @@ function LiveRoom({
           {t("lobby.live.publicRoom")}
         </span>
         <span data-testid="live-room-players">
-          {pulse?.gamesToday
-            ? t("roomStatus.gamesToday", { count: pulse.gamesToday, games: number(pulse.gamesToday) })
-            : activePlayers > 0
-              ? t("roomStatus.playing", { count: activePlayers, players: number(activePlayers) })
-              : t("roomStatus.open")}
+          {activePlayers > 0
+            ? t("roomStatus.playing", { count: activePlayers, players: number(activePlayers) })
+            : t("roomStatus.open")}
         </span>
       </div>
       <div className={own.liveRoomBody}>
