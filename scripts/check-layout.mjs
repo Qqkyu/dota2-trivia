@@ -20,6 +20,10 @@ const dataFile = (name) => path.join(process.cwd(), "src", "data", name);
 const VIEWPORTS = [
   { name: "phone", width: 420, height: 800 },
   { name: "desktop", width: 1400, height: 900 },
+  // Players are on PCs, and many windows are not maximized.
+  { name: "laptop", width: 1366, height: 768 },
+  { name: "small-laptop", width: 1280, height: 720 },
+  { name: "half-window", width: 1000, height: 800 },
 ];
 
 function pick(list, predicate, label) {
@@ -288,6 +292,21 @@ const INSPECT_SOURCE = `(() => {
     }
     return null;
   }
+  /** Clipped with no way to reach it. A box that scrolls can hold more than it shows. */
+  function unreachable(el) {
+    const r = el.getBoundingClientRect();
+    let p = el.parentElement;
+    while (p && p !== document.documentElement) {
+      const cs = getComputedStyle(p);
+      if (/(auto|scroll)/.test(cs.overflowX) && p.scrollWidth > p.clientWidth) return clippedByHidden(p);
+      if (/(hidden|clip)/.test(cs.overflowX)) {
+        const pr = p.getBoundingClientRect();
+        if (r.left < pr.left - 2 || r.right > pr.right + 2) return clippedByHidden(el);
+      }
+      p = p.parentElement;
+    }
+    return r.right > window.innerWidth + 2 ? (el.dataset?.testid || el.tagName) + " off screen" : null;
+  }
   function textCut(el) {
     if (!el) return false;
     if (el.scrollWidth > el.clientWidth + 3) return true;
@@ -299,6 +318,18 @@ const INSPECT_SOURCE = `(() => {
   }
   window.__queueArcadeInspectLayout = function inspectLayout(phone) {
     const issues = [];
+    // Every choice must be on screen, or inside a box that really scrolls.
+    for (const choice of document.querySelectorAll(
+      '[data-testid="shopkeeper-store-item"], [data-testid="hero-picker-hero"], [data-testid="arcade-answer"], [data-testid="value-order-card"], [data-testid="flashback-order-card"]',
+    )) {
+      const cut = unreachable(choice);
+      if (cut) {
+        issues.push(cut);
+        break;
+      }
+    }
+    const rail = document.querySelector('[data-testid="score-grid"]')?.getBoundingClientRect();
+    if (rail && rail.right > window.innerWidth + 2) issues.push("side rail runs off screen");
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     if (document.documentElement.scrollWidth > vw + 2) {

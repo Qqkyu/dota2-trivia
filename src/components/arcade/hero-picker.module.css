@@ -40,7 +40,6 @@
 
 .heroPickerBoard {
   display: grid;
-  min-width: 890px;
   gap: 8px 15px;
   grid-template-areas:
     "strength agility"
