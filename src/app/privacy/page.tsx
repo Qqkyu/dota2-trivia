@@ -50,6 +50,7 @@ export default async function PrivacyPage() {
             <li>{t("privacy.browser.id")}</li>
             <li>{t("privacy.browser.score")}</li>
             <li>{t("privacy.browser.settings")}</li>
+            <li>{t("privacy.browser.language")}</li>
             <li>
               {fill(t("privacy.browser.cookies"), {
                 sessionCookie: <code>queue_arcade_session</code>,

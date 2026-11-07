@@ -1,4 +1,6 @@
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import { buildOverlay, loadQuestions } from "../scripts/build-question-locale.mjs";
 import { en } from "../src/i18n/messages/en.ts";
 import { ru } from "../src/i18n/messages/ru.ts";
 import { formatMessage, formatNumber } from "../src/i18n/format.mjs";
@@ -107,6 +109,44 @@ describe("Russian messages", () => {
       for (const text of texts(message)) {
         expect(text, key).not.toMatch(/\bВы\b|\bВаш|[“”]/u);
       }
+    }
+  });
+});
+
+describe("Russian question catalog", () => {
+  const questions = loadQuestions();
+  const units = JSON.parse(readFileSync("src/data/i18n/ru.units.json", "utf8"));
+  const { overlay, missing } = buildOverlay(questions, units);
+  const lines = Object.values(overlay).flatMap(function strings(value) {
+    return typeof value === "string" ? [value] : Object.values(value).flatMap(strings);
+  });
+
+  it("translates every line and matches the committed overlay", () => {
+    expect([...missing.prose.keys()]).toEqual([]);
+    expect([...missing.templates.keys()]).toEqual([]);
+    expect(overlay).toEqual(JSON.parse(readFileSync("src/data/i18n/questions.ru.json", "utf8")));
+    expect(Object.keys(overlay)).toHaveLength(questions.length);
+  });
+
+  it("keeps the same slots in every pattern", () => {
+    const slots = (text) => (text.match(/\{[a-z]\d+\}/g) ?? []).sort();
+    for (const [template, text] of Object.entries(units.templates))
+      expect(slots(text), template).toEqual(slots(template));
+  });
+
+  it("uses the client's words and informal address", () => {
+    const banned = /\bВы\b|\bВаш|(?<![а-яё])является|кулдаун|обезвреж|размнож|[“”]|Команда Team|\bв (?:19|20)\d\d\./u;
+    expect(lines.filter((line) => banned.test(line))).toEqual([]);
+  });
+
+  it("never leaves two numbers side by side", () => {
+    expect(lines.filter((line) => /патче \d+\.\d+[a-z]? \d|Dota 2 \d/.test(line))).toEqual([]);
+  });
+
+  it("keeps the right answer and the order of the options", () => {
+    for (const question of questions) {
+      const answers = overlay[question.id]?.answers ?? {};
+      for (const index of Object.keys(answers)) expect(Number(index)).toBeLessThan(question.answers.length);
     }
   });
 });

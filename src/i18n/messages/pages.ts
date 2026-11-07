@@ -241,6 +241,7 @@ export const pages = {
   "privacy.browser.score": "your guest score, streak and lifetime statistics;",
   "privacy.browser.settings":
     "your volume and mute settings, your party name, an unsent chat message and a few flags for sound playback;",
+  "privacy.browser.language": "your language choice, if you make one: the cookie queue_arcade_lang, for 1 year;",
   "privacy.browser.cookies":
     "if you sign in with Steam, a session cookie ({sessionCookie}, 30 days) and, during sign-in only, a security cookie ({stateCookie}, 10 minutes).",
   "privacy.browser.note":

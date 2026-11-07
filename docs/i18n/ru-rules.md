@@ -22,48 +22,55 @@ Valve's Russian client text decides any term. Pairs are in `~/.cache/queue-arcad
 
 ## Client terms
 
-| English | Russian |
-| --- | --- |
-| cooldown | перезарядка (never "кулдаун" in game text; "кд" only in a casual label) |
-| mana cost | стоимость маны, "сколько маны стоит" |
-| damage / pure damage / magic | урон / чистый урон / магический |
-| stun | оглушение, оглушает |
-| silence | безмолвие, накладывает безмолвие |
-| root | оцепенение, цепенеет (Valve; "обездвиживает" only where Valve has it) |
-| dispel | развеивание, развеивает |
-| debuff immunity, spell immunity | невосприимчивость к эффектам |
-| channeled | прерываемая способность, "ПРЕРЫВАЕМАЯ" in Valve notes |
-| interrupt | прерывать |
-| illusion | иллюзия |
-| creep, ancient creep | крип, древний крип |
-| ward, Observer, Sentry | вард |
-| summoned ward (Healing Ward, Serpent Ward, Death Ward, Nether Ward) | тотем |
-| disjoint | сбивает с цели летящие снаряды |
-| vector targeted | векторное применение |
-| disable | контроль; never "обезвреживать" |
-| disarm | бессилие |
-| active instances of an ability | эффекты, not "экземпляры" |
-| Watcher | Смотритель; the verb is "включать" |
-| Outpost | Аванпост |
-| Wisdom Shrine | алтарь мудрости |
-| Madstone | безумруд |
-| enchantment (neutral) | чары |
-| Selemene | Селемине, does not decline |
-| Inai | Инай |
-| Muerta's veil | вуаль |
-| Secret Shop | Потайная лавка |
-| Base Shop | Лавка на базе |
-| Shrine | Святыня |
-| net worth | общая ценность |
-| shop | лавка |
-| recipe | рецепт |
-| talent | талант |
-| facet | аспект; check the client when a question names one |
-| Nuker, Carry, Support | нюкер, керри, саппорт |
-| attack range | дальность атаки |
-| movement speed | скорость передвижения |
-| patch | патч, "в патче 7.41" |
-| level | уровень; "max level" is "на максимальном уровне" |
+| English                                                             | Russian                                                                                    |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| cooldown                                                            | перезарядка (never "кулдаун" in game text; "кд" only in a casual label)                    |
+| mana cost                                                           | стоимость маны, "сколько маны стоит"                                                       |
+| damage / pure damage / magic                                        | урон / чистый урон / магический                                                            |
+| stun                                                                | оглушение, оглушает                                                                        |
+| silence                                                             | безмолвие, накладывает безмолвие                                                           |
+| root                                                                | оцепенение, цепенеет (Valve; "обездвиживает" only where Valve has it)                      |
+| dispel                                                              | развеивание, развеивает                                                                    |
+| debuff immunity, spell immunity                                     | невосприимчивость к эффектам                                                               |
+| channeled                                                           | прерываемая способность, "ПРЕРЫВАЕМАЯ" in Valve notes                                      |
+| interrupt                                                           | прерывать                                                                                  |
+| illusion                                                            | иллюзия                                                                                    |
+| creep, ancient creep                                                | крип, древний крип                                                                         |
+| ward, Observer, Sentry                                              | вард                                                                                       |
+| summoned ward (Healing Ward, Serpent Ward, Death Ward, Nether Ward) | тотем                                                                                      |
+| disjoint                                                            | сбивает с цели летящие снаряды                                                             |
+| vector targeted                                                     | векторное применение                                                                       |
+| disable                                                             | контроль; never "обезвреживать"                                                            |
+| disarm                                                              | бессилие                                                                                   |
+| base attack time                                                    | базовый интервал атак                                                                      |
+| Familiar (Visage)                                                   | гаргулья                                                                                   |
+| Greevil                                                             | грявол                                                                                     |
+| Illusion Rune                                                       | руна иллюзий                                                                               |
+| units split or multiply                                             | раздваиваться, never "размножаться"                                                        |
+| side quest                                                          | побочное задание, except the short brand line "Мини-квесты" and the title "Квесты по Dota" |
+| Shop groups                                                         | Расходники, Вооружение, Общее, Магия, Потайная лавка; names follow `DOTA_Shop_Category_*`  |
+| active instances of an ability                                      | эффекты, not "экземпляры"                                                                  |
+| Watcher                                                             | Смотритель; the verb is "включать"                                                         |
+| Outpost                                                             | Аванпост                                                                                   |
+| Wisdom Shrine                                                       | алтарь мудрости                                                                            |
+| Madstone                                                            | безумруд                                                                                   |
+| enchantment (neutral)                                               | чары                                                                                       |
+| Selemene                                                            | Селемине, does not decline                                                                 |
+| Inai                                                                | Инай                                                                                       |
+| Muerta's veil                                                       | вуаль                                                                                      |
+| Secret Shop                                                         | Потайная лавка                                                                             |
+| Base Shop                                                           | Лавка на базе                                                                              |
+| Shrine                                                              | Святыня                                                                                    |
+| net worth                                                           | общая ценность                                                                             |
+| shop                                                                | лавка                                                                                      |
+| recipe                                                              | рецепт                                                                                     |
+| talent                                                              | талант                                                                                     |
+| facet                                                               | аспект; check the client when a question names one                                         |
+| Nuker, Carry, Support                                               | нюкер, керри, саппорт                                                                      |
+| attack range                                                        | дальность атаки                                                                            |
+| movement speed                                                      | скорость передвижения                                                                      |
+| patch                                                               | патч, "в патче 7.41"                                                                       |
+| level                                                               | уровень; "max level" is "на максимальном уровне"                                           |
 
 Kill streak announcer names are the only ones that may stay in English, as they are heard in the game: Wicked Sick, Godlike, Rampage.
 
@@ -77,6 +84,7 @@ Kill streak announcer names are the only ones that may stay in English, as they 
 - Numbers: gold is "золота" in sentences and "зол." in tight lists. Seconds are "сек." with a space. Match scores use a colon, 3:2. Decimals use a comma. Thousands use a non-breaking space.
 - Quotes: «ёлочки». Dash: — with spaces. No curly English quotes.
 - Dates: "9 июля 2013". In a full sentence a year takes "году": "в 2013 году"; a bare year is for lists and answer options.
+- A line with several years writes "году" once; later years use "-м" or a colon list with bare years.
 - Never put two numbers side by side: "15 декабря 2025 в патче 7.40", not "патче 7.23 26 ноября" or "Dota 2 9 июля".
 - A film or TV series is "сериал", not "серия".
 
@@ -87,6 +95,7 @@ Kill streak announcer names are the only ones that may stay in English, as they 
 - Answer options must stay parallel and must not give away the right one by length or form.
 - If a wrong option has the same name as Valve's Russian term for the right answer, change the option. The Russian question must have one right answer.
 - A question must not use a masculine noun when an option is a woman; "Какого ведущего" rules out Sheever.
+- When a question governs a case, an animate option declines and the rest do not, so the right answer can stand out by its ending. Write the question so every option stays in the nominative.
 - A label must not share a word with the right option, and the grammatical number of the question must fit every option.
 - Keep `{n0}`, `{x1}`, `{q0}`, `{p0}` and `{name}` slots exactly, with the same count. Slots may move within the sentence.
 
@@ -96,7 +105,7 @@ Write the line as that hero would say it in Russian, with the hero's voice and r
 
 Russian shows gender where English hides it. A past-tense verb or an adjective about the speaker ("я вернулась", "я готов") tells the player the hero's gender and can rule out answer options. Quote Hunt lines must not show the speaker's gender: use the present or future tense, a noun, or an impersonal form. This is a fairness rule, so it beats a closer translation.
 
-The same rule covers short participles, gendered nouns, "сам" and sentences without "я", and labels about people in Flashback.
+Gender-free tools keep the line natural: impersonal verbs ("пришлось"), comparatives ("злее"), neuter nouns ("порождение"), "на первом месте" instead of "первый". The same rule covers short participles, gendered nouns, "сам" and sentences without "я", and labels about people in Flashback.
 
 Use the Russian idiom, not the literal one: "дело в шляпе", never "в мешке". Keep required dashes: "Жить — значит...".
 
@@ -105,20 +114,23 @@ Use the Russian idiom, not the literal one: "дело в шляпе", never "в 
 - One word for one thing across the app: "раунд", "пати" for a party, "зал" is not used, "комната" for the public room.
 - Round type names are fixed:
 
-| English | Russian |
-| --- | --- |
-| Classic Trivia | Викторина |
-| Shopkeeper Rush | Лавочник |
-| Spell Link | Чья способность |
-| Fogged Vision | Туман войны |
-| Echo Hunt | Чей голос |
-| Soundcheck | Саундчек |
-| Quote Hunt | Чья реплика |
-| Aghanim's Lab | Лаборатория Aghanim |
-| Order Up | По порядку |
-| Flashback | Флешбэк |
+| English         | Russian             |
+| --------------- | ------------------- |
+| Classic Trivia  | Викторина           |
+| Shopkeeper Rush | Лавочник            |
+| Spell Link      | Чья способность     |
+| Fogged Vision   | Туман войны         |
+| Echo Hunt       | Чей голос           |
+| Soundcheck      | Саундчек            |
+| Quote Hunt      | Чья реплика         |
+| Aghanim's Lab   | Лаборатория Aghanim |
+| Order Up        | По порядку          |
+| Flashback       | Флешбэк             |
 
 - Attributes are Сила, Ловкость, Интеллект, Универсальный.
+- The reward is "золото", never "очки". A player gives an "ответ", never a "голос", because "Чей голос" is a round.
+- Profile records are "статистика", not "рекорды".
+- A status tag about a player must not show gender. Away is "Нет на месте".
 - A pattern with a name slot can receive a hero, an item or an ability, so its grammar must suit all three.
 - Timer lines must say when something opens, not how long it lasts: "откроется через 5 сек." or "на отметке 5 сек.", never "откроется на 5 сек.".
 - Room copy keeps one shape for any room size. Never "только ты" or "никто не ответил".
