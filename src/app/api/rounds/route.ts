@@ -23,6 +23,7 @@ import { logServerError } from "@/lib/server-diagnostics";
 import { getPlayerQuestionReport, getRoundCrowd } from "@/lib/vote-store";
 import { firstPartyArtTree } from "@/lib/steam-art.mjs";
 import { localizeQuestion } from "@/lib/question-locale";
+import { roundTypeAccuracy } from "@/lib/community-stats";
 import { requestLocale, translatorFor } from "@/i18n/server";
 
 export const runtime = "nodejs";
@@ -212,6 +213,7 @@ export async function GET(request: NextRequest) {
                 )
               : [],
           scoreSummary: round.phase === "reveal" ? result.scoreSummary : null,
+          community: round.phase === "reveal" ? roundTypeAccuracy(round.game, serverNow) : null,
         },
         playerVote,
         playerReport,

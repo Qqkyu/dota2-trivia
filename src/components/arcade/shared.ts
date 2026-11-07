@@ -122,6 +122,7 @@ export interface LobbyPulse {
   /** The server clock when this pulse was produced; rendered as-is until the client ticks. */
   serverNow: number;
   serverOffset: number;
+  gamesToday: number | null;
 }
 
 /** What the server sends: the page embeds one of these so the first paint has the real clock. */
@@ -129,10 +130,16 @@ export interface LobbyPulsePayload {
   activePlayers: number;
   serverNow: number;
   round: LobbyPulse["round"];
+  gamesToday: number | null;
 }
 
 export function lobbyPulseFromPayload(payload: LobbyPulsePayload): LobbyPulse {
-  return { round: payload.round, serverNow: payload.serverNow, serverOffset: payload.serverNow - Date.now() };
+  return {
+    round: payload.round,
+    gamesToday: payload.gamesToday,
+    serverNow: payload.serverNow,
+    serverOffset: payload.serverNow - Date.now(),
+  };
 }
 
 export function normalizeLobbyPulse(payload: unknown): LobbyPulse | null {
@@ -141,8 +148,9 @@ export function normalizeLobbyPulse(payload: unknown): LobbyPulse | null {
   }
   const serverNow = payload.serverNow;
   const serverOffset = serverNow - Date.now();
+  const gamesToday = "gamesToday" in payload && typeof payload.gamesToday === "number" ? payload.gamesToday : null;
   const round = "round" in payload ? payload.round : null;
-  if (!round || typeof round !== "object") return { round: null, serverNow, serverOffset };
+  if (!round || typeof round !== "object") return { round: null, serverNow, serverOffset, gamesToday };
   const candidate = round as Record<string, unknown>;
   const numbers = ["number", "answerDeadline", "revealDeadline", "answerDuration"] as const;
   if (
@@ -151,7 +159,7 @@ export function normalizeLobbyPulse(payload: unknown): LobbyPulse | null {
     typeof candidate.game !== "string" ||
     !(ROUND_GAMES as readonly string[]).includes(candidate.game)
   ) {
-    return { round: null, serverNow, serverOffset };
+    return { round: null, serverNow, serverOffset, gamesToday };
   }
   return {
     round: {
@@ -168,6 +176,7 @@ export function normalizeLobbyPulse(payload: unknown): LobbyPulse | null {
     },
     serverNow,
     serverOffset,
+    gamesToday,
   };
 }
 

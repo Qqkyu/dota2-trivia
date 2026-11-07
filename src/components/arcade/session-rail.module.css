@@ -265,3 +265,10 @@
     grid-row: auto;
   }
 }
+
+.crowdCommunity {
+  margin: 10px 0 0;
+  color: rgba(210, 214, 207, 0.62);
+  font-size: 12px;
+  line-height: 1.35;
+}

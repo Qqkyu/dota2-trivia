@@ -1,4 +1,5 @@
 import { PUBLIC_ARCADE_MODE } from "@/lib/arcade-games.mjs";
+import { gamesPlayedToday } from "@/lib/community-stats";
 import { DEFAULT_GAME_ID } from "@/lib/game-catalogs";
 import { liveRoundAt, liveRoundForSettings } from "@/lib/private-room-rounds";
 import { parsePublicRoomSettings, publicRoomFor } from "@/lib/public-rooms";
@@ -28,5 +29,5 @@ export function lobbyPulseSnapshot(serverNow = Date.now()): LobbyPulsePayload {
           nextGame: liveRoundAt(settings, live.round.number + 1, serverNow)?.game ?? null,
         }
       : null;
-  return { activePlayers: getRoomPresence(room.id), serverNow, round };
+  return { activePlayers: getRoomPresence(room.id), serverNow, round, gamesToday: gamesPlayedToday(serverNow) };
 }

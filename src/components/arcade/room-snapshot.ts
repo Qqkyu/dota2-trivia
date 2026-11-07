@@ -85,6 +85,16 @@ export function normalizeCrowd(value: unknown): CrowdResult | null {
     total,
     keyCounts,
     scoreSummary,
+    community:
+      "community" in value &&
+      value.community &&
+      typeof value.community === "object" &&
+      "share" in value.community &&
+      typeof value.community.share === "number" &&
+      "total" in value.community &&
+      typeof value.community.total === "number"
+        ? { share: value.community.share, total: value.community.total }
+        : null,
   };
 }
 
