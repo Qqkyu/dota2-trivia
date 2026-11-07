@@ -1,5 +1,6 @@
 "use client";
 
+import { kindLabel } from "@/i18n/category";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -278,7 +279,7 @@ export function CalibrationDashboard({
                 <div className={styles.questionCell} role="cell">
                   <small>{record.eyebrow}</small>
                   <strong>{record.prompt}</strong>
-                  <span title={record.questionId}>{record.kind.replaceAll("-", " ")}</span>
+                  <span title={record.questionId}>{kindLabel(t, record.kind)}</span>
                 </div>
                 <span className={styles.modeCell} role="cell">
                   {t(`calibration.game.${record.game}`)}

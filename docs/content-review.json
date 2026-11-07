@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-11-07T12:01:37.911Z",
-  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Opus 5.5 on 2026-11-07 after the Russian language work (English playable catalog unchanged)",
+  "reviewedAt": "2026-11-07T12:27:34.136Z",
+  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Opus 5.5 on 2026-11-07 after the Russian check allowlist (English playable catalog unchanged)",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
     "patch": "7.41f",
@@ -52,7 +52,7 @@
     "scripts/check-responsive-ui.mjs": "34c0b80f68de7b920444c762b70c1d92ca15078d8422444bf25f20975fe63df2",
     "scripts/check-round-accessibility.mjs": "65a98a1aa7e9d13f3d1bbd51013de3b475f9f5b086d4fb6383cff8f336b78125",
     "scripts/check-round-copy.mjs": "04cac0658aa1b243f39c432ba92076b154cec25b10df9f13744b9a418d481a9b",
-    "scripts/check-russian.mjs": "1ad45edeaec23dc9f09fc034a032865a5c7b3db4ac070f26c6a4071a6e98a140",
+    "scripts/check-russian.mjs": "16b3289546e2d4ea1fe04d5c8b73f9ddc49a2b82dc823341177f8db867b73503",
     "scripts/check-security-headers.mjs": "c466235e08bdbee6a9c64c937e4c3ec8b73c87566ac16af19c08795cb689bf78",
     "scripts/check-shop-accessibility.mjs": "233e2ad4b0ef29887aba9bef1b6b872c0aeffb6d98cd97b923b09fb65a87dd11",
     "scripts/check-shop-search.mjs": "dc861f174a8a5abd0b92eba27f4bf01f51357b200a5efd846ef17dc43c641af1",
