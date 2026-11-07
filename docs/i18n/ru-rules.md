@@ -41,6 +41,8 @@ Valve's Russian client text decides any term. Pairs are in `~/.cache/queue-arcad
 | disjoint | сбивает с цели летящие снаряды |
 | vector targeted | векторное применение |
 | disable | контроль; never "обезвреживать" |
+| disarm | бессилие |
+| active instances of an ability | эффекты, not "экземпляры" |
 | Watcher | Смотритель; the verb is "включать" |
 | Outpost | Аванпост |
 | Wisdom Shrine | алтарь мудрости |
@@ -93,6 +95,8 @@ Kill streak announcer names are the only ones that may stay in English, as they 
 Write the line as that hero would say it in Russian, with the hero's voice and rhythm. Do not translate word by word. If a pun cannot survive, keep the attitude and rebuild it. Plain beats clever.
 
 Russian shows gender where English hides it. A past-tense verb or an adjective about the speaker ("я вернулась", "я готов") tells the player the hero's gender and can rule out answer options. Quote Hunt lines must not show the speaker's gender: use the present or future tense, a noun, or an impersonal form. This is a fairness rule, so it beats a closer translation.
+
+The same rule covers short participles, gendered nouns, "сам" and sentences without "я", and labels about people in Flashback.
 
 Use the Russian idiom, not the literal one: "дело в шляпе", never "в мешке". Keep required dashes: "Жить — значит...".
 
