@@ -6,7 +6,10 @@ import {
   type ReportCounts,
 } from "@/lib/calibration";
 import { hideCalibrationAnswerCounts, publicAnswersOpen } from "@/lib/calibration.mjs";
+import { translatorFor } from "@/i18n/server";
+import type { Locale } from "@/i18n/types";
 import { DEFAULT_GAME_ID, GAME_CATALOGS, type GameId } from "@/lib/game-catalogs";
+import { localizeQuestion } from "@/lib/question-locale";
 import { PUBLIC_ROUND_REVEAL_MS, publicRoundClock } from "@/lib/public-rooms";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import {
@@ -61,10 +64,22 @@ export interface CalibrationSnapshot {
   records: CalibrationRecord[];
 }
 
-export function publicCalibrationSnapshot(snapshot: CalibrationSnapshot): CalibrationSnapshot {
+export function publicCalibrationSnapshot(snapshot: CalibrationSnapshot, locale: Locale = "en"): CalibrationSnapshot {
+  const questions = new Map(GAME_CATALOGS[snapshot.gameId].questions.map((question) => [question.id, question]));
   return {
     ...snapshot,
-    records: snapshot.records.map((record) => hideCalibrationAnswerCounts(record) as CalibrationRecord),
+    records: snapshot.records.map((record) => {
+      const question = questions.get(record.questionId);
+      const text = question ? localizeQuestion(question, locale) : record;
+      const hidden = hideCalibrationAnswerCounts({
+        ...record,
+        prompt: text.prompt,
+        eyebrow: text.eyebrow,
+      }) as CalibrationRecord;
+      return hidden.eyebrow === "Spell Link"
+        ? { ...hidden, eyebrow: translatorFor(locale)("question.spellLink") }
+        : hidden;
+    }),
   };
 }
 

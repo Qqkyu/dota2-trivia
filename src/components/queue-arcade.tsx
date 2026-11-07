@@ -1,5 +1,6 @@
 "use client";
 
+import { categoryLabel } from "@/i18n/category";
 import { Check, Clock3 } from "lucide-react";
 import clsx from "clsx";
 import { REPORT_REASON_LABEL_KEYS } from "@/lib/calibration";
@@ -304,7 +305,7 @@ export function QueueArcade({
                   {t(ROUND_GAME_LABEL_KEYS[currentGame])}
                 </span>
                 <i />
-                <span>{currentQuestion.category}</span>
+                <span>{categoryLabel(t, currentQuestion.category)}</span>
               </div>
               <div
                 className={styles.timer}

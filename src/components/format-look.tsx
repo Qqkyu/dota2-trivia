@@ -1,5 +1,6 @@
 "use client";
 
+import { categoryLabel } from "@/i18n/category";
 import clsx from "clsx";
 import type { CSSProperties } from "react";
 import { Clock3, Gem, ListOrdered, MessageSquareQuote, ScanEye, Swords, Volume2, WandSparkles } from "lucide-react";
@@ -350,7 +351,7 @@ export function FormatLook({
               {preview?.category ? (
                 <>
                   <i />
-                  <span>{preview.category}</span>
+                  <span>{categoryLabel(t, preview.category)}</span>
                 </>
               ) : null}
             </div>

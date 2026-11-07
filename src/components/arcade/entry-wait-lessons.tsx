@@ -1,3 +1,4 @@
+import { categoryLabel } from "@/i18n/category";
 import clsx from "clsx";
 import { ChevronLeft, ChevronRight, Clock3 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -56,7 +57,7 @@ export function ClassicChoiceBoard({ question, active }: { question: PublicArcad
             {t("game.trivia.label")}
           </span>
           <i />
-          <span>{question.category}</span>
+          <span>{categoryLabel(t, question.category)}</span>
         </div>
         <div className={own.practiceTag} data-testid="entry-wait-practice-tag">
           <Clock3 />

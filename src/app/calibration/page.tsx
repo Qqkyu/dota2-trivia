@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { cookies, headers } from "next/headers";
 import { CalibrationDashboard } from "@/components/calibration-dashboard";
 import { SiteChrome } from "@/components/site-chrome";
-import { getTranslator } from "@/i18n/server";
+import { getLocale, getTranslator } from "@/i18n/server";
 import { getUserBySession } from "@/lib/account-store";
 import {
   getCalibrationSnapshot,
@@ -66,7 +66,7 @@ export default async function CalibrationPage() {
     : await getSharedCalibrationSnapshot(DEFAULT_GAME_ID);
   return (
     <CalibrationDashboard
-      snapshot={canReview ? snapshot : publicCalibrationSnapshot(snapshot)}
+      snapshot={canReview ? snapshot : publicCalibrationSnapshot(snapshot, await getLocale())}
       logoUrl={catalog.logoUrl}
       canReview={canReview}
     />

@@ -2,6 +2,15 @@ import type { Messages } from "../types";
 
 /** Russian text. Rules: docs/i18n/ru-rules.md. `tests/i18n.test.mjs` checks the keys and slots. */
 export const ru: Messages = {
+  "category.Abilities": "Способности",
+  "category.Cooldowns": "Перезарядка",
+  "category.Damage": "Урон",
+  "category.Esports": "Киберспорт",
+  "category.Heroes": "Герои",
+  "category.History": "История",
+  "category.Items": "Предметы",
+  "category.Mana": "Мана",
+  "category.Recipes": "Рецепты",
   "language.label": "Язык",
   "question.hiddenHero": "Скрытый герой",
   "question.spellLink": "Чья способность",
@@ -272,7 +281,7 @@ export const ru: Messages = {
   "shell.footer.calibration": "Калибровка",
   "shell.footer.legal":
     "Товарный знак Dota 2 принадлежит Valve Corporation. Игровые материалы принадлежат их правообладателям. Этот проект не связан с Valve.",
-  "lobby.title": "Мини-квесты по Dota",
+  "lobby.title": "Квесты по Dota",
   "lobby.titleAccent": "между матчами",
   "lobby.lead":
     "Одна общая комната, один {seconds}-секундный таймер. Вопрос для всех один. В конце раунда видно, как ответила комната. За верный ответ получишь [вдвое] больше очков, если большинство ошиблось.",
