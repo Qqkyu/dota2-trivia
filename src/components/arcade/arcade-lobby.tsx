@@ -77,11 +77,9 @@ function LiveRoom({
           {t("lobby.live.publicRoom")}
         </span>
         <span data-testid="live-room-players">
-          {pulse?.gamesToday
-            ? t("roomStatus.gamesToday", { count: pulse.gamesToday, games: number(pulse.gamesToday) })
-            : activePlayers > 0
-              ? t("roomStatus.playing", { count: activePlayers, players: number(activePlayers) })
-              : t("roomStatus.open")}
+          {activePlayers > 0
+            ? t("roomStatus.playing", { count: activePlayers, players: number(activePlayers) })
+            : t("roomStatus.open")}
         </span>
       </div>
       <div className={own.liveRoomBody}>
@@ -115,6 +113,12 @@ function LiveRoom({
               : round
                 ? t("lobby.live.joinNextRound")
                 : t("lobby.live.sameQuestion")}
+        </p>
+        {/* Always rendered, so the card keeps its height before the number arrives. */}
+        <p className={own.liveRoomToday} data-testid="live-room-today">
+          {pulse?.gamesToday
+            ? t("lobby.live.gamesToday", { count: pulse.gamesToday, games: number(pulse.gamesToday) })
+            : "\u00a0"}
         </p>
       </div>
     </div>

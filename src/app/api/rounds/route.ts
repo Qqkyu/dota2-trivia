@@ -23,7 +23,7 @@ import { logServerError } from "@/lib/server-diagnostics";
 import { getPlayerQuestionReport, getRoundCrowd } from "@/lib/vote-store";
 import { firstPartyArtTree } from "@/lib/steam-art.mjs";
 import { localizeQuestion } from "@/lib/question-locale";
-import { gamesPlayedToday, roundTypeAccuracy } from "@/lib/community-stats";
+import { roundTypeAccuracy } from "@/lib/community-stats";
 import { requestLocale, translatorFor } from "@/i18n/server";
 
 export const runtime = "nodejs";
@@ -200,7 +200,7 @@ export async function GET(request: NextRequest) {
                   spellLink: t("question.spellLink"),
                 }),
               ),
-        presence: { activePlayers, gamesToday: settings.privateCode ? null : gamesPlayedToday(serverNow) },
+        presence: { activePlayers },
         crowd: {
           counts: round.phase === "reveal" ? result.counts : HIDDEN_COUNTS,
           total: result.total,

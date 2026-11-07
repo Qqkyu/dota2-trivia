@@ -24,7 +24,6 @@ type SessionRailProps = { currentQuestion: PublicArcadeQuestion } & Pick<
   | "streak"
   | "roomError"
   | "activePlayers"
-  | "gamesToday"
 > &
   Pick<ReturnType<typeof deriveRoundView>, "currentGame" | "recentHistory" | "recentHistoryStart">;
 
@@ -39,7 +38,6 @@ export function SessionRail({
   streak,
   roomError,
   activePlayers,
-  gamesToday,
   currentGame,
   recentHistory,
   recentHistoryStart,
@@ -75,11 +73,9 @@ export function SessionRail({
           <span className={own.livePill}>{t(phase === "answering" ? "session.live" : "session.final")}</span>
         </div>
         <strong data-testid="room-card-players">
-          {gamesToday
-            ? t("roomStatus.gamesToday", { count: gamesToday, games: number(gamesToday) })
-            : activePlayers > 0
-              ? t("roomStatus.playing", { count: activePlayers, players: number(activePlayers) })
-              : t("roomStatus.open")}
+          {activePlayers > 0
+            ? t("roomStatus.playing", { count: activePlayers, players: number(activePlayers) })
+            : t("roomStatus.open")}
         </strong>
         <p data-testid="room-card-answers">{roomLine}</p>
       </div>

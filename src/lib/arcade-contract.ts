@@ -71,8 +71,6 @@ export type PublicRoundSnapshot = Omit<PublicRound, "questionId">;
 
 export interface RoomPresence {
   activePlayers: number;
-  /** Public room only, and null when ARCADE_COMMUNITY_STATS is off. */
-  gamesToday?: number | null;
 }
 
 export interface RoomSnapshot {

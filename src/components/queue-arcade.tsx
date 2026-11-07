@@ -90,7 +90,6 @@ export function QueueArcade({
     activeRoundId,
     roundAnnouncement,
     activePlayers,
-    gamesToday,
     lobbyPulse,
     reportState,
     reportedReason,
@@ -419,7 +418,6 @@ export function QueueArcade({
             streak={streak}
             roomError={roomError}
             activePlayers={activePlayers}
-            gamesToday={gamesToday}
             currentGame={currentGame}
             recentHistory={recentHistory}
             recentHistoryStart={recentHistoryStart}
