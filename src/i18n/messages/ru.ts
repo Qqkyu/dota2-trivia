@@ -2,11 +2,11 @@ import type { Messages } from "../types";
 
 /** Russian text. Rules: docs/i18n/ru-rules.md. `tests/i18n.test.mjs` checks the keys and slots. */
 export const ru: Messages = {
-  "lobby.live.gamesToday": {
-    one: "{games} игра за последние сутки",
-    few: "{games} игры за последние сутки",
-    many: "{games} игр за последние сутки",
-    other: "{games} игры за последние сутки",
+  "roomStatus.gamesToday": {
+    one: "{games} игра за сутки",
+    few: "{games} игры за сутки",
+    many: "{games} игр за сутки",
+    other: "{games} игры за сутки",
   },
   "session.communityShare": "Все игроки в этом типе раундов: {share}% верных",
   "kind.ability-damage": "урон способности",
