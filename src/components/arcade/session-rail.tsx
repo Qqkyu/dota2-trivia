@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { isPublicKeyedAnswerQuestion } from "@/lib/public-question";
 import styles from "../queue-arcade.module.css";
 import own from "./session-rail.module.css";
-import { KeyedCrowdSplit } from "./crowd-split";
+import { ChoiceCrowdSplit, KeyedCrowdSplit } from "./crowd-split";
 import { ModeIcon } from "./mode-icon";
 
 import type { useArcadeRoom } from "./use-arcade-room";
@@ -17,6 +17,7 @@ type SessionRailProps = { currentQuestion: PublicArcadeQuestion } & Pick<
   | "phase"
   | "currentQuestion"
   | "roundIndex"
+  | "selectedIndex"
   | "selectedAnswerKey"
   | "crowd"
   | "score"
@@ -30,6 +31,7 @@ export function SessionRail({
   phase,
   currentQuestion,
   roundIndex,
+  selectedIndex,
   selectedAnswerKey,
   crowd,
   score,
@@ -119,7 +121,7 @@ export function SessionRail({
         </div>
       </div>
 
-      {phase === "reveal" && isPublicKeyedAnswerQuestion(currentQuestion) && crowd.total > 0 && (
+      {phase === "reveal" && crowd.total > 0 && (
         <div className={own.crowdCard} data-testid="crowd-card" data-phase={phase}>
           <div className={own.cardTitle}>
             <span>
@@ -129,7 +131,11 @@ export function SessionRail({
             <span className={own.livePill}>{t("session.final")}</span>
           </div>
           <strong>{t("session.answerTotal", { count: crowd.total, answers: answered })}</strong>
-          <KeyedCrowdSplit question={currentQuestion} crowd={crowd} selectedKey={selectedAnswerKey} />
+          {isPublicKeyedAnswerQuestion(currentQuestion) ? (
+            <KeyedCrowdSplit question={currentQuestion} crowd={crowd} selectedKey={selectedAnswerKey} />
+          ) : (
+            <ChoiceCrowdSplit question={currentQuestion} crowd={crowd} selectedIndex={selectedIndex} />
+          )}
           {crowd.scoreSummary && (
             <div className={own.crowdScoreSummary} data-testid="crowd-score-summary">
               <span>
