@@ -1,5 +1,8 @@
 import type { FormatPreview } from "@/components/format-look";
 import { FormatPreviewCard } from "@/components/format-preview-card";
+import { getTranslator } from "@/i18n/server";
+import type { MessageKey } from "@/i18n/types";
+import { ROUND_GAME_SHORT_LABEL_KEYS } from "@/lib/arcade-games.mjs";
 import styles from "../app/profile/profile.module.css";
 
 export interface ProfileFormatRow {
@@ -19,7 +22,8 @@ function percentLabel(value: number | null) {
   return value === null ? "—" : `${value}%`;
 }
 
-export function ProfileRecords({ formats }: { formats: ProfileFormatRow[] }) {
+export async function ProfileRecords({ formats }: { formats: ProfileFormatRow[] }) {
+  const t = await getTranslator();
   return (
     <section className={styles.recordGrid} data-testid="profile-records">
       <div className={styles.cardGrid}>
@@ -27,8 +31,8 @@ export function ProfileRecords({ formats }: { formats: ProfileFormatRow[] }) {
           <FormatPreviewCard
             key={format.game}
             game={format.game}
-            label={format.label}
-            look={format.look}
+            label={t(ROUND_GAME_SHORT_LABEL_KEYS[format.game as keyof typeof ROUND_GAME_SHORT_LABEL_KEYS])}
+            look={t(`profile.look.${format.game}` as MessageKey)}
             preview={format.preview}
             data-empty={format.you === null ? "true" : "false"}
             data-testid={`format-mastery-${format.game}`}
@@ -36,16 +40,16 @@ export function ProfileRecords({ formats }: { formats: ProfileFormatRow[] }) {
             data-room={format.room === null ? "" : String(format.room)}
             data-early={format.early ? `${format.early.correct}/${format.early.answered}` : ""}
             data-clues={format.clues.map((clue) => `${clue.correct}/${clue.answered}`).join(",") || ""}
-            subtitle={format.answered ? <small>{format.answered} played</small> : null}
+            subtitle={format.answered ? <small>{t("profile.record.played", { count: format.answered })}</small> : null}
           >
             <div className={styles.duel}>
               <div className={styles.duelScores}>
                 <span>
-                  <small>You</small>
+                  <small>{t("profile.record.you")}</small>
                   <strong>{percentLabel(format.you)}</strong>
                 </span>
                 <span>
-                  <small>Crowd</small>
+                  <small>{t("profile.record.crowd")}</small>
                   <strong>{percentLabel(format.room)}</strong>
                 </span>
               </div>
@@ -62,13 +66,13 @@ export function ProfileRecords({ formats }: { formats: ProfileFormatRow[] }) {
               <ul className={styles.kinds}>
                 {format.slices.map((slice) => (
                   <li key={slice.format}>
-                    <span>{slice.label}</span>
+                    <span>{t(`profile.slice.${slice.format}` as MessageKey)}</span>
                     <strong>{slice.accuracy}%</strong>
                   </li>
                 ))}
                 {format.clues.map((clue) => (
                   <li key={clue.stage}>
-                    <span>{clue.label}</span>
+                    <span>{t(`profile.clue.${clue.stage}` as MessageKey)}</span>
                     <strong>
                       {clue.correct}/{clue.answered}
                     </strong>

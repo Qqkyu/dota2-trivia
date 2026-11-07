@@ -37,11 +37,13 @@ async function healthy(url) {
   }
 }
 
-function run(script, appUrl) {
+function run(entry, appUrl) {
+  // "check-layout.mjs ru" runs a browser check with the browser language set to Russian.
+  const [script, locale] = entry.split(" ");
   return new Promise((resolve, reject) => {
     const child = spawn("node", [`scripts/${script}`], {
       stdio: "inherit",
-      env: { ...process.env, APP_URL: appUrl },
+      env: { ...process.env, APP_URL: appUrl, ...(locale ? { CHECK_LOCALE: locale } : {}) },
     });
     child.on("error", reject);
     child.on("exit", (code) => {
@@ -130,6 +132,8 @@ try {
     "check-round-copy.mjs",
     "check-shop-search.mjs",
     "check-layout.mjs",
+    "check-layout.mjs ru",
+    "check-russian.mjs",
     "check-hero-search.mjs",
     "check-flashback-ui.mjs",
     "check-ui-recovery.mjs",

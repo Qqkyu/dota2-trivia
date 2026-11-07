@@ -1,5 +1,7 @@
 import type { CrowdResult } from "@/lib/arcade-contract";
-import type { ArcadeMode, RoundGame, ShopkeeperItemReference } from "@/lib/trivia";
+import type { Translate } from "@/i18n/translator";
+import type { MessageKey } from "@/i18n/types";
+import type { RoundGame, ShopkeeperItemReference } from "@/lib/trivia";
 import type { ReportReason } from "@/lib/calibration";
 import { safeBrowserStorage } from "@/lib/browser-storage.mjs";
 import { LIVE_ROUND_GAMES } from "@/lib/arcade-games.mjs";
@@ -40,23 +42,26 @@ export const PREVIOUS_SETTINGS_KEY = "queue-arcade:settings:v3";
 export const LEGACY_STORAGE_KEY = "queue-trivia:stats:v1";
 export const LEGACY_SETTINGS_KEY = "queue-trivia:settings:v1";
 export const ROUND_GAMES: RoundGame[] = [...LIVE_ROUND_GAMES] as RoundGame[];
-export const WAIT_CHOICE_QUESTION: PublicArcadeQuestion = {
-  id: "wait-tip-keys",
-  game: "trivia",
-  kind: "item-cost",
-  category: "Items",
-  difficulty: 1,
-  eyebrow: "Blink Dagger",
-  prompt: "How much does Blink Dagger cost?",
-  image: {
-    src: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blink.png?t=1593393829403",
-    alt: "Blink Dagger item icon",
-    kind: "item",
-  },
-  answers: ["2,250 gold", "1,775 gold", "2,600 gold", "2,875 gold"],
-  clueStage: 1,
-  reveal: null,
-};
+export function waitChoiceQuestion(t: Translate, number: (value: number) => string): PublicArcadeQuestion {
+  const gold = (amount: number) => t("wait.demo.gold", { amount: number(amount) });
+  return {
+    id: "wait-tip-keys",
+    game: "trivia",
+    kind: "item-cost",
+    category: t("wait.demo.category") as PublicArcadeQuestion["category"],
+    difficulty: 1,
+    eyebrow: "Blink Dagger",
+    prompt: t("wait.demo.prompt"),
+    image: {
+      src: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blink.png?t=1593393829403",
+      alt: t("wait.demo.imageAlt"),
+      kind: "item",
+    },
+    answers: [gold(2_250), gold(1_775), gold(2_600), gold(2_875)],
+    clueStage: 1,
+    reveal: null,
+  };
+}
 export const WAIT_HERO_QUESTION: PublicArcadeQuestion = {
   id: "wait-tip-heroes",
   game: "quote-hunt",
@@ -208,99 +213,6 @@ export const EMPTY_STATS: LifetimeStats = {
   bestScore: 0,
 };
 
-export const MODE_INFO: Record<
-  ArcadeMode,
-  {
-    label: string;
-    shortLabel: string;
-    eyebrow: string;
-    description: string;
-    action: string;
-  }
-> = {
-  mixed: {
-    label: "Queue Arcade",
-    shortLabel: "Public Arcade",
-    eyebrow: "One room · Endless",
-    description: "Dota facts, recipes, spells, history, TI, fog, voices, sounds, and quotes—one round at a time.",
-    action: "Play Dota",
-  },
-  trivia: {
-    label: "Classic Trivia",
-    shortLabel: "Classic Trivia",
-    eyebrow: "The original",
-    description: "Mana, damage, cooldowns, heroes, and items—the classic global-results loop.",
-    action: "Enter classic trivia",
-  },
-  shopkeeper: {
-    label: "Shopkeeper Rush",
-    shortLabel: "Shopkeeper",
-    eyebrow: "Recipe knowledge",
-    description: "Build items, spot exact recipes, find shared parts, and trace direct upgrades.",
-    action: "Open the secret shop",
-  },
-  "spell-link": {
-    label: "Spell Link",
-    shortLabel: "Spell Link",
-    eyebrow: "Icon recognition",
-    description: "Match an ability to its hero from mechanics, name, and icon.",
-    action: "Link some spells",
-  },
-  "fogged-vision": {
-    label: "Fogged Vision",
-    shortLabel: "Fogged",
-    eyebrow: "Progressive reveal",
-    description: "Recognize a hero through heavy fog before the portrait sharpens and the easy points disappear.",
-    action: "Enter the fog",
-  },
-  "echo-hunt": {
-    label: "Echo Hunt",
-    shortLabel: "Echo",
-    eyebrow: "Hero voices",
-    description: "Identify a hero response as its opening fragment grows into a longer line.",
-    action: "Hunt some echoes",
-  },
-  soundcheck: {
-    label: "Soundcheck",
-    shortLabel: "Soundcheck",
-    eyebrow: "Audio recognition",
-    description: "Identify real effects and item activations as short audio cuts grow longer.",
-    action: "Enter soundcheck",
-  },
-  "quote-hunt": {
-    label: "Quote Hunt",
-    shortLabel: "Quotes",
-    eyebrow: "Hero responses",
-    description: "Read a real hero response and identify the speaker from their attitude, diction, and worldview.",
-    action: "Read between the lines",
-  },
-  "aghanim-lab": {
-    label: "Aghanim's Lab",
-    shortLabel: "Aghanim's Lab",
-    eyebrow: "Upgrade knowledge",
-    description: "Match current Scepter and Shard effects to their heroes before the ability name appears.",
-    action: "Enter the lab",
-  },
-  "order-up": {
-    label: "Order Up",
-    shortLabel: "Order Up",
-    eyebrow: "Sort the facts",
-    description: "Put four audited items or abilities in the right order before the clock runs out.",
-    action: "Sort the cards",
-  },
-  flashback: {
-    label: "Flashback",
-    shortLabel: "Flashback",
-    eyebrow: "History and TI",
-    description: "Years, champions, cities, and the old map—nostalgia in 15 seconds.",
-    action: "Open the archives",
-  },
-};
-
-export function gameLabel(game: RoundGame) {
-  return MODE_INFO[game].label;
-}
-
 export function accuracy(correct: number, answered: number) {
   return accuracyRate(correct, answered);
 }
@@ -358,16 +270,16 @@ export function classicQuestionContext(question: PublicArcadeQuestion) {
   return question.eyebrow.split("·", 1)[0]?.trim() || null;
 }
 
-export function shopkeeperAnswerAction(question: PublicArcadeQuestion) {
-  if (question.shopkeeper?.format === "build-result") return "Choose the finished item";
+export function shopkeeperAnswerAction(question: PublicArcadeQuestion): MessageKey {
+  if (question.shopkeeper?.format === "build-result") return "shopAction.finishedItem";
   if (question.shopkeeper?.format === "real-recipe") {
     const cost = question.shopkeeper.recipeCost;
     return cost === 0
-      ? "Pick the shop items. No recipe required."
+      ? "shopAction.recipeNotNeeded"
       : typeof cost === "number" && cost > 0
-        ? "Pick the shop items. Recipe is included."
-        : "Pick the shop items.";
+        ? "shopAction.recipeIncluded"
+        : "shopAction.pickItems";
   }
-  if (question.shopkeeper?.format === "shared-part") return "Choose the shared component";
-  return "Choose the direct upgrade";
+  if (question.shopkeeper?.format === "shared-part") return "shopAction.sharedPart";
+  return "shopAction.directUpgrade";
 }

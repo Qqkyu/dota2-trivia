@@ -129,7 +129,7 @@
 .shopkeeperTooltip small {
   color: #d4aa56;
   font:
-    9px var(--font-geist-mono),
+    9px "Geist Mono Cyrillic", var(--font-geist-mono),
     monospace;
 }
 

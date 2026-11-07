@@ -79,7 +79,7 @@
 
 .lobby h1 {
   margin: 0;
-  font-family: var(--font-radiance), var(--font-geist-sans), sans-serif;
+  font-family: "Radiance Cyrillic", var(--font-radiance), "Geist Cyrillic", var(--font-geist-sans), sans-serif;
   font-size: clamp(40px, 4.6vw, 64px);
   font-weight: 700;
   letter-spacing: 0.01em;
@@ -112,7 +112,7 @@
 
 .previewQuestion > span {
   color: var(--red-bright);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   letter-spacing: 0.13em;
   text-transform: uppercase;
@@ -154,7 +154,7 @@
 
 .entryWaitContent > strong {
   color: #e7ecec;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: clamp(42px, 6vw, 68px);
   font-weight: 450;
   letter-spacing: 0.08em;
@@ -326,7 +326,7 @@
   min-height: 76px;
   justify-content: center;
   color: #f0d9a0;
-  font-family: var(--font-radiance), sans-serif;
+  font-family: "Radiance Cyrillic", var(--font-radiance), sans-serif;
   font-size: 28px;
   font-weight: 700;
 }
@@ -469,7 +469,7 @@
 
 .roundHeader > div:first-child span {
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -545,7 +545,7 @@
 
 .timer strong {
   min-width: 44px;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 30px;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
@@ -660,7 +660,7 @@
 
 .questionCopy > span {
   color: var(--red-bright);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -741,7 +741,7 @@
   border: 1px solid rgba(210, 163, 74, 0.35);
   background: #171814;
   color: #d8b76f;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -838,7 +838,7 @@
   border: 1px solid rgba(230, 188, 93, 0.5);
   background: rgba(12, 13, 12, 0.92);
   color: #e5c069;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   font-weight: 550;
 }
@@ -993,7 +993,7 @@
   gap: 6px;
   margin: 0;
   color: #a7aaa5;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   font-weight: 550;
   letter-spacing: 0.12em;
@@ -1119,7 +1119,7 @@
   background: rgba(4, 6, 6, 0.9);
   color: #dde2dc;
   font:
-    normal 7px var(--font-geist-mono),
+    normal 7px "Geist Mono Cyrillic", var(--font-geist-mono),
     monospace;
 }
 
@@ -1144,7 +1144,7 @@
 .shopkeeperRecipePick > small {
   color: #8a8d85;
   font:
-    8px var(--font-geist-mono),
+    8px "Geist Mono Cyrillic", var(--font-geist-mono),
     monospace;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1153,7 +1153,7 @@
 .shopkeeperRecipeBuilderLabel strong {
   color: #d8b45e;
   font:
-    12px var(--font-geist-mono),
+    12px "Geist Mono Cyrillic", var(--font-geist-mono),
     monospace;
   font-weight: 550;
 }
@@ -1184,7 +1184,7 @@
   border-style: dashed;
   color: #62563d;
   font:
-    17px var(--font-geist-mono),
+    17px "Geist Mono Cyrillic", var(--font-geist-mono),
     monospace;
 }
 
@@ -1216,7 +1216,7 @@
 
 .shopkeeperRecipeIncluded small {
   font:
-    8px var(--font-geist-mono),
+    8px "Geist Mono Cyrillic", var(--font-geist-mono),
     monospace;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1256,7 +1256,7 @@
   background: linear-gradient(180deg, rgba(226, 175, 73, 0.18), rgba(110, 77, 20, 0.13));
   color: #e6c477;
   font:
-    10px var(--font-geist-mono),
+    10px "Geist Mono Cyrillic", var(--font-geist-mono),
     monospace;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1313,7 +1313,7 @@
   border-bottom: 2px solid transparent;
   background: transparent;
   color: #777a74;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1362,7 +1362,7 @@
 .shopkeeperGroup h3 {
   margin: 0 0 6px;
   color: #8f928a;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.09em;
@@ -1433,7 +1433,7 @@
   background: rgba(5, 7, 6, 0.88);
   color: #e2d4ae;
   font:
-    normal 8px var(--font-geist-mono),
+    normal 8px "Geist Mono Cyrillic", var(--font-geist-mono),
     monospace;
 }
 
@@ -1472,7 +1472,7 @@
   border: 1px solid rgba(114, 169, 196, 0.32);
   background: #11191d;
   color: #9ed0e6;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   min-width: 72px;
   justify-content: center;
   font-size: 11px;
@@ -1551,7 +1551,7 @@
   border: 1px solid rgba(169, 155, 232, 0.34);
   background: #15131f;
   color: #c7bcf4;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 11px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -1611,7 +1611,7 @@
 
 .clueList strong {
   color: #64899a;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   font-weight: 450;
 }
@@ -1759,7 +1759,7 @@
   border: 1px solid rgba(107, 196, 173, 0.32);
   background: rgba(9, 19, 17, 0.92);
   color: #8bd3c0;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -1832,7 +1832,7 @@
 .echoPlayer > span {
   grid-column: 1 / -1;
   color: #88779c;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   letter-spacing: 0.09em;
   text-align: center;
@@ -1980,7 +1980,7 @@
   right: 16px;
   bottom: 10px;
   color: #8d7156;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -2017,7 +2017,7 @@
   background: rgba(222, 164, 96, 0.045);
   color: #d8c1a6;
   font:
-    10px var(--font-geist-mono),
+    10px "Geist Mono Cyrillic", var(--font-geist-mono),
     monospace;
 }
 
@@ -2087,7 +2087,7 @@
 
 .answerArtwork > span {
   color: var(--faint);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
 }
 
@@ -2147,7 +2147,7 @@
   border: 1px solid var(--line-strong);
   background: rgba(0, 0, 0, 0.18);
   color: #afb3b0;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 12px;
   transition: 150ms ease;
 }
@@ -2232,7 +2232,7 @@
 .answerResult strong {
   min-width: 38px;
   color: #c4c8c3;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 13px;
   font-weight: 500;
   text-align: right;
@@ -2412,7 +2412,7 @@
 .pointsAward small {
   margin-bottom: 2px;
   color: var(--gold);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -2420,7 +2420,7 @@
 
 .pointsAward strong {
   color: #e8d09c;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 25px;
   font-weight: 500;
   line-height: 1;
@@ -2542,7 +2542,7 @@
   background: rgba(104, 122, 181, 0.06);
   color: #aeb7d6;
   font:
-    10px var(--font-geist-mono),
+    10px "Geist Mono Cyrillic", var(--font-geist-mono),
     monospace;
   letter-spacing: 0.06em;
   text-transform: uppercase;

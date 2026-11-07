@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { cookies, headers } from "next/headers";
 import { CalibrationDashboard } from "@/components/calibration-dashboard";
 import { SiteChrome } from "@/components/site-chrome";
+import { getLocale, getTranslator } from "@/i18n/server";
 import { getUserBySession } from "@/lib/account-store";
 import {
   getCalibrationSnapshot,
@@ -17,11 +18,14 @@ import styles from "../privacy/privacy.module.css";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Calibration Lab",
-  description: "Aggregate Queue Arcade question accuracy and player reports.",
-  robots: { index: false, follow: true },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslator();
+  return {
+    title: t("meta.calibration.title"),
+    description: t("meta.calibration.description"),
+    robots: { index: false, follow: true },
+  };
+}
 
 // The page renders every question in the catalog, so public loads are capped per
 // address and in total. Reviewers are not limited.
@@ -47,11 +51,12 @@ export default async function CalibrationPage() {
   const user = token ? await getUserBySession(sessionTokenHash(token)).catch(() => null) : null;
   const canReview = isQuestionReviewer(user);
   if (!canReview && !(await publicLoadAllowed())) {
+    const t = await getTranslator();
     return (
       <SiteChrome current="calibration">
         <main className={styles.page} data-testid="calibration-busy">
-          <h1>Calibration Lab is busy.</h1>
-          <p className={styles.intro}>It was opened many times in the last minute. Try again in a minute.</p>
+          <h1>{t("calibration.busy.title")}</h1>
+          <p className={styles.intro}>{t("calibration.busy.body")}</p>
         </main>
       </SiteChrome>
     );
@@ -61,7 +66,7 @@ export default async function CalibrationPage() {
     : await getSharedCalibrationSnapshot(DEFAULT_GAME_ID);
   return (
     <CalibrationDashboard
-      snapshot={canReview ? snapshot : publicCalibrationSnapshot(snapshot)}
+      snapshot={canReview ? snapshot : publicCalibrationSnapshot(snapshot, await getLocale())}
       logoUrl={catalog.logoUrl}
       canReview={canReview}
     />

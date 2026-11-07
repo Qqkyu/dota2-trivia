@@ -1,4 +1,5 @@
 import catalogData from "@/data/hero-picker.json";
+import type { MessageKey } from "@/i18n/types";
 import type { TriviaQuestion } from "@/lib/trivia";
 import {
   heroCorrectAnswerKey as findHeroCorrectAnswerKey,
@@ -26,6 +27,20 @@ export interface HeroPickerCatalog {
   columns: number;
   groups: HeroPickerGroup[];
 }
+
+export const HERO_GROUP_LABEL_KEYS: Record<HeroPickerGroup["key"], MessageKey> = {
+  strength: "round.heroPicker.group.strength",
+  agility: "round.heroPicker.group.agility",
+  intelligence: "round.heroPicker.group.intelligence",
+  universal: "round.heroPicker.group.universal",
+};
+
+export const HERO_GROUP_ARIA_KEYS: Record<HeroPickerGroup["key"], MessageKey> = {
+  strength: "round.heroPicker.groupAria.strength",
+  agility: "round.heroPicker.groupAria.agility",
+  intelligence: "round.heroPicker.groupAria.intelligence",
+  universal: "round.heroPicker.groupAria.universal",
+};
 
 export const HERO_PICKER_CATALOG = catalogData as HeroPickerCatalog;
 export const HERO_PICKER_HEROES = HERO_PICKER_CATALOG.groups.flatMap((group) => group.heroes);

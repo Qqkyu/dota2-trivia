@@ -1,5 +1,6 @@
 import type { PublicArcadeQuestion } from "@/lib/public-question";
 import { Keyboard, ListOrdered, ShoppingBag, Signal, Users } from "lucide-react";
+import { useLocale } from "@/i18n/provider";
 import styles from "../queue-arcade.module.css";
 import own from "./answer-helper.module.css";
 import { shopkeeperAnswerAction } from "./shared";
@@ -40,6 +41,7 @@ export function AnswerHelper({
   isSoundSequence,
   liveAward,
 }: AnswerHelperProps) {
+  const { t } = useLocale();
   return (
     <div className={styles.answerHelper} data-testid="answer-helper">
       {selectedIndex === null ? (
@@ -56,41 +58,45 @@ export function AnswerHelper({
           <span className={own.answerHelperCopy}>
             {isOpenShopRound
               ? isRecipeBuilderRound
-                ? shopkeeperAnswerAction(currentQuestion)
+                ? t(shopkeeperAnswerAction(currentQuestion))
                 : isSoundcheckRound
-                  ? "Choose the item that made the sound"
-                  : "Choose an item from the shop · Enter picks the only match"
+                  ? t("round.helper.shopSound")
+                  : t("round.helper.shopItem")
               : isHeroPickerRound
-                ? "Choose a hero · type to search · Enter picks the only match"
+                ? t("round.helper.hero")
                 : isValueOrderRound
-                  ? "Choose four in order"
+                  ? t("round.helper.order")
                   : isFlashbackOrderRound
-                    ? "Choose four in order · A–D or 1–4"
+                    ? t("round.helper.flashbackOrder")
                     : isFlashbackYearRound
-                      ? "Slide to the year, then press Lock · Enter also locks"
+                      ? t("round.helper.flashbackYear")
                       : currentGame === "shopkeeper"
-                        ? `${shopkeeperAnswerAction(currentQuestion)} · A–D or 1–4`
+                        ? t("round.helper.withKeys", { action: t(shopkeeperAnswerAction(currentQuestion)) })
                         : currentGame === "spell-link"
-                          ? "Link the spell to a hero · A–D or 1–4"
+                          ? t("round.helper.spell")
                           : currentGame === "fogged-vision"
-                            ? "Name the silhouette · A–D or 1–4"
+                            ? t("round.helper.fog")
                             : currentGame === "echo-hunt"
-                              ? "Match the voice · A–D or 1–4"
+                              ? t("round.helper.echo")
                               : currentGame === "soundcheck"
                                 ? isSoundSequence
-                                  ? "Match the order · A–D or 1–4"
-                                  : "Match the sound · A–D or 1–4"
+                                  ? t("round.helper.soundOrder")
+                                  : t("round.helper.sound")
                                 : currentGame === "quote-hunt"
-                                  ? "Match the line to its hero · A–D or 1–4"
-                                  : "Use A–D or 1–4 to answer"}
+                                  ? t("round.helper.quote")
+                                  : t("round.helper.default")}
           </span>
-          <span className={own.answerHelperGold}>Correct now: {liveAward?.rawPoints ?? 0} gold</span>
+          <span className={own.answerHelperGold}>
+            {t("round.helper.goldNow", { points: liveAward?.rawPoints ?? 0 })}
+          </span>
         </>
       ) : (
         <>
           <Signal className={own.signalIcon} />
-          <span className={own.answerHelperCopy}>Answer locked with {Math.ceil(answerTimeLeft / 1000)}s left</span>
-          <span className={own.answerHelperGold}>Worth {liveAward?.rawPoints ?? 0} gold if correct</span>
+          <span className={own.answerHelperCopy}>
+            {t("round.helper.locked", { seconds: Math.ceil(answerTimeLeft / 1000) })}
+          </span>
+          <span className={own.answerHelperGold}>{t("round.helper.worth", { points: liveAward?.rawPoints ?? 0 })}</span>
         </>
       )}
     </div>

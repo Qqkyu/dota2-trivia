@@ -40,7 +40,7 @@
   border: 1px solid rgba(210, 214, 207, 0.14);
   background: rgba(255, 255, 255, 0.025);
   color: #a8afac;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   font-style: normal;
 }
@@ -63,7 +63,7 @@
   padding: 2px 4px;
   border: 1px solid rgba(240, 106, 88, 0.3);
   color: #d78276;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   font-style: normal;
   letter-spacing: 0.06em;
@@ -80,7 +80,7 @@
 .crowdSplitMeta > small {
   grid-column: 5;
   color: #d4d8d4;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 11px;
   text-align: right;
 }

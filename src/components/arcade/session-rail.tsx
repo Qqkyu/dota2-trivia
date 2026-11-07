@@ -1,4 +1,6 @@
 import { Check, Flame, Gauge, Radio, Users, X } from "lucide-react";
+import { useLocale } from "@/i18n/provider";
+import { ROUND_GAME_LABEL_KEYS } from "@/lib/arcade-games.mjs";
 import type { PublicArcadeQuestion } from "@/lib/public-question";
 import clsx from "clsx";
 import { isPublicKeyedAnswerQuestion } from "@/lib/public-question";
@@ -6,7 +8,6 @@ import styles from "../queue-arcade.module.css";
 import own from "./session-rail.module.css";
 import { KeyedCrowdSplit } from "./crowd-split";
 import { ModeIcon } from "./mode-icon";
-import { gameLabel } from "./shared";
 
 import type { useArcadeRoom } from "./use-arcade-room";
 import type { deriveRoundView } from "./round-view";
@@ -39,19 +40,23 @@ export function SessionRail({
   recentHistory,
   recentHistoryStart,
 }: SessionRailProps) {
-  const answered = crowd.total.toLocaleString("en-US");
+  const { t, number } = useLocale();
+  const answered = number(crowd.total);
   // The same shape for a room of one as for a full room; no "only you" copy.
-  const roomLine = phase === "answering" ? `${answered} locked so far.` : `${answered} answered this round.`;
+  const roomLine = t(phase === "answering" ? "session.lockedSoFar" : "session.answeredThisRound", {
+    count: crowd.total,
+    answers: answered,
+  });
   return (
-    <div className={styles.sideRail} role="region" aria-label="Your session">
+    <div className={styles.sideRail} role="region" aria-label={t("session.region")}>
       <div className={own.scoreGrid} data-testid="score-grid">
         <div>
-          <span>Gold</span>
-          <strong>{score.toLocaleString("en-US")}</strong>
+          <span>{t("session.gold")}</span>
+          <strong>{number(score)}</strong>
           <Gauge />
         </div>
         <div>
-          <span>Streak</span>
+          <span>{t("session.streak")}</span>
           <strong>{streak}</strong>
           <Flame />
         </div>
@@ -61,23 +66,25 @@ export function SessionRail({
         <div className={own.cardTitle}>
           <span>
             <Users />
-            Room
+            {t("session.room")}
           </span>
-          <span className={own.livePill}>{phase === "answering" ? "Live" : "Final"}</span>
+          <span className={own.livePill}>{t(phase === "answering" ? "session.live" : "session.final")}</span>
         </div>
         <strong data-testid="room-card-players">
-          {activePlayers > 0 ? `${activePlayers.toLocaleString("en-US")} playing now` : "Room open"}
+          {activePlayers > 0
+            ? t("roomStatus.playing", { count: activePlayers, players: number(activePlayers) })
+            : t("roomStatus.open")}
         </strong>
         <p data-testid="room-card-answers">{roomLine}</p>
       </div>
 
       <div className={own.progressCard}>
         <div className={own.cardTitle}>
-          <span>Recent rounds</span>
+          <span>{t("session.recentRounds")}</span>
           <div className={own.progressActions}>
             {roomError && (
               <span className={own.roomSyncStatus} title={roomError} role="status">
-                Syncing
+                {t("session.syncing")}
               </span>
             )}
           </div>
@@ -93,9 +100,9 @@ export function SessionRail({
                 key={`${record?.id ?? "slot"}:${index}`}
                 title={
                   record
-                    ? `Round ${roundNumber} · ${gameLabel(record.game)}`
+                    ? t("session.roundGame", { number: roundNumber, game: t(ROUND_GAME_LABEL_KEYS[record.game]) })
                     : isCurrent
-                      ? `Round ${roundNumber} · ${gameLabel(currentGame)}`
+                      ? t("session.roundGame", { number: roundNumber, game: t(ROUND_GAME_LABEL_KEYS[currentGame]) })
                       : undefined
                 }
                 className={clsx(
@@ -117,28 +124,26 @@ export function SessionRail({
           <div className={own.cardTitle}>
             <span>
               <Radio />
-              Room split
+              {t("session.roomSplit")}
             </span>
-            <span className={own.livePill}>Final</span>
+            <span className={own.livePill}>{t("session.final")}</span>
           </div>
-          <strong>
-            {crowd.total.toLocaleString("en-US")} {crowd.total === 1 ? "answer" : "answers"}
-          </strong>
+          <strong>{t("session.answerTotal", { count: crowd.total, answers: answered })}</strong>
           <KeyedCrowdSplit question={currentQuestion} crowd={crowd} selectedKey={selectedAnswerKey} />
           {crowd.scoreSummary && (
             <div className={own.crowdScoreSummary} data-testid="crowd-score-summary">
               <span>
-                <small>You</small>
+                <small>{t("session.you")}</small>
                 <strong>
                   {crowd.scoreSummary.playerPoints === null ? "—" : `+${crowd.scoreSummary.playerPoints}`}
                 </strong>
               </span>
               <span>
-                <small>Correct avg</small>
+                <small>{t("session.correctAverage")}</small>
                 <strong>{crowd.scoreSummary.average === null ? "—" : `+${crowd.scoreSummary.average}`}</strong>
               </span>
               <span>
-                <small>Best</small>
+                <small>{t("session.best")}</small>
                 <strong>{crowd.scoreSummary.best === null ? "—" : `+${crowd.scoreSummary.best}`}</strong>
               </span>
             </div>

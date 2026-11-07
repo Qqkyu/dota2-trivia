@@ -1,6 +1,7 @@
 import { randomBytes } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { canonicalRedirectUrl } from "@/lib/canonical-host.mjs";
+import { isLocale, LOCALE_COOKIE, LOCALE_COOKIE_MAX_AGE_SECONDS } from "@/i18n/locales.mjs";
 
 export function proxy(request: NextRequest) {
   // One public origin: pages reached through the Render subdomain move to ARCADE_APP_URL,
@@ -12,6 +13,21 @@ export function proxy(request: NextRequest) {
     process.env.ARCADE_APP_URL,
   );
   if (canonical) return NextResponse.redirect(canonical, 308);
+
+  // A shared link such as /?lang=ru picks the language, then the address goes back to normal.
+  const language = request.nextUrl.searchParams.get("lang");
+  if (language && isLocale(language)) {
+    const clean = request.nextUrl.clone();
+    clean.searchParams.delete("lang");
+    const response = NextResponse.redirect(clean, 307);
+    response.cookies.set(LOCALE_COOKIE, language, {
+      path: "/",
+      maxAge: LOCALE_COOKIE_MAX_AGE_SECONDS,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+    });
+    return response;
+  }
 
   const nonce = randomBytes(16).toString("base64");
   const development = process.env.NODE_ENV === "development";

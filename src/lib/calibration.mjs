@@ -46,6 +46,9 @@ export function hideCalibrationAnswerCounts(record) {
         reports > 0
           ? (record.signal?.recommendation ?? "Inspect reports.")
           : "Collect more answers before calibration.",
+      adviceKey:
+        reports > 0 ? (record.signal?.adviceKey ?? "calibration.advice.inspect") : "calibration.advice.collectMore",
+      adviceVars: reports > 0 ? record.signal?.adviceVars : undefined,
       accuracy: null,
       sampleReady: false,
       expectedMinimum: record.signal?.expectedMinimum ?? 0,
@@ -83,6 +86,8 @@ export function calibrationSignal(input) {
       recommendation: reviewReady
         ? `${reports} independent reports—inspect the answer and wording.`
         : `Wait for ${CALIBRATION_REVIEW_REPORTS} independent reports before escalating.`,
+      adviceKey: reviewReady ? "calibration.advice.reviewReports" : "calibration.advice.waitReports",
+      adviceVars: { count: reviewReady ? reports : CALIBRATION_REVIEW_REPORTS },
       accuracy,
       sampleReady,
       expectedMinimum,
@@ -97,6 +102,8 @@ export function calibrationSignal(input) {
       status: "collecting",
       label: "Collecting",
       recommendation: `${CALIBRATION_MIN_SAMPLE - total} more answers before calibration.`,
+      adviceKey: "calibration.advice.collecting",
+      adviceVars: { count: CALIBRATION_MIN_SAMPLE - total },
       accuracy,
       sampleReady,
       expectedMinimum,
@@ -112,6 +119,7 @@ export function calibrationSignal(input) {
       label: "Too easy",
       recommendation:
         input.difficulty === 3 ? "Keep the tier; make the content or distractors harder." : "Consider a higher tier.",
+      adviceKey: input.difficulty === 3 ? "calibration.advice.harderContent" : "calibration.advice.higherTier",
       accuracy,
       sampleReady,
       expectedMinimum,
@@ -127,6 +135,7 @@ export function calibrationSignal(input) {
       label: "Too hard",
       recommendation:
         input.difficulty === 1 ? "Review clarity or correctness before changing the tier." : "Consider a lower tier.",
+      adviceKey: input.difficulty === 1 ? "calibration.advice.reviewClarity" : "calibration.advice.lowerTier",
       accuracy,
       sampleReady,
       expectedMinimum,
@@ -140,6 +149,7 @@ export function calibrationSignal(input) {
     status: "on-target",
     label: "On target",
     recommendation: "Observed accuracy fits this tier.",
+    adviceKey: "calibration.advice.fits",
     accuracy,
     sampleReady,
     expectedMinimum,

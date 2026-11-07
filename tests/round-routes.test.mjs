@@ -135,6 +135,8 @@ function fixture() {
     "@/lib/scoring.mjs": score,
     "@/lib/round-recovery.mjs": recovery,
     "@/lib/steam-art.mjs": { firstPartyArtTree: (value) => value },
+    "@/lib/question-locale": { localizeQuestion: (value) => value },
+    "@/i18n/server": { requestLocale: () => "en", translatorFor: () => (key) => key },
     "@/lib/server-diagnostics": {
       logServerError: (_name, error) => {
         throw error;

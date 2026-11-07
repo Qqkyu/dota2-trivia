@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import clsx from "clsx";
 import { ECHO_HUNT_REVEAL_STAGES, SOUNDCHECK_REVEAL_STAGES, soundcheckCutDuration } from "@/lib/soundcheck.mjs";
+import { useLocale } from "@/i18n/provider";
 import styles from "../queue-arcade.module.css";
 import own from "./round-prompt.module.css";
 import { elementClipVolume } from "@/lib/round-clip-volume.mjs";
@@ -87,6 +88,7 @@ export function RoundPrompt({
   aghanimUpgradeLabel,
   aghanimItem,
 }: RoundPromptProps) {
+  const { t } = useLocale();
   return currentGame === "flashback" ? (
     <div
       className={clsx(styles.questionBlock, styles.flashbackQuestion)}
@@ -133,7 +135,7 @@ export function RoundPrompt({
       {currentQuestion.shopkeeper?.format === "real-recipe" ? (
         <div className={styles.recipeTarget}>
           <QuestionArtwork question={currentQuestion} />
-          <span>Target item</span>
+          <span>{t("round.prompt.targetItem")}</span>
         </div>
       ) : (
         <div className={styles.shopkeeperPromptTray}>
@@ -157,7 +159,7 @@ export function RoundPrompt({
             className={clsx(styles.artwork, styles.spellLockedArtwork)}
             role="img"
             data-testid="spell-artwork-locked"
-            aria-label={`Ability icon unlocks at ${finalClueAt} seconds`}
+            aria-label={t("round.prompt.spell.iconLockedAria", { count: finalClueAt })}
           >
             <div className={styles.artGlow} />
             <WandSparkles />
@@ -165,13 +167,13 @@ export function RoundPrompt({
           </div>
         )}
         <span>
-          Clue {clueStage}
+          {t("round.prompt.clue", { stage: clueStage })}
           <small>/ 3</small>
         </span>
       </div>
       <div className={styles.questionCopy}>
-        <span>Ability identity</span>
-        <h2>Which hero owns this ability?</h2>
+        <span>{t("round.prompt.spell.eyebrow")}</span>
+        <h2>{t("round.prompt.spell.prompt")}</h2>
         <div className={styles.clueList} data-testid="spell-clue-list">
           <div
             className={styles.clueUnlocked}
@@ -183,11 +185,17 @@ export function RoundPrompt({
           </div>
           <div className={clueStage >= 2 ? styles.clueUnlocked : styles.clueLocked} data-testid="spell-clue-2">
             <strong>02</strong>
-            <span>{clueStage >= 2 ? currentQuestion.eyebrow : `Ability name unlocks at ${firstClueAt}s`}</span>
+            <span>
+              {clueStage >= 2 ? currentQuestion.eyebrow : t("round.prompt.spell.nameUnlocks", { seconds: firstClueAt })}
+            </span>
           </div>
           <div className={clueStage >= 3 ? styles.clueUnlocked : styles.clueLocked} data-testid="spell-clue-3">
             <strong>03</strong>
-            <span>{clueStage >= 3 ? "Ability icon revealed" : `Icon unlocks at ${finalClueAt}s`}</span>
+            <span>
+              {clueStage >= 3
+                ? t("round.prompt.spell.iconRevealed")
+                : t("round.prompt.spell.iconUnlocks", { seconds: finalClueAt })}
+            </span>
           </div>
         </div>
       </div>
@@ -202,7 +210,7 @@ export function RoundPrompt({
         {aghanimItem ? (
           <Image
             src={firstPartyArtSrc(aghanimItem.image)}
-            alt={aghanimUpgradeLabel ?? "Aghanim upgrade"}
+            alt={aghanimUpgradeLabel ?? t("round.prompt.aghanim.fallbackAlt")}
             fill
             sizes="128px"
             unoptimized
@@ -211,12 +219,12 @@ export function RoundPrompt({
           <Gem aria-hidden="true" />
         )}
         <span>
-          Clue {clueStage}
+          {t("round.prompt.clue", { stage: clueStage })}
           <small>/ 3</small>
         </span>
       </div>
       <div className={styles.questionCopy}>
-        <span>Upgrade effect</span>
+        <span>{t("round.prompt.aghanim.eyebrow")}</span>
         <h2>{currentQuestion.prompt}</h2>
         <div className={clsx(styles.clueList, styles.aghanimClues)}>
           <div className={styles.clueUnlocked} data-testid="aghanim-clue-1">
@@ -227,15 +235,18 @@ export function RoundPrompt({
             <strong>02</strong>
             <span>
               {clueStage >= 2 && aghanimUpgradeLabel
-                ? `${aghanimUpgradeLabel} · ${
-                    currentQuestion.aghanim?.upgradeMode === "new" ? "New ability" : "Existing ability"
-                  }`
-                : "Upgrade details"}
+                ? t(
+                    currentQuestion.aghanim?.upgradeMode === "new"
+                      ? "round.prompt.aghanim.newAbility"
+                      : "round.prompt.aghanim.existingAbility",
+                    { upgrade: aghanimUpgradeLabel },
+                  )
+                : t("round.prompt.aghanim.details")}
             </span>
           </div>
           <div className={clueStage >= 3 ? styles.clueUnlocked : styles.clueLocked} data-testid="aghanim-clue-3">
             <strong>03</strong>
-            <span>{clueStage >= 3 ? currentQuestion.aghanim?.abilityName : "Ability name"}</span>
+            <span>{clueStage >= 3 ? currentQuestion.aghanim?.abilityName : t("round.prompt.aghanim.abilityName")}</span>
           </div>
         </div>
       </div>
@@ -253,15 +264,15 @@ export function RoundPrompt({
         {phase === "reveal" ? null : (
           <span>
             <ScanEye />
-            Fog {String(clueStage).padStart(2, "0")}
+            {t("round.prompt.fog.stage", { stage: String(clueStage).padStart(2, "0") })}
             <small>/ 03</small>
           </span>
         )}
       </div>
       <div className={styles.questionCopy}>
-        <span>Progressive reveal</span>
-        <h2>Which hero is hiding in the fog?</h2>
-        <div className={styles.fogMeter} role="img" aria-label={`Portrait clarity stage ${clueStage} of 3`}>
+        <span>{t("round.prompt.fog.eyebrow")}</span>
+        <h2>{t("round.prompt.fog.prompt")}</h2>
+        <div className={styles.fogMeter} role="img" aria-label={t("round.prompt.fog.meterAria", { stage: clueStage })}>
           {Array.from({ length: 3 }, (_, index) => (
             <span key={index} className={index < clueStage ? styles.fogMeterActive : undefined} />
           ))}
@@ -371,38 +382,43 @@ export function RoundPrompt({
         </div>
         <span>
           {roundAudioState === "blocked"
-            ? "Click to hear this cut"
+            ? t("round.prompt.audio.blocked")
             : roundAudioState === "error"
-              ? "Audio unavailable"
+              ? t("round.prompt.audio.unavailable")
               : roundAudioState === "loading"
                 ? isSoundcheckRound
-                  ? "Loading cut"
-                  : "Loading voice cut"
-                : roundAudioState === "playing"
-                  ? isSoundSequence
-                    ? `Sound ${roundAudioClipIndex + 1} of 2`
-                    : `Cut ${clueStage} of ${isSoundcheckRound ? SOUNDCHECK_REVEAL_STAGES : ECHO_HUNT_REVEAL_STAGES}`
-                  : `Cut ${clueStage} of ${isSoundcheckRound ? SOUNDCHECK_REVEAL_STAGES : ECHO_HUNT_REVEAL_STAGES}`}
+                  ? t("round.prompt.audio.loadingCut")
+                  : t("round.prompt.audio.loadingVoice")
+                : roundAudioState === "playing" && isSoundSequence
+                  ? t("round.prompt.audio.soundOf", { index: roundAudioClipIndex + 1 })
+                  : t("round.prompt.audio.cutOf", {
+                      stage: clueStage,
+                      total: isSoundcheckRound ? SOUNDCHECK_REVEAL_STAGES : ECHO_HUNT_REVEAL_STAGES,
+                    })}
         </span>
       </div>
       <div className={styles.questionCopy}>
         <span>
           {isSoundcheckRound
             ? isSoundSequence
-              ? "Ordered pair"
+              ? t("round.prompt.soundcheck.sequence")
               : currentQuestion.soundcheck?.family === "item"
-                ? "Item activation"
-                : "Ability sound"
-            : "Hero response"}
+                ? t("round.prompt.soundcheck.item")
+                : t("round.prompt.soundcheck.ability")
+            : t("round.prompt.echo.eyebrow")}
         </span>
-        <h2>{isSoundcheckRound ? currentQuestion.prompt : "Whose voice is this?"}</h2>
+        <h2>{isSoundcheckRound ? currentQuestion.prompt : t("round.prompt.echo.prompt")}</h2>
         {isProgressiveAudioRound && (
           <div
             className={styles.soundRevealMeter}
             role="img"
-            aria-label={`${isSoundcheckRound ? "Sound" : "Voice"} cut ${clueStage} of ${
-              isSoundcheckRound ? SOUNDCHECK_REVEAL_STAGES : ECHO_HUNT_REVEAL_STAGES
-            }`}
+            aria-label={t(
+              isSoundcheckRound ? "round.prompt.audio.soundMeterAria" : "round.prompt.audio.voiceMeterAria",
+              {
+                stage: clueStage,
+                total: isSoundcheckRound ? SOUNDCHECK_REVEAL_STAGES : ECHO_HUNT_REVEAL_STAGES,
+              },
+            )}
           >
             {Array.from(
               {
@@ -423,13 +439,17 @@ export function RoundPrompt({
     >
       <div className={styles.quoteCard} data-testid="hero-quote">
         <MessageSquareQuote />
-        <blockquote>“{currentQuestion.detail}”</blockquote>
-        <span>Hero response</span>
+        <blockquote>{t("round.prompt.quote.text", { quote: currentQuestion.detail ?? "" })}</blockquote>
+        <span>{t("round.prompt.quote.cardLabel")}</span>
       </div>
       <div className={styles.questionCopy}>
-        <span>Hero quote</span>
-        <h2>Who said it?</h2>
-        <div className={styles.quoteHints} role="group" aria-label={`Identity clue stage ${clueStage} of 3`}>
+        <span>{t("round.prompt.quote.eyebrow")}</span>
+        <h2>{t("round.prompt.quote.prompt")}</h2>
+        <div
+          className={styles.quoteHints}
+          role="group"
+          aria-label={t("round.prompt.quote.cluesAria", { stage: clueStage })}
+        >
           {[0, 1].map((index) => {
             const hint = currentQuestion.quoteHints?.[index];
             return (

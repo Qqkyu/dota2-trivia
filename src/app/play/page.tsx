@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { QueueArcade } from "@/components/queue-arcade";
+import { getTranslator } from "@/i18n/server";
 import { PUBLIC_ARCADE_PATH } from "@/lib/arcade-navigation.mjs";
 import { publicGameInfo } from "@/lib/game-catalogs";
-import { formatPreviewsFromQuestions } from "@/lib/format-preview.mjs";
-import { triviaQuestions } from "@/lib/trivia";
+import { localizedFormatPreviews } from "@/lib/format-preview-locale";
+import { getLocale } from "@/i18n/server";
 
-const formatPreviews = formatPreviewsFromQuestions(triviaQuestions);
-
-export const metadata: Metadata = {
-  title: "Play",
-  robots: { index: false, follow: true },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslator();
+  return { title: t("meta.play.title"), robots: { index: false, follow: true } };
+}
 
 interface PlayProps {
   searchParams: Promise<{ mode?: string | string[]; room?: string | string[] }>;
@@ -29,7 +28,7 @@ export default async function Play({ searchParams }: PlayProps) {
       autoStart={!roomCode}
       roomCode={roomCode}
       gameInfo={publicGameInfo()}
-      formatPreviews={formatPreviews}
+      formatPreviews={localizedFormatPreviews(await getLocale())}
     />
   );
 }

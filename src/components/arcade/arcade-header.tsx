@@ -1,9 +1,11 @@
+import { useLocale } from "@/i18n/provider";
 import { elementClipVolume } from "@/lib/round-clip-volume.mjs";
 import { Volume2, VolumeX } from "lucide-react";
 import { ARCADE_LOBBY_PATH } from "@/lib/arcade-navigation.mjs";
 import { type PublicGameInfo } from "@/lib/game-identity";
 import styles from "../queue-arcade.module.css";
 import own from "./arcade-header.module.css";
+import { LanguageSwitch } from "../language-switch";
 import { BrandMark } from "./mode-icon";
 import { MIN_GAME_VOLUME } from "./shared";
 
@@ -27,12 +29,13 @@ export function ArcadeHeader({
   setGameVolume,
   gameInfo,
 }: ArcadeHeaderProps) {
+  const { t } = useLocale();
   return (
     <header className={styles.header}>
       <a
         href={ARCADE_LOBBY_PATH}
         className={own.brand}
-        aria-label="Queue Arcade home"
+        aria-label={t("shell.header.home")}
         data-testid="site-home"
         onClick={(event) => {
           event.preventDefault();
@@ -42,13 +45,14 @@ export function ArcadeHeader({
         <BrandMark logoUrl={gameInfo.logoUrl} />
         <span>
           <strong>Queue Arcade</strong>
-          <small>Side quests, between matches</small>
+          <small>{t("shell.header.tagline")}</small>
         </span>
       </a>
 
       <div className={own.headerMeta}>
+        <LanguageSwitch />
         <span className={own.patchBadge}>
-          {gameInfo.label} · {gameInfo.contentLabel}
+          {t("shell.header.patch", { game: gameInfo.label, patch: gameInfo.patch })}
         </span>
         <div className={own.volumeControl} data-muted={!soundEnabled}>
           <button
@@ -61,7 +65,7 @@ export function ArcadeHeader({
               }
               setSoundEnabled(!soundEnabled);
             }}
-            aria-label={soundEnabled ? "Mute game sounds" : "Enable game sounds"}
+            aria-label={t(soundEnabled ? "shell.header.mute" : "shell.header.unmute")}
             aria-pressed={soundEnabled}
           >
             {soundEnabled ? <Volume2 /> : <VolumeX />}
@@ -84,8 +88,8 @@ export function ArcadeHeader({
               setGameVolume(nextVolume);
               setSoundEnabled(true);
             }}
-            aria-label="Game volume"
-            aria-valuetext={`${Math.round(gameVolume * 100)} percent`}
+            aria-label={t("shell.header.volume")}
+            aria-valuetext={t("shell.header.volumeValue", { count: Math.round(gameVolume * 100) })}
           />
           <output className={own.volumeValue}>{Math.round(gameVolume * 100)}%</output>
         </div>

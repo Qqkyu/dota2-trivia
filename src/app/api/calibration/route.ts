@@ -11,6 +11,7 @@ import { DEFAULT_GAME_ID, GAME_CATALOGS, isGameId } from "@/lib/game-catalogs";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { effectiveQuestionReviewStatus, isQuestionReviewer, isQuestionReviewState } from "@/lib/question-review";
 import { logServerError } from "@/lib/server-diagnostics";
+import { requestLocale } from "@/i18n/server";
 import { setQuestionReview } from "@/lib/vote-store";
 
 export const runtime = "nodejs";
@@ -28,7 +29,7 @@ export async function GET(request: NextRequest) {
     const user = await sessionUserForRequest(request).catch(() => null);
     const reviewer = isQuestionReviewer(user);
     const snapshot = reviewer ? await getCalibrationSnapshot(candidate) : await getSharedCalibrationSnapshot(candidate);
-    return NextResponse.json(reviewer ? snapshot : publicCalibrationSnapshot(snapshot), {
+    return NextResponse.json(reviewer ? snapshot : publicCalibrationSnapshot(snapshot, requestLocale(request)), {
       headers: {
         "Cache-Control": "no-store",
       },

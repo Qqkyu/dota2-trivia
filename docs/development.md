@@ -301,3 +301,11 @@ The local persistent store is an atomic JSON file suited to development and a si
 Public calibration responses also replace answer-bearing catalog IDs with their opaque revision fingerprints. Allowlisted
 reviewers receive the internal IDs only after their Steam session is verified, because those IDs are needed for explicit
 review and quarantine writes.
+
+## Languages
+
+Player text lives in `src/i18n/messages`: `en.ts` joins the area files, and `ru.ts` has the same keys. Client components use `useLocale()`, server code uses `getTranslator()`, and routes use `translatorFor(requestLocale(request))`. The language comes from the `queue_arcade_lang` cookie, then `Accept-Language`; `?lang=ru` sets the cookie.
+
+Question text stays on the server. `src/data/i18n/ru.units.json` holds one translation per sentence pattern and hand-written line, and `node scripts/build-question-locale.mjs` builds `questions.ru.json`. `localizeQuestion` applies it, so all languages share one round, one crowd and one score. After a data sync, `--missing=<file>` lists the lines that are new; translate them under `docs/i18n/ru-rules.md`, then have them read by a native-reader pass. `tests/i18n.test.mjs` fails until the catalog is complete.
+
+Hero, item and ability names stay in English, as in the Russian client. `src/data/i18n/search-aliases.ru.json` lets players search them in Cyrillic, and a Russian keyboard layout also works.

@@ -6,7 +6,7 @@
 
 .page > a:not([data-testid="back-to-arcade"]) {
   color: #8d9692;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 11px;
   letter-spacing: 0.08em;
   text-decoration: none;

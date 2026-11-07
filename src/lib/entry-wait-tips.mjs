@@ -1,23 +1,21 @@
-export const ENTRY_WAIT_HINT = "Waiting for the next full question.";
-/** Official Dota shop field: DOTA_Shop_Search_Field_Default */
-export const DOTA_SHOP_SEARCH_PLACEHOLDER = "Search Items";
-
-export const ENTRY_WAIT_TIP_LABEL = "Hint";
-
-/** One tip at a time, like the Dota pause screen. Visuals use the live boards. */
+/**
+ * One tip at a time, like the Dota pause screen. Visuals use the live boards.
+ * `body` is a message key.
+ *
+ * @type {readonly { id: string, body: import("../i18n/types").MessageKey }[]}
+ */
 export const ENTRY_WAIT_TIPS = Object.freeze([
   {
     id: "keys",
-    body: "Use A–D shortcut to pick an answer",
+    body: "wait.tip.keys",
   },
   {
     id: "heroes",
-    body: "Start typing to filter heroes",
+    body: "wait.tip.heroes",
   },
   {
     id: "shop",
-    body: "Use Search Items to filter",
-    mark: "Search Items",
+    body: "wait.tip.shop",
   },
 ]);
 

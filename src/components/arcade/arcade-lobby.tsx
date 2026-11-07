@@ -2,7 +2,10 @@ import Link from "next/link";
 import { Signal } from "lucide-react";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
+import { splitAccent } from "@/i18n/format.mjs";
+import { useLocale } from "@/i18n/provider";
 import { FRESH_ROUND_MIN_REMAINING_MS } from "@/lib/arcade-entry.mjs";
+import { ROUND_GAME_LABEL_KEYS, ROUND_GAME_SHORT_LABEL_KEYS } from "@/lib/arcade-games.mjs";
 import { withAudioDebug } from "@/lib/audio-diagnostics.mjs";
 import { lobbyRoundAt } from "@/lib/lobby-round.mjs";
 import { PARTY_ARCADE_PATH } from "@/lib/arcade-navigation.mjs";
@@ -12,10 +15,9 @@ import { SteamSignIn } from "../steam-sign-in";
 import styles from "../queue-arcade.module.css";
 import own from "./arcade-lobby.module.css";
 import { ModeIcon } from "./mode-icon";
-import { gameLabel, type LobbyPulse, MODE_INFO, ROUND_GAMES } from "./shared";
+import { type LobbyPulse, ROUND_GAMES } from "./shared";
 
 import type { useArcadeRoom } from "./use-arcade-room";
-import type { deriveRoundView } from "./round-view";
 
 type ArcadeLobbyProps = Pick<
   ReturnType<typeof useArcadeRoom>,
@@ -32,8 +34,7 @@ type ArcadeLobbyProps = Pick<
   | "answerDuration"
   | "startRun"
   | "returnToLobby"
-> &
-  Pick<ReturnType<typeof deriveRoundView>, "activeModeInfo">;
+>;
 
 const seconds = (ms: number) => String(Math.max(0, Math.ceil(ms / 1_000))).padStart(2, "0");
 
@@ -46,6 +47,7 @@ function LiveRoom({
   activePlayers: number;
   joining: boolean;
 }) {
+  const { t, number } = useLocale();
   // Before the first tick the card renders the server's own clock, so the server
   // and the client paint the same digits and nothing flickers on load.
   const [now, setNow] = useState<number | null>(null);
@@ -72,30 +74,32 @@ function LiveRoom({
       <div className={own.liveRoomHeader}>
         <span>
           <i className={own.liveDot} data-live={round ? "true" : "false"} aria-hidden="true" />
-          Public room
+          {t("lobby.live.publicRoom")}
         </span>
         <span data-testid="live-room-players">
-          {activePlayers > 0 ? `${activePlayers.toLocaleString("en-US")} playing now` : "Room open"}
+          {activePlayers > 0
+            ? t("roomStatus.playing", { count: activePlayers, players: number(activePlayers) })
+            : t("roomStatus.open")}
         </span>
       </div>
       <div className={own.liveRoomBody}>
         <span className={own.liveRoomRound}>
-          {round ? `Live now · ${answering ? "Answering" : "Reveal"}` : "One room, one clock"}
+          {round ? t(answering ? "lobby.live.answering" : "lobby.live.reveal") : t("lobby.live.idle")}
         </span>
         <strong className={own.liveRoomFormat} data-testid="live-room-format">
           {game ? (
             <>
               <ModeIcon mode={game} />
-              {gameLabel(game)}
+              {t(ROUND_GAME_LABEL_KEYS[game])}
             </>
           ) : round ? (
-            "Next round"
+            t("lobby.live.nextRound")
           ) : (
-            "Connecting to the room…"
+            t("lobby.live.connecting")
           )}
         </strong>
         <div className={own.liveRoomClock} data-phase={joinsThisRound ? "join" : "next"}>
-          <span>Next round in</span>
+          <span>{t("lobby.live.nextRoundIn")}</span>
           <strong data-testid="live-room-clock">{round ? `00:${seconds(clockMs)}` : "--:--"}</strong>
         </div>
         <div className={own.liveRoomTrack} aria-hidden="true">
@@ -103,12 +107,12 @@ function LiveRoom({
         </div>
         <p className={own.liveRoomJoin}>
           {joining
-            ? "Joining the next full round…"
+            ? t("lobby.live.joiningNext")
             : joinsThisRound
-              ? "Play now and this round is yours."
+              ? t("lobby.live.joinThisRound")
               : round
-                ? "Play now and you start with the next round."
-                : "Everyone gets the same question on the same clock."}
+                ? t("lobby.live.joinNextRound")
+                : t("lobby.live.sameQuestion")}
         </p>
       </div>
     </div>
@@ -129,20 +133,21 @@ export function ArcadeLobby({
   answerDuration,
   startRun,
   returnToLobby,
-  activeModeInfo,
 }: ArcadeLobbyProps) {
+  const { t } = useLocale();
+  const lead = splitAccent(t("lobby.lead", { seconds: Math.round(answerDuration / 1_000) }));
   return (
     <section className={styles.lobby} id="arcade">
       <div className={own.lobbyCopy}>
         <h1>
-          Dota side quests
+          {t("lobby.title")}
           <br />
-          <em>between matches</em>
+          <em>{t("lobby.titleAccent")}</em>
         </h1>
         <p className={own.lead}>
-          One public room, one {Math.round(answerDuration / 1_000)}-second clock. Everyone gets the same question, the
-          room&rsquo;s split goes up at the reveal, and a right answer scores <strong>double</strong> when most of the
-          crowd got it wrong.
+          {lead.before}
+          <strong>{lead.accent}</strong>
+          {lead.after}
         </p>
 
         <div className={own.lobbyActions}>
@@ -158,7 +163,7 @@ export function ArcadeLobby({
             }}
             disabled={phase === "waiting"}
           >
-            {phase === "waiting" ? "Joining…" : activeModeInfo.action}
+            {phase === "waiting" ? t("lobby.joining") : t("lobby.play")}
           </button>
           <a
             href={PARTY_ARCADE_PATH}
@@ -178,7 +183,7 @@ export function ArcadeLobby({
               }
             }}
           >
-            Party
+            {t("lobby.party")}
           </a>
           <div className={own.accountActionSlot} data-testid="account-action-slot">
             {account === null ? (
@@ -194,8 +199,8 @@ export function ArcadeLobby({
                 <span>
                   <strong>{account.profile.user.displayName}</strong>
                   <small>
-                    <LinkStatusLabel pending="Opening your records…">
-                      {account.profile.stats.accuracy}% accuracy
+                    <LinkStatusLabel pending={t("lobby.openingRecords")}>
+                      {t("lobby.accuracy", { accuracy: account.profile.stats.accuracy })}
                     </LinkStatusLabel>
                   </small>
                 </span>
@@ -214,12 +219,12 @@ export function ArcadeLobby({
         ) : null}
 
         <div className={own.rotation} data-testid="round-mix">
-          <span className={own.fieldLabel}>Ten games, one rotation</span>
-          <ul className={own.rotationList} aria-label="Round identities">
+          <span className={own.fieldLabel}>{t("lobby.rotation")}</span>
+          <ul className={own.rotationList} aria-label={t("lobby.rotationList")}>
             {ROUND_GAMES.map((game) => (
               <li key={game} data-round-family={game}>
                 <ModeIcon mode={game} />
-                {MODE_INFO[game].shortLabel}
+                {t(ROUND_GAME_SHORT_LABEL_KEYS[game])}
               </li>
             ))}
           </ul>

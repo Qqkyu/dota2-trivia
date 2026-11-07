@@ -112,8 +112,9 @@ export function publicQuestionForRound(
   question: TriviaQuestion,
   round: PublicQuestionRound,
   now: number,
+  labels?: { hiddenHero: string; spellLink: string },
 ): PublicArcadeQuestion {
-  return buildPublicQuestion(question, round, now) as PublicArcadeQuestion;
+  return buildPublicQuestion(question, round, now, labels) as PublicArcadeQuestion;
 }
 
 export function publicQuestionRevision(round: PublicQuestionRound, now: number): string {

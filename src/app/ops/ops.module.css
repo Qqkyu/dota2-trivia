@@ -98,7 +98,7 @@
   align-items: center;
   gap: 8px;
   color: #7fcfcc;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -153,7 +153,7 @@
 .formatPanel > header span,
 .activityPanel > header span {
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 11px;
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -161,7 +161,7 @@
 
 .stats strong {
   margin: 7px 0 4px;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 29px;
   font-weight: 470;
 }
@@ -200,7 +200,7 @@
 .activityPanel > header strong,
 .formatPanel > header > strong {
   color: var(--faint);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 11px;
   font-weight: 450;
 }
@@ -262,7 +262,7 @@
 .chart small {
   overflow: hidden;
   color: #626a67;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 9px;
   text-align: center;
   white-space: nowrap;
@@ -297,7 +297,7 @@
   min-height: 38px;
   border-bottom: 1px solid var(--line);
   color: var(--faint);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -321,7 +321,7 @@
 }
 
 .formatRow > span {
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
 }
 
 .formatRow small {
@@ -333,7 +333,7 @@
   padding: 4px 6px;
   border: 1px solid var(--line);
   color: var(--faint);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 9px;
   font-style: normal;
   letter-spacing: 0.07em;
@@ -404,7 +404,7 @@
   display: block;
   margin-top: 22px;
   color: var(--green);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;

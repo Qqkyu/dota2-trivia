@@ -10,12 +10,14 @@
  *   majorityLabel?: string | null,
  *   majorityIsRight?: boolean,
  * }} input
+ * @param {import("../i18n/translator").Translate} t
+ * @param {(value: number) => string} number
  */
-export function crowdSummaryLine({ total, rightCount, majorityLabel = null, majorityIsRight = true }) {
+export function crowdSummaryLine({ total, rightCount, majorityLabel = null, majorityIsRight = true }, t, number) {
   const safeTotal = Number.isFinite(total) && total > 0 ? Math.floor(total) : 0;
-  if (safeTotal === 0) return "No answers locked this round.";
+  if (safeTotal === 0) return t("round.crowd.noAnswers");
   const share = Math.min(100, Math.max(0, Math.round((Math.max(0, rightCount) / safeTotal) * 100)));
-  const base = `${safeTotal.toLocaleString("en-US")} answered · ${share}% got it right`;
-  if (!majorityIsRight && majorityLabel) return `${base} · most picked ${majorityLabel}`;
-  return base;
+  const vars = { count: safeTotal, total: number(safeTotal), share };
+  if (!majorityIsRight && majorityLabel) return t("round.crowd.summaryMajority", { ...vars, label: majorityLabel });
+  return t("round.crowd.summary", vars);
 }

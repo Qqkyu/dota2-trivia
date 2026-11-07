@@ -1,8 +1,13 @@
+"use client";
+
+import { categoryLabel } from "@/i18n/category";
 import clsx from "clsx";
 import type { CSSProperties } from "react";
 import { Clock3, Gem, ListOrdered, MessageSquareQuote, ScanEye, Swords, Volume2, WandSparkles } from "lucide-react";
 import { RoundMark } from "@/components/round-mark";
-import { LIVE_QUESTION_COPY, LIVE_ROUND_HEADER_LABELS } from "@/lib/round-question-copy.mjs";
+import { useLocale } from "@/i18n/provider";
+import { ROUND_GAME_LABEL_KEYS } from "@/lib/arcade-games.mjs";
+import { LIVE_QUESTION_COPY } from "@/lib/round-question-copy.mjs";
 import arcade from "./queue-arcade.module.css";
 import look from "./format-look.module.css";
 import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
@@ -54,6 +59,7 @@ function Artwork({ src, fogged = false, className }: { src?: string | null; fogg
 }
 
 function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind: string }) {
+  const { t } = useLocale();
   if (kind === "flashback") {
     return (
       <div className={clsx(arcade.questionBlock, arcade.flashbackQuestion)}>
@@ -88,7 +94,7 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
         {preview?.shopFormat === "real-recipe" ? (
           <div className={arcade.recipeTarget}>
             <Artwork src={preview.image?.src} />
-            <span>Target item</span>
+            <span>{t("preview.targetItem")}</span>
           </div>
         ) : (
           <div className={arcade.shopkeeperPromptTray}>
@@ -130,24 +136,25 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
             <span className={arcade.artCorner} />
           </div>
           <span>
-            Clue 1<small>/ 3</small>
+            {t("preview.clue", { number: 1 })}
+            <small>/ 3</small>
           </span>
         </div>
         <div className={arcade.questionCopy}>
-          <span>{spell.eyebrow}</span>
-          <h2>{spell.prompt}</h2>
+          <span>{t(spell.eyebrow)}</span>
+          <h2>{t(spell.prompt)}</h2>
           <div className={arcade.clueList}>
             <div className={arcade.clueUnlocked}>
               <strong>01</strong>
-              <span>{preview?.hint ?? "Ability description"}</span>
+              <span>{preview?.hint ?? t("preview.abilityDescription")}</span>
             </div>
             <div className={arcade.clueLocked}>
               <strong>02</strong>
-              <span>{spell.clueTwo}</span>
+              <span>{t(spell.clueTwo)}</span>
             </div>
             <div className={arcade.clueLocked}>
               <strong>03</strong>
-              <span>{spell.clueThree}</span>
+              <span>{t(spell.clueThree)}</span>
             </div>
           </div>
         </div>
@@ -170,11 +177,12 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
             <Gem aria-hidden="true" />
           )}
           <span>
-            Clue 1<small>/ 3</small>
+            {t("preview.clue", { number: 1 })}
+            <small>/ 3</small>
           </span>
         </div>
         <div className={arcade.questionCopy}>
-          <span>{lab.eyebrow}</span>
+          <span>{t(lab.eyebrow)}</span>
           <h2>{preview?.prompt}</h2>
           <div className={clsx(arcade.clueList, arcade.aghanimClues)}>
             <div className={arcade.clueUnlocked}>
@@ -183,11 +191,11 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
             </div>
             <div className={arcade.clueLocked}>
               <strong>02</strong>
-              <span>{lab.clueTwo}</span>
+              <span>{t(lab.clueTwo)}</span>
             </div>
             <div className={arcade.clueLocked}>
               <strong>03</strong>
-              <span>{lab.clueThree}</span>
+              <span>{t(lab.clueThree)}</span>
             </div>
           </div>
         </div>
@@ -203,13 +211,13 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
           <Artwork src={preview?.image?.src} fogged />
           <span>
             <ScanEye />
-            Fog 01
+            {t("preview.fog", { number: "01" })}
             <small>/ 03</small>
           </span>
         </div>
         <div className={arcade.questionCopy}>
-          <span>{fog.eyebrow}</span>
-          <h2>{fog.prompt}</h2>
+          <span>{t(fog.eyebrow)}</span>
+          <h2>{t(fog.prompt)}</h2>
           <div className={arcade.fogMeter}>
             <span className={arcade.fogMeterActive} />
             <span />
@@ -222,14 +230,16 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
 
   if (kind === "echo-hunt" || kind === "soundcheck") {
     const isSoundcheck = kind === "soundcheck";
-    const eyebrow = isSoundcheck
-      ? preview?.soundcheckFormat === "sequence"
-        ? LIVE_QUESTION_COPY.soundcheck.sequence
-        : preview?.soundcheckFamily === "item"
-          ? LIVE_QUESTION_COPY.soundcheck.item
-          : LIVE_QUESTION_COPY.soundcheck.ability
-      : LIVE_QUESTION_COPY["echo-hunt"].eyebrow;
-    const prompt = isSoundcheck ? preview?.prompt : LIVE_QUESTION_COPY["echo-hunt"].prompt;
+    const eyebrow = t(
+      isSoundcheck
+        ? preview?.soundcheckFormat === "sequence"
+          ? LIVE_QUESTION_COPY.soundcheck.sequence
+          : preview?.soundcheckFamily === "item"
+            ? LIVE_QUESTION_COPY.soundcheck.item
+            : LIVE_QUESTION_COPY.soundcheck.ability
+        : LIVE_QUESTION_COPY["echo-hunt"].eyebrow,
+    );
+    const prompt = isSoundcheck ? preview?.prompt : t(LIVE_QUESTION_COPY["echo-hunt"].prompt);
     return (
       <div
         className={clsx(
@@ -250,7 +260,7 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
               ))}
             </div>
           </div>
-          <span>Cut 1 of 3</span>
+          <span>{t("preview.cut", { number: 1, total: 3 })}</span>
         </div>
         <div className={arcade.questionCopy}>
           <span>{eyebrow}</span>
@@ -272,11 +282,11 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
         <div className={arcade.quoteCard}>
           <MessageSquareQuote />
           <blockquote>“{preview?.detail ?? preview?.prompt}”</blockquote>
-          <span>{quote.cardLabel}</span>
+          <span>{t(quote.cardLabel)}</span>
         </div>
         <div className={arcade.questionCopy}>
-          <span>{quote.eyebrow}</span>
-          <h2>{quote.prompt}</h2>
+          <span>{t(quote.eyebrow)}</span>
+          <h2>{t(quote.prompt)}</h2>
           <div className={arcade.quoteHints}>
             <span data-state="locked">
               <b>01</b>?
@@ -318,8 +328,10 @@ export function FormatLook({
   label?: string;
   look?: string;
 }) {
+  const { t } = useLocale();
   const kind = preview?.game ?? game;
-  const header = LIVE_ROUND_HEADER_LABELS[kind as keyof typeof LIVE_ROUND_HEADER_LABELS] ?? kind;
+  const headerKey = ROUND_GAME_LABEL_KEYS[kind as keyof typeof ROUND_GAME_LABEL_KEYS];
+  const header = headerKey ? t(headerKey) : kind;
 
   return (
     <div className={look.frame} data-game={kind} data-testid={`format-preview-${kind}`}>
@@ -330,7 +342,7 @@ export function FormatLook({
           </div>
           <div className={arcade.roundHeader}>
             <div>
-              <span>Round 001</span>
+              <span>{t("session.round", { number: "001" })}</span>
               <i />
               <span className={arcade.roundGameLabel}>
                 <RoundMark game={kind} />
@@ -339,7 +351,7 @@ export function FormatLook({
               {preview?.category ? (
                 <>
                   <i />
-                  <span>{preview.category}</span>
+                  <span>{categoryLabel(t, preview.category)}</span>
                 </>
               ) : null}
             </div>

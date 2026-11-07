@@ -1,11 +1,13 @@
+import { cyrillicQueryMatches } from "@/lib/search-query.mjs";
+import { ITEM_SEARCH_ALIASES } from "@/lib/search-aliases";
 import Image from "next/image";
 import clsx from "clsx";
 import { ArrowRight, Check, Search, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useLocale } from "@/i18n/provider";
 import { shouldHandleAnswerShortcut } from "@/lib/answer-shortcuts.mjs";
 import type { CrowdResult } from "@/lib/arcade-contract";
-import { DOTA_SHOP_SEARCH_PLACEHOLDER } from "@/lib/entry-wait-tips.mjs";
 import { isPublicRecipeBuilderQuestion, type PublicArcadeQuestion } from "@/lib/public-question";
 import {
   recipeAnswerKeyForItems,
@@ -13,6 +15,7 @@ import {
   SHOPKEEPER_CATALOG,
   SHOPKEEPER_CATALOG_BY_KEY,
   SHOPKEEPER_CATALOG_ITEMS,
+  SHOPKEEPER_GROUP_LABEL_KEYS,
   SHOPKEEPER_RECIPE_IMAGE,
   type ShopkeeperCatalogItem,
 } from "@/lib/shopkeeper-catalog";
@@ -25,9 +28,11 @@ import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
 export function searchShopItems(query: string) {
   const normalized = query.trim().toLocaleLowerCase("en-US");
   if (!normalized) return [];
-  return SHOPKEEPER_CATALOG_ITEMS.filter(
-    (item) => item.name.toLocaleLowerCase("en-US").includes(normalized) || item.key.includes(normalized),
-  );
+  return SHOPKEEPER_CATALOG_ITEMS.filter((item) => {
+    const matchesLatin = (query: string) =>
+      item.name.toLocaleLowerCase("en-US").includes(query) || item.key.includes(query);
+    return matchesLatin(normalized) || cyrillicQueryMatches(normalized, ITEM_SEARCH_ALIASES[item.key], matchesLatin);
+  });
 }
 
 export function ShopkeeperStore({
@@ -45,6 +50,7 @@ export function ShopkeeperStore({
   onChoose: (itemKey: string) => void;
   onPick?: () => void;
 }) {
+  const { t, number } = useLocale();
   const [section, setSection] = useState<"basics" | "upgrades">("upgrades");
   const [query, setQuery] = useState("");
   const [selectionAnnouncement, setSelectionAnnouncement] = useState("");
@@ -78,8 +84,13 @@ export function ShopkeeperStore({
   const countByItem = new Map(crowd.keyCounts.map((entry) => [entry.answerKey, entry.count]));
   const searchItems = searchShopItems(query);
   const groups = normalizedQuery
-    ? [{ key: "search", label: `${searchItems.length} found`, section, items: searchItems }]
-    : SHOPKEEPER_CATALOG.groups.filter((group) => group.section === section);
+    ? [{ key: "search", label: t("round.shop.found", { count: searchItems.length }), section, items: searchItems }]
+    : SHOPKEEPER_CATALOG.groups
+        .filter((group) => group.section === section)
+        .map((group) => {
+          const labelKey = SHOPKEEPER_GROUP_LABEL_KEYS[group.key];
+          return labelKey ? { ...group, label: t(labelKey) } : group;
+        });
 
   const chooseItem = (itemKey: string) => {
     onChoose(itemKey);
@@ -97,10 +108,14 @@ export function ShopkeeperStore({
       setTooltip(null);
       setDraftRecipeKeys((itemKeys) => [...itemKeys, itemKey]);
       setSelectionAnnouncement(
-        `Added ${SHOPKEEPER_CATALOG_BY_KEY.get(itemKey)?.name ?? itemKey}. ${draftRecipeKeys.length + 1} of ${recipeSize} components selected.`,
+        t("round.shop.added", {
+          name: SHOPKEEPER_CATALOG_BY_KEY.get(itemKey)?.name ?? itemKey,
+          selected: draftRecipeKeys.length + 1,
+          count: recipeSize,
+        }),
       );
     },
-    [draftRecipeKeys.length, onPick, phase, recipeSize, selectedKey],
+    [draftRecipeKeys.length, onPick, phase, recipeSize, selectedKey, t],
   );
 
   const removeRecipeItem = (slot: number, restoreKeyboardFocus = false) => {
@@ -111,7 +126,11 @@ export function ShopkeeperStore({
     setTooltip(null);
     setDraftRecipeKeys((itemKeys) => itemKeys.filter((_, index) => index !== slot));
     setSelectionAnnouncement(
-      `Removed ${SHOPKEEPER_CATALOG_BY_KEY.get(draftRecipeKeys[slot])?.name ?? draftRecipeKeys[slot]}. ${draftRecipeKeys.length - 1} of ${recipeSize} components selected.`,
+      t("round.shop.removed", {
+        name: SHOPKEEPER_CATALOG_BY_KEY.get(draftRecipeKeys[slot])?.name ?? draftRecipeKeys[slot],
+        selected: draftRecipeKeys.length - 1,
+        count: recipeSize,
+      }),
     );
   };
 
@@ -230,7 +249,7 @@ export function ShopkeeperStore({
         data-locked={selectedKey ? "true" : "false"}
       >
         <div className={own.shopkeeperStoreToolbar}>
-          <div className={styles.shopkeeperStoreTabs} role="group" aria-label="Shop section">
+          <div className={styles.shopkeeperStoreTabs} role="group" aria-label={t("round.shop.sectionAria")}>
             {(["basics", "upgrades"] as const).map((tab) => (
               <button
                 key={tab}
@@ -242,7 +261,7 @@ export function ShopkeeperStore({
                   setSection(tab);
                 }}
               >
-                {tab}
+                {t(tab === "basics" ? "round.shop.tab.basics" : "round.shop.tab.upgrades")}
               </button>
             ))}
           </div>
@@ -251,10 +270,10 @@ export function ShopkeeperStore({
             <input
               ref={searchInputRef}
               data-testid="shopkeeper-search-field"
-              aria-label="Search shop items"
+              aria-label={t("round.shop.searchAria")}
               type="text"
               value={query}
-              placeholder={DOTA_SHOP_SEARCH_PLACEHOLDER}
+              placeholder={t("round.shop.searchPlaceholder")}
               autoComplete="off"
               spellCheck={false}
               disabled={phase !== "answering" || selectedKey !== null}
@@ -305,7 +324,7 @@ export function ShopkeeperStore({
             data-selection-count={activeRecipeKeys.length}
           >
             <span className={styles.shopkeeperRecipeBuilderLabel}>
-              <small>Shop items</small>
+              <small>{t("round.shop.items")}</small>
               <strong>
                 {activeRecipeKeys.length}/{recipeSize}
               </strong>
@@ -320,7 +339,7 @@ export function ShopkeeperStore({
                     type="button"
                     data-testid="shopkeeper-recipe-slot"
                     data-item-key={item.key}
-                    aria-label={`Remove ${item.name}`}
+                    aria-label={t("round.shop.removeItem", { name: item.name })}
                     onClick={(event) => removeRecipeItem(slot, event.detail === 0)}
                     disabled={selectedKey !== null}
                   >
@@ -336,11 +355,11 @@ export function ShopkeeperStore({
               {recipeIncluded ? (
                 <span className={styles.shopkeeperRecipeIncluded} data-testid="shopkeeper-recipe-included">
                   <Image src={firstPartyArtSrc(SHOPKEEPER_RECIPE_IMAGE)} alt="" width={36} height={27} unoptimized />
-                  <small>Included</small>
+                  <small>{t("round.shop.included")}</small>
                 </span>
               ) : recipeCost === 0 ? (
                 <span className={styles.shopkeeperRecipeIncluded} data-testid="shopkeeper-no-recipe">
-                  <small>No recipe required</small>
+                  <small>{t("round.shop.noRecipe")}</small>
                 </span>
               ) : null}
             </div>
@@ -353,29 +372,33 @@ export function ShopkeeperStore({
               disabled={selectedKey !== null || activeRecipeKeys.length !== recipeSize}
             >
               <Check aria-hidden="true" />
-              {selectedKey ? "Locked" : "Build"}
+              {selectedKey ? t("round.shop.locked") : t("round.shop.build")}
             </button>
           </div>
         )}
 
         {phase === "reveal" && recipeBuilder ? (
           <div className={own.shopkeeperRecipeReveal} data-testid="shopkeeper-open-reveal">
-            <ShopkeeperRecipePick itemKeys={submittedRecipeKeys} label="Your items" />
+            <ShopkeeperRecipePick itemKeys={submittedRecipeKeys} label={t("round.shop.yourItems")} />
             <ArrowRight aria-hidden="true" />
-            <ShopkeeperRecipePick itemKeys={correctRecipeKeys} label="Correct items" recipeIncluded={recipeIncluded} />
+            <ShopkeeperRecipePick
+              itemKeys={correctRecipeKeys}
+              label={t("round.shop.correctItems")}
+              recipeIncluded={recipeIncluded}
+            />
           </div>
         ) : phase === "reveal" ? (
           <div className={own.shopkeeperRevealPicks} data-testid="shopkeeper-open-reveal">
-            <ShopkeeperPick item={selectedItem} label="Your pick" />
+            <ShopkeeperPick item={selectedItem} label={t("round.shop.yourPick")} />
             <ArrowRight aria-hidden="true" />
             <ShopkeeperPick
               item={targetItem}
               label={
                 question.soundcheck?.family === "item"
-                  ? "Sound source"
+                  ? t("round.shop.soundSource")
                   : question.shopkeeper?.format === "upgrade-path"
-                    ? "Direct upgrade"
-                    : "Build result"
+                    ? t("round.shop.directUpgrade")
+                    : t("round.shop.buildResult")
               }
             />
           </div>
@@ -392,7 +415,7 @@ export function ShopkeeperStore({
           onScroll={() => setTooltip(null)}
         >
           {normalizedQuery && searchItems.length === 0 ? (
-            <p className={own.shopkeeperNoResults}>No shop item matches “{query.trim()}”.</p>
+            <p className={own.shopkeeperNoResults}>{t("round.shop.noMatch", { query: query.trim() })}</p>
           ) : (
             groups.map((group) => (
               <section key={group.key} className={styles.shopkeeperGroup} aria-label={group.label}>
@@ -441,7 +464,7 @@ export function ShopkeeperStore({
                           selectedKey !== null ||
                           (recipeBuilder && activeRecipeKeys.length >= recipeSize)
                         }
-                        aria-label={`${item.name}, ${item.cost.toLocaleString("en-US")} gold`}
+                        aria-label={t("round.shop.itemAria", { name: item.name, gold: number(item.cost) })}
                         aria-describedby={tooltip?.item.key === item.key ? "shopkeeper-item-tooltip" : undefined}
                         aria-pressed={isSelected}
                       >
@@ -479,7 +502,7 @@ export function ShopkeeperStore({
             style={{ left: tooltip.left, top: tooltip.top, width: tooltip.width }}
           >
             <strong>{tooltip.item.name}</strong>
-            <small>{tooltip.item.cost.toLocaleString("en-US")} gold</small>
+            <small>{t("round.shop.itemCost", { gold: number(tooltip.item.cost) })}</small>
           </div>,
           document.body,
         )}

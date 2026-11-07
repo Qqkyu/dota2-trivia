@@ -1,5 +1,4 @@
-import { PUBLIC_ARCADE_MODE } from "@/lib/arcade-games.mjs";
-import { revealCallout, streakBannerParts } from "@/lib/dota-flavor.mjs";
+import { revealCallout } from "@/lib/dota-flavor.mjs";
 import { FALLBACK_STEAM_DISPLAY_NAME } from "@/lib/steam-profile.mjs";
 import { clueStageAt, scoreBreakdown } from "@/lib/scoring.mjs";
 import { SHOPKEEPER_CATALOG_BY_KEY } from "@/lib/shopkeeper-catalog";
@@ -13,7 +12,7 @@ import {
   isPublicValueOrderQuestion,
 } from "@/lib/public-question";
 import { echoHuntRevealStage, soundcheckRevealStage } from "@/lib/soundcheck.mjs";
-import { MODE_INFO, REVEAL_DURATION_MS } from "./shared";
+import { REVEAL_DURATION_MS } from "./shared";
 
 import type { useArcadeRoom } from "./use-arcade-room";
 
@@ -71,7 +70,7 @@ export function deriveRoundView(room: ReturnType<typeof useArcadeRoom>) {
       ? account.profile.user.displayName
       : "";
 
-  const streakBanner = isKillStreakCallout ? streakBannerParts(streakCallout, streakPlayerName) : null;
+  const streakBanner = isKillStreakCallout ? { callout: streakCallout, playerName: streakPlayerName } : null;
 
   const currentGame = currentQuestion?.game ?? "trivia";
 
@@ -124,8 +123,6 @@ export function deriveRoundView(room: ReturnType<typeof useArcadeRoom>) {
 
   const spellHint = currentQuestion?.hint ?? "";
 
-  const activeModeInfo = MODE_INFO[PUBLIC_ARCADE_MODE];
-
   const aghanimUpgradeLabel =
     currentQuestion?.aghanim?.upgradeType === "scepter"
       ? "Aghanim's Scepter"
@@ -168,7 +165,6 @@ export function deriveRoundView(room: ReturnType<typeof useArcadeRoom>) {
     recentHistory,
     recentHistoryStart,
     spellHint,
-    activeModeInfo,
     aghanimUpgradeLabel,
     aghanimItem,
   };

@@ -46,7 +46,7 @@
   border: 1px solid rgba(155, 172, 229, 0.3);
   color: #a9b8ec;
   font:
-    normal 10px var(--font-geist-mono),
+    normal 10px "Geist Mono Cyrillic", var(--font-geist-mono),
     monospace;
 }
 
@@ -123,7 +123,7 @@
   background: #2f3b66;
   color: white;
   font:
-    normal 11px var(--font-geist-mono),
+    normal 11px "Geist Mono Cyrillic", var(--font-geist-mono),
     monospace;
 }
 
@@ -150,7 +150,7 @@
 .valueOrderCards button small {
   color: #777f8e;
   font:
-    8px var(--font-geist-mono),
+    8px "Geist Mono Cyrillic", var(--font-geist-mono),
     monospace;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -179,7 +179,7 @@
 .valueOrderSequence > small {
   color: #8f99b8;
   font:
-    9px var(--font-geist-mono),
+    9px "Geist Mono Cyrillic", var(--font-geist-mono),
     monospace;
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -220,7 +220,7 @@
 .valueOrderSequenceCard em {
   color: #96cba1;
   font:
-    normal 9px var(--font-geist-mono),
+    normal 9px "Geist Mono Cyrillic", var(--font-geist-mono),
     monospace;
   white-space: nowrap;
 }

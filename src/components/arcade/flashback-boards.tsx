@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Check, RotateCcw } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useLocale } from "@/i18n/provider";
 import { shouldHandleAnswerShortcut } from "@/lib/answer-shortcuts.mjs";
 import {
   flashbackYearAnswerKey,
@@ -25,6 +26,7 @@ export function FlashbackYearBoard({
   selectedKey: string | null;
   onChoose: (answerKey: string) => void;
 }) {
+  const { t } = useLocale();
   const yearMin = Number(question.flashback?.yearMin);
   const yearMax = Number(question.flashback?.yearMax);
   const hasRange = Number.isInteger(yearMin) && Number.isInteger(yearMax) && yearMax >= yearMin;
@@ -72,13 +74,13 @@ export function FlashbackYearBoard({
     >
       {phase === "reveal" && (
         <span className={own.flashbackYearResultText} data-testid="flashback-year-answer-label">
-          Correct year
+          {t("round.flashback.correctYear")}
         </span>
       )}
-      <strong data-testid="flashback-year-readout">{shownYear ?? "Year"}</strong>
+      <strong data-testid="flashback-year-readout">{shownYear ?? t("round.flashback.year")}</strong>
       {phase === "reveal" && (
         <p className={own.flashbackYearResultText} data-testid="flashback-year-your-answer">
-          {lockedYear !== null ? `Your answer: ${lockedYear}.` : "No answer locked."}
+          {lockedYear !== null ? t("round.flashback.yourAnswer", { year: lockedYear }) : t("round.flashback.noAnswer")}
         </p>
       )}
       {hasRange && phase !== "reveal" ? (
@@ -91,7 +93,7 @@ export function FlashbackYearBoard({
             step={1}
             value={shownYear ?? midpoint ?? yearMin}
             disabled={locked}
-            aria-label="Year"
+            aria-label={t("round.flashback.year")}
             data-testid="flashback-year-slider"
             onInput={(event) => setCursorYear(Number(event.currentTarget.value))}
           />
@@ -109,7 +111,7 @@ export function FlashbackYearBoard({
             }}
           >
             <Check aria-hidden="true" />
-            {lockedYear !== null ? "Locked" : "Lock"}
+            {lockedYear !== null ? t("round.flashback.locked") : t("round.flashback.lock")}
           </button>
         </>
       ) : null}
@@ -130,6 +132,7 @@ export function FlashbackOrderBoard({
   onChoose: (answerKey: string) => void;
   onPick?: () => void;
 }) {
+  const { t } = useLocale();
   const submittedKeys = selectedKey ? valueOrderKeysFromAnswerKey(selectedKey) : null;
   const [draftKeys, setDraftKeys] = useState<string[]>(() => submittedKeys ?? []);
   const draftKeysRef = useRef(submittedKeys ?? []);
@@ -239,7 +242,7 @@ export function FlashbackOrderBoard({
       data-phase="answering"
       data-locked={selectedKey ? "true" : "false"}
     >
-      <div className={own.flashbackOrderSlots} role="group" aria-label="Your order">
+      <div className={own.flashbackOrderSlots} role="group" aria-label={t("round.order.yours")}>
         {Array.from({ length: 4 }, (_, index) => {
           const key = activeKeys[index];
           const card = cards.find((candidate) => candidate.key === key);
@@ -256,7 +259,7 @@ export function FlashbackOrderBoard({
           );
         })}
       </div>
-      <div className={own.flashbackOrderCards} role="group" aria-label="Events to order">
+      <div className={own.flashbackOrderCards} role="group" aria-label={t("round.order.eventsAria")}>
         {cards.map((card) => {
           const position = activeKeys.indexOf(card.key);
           return (
@@ -286,10 +289,10 @@ export function FlashbackOrderBoard({
           type="button"
           onClick={undoLastCard}
           disabled={locked || draftKeys.length === 0}
-          aria-label="Undo last card"
+          aria-label={t("round.order.undoAria")}
         >
           <RotateCcw />
-          Undo
+          {t("round.order.undo")}
         </button>
       </div>
     </div>

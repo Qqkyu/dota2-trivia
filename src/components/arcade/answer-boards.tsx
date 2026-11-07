@@ -2,6 +2,7 @@ import { ArrowRight, Check, ChevronRight, X } from "lucide-react";
 import type { PublicArcadeQuestion } from "@/lib/public-question";
 import clsx from "clsx";
 import { type CSSProperties } from "react";
+import { useLocale } from "@/i18n/provider";
 import { publicCorrectIndex } from "@/lib/public-question";
 import styles from "../queue-arcade.module.css";
 import own from "./answer-boards.module.css";
@@ -61,6 +62,7 @@ export function AnswerBoards({
   isFlashbackOrderRound,
   isFlashbackYearRound,
 }: AnswerBoardsProps) {
+  const { t } = useLocale();
   return (
     <>
       {isOpenShopRound && (
@@ -137,7 +139,7 @@ export function AnswerBoards({
               currentGame === "quote-hunt" && styles.quoteAnswers,
             )}
             role="group"
-            aria-label="Answer choices"
+            aria-label={t("round.answers.aria")}
             data-testid="answer-grid"
             data-split-kind="answer-rows"
             data-total={phase === "reveal" ? crowd.total : undefined}
@@ -179,7 +181,11 @@ export function AnswerBoards({
                       ? `${LETTERS[index]}. ${answer}`
                       : shopkeeperAnswerGroup
                         ? `${LETTERS[index]}. ${shopkeeperAnswerGroup
-                            .map((item) => `${item.name}${item.count > 1 ? ` times ${item.count}` : ""}`)
+                            .map((item) =>
+                              item.count > 1
+                                ? t("round.shop.itemTimes", { name: item.name, count: item.count })
+                                : item.name,
+                            )
                             .join(", ")}`
                         : undefined
                   }
@@ -193,13 +199,13 @@ export function AnswerBoards({
                     <span className={own.sequenceAnswerChoice} data-testid="sound-sequence-choice">
                       <AnswerArtwork
                         src={firstPartyArtSrc(answerImagePair[0])}
-                        alt={answerPairNames[0] ?? "First sound"}
+                        alt={answerPairNames[0] ?? t("round.answers.firstSound")}
                         kind={currentQuestion.answerImageKind ?? "ability"}
                       />
                       <ArrowRight className={own.sequenceAnswerArrow} aria-hidden="true" />
                       <AnswerArtwork
                         src={firstPartyArtSrc(answerImagePair[1])}
-                        alt={answerPairNames[1] ?? "Second sound"}
+                        alt={answerPairNames[1] ?? t("round.answers.secondSound")}
                         kind={currentQuestion.answerImageKind ?? "ability"}
                       />
                     </span>
@@ -218,8 +224,8 @@ export function AnswerBoards({
                   {!answerImagePair && !shopkeeperAnswerGroup && (
                     <span className={styles.answerText}>
                       {answer}
-                      {isSelected && phase === "answering" && <small>Your answer · locked</small>}
-                      {isSelected && phase === "reveal" && <small>Your answer</small>}
+                      {isSelected && phase === "answering" && <small>{t("round.answers.yoursLocked")}</small>}
+                      {isSelected && phase === "reveal" && <small>{t("round.answers.yours")}</small>}
                     </span>
                   )}
                   {phase === "reveal" ? (

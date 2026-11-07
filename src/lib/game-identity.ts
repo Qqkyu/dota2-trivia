@@ -9,6 +9,7 @@ export interface PublicGameInfo {
   label: string;
   logoUrl: string;
   contentLabel: string;
+  patch: string;
   questionCount: number;
 }
 

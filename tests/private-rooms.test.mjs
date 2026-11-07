@@ -55,10 +55,10 @@ describe("party codes and names", () => {
   });
 
   it("explains code and name errors in plain words", () => {
-    expect(partyCodeError("")).toBe("Type a party code.");
-    expect(partyCodeError("DA")).toBe("Use 3-16 letters or numbers.");
+    expect(partyCodeError("")).toEqual({ key: "party.error.codeEmpty" });
+    expect(partyCodeError("DA")).toEqual({ key: "party.error.codeFormat", vars: { min: 3, max: 16 } });
     expect(partyCodeError("DAS")).toBeNull();
-    expect(partyNameError("")).toBe("Type a name.");
+    expect(partyNameError("")).toBe("party.error.nameEmpty");
     expect(partyNameError("Loda")).toBeNull();
     expect(guestDisplayName("player-abcd")).toBe("Guest-AYERABCD");
   });
@@ -535,13 +535,13 @@ describe("party roster", () => {
   it("keeps away players in the ranking and tags them", () => {
     const ranked = rankPartyPlayers(players);
     expect(ranked.map((player) => player.name)).toEqual(["Bo", "Amy", "Zed", "Me"]);
-    expect(ranked.map(partyPlayerTag)).toEqual(["Away", "Host", "Away", "You"]);
+    expect(ranked.map(partyPlayerTag)).toEqual(["party.tag.away", "party.tag.host", "party.tag.away", "party.tag.you"]);
   });
 
   it("never tags the viewer as away and prefers Away over Host", () => {
-    expect(partyPlayerTag({ name: "Me", host: true, self: true, score: 0, away: true })).toBe("Host");
-    expect(partyPlayerTag({ name: "Me", host: false, self: true, score: 0, away: true })).toBe("You");
-    expect(partyPlayerTag({ name: "Host", host: true, self: false, score: 0, away: true })).toBe("Away");
+    expect(partyPlayerTag({ name: "Me", host: true, self: true, score: 0, away: true })).toBe("party.tag.host");
+    expect(partyPlayerTag({ name: "Me", host: false, self: true, score: 0, away: true })).toBe("party.tag.you");
+    expect(partyPlayerTag({ name: "Host", host: true, self: false, score: 0, away: true })).toBe("party.tag.away");
     expect(partyPlayerTag({ name: "Guest", host: false, self: false, score: 0, away: false })).toBe("");
   });
 

@@ -1,19 +1,22 @@
+import { categoryLabel } from "@/i18n/category";
 import clsx from "clsx";
 import { ChevronLeft, ChevronRight, Clock3 } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { splitAccent } from "@/i18n/format.mjs";
+import { useLocale } from "@/i18n/provider";
 import { shouldHandleAnswerShortcut } from "@/lib/answer-shortcuts.mjs";
-import { ENTRY_WAIT_TIP_LABEL, shuffleEntryWaitTips } from "@/lib/entry-wait-tips.mjs";
+import { shuffleEntryWaitTips } from "@/lib/entry-wait-tips.mjs";
 import type { PublicArcadeQuestion } from "@/lib/public-question";
-import { LIVE_ROUND_HEADER_LABELS } from "@/lib/round-question-copy.mjs";
 import { RoundMark } from "@/components/round-mark";
 import { QuestionArtwork } from "./artwork";
 import { HeroPicker } from "./hero-picker";
-import { EMPTY_CROWD, LETTERS, WAIT_CHOICE_QUESTION, WAIT_HERO_QUESTION, WAIT_SHOP_QUESTION } from "./shared";
+import { EMPTY_CROWD, LETTERS, WAIT_HERO_QUESTION, WAIT_SHOP_QUESTION, waitChoiceQuestion } from "./shared";
 import { ShopkeeperStore } from "./shopkeeper-store";
 import styles from "../queue-arcade.module.css";
 import own from "./entry-wait-lessons.module.css";
 
 export function ClassicChoiceBoard({ question, active }: { question: PublicArcadeQuestion; active: boolean }) {
+  const { t } = useLocale();
   const [pick, setPick] = useState<{ index: number; active: boolean } | null>(null);
   // A pick made while this tip was active clears itself when the tip changes or after a short beat.
   const selectedIndex = pick && pick.active === active ? pick.index : null;
@@ -47,18 +50,18 @@ export function ClassicChoiceBoard({ question, active }: { question: PublicArcad
     <div className={styles.entryWaitChoiceBoard} data-testid="entry-wait-keys-demo" data-practice="true">
       <div className={styles.roundHeader}>
         <div>
-          <span className={own.practiceLabel}>Practice</span>
+          <span className={own.practiceLabel}>{t("wait.practice")}</span>
           <i />
           <span className={styles.roundGameLabel}>
             <RoundMark game="trivia" />
-            {LIVE_ROUND_HEADER_LABELS.trivia}
+            {t("game.trivia.label")}
           </span>
           <i />
-          <span>{question.category}</span>
+          <span>{categoryLabel(t, question.category)}</span>
         </div>
         <div className={own.practiceTag} data-testid="entry-wait-practice-tag">
           <Clock3 />
-          Not a live round
+          {t("wait.notLive")}
         </div>
       </div>
       <div className={styles.questionBlock} data-testid="entry-wait-choice-prompt">
@@ -68,7 +71,7 @@ export function ClassicChoiceBoard({ question, active }: { question: PublicArcad
           <h2>{question.prompt}</h2>
         </div>
       </div>
-      <div className={styles.answers} role="group" aria-label="Practice answer choices">
+      <div className={styles.answers} role="group" aria-label={t("wait.practiceChoices")}>
         {question.answers.map((answer, index) => {
           const isSelected = selectedIndex === index;
           return (
@@ -90,7 +93,7 @@ export function ClassicChoiceBoard({ question, active }: { question: PublicArcad
               <span className={styles.answerKey}>{LETTERS[index]}</span>
               <span className={styles.answerText}>
                 {answer}
-                {isSelected ? <small>Picked · a live round locks it here</small> : null}
+                {isSelected ? <small>{t("wait.picked")}</small> : null}
               </span>
             </button>
           );
@@ -101,6 +104,8 @@ export function ClassicChoiceBoard({ question, active }: { question: PublicArcad
 }
 
 export function EntryWaitLessons() {
+  const { t, number } = useLocale();
+  const choiceQuestion = useMemo(() => waitChoiceQuestion(t, number), [t, number]);
   const [tips] = useState(() => shuffleEntryWaitTips());
   const [tipIndex, setTipIndex] = useState(0);
   const tipCount = tips.length;
@@ -138,13 +143,15 @@ export function EntryWaitLessons() {
 
   if (!tip) return null;
 
+  const body = splitAccent(t(tip.body, { field: t("round.shop.searchPlaceholder") }));
+
   return (
     <div className={own.entryWaitCarousel} data-testid="entry-wait-tips" data-tip-count={tipCount}>
       <button
         type="button"
         className={own.entryWaitTipButton}
         data-testid="entry-wait-prev-tip"
-        aria-label="Previous tip"
+        aria-label={t("wait.previousTip")}
         onClick={() => stepTip(-1)}
       >
         <ChevronLeft />
@@ -152,17 +159,11 @@ export function EntryWaitLessons() {
       <div className={own.entryWaitTipBar} data-testid="entry-wait-tip-bar">
         <article className={own.entryWaitCard} data-testid="entry-wait-tip" data-tip={tip.id}>
           <div className={own.entryWaitCardCopy}>
-            <small>{ENTRY_WAIT_TIP_LABEL}</small>
+            <small>{t("wait.tipLabel")}</small>
             <p>
-              {tip.mark && tip.body.includes(tip.mark) ? (
-                <>
-                  {tip.body.slice(0, tip.body.indexOf(tip.mark))}
-                  <em>{tip.mark}</em>
-                  {tip.body.slice(tip.body.indexOf(tip.mark) + tip.mark.length)}
-                </>
-              ) : (
-                tip.body
-              )}
+              {body.before}
+              {body.accent ? <em>{body.accent}</em> : null}
+              {body.after}
             </p>
           </div>
           <div className={own.entryWaitStage} data-testid="entry-wait-stage">
@@ -173,7 +174,7 @@ export function EntryWaitLessons() {
               aria-hidden={tip.id !== "keys"}
               inert={tip.id !== "keys"}
             >
-              <ClassicChoiceBoard question={WAIT_CHOICE_QUESTION} active={tip.id === "keys"} />
+              <ClassicChoiceBoard question={choiceQuestion} active={tip.id === "keys"} />
             </div>
             <div
               className={styles.entryWaitPanel}
@@ -220,7 +221,7 @@ export function EntryWaitLessons() {
         type="button"
         className={own.entryWaitTipButton}
         data-testid="entry-wait-next-tip"
-        aria-label="Next tip"
+        aria-label={t("wait.nextTip")}
         onClick={() => stepTip(1)}
       >
         <ChevronRight />

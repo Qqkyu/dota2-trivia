@@ -563,6 +563,7 @@ const chrome = spawn(
   "google-chrome",
   [
     "--headless=new",
+    ...(process.env.CHECK_LOCALE ? [`--accept-lang=${process.env.CHECK_LOCALE}`] : []),
     "--mute-audio",
     `--remote-debugging-port=${port}`,
     "--remote-allow-origins=*",

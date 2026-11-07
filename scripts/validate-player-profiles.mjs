@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { readFileSync } from "node:fs";
 import { answerStageForRound, summarizePlayerRounds } from "../src/lib/player-profile.mjs";
 import {
   createSteamState,
@@ -208,6 +209,7 @@ const compared = compareFormatMastery(
 const comparedClassic = compared.find((row) => row.game === "trivia");
 const comparedSpell = compared.find((row) => row.game === "spell-link");
 const comparedFogged = compared.find((row) => row.game === "fogged-vision");
+const pageMessages = readFileSync(new URL("../src/i18n/messages/pages.ts", import.meta.url), "utf8");
 const shortPreview = profileRecordsPreview("short");
 const longPreview = profileRecordsPreview("long");
 
@@ -270,9 +272,10 @@ if (
   !previews["fogged-vision"]?.fogged ||
   !previews["aghanim-lab"]?.image?.src.includes("ultimate_scepter") ||
   JSON.stringify(previews["aghanim-lab"]).includes("Blink") ||
-  longPreview.formats.find((row) => row.game === "trivia")?.preview?.prompt !== "How much does Pipe of Insight cost?" ||
-  longPreview.formats.find((row) => row.game === "quote-hunt")?.preview?.detail !==
-    "The only thing that could ever make me turn on my allies..."
+  longPreview.formats.find((row) => row.game === "trivia")?.preview?.prompt !== "profile.sample.trivia.prompt" ||
+  !pageMessages.includes('"profile.sample.trivia.prompt": "How much does Pipe of Insight cost?"') ||
+  longPreview.formats.find((row) => row.game === "quote-hunt")?.preview?.detail !== "profile.sample.quote.detail" ||
+  !pageMessages.includes('"profile.sample.quote.detail": "The only thing that could ever make me turn on my allies..."')
 ) {
   failures.push("Format mastery previews leak answers or no longer show a real mini-question.");
 }

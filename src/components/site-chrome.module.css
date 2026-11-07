@@ -11,6 +11,7 @@
   width: min(100% - 48px, 1420px);
   min-height: 88px;
   align-items: center;
+  justify-content: space-between;
   margin: 0 auto;
   border-bottom: 1px solid rgba(210, 214, 207, 0.11);
 }

@@ -1,0 +1,135 @@
+/**
+ * English text for this area. See `en.ts`.
+ *
+ * `[brackets]` mark the highlighted words of a sentence: `splitAccent` in `format.mjs` cuts the
+ * text there, so a translation keeps one whole sentence and can move the highlight.
+ * In plural messages `count` picks the form and a second slot prints the formatted number.
+ */
+export const lobby = {
+  // Round type names: the round header, the lobby list, party setup and format previews.
+  "game.trivia.label": "Classic Trivia",
+  "game.shopkeeper.label": "Shopkeeper Rush",
+  "game.spellLink.label": "Spell Link",
+  "game.foggedVision.label": "Fogged Vision",
+  "game.echoHunt.label": "Echo Hunt",
+  "game.soundcheck.label": "Soundcheck",
+  "game.quoteHunt.label": "Quote Hunt",
+  "game.aghanimLab.label": "Aghanim's Lab",
+  "game.orderUp.label": "Order Up",
+  "game.flashback.label": "Flashback",
+  "game.trivia.short": "Classic Trivia",
+  "game.shopkeeper.short": "Shopkeeper",
+  "game.spellLink.short": "Spell Link",
+  "game.foggedVision.short": "Fogged",
+  "game.echoHunt.short": "Echo",
+  "game.soundcheck.short": "Soundcheck",
+  "game.quoteHunt.short": "Quotes",
+  "game.aghanimLab.short": "Aghanim's Lab",
+  "game.orderUp.short": "Order Up",
+  "game.flashback.short": "Flashback",
+
+  // Site header and footer of the arcade.
+  "shell.header.home": "Queue Arcade home",
+  "shell.header.tagline": "Side quests, between matches",
+  "shell.header.patch": "{game} · Patch {patch}",
+  "shell.header.mute": "Mute game sounds",
+  "shell.header.unmute": "Enable game sounds",
+  "shell.header.volume": "Game volume",
+  "shell.header.volumeValue": { one: "{count} percent", other: "{count} percent" },
+  "shell.footer.tagline": "Queue Arcade · Built for the seconds between “Find Match” and “Accept”",
+  "shell.footer.opening": "Opening…",
+  "shell.footer.profile": "Profile",
+  "shell.footer.privacy": "Privacy",
+  "shell.footer.calibration": "Calibration lab",
+  "shell.footer.legal":
+    "Dota 2 is a trademark of Valve Corporation. Game assets belong to their respective rights holders. This project is not affiliated with Valve.",
+
+  // Lobby.
+  "lobby.title": "Dota side quests",
+  "lobby.titleAccent": "between matches",
+  "lobby.lead":
+    "One public room, one {seconds}-second clock. Everyone gets the same question, the room’s split goes up at the reveal, and a right answer scores [double] when most of the crowd got it wrong.",
+  "lobby.play": "Play Dota",
+  "lobby.joining": "Joining…",
+  "lobby.party": "Party",
+  "lobby.openingRecords": "Opening your records…",
+  "lobby.accuracy": "{accuracy}% accuracy",
+  "lobby.rotation": "Ten games, one rotation",
+  "lobby.rotationList": "Round identities",
+  "lobby.live.publicRoom": "Public room",
+  "lobby.live.answering": "Live now · Answering",
+  "lobby.live.reveal": "Live now · Reveal",
+  "lobby.live.idle": "One room, one clock",
+  "lobby.live.nextRound": "Next round",
+  "lobby.live.connecting": "Connecting to the room…",
+  "lobby.live.nextRoundIn": "Next round in",
+  "lobby.live.joiningNext": "Joining the next full round…",
+  "lobby.live.joinThisRound": "Play now and this round is yours.",
+  "lobby.live.joinNextRound": "Play now and you start with the next round.",
+  "lobby.live.sameQuestion": "Everyone gets the same question on the same clock.",
+
+  // Room state, in the lobby and beside a round. One shape for any room size.
+  "roomStatus.playing": { one: "{players} playing now", other: "{players} playing now" },
+  "roomStatus.open": "Room open",
+  "roomStatus.connectionInterrupted": "Connection interrupted · retrying automatically",
+  "roomStatus.retrying": "Could not connect · retrying.",
+  "roomStatus.partyJoinFailed": "Could not join that party. Retry or return to the lobby.",
+  "roomStatus.publicJoinFailed": "Could not join the public room. Press Play to retry.",
+  "roomStatus.voteFailed": "Vote failed · try again",
+  "roomStatus.voteDelayed": "Vote confirmation delayed · checking the room",
+
+  // Round frame and session rail.
+  "session.round": "Round {number}",
+  "session.roundGame": "Round {number} · {game}",
+  "session.announcement": "Round {number}. {prompt}",
+  "session.secondsRemaining": { one: "{count} seconds remaining", other: "{count} seconds remaining" },
+  "session.reportSent": "Report sent · {reason}",
+  "session.region": "Your session",
+  "session.gold": "Gold",
+  "session.streak": "Streak",
+  "session.room": "Room",
+  "session.live": "Live",
+  "session.final": "Final",
+  "session.recentRounds": "Recent rounds",
+  "session.syncing": "Syncing",
+  "session.lockedSoFar": { one: "{answers} locked so far.", other: "{answers} locked so far." },
+  "session.answeredThisRound": { one: "{answers} answered this round.", other: "{answers} answered this round." },
+  "session.roomSplit": "Room split",
+  "session.answerTotal": { one: "{answers} answer", other: "{answers} answers" },
+  "session.you": "You",
+  "session.correctAverage": "Correct avg",
+  "session.best": "Best",
+
+  // Shop instruction during a round.
+  "shopAction.finishedItem": "Choose the finished item",
+  "shopAction.recipeNotNeeded": "Pick the shop items. No recipe required.",
+  "shopAction.recipeIncluded": "Pick the shop items. Recipe is included.",
+  "shopAction.pickItems": "Pick the shop items.",
+  "shopAction.sharedPart": "Choose the shared component",
+  "shopAction.directUpgrade": "Choose the direct upgrade",
+
+  // Wait before the first full round. `{field}` is the name of the shop search field.
+  "wait.heading": "Waiting for the next round",
+  "wait.hint": "Waiting for the next full question.",
+  "wait.tipLabel": "Hint",
+  "wait.tip.keys": "Use A–D shortcut to pick an answer",
+  "wait.tip.heroes": "Start typing to filter heroes",
+  "wait.tip.shop": "Use [{field}] to filter",
+  "wait.previousTip": "Previous tip",
+  "wait.nextTip": "Next tip",
+  "wait.practice": "Practice",
+  "wait.notLive": "Not a live round",
+  "wait.practiceChoices": "Practice answer choices",
+  "wait.picked": "Picked · a live round locks it here",
+  "wait.demo.category": "Items",
+  "wait.demo.prompt": "How much does Blink Dagger cost?",
+  "wait.demo.imageAlt": "Blink Dagger item icon",
+  "wait.demo.gold": "{amount} gold",
+
+  // Format previews on party and profile cards.
+  "preview.targetItem": "Target item",
+  "preview.clue": "Clue {number}",
+  "preview.abilityDescription": "Ability description",
+  "preview.fog": "Fog {number}",
+  "preview.cut": "Cut {number} of {total}",
+} as const;

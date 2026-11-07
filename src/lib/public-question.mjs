@@ -85,7 +85,12 @@ export function publicQuestionRevision(round, now) {
  * This is deliberately an allow-list: new internal catalog fields stay private
  * until they are intentionally added here.
  */
-export function publicQuestionForRound(question, round, now) {
+export function publicQuestionForRound(
+  question,
+  round,
+  now,
+  { hiddenHero = "Hidden hero", spellLink = "Spell Link" } = {},
+) {
   const clueStage = STAGED_CLUE_GAMES.includes(round.game) ? timedClueStage(round, now) : 1;
   const openShopAnswer = isItemPickerQuestion(question);
   const recipeBuilderAnswer = isRealRecipeBuilderQuestion(question);
@@ -131,7 +136,7 @@ export function publicQuestionForRound(question, round, now) {
       : publicRoundImage(
           round,
           question.image,
-          round.game === "fogged-vision" && round.phase === "answering" ? "Hidden hero" : undefined,
+          round.game === "fogged-vision" && round.phase === "answering" ? hiddenHero : undefined,
           now,
         );
   const shopkeeper = question.shopkeeper
@@ -219,7 +224,7 @@ export function publicQuestionForRound(question, round, now) {
     kind: question.kind,
     category: question.category,
     difficulty: question.difficulty,
-    eyebrow: round.game === "spell-link" && clueStage < 2 ? "Spell Link" : question.eyebrow,
+    eyebrow: round.game === "spell-link" && clueStage < 2 ? spellLink : question.eyebrow,
     prompt: question.prompt,
     ...(image ? { image } : {}),
     answers: keyedAnswer ? ["", "", "", ""] : [...question.answers],

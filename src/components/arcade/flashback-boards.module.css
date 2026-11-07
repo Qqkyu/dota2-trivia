@@ -8,7 +8,7 @@
 
 .flashbackYearBoard > strong {
   color: #f0d9a0;
-  font-family: var(--font-radiance), sans-serif;
+  font-family: "Radiance Cyrillic", var(--font-radiance), sans-serif;
   font-size: 32px;
   font-weight: 700;
   line-height: 1;
@@ -88,7 +88,7 @@
 .flashbackOrderList i,
 .flashbackOrderCards i {
   color: #8a8d85;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   font-style: normal;
 }
@@ -112,7 +112,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(10, 12, 12, 0.78);
   color: #e7ecec;
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: "Geist Cyrillic", var(--font-geist-sans), Arial, Helvetica, sans-serif;
   font-size: 13px;
   font-synthesis: none;
   text-align: left;

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect } from "react";
+import { useLocale } from "@/i18n/provider";
 import { reportClientError } from "@/lib/client-diagnostics";
 import styles from "./error.module.css";
 
@@ -12,20 +13,21 @@ export default function AppError({
   error: Error & { digest?: string };
   unstable_retry: () => void;
 }) {
+  const { t } = useLocale();
   useEffect(() => reportClientError(error, "react-boundary"), [error]);
   return (
     <main className={styles.shell}>
       <section className={styles.panel} role="alert">
-        <small>Arcade interrupted</small>
-        <h1>That round crashed.</h1>
-        <p>Your connected records are safe. Retry the view or return to the lobby.</p>
+        <small>{t("crash.app.eyebrow")}</small>
+        <h1>{t("crash.app.title")}</h1>
+        <p>{t("crash.app.body")}</p>
         <div className={styles.actions}>
           <button type="button" onClick={() => unstable_retry()}>
-            Retry
+            {t("crash.retry")}
           </button>
-          <Link href="/">Return to lobby</Link>
+          <Link href="/">{t("crash.lobby")}</Link>
         </div>
-        {error.digest && <span className={styles.reference}>Reference · {error.digest}</span>}
+        {error.digest && <span className={styles.reference}>{t("crash.reference", { digest: error.digest })}</span>}
       </section>
     </main>
   );

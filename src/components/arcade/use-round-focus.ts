@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useLocale } from "@/i18n/provider";
 import { type PublicArcadeQuestion } from "@/lib/public-question";
 import { type GamePhase } from "./shared";
 
@@ -21,6 +22,7 @@ export function useRoundFocus({
   roundHeadingRef: RefObject<HTMLHeadingElement | null>;
   reportFocusRef: RefObject<string | null>;
 }) {
+  const { t } = useLocale();
   const [roundAnnouncement, setRoundAnnouncement] = useState<{ id: string; text: string } | null>(null);
 
   const lastRoundControlRef = useRef<HTMLElement | null>(null);
@@ -56,8 +58,11 @@ export function useRoundFocus({
     if (phase !== "answering" || !currentQuestion || currentQuestion.id !== activeRoundId) return;
     if (announcedRoundRef.current === activeRoundId) return;
     announcedRoundRef.current = activeRoundId;
-    setRoundAnnouncement({ id: activeRoundId, text: `Round ${roundIndex + 1}. ${currentQuestion.prompt}` });
-  }, [activeRoundId, currentQuestion, phase, roundIndex]);
+    setRoundAnnouncement({
+      id: activeRoundId,
+      text: t("session.announcement", { number: roundIndex + 1, prompt: currentQuestion.prompt }),
+    });
+  }, [activeRoundId, currentQuestion, phase, roundIndex, t]);
 
   useEffect(() => {
     if (phase !== "answering" || currentQuestion?.id !== activeRoundId || scrollToRoundRef.current !== activeRoundId)

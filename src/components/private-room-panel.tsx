@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowLeft, Check, Copy, MessageSquare, Pencil, Users } from "lucide-react";
 import clsx from "clsx";
+import { useLocale } from "@/i18n/provider";
+import type { MessageKey } from "@/i18n/types";
 import { safeBrowserStorage } from "@/lib/browser-storage.mjs";
 import { requestWithRetry } from "@/lib/request-retry.mjs";
 import type { FormatPreview } from "@/components/format-look";
@@ -79,6 +81,8 @@ interface PrivateRoomPayload {
   };
   presence?: { activePlayers?: number };
   error?: string;
+  /** Machine-readable cause; `error` is in the player's language. */
+  reason?: string;
 }
 
 function asRoomView(payload: PrivateRoomPayload | null): PrivateRoomView | null {
@@ -134,6 +138,7 @@ function ChatBox({
   sending: boolean;
   error: string | null;
 }) {
+  const { t } = useLocale();
   const logRef = useRef<HTMLDivElement | null>(null);
   const followLogRef = useRef(true);
   const latestMessageId = room.messages.at(-1)?.id;
@@ -147,7 +152,7 @@ function ChatBox({
         className={styles.chatLog}
         ref={logRef}
         role="log"
-        aria-label="Party messages"
+        aria-label={t("party.chat.log")}
         aria-live="polite"
         aria-relevant="additions"
         onScroll={(event) => {
@@ -155,7 +160,7 @@ function ChatBox({
           followLogRef.current = log.scrollHeight - log.clientHeight - log.scrollTop <= 8;
         }}
       >
-        {room.messages.length === 0 ? <p className={styles.muted}>No messages yet.</p> : null}
+        {room.messages.length === 0 ? <p className={styles.muted}>{t("party.chat.empty")}</p> : null}
         {room.messages.map((message) => (
           <p key={message.id}>
             <strong>{message.name}</strong>
@@ -173,13 +178,13 @@ function ChatBox({
         <input
           value={draft}
           maxLength={80}
-          placeholder="Message"
-          aria-label="Party chat"
+          placeholder={t("party.chat.placeholder")}
+          aria-label={t("party.chat.input")}
           data-testid="private-room-chat-input"
           onChange={(event) => onDraft(event.currentTarget.value)}
         />
         <button type="submit" data-testid="private-room-chat-send" disabled={sending} aria-busy={sending}>
-          Send
+          {t("party.chat.send")}
         </button>
       </form>
       <p className={styles.chatError} role="status" data-testid="private-room-chat-error">
@@ -239,10 +244,11 @@ export function PrivateRoomPanel({
   onClose?: () => void;
   /** The server no longer knows this party (it restarted, for example for a deploy). */
   onEnded?: () => void;
-  /** Shown on the choose screen until the player acts. */
+  /** Message key, shown on the choose screen until the player acts. */
   notice?: string | null;
   onDismissNotice?: () => void;
 }) {
+  const { t } = useLocale();
   const [screen, setScreen] = useState<PartyScreen>(initialCode ? "wait" : "choose");
   const [selected, setSelected] = useState<string[]>(() => gameOptions.map((game) => game.id));
   const [joinCode, setJoinCode] = useState(() => filterCode(initialCode ?? ""));
@@ -459,20 +465,20 @@ export function PrivateRoomPanel({
         );
         if (controller.signal.aborted || generation !== requestGenerationRef.current) return null;
         if (!response.ok)
-          throw Object.assign(new Error(payload.error ?? "Request failed."), { status: response.status });
+          throw Object.assign(new Error(payload.error ?? t("party.error.requestFailed")), { status: response.status });
         if (sequence < appliedSequenceRef.current) return null;
         appliedSequenceRef.current = sequence;
         return applyPayload(payload);
       } catch (cause) {
         if (controller.signal.aborted || generation !== requestGenerationRef.current) return null;
-        if (cause instanceof Error && cause.name === "AbortError") throw new Error("Request timed out. Try again.");
+        if (cause instanceof Error && cause.name === "AbortError") throw new Error(t("party.error.timeout"));
         throw cause;
       } finally {
         requestsRef.current.delete(controller);
         init?.signal?.removeEventListener("abort", abort);
       }
     },
-    [applyPayload],
+    [applyPayload, t],
   );
 
   const syncName = useCallback(
@@ -490,7 +496,7 @@ export function PrivateRoomPanel({
       }
       if (room?.players.some((player) => !player.self && player.name.toLowerCase() === next.toLowerCase())) {
         adoptServerName(current);
-        flashNameNotice("That name is taken.");
+        flashNameNotice(t("party.error.nameTaken"));
         return false;
       }
       try {
@@ -502,7 +508,7 @@ export function PrivateRoomPanel({
         const selfName = payload.players.find((player) => player.self)?.name ?? "";
         if (payload.nameTaken || (selfName && selfName.toLowerCase() !== next.toLowerCase())) {
           adoptServerName(selfName || current);
-          flashNameNotice("That name is taken.");
+          flashNameNotice(t("party.error.nameTaken"));
           return false;
         }
         adoptServerName(selfName || next);
@@ -510,11 +516,11 @@ export function PrivateRoomPanel({
         return true;
       } catch (cause) {
         adoptServerName(current);
-        flashNameNotice(cause instanceof Error ? cause.message : "Could not save that name.");
+        flashNameNotice(cause instanceof Error ? cause.message : t("party.error.nameSave"));
         return false;
       }
     },
-    [adoptServerName, clearNameNotice, flashNameNotice, requestRoom, room?.players, trackedCode],
+    [adoptServerName, clearNameNotice, flashNameNotice, requestRoom, room?.players, t, trackedCode],
   );
 
   useEffect(() => {
@@ -556,7 +562,7 @@ export function PrivateRoomPanel({
           }
           return;
         }
-        setError(cause instanceof Error ? cause.message : "Request failed.");
+        setError(cause instanceof Error ? cause.message : t("party.error.requestFailed"));
         if (!trackedCode) {
           setFailedInitialCode(code);
           setScreen("choose");
@@ -572,7 +578,7 @@ export function PrivateRoomPanel({
       window.clearTimeout(start);
       window.clearInterval(timer);
     };
-  }, [failedInitialCode, initialCode, playActive, requestRoom, trackedCode]);
+  }, [failedInitialCode, initialCode, playActive, requestRoom, t, trackedCode]);
 
   const toggleGame = (id: string) => {
     setSelected((current) => (current.includes(id) ? current.filter((game) => game !== id) : [...current, id]));
@@ -590,7 +596,7 @@ export function PrivateRoomPanel({
   const joinRoom = async () => {
     const hint = partyCodeError(joinCode);
     if (hint) {
-      setError(hint);
+      setError(t(hint.key, hint.vars));
       setErrorField("code");
       joinInputRef.current?.focus();
       return;
@@ -609,22 +615,22 @@ export function PrivateRoomPanel({
         body: JSON.stringify({ action: "join", code, playerId: player, name }),
       });
       if (!entry.current()) return;
-      if (joined.status === 404) throw new Error("No party with that code.");
+      if (joined.status === 404) throw new Error(t("party.error.noParty"));
       if (joined.status === 409) {
-        setError(payload.error ?? "This party is full.");
+        setError(payload.error ?? t("party.error.full"));
         setErrorField(null);
         return;
       }
-      if (!joined.ok) throw new Error(payload.error ?? "Could not join that party.");
+      if (!joined.ok) throw new Error(payload.error ?? t("party.error.joinFailed"));
       goToRoom(payload, code);
     } catch (cause) {
       if (!entry.current()) return;
       setError(
         cause instanceof Error && cause.name === "AbortError"
-          ? "Request timed out. Try again."
+          ? t("party.error.timeout")
           : cause instanceof Error
             ? cause.message
-            : "Could not join that party.",
+            : t("party.error.joinFailed"),
       );
       setErrorField("code");
     } finally {
@@ -635,7 +641,7 @@ export function PrivateRoomPanel({
   const createRoom = async () => {
     const hint = partyCodeError(joinCode);
     if (hint) {
-      setError(hint);
+      setError(t(hint.key, hint.vars));
       setErrorField("code");
       joinInputRef.current?.focus();
       return;
@@ -653,10 +659,10 @@ export function PrivateRoomPanel({
       );
       if (!entry.current()) return;
       if (!existing.ok && existing.status !== 404) {
-        throw new Error(existingPayload.error ?? "Could not create that party.");
+        throw new Error(existingPayload.error ?? t("party.error.createFailed"));
       }
       if (!selected.length) {
-        setError("Pick at least one game.");
+        setError(t("party.error.pickGame"));
         setErrorField("games");
         return;
       }
@@ -670,20 +676,20 @@ export function PrivateRoomPanel({
         goToRoom(createdPayload, code);
         return;
       }
-      if (createdPayload.error === "That code is taken.") {
-        setError("That code is taken.");
+      if (createdPayload.reason === "code-taken") {
+        setError(t("party.error.codeTaken"));
         setErrorField("code");
         return;
       }
-      throw new Error(createdPayload.error ?? "Could not create that party.");
+      throw new Error(createdPayload.error ?? t("party.error.createFailed"));
     } catch (cause) {
       if (!entry.current()) return;
       setError(
         cause instanceof Error && cause.name === "AbortError"
-          ? "Request timed out. Try again."
+          ? t("party.error.timeout")
           : cause instanceof Error
             ? cause.message
-            : "Could not create that party.",
+            : t("party.error.createFailed"),
       );
       setErrorField("code");
     } finally {
@@ -707,7 +713,7 @@ export function PrivateRoomPanel({
       });
     } catch (cause) {
       if (generation !== requestGenerationRef.current) return;
-      setError(cause instanceof Error ? cause.message : "Could not start.");
+      setError(cause instanceof Error ? cause.message : t("party.error.startFailed"));
     } finally {
       if (generation === requestGenerationRef.current) {
         busyRef.current = null;
@@ -737,7 +743,7 @@ export function PrivateRoomPanel({
         setDraft(text);
         saveChatDraft(room.code, text);
       }
-      setChatError(cause instanceof Error ? cause.message : "Could not send. Try again.");
+      setChatError(cause instanceof Error ? cause.message : t("party.error.sendFailed"));
     } finally {
       sendingRef.current = false;
       setSending(false);
@@ -771,6 +777,11 @@ export function PrivateRoomPanel({
       keepalive: true,
     }).catch(() => undefined);
   }, [joinCode, playerId, screen, trackedCode]);
+
+  const playerTagText = (player: PrivateRoomPlayer) => {
+    const tag = partyPlayerTag(player);
+    return tag ? t(tag) : "";
+  };
 
   const chatBox = room ? (
     <ChatBox
@@ -806,10 +817,10 @@ export function PrivateRoomPanel({
         <MessageSquare aria-hidden="true" data-testid="private-room-chat-icon" />
         <span className={styles.chatToggleFaces}>
           <span className={styles.chatToggleFace} data-show={chatOpen ? "false" : "true"}>
-            Show chat
+            {t("party.chat.show")}
           </span>
           <span className={styles.chatToggleFace} data-show={chatOpen ? "true" : "false"}>
-            Hide chat
+            {t("party.chat.hide")}
           </span>
         </span>
       </button>
@@ -829,7 +840,7 @@ export function PrivateRoomPanel({
               <span>{index + 1}</span>
               <strong>
                 {player.name}
-                {partyPlayerTag(player) === "Away" ? <small>Away</small> : null}
+                {partyPlayerTag(player) === "party.tag.away" ? <small>{t("party.tag.away")}</small> : null}
               </strong>
               <em>{player.score}</em>
             </li>
@@ -863,7 +874,13 @@ export function PrivateRoomPanel({
       }}
     >
       <ArrowLeft />
-      {screen === "create" || screen === "join" ? "Back" : screen === "choose" ? "Back to lobby" : "Leave"}
+      {t(
+        screen === "create" || screen === "join"
+          ? "party.back"
+          : screen === "choose"
+            ? "party.backToLobby"
+            : "party.leave",
+      )}
     </button>
   );
 
@@ -879,27 +896,28 @@ export function PrivateRoomPanel({
     const roster = partyLobbyRoster(
       room.players.length
         ? room.players
-        : [{ name: shownName.trim() || "You", host: room.isHost, self: true, score: 0, away: false }],
+        : [{ name: shownName.trim() || t("party.tag.you"), host: room.isHost, self: true, score: 0, away: false }],
     );
+    const hostName = room.players.find((player) => player.host)?.name;
     return (
       <section className={clsx(styles.view, styles.waitView)} data-testid="private-room-wait">
-        <h1 className="sr-only">Party lobby</h1>
+        <h1 className="sr-only">{t("party.lobby.title")}</h1>
         <div className={styles.lobby}>
           {back}
           <header className={styles.lobbyHead}>
             <div>
-              <small>Party code</small>
+              <small>{t("party.code")}</small>
               <strong data-testid="private-room-code">{room.code}</strong>
             </div>
             <button type="button" className={clsx(styles.ghost, styles.copyLink)} onClick={() => void copyLink()}>
               {copied ? <Check data-testid="private-room-copied" /> : <Copy />}
-              Copy link
+              {t("party.copyLink")}
             </button>
           </header>
           <div className={styles.playersBlock}>
             <p className={styles.sectionLabel}>
               <Users />
-              Players
+              {t("party.players")}
               <span data-testid="private-room-player-count">
                 {roster.length}/{PRIVATE_ROOM_PLAYER_MAX}
               </span>
@@ -921,11 +939,11 @@ export function PrivateRoomPanel({
                             className={styles.playerName}
                             value={shownName}
                             maxLength={PRIVATE_ROOM_NAME_MAX}
-                            placeholder="Your name"
+                            placeholder={t("party.name.placeholder")}
                             autoComplete="nickname"
                             spellCheck={false}
                             aria-describedby={nameNotice ? "private-room-name-error" : undefined}
-                            aria-label="Your name"
+                            aria-label={t("party.name.placeholder")}
                             data-testid="private-room-name"
                             onChange={(event) => saveName(event.currentTarget.value)}
                             onFocus={() => {
@@ -957,7 +975,7 @@ export function PrivateRoomPanel({
                     ) : (
                       <strong>{player.name}</strong>
                     )}
-                    <span>{partyPlayerTag(player)}</span>
+                    <span>{playerTagText(player)}</span>
                     {!room.waiting ? <em>{player.score}</em> : null}
                   </li>
                 ))}
@@ -973,11 +991,11 @@ export function PrivateRoomPanel({
                 disabled={busy === "start" || countdownSeconds > 0}
                 onClick={() => void startRoom()}
               >
-                Start
+                {t("party.start")}
               </button>
             ) : (
               <p className={styles.startWait} data-testid="private-room-host-wait">
-                Waiting for {room.players.find((player) => player.host)?.name || "the host"} to start
+                {hostName ? t("party.waiting.named", { name: hostName }) : t("party.waiting.host")}
               </p>
             )}
           </div>
@@ -1000,7 +1018,7 @@ export function PrivateRoomPanel({
   const codeField = (
     <div className={styles.codeField}>
       <label htmlFor="party-code-input" data-testid="private-room-code-label">
-        Party code
+        {t("party.code")}
       </label>
       <input
         ref={joinInputRef}
@@ -1025,7 +1043,7 @@ export function PrivateRoomPanel({
     </div>
   );
 
-  const setupMessage = error ?? (screen === "choose" ? notice : null);
+  const setupMessage = error ?? (screen === "choose" && notice ? t(notice as MessageKey) : null);
   const setupError = setupMessage ? (
     <p id="party-code-error" className={styles.error} role="alert" data-testid="private-room-error">
       {setupMessage}
@@ -1035,8 +1053,8 @@ export function PrivateRoomPanel({
   if (screen === "choose") {
     return (
       <section className={styles.view} data-testid="private-room-setup" data-path="choose">
-        <h1 className={styles.setupTitle}>Play with friends</h1>
-        <p className={styles.setupIntro}>Create a party and choose the games, or join with a friend&apos;s code.</p>
+        <h1 className={styles.setupTitle}>{t("party.setup.title")}</h1>
+        <p className={styles.setupIntro}>{t("party.setup.intro")}</p>
         {back}
         {setupError}
         <div className={styles.chooseDoors}>
@@ -1051,7 +1069,7 @@ export function PrivateRoomPanel({
               setScreen("create");
             }}
           >
-            Create party
+            {t("party.setup.create")}
           </button>
           <button
             type="button"
@@ -1064,7 +1082,7 @@ export function PrivateRoomPanel({
               setScreen("join");
             }}
           >
-            Join party
+            {t("party.setup.join")}
           </button>
         </div>
       </section>
@@ -1074,7 +1092,7 @@ export function PrivateRoomPanel({
   if (screen === "join") {
     return (
       <section className={clsx(styles.view, styles.joinView)} data-testid="private-room-setup" data-path="join">
-        <h1 className="sr-only">Join party</h1>
+        <h1 className="sr-only">{t("party.setup.join")}</h1>
         {back}
         <div className={styles.enter}>
           {codeField}
@@ -1087,10 +1105,10 @@ export function PrivateRoomPanel({
             onClick={() => void joinRoom()}
           >
             <span className={styles.enterFace} data-show={busy === "join" ? "false" : "true"}>
-              Join
+              {t("party.join")}
             </span>
             <span className={styles.enterFace} data-show={busy === "join" ? "true" : "false"}>
-              Joining…
+              {t("party.joining")}
             </span>
           </button>
           {setupError}
@@ -1101,12 +1119,12 @@ export function PrivateRoomPanel({
 
   return (
     <section className={styles.view} data-testid="private-room-setup" data-path="create">
-      <h1 className="sr-only">Create party</h1>
+      <h1 className="sr-only">{t("party.setup.create")}</h1>
       {back}
       <div
         className={clsx(formatPreviewCardStyles.cardGrid, styles.games)}
         role="group"
-        aria-label="Games"
+        aria-label={t("party.games")}
         data-invalid={errorField === "games" ? "true" : undefined}
       >
         {gameOptions.map((game) => {
@@ -1138,10 +1156,10 @@ export function PrivateRoomPanel({
           onClick={() => void createRoom()}
         >
           <span className={styles.enterFace} data-show={busy === "create" ? "false" : "true"}>
-            Create
+            {t("party.create")}
           </span>
           <span className={styles.enterFace} data-show={busy === "create" ? "true" : "false"}>
-            Creating…
+            {t("party.creating")}
           </span>
         </button>
         {setupError}

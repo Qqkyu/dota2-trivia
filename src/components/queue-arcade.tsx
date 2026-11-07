@@ -1,18 +1,18 @@
 "use client";
 
+import { categoryLabel } from "@/i18n/category";
 import { Check, Clock3 } from "lucide-react";
 import clsx from "clsx";
-import { REPORT_REASON_LABELS } from "@/lib/calibration";
-import { LIVE_ROUND_GAMES } from "@/lib/arcade-games.mjs";
+import { REPORT_REASON_LABEL_KEYS } from "@/lib/calibration";
+import { LIVE_ROUND_GAMES, ROUND_GAME_LABEL_KEYS } from "@/lib/arcade-games.mjs";
+import { useLocale } from "@/i18n/provider";
 import { PrivateRoomPanel } from "@/components/private-room-panel";
-import { LIVE_ROUND_HEADER_LABELS } from "@/lib/round-question-copy.mjs";
 import type { FormatPreview } from "@/components/format-look";
 import { ARCADE_LOBBY_PATH } from "@/lib/arcade-navigation.mjs";
 import { type PublicGameInfo } from "@/lib/game-identity";
 import { shouldBlockQuestionClipboard } from "@/lib/question-guard.mjs";
 import styles from "./queue-arcade.module.css";
 import { ModeIcon } from "./arcade/mode-icon";
-import { gameLabel } from "./arcade/shared";
 
 import { useArcadeAudio, useRoundAutoplay } from "./arcade/use-arcade-audio";
 import { useArcadeRoom } from "./arcade/use-arcade-room";
@@ -50,6 +50,7 @@ export function QueueArcade({
   formatPreviews?: Record<string, FormatPreview | null | undefined>;
   initialPulse?: LobbyPulsePayload | null;
 }) {
+  const { t } = useLocale();
   const playerId = usePlayerId();
   const { ensurePlayerId } = playerId;
   const settings = usePlayerSettings({ ensurePlayerId });
@@ -149,7 +150,6 @@ export function QueueArcade({
     recentHistory,
     recentHistoryStart,
     spellHint,
-    activeModeInfo,
     aghanimUpgradeLabel,
     aghanimItem,
   } = view;
@@ -210,7 +210,6 @@ export function QueueArcade({
           answerDuration={answerDuration}
           startRun={startRun}
           returnToLobby={returnToLobby}
-          activeModeInfo={activeModeInfo}
         />
       )}
 
@@ -219,7 +218,7 @@ export function QueueArcade({
           key={activePrivateCode || "setup"}
           gameOptions={LIVE_ROUND_GAMES.map((game) => ({
             id: game,
-            label: LIVE_ROUND_HEADER_LABELS[game as keyof typeof LIVE_ROUND_HEADER_LABELS] ?? game,
+            label: t(ROUND_GAME_LABEL_KEYS[game as keyof typeof ROUND_GAME_LABEL_KEYS]),
             preview: formatPreviews[game] ?? null,
           }))}
           playerId={ensurePlayerId}
@@ -270,7 +269,7 @@ export function QueueArcade({
           data-copy-guard={shouldBlockQuestionClipboard(phase) ? "blocked" : "allowed"}
         >
           <h1 className="sr-only" ref={roundHeadingRef} data-testid="round-heading" tabIndex={-1}>
-            Round {roundIndex + 1}
+            {t("session.round", { number: roundIndex + 1 })}
           </h1>
           <div
             ref={roundStageRef}
@@ -299,20 +298,20 @@ export function QueueArcade({
 
             <div className={styles.roundHeader}>
               <div>
-                <span>Round {String(roundIndex + 1).padStart(3, "0")}</span>
+                <span>{t("session.round", { number: String(roundIndex + 1).padStart(3, "0") })}</span>
                 <i />
                 <span className={styles.roundGameLabel}>
                   <ModeIcon mode={currentGame} />
-                  {gameLabel(currentGame)}
+                  {t(ROUND_GAME_LABEL_KEYS[currentGame])}
                 </span>
                 <i />
-                <span>{currentQuestion.category}</span>
+                <span>{categoryLabel(t, currentQuestion.category)}</span>
               </div>
               <div
                 className={styles.timer}
                 role="timer"
                 aria-live="off"
-                aria-label={`${Math.ceil(answerRemaining / 1000)} seconds remaining`}
+                aria-label={t("session.secondsRemaining", { count: Math.ceil(answerRemaining / 1000) })}
                 data-urgent={phase === "answering" && answerRemaining <= 5_000 ? "true" : "false"}
                 data-phase={phase}
               >
@@ -438,7 +437,7 @@ export function QueueArcade({
         <PrivateRoomPanel
           gameOptions={LIVE_ROUND_GAMES.map((game) => ({
             id: game,
-            label: LIVE_ROUND_HEADER_LABELS[game as keyof typeof LIVE_ROUND_HEADER_LABELS] ?? game,
+            label: t(ROUND_GAME_LABEL_KEYS[game as keyof typeof ROUND_GAME_LABEL_KEYS]),
             preview: formatPreviews[game] ?? null,
           }))}
           playerId={ensurePlayerId}
@@ -454,7 +453,7 @@ export function QueueArcade({
       {reportNotice && (
         <div className={styles.reportNotice} data-testid="report-confirmation" aria-live="polite">
           <Check />
-          Report sent · {REPORT_REASON_LABELS[reportNotice.reason]}
+          {t("session.reportSent", { reason: t(REPORT_REASON_LABEL_KEYS[reportNotice.reason]) })}
         </div>
       )}
 

@@ -19,6 +19,7 @@ export interface GameCatalog {
   logoUrl: string;
   contentVersion: string;
   contentLabel: string;
+  patch: string;
   modes: readonly ArcadeMode[];
   questions: readonly TriviaQuestion[];
   createDeck: (
@@ -38,6 +39,7 @@ export const GAME_CATALOGS: Record<GameId, GameCatalog> = {
     logoUrl: "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
     contentVersion: ARCADE_CONTENT_VERSION,
     contentLabel: `Patch ${triviaMeta.patch}`,
+    patch: triviaMeta.patch,
     modes: LIVE_ARCADE_MODES as readonly ArcadeMode[],
     questions: triviaQuestions,
     createDeck: createArcadeDeck,
@@ -51,6 +53,7 @@ export function publicGameInfo(gameId: GameId = DEFAULT_GAME_ID): PublicGameInfo
     label: catalog.label,
     logoUrl: catalog.logoUrl,
     contentLabel: catalog.contentLabel,
+    patch: catalog.patch,
     questionCount: catalog.questions.length,
   };
 }

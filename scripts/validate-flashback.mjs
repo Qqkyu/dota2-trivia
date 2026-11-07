@@ -15,7 +15,7 @@ import {
   shouldShowEntryWaitLessons,
   shouldWaitForNextRoundOnEntry,
 } from "../src/lib/arcade-entry.mjs";
-import { DOTA_SHOP_SEARCH_PLACEHOLDER, ENTRY_WAIT_HINT, ENTRY_WAIT_TIPS } from "../src/lib/entry-wait-tips.mjs";
+import { ENTRY_WAIT_TIPS } from "../src/lib/entry-wait-tips.mjs";
 
 const questions = JSON.parse(
   await readFile(path.join(process.cwd(), "src", "data", "flashback-questions.json"), "utf8"),
@@ -488,6 +488,9 @@ record(
   "A Flashback winner reveal needs a local original winner card.",
 );
 
+const [lobbyMessages, roundMessages] = await Promise.all(
+  ["lobby", "round"].map((area) => readFile(path.join(process.cwd(), "src", "i18n", "messages", `${area}.ts`), "utf8")),
+);
 const now = 1_000_000;
 record(
   shouldWaitForNextRoundOnEntry({ phase: "reveal", answerDeadline: now + 15_000 }, now) &&
@@ -500,14 +503,17 @@ record(
   "Players can still join a round that already started.",
 );
 record(
-  ENTRY_WAIT_HINT.includes("full question") &&
+  lobbyMessages.includes('"wait.hint": "Waiting for the next full question."') &&
     shouldShowEntryWaitLessons(3_000) &&
     !shouldShowEntryWaitLessons(2_999) &&
     ENTRY_WAIT_TIPS.length === 3 &&
     ENTRY_WAIT_TIPS.every((tip) => tip.body),
   "The wait screen still swaps layout mid-wait.",
 );
-record(DOTA_SHOP_SEARCH_PLACEHOLDER === "Search Items", "The shop lost the Dota Search Items field.");
+record(
+  roundMessages.includes('"round.shop.searchPlaceholder": "Search Items"'),
+  "The shop lost the Dota Search Items field.",
+);
 
 if (failures.length) throw new Error(failures.join("\n"));
 console.log(`Validated ${questions.length} Flashback prompts and the full-question entry gate.`);

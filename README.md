@@ -2,7 +2,7 @@
 
 Dota 2 trivia for the minute between Find Match and Accept.
 
-Play it at [queuearcade.com](https://queuearcade.com). There is nothing to install and no sign-up.
+Play it at [queuearcade.com](https://queuearcade.com). There is nothing to install and no sign-up. The site is in English and Russian: it follows your browser's language, and the switch in the header changes it.
 
 ![A Fogged Vision round: a hero portrait clears through three fog stages while you pick from all 127 heroes](docs/readme/round-fogged-vision.webp)
 

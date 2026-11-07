@@ -17,49 +17,16 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { SiteFooter } from "@/components/site-footer";
-import { REPORT_REASON_LABELS, type CalibrationStatus, type ReportReason } from "@/lib/calibration";
+import { useLocale } from "@/i18n/provider";
+import { REPORT_REASON_LABEL_KEYS, type ReportReason } from "@/lib/calibration";
 import type { CalibrationRecord, CalibrationSnapshot } from "@/lib/calibration-data";
-import type { QuestionReviewState, QuestionReviewStatus } from "@/lib/question-review";
+import type { QuestionReviewState } from "@/lib/question-review";
 import styles from "./calibration-dashboard.module.css";
 import { firstPartyArtSrc } from "@/lib/steam-art.mjs";
 
 type CalibrationFilter = "all" | "review" | "reported" | "reviewed" | "quarantined";
 
-const FILTERS: Array<{ id: CalibrationFilter; label: string }> = [
-  { id: "all", label: "All questions" },
-  { id: "review", label: "Review queue" },
-  { id: "reported", label: "Reported" },
-  { id: "reviewed", label: "Reviewed" },
-  { id: "quarantined", label: "Quarantined" },
-];
-
-const STATUS_LABELS: Record<CalibrationStatus, string> = {
-  reported: "Reported",
-  collecting: "Collecting",
-  "too-easy": "Too easy",
-  "too-hard": "Too hard",
-  "on-target": "On target",
-};
-
-const REVIEW_LABELS: Record<QuestionReviewStatus, string> = {
-  unreviewed: "No signal",
-  open: "Open review",
-  reviewed: "Reviewed",
-  quarantined: "Quarantined",
-};
-
-const GAME_LABELS = {
-  trivia: "Classic Trivia",
-  shopkeeper: "Shopkeeper",
-  "spell-link": "Spell Link",
-  "fogged-vision": "Fogged Vision",
-  "echo-hunt": "Echo Hunt",
-  soundcheck: "Soundcheck",
-  "quote-hunt": "Quote Hunt",
-  "aghanim-lab": "Aghanim's Lab",
-  "order-up": "Order Up",
-  flashback: "Flashback",
-};
+const FILTERS = ["all", "review", "reported", "reviewed", "quarantined"] as const satisfies CalibrationFilter[];
 
 function percentage(value: number | null) {
   return value === null ? "—" : `${Math.round(value * 100)}%`;
@@ -73,7 +40,7 @@ function leadingReport(record: CalibrationRecord) {
   const result = (Object.entries(record.reports) as Array<[ReportReason, number]>).sort(
     (left, right) => right[1] - left[1],
   )[0];
-  return result && result[1] > 0 ? REPORT_REASON_LABELS[result[0]] : null;
+  return result && result[1] > 0 ? result[0] : null;
 }
 
 function matchesFilter(record: CalibrationRecord, filter: CalibrationFilter) {
@@ -93,6 +60,7 @@ export function CalibrationDashboard({
   logoUrl: string;
   canReview: boolean;
 }) {
+  const { t, number } = useLocale();
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<CalibrationFilter>("all");
   const [page, setPage] = useState(0);
@@ -161,19 +129,19 @@ export function CalibrationDashboard({
           </span>
           <span>
             <strong>Queue Arcade</strong>
-            <small>Calibration lab</small>
+            <small>{t("calibration.brand")}</small>
           </span>
         </Link>
         <div className={styles.headerActions}>
           {canReview && (
             <Link href="/ops" className={styles.backLink}>
               <BarChart3 />
-              Alpha ops
+              {t("calibration.opsLink")}
             </Link>
           )}
           <Link href="/" className={styles.backLink}>
             <ArrowLeft />
-            Back to arcade
+            {t("calibration.backLink")}
           </Link>
         </div>
       </header>
@@ -182,47 +150,44 @@ export function CalibrationDashboard({
         <div>
           <span className={styles.eyebrow}>
             <BarChart3 />
-            {snapshot.gameLabel} · {snapshot.contentLabel}
+            {t("shell.header.patch", { game: snapshot.gameLabel, patch: snapshot.patch })}
           </span>
-          <h1>Question calibration</h1>
-          <p>
-            Real answer rates, anonymous reports, and explicit review state. Quarantine marks content for the next
-            release; it never changes the live deck automatically.
-          </p>
+          <h1>{t("calibration.title")}</h1>
+          <p>{t("calibration.intro")}</p>
         </div>
         <div className={styles.guardrail}>
           <ShieldCheck />
           <span>
-            <small>{canReview ? "Reviewer controls" : "Calibration guardrail"}</small>
-            <strong>{canReview ? "Protected by your Steam account" : "20 answers before difficulty signals"}</strong>
+            <small>{t(canReview ? "calibration.guard.reviewerLabel" : "calibration.guard.publicLabel")}</small>
+            <strong>{t(canReview ? "calibration.guard.reviewerValue" : "calibration.guard.publicValue")}</strong>
           </span>
         </div>
       </section>
 
-      <section className={styles.stats} aria-label="Calibration overview">
+      <section className={styles.stats} aria-label={t("calibration.stats.label")}>
         <article>
           <Users />
-          <span>Answers collected</span>
-          <strong>{snapshot.totals.answers.toLocaleString("en-US")}</strong>
-          <small>{snapshot.totals.answered} questions seen</small>
+          <span>{t("calibration.stats.answers")}</span>
+          <strong>{number(snapshot.totals.answers)}</strong>
+          <small>{t("calibration.stats.seen", { count: snapshot.totals.answered })}</small>
         </article>
         <article>
           <Check />
-          <span>Sample ready</span>
+          <span>{t("calibration.stats.sample")}</span>
           <strong>{snapshot.totals.sampled}</strong>
-          <small>20+ answers</small>
+          <small>{t("calibration.stats.sampleNote")}</small>
         </article>
         <article>
           <AlertTriangle />
-          <span>Review queue</span>
+          <span>{t("calibration.stats.queue")}</span>
           <strong>{reviewTotals.open}</strong>
-          <small>{reviewTotals.quarantined} quarantined</small>
+          <small>{t("calibration.stats.quarantined", { count: reviewTotals.quarantined })}</small>
         </article>
         <article>
           <Flag />
-          <span>Player reports</span>
+          <span>{t("calibration.stats.reports")}</span>
           <strong>{snapshot.totals.reports}</strong>
-          <small>deduplicated signals</small>
+          <small>{t("calibration.stats.reportsNote")}</small>
         </article>
       </section>
 
@@ -237,22 +202,22 @@ export function CalibrationDashboard({
                 setQuery(event.target.value);
                 setPage(0);
               }}
-              placeholder="Search prompt, kind, or question ID"
-              aria-label="Search calibration questions"
+              placeholder={t("calibration.search.placeholder")}
+              aria-label={t("calibration.search.label")}
             />
           </label>
-          <div role="group" aria-label="Calibration filter">
+          <div role="group" aria-label={t("calibration.filter.label")}>
             {FILTERS.map((option) => (
               <button
-                key={option.id}
+                key={option}
                 type="button"
-                aria-pressed={filter === option.id}
+                aria-pressed={filter === option}
                 onClick={() => {
-                  setFilter(option.id);
+                  setFilter(option);
                   setPage(0);
                 }}
               >
-                {option.label}
+                {t(`calibration.filter.${option}`)}
               </button>
             ))}
           </div>
@@ -260,41 +225,43 @@ export function CalibrationDashboard({
 
         <div className={styles.resultMeta}>
           <span aria-live="polite">
-            Showing {filtered.length ? pageStart + 1 : 0}-{pageStart + visible.length} of {filtered.length}
+            {t("calibration.showing", {
+              start: filtered.length ? pageStart + 1 : 0,
+              end: pageStart + visible.length,
+              total: filtered.length,
+            })}
           </span>
-          <small>{snapshot.totals.questions} current-version questions</small>
+          <small>{t("calibration.currentQuestions", { count: snapshot.totals.questions })}</small>
         </div>
 
-        <nav className={styles.pagination} aria-label="Calibration pages above results">
+        <nav className={styles.pagination} aria-label={t("calibration.pages.top")}>
           <button
             type="button"
             data-testid="calibration-top-previous-page"
             disabled={currentPage === 0}
             onClick={() => setPage(currentPage - 1)}
           >
-            Previous
+            {t("calibration.pages.previous")}
           </button>
-          <span>
-            Page {currentPage + 1} of {pageCount}
-          </span>
+          <span>{t("calibration.pages.position", { page: currentPage + 1, pages: pageCount })}</span>
           <button
             type="button"
             data-testid="calibration-top-next-page"
             disabled={currentPage >= pageCount - 1}
             onClick={() => setPage(currentPage + 1)}
           >
-            Next
+            {t("calibration.pages.next")}
           </button>
         </nav>
 
-        <div className={styles.table} role="table" aria-label="Question calibration">
+        <div className={styles.table} role="table" aria-label={t("calibration.table.label")}>
           <div className={styles.tableHeader} role="row">
-            <span role="columnheader">Question</span>
-            <span role="columnheader">Mode</span>
-            <span role="columnheader">Tier</span>
-            <span role="columnheader">Answers</span>
-            <span role="columnheader">Accuracy</span>
-            <span role="columnheader">Signal</span>
+            <span role="columnheader">{t("calibration.table.question")}</span>
+            <span role="columnheader">{t("calibration.table.mode")}</span>
+            <span role="columnheader">{t("calibration.table.tier")}</span>
+            <span role="columnheader">{t("calibration.table.answers")}</span>
+            <span role="columnheader">{t("calibration.table.accuracy")}</span>
+            <span role="columnheader">{t("calibration.table.signal")}</span>
           </div>
           {visible.map((record) => {
             const report = leadingReport(record);
@@ -314,53 +281,53 @@ export function CalibrationDashboard({
                   <span title={record.questionId}>{record.kind.replaceAll("-", " ")}</span>
                 </div>
                 <span className={styles.modeCell} role="cell">
-                  {GAME_LABELS[record.game]}
+                  {t(`calibration.game.${record.game}`)}
                 </span>
                 <span className={styles.tierCell} role="cell">
-                  D{record.difficulty}
+                  {t("calibration.row.tier", { tier: record.difficulty })}
                 </span>
                 <span className={styles.numberCell} role="cell">
-                  <strong>{record.total.toLocaleString("en-US")}</strong>
-                  <small>{record.correct} correct</small>
+                  <strong>{number(record.total)}</strong>
+                  <small>{t("calibration.row.correct", { count: record.correct })}</small>
                 </span>
                 <span className={styles.numberCell} role="cell">
                   <strong>{percentage(record.signal.accuracy)}</strong>
-                  <small>target {expectedBand(record)}</small>
+                  <small>{t("calibration.row.target", { band: expectedBand(record) })}</small>
                 </span>
                 <div className={styles.signalCell} role="cell">
-                  <span data-status={record.signal.status}>{STATUS_LABELS[record.signal.status]}</span>
-                  <strong>{record.signal.recommendation}</strong>
+                  <span data-status={record.signal.status}>{t(`calibration.status.${record.signal.status}`)}</span>
+                  <strong>{t(record.signal.adviceKey, record.signal.adviceVars)}</strong>
                   {report && (
                     <small>
                       <Flag />
-                      {record.reportTotal} · {report}
+                      {record.reportTotal} · {t(REPORT_REASON_LABEL_KEYS[report])}
                     </small>
                   )}
                   <div className={styles.reviewState} data-review-status={record.review.status}>
-                    <span>{REVIEW_LABELS[record.review.status]}</span>
+                    <span>{t(`calibration.review.${record.review.status}`)}</span>
                     {canReview && record.review.status !== "unreviewed" && (
                       <div className={styles.reviewActions}>
                         {saving ? (
                           <span className={styles.reviewSaving}>
-                            <LoaderCircle /> Saving
+                            <LoaderCircle /> {t("calibration.action.saving")}
                           </span>
                         ) : record.review.status === "open" ? (
                           <>
                             <button type="button" onClick={() => void updateReview(record, "reviewed")}>
-                              <Check /> Keep
+                              <Check /> {t("calibration.action.keep")}
                             </button>
                             <button type="button" onClick={() => void updateReview(record, "quarantined")}>
-                              <ArchiveX /> Quarantine
+                              <ArchiveX /> {t("calibration.action.quarantine")}
                             </button>
                           </>
                         ) : (
                           <button type="button" onClick={() => void updateReview(record, "open")}>
-                            <RotateCcw /> Reopen
+                            <RotateCcw /> {t("calibration.action.reopen")}
                           </button>
                         )}
                       </div>
                     )}
-                    {reviewError === record.questionId && <small role="alert">Couldn’t save · retry</small>}
+                    {reviewError === record.questionId && <small role="alert">{t("calibration.action.failed")}</small>}
                   </div>
                 </div>
               </div>
@@ -369,36 +336,34 @@ export function CalibrationDashboard({
           {!visible.length && (
             <div className={styles.empty}>
               <Search />
-              <strong>No matching questions</strong>
-              <span>Try a broader search or another calibration filter.</span>
+              <strong>{t("calibration.empty.title")}</strong>
+              <span>{t("calibration.empty.body")}</span>
             </div>
           )}
         </div>
-        <nav className={styles.pagination} aria-label="Calibration pages">
+        <nav className={styles.pagination} aria-label={t("calibration.pages.bottom")}>
           <button
             type="button"
             data-testid="calibration-previous-page"
             disabled={currentPage === 0}
             onClick={() => setPage(currentPage - 1)}
           >
-            Previous
+            {t("calibration.pages.previous")}
           </button>
-          <span>
-            Page {currentPage + 1} of {pageCount}
-          </span>
+          <span>{t("calibration.pages.position", { page: currentPage + 1, pages: pageCount })}</span>
           <button
             type="button"
             data-testid="calibration-next-page"
             disabled={currentPage >= pageCount - 1}
             onClick={() => setPage(currentPage + 1)}
           >
-            Next
+            {t("calibration.pages.next")}
           </button>
         </nav>
       </section>
 
       <footer className={styles.footer}>
-        <span>Aggregates only · no raw player IDs · {reviewTotals.reviewed} reviewed</span>
+        <span>{t("calibration.footer", { count: reviewTotals.reviewed })}</span>
       </footer>
       <SiteFooter current="calibration" />
     </main>

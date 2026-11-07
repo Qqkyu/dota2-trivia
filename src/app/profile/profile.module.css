@@ -17,7 +17,7 @@
 
 .topbar a:not([data-testid="back-to-arcade"]) {
   color: #9aa19e;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 11px;
   letter-spacing: 0.08em;
   text-decoration: none;
@@ -49,7 +49,7 @@
 
 .avatarFallback {
   color: #75ca8d;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 25px;
 }
 
@@ -59,7 +59,7 @@
 .formatHeader,
 .recentHeader {
   color: #777f7c;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   letter-spacing: 0.11em;
   text-transform: uppercase;
@@ -148,7 +148,7 @@
 .stat strong {
   display: block;
   margin-top: 7px;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 28px;
   font-weight: 520;
 }
@@ -265,7 +265,7 @@
 
 .duelScores small {
   color: #8b948e;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -273,7 +273,7 @@
 
 .duelScores strong {
   color: #e8e9e4;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 22px;
   font-weight: 520;
   letter-spacing: -0.03em;
@@ -325,7 +325,7 @@
 
 .kinds strong {
   color: #d7dcd8;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
   font-size: 12px;
   font-weight: 520;
 }

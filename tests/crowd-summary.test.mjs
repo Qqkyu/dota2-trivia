@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { crowdSummaryLine } from "../src/lib/crowd-summary.mjs";
+import { formatNumber } from "../src/i18n/format.mjs";
+import { createTranslator } from "../src/i18n/translator";
+import { crowdSummaryLine as summaryLine } from "../src/lib/crowd-summary.mjs";
+
+const t = createTranslator("en", null);
+const crowdSummaryLine = (input) => summaryLine(input, t, (value) => formatNumber("en", value));
 
 describe("crowdSummaryLine", () => {
   it("uses the same shape for a room of one as for a full room", () => {
