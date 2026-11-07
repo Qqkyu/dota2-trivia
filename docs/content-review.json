@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-11-07T18:48:40.383Z",
-  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Opus 5.5 on 2026-11-07 after the simplicity pass changed check scripts (facts unchanged)",
+  "reviewedAt": "2026-11-07T18:50:21.613Z",
+  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Opus 5.5 on 2026-11-07 after the party check accepted the new create label (facts unchanged)",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
     "patch": "7.41f",
@@ -41,7 +41,7 @@
     "scripts/check-party-api.mjs": "16743860ab8446779d410b713347840a752dc7e5dc2d05626a6e85cfcd719f9f",
     "scripts/check-party-crowd.mjs": "55ad7f0364e0e043ace4378d89b5064088359d716a267654dc65dfb41180524f",
     "scripts/check-party-ended.mjs": "c67df793e35530c05cc0e54e9d980065d8970cd3dd34cad74badec0f11cdf43e",
-    "scripts/check-party-lobby.mjs": "e07166528d034e6603f621233f3fc35f0d158d87830008c41cf9bf941431344c",
+    "scripts/check-party-lobby.mjs": "87aa77c5ca3d04b797e962a6c034438aefd493a4eedc4408b40f45b3510eaf8d",
     "scripts/check-party-nicks.mjs": "b93407244821f95823e62eb787ffecb9d60617f87a885318970d610a867942b0",
     "scripts/check-party-previews.mjs": "8adbd742c8c86d1de0df914b3afd5e2f58c77d617aa2899e291aeef914e10399",
     "scripts/check-production-config.mjs": "3100c5b1a64a63c0859a13e9ec7c21cb6cda86f074d459c232007f16ccaab093",
