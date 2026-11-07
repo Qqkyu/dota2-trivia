@@ -153,7 +153,10 @@ try {
           await page.evaluate(`document.querySelectorAll('[data-testid="shopkeeper-recipe-included"]').length`),
           0,
         );
-        assert.match(await page.evaluate(`document.body.innerText`), /No recipe required/);
+        assert.equal(
+          await page.evaluate(`document.querySelectorAll('[data-testid="shopkeeper-no-recipe"]').length`),
+          1,
+        );
       }
       await answerByTouch(page, kind);
       await finishRound(page);
