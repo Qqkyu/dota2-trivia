@@ -197,7 +197,7 @@ try {
   );
   await delay(300);
   const idle = await page.evaluate(pickerState);
-  if (!/^\d+ heroes · type to filter$/i.test(idle.status)) {
+  if (!/^\d+ heroes$/i.test(idle.status)) {
     throw new Error(`Hero status line did not show the hero count: ${JSON.stringify(idle)}`);
   }
 

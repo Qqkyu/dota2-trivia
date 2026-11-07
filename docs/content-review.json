@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-11-07T18:50:34.770Z",
-  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Opus 5.5 on 2026-11-07 after the party check pinned the new create label (facts unchanged)",
+  "reviewedAt": "2026-11-07T18:55:02.239Z",
+  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Opus 5.5 on 2026-11-07 after two checks followed the new text (facts unchanged)",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
     "patch": "7.41f",
@@ -32,7 +32,7 @@
     "scripts/check-feedback-sounds.mjs": "3521b145864e3ba5529a704e7bae3a375db37a05afad0dd8f42385b9f718eb04",
     "scripts/check-flashback-ui.mjs": "3152906b52a84d9a2dd5e31077a7d4295b9ada848296ce7c811e9ca6174b3e74",
     "scripts/check-gameplay-recovery.mjs": "8675305276cca4110b6c157ad15a2de7ba4d0e8ef1c36c4fec66690d8c9ed2a9",
-    "scripts/check-hero-search.mjs": "05ec1aaa26dfa6a1cb88c87873052e2f09ce1c4c93a9a0231460f81545d67b03",
+    "scripts/check-hero-search.mjs": "cc949e9aabf6489c4f46fa34d0b08ae27981738c372e77bbd5e6eb2296e23f44",
     "scripts/check-ingress-proof.mjs": "49e49deeffdcaca8448fad91420d9fcb60d1307afd6b0ae54cc45cfa4d892948",
     "scripts/check-ingress-trust.mjs": "e9f34483045feea92dbcc405ce91d3ec1700061ca06cdb3f1c563aaecc55cd35",
     "scripts/check-layout.mjs": "ddc17177e9c9a5f7befdf8a5cc4e99c3ae592ff6056f24d922d75d19e9f3f07b",
@@ -40,7 +40,7 @@
     "scripts/check-pages.mjs": "e8248ebcbdeba23055b6a8f221411a4eb7187eb36a8db6db95e7bcb834b0a185",
     "scripts/check-party-api.mjs": "16743860ab8446779d410b713347840a752dc7e5dc2d05626a6e85cfcd719f9f",
     "scripts/check-party-crowd.mjs": "55ad7f0364e0e043ace4378d89b5064088359d716a267654dc65dfb41180524f",
-    "scripts/check-party-ended.mjs": "c67df793e35530c05cc0e54e9d980065d8970cd3dd34cad74badec0f11cdf43e",
+    "scripts/check-party-ended.mjs": "53a329d24d01f8cef64b4f31401cde2aa8e273bb8e9614803f2ae7fe967d0a83",
     "scripts/check-party-lobby.mjs": "2e2fc77e0d18dd42dc218da48fd77f4dd6bc9c0f688aea8538b84f5b1fe06c34",
     "scripts/check-party-nicks.mjs": "b93407244821f95823e62eb787ffecb9d60617f87a885318970d610a867942b0",
     "scripts/check-party-previews.mjs": "8adbd742c8c86d1de0df914b3afd5e2f58c77d617aa2899e291aeef914e10399",

@@ -14,7 +14,7 @@ import { stopChrome } from "./lib/stop-chrome.mjs";
 
 const appUrl = (process.env.APP_URL ?? "http://localhost:3000").replace(/\/$/, "");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const ENDED = "This party ended because the server restarted.";
+const ENDED = "The server restarted, so this party ended.";
 
 function freePort() {
   return new Promise((resolve, reject) => {
