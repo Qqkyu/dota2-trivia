@@ -1,10 +1,20 @@
 # Gold shop
 
-Status: draft for review. Nothing is built.
+Status: direction approved by the maintainer on 2026-11-07. Nothing is built. The simplicity pass comes first.
 
 ## Goal
 
 Gold is only a score today. Players earn it and can do nothing with it. The shop gives gold a use: between rounds, a player can spend it on something that changes the next round.
+
+## Keep it simple
+
+A new player must understand the shop in about 10 seconds, without reading anything else.
+
+- Each button shows only an icon, a name and a price.
+- One short line on hover says what the item does. There is no shop page, panel or tutorial.
+- The shop never asks for attention during a question. No pop-ups, no prompts.
+- Ignoring the shop must cost nothing: a player who never opens it plays the same game as today.
+- New items are added only if they pass this same test.
 
 ## How gold works today
 
