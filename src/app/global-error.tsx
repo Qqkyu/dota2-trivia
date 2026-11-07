@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { LOCALE_COOKIE, resolveLocale } from "@/i18n/locales.mjs";
+import { createTranslator } from "@/i18n/translator";
 import { reportClientError } from "@/lib/client-diagnostics";
 import styles from "./error.module.css";
 
@@ -12,21 +14,34 @@ export default function GlobalError({
   error: Error & { digest?: string };
   unstable_retry: () => void;
 }) {
+  const [text, setText] = useState({ locale: "en", t: createTranslator("en", null) });
+  const { t } = text;
   useEffect(() => reportClientError(error, "react-boundary"), [error]);
+  // This screen replaces the root layout, so the language provider is gone.
+  useEffect(() => {
+    const chosen = document.cookie
+      .split("; ")
+      .find((entry) => entry.startsWith(`${LOCALE_COOKIE}=`))
+      ?.slice(LOCALE_COOKIE.length + 1);
+    if (resolveLocale(chosen, navigator.languages.join(",")) !== "ru") return;
+    void import("@/i18n/messages/ru")
+      .then(({ ru }) => setText({ locale: "ru", t: createTranslator("ru", ru) }))
+      .catch(() => undefined);
+  }, []);
   return (
-    <html lang="en">
+    <html lang={text.locale}>
       <body className={styles.shell}>
         <main className={styles.panel} role="alert">
-          <small>Queue Arcade interrupted</small>
-          <h1>Something broke.</h1>
-          <p>The failure was recorded without sending the error text, stack, or URL query.</p>
+          <small>{t("crash.global.eyebrow")}</small>
+          <h1>{t("crash.global.title")}</h1>
+          <p>{t("crash.global.body")}</p>
           <div className={styles.actions}>
             <button type="button" onClick={() => unstable_retry()}>
-              Retry
+              {t("crash.retry")}
             </button>
-            <Link href="/">Return to lobby</Link>
+            <Link href="/">{t("crash.lobby")}</Link>
           </div>
-          {error.digest && <span className={styles.reference}>Reference · {error.digest}</span>}
+          {error.digest && <span className={styles.reference}>{t("crash.reference", { digest: error.digest })}</span>}
         </main>
       </body>
     </html>

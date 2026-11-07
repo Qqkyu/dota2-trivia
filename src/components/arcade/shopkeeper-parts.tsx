@@ -1,6 +1,7 @@
 import Image from "next/image";
 import clsx from "clsx";
 import type { CSSProperties } from "react";
+import { useLocale } from "@/i18n/provider";
 import type { ShopkeeperItemReference } from "@/lib/trivia";
 import { SHOPKEEPER_RECIPE_IMAGE, type ShopkeeperCatalogItem } from "@/lib/shopkeeper-catalog";
 import { shopkeeperReferencesForKeys } from "./shared";
@@ -29,6 +30,7 @@ export function ShopkeeperTray({
   compact?: boolean;
   testId?: string;
 }) {
+  const { t } = useLocale();
   return (
     <span
       className={clsx(styles.shopkeeperTray, compact && own.shopkeeperTrayCompact)}
@@ -36,7 +38,9 @@ export function ShopkeeperTray({
       data-testid={testId}
       data-item-count={items.length}
       style={{ "--shopkeeper-item-count": Math.max(1, items.length) } as CSSProperties}
-      aria-label={items.map((item) => `${item.name}${item.count > 1 ? ` times ${item.count}` : ""}`).join(", ")}
+      aria-label={items
+        .map((item) => (item.count > 1 ? t("round.shop.itemTimes", { name: item.name, count: item.count }) : item.name))
+        .join(", ")}
     >
       {items.map((item) => (
         <ShopkeeperItem key={item.key} item={item} compact={compact} />
@@ -46,6 +50,7 @@ export function ShopkeeperTray({
 }
 
 export function ShopkeeperPick({ item, label }: { item: ShopkeeperCatalogItem | undefined; label: string }) {
+  const { t } = useLocale();
   return (
     <span className={own.shopkeeperPick}>
       <small>{label}</small>
@@ -55,7 +60,7 @@ export function ShopkeeperPick({ item, label }: { item: ShopkeeperCatalogItem | 
           <strong>{item.name}</strong>
         </span>
       ) : (
-        <strong>No pick</strong>
+        <strong>{t("round.shop.noPick")}</strong>
       )}
     </span>
   );
@@ -70,6 +75,7 @@ export function ShopkeeperRecipePick({
   label: string;
   recipeIncluded?: boolean;
 }) {
+  const { t } = useLocale();
   const items = shopkeeperReferencesForKeys(itemKeys);
   return (
     <span className={styles.shopkeeperRecipePick}>
@@ -80,12 +86,12 @@ export function ShopkeeperRecipePick({
           {recipeIncluded ? (
             <span className={styles.shopkeeperRecipeIncluded} data-testid="shopkeeper-recipe-included">
               <Image src={firstPartyArtSrc(SHOPKEEPER_RECIPE_IMAGE)} alt="" width={36} height={27} unoptimized />
-              <small>Included</small>
+              <small>{t("round.shop.included")}</small>
             </span>
           ) : null}
         </span>
       ) : (
-        <strong>No build</strong>
+        <strong>{t("round.shop.noBuild")}</strong>
       )}
     </span>
   );

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { formatMessage, formatNumber } from "../src/i18n/format.mjs";
 import { localeFromAcceptLanguage, resolveLocale } from "../src/i18n/locales.mjs";
+import { requestLocale } from "../src/i18n/server.ts";
 
 describe("language choice", () => {
   it("takes the browser's first language that the site has", () => {
@@ -18,6 +19,19 @@ describe("language choice", () => {
     expect(resolveLocale("en", "ru")).toBe("en");
     expect(resolveLocale("ru", "en")).toBe("ru");
     expect(resolveLocale("xx", "ru")).toBe("ru");
+  });
+});
+
+describe("language of a request", () => {
+  const request = (headers) => new Request("http://test/api", { headers });
+
+  it("takes the chosen language from the cookie header of a plain Request", () => {
+    expect(requestLocale(request({ cookie: "other=1; queue_arcade_lang=ru", "accept-language": "en" }))).toBe("ru");
+  });
+
+  it("falls back to the browser's language", () => {
+    expect(requestLocale(request({ "accept-language": "ru-RU,en;q=0.5" }))).toBe("ru");
+    expect(requestLocale(request({ cookie: "queue_arcade_lang=xx" }))).toBe("en");
   });
 });
 

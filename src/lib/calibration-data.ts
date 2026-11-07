@@ -46,6 +46,7 @@ export interface CalibrationSnapshot {
   gameLabel: string;
   contentVersion: string;
   contentLabel: string;
+  patch: string;
   totals: {
     questions: number;
     sampled: number;
@@ -170,6 +171,7 @@ export async function getCalibrationSnapshot(gameId: GameId = DEFAULT_GAME_ID): 
     gameLabel: catalog.label,
     contentVersion: catalog.contentVersion,
     contentLabel: catalog.contentLabel,
+    patch: catalog.patch,
     totals: {
       questions: records.length,
       sampled: records.filter((record) => record.signal.sampleReady).length,

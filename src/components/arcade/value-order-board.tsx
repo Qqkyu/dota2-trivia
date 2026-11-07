@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { RotateCcw } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useLocale } from "@/i18n/provider";
 import { shouldHandleAnswerShortcut } from "@/lib/answer-shortcuts.mjs";
 import type { PublicArcadeQuestion } from "@/lib/public-question";
 import { isValueOrderAnswerForQuestion, valueOrderAnswerKey, valueOrderKeysFromAnswerKey } from "@/lib/value-order.mjs";
@@ -57,6 +58,7 @@ export function ValueOrderBoard({
   onChoose: (answerKey: string) => void;
   onPick?: () => void;
 }) {
+  const { t } = useLocale();
   const submittedKeys = selectedKey ? valueOrderKeysFromAnswerKey(selectedKey) : null;
   const [draftKeys, setDraftKeys] = useState<string[]>(() => submittedKeys ?? []);
   const draftKeysRef = useRef(submittedKeys ?? []);
@@ -119,9 +121,9 @@ export function ValueOrderBoard({
     const selectedWasCorrect = Boolean(selectedKey && selectedKey === question.reveal?.correctAnswerKey);
     return (
       <div className={own.valueOrderReveal} data-testid="value-order-board" data-phase="reveal">
-        <ValueOrderSequence question={question} cardKeys={correctKeys} label="Correct order" showValues />
+        <ValueOrderSequence question={question} cardKeys={correctKeys} label={t("round.order.correct")} showValues />
         {submittedKeys && !selectedWasCorrect && (
-          <ValueOrderSequence question={question} cardKeys={submittedKeys} label="Your order" />
+          <ValueOrderSequence question={question} cardKeys={submittedKeys} label={t("round.order.yours")} />
         )}
       </div>
     );
@@ -134,7 +136,7 @@ export function ValueOrderBoard({
       data-phase="answering"
       data-locked={selectedKey ? "true" : "false"}
     >
-      <div className={own.valueOrderSlots} role="group" aria-label="Your order">
+      <div className={own.valueOrderSlots} role="group" aria-label={t("round.order.yours")}>
         {Array.from({ length: 4 }, (_, index) => {
           const key = activeKeys[index];
           const card = cards.find((candidate) => candidate.key === key);
@@ -154,7 +156,7 @@ export function ValueOrderBoard({
         })}
       </div>
 
-      <div className={own.valueOrderCards} role="group" aria-label="Cards to order">
+      <div className={own.valueOrderCards} role="group" aria-label={t("round.order.cardsAria")}>
         {cards.map((card, cardIndex) => {
           const position = activeKeys.indexOf(card.key);
           return (
@@ -185,10 +187,10 @@ export function ValueOrderBoard({
           type="button"
           onClick={undoLastCard}
           disabled={locked || draftKeys.length === 0}
-          aria-label="Undo last card"
+          aria-label={t("round.order.undoAria")}
         >
           <RotateCcw />
-          Undo
+          {t("round.order.undo")}
         </button>
       </div>
     </div>

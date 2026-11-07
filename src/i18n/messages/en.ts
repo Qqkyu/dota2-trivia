@@ -9,6 +9,9 @@ import { round } from "./round";
  */
 export const en = {
   "language.label": "Language",
+  "question.hiddenHero": "Hidden hero",
+  "question.spellLink": "Spell Link",
+  "steam.signIn": "Sign in with Steam",
   ...round,
   ...lobby,
   ...pages,

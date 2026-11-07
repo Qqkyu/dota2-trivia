@@ -1,45 +1,34 @@
-/** In-round chrome that is hardcoded in the live arcade, not the format look-cue. */
-export const LIVE_ROUND_HEADER_LABELS = Object.freeze({
-  trivia: "Classic Trivia",
-  shopkeeper: "Shopkeeper Rush",
-  "spell-link": "Spell Link",
-  "fogged-vision": "Fogged Vision",
-  "echo-hunt": "Echo Hunt",
-  soundcheck: "Soundcheck",
-  "quote-hunt": "Quote Hunt",
-  "aghanim-lab": "Aghanim's Lab",
-  "order-up": "Order Up",
-  flashback: "Flashback",
-});
-
-export const LIVE_QUESTION_COPY = Object.freeze({
-  "spell-link": {
-    eyebrow: "Ability identity",
-    prompt: "Which hero owns this ability?",
-    clueTwo: "Ability name unlocks at 10s",
-    clueThree: "Icon unlocks at 5s",
-  },
-  "fogged-vision": {
-    eyebrow: "Progressive reveal",
-    prompt: "Which hero is hiding in the fog?",
-  },
-  "echo-hunt": {
-    eyebrow: "Hero response",
-    prompt: "Whose voice is this?",
-  },
-  soundcheck: {
-    ability: "Ability sound",
-    item: "Item activation",
-    sequence: "Ordered pair",
-  },
-  "quote-hunt": {
-    eyebrow: "Hero quote",
-    prompt: "Who said it?",
-    cardLabel: "Hero response",
-  },
-  "aghanim-lab": {
-    eyebrow: "Upgrade effect",
-    clueTwo: "Upgrade details",
-    clueThree: "Ability name",
-  },
-});
+/** Message keys for in-round chrome that is hardcoded in the live arcade, not the format look-cue. */
+export const LIVE_QUESTION_COPY = Object.freeze(
+  /** @type {const} */ ({
+    "spell-link": {
+      eyebrow: "round.prompt.spell.eyebrow",
+      prompt: "round.prompt.spell.prompt",
+      clueTwo: "round.preview.spell.nameUnlocks",
+      clueThree: "round.preview.spell.iconUnlocks",
+    },
+    "fogged-vision": {
+      eyebrow: "round.prompt.fog.eyebrow",
+      prompt: "round.prompt.fog.prompt",
+    },
+    "echo-hunt": {
+      eyebrow: "round.prompt.echo.eyebrow",
+      prompt: "round.prompt.echo.prompt",
+    },
+    soundcheck: {
+      ability: "round.prompt.soundcheck.ability",
+      item: "round.prompt.soundcheck.item",
+      sequence: "round.prompt.soundcheck.sequence",
+    },
+    "quote-hunt": {
+      eyebrow: "round.prompt.quote.eyebrow",
+      prompt: "round.prompt.quote.prompt",
+      cardLabel: "round.prompt.quote.cardLabel",
+    },
+    "aghanim-lab": {
+      eyebrow: "round.prompt.aghanim.eyebrow",
+      clueTwo: "round.prompt.aghanim.details",
+      clueThree: "round.prompt.aghanim.abilityName",
+    },
+  }),
+);

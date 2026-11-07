@@ -1,5 +1,4 @@
 import { cookies, headers } from "next/headers";
-import type { NextRequest } from "next/server";
 import { LOCALE_COOKIE, resolveLocale } from "./locales.mjs";
 import { ru } from "./messages/ru";
 import { createTranslator } from "./translator";
@@ -12,8 +11,14 @@ export async function getLocale(): Promise<Locale> {
 }
 
 /** The language of an API request. */
-export function requestLocale(request: NextRequest): Locale {
-  return resolveLocale(request.cookies.get(LOCALE_COOKIE)?.value, request.headers.get("accept-language")) as Locale;
+export function requestLocale(request: Request): Locale {
+  const chosen = request.headers
+    .get("cookie")
+    ?.split(";")
+    .map((entry) => entry.trim())
+    .find((entry) => entry.startsWith(`${LOCALE_COOKIE}=`))
+    ?.slice(LOCALE_COOKIE.length + 1);
+  return resolveLocale(chosen, request.headers.get("accept-language")) as Locale;
 }
 
 /** English is in the client bundle, so only another language travels with the page. */

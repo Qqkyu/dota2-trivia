@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { requestLocale, translatorFor } from "@/i18n/server";
 import { isSameOriginMutation } from "./auth-session";
 import { validatedGuestIdentity } from "./guest-identity.mjs";
 import { admitRateLimitIdentity, consumeRateLimit, rateLimitDisabled, requestClientAddress } from "./rate-limit.mjs";
@@ -24,11 +25,11 @@ export function requestOriginAllowed(request: Request) {
   }
 }
 
-function rateLimitResponse(result: ReturnType<typeof consumeRateLimit>) {
+function rateLimitResponse(request: Request, result: ReturnType<typeof consumeRateLimit>) {
   if (result.allowed) return null;
 
   return NextResponse.json(
-    { error: "Too many requests. Please wait a moment." },
+    { error: translatorFor(requestLocale(request))("api.rateLimited") },
     {
       status: 429,
       headers: {
@@ -45,7 +46,7 @@ function rateLimitResponse(result: ReturnType<typeof consumeRateLimit>) {
 export function preflightRateLimit(request: Request, scope: string, limit: number) {
   if (rateLimitDisabled()) return null;
   const key = anonymousVoterHash(`rate-limit:${scope}:preflight-ip`, requestClientAddress(request));
-  return rateLimitResponse(consumeRateLimit({ scope: `${scope}:preflight-ip`, key, limit }));
+  return rateLimitResponse(request, consumeRateLimit({ scope: `${scope}:preflight-ip`, key, limit }));
 }
 
 export function rateLimitRequest(
@@ -63,7 +64,7 @@ export function rateLimitRequest(
     key: addressKey,
     limit: ipLimit,
   });
-  if (!addressResult.allowed) return rateLimitResponse(addressResult);
+  if (!addressResult.allowed) return rateLimitResponse(request, addressResult);
 
   // Share admission across scopes so polling routes cannot fill the process-wide
   // bucket map by rotating IDs under their larger per-address request allowance.
@@ -71,8 +72,8 @@ export function rateLimitRequest(
     key: anonymousVoterHash("rate-limit:identity-admission:ip", address),
     identity: anonymousVoterHash("rate-limit:identity-admission:identity", identity),
   });
-  if (!admission.allowed) return rateLimitResponse(admission);
+  if (!admission.allowed) return rateLimitResponse(request, admission);
 
   const identityKey = anonymousVoterHash(`rate-limit:${scope}:identity`, JSON.stringify([address, identity]));
-  return rateLimitResponse(consumeRateLimit({ scope: `${scope}:identity`, key: identityKey, limit }));
+  return rateLimitResponse(request, consumeRateLimit({ scope: `${scope}:identity`, key: identityKey, limit }));
 }

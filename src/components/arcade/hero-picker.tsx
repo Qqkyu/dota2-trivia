@@ -1,9 +1,16 @@
+import { cyrillicQueryMatches } from "@/lib/search-query.mjs";
+import { HERO_SEARCH_ALIASES } from "@/lib/search-aliases";
 import Image from "next/image";
 import { Check, Search, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { splitAccent } from "@/i18n/format.mjs";
+import { useLocale } from "@/i18n/provider";
 import { shouldHandleAnswerShortcut } from "@/lib/answer-shortcuts.mjs";
 import type { CrowdResult } from "@/lib/arcade-contract";
+import { revealCalloutKey } from "@/lib/dota-flavor.mjs";
 import {
+  HERO_GROUP_ARIA_KEYS,
+  HERO_GROUP_LABEL_KEYS,
   HERO_PICKER_BY_KEY,
   HERO_PICKER_CATALOG,
   HERO_PICKER_HEROES,
@@ -35,7 +42,10 @@ export function heroMatchesQuery(hero: HeroPickerHero, normalizedQuery: string) 
     .split(/\s+/)
     .map((part) => part[0])
     .join("");
-  return name.includes(normalizedQuery) || slug.includes(normalizedQuery) || initials.startsWith(normalizedQuery);
+  const matchesLatin = (query: string) => name.includes(query) || slug.includes(query) || initials.startsWith(query);
+  return (
+    matchesLatin(normalizedQuery) || cyrillicQueryMatches(normalizedQuery, HERO_SEARCH_ALIASES[hero.key], matchesLatin)
+  );
 }
 
 export function searchHeroes(query: string) {
@@ -58,9 +68,10 @@ export function HeroPicker({
   crowd: CrowdResult;
   onChoose: (heroKey: string) => void;
   /** At reveal: the verdict and the gold, so the payoff shows above the grid without moving it. */
-  resultCallout?: string | null;
+  resultCallout?: Parameters<typeof revealCalloutKey>[0] | null;
   roundAward?: RoundAward | null;
 }) {
+  const { t, number } = useLocale();
   const [query, setQuery] = useState("");
   const [searchFlash, setSearchFlash] = useState(false);
   const queryRef = useRef(query);
@@ -90,6 +101,9 @@ export function HeroPicker({
   const correctHero = phase === "reveal" && targetKey ? HERO_PICKER_BY_KEY.get(targetKey) : undefined;
   const selectedHero = selectedKey ? HERO_PICKER_BY_KEY.get(selectedKey) : undefined;
   const matchCount = normalizedQuery ? HERO_PICKER_HEROES.filter(heroMatches).length : HERO_PICKER_HEROES.length;
+  const resultLabel = resultCallout ? t(revealCalloutKey(resultCallout)) : null;
+  const answerLine = correctHero ? splitAccent(t("round.heroPicker.answer", { name: correctHero.name })) : null;
+  const lockedLine = selectedHero ? splitAccent(t("round.heroPicker.locked", { name: selectedHero.name })) : null;
   useEffect(() => {
     if (!normalizedQuery) return;
     const board = pickerRef.current?.querySelector<HTMLElement>('[data-testid="hero-picker-board"]');
@@ -171,12 +185,12 @@ export function HeroPicker({
         <input
           className={own.heroSearchInput}
           data-testid="hero-search-input"
-          aria-label="Filter heroes"
+          aria-label={t("round.heroPicker.filterAria")}
           type="search"
           enterKeyHint="go"
           autoComplete="off"
           spellCheck={false}
-          placeholder="Search heroes"
+          placeholder={t("round.heroPicker.placeholder")}
           value={query}
           disabled={phase !== "answering" || selectedKey !== null}
           onChange={(event) => {
@@ -209,26 +223,31 @@ export function HeroPicker({
       >
         {correctHero ? (
           <>
-            Answer: <strong>{correctHero.name}</strong>
-            {resultCallout ? (
+            {answerLine?.before}
+            <strong>{answerLine?.accent}</strong>
+            {answerLine?.after}
+            {resultLabel ? (
               <span data-result={roundAward?.correct ? "scored" : "none"} data-testid="hero-picker-result">
-                · {resultCallout}
-                {roundAward?.correct ? ` · +${roundAward.points.toLocaleString("en-US")} gold` : ""}
+                {roundAward?.correct
+                  ? t("round.heroPicker.resultGold", { result: resultLabel, points: number(roundAward.points) })
+                  : t("round.heroPicker.result", { result: resultLabel })}
               </span>
             ) : null}
             {selectedHero && selectedHero.key !== correctHero.key ? (
-              <span>· You picked {selectedHero.name}</span>
+              <span>{t("round.heroPicker.youPicked", { name: selectedHero.name })}</span>
             ) : null}
-            {!selectedHero ? <span>· No pick</span> : null}
+            {!selectedHero ? <span>{t("round.heroPicker.noPick")}</span> : null}
           </>
         ) : selectedHero ? (
           <>
-            Locked: <strong>{selectedHero.name}</strong>
+            {lockedLine?.before}
+            <strong>{lockedLine?.accent}</strong>
+            {lockedLine?.after}
           </>
         ) : normalizedQuery ? (
-          `${matchCount} ${matchCount === 1 ? "hero matches" : "heroes match"} “${query.trim()}”`
+          t("round.heroPicker.matches", { count: matchCount, query: query.trim() })
         ) : (
-          `${HERO_PICKER_HEROES.length} heroes · type to filter`
+          t("round.heroPicker.total", { count: HERO_PICKER_HEROES.length })
         )}
       </p>
       <div className={own.heroPickerBoard} data-testid="hero-picker-board">
@@ -238,7 +257,7 @@ export function HeroPicker({
             className={styles.heroPickerGroup}
             data-attribute={group.key}
             data-hero-count={group.heroes.length}
-            aria-label={`${group.label} heroes`}
+            aria-label={t(HERO_GROUP_ARIA_KEYS[group.key])}
           >
             <h3>
               <Image
@@ -248,7 +267,7 @@ export function HeroPicker({
                 height={18}
                 unoptimized
               />
-              {group.label}
+              {t(HERO_GROUP_LABEL_KEYS[group.key])}
             </h3>
             <div>
               {group.heroes.map((hero) => {

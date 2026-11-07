@@ -3,7 +3,10 @@ export function accuracyRate(correct, answered) {
   return Math.round((correct / answered) * 100);
 }
 
-/** Live reveal line. First Blood is the session's first correct; then the kill-streak announcer. */
+/**
+ * Live reveal line. First Blood is the session's first correct; then the kill-streak announcer.
+ * The result is a stable id for logic and `data-callout`. `revealCalloutKey` gives the text a player reads.
+ */
 export function revealCallout({ correct, timedOut, firstBlood, streak }) {
   if (timedOut) return "Time expired";
   if (!correct) return "Incorrect";
@@ -19,32 +22,48 @@ export function revealCallout({ correct, timedOut, firstBlood, streak }) {
   return "Correct";
 }
 
-/** Kill-feed sentence from dota_english.txt, with the colored phrase split out. */
-export function streakBannerParts(callout, playerName) {
-  const name = typeof playerName === "string" ? playerName.trim() : "";
-  const subject = name || "You";
-  const be = name ? "is" : "are";
+const REVEAL_CALLOUT_KEYS = Object.freeze({
+  "Time expired": "round.callout.timeExpired",
+  Incorrect: "round.callout.incorrect",
+  Correct: "round.callout.correct",
+});
 
-  switch (callout) {
-    case "First Blood":
-      return { before: `${subject} drew `, accent: "first blood", after: "" };
-    case "Killing Spree":
-      return { before: `${subject} ${be} on a `, accent: "killing spree", after: "" };
-    case "Dominating":
-      return { before: `${subject} ${be} `, accent: "dominating", after: "" };
-    case "Mega Kill":
-      return { before: `${subject} ${be} on a `, accent: "mega kill", after: " streak" };
-    case "Unstoppable":
-      return { before: `${subject} ${be} `, accent: "unstoppable", after: "" };
-    case "Wicked Sick":
-      return { before: `${subject} ${be} `, accent: "wicked sick", after: "" };
-    case "Monster Kill":
-      return { before: `${subject} ${be} on a `, accent: "monster kill", after: " streak" };
-    case "Godlike":
-      return { before: `${subject} ${be} `, accent: "GODLIKE", after: "" };
-    case "Beyond Godlike":
-      return { before: `${subject} ${be} beyond `, accent: "GODLIKE, someone kill them!!", after: "" };
-    default:
-      return { before: "", accent: callout, after: "" };
-  }
+/**
+ * The text of a result callout. Kill-streak ids have no text of their own: they read as the banner.
+ *
+ * @param {string} callout
+ * @returns {import("../i18n/types").MessageKey}
+ */
+export function revealCalloutKey(callout) {
+  return REVEAL_CALLOUT_KEYS[callout];
+}
+
+const STREAK_BANNER_KEYS = Object.freeze({
+  "First Blood": "round.streak.firstBlood",
+  "Killing Spree": "round.streak.killingSpree",
+  Dominating: "round.streak.dominating",
+  "Mega Kill": "round.streak.megaKill",
+  Unstoppable: "round.streak.unstoppable",
+  "Wicked Sick": "round.streak.wickedSick",
+  "Monster Kill": "round.streak.monsterKill",
+  Godlike: "round.streak.godlike",
+  "Beyond Godlike": "round.streak.beyondGodlike",
+});
+
+/**
+ * Kill-feed sentence from dota_english.txt, with the colored phrase split out.
+ *
+ * @param {string} callout
+ * @param {unknown} playerName
+ * @param {import("../i18n/translator").Translate} t
+ */
+export function streakBannerParts(callout, playerName, t) {
+  const name = typeof playerName === "string" ? playerName.trim() : "";
+  const key = STREAK_BANNER_KEYS[callout];
+  if (!key) return { before: "", accent: callout, after: "" };
+
+  // The name goes in after the cut, because a Steam name can hold any text.
+  const [before = "", after = ""] = t(`${key}.${name ? "named" : "you"}`).split("{accent}");
+  const withName = (part) => part.replace("{name}", () => name);
+  return { before: withName(before), accent: t(`${key}.accent`), after: withName(after) };
 }

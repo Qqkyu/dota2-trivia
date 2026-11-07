@@ -22,6 +22,8 @@ import { recoveryRoundNumbers } from "@/lib/round-recovery.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
 import { getPlayerQuestionReport, getRoundCrowd } from "@/lib/vote-store";
 import { firstPartyArtTree } from "@/lib/steam-art.mjs";
+import { localizeQuestion } from "@/lib/question-locale";
+import { requestLocale, translatorFor } from "@/i18n/server";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -32,6 +34,8 @@ const MAX_REVEALED_KEY_CHOICES = 12;
 export async function GET(request: NextRequest) {
   const preflight = preflightRateLimit(request, "rounds", 9_000);
   if (preflight) return preflight;
+  const locale = requestLocale(request);
+  const t = translatorFor(locale);
   const searchParams = new URL(request.url).searchParams;
   const settings = parsePublicRoomSettings({
     gameId: searchParams.get("gameId"),
@@ -189,7 +193,12 @@ export async function GET(request: NextRequest) {
         question:
           knownQuestionRevision === questionRevision
             ? null
-            : firstPartyArtTree(publicQuestionForRound(question, round, serverNow)),
+            : firstPartyArtTree(
+                publicQuestionForRound(localizeQuestion(question, locale), round, serverNow, {
+                  hiddenHero: t("question.hiddenHero"),
+                  spellLink: t("question.spellLink"),
+                }),
+              ),
         presence: { activePlayers },
         crowd: {
           counts: round.phase === "reveal" ? result.counts : HIDDEN_COUNTS,

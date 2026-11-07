@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { LocaleProvider } from "@/i18n/provider";
-import { getLocale, messagesFor } from "@/i18n/server";
+import { getLocale, getTranslator, messagesFor } from "@/i18n/server";
 import "./globals.css";
 
 // HTML needs a fresh CSP nonce and the runtime public origin on every request.
@@ -30,30 +30,32 @@ const radianceBold = localFont({
 
 const metadataBase = new URL(process.env.ARCADE_APP_URL?.trim() || "http://localhost:3000");
 
-export const metadata: Metadata = {
-  metadataBase,
-  title: {
-    default: "Queue Arcade — Dota 2 trivia and minigames between matches",
-    template: "%s · Queue Arcade",
-  },
-  description:
-    "Free Dota 2 trivia for the wait between Find Match and Accept: 15-second rounds on heroes, items, spells, voice lines and patch history, with the whole room's answers at every reveal.",
-  applicationName: "Queue Arcade",
-  category: "game",
-  keywords: ["Dota 2", "Dota 2 trivia", "Dota 2 quiz", "minigames", "queue time", "heroes", "items", "abilities"],
-  openGraph: {
-    type: "website",
-    url: "/",
-    siteName: "Queue Arcade",
-    title: "Queue Arcade — Dota side quests between matches",
-    description: "One live Dota arcade for the seconds between Find Match and Accept.",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Queue Arcade",
-    description: "Dota side quests for the time between Find Match and Accept.",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslator();
+  return {
+    metadataBase,
+    title: {
+      default: t("meta.title"),
+      template: "%s · Queue Arcade",
+    },
+    description: t("meta.description"),
+    applicationName: "Queue Arcade",
+    category: "game",
+    keywords: t("meta.keywords").split(", "),
+    openGraph: {
+      type: "website",
+      url: "/",
+      siteName: "Queue Arcade",
+      title: t("meta.og.title"),
+      description: t("meta.og.description"),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Queue Arcade",
+      description: t("meta.twitter.description"),
+    },
+  };
+}
 
 export const viewport: Viewport = {
   colorScheme: "dark",

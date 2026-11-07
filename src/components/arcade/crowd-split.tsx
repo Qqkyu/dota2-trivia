@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Check } from "lucide-react";
 import type { CSSProperties, ReactNode } from "react";
+import { useLocale } from "@/i18n/provider";
 import type { CrowdResult } from "@/lib/arcade-contract";
 import { crowdPercentage, keyedCrowdSplitRows } from "@/lib/crowd-split.mjs";
 import { HERO_PICKER_BY_KEY } from "@/lib/hero-picker";
@@ -26,8 +27,16 @@ export function CrowdSplitBar({
   correct?: boolean;
   selected?: boolean;
 }) {
+  const { t } = useLocale();
   const percentage = crowdPercentage(count, total);
-  const status = [correct ? "correct answer" : "", selected ? "your pick" : ""].filter(Boolean).join(", ");
+  const rowKey =
+    correct && selected
+      ? "round.split.rowCorrectYours"
+      : correct
+        ? "round.split.rowCorrect"
+        : selected
+          ? "round.split.rowYours"
+          : "round.split.row";
 
   return (
     <div
@@ -39,13 +48,13 @@ export function CrowdSplitBar({
       data-correct={correct ? "true" : "false"}
       data-selected={selected ? "true" : "false"}
       style={{ "--crowd-share": `${percentage}%` } as CSSProperties}
-      aria-label={`${label}: ${percentage}%${status ? `, ${status}` : ""}`}
+      aria-label={t(rowKey, { label, percentage })}
     >
       <span className={own.crowdSplitMeta}>
         <i className={own.crowdSplitMarker}>{marker}</i>
         <strong title={label}>{label}</strong>
-        {selected && <em>You</em>}
-        {correct && <Check role="img" aria-label="Correct answer" />}
+        {selected && <em>{t("round.split.you")}</em>}
+        {correct && <Check role="img" aria-label={t("round.split.correctAria")} />}
         <small>{percentage}%</small>
       </span>
       <span className={own.crowdSplitTrack} aria-hidden="true">
@@ -92,6 +101,7 @@ export function KeyedCrowdSplit({
   crowd: CrowdResult;
   selectedKey: string | null;
 }) {
+  const { t } = useLocale();
   const correctKey = question.reveal?.correctAnswerKey ?? null;
   const split = keyedCrowdSplitRows(crowd.keyCounts, crowd.total, {
     correctKey,
@@ -110,7 +120,7 @@ export function KeyedCrowdSplit({
         const orderCards = orderKeys
           ?.map((key) => question.valueOrder?.cards.find((card) => card.key === key))
           .filter((card) => Boolean(card));
-        const label = keyedAnswerLabel(answerKey, "Unknown pick", question);
+        const label = keyedAnswerLabel(answerKey, t("round.split.unknownPick"), question);
         const marker =
           hero || item ? (
             <Image src={firstPartyArtSrc((hero ?? item)?.image ?? "")} alt="" fill sizes="34px" unoptimized />
@@ -157,7 +167,7 @@ export function KeyedCrowdSplit({
         );
       })}
       {split.otherCount > 0 && (
-        <CrowdSplitBar marker="…" label="Other picks" count={split.otherCount} total={crowd.total} />
+        <CrowdSplitBar marker="…" label={t("round.split.otherPicks")} count={split.otherCount} total={crowd.total} />
       )}
     </div>
   );

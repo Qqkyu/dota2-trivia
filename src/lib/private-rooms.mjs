@@ -27,9 +27,8 @@ export const PRIVATE_ROOM_HOST_MAX = 5;
 export const PRIVATE_ROOM_AWARD_HISTORY_MAX = 128;
 export const PRIVATE_ROOM_NAME_NOTICE_MS = 2_500;
 export const PRIVATE_ROOM_COUNTDOWN_MS = 3_000;
-/** Shown on the party screen when the server no longer knows a party this tab was in. */
-export const PARTY_ENDED_NOTICE =
-  "This party ended because the server restarted. Create a new party or join another code.";
+/** Message key shown on the party screen when the server no longer knows a party this tab was in. */
+export const PARTY_ENDED_NOTICE = "party.ended";
 
 const globalStore = globalThis;
 const rooms = globalStore.__queueArcadePrivateRooms ?? new Map();
@@ -46,16 +45,21 @@ export function normalizePrivateRoomCode(value) {
   return code;
 }
 
+/**
+ * @param {unknown} value
+ * @returns {{ key: "party.error.codeEmpty" | "party.error.codeFormat", vars?: Record<string, number> } | null}
+ */
 export function partyCodeError(value) {
-  if (typeof value !== "string" || !value.trim()) return "Type a party code.";
+  if (typeof value !== "string" || !value.trim()) return { key: "party.error.codeEmpty" };
   if (!normalizePrivateRoomCode(value)) {
-    return `Use ${PRIVATE_ROOM_CODE_MIN}-${PRIVATE_ROOM_CODE_MAX} letters or numbers.`;
+    return { key: "party.error.codeFormat", vars: { min: PRIVATE_ROOM_CODE_MIN, max: PRIVATE_ROOM_CODE_MAX } };
   }
   return null;
 }
 
+/** @returns {"party.error.nameEmpty" | null} A message key. */
 export function partyNameError(value) {
-  if (typeof value !== "string" || !sanitizeLine(value, PRIVATE_ROOM_NAME_MAX)) return "Type a name.";
+  if (typeof value !== "string" || !sanitizeLine(value, PRIVATE_ROOM_NAME_MAX)) return "party.error.nameEmpty";
   return null;
 }
 
@@ -485,11 +489,13 @@ export function resetPrivateRoomsForTests() {
 /**
  * Roster helpers for the party panel. Away players keep their seat and
  * score and stay listed with a tag; only Leave removes anyone.
+ *
+ * @returns {"party.tag.away" | "party.tag.host" | "party.tag.you" | ""} A message key, or nothing.
  */
 export function partyPlayerTag(player) {
-  if (player.away && !player.self) return "Away";
-  if (player.host) return "Host";
-  if (player.self) return "You";
+  if (player.away && !player.self) return "party.tag.away";
+  if (player.host) return "party.tag.host";
+  if (player.self) return "party.tag.you";
   return "";
 }
 

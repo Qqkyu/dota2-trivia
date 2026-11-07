@@ -30,7 +30,9 @@ export function useAnswerShortcuts({
           "4": 3,
           d: 3,
         };
-        const answerIndex = keyMap[event.key.toLowerCase()];
+        // A non-Latin layout (Russian) reports its own letter, so read the physical key there.
+        const key = /^[\x00-\x7f]$/.test(event.key) ? event.key : (event.code ?? "").replace(/^Key/, "");
+        const answerIndex = keyMap[key.toLowerCase()];
         if (answerIndex !== undefined) {
           event.preventDefault();
           chooseAnswer(answerIndex);

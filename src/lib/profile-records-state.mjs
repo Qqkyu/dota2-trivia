@@ -1,6 +1,6 @@
 import { compareFormatMastery } from "./round-identity.mjs";
 
-const PIPE_ANSWERS = ["3,250 gold", "3,275 gold", "3,725 gold", "4,000 gold"];
+const PIPE_GOLD = ["3,250", "3,275", "3,725", "4,000"];
 const SAMPLE_HERO = "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pudge.png";
 const SAMPLE_ITEMS = [
   {
@@ -39,68 +39,71 @@ function samplePreview(game, extra = {}) {
   };
 }
 
-const PREVIEWS = {
-  trivia: samplePreview("trivia", {
-    kind: "item-cost",
-    category: "Items",
-    eyebrow: "Pipe of Insight",
-    prompt: "How much does Pipe of Insight cost?",
-    answers: PIPE_ANSWERS,
-  }),
-  shopkeeper: samplePreview("shopkeeper", {
-    category: "Recipes",
-    prompt: "What do these components build?",
-    shopFormat: "build-result",
-    shopItems: SAMPLE_ITEMS,
-  }),
-  "spell-link": samplePreview("spell-link", {
-    category: "Abilities",
-    hint: "Interrupts the target and traps them in place, preventing movement or blinking.",
-  }),
-  "fogged-vision": samplePreview("fogged-vision", {
-    category: "Heroes",
-    fogged: true,
-    image: { src: SAMPLE_HERO, alt: "" },
-  }),
-  "echo-hunt": samplePreview("echo-hunt", {
-    category: "Heroes",
-  }),
-  soundcheck: samplePreview("soundcheck", {
-    category: "Sounds",
-    prompt: "Which ability makes this sound?",
-    soundcheckFamily: "ability",
-    soundcheckFormat: "single",
-  }),
-  "quote-hunt": samplePreview("quote-hunt", {
-    category: "Heroes",
-    detail: "The only thing that could ever make me turn on my allies...",
-  }),
-  "aghanim-lab": samplePreview("aghanim-lab", {
-    category: "Abilities",
-    prompt: "Whose upgrade is this?",
-    effect: "After using a mobility spell, the next attack burns extra maximum mana.",
-    upgradeType: "scepter",
-    image: {
-      src: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_scepter.png?t=1593393829403",
-      alt: "",
-    },
-  }),
-  "order-up": samplePreview("order-up", {
-    category: "Items",
-    eyebrow: "Item gold",
-    prompt: "Order these items from cheapest to most expensive.",
-    orderCards: SAMPLE_ITEMS.concat({
-      name: "Pipe of Insight",
-      image: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pipe.png",
+/** @param {(key: any, vars?: Record<string, string | number>) => string} t */
+function samplePreviews(t) {
+  return {
+    trivia: samplePreview("trivia", {
+      kind: "item-cost",
+      category: t("profile.sample.category.items"),
+      eyebrow: "Pipe of Insight",
+      prompt: t("profile.sample.trivia.prompt"),
+      answers: PIPE_GOLD.map((gold) => t("profile.sample.gold", { gold })),
     }),
-  }),
-  flashback: samplePreview("flashback", {
-    category: "Esports",
-    eyebrow: "The first Aegis",
-    prompt: "Who won the first The International?",
-    answers: ["EHOME", "Natus Vincere", "Invictus Gaming", "Alliance"],
-  }),
-};
+    shopkeeper: samplePreview("shopkeeper", {
+      category: t("profile.sample.category.recipes"),
+      prompt: t("profile.sample.shopkeeper.prompt"),
+      shopFormat: "build-result",
+      shopItems: SAMPLE_ITEMS,
+    }),
+    "spell-link": samplePreview("spell-link", {
+      category: t("profile.sample.category.abilities"),
+      hint: t("profile.sample.spellLink.hint"),
+    }),
+    "fogged-vision": samplePreview("fogged-vision", {
+      category: t("profile.sample.category.heroes"),
+      fogged: true,
+      image: { src: SAMPLE_HERO, alt: "" },
+    }),
+    "echo-hunt": samplePreview("echo-hunt", {
+      category: t("profile.sample.category.heroes"),
+    }),
+    soundcheck: samplePreview("soundcheck", {
+      category: t("profile.sample.category.sounds"),
+      prompt: t("profile.sample.soundcheck.prompt"),
+      soundcheckFamily: "ability",
+      soundcheckFormat: "single",
+    }),
+    "quote-hunt": samplePreview("quote-hunt", {
+      category: t("profile.sample.category.heroes"),
+      detail: t("profile.sample.quote.detail"),
+    }),
+    "aghanim-lab": samplePreview("aghanim-lab", {
+      category: t("profile.sample.category.abilities"),
+      prompt: t("profile.sample.aghanim.prompt"),
+      effect: t("profile.sample.aghanim.effect"),
+      upgradeType: "scepter",
+      image: {
+        src: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_scepter.png?t=1593393829403",
+        alt: "",
+      },
+    }),
+    "order-up": samplePreview("order-up", {
+      category: t("profile.sample.category.items"),
+      eyebrow: t("profile.sample.orderUp.eyebrow"),
+      prompt: t("profile.sample.orderUp.prompt"),
+      orderCards: SAMPLE_ITEMS.concat({
+        name: "Pipe of Insight",
+        image: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pipe.png",
+      }),
+    }),
+    flashback: samplePreview("flashback", {
+      category: t("profile.sample.category.esports"),
+      eyebrow: t("profile.sample.flashback.eyebrow"),
+      prompt: t("profile.sample.flashback.prompt"),
+      answers: ["EHOME", "Natus Vincere", "Invictus Gaming", "Alliance"],
+    }),
+  };
+}
 
 export const PROFILE_RECORDS_PREVIEW_SIZES = Object.freeze(["short", "long"]);
 
@@ -177,8 +180,12 @@ const SHARED_PLAYER_FORMATS = [
   },
 ];
 
-/** @param {"short" | "long"} size */
-export function profileRecordsPreview(size) {
+/**
+ * @param {"short" | "long"} size
+ * @param {(key: any, vars?: Record<string, string | number>) => string} [t] Without it, text stays as message keys.
+ */
+export function profileRecordsPreview(size, t = (key) => key) {
+  const previews = samplePreviews(t);
   return {
     size,
     formats: compareFormatMastery(
@@ -193,7 +200,7 @@ export function profileRecordsPreview(size) {
         : [],
     ).map((row) => ({
       ...row,
-      preview: PREVIEWS[row.game] ?? samplePreview(row.game),
+      preview: previews[row.game] ?? samplePreview(row.game),
     })),
   };
 }

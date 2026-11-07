@@ -6,22 +6,25 @@ import { ProfileRecords } from "@/components/profile-records";
 import { SiteChrome } from "@/components/site-chrome";
 import { SteamAvatar } from "@/components/steam-avatar";
 import { SteamSignIn } from "@/components/steam-sign-in";
+import { formatNumber } from "@/i18n/format.mjs";
+import { getLocale, getTranslator } from "@/i18n/server";
 import { getAccountProfile, getUserBySession } from "@/lib/account-store";
 import { DEFAULT_GAME_ID } from "@/lib/game-catalogs";
 import { getCalibrationSnapshot } from "@/lib/calibration-data";
-import { formatPreviewsFromQuestions } from "@/lib/format-preview.mjs";
+import { localizedFormatPreviews } from "@/lib/format-preview-locale";
 import { profileRecordsPreview } from "@/lib/profile-records-state.mjs";
 import { compareFormatMastery } from "@/lib/round-identity.mjs";
-import { triviaQuestions } from "@/lib/trivia";
 import { ACCOUNT_SESSION_COOKIE, sessionTokenHash } from "@/lib/steam-auth.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
 import { refreshSteamIdentityIfNeeded } from "@/lib/steam-profile";
 import styles from "./profile.module.css";
 
-export const metadata: Metadata = { title: "Profile", robots: { index: false, follow: true } };
-export const dynamic = "force-dynamic";
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslator();
+  return { title: t("meta.profile.title"), robots: { index: false, follow: true } };
+}
 
-const formatPreviews = formatPreviewsFromQuestions(triviaQuestions);
+export const dynamic = "force-dynamic";
 
 interface ProfilePageProps {
   searchParams: Promise<{
@@ -33,9 +36,10 @@ interface ProfilePageProps {
 
 export default async function ProfilePage({ searchParams }: ProfilePageProps) {
   const params = await searchParams;
+  const t = await getTranslator();
   const recordsPreview = Array.isArray(params.recordsPreview) ? params.recordsPreview[0] : params.recordsPreview;
   if (recordsPreview === "short" || recordsPreview === "long") {
-    const fixture = profileRecordsPreview(recordsPreview);
+    const fixture = profileRecordsPreview(recordsPreview, t);
     return (
       <main className={styles.page} data-testid="profile-records-preview" data-size={recordsPreview}>
         <ProfileRecords formats={fixture.formats} />
@@ -74,10 +78,10 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
       <SiteChrome current="profile">
         <main className={styles.page} data-testid="profile-unavailable">
           <section className={styles.emptyCard} role="alert">
-            <small>Personal records</small>
-            <h1>Your profile is unavailable.</h1>
-            <p>We could not load your records. Try again when the connection returns.</p>
-            <a href="/profile">Try again</a>
+            <small>{t("profile.eyebrow")}</small>
+            <h1>{t("profile.unavailable.title")}</h1>
+            <p>{t("profile.unavailable.body")}</p>
+            <a href="/profile">{t("profile.unavailable.retry")}</a>
           </section>
         </main>
       </SiteChrome>
@@ -89,13 +93,10 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
       <SiteChrome current="profile">
         <main className={styles.page} data-testid="profile-page" data-authenticated="false">
           <section className={styles.emptyCard}>
-            <small>Personal records</small>
-            <h1>Keep your streak.</h1>
-            <p>
-              Connect Steam to carry accuracy, streaks, early solves, and format mastery between browsers. Anonymous
-              play stays available.
-            </p>
-            {params.authError && <p role="alert">Steam couldn’t verify that sign-in. Nothing was connected.</p>}
+            <small>{t("profile.eyebrow")}</small>
+            <h1>{t("profile.empty.title")}</h1>
+            <p>{t("profile.empty.body")}</p>
+            {params.authError && <p role="alert">{t("profile.authError")}</p>}
             <SteamSignIn className={styles.steamSignIn} />
           </section>
         </main>
@@ -104,6 +105,7 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
   }
 
   const { user, stats } = profile;
+  const locale = await getLocale();
   return (
     <SiteChrome current="profile">
       <main className={styles.page} data-testid="profile-page" data-authenticated="true">
@@ -117,34 +119,34 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
             height={86}
           />
           <div className={styles.heroCopy}>
-            <small>Steam-connected player</small>
+            <small>{t("profile.connected")}</small>
             <h1>{user.displayName}</h1>
             <a href={user.profileUrl} target="_blank" rel="noreferrer">
-              View Steam profile ↗
+              {t("profile.steamLink")}
             </a>
           </div>
           <ProfileActions signOutFailed={params.signOut === "failed"} />
         </section>
 
-        <section className={styles.stats} aria-label="Lifetime records">
+        <section className={styles.stats} aria-label={t("profile.stats.label")}>
           <div className={styles.stat}>
-            <span>Answers</span>
-            <strong>{stats.answered.toLocaleString("en-US")}</strong>
+            <span>{t("profile.stats.answers")}</span>
+            <strong>{formatNumber(locale, stats.answered)}</strong>
           </div>
           <div className={styles.stat}>
-            <span>Accuracy</span>
+            <span>{t("profile.stats.accuracy")}</span>
             <strong>{stats.accuracy}%</strong>
           </div>
           <div className={styles.stat}>
-            <span>Best streak</span>
+            <span>{t("profile.stats.bestStreak")}</span>
             <strong>{stats.bestStreak}</strong>
           </div>
           <div className={styles.stat}>
-            <span>Live streak</span>
+            <span>{t("profile.stats.liveStreak")}</span>
             <strong>{stats.currentStreak}</strong>
           </div>
           <div className={styles.stat}>
-            <span>Best ten</span>
+            <span>{t("profile.stats.bestTen")}</span>
             <strong>{stats.bestTenCorrect === null ? "—" : `${stats.bestTenCorrect}/10`}</strong>
           </div>
         </section>
@@ -152,12 +154,12 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
         <ProfileRecords
           formats={compareFormatMastery(stats.formats, roomRecords).map((row) => ({
             ...row,
-            preview: formatPreviews[row.game],
+            preview: localizedFormatPreviews(locale)[row.game],
           }))}
         />
 
         <p className={styles.privacyNote}>
-          Only Queue Arcade answers made while connected are recorded. <Link href="/privacy">What we store</Link>
+          {t("profile.privacyNote")} <Link href="/privacy">{t("profile.privacyLink")}</Link>
         </p>
       </main>
     </SiteChrome>

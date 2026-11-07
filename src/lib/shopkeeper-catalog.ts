@@ -1,4 +1,5 @@
 import catalogData from "@/data/shopkeeper-catalog.json";
+import type { MessageKey } from "@/i18n/types";
 import type { TriviaQuestion } from "@/lib/trivia";
 import {
   isBuildResultItemPickerQuestion,
@@ -35,6 +36,21 @@ export interface ShopkeeperCatalog {
 
 export const SHOPKEEPER_RECIPE_IMAGE =
   "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/recipe.png";
+
+/** A group the generator adds later has no message yet, and shows the catalog's English label. */
+export const SHOPKEEPER_GROUP_LABEL_KEYS: Partial<Record<string, MessageKey>> = {
+  consumables: "round.shop.group.consumables",
+  attributes: "round.shop.group.attributes",
+  weapons_armor: "round.shop.group.weapons_armor",
+  misc: "round.shop.group.misc",
+  secretshop: "round.shop.group.secretshop",
+  basics: "round.shop.group.basics",
+  support: "round.shop.group.support",
+  magics: "round.shop.group.magics",
+  defense: "round.shop.group.defense",
+  weapons: "round.shop.group.weapons",
+  artifacts: "round.shop.group.artifacts",
+};
 
 export const SHOPKEEPER_CATALOG = catalogData as ShopkeeperCatalog;
 export const SHOPKEEPER_CATALOG_ITEMS = SHOPKEEPER_CATALOG.groups.flatMap((group) => group.items);

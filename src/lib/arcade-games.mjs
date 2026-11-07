@@ -12,6 +12,34 @@ export const LIVE_ROUND_GAMES = Object.freeze([
   "flashback",
 ]);
 
+/** Message keys for the name of each round identity. */
+export const ROUND_GAME_LABEL_KEYS = Object.freeze({
+  trivia: "game.trivia.label",
+  shopkeeper: "game.shopkeeper.label",
+  "spell-link": "game.spellLink.label",
+  "fogged-vision": "game.foggedVision.label",
+  "echo-hunt": "game.echoHunt.label",
+  soundcheck: "game.soundcheck.label",
+  "quote-hunt": "game.quoteHunt.label",
+  "aghanim-lab": "game.aghanimLab.label",
+  "order-up": "game.orderUp.label",
+  flashback: "game.flashback.label",
+});
+
+/** Message keys for the shorter names in the lobby list. */
+export const ROUND_GAME_SHORT_LABEL_KEYS = Object.freeze({
+  trivia: "game.trivia.short",
+  shopkeeper: "game.shopkeeper.short",
+  "spell-link": "game.spellLink.short",
+  "fogged-vision": "game.foggedVision.short",
+  "echo-hunt": "game.echoHunt.short",
+  soundcheck: "game.soundcheck.short",
+  "quote-hunt": "game.quoteHunt.short",
+  "aghanim-lab": "game.aghanimLab.short",
+  "order-up": "game.orderUp.short",
+  flashback: "game.flashback.short",
+});
+
 /** Queue Arcade has one shared public room. Round identities are not separate queues. */
 export const PUBLIC_ARCADE_MODE = "mixed";
 export const LIVE_ARCADE_MODES = Object.freeze([PUBLIC_ARCADE_MODE]);

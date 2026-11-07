@@ -1,17 +1,16 @@
 import { describe, expect, it } from "vitest";
-import { accuracyRate, revealCallout, streakBannerParts } from "../src/lib/dota-flavor.mjs";
-import {
-  DOTA_SHOP_SEARCH_PLACEHOLDER,
-  ENTRY_WAIT_HINT,
-  ENTRY_WAIT_TIP_LABEL,
-  ENTRY_WAIT_TIPS,
-  shuffleEntryWaitTips,
-} from "../src/lib/entry-wait-tips.mjs";
+import { splitAccent } from "../src/i18n/format.mjs";
+import { en } from "../src/i18n/messages/en";
+import { createTranslator } from "../src/i18n/translator";
+import { accuracyRate, revealCallout, revealCalloutKey, streakBannerParts } from "../src/lib/dota-flavor.mjs";
+import { ENTRY_WAIT_TIPS, shuffleEntryWaitTips } from "../src/lib/entry-wait-tips.mjs";
 import { preventQuestionClipboard, shouldBlockQuestionClipboard } from "../src/lib/question-guard.mjs";
 import { formatPreviewLeaksAnswer, formatPreviewsFromQuestions } from "../src/lib/format-preview.mjs";
 import { LIVE_ROUND_GAMES } from "../src/lib/arcade-games.mjs";
 import generatedQuestions from "../src/data/questions.generated.json" with { type: "json" };
 import flashbackQuestions from "../src/data/flashback-questions.json" with { type: "json" };
+
+const t = createTranslator("en", null);
 
 describe("reveal callouts", () => {
   it("follow the Dota kill-streak ladder", () => {
@@ -24,12 +23,30 @@ describe("reveal callouts", () => {
     expect(revealCallout({ correct: false, timedOut: true, firstBlood: false, streak: 0 })).toBe("Time expired");
   });
 
+  it("read the same in English as their ids", () => {
+    for (const callout of ["Correct", "Incorrect", "Time expired"]) expect(t(revealCalloutKey(callout))).toBe(callout);
+  });
+
   it("build kill-feed sentences from the client strings", () => {
-    expect(streakBannerParts("Unstoppable").accent).toBe("unstoppable");
-    expect(streakBannerParts("Killing Spree").before).toBe("You are on a ");
-    expect(streakBannerParts("Beyond Godlike").accent).toBe("GODLIKE, someone kill them!!");
-    expect(streakBannerParts("Killing Spree", "Aui_2000").before).toBe("Aui_2000 is on a ");
-    expect(streakBannerParts("First Blood", "Aui_2000").before).toBe("Aui_2000 drew ");
+    expect(streakBannerParts("Unstoppable", "", t).accent).toBe("unstoppable");
+    expect(streakBannerParts("Killing Spree", "", t).before).toBe("You are on a ");
+    expect(streakBannerParts("Beyond Godlike", "", t)).toEqual({
+      before: "You are beyond ",
+      accent: "GODLIKE, someone kill them!!",
+      after: "",
+    });
+    expect(streakBannerParts("Mega Kill", "", t)).toEqual({
+      before: "You are on a ",
+      accent: "mega kill",
+      after: " streak",
+    });
+    expect(streakBannerParts("Killing Spree", "Aui_2000", t).before).toBe("Aui_2000 is on a ");
+    expect(streakBannerParts("First Blood", "Aui_2000", t).before).toBe("Aui_2000 drew ");
+    expect(streakBannerParts("Dominating", "{accent} $& name", t)).toEqual({
+      before: "{accent} $& name is ",
+      accent: "dominating",
+      after: "",
+    });
     expect(accuracyRate(3, 4)).toBe(75);
     expect(accuracyRate(0, 0)).toBe(0);
   });
@@ -37,12 +54,19 @@ describe("reveal callouts", () => {
 
 describe("entry wait tips", () => {
   it("keep the reviewed copy and shuffle deterministically", () => {
-    expect(ENTRY_WAIT_HINT).toBe("Waiting for the next full question.");
-    expect(ENTRY_WAIT_TIP_LABEL).toBe("Hint");
-    expect(DOTA_SHOP_SEARCH_PLACEHOLDER).toBe("Search Items");
-    expect(ENTRY_WAIT_TIPS).toContainEqual({ id: "keys", body: "Use A–D shortcut to pick an answer" });
-    expect(ENTRY_WAIT_TIPS).toContainEqual({ id: "heroes", body: "Start typing to filter heroes" });
-    expect(ENTRY_WAIT_TIPS).toContainEqual({ id: "shop", body: "Use Search Items to filter", mark: "Search Items" });
+    expect(en["wait.hint"]).toBe("Waiting for the next full question.");
+    expect(en["wait.tipLabel"]).toBe("Hint");
+    expect(en["round.shop.searchPlaceholder"]).toBe("Search Items");
+    expect(ENTRY_WAIT_TIPS).toContainEqual({ id: "keys", body: "wait.tip.keys" });
+    expect(ENTRY_WAIT_TIPS).toContainEqual({ id: "heroes", body: "wait.tip.heroes" });
+    expect(ENTRY_WAIT_TIPS).toContainEqual({ id: "shop", body: "wait.tip.shop" });
+    expect(t("wait.tip.keys")).toBe("Use A–D shortcut to pick an answer");
+    expect(t("wait.tip.heroes")).toBe("Start typing to filter heroes");
+    expect(splitAccent(t("wait.tip.shop", { field: t("round.shop.searchPlaceholder") }))).toEqual({
+      before: "Use ",
+      accent: "Search Items",
+      after: " to filter",
+    });
     expect(shuffleEntryWaitTips(ENTRY_WAIT_TIPS, () => 0).map((tip) => tip.id)).toEqual(["heroes", "shop", "keys"]);
   });
 });

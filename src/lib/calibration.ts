@@ -6,6 +6,7 @@ import {
   calibrationSignal as buildSignal,
   reportTotal as sumReports,
 } from "@/lib/calibration.mjs";
+import type { MessageKey, MessageVars } from "@/i18n/types";
 
 export const REPORT_REASONS = reportReasons as readonly ["incorrect", "outdated", "ambiguous", "unclear"];
 export type ReportReason = (typeof REPORT_REASONS)[number];
@@ -15,6 +16,14 @@ export const REPORT_REASON_LABELS: Record<ReportReason, string> = {
   outdated: "Outdated",
   ambiguous: "Ambiguous",
   unclear: "Unclear",
+};
+
+/** What a player reads. The English labels above stay for the /ops dashboard. */
+export const REPORT_REASON_LABEL_KEYS: Record<ReportReason, MessageKey> = {
+  incorrect: "round.report.reason.incorrect",
+  outdated: "round.report.reason.outdated",
+  ambiguous: "round.report.reason.ambiguous",
+  unclear: "round.report.reason.unclear",
 };
 
 export const CALIBRATION_MIN_SAMPLE = minimumSample;
@@ -35,6 +44,9 @@ export interface CalibrationSignal {
   status: CalibrationStatus;
   label: string;
   recommendation: string;
+  /** The recommendation as a message, for the public dashboard. */
+  adviceKey: MessageKey;
+  adviceVars?: MessageVars;
   accuracy: number | null;
   sampleReady: boolean;
   expectedMinimum: number;

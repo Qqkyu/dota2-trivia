@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useLocale } from "@/i18n/provider";
+import type { MessageKey } from "@/i18n/types";
 import { REPORT_REASONS } from "@/lib/calibration";
 import type { AccountSnapshot } from "@/lib/account-contract";
 import type { CrowdResult, PlayerIdentity, PublicRoomSettings, RoomSnapshot } from "@/lib/arcade-contract";
@@ -128,9 +130,11 @@ export function useArcadeRoom({
 
   const entryRequestRef = useRef<AbortController | null>(null);
 
-  const [roomError, setRoomError] = useState<string | null>(null);
+  const { t } = useLocale();
+  // Message keys, so the text follows the language at render and no callback depends on it.
+  const [roomErrorKey, setRoomError] = useState<MessageKey | null>(null);
 
-  const [voteError, setVoteError] = useState<string | null>(null);
+  const [voteErrorKey, setVoteError] = useState<MessageKey | null>(null);
 
   const [activeRoomId, setActiveRoomId] = useState("");
 
@@ -677,7 +681,7 @@ export function useArcadeRoom({
           setLastSnapshotRequestedAt(result.requestedAt);
         } catch {
           if (gate.isCurrent(attempt.generation) && roomSettingsRef.current === settings) {
-            setRoomError("Connection interrupted · retrying automatically");
+            setRoomError("roomStatus.connectionInterrupted");
           }
         } finally {
           gate.finish(attempt.generation);
@@ -733,7 +737,7 @@ export function useArcadeRoom({
       try {
         const result = await requestWithRetry(
           (signal: AbortSignal) => requestRoomSnapshot(settings, ensurePlayerId(), signal),
-          { signal: controller.signal, onRetry: () => setRoomError("Could not connect · retrying.") },
+          { signal: controller.signal, onRetry: () => setRoomError("roomStatus.retrying") },
         );
         if (
           controller.signal.aborted ||
@@ -785,11 +789,7 @@ export function useArcadeRoom({
       } catch {
         if (!controller.signal.aborted && roomSettingsRef.current === settings) {
           roomSettingsRef.current = null;
-          setRoomError(
-            privateCode
-              ? "Could not join that party. Retry or return to the lobby."
-              : "Could not join the public room. Press Play to retry.",
-          );
+          setRoomError(privateCode ? "roomStatus.partyJoinFailed" : "roomStatus.publicJoinFailed");
         }
       } finally {
         if (entryRequestRef.current === controller) {
@@ -921,10 +921,10 @@ export function useArcadeRoom({
             selectedAnswerKeyRef.current = null;
             setSelectedIndex(null);
             setSelectedAnswerKey(null);
-            setVoteError("Vote failed · try again");
+            setVoteError("roomStatus.voteFailed");
           } else {
             voteRequestSettledRef.current = true;
-            setRoomError("Vote confirmation delayed · checking the room");
+            setRoomError("roomStatus.voteDelayed");
             if (phaseRef.current === "reveal" && roomSnapshotRef.current) {
               finalizeRound(roomSnapshotRef.current, 0);
             }
@@ -1164,8 +1164,8 @@ export function useArcadeRoom({
     entryWaitDeadline,
     now,
     account,
-    roomError,
-    voteError,
+    roomError: roomErrorKey ? t(roomErrorKey) : null,
+    voteError: voteErrorKey ? t(voteErrorKey) : null,
     activeRoomId,
     activeRoundId,
     roundAnnouncement,
