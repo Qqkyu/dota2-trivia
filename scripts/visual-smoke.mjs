@@ -1489,7 +1489,7 @@ if (
   (entryWait.waitRoot
     ? entryWait.phase !== "waiting" ||
       entryWait.lessons !== "true" ||
-      entryWait.hint !== "Waiting for the next full question." ||
+      entryWait.hint !== "Until the next round" ||
       entryWait.tips.length !== 1 ||
       entryWait.tipCount !== 3 ||
       !entryWait.nextTip ||

@@ -135,13 +135,8 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
             <WandSparkles />
             <span className={arcade.artCorner} />
           </div>
-          <span>
-            {t("preview.clue", { number: 1 })}
-            <small>/ 3</small>
-          </span>
         </div>
         <div className={arcade.questionCopy}>
-          <span>{t(spell.eyebrow)}</span>
           <h2>{t(spell.prompt)}</h2>
           <div className={arcade.clueList}>
             <div className={arcade.clueUnlocked}>
@@ -176,13 +171,8 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
           ) : (
             <Gem aria-hidden="true" />
           )}
-          <span>
-            {t("preview.clue", { number: 1 })}
-            <small>/ 3</small>
-          </span>
         </div>
         <div className={arcade.questionCopy}>
-          <span>{t(lab.eyebrow)}</span>
           <h2>{preview?.prompt}</h2>
           <div className={clsx(arcade.clueList, arcade.aghanimClues)}>
             <div className={arcade.clueUnlocked}>
@@ -191,11 +181,11 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
             </div>
             <div className={arcade.clueLocked}>
               <strong>02</strong>
-              <span>{t(lab.clueTwo)}</span>
+              <span>{t(lab.clueTwo, { seconds: 10 })}</span>
             </div>
             <div className={arcade.clueLocked}>
               <strong>03</strong>
-              <span>{t(lab.clueThree)}</span>
+              <span>{t(lab.clueThree, { seconds: 5 })}</span>
             </div>
           </div>
         </div>
@@ -216,13 +206,7 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
           </span>
         </div>
         <div className={arcade.questionCopy}>
-          <span>{t(fog.eyebrow)}</span>
           <h2>{t(fog.prompt)}</h2>
-          <div className={arcade.fogMeter}>
-            <span className={arcade.fogMeterActive} />
-            <span />
-            <span />
-          </div>
         </div>
       </div>
     );
@@ -230,15 +214,15 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
 
   if (kind === "echo-hunt" || kind === "soundcheck") {
     const isSoundcheck = kind === "soundcheck";
-    const eyebrow = t(
-      isSoundcheck
-        ? preview?.soundcheckFormat === "sequence"
-          ? LIVE_QUESTION_COPY.soundcheck.sequence
-          : preview?.soundcheckFamily === "item"
-            ? LIVE_QUESTION_COPY.soundcheck.item
-            : LIVE_QUESTION_COPY.soundcheck.ability
-        : LIVE_QUESTION_COPY["echo-hunt"].eyebrow,
-    );
+    const eyebrow = isSoundcheck
+      ? t(
+          preview?.soundcheckFormat === "sequence"
+            ? LIVE_QUESTION_COPY.soundcheck.sequence
+            : preview?.soundcheckFamily === "item"
+              ? LIVE_QUESTION_COPY.soundcheck.item
+              : LIVE_QUESTION_COPY.soundcheck.ability,
+        )
+      : null;
     const prompt = isSoundcheck ? preview?.prompt : t(LIVE_QUESTION_COPY["echo-hunt"].prompt);
     return (
       <div
@@ -263,13 +247,8 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
           <span>{t("preview.cut", { number: 1, total: 3 })}</span>
         </div>
         <div className={arcade.questionCopy}>
-          <span>{eyebrow}</span>
+          {eyebrow && <span>{eyebrow}</span>}
           <h2>{prompt}</h2>
-          <div className={arcade.soundRevealMeter}>
-            <span className={arcade.soundRevealMeterActive} />
-            <span />
-            <span />
-          </div>
         </div>
       </div>
     );
@@ -282,10 +261,8 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
         <div className={arcade.quoteCard}>
           <MessageSquareQuote />
           <blockquote>“{preview?.detail ?? preview?.prompt}”</blockquote>
-          <span>{t(quote.cardLabel)}</span>
         </div>
         <div className={arcade.questionCopy}>
-          <span>{t(quote.eyebrow)}</span>
           <h2>{t(quote.prompt)}</h2>
           <div className={arcade.quoteHints}>
             <span data-state="locked">

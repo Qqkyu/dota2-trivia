@@ -54,13 +54,13 @@ describe("reveal callouts", () => {
 
 describe("entry wait tips", () => {
   it("keep the reviewed copy and shuffle deterministically", () => {
-    expect(en["wait.hint"]).toBe("Waiting for the next full question.");
+    expect(en["wait.hint"]).toBe("Until the next round");
     expect(en["wait.tipLabel"]).toBe("Hint");
     expect(en["round.shop.searchPlaceholder"]).toBe("Search Items");
     expect(ENTRY_WAIT_TIPS).toContainEqual({ id: "keys", body: "wait.tip.keys" });
     expect(ENTRY_WAIT_TIPS).toContainEqual({ id: "heroes", body: "wait.tip.heroes" });
     expect(ENTRY_WAIT_TIPS).toContainEqual({ id: "shop", body: "wait.tip.shop" });
-    expect(t("wait.tip.keys")).toBe("Use A–D shortcut to pick an answer");
+    expect(t("wait.tip.keys")).toBe("Press A–D to answer");
     expect(t("wait.tip.heroes")).toBe("Start typing to filter heroes");
     expect(splitAccent(t("wait.tip.shop", { field: t("round.shop.searchPlaceholder") }))).toEqual({
       before: "Use ",

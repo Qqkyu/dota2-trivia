@@ -78,7 +78,6 @@ export function QueueArcade({
     roundIndex,
     selectedIndex,
     selectedAnswerKey,
-    answerTimeLeft,
     crowd,
     roundAward,
     score,
@@ -298,7 +297,7 @@ export function QueueArcade({
 
             <div className={styles.roundHeader}>
               <div>
-                <span>{t("session.round", { number: String(roundIndex + 1).padStart(3, "0") })}</span>
+                <span>{t("session.round", { number: roundIndex + 1 })}</span>
                 <i />
                 <span className={styles.roundGameLabel}>
                   <ModeIcon mode={currentGame} />
@@ -315,6 +314,10 @@ export function QueueArcade({
                 data-urgent={phase === "answering" && answerRemaining <= 5_000 ? "true" : "false"}
                 data-phase={phase}
               >
+                {/* Always rendered, so the clock does not move at the reveal. */}
+                <span className={styles.timerLabel} data-visible={phase === "reveal" ? "true" : "false"}>
+                  {t("lobby.live.nextRoundIn")}
+                </span>
                 <Clock3 />
                 <strong data-testid="round-timer">
                   {phase === "answering"
@@ -359,6 +362,7 @@ export function QueueArcade({
               selectedIndex={selectedIndex}
               selectedAnswerKey={selectedAnswerKey}
               crowd={crowd}
+              partyPlay={Boolean(activePrivateCode)}
               roundAward={roundAward}
               resultCallout={resultCallout}
               activeRoundId={activeRoundId}
@@ -377,7 +381,6 @@ export function QueueArcade({
               <AnswerHelper
                 currentQuestion={currentQuestion}
                 selectedIndex={selectedIndex}
-                answerTimeLeft={answerTimeLeft}
                 currentGame={currentGame}
                 isRecipeBuilderRound={isRecipeBuilderRound}
                 isOpenShopRound={isOpenShopRound}
@@ -403,6 +406,7 @@ export function QueueArcade({
                 selectedWasCorrect={selectedWasCorrect}
                 resultCallout={resultCallout}
                 isValueOrderRound={isValueOrderRound}
+                partyPlay={Boolean(activePrivateCode)}
               />
             )}
           </div>

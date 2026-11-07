@@ -19,6 +19,7 @@ export const pages = {
   "party.leave": "Leave",
   "party.lobby.title": "Party lobby",
   "party.code": "Party code",
+  "party.codeNew": "Choose a party code",
   "party.copyLink": "Copy link",
   "party.players": "Players",
   "party.name.placeholder": "Your name",
@@ -26,7 +27,6 @@ export const pages = {
   "party.waiting.named": "Waiting for {name} to start",
   "party.waiting.host": "Waiting for the host to start",
   "party.setup.title": "Play with friends",
-  "party.setup.intro": "Create a party and choose the games, or join with a friend's code.",
   "party.setup.create": "Create party",
   "party.setup.join": "Join party",
   "party.join": "Join",
@@ -34,7 +34,7 @@ export const pages = {
   "party.create": "Create",
   "party.creating": "Creating…",
   "party.games": "Games",
-  "party.ended": "This party ended because the server restarted. Create a new party or join another code.",
+  "party.ended": "The server restarted, so this party ended.",
 
   // Party errors the panel writes itself.
   "party.error.requestFailed": "Request failed.",
@@ -296,11 +296,11 @@ export const pages = {
   "privacy.updated": "Last updated {date}.",
 
   // Site frame.
-  "site.tagline": "Side quests, between matches",
-  "footer.tagline": "Queue Arcade · Built for the seconds between “Find Match” and “Accept”",
+  "site.tagline": "Dota 2 trivia",
+  "footer.tagline": "Queue Arcade",
   "footer.profile": "Profile",
   "footer.privacy": "Privacy",
-  "footer.calibration": "Calibration lab",
+  "footer.calibration": "Question stats",
   "footer.legal":
     "Dota 2 is a trademark of Valve Corporation. Game assets belong to their respective rights holders. This project is not affiliated with Valve.",
 

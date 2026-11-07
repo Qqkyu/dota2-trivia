@@ -59,10 +59,6 @@ export function ClassicChoiceBoard({ question, active }: { question: PublicArcad
           <i />
           <span>{categoryLabel(t, question.category)}</span>
         </div>
-        <div className={own.practiceTag} data-testid="entry-wait-practice-tag">
-          <Clock3 />
-          {t("wait.notLive")}
-        </div>
       </div>
       <div className={styles.questionBlock} data-testid="entry-wait-choice-prompt">
         <QuestionArtwork question={question} />
@@ -192,6 +188,7 @@ export function EntryWaitLessons() {
                   phase="answering"
                   selectedKey={null}
                   crowd={EMPTY_CROWD}
+                  showShares={false}
                   onChoose={() => undefined}
                 />
               )}
@@ -210,6 +207,7 @@ export function EntryWaitLessons() {
                   phase="answering"
                   selectedKey={null}
                   crowd={EMPTY_CROWD}
+                  showShares={false}
                   onChoose={() => undefined}
                 />
               )}

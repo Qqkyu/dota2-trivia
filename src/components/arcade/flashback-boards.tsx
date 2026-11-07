@@ -196,40 +196,46 @@ export function FlashbackOrderBoard({
     const selectedWasCorrect = Boolean(selectedKey && selectedKey === question.reveal?.correctAnswerKey);
     return (
       <div className={own.flashbackOrderBoard} data-testid="flashback-order-board" data-phase="reveal">
-        <ol className={own.flashbackOrderList} data-testid="flashback-order-sequence">
-          {correctKeys.map((key, index) => {
-            const card = cards.find((candidate) => candidate.key === key);
-            return (
-              <li key={key} data-correct="true">
-                <i>{index + 1}</i>
-                {card?.image ? (
-                  <Image src={firstPartyArtSrc(card.image)} alt="" width={36} height={36} unoptimized />
-                ) : null}
-                <span>
-                  <strong>{card?.name ?? key}</strong>
-                  {card?.context ? <small>{card.context}</small> : null}
-                </span>
-              </li>
-            );
-          })}
-        </ol>
-        {submittedKeys && !selectedWasCorrect && (
-          <ol className={own.flashbackOrderList} data-yours="true">
-            {submittedKeys.map((key, index) => {
+        <div className={own.flashbackOrderGroup}>
+          <small className={own.flashbackOrderLabel}>{t("round.order.correct")}</small>
+          <ol className={own.flashbackOrderList} data-testid="flashback-order-sequence">
+            {correctKeys.map((key, index) => {
               const card = cards.find((candidate) => candidate.key === key);
               return (
-                <li key={key}>
+                <li key={key} data-correct="true">
                   <i>{index + 1}</i>
                   {card?.image ? (
                     <Image src={firstPartyArtSrc(card.image)} alt="" width={36} height={36} unoptimized />
                   ) : null}
                   <span>
                     <strong>{card?.name ?? key}</strong>
+                    {card?.context ? <small>{card.context}</small> : null}
                   </span>
                 </li>
               );
             })}
           </ol>
+        </div>
+        {submittedKeys && !selectedWasCorrect && (
+          <div className={own.flashbackOrderGroup}>
+            <small className={own.flashbackOrderLabel}>{t("round.order.yours")}</small>
+            <ol className={own.flashbackOrderList} data-yours="true">
+              {submittedKeys.map((key, index) => {
+                const card = cards.find((candidate) => candidate.key === key);
+                return (
+                  <li key={key}>
+                    <i>{index + 1}</i>
+                    {card?.image ? (
+                      <Image src={firstPartyArtSrc(card.image)} alt="" width={36} height={36} unoptimized />
+                    ) : null}
+                    <span>
+                      <strong>{card?.name ?? key}</strong>
+                    </span>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
         )}
       </div>
     );

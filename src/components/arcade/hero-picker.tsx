@@ -58,6 +58,7 @@ export function HeroPicker({
   phase,
   selectedKey,
   crowd,
+  showShares,
   onChoose,
   resultCallout = null,
   roundAward = null,
@@ -66,6 +67,8 @@ export function HeroPicker({
   phase: GamePhase;
   selectedKey: string | null;
   crowd: CrowdResult;
+  /** A party has no Room split card, so the shares go on the grid. */
+  showShares: boolean;
   onChoose: (heroKey: string) => void;
   /** At reveal: the verdict and the gold, so the payoff shows above the grid without moving it. */
   resultCallout?: Parameters<typeof revealCalloutKey>[0] | null;
@@ -299,7 +302,7 @@ export function HeroPicker({
                     onClick={() => chooseHero(hero.key)}
                   >
                     <HeroPickerPortrait hero={hero} />
-                    {phase === "reveal" && count > 0 && <i>{percentage}%</i>}
+                    {showShares && phase === "reveal" && count > 0 && <i>{percentage}%</i>}
                     {phase === "reveal" && (isCorrect || isSelected) && (
                       <span className={own.heroPickerVerdict} aria-hidden="true">
                         {isCorrect ? <Check /> : <X />}

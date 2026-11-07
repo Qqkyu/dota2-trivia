@@ -178,6 +178,19 @@
   line-height: 1.2;
 }
 
+.flashbackOrderGroup {
+  display: grid;
+  gap: 6px;
+}
+
+.flashbackOrderLabel {
+  color: var(--faint);
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
 .flashbackOrderList strong {
   overflow: hidden;
   font-size: 14px;

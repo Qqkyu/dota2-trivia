@@ -220,7 +220,26 @@ const flashbackYearRaw = pick(flashback, (q) => q.flashback?.family === "year", 
 const valueOrderRaw = pick(valueOrder, (q) => q.valueOrder?.correctOrder?.length === 4, "value-order");
 const flashbackYear = revealQuestion(flashbackYearRaw, "flashback").reveal.correctAnswerKey;
 
+const classicRevealRaw = pick(generated, (q) => q.kind === "item-cost", "item-cost");
+const quoteRevealRaw = pick(generated, (q) => q.kind === "hero-quote", "hero-quote");
+const quoteReveal = revealQuestion(quoteRevealRaw, "quote-hunt");
+
 const revealFixtures = {
+  classic: {
+    game: "trivia",
+    question: revealQuestion(classicRevealRaw, "trivia"),
+    counts: [3, 2, 1, 0],
+    keyCounts: [],
+    rows: 4,
+  },
+  quote: {
+    game: "quote-hunt",
+    question: quoteReveal,
+    keyCounts: [
+      { answerKey: "npc_dota_hero_axe", count: 3 },
+      { answerKey: quoteReveal.reveal.correctAnswerKey, count: 2 },
+    ],
+  },
   "flashback-order": orderReveal(flashbackOrderRaw, flashbackOrderRaw.flashback.correctOrder, "flashback"),
   "value-order": orderReveal(valueOrderRaw, valueOrderRaw.valueOrder.correctOrder, "order-up"),
   "flashback-year": {
@@ -751,7 +770,9 @@ try {
           const revealFixture = revealFixtures[state.revealKind];
           if (revealFixture) {
             const revealId = "layout-reveal-" + state.revealKind;
-            const total = revealFixture.keyCounts.reduce((sum, entry) => sum + entry.count, 0);
+            const total = revealFixture.counts
+              ? revealFixture.counts.reduce((sum, count) => sum + count, 0)
+              : revealFixture.keyCounts.reduce((sum, entry) => sum + entry.count, 0);
             payload.serverNow = now;
             payload.round = {
               ...payload.round,
@@ -765,10 +786,14 @@ try {
             };
             payload.questionRevision = revealId + ":reveal";
             payload.question = { ...revealFixture.question, id: revealId, game: revealFixture.game };
-            payload.playerVote = { answerIndex: 0, answerKey: revealFixture.keyCounts[0].answerKey, submittedAt: now - 2_000 };
+            payload.playerVote = {
+              answerIndex: 0,
+              ...(revealFixture.counts ? {} : { answerKey: revealFixture.keyCounts[0].answerKey }),
+              submittedAt: now - 2_000
+            };
             payload.playerReport = null;
             payload.crowd = {
-              counts: [total, 0, 0, 0],
+              counts: revealFixture.counts ?? [total, 0, 0, 0],
               total,
               positions: [],
               keyCounts: revealFixture.keyCounts,
@@ -896,6 +921,10 @@ try {
 
   /** A wrong pick leads the table, so every row has to name its answer from the round's own cards. */
   async function inspectReveal(kind, viewportName) {
+    const { roomCardHeight, timerLeft } = await page.evaluate(`({
+      roomCardHeight: document.querySelector('[data-testid="room-card"]')?.getBoundingClientRect().height ?? 0,
+      timerLeft: document.querySelector('[role="timer"]')?.getBoundingClientRect().left ?? 0,
+    })`);
     await page.evaluate(`(() => {
       window.__queueArcadeLayout.revealKind = ${JSON.stringify(kind)};
       window.dispatchEvent(new Event("focus"));
@@ -911,14 +940,14 @@ try {
     const issues = await page.evaluate(`(() => {
       const issues = [];
       const rows = [...document.querySelectorAll('[data-testid="crowd-split-row"]')];
-      if (rows.length !== ${revealFixtures[kind].keyCounts.length}) issues.push("table has " + rows.length + " rows");
+      if (rows.length !== ${revealFixtures[kind].rows ?? revealFixtures[kind].keyCounts.length}) issues.push("table has " + rows.length + " rows");
       for (const row of rows) {
         const marker = row.querySelector("i");
         const box = marker?.getBoundingClientRect();
         if (/Unknown pick|Неизвестный/.test(row.getAttribute("aria-label") ?? "")) issues.push("row with an unknown pick");
         if (marker?.textContent.trim() === "?") issues.push("row with a ? marker");
         const art = [...(marker?.querySelectorAll("img") ?? [])];
-        if (${kind !== "flashback-year"} && art.length !== 4) issues.push("order row shows " + art.length + " cards");
+        if (${kind.endsWith("-order")} && art.length !== 4) issues.push("order row shows " + art.length + " cards");
         for (const image of art) {
           const r = image.getBoundingClientRect();
           if (r.left < box.left || r.right > box.right + 0.5 || r.top < box.top || r.bottom > box.bottom + 0.5) {
@@ -933,9 +962,18 @@ try {
         const text = card.querySelector("span")?.getBoundingClientRect();
         if (art && text && art.right > text.left) issues.push("order card art covers its text");
       }
-      if (/another pick/.test(document.querySelector('[data-testid="crowd-summary"]')?.textContent ?? "")) {
-        issues.push("summary says another pick");
+      // The Room split card is the one place for the count and split in the public room.
+      const board = [...document.querySelectorAll('[data-testid="arcade-answer"], [data-testid="hero-picker-hero"]')];
+      if (board.some((choice) => /%/.test(choice.textContent))) issues.push("the answers repeat the split");
+      if (document.querySelector('[data-testid="crowd-summary"]')) issues.push("the reveal sentence repeats the split");
+      if (document.querySelector('[data-testid="room-card-answers"]')?.textContent.trim()) {
+        issues.push("the Room card repeats the count");
       }
+      if (Math.abs((document.querySelector('[data-testid="room-card"]')?.getBoundingClientRect().height ?? 0) - ${roomCardHeight}) > 1) {
+        issues.push("the Room card changes height at the reveal");
+      }
+      const timer = document.querySelector('[role="timer"]')?.getBoundingClientRect();
+      if (timer && Math.abs(timer.left - ${timerLeft}) > 1) issues.push("the clock moves at the reveal");
       return [...new Set(issues)];
     })()`);
     await screenshot(`${viewportName}-reveal-${kind}`);

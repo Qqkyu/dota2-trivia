@@ -193,7 +193,7 @@ try {
       const room = document.querySelector('[data-testid="public-room"]');
       const text = room?.innerText ?? "";
       const q = (selector) => room?.querySelectorAll(selector).length ?? 0;
-      const helper = [...(room?.querySelectorAll("div") ?? [])].find((node) => /Correct now:/.test(node.textContent ?? ""));
+      const helper = [...(room?.querySelectorAll("div") ?? [])].find((node) => / gold now/.test(node.textContent ?? ""));
       return {
         game: room?.dataset.roundGame,
         patchMentions: (document.body.innerText.match(new RegExp(${JSON.stringify(patchLabel.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))}, "gi")) ?? []).length,
@@ -207,7 +207,7 @@ try {
         flashbackOrder: q('[data-testid="flashback-order-card"]'),
         yearSlider: q('[data-testid="flashback-year-slider"]'),
         spellClue: document.querySelector('[data-testid="spell-clue-description"]')?.textContent?.length ?? 0,
-        spellClueTwoLocked: /unlocks at/i.test(document.querySelector('[data-testid="spell-clue-2"]')?.textContent ?? ""),
+        spellClueTwoLocked: / at \\d+s/i.test(document.querySelector('[data-testid="spell-clue-2"]')?.textContent ?? ""),
         aghanimClue: document.querySelector('[data-testid="aghanim-clue-1"]')?.textContent?.trim().length ?? 0,
         quote: document.querySelector('[data-testid="hero-quote"] blockquote')?.textContent?.trim().length ?? 0,
         audioState: document.querySelector('[data-testid="echo-player"], [data-testid="soundcheck-player"]')?.dataset.audioState ?? null,
@@ -223,7 +223,7 @@ try {
     }
     const narration = FORBIDDEN_COPY.find((pattern) => pattern.test(answering.text));
     if (narration) throw new Error(`${game}: redundant narration returned to the round (${narration}).`);
-    if (!/Correct now: \d+ gold/.test(answering.helper)) {
+    if (!/Answer worth \d+ gold now/.test(answering.helper)) {
       throw new Error(`${game}: the live score line is missing (${JSON.stringify(answering.helper)}).`);
     }
     if (answering.answers > 0 && !/A–D or 1–4/.test(answering.helper)) {
@@ -273,8 +273,7 @@ try {
         text,
         panel: Boolean(document.querySelector('[data-testid="reveal-panel"]')),
         report: Boolean(document.querySelector('[data-testid="report-question"]')),
-        crowd: Boolean(document.querySelector('[data-testid="crowd-summary"]')),
-        answered: Number(document.querySelector('[data-testid="crowd-summary"]')?.dataset.total ?? 0),
+        answered: Number(document.querySelector('[data-testid="crowd-split"]')?.dataset.total ?? 0),
         roomSplit: Boolean(document.querySelector('[data-testid="crowd-card"] [data-testid="crowd-split-row"]')),
         scoreSummary: Boolean(document.querySelector('[data-testid="crowd-card"] [data-testid="crowd-score-summary"]')),
         explanation: document.querySelector('[data-testid="reveal-explanation"]')?.textContent?.trim().length ?? 0,
@@ -282,10 +281,8 @@ try {
         patchMentions: (document.body.innerText.match(new RegExp(${JSON.stringify(patchLabel.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))}, "gi")) ?? []).length,
       };
     })()`);
-    if (!reveal.panel || !reveal.report || !reveal.crowd) {
-      throw new Error(
-        `${game}: reveal is missing its panel, report control, or crowd card (${JSON.stringify(reveal)}).`,
-      );
+    if (!reveal.panel || !reveal.report) {
+      throw new Error(`${game}: reveal is missing its panel or report control (${JSON.stringify(reveal)}).`);
     }
     // A recipe round needs several picks, so this script's one click can leave no answer locked.
     if (reveal.answered > 0 && (!reveal.roomSplit || !reveal.scoreSummary)) {
