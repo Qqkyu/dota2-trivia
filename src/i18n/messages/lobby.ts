@@ -94,6 +94,11 @@ export const lobby = {
   "session.roundGame": "Round {number} · {game}",
   "session.announcement": "Round {number}. {prompt}",
   "session.secondsRemaining": { one: "{count} seconds remaining", other: "{count} seconds remaining" },
+  "session.nextRoundSeconds": {
+    one: "{count} second until the next round",
+    other: "{count} seconds until the next round",
+  },
+  "session.nextRoundShort": "Next",
   "session.reportSent": "Report sent · {reason}",
   "session.region": "Your session",
   "session.gold": "Gold",

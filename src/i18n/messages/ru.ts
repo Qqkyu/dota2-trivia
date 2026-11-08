@@ -2,6 +2,16 @@ import type { Messages } from "../types";
 
 /** Russian text. Rules: docs/i18n/ru-rules.md. `tests/i18n.test.mjs` checks the keys and slots. */
 export const ru: Messages = {
+  "session.nextRoundSeconds": {
+    one: "До следующего раунда {count} сек.",
+    few: "До следующего раунда {count} сек.",
+    many: "До следующего раунда {count} сек.",
+    other: "До следующего раунда {count} сек.",
+  },
+  "session.nextRoundShort": "Далее",
+  "round.feedback.result": "{result} · +{points} золота",
+  "round.feedback.crowd": "{share}% верных",
+  "party.chooseRounds": "Выбери типы раундов",
   "session.communityShare": "Все игроки в этом типе раундов: {share}% верных",
   "kind.ability-damage": "урон способности",
   "kind.aghanim-upgrade": "улучшение Aghanim",

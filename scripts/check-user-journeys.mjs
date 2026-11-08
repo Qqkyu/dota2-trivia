@@ -84,6 +84,122 @@ async function answerByTouch(page, kind) {
   await page.waitFor("window.__journey.submissions.length===1");
 }
 try {
+  for (const action of ["join", "create"]) {
+    await check(`council keyboard party ${action}`, { path: "/party" }, async (page) => {
+      await page.send("Emulation.setDeviceMetricsOverride", {
+        width: 1280,
+        height: 640,
+        deviceScaleFactor: 1,
+        mobile: false,
+      });
+      await click(page, `[data-testid="private-room-choose-${action}"]`);
+      await page.waitFor(`document.activeElement?.dataset.testid==='private-room-join-code'`);
+      if (action === "create") {
+        const bottom = await page.evaluate(
+          `document.querySelector('[data-testid="private-room-create"]').getBoundingClientRect().bottom`,
+        );
+        assert.ok(bottom <= 640, `Create is below the viewport at ${bottom}px`);
+        assert.equal(await page.evaluate(`!!document.querySelector('#party-round-types')`), true);
+      }
+      await nativeKey(page, "Enter");
+      await page.waitFor(`!!document.querySelector('[data-testid="private-room-error"]')`);
+      await fillInput(page, '[data-testid="private-room-join-code"]', "JOURNEY");
+      await nativeKey(page, "Enter");
+      await page.waitFor(`!!document.querySelector('[data-testid="private-room-wait"]')`);
+      assert.equal(await page.evaluate(`location.search`), "?room=JOURNEY");
+    });
+  }
+  await check("council shop hit areas do not overlap", { kind: "shop" }, async (page) => {
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: 1280,
+      height: 640,
+      deviceScaleFactor: 1,
+      mobile: false,
+    });
+    const overlaps = await page.evaluate(`(() => {
+      const buttons=[...document.querySelectorAll('[data-testid="shopkeeper-store-item"]')];
+      return buttons.flatMap((button,index)=>{
+        const a=button.getBoundingClientRect();
+        return buttons.slice(index+1).filter(other=>{
+          const b=other.getBoundingClientRect();
+          return Math.min(a.right,b.right)-Math.max(a.left,b.left)>0.5 && Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top)>0.5;
+        }).map(other=>[button.getAttribute('aria-label'),other.getAttribute('aria-label')]);
+      });
+    })()`);
+    assert.deepEqual(overlaps, []);
+  });
+  for (const width of [320, 1280]) {
+    for (const [kind, outcome] of [
+      ["classic", "correct"],
+      ["classic", "wrong"],
+      ["classic", "missed"],
+      ["fog", "correct"],
+      ["shop", "correct"],
+      ["aghanim", "correct"],
+    ]) {
+      await check(
+        `council visible result ${width} ${kind} ${outcome}`,
+        { kind, mobile: width === 320, width, height: 568 },
+        async (page) => {
+          await page.send("Emulation.setDeviceMetricsOverride", {
+            width,
+            height: width === 320 ? 568 : 640,
+            deviceScaleFactor: 1,
+            mobile: width === 320,
+          });
+          if (outcome !== "missed") {
+            const answer = journeyFixtures[kind].reveal.reveal;
+            if (kind === "classic")
+              await click(
+                page,
+                '[data-testid="arcade-answer"]',
+                outcome === "correct" ? answer.correctIndex : (answer.correctIndex + 1) % 4,
+              );
+            else if (kind === "shop") await click(page, `[data-item-key="${answer.correctAnswerKey}"]`);
+            else await click(page, `[data-hero-key="${answer.correctAnswerKey}"]`);
+            await page.waitFor("window.__journey.submissions.length===1");
+          }
+          await page.evaluate("window.scrollTo(0,0)");
+          const box = () =>
+            page.evaluate(
+              `(() => { const r=document.querySelector('fieldset').getBoundingClientRect();return {top:r.top}; })()`,
+            );
+          const before = await box();
+          await finishRound(page);
+          const after = await box();
+          assert.deepEqual(after, before, "Answer section start moved at reveal");
+          const result = await page.evaluate(`(() => {
+          const node=document.querySelector('[data-testid="round-result-summary"]'), r=node.getBoundingClientRect();
+          return {text:node.textContent,top:r.top,bottom:r.bottom,height:innerHeight,timer:document.querySelector('[role="timer"]').getAttribute('aria-label'),crowd:document.querySelector('[data-testid="round-crowd-summary"]')?.textContent};
+        })()`);
+          assert.match(result.text, outcome === "correct" ? /\+200 gold/ : /\+0 gold/);
+          assert.ok(result.top >= 0 && result.bottom <= result.height, JSON.stringify(result));
+          assert.match(result.timer, /until the next round/);
+          if (outcome !== "missed") assert.match(result.crowd, outcome === "correct" ? /100% right/ : /0% right/);
+        },
+      );
+    }
+  }
+  await check(
+    "council stale deadline disables answers and shows connection status",
+    { kind: "classic", mobile: true, width: 320, height: 568 },
+    async (page) => {
+      await changeRound(page, "window.__journey.blockRounds=true");
+      await page.waitFor(`!!document.querySelector('[data-testid="round-connection-status"]')`, 10000);
+      const top = await page.evaluate(
+        `document.querySelector('[data-testid="round-connection-status"]').getBoundingClientRect().top`,
+      );
+      assert.ok(top >= 0 && top < 568);
+      await page.waitFor(`document.querySelector('fieldset')?.disabled===true`, 20000);
+      assert.equal(
+        await page.evaluate(`document.querySelector('[data-testid="arcade-answer"]').matches(':disabled')`),
+        true,
+      );
+      await changeRound(page, "window.__journey.blockRounds=false;window.__journey.phase='reveal'");
+      await page.waitFor(`document.querySelector('main')?.dataset.phase==='reveal'`);
+      assert.equal(await page.evaluate(`!!document.querySelector('[data-testid="round-connection-status"]')`), false);
+    },
+  );
   await check("mobile hero search has an editable input", { mobile: true, kind: "hero" }, async (page) => {
     assert.equal(await page.evaluate(`!!document.querySelector('input[data-testid="hero-search-input"]')`), true);
     await tap(page, '[data-testid="hero-search-input"]');

@@ -28,6 +28,7 @@ import { AudioDiagnosticsPanel } from "./arcade/audio-diagnostics-panel";
 import { KillStreakHud } from "./arcade/kill-streak-hud";
 import type { LobbyPulsePayload } from "./arcade/shared";
 import { RoundPrompt } from "./arcade/round-prompt";
+import { RoundFeedback } from "./arcade/round-feedback";
 import { AnswerBoards } from "./arcade/answer-boards";
 import { AnswerHelper } from "./arcade/answer-helper";
 import { RevealPanel } from "./arcade/reveal-panel";
@@ -312,13 +313,16 @@ export function QueueArcade({
                 className={styles.timer}
                 role="timer"
                 aria-live="off"
-                aria-label={t("session.secondsRemaining", { count: Math.ceil(answerRemaining / 1000) })}
+                aria-label={t(phase === "reveal" ? "session.nextRoundSeconds" : "session.secondsRemaining", {
+                  count: Math.ceil((phase === "reveal" ? revealRemaining : answerRemaining) / 1000),
+                })}
                 data-urgent={phase === "answering" && answerRemaining <= 5_000 ? "true" : "false"}
                 data-phase={phase}
               >
                 {/* Always rendered, so the clock does not move at the reveal. */}
                 <span className={styles.timerLabel} data-visible={phase === "reveal" ? "true" : "false"}>
-                  {t("lobby.live.nextRoundIn")}
+                  <span className={styles.timerLabelFull}>{t("lobby.live.nextRoundIn")}</span>
+                  <span className={styles.timerLabelShort}>{t("session.nextRoundShort")}</span>
                 </span>
                 <Clock3 />
                 <strong data-testid="round-timer">
@@ -327,6 +331,16 @@ export function QueueArcade({
                     : String(Math.ceil(revealRemaining / 1000)).padStart(2, "0")}
                 </strong>
               </div>
+              <RoundFeedback
+                phase={phase}
+                currentQuestion={currentQuestion}
+                crowd={crowd}
+                roundAward={roundAward}
+                selectedIndex={selectedIndex}
+                roomError={roomError}
+                resultCallout={resultCallout}
+                liveAward={liveAward}
+              />
             </div>
 
             <RoundPrompt
@@ -358,26 +372,32 @@ export function QueueArcade({
               aghanimItem={aghanimItem}
             />
 
-            <AnswerBoards
-              phase={phase}
-              currentQuestion={currentQuestion}
-              selectedIndex={selectedIndex}
-              selectedAnswerKey={selectedAnswerKey}
-              crowd={crowd}
-              partyPlay={Boolean(activePrivateCode)}
-              roundAward={roundAward}
-              resultCallout={resultCallout}
-              activeRoundId={activeRoundId}
-              chooseAnswer={chooseAnswer}
-              chooseKeyedAnswer={chooseKeyedAnswer}
-              playPickSound={playPickSound}
-              currentGame={currentGame}
-              isOpenShopRound={isOpenShopRound}
-              isHeroPickerRound={isHeroPickerRound}
-              isValueOrderRound={isValueOrderRound}
-              isFlashbackOrderRound={isFlashbackOrderRound}
-              isFlashbackYearRound={isFlashbackYearRound}
-            />
+            <fieldset
+              className={styles.answerFieldset}
+              aria-label={t("round.answers.aria")}
+              disabled={phase === "answering" && answerRemaining <= 0}
+            >
+              <AnswerBoards
+                phase={phase}
+                currentQuestion={currentQuestion}
+                selectedIndex={selectedIndex}
+                selectedAnswerKey={selectedAnswerKey}
+                crowd={crowd}
+                partyPlay={Boolean(activePrivateCode)}
+                roundAward={roundAward}
+                resultCallout={resultCallout}
+                activeRoundId={activeRoundId}
+                chooseAnswer={chooseAnswer}
+                chooseKeyedAnswer={chooseKeyedAnswer}
+                playPickSound={playPickSound}
+                currentGame={currentGame}
+                isOpenShopRound={isOpenShopRound}
+                isHeroPickerRound={isHeroPickerRound}
+                isValueOrderRound={isValueOrderRound}
+                isFlashbackOrderRound={isFlashbackOrderRound}
+                isFlashbackYearRound={isFlashbackYearRound}
+              />
+            </fieldset>
 
             {phase === "answering" ? (
               <AnswerHelper

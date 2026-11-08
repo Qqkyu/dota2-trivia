@@ -1,0 +1,45 @@
+.feedback {
+  display: flex;
+  height: 20px;
+  min-width: 0;
+  flex-basis: 100%;
+  align-items: center;
+  gap: 8px 18px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.feedback[data-correct="true"] {
+  color: var(--green);
+}
+
+.feedback[data-error="true"] {
+  color: #f0b1a5;
+}
+
+.crowd {
+  color: #c5cbc6;
+}
+
+.connection {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.connection svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 680px) {
+  .feedback {
+    height: 36px;
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 0 12px;
+  }
+}

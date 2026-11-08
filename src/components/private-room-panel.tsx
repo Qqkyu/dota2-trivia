@@ -282,6 +282,9 @@ export function PrivateRoomPanel({
   const partyMissesRef = useRef(0);
   const playerIdRef = useRef(playerId);
   const joinInputRef = useRef<HTMLInputElement | null>(null);
+  useEffect(() => {
+    if (screen === "join" || screen === "create") joinInputRef.current?.focus({ preventScroll: true });
+  }, [screen]);
   const nameInputRef = useRef<HTMLInputElement | null>(null);
   const nameRef = useRef("");
   const committedNameRef = useRef("");
@@ -1093,15 +1096,20 @@ export function PrivateRoomPanel({
       <section className={clsx(styles.view, styles.joinView)} data-testid="private-room-setup" data-path="join">
         <h1 className="sr-only">{t("party.setup.join")}</h1>
         {back}
-        <div className={styles.enter}>
+        <form
+          className={styles.enter}
+          onSubmit={(event) => {
+            event.preventDefault();
+            void joinRoom();
+          }}
+        >
           {codeField}
           <button
-            type="button"
+            type="submit"
             className={styles.dashButton}
             data-testid="private-room-join"
             aria-busy={busy === "join"}
             disabled={busy !== null}
-            onClick={() => void joinRoom()}
           >
             <span className={styles.enterFace} data-show={busy === "join" ? "false" : "true"}>
               {t("party.join")}
@@ -1111,19 +1119,46 @@ export function PrivateRoomPanel({
             </span>
           </button>
           {setupError}
-        </div>
+        </form>
       </section>
     );
   }
 
   return (
     <section className={styles.view} data-testid="private-room-setup" data-path="create">
-      <h1 className="sr-only">{t("party.setup.create")}</h1>
+      <h1 className={styles.setupTitle}>{t("party.setup.create")}</h1>
       {back}
+      <form
+        className={styles.enter}
+        onSubmit={(event) => {
+          event.preventDefault();
+          void createRoom();
+        }}
+      >
+        {codeField}
+        <button
+          type="submit"
+          className={styles.dashButton}
+          data-testid="private-room-create"
+          aria-busy={busy === "create"}
+          disabled={busy !== null}
+        >
+          <span className={styles.enterFace} data-show={busy === "create" ? "false" : "true"}>
+            {t("party.create")}
+          </span>
+          <span className={styles.enterFace} data-show={busy === "create" ? "true" : "false"}>
+            {t("party.creating")}
+          </span>
+        </button>
+        {setupError}
+      </form>
+      <h2 className={styles.gamesHeading} id="party-round-types">
+        {t("party.chooseRounds")}
+      </h2>
       <div
         className={clsx(formatPreviewCardStyles.cardGrid, styles.games)}
         role="group"
-        aria-label={t("party.games")}
+        aria-labelledby="party-round-types"
         data-invalid={errorField === "games" ? "true" : undefined}
       >
         {gameOptions.map((game) => {
@@ -1143,25 +1178,6 @@ export function PrivateRoomPanel({
             />
           );
         })}
-      </div>
-      <div className={styles.enter}>
-        {codeField}
-        <button
-          type="button"
-          className={styles.dashButton}
-          data-testid="private-room-create"
-          aria-busy={busy === "create"}
-          disabled={busy !== null}
-          onClick={() => void createRoom()}
-        >
-          <span className={styles.enterFace} data-show={busy === "create" ? "false" : "true"}>
-            {t("party.create")}
-          </span>
-          <span className={styles.enterFace} data-show={busy === "create" ? "true" : "false"}>
-            {t("party.creating")}
-          </span>
-        </button>
-        {setupError}
       </div>
     </section>
   );

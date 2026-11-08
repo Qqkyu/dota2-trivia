@@ -34,6 +34,7 @@ export const pages = {
   "party.create": "Create",
   "party.creating": "Creating…",
   "party.games": "Games",
+  "party.chooseRounds": "Choose round types",
   "party.ended": "The server restarted, so this party ended.",
 
   // Party errors the panel writes itself.

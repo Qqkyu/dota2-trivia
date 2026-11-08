@@ -33,6 +33,13 @@
   margin: 0;
 }
 
+.gamesHeading {
+  margin: 8px 0 0;
+  color: #c5cbc6;
+  font-size: 16px;
+  font-weight: 600;
+}
+
 .games[data-invalid="true"] {
   outline: 2px solid #f06a58;
   outline-offset: 6px;

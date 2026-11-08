@@ -464,18 +464,35 @@
   visibility: hidden;
 }
 
+.timerLabelShort {
+  display: none;
+}
+
 @media (max-width: 680px) {
-  .timerLabel {
+  .timerLabelFull {
     display: none;
   }
+
+  .timerLabelShort {
+    display: inline;
+  }
+}
+
+.answerFieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
 .roundHeader {
   display: flex;
   min-height: 64px;
+  flex-wrap: wrap;
+  gap: 6px 12px;
   align-items: center;
   justify-content: space-between;
-  padding: 0 28px;
+  padding: 10px 28px;
   border-bottom: 1px solid var(--line);
   background: rgba(0, 0, 0, 0.13);
 }
@@ -1397,11 +1414,12 @@
 .shopkeeperGroup > div {
   display: grid;
   gap: 3px;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(34px, 1fr));
 }
 
 .shopkeeperGroup button {
   position: relative;
+  width: 100%;
   min-width: 0;
   min-height: 26px;
   aspect-ratio: 1.32;
