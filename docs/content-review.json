@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-11-08T08:20:44.300Z",
-  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Opus 5.5 on 2026-11-08 after the layout check gained the gold shop flow (facts unchanged)",
+  "reviewedAt": "2026-11-08T13:33:34.787Z",
+  "reviewedBy": "GPT-6.1 Sol, 2026-11-08, narrow council evidence helper review; prior factual review retained",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
     "patch": "7.41f",
@@ -13,8 +13,8 @@
     "patchTimestamp": 1789455600
   },
   "evidence": {
-    "path": "docs/audits/2026-10-06/launch-checks/content-review.md",
-    "sha256": "272bf69778ad75bd0e7aa51a19ca4b256c4e780777a793ef7558bc1126751af6"
+    "path": "docs/audits/2026-11-08/council/content-review.md",
+    "sha256": "96f6cfabcfa30494345157bc109ca5d47d619163dc0bb32b63c865ab9ec5650d"
   },
   "scope": "Committed catalog and content scripts. Original upstream downloads are not pinned by this record.",
   "files": {
@@ -49,7 +49,7 @@
     "scripts/check-rate-limit-live.mjs": "82de8cbe9c6530172ed6e199798d42f9566dcd90dbdfa3d1acc9bb58ed27a62f",
     "scripts/check-render-snapshot.mjs": "4f03f4ed618fd4a02d65d937c70b5376cae930352e18ac06706278e2ab5a50ab",
     "scripts/check-reports-api.mjs": "a3e1b9bd7393b36cb989640a1e23053d08697e0bea4c0f23271c1d36442b5cf2",
-    "scripts/check-responsive-ui.mjs": "34c0b80f68de7b920444c762b70c1d92ca15078d8422444bf25f20975fe63df2",
+    "scripts/check-responsive-ui.mjs": "5b7f8317e37b13e17803b75fdee9423f476480df91a8c86d94f7fd920cf9eef4",
     "scripts/check-round-accessibility.mjs": "65a98a1aa7e9d13f3d1bbd51013de3b475f9f5b086d4fb6383cff8f336b78125",
     "scripts/check-round-copy.mjs": "5fa35262e6891bd807a260ba02141a74b0f77d81b43500ef0e200ba647ecf00a",
     "scripts/check-russian.mjs": "a77a21b8b7c066069ee057e011718d3afe7742dbfe7dda2ca471470facb1ea80",

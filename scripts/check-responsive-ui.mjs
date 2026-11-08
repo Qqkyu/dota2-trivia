@@ -297,7 +297,7 @@ try {
         const round={id:gate?'responsive-gate':'responsive-'+fixture.kind,number:state.index+1,game:fixture.game,phase,startedAt:now-1000,answerDeadline:phase==='reveal'?now-100:now+60000,revealDeadline:gate?now+50:now+65000,answerDuration:15000};
         return json({serverNow:now,room:{id:'responsive-room',gameId:'dota2',contentVersion:'responsive',mode:'mixed',filter:'Mixed'},round,questionRevision:round.id+':'+phase,question:gate?null:fixture[phase],presence:{activePlayers:100},crowd:{counts:[0,0,0,0],total:0,keyCounts:[],scoreSummary:null},playerVote:null,playerReport:null,previousResults:[]});
       }
-       if(${loadArtwork} && ['/api/art','/api/round-image'].includes(url.pathname))return original(input,init);
+       if(${loadArtwork} && (url.pathname.startsWith('/api/art/') || url.pathname==='/api/round-image'))return original(input,init);
        if(url.pathname.startsWith('/api/'))return json({ok:true});
       return original(input,init);
     };
