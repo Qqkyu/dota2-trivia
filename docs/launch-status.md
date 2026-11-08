@@ -24,7 +24,7 @@ the tag out in a separate worktree.
 | App | <https://queuearcade.com> (custom domain since 2026-11-01; `queue-arcade.onrender.com` pages redirect to it) |
 | Render service | `srv-d9mqd1942hec73e9nlt0`, Docker, plan `0.5c-512mb` ($7 a month, no sleep) since 2026-11-01, Frankfurt, one instance; managed by Blueprint `exs-dbjg5p2jnfac73ftd3f0` from `render.yaml`, Auto Sync off |
 | Deploy policy | Manual deploys only from branch `main` (switched on 20 October) |
-| Live deployment | `dep-dbno8sajnfac73cubbqg` from `main` at `ad7eb6c` (room split PR #60, reveal accuracy PR #61, grids and Flashback results PR #63, clearer landing page PR #64, simplicity pass PR #65; 2026-11-07) |
+| Live deployment | `dep-dbo3i7m417fc73f6bdk0` from `main` at `ce5633a` (simplicity pass PR #65, gold shop PR #66; 2026-11-08) |
 | Edge caching | On since 2026-11-06, Common static files, saved in the dashboard. `/api/art` images and `/_next/static` files answer `cf-cache-status: HIT`; pages and API routes stay `DYNAMIC`. See [operations](operations.md#render-service-blueprint) |
 | PostgreSQL | `dpg-d9mqc4taeets73aiclsg-a`, PostgreSQL 17, restricted runtime role, empty external allowlist |
 | Trusted address header | `ARCADE_TRUST_PROXY=cf-connecting-ip` |
