@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-11-08T14:01:48.473Z",
+  "reviewedAt": "2026-11-08T14:18:52.676Z",
   "reviewedBy": "GPT-6.1 Sol, 2026-11-08, narrow council evidence and journey checks; prior factual review retained",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
@@ -14,7 +14,7 @@
   },
   "evidence": {
     "path": "docs/audits/2026-11-08/council/content-review.md",
-    "sha256": "9c64112e638b825db6595d2709366af0421bbe646c8e700cf7c1e1fed2e21a08"
+    "sha256": "d20c3cbda6c1adbe21c1ad3eae65be089c0b766a1296a7ff648fd0a477b78d51"
   },
   "scope": "Committed catalog and content scripts. Original upstream downloads are not pinned by this record.",
   "files": {
@@ -59,7 +59,7 @@
     "scripts/check-steam-provider.mjs": "aa5ff9e3fc524a262d160cdd9b19c5d8af2cf6614e00002bf00cbd28a91c2ec6",
     "scripts/check-ui-recovery.mjs": "7c4e338544045b0368b7719e9c55b7e5312559089de0c7555c88235c1f351e38",
     "scripts/check-ui.mjs": "028195a36d0d81c4a039a59462d47403a9eb02683193a893d9b65698eee115da",
-    "scripts/check-user-journeys.mjs": "005908aab0f9663cdacd6c37758ca3e89b9e77b5faa1f059fd29c9f39e0f9ff4",
+    "scripts/check-user-journeys.mjs": "2ebce482a6b51aa9862aa435869fde0014f494d6b9e1fd4d96476cf5a8421828",
     "scripts/cleanup-db.mjs": "630a6ced2494226ac0aa8e9a220b7cafc99df2a600a576b65d8e172aa57b9720",
     "scripts/client-audit-requirement.mjs": "b235efb3298cdcf0f354509b856e45393dd6a6760c56810b5234414628d4b35d",
     "scripts/client-constant-audit.mjs": "315352b8b2690308955c70a04d967b11e0640fbc3498ad97d852ed955e09b1b7",

@@ -12,6 +12,8 @@ Use two independent reviewers on the user's existing subscriptions. The parent s
 
 Read `PRODUCT.md`, `README.md`, and the relevant ADRs. Check the working tree and preserve unrelated work. Define the affected routes, states, viewports, and repeatable checks before editing. Complete known in-scope fixes first when the request identifies them.
 
+Check recent maintainer decisions in the affected area's docs before accepting recommendations. The 7 November 2026 simplicity audit keeps the public answer split only in the Room split card. Include relevant constraints in judge packets. A reviewer suggestion does not override a maintainer decision.
+
 For a player UI review, cover the lobby, entry wait, answering, locked answer, reveal, and party create/join. Include keyboard operation, sound controls, error recovery, desktop, and phone reflow. Operator pages are outside this scope unless requested.
 
 Preserve the current Dota visual style and game rules during polish. A recommendation to replace the style or change the game needs the user's decision.

@@ -151,7 +151,6 @@ export const round = {
   "round.reveal.noScore": "No score",
   "round.reveal.gold": "gold",
   "round.feedback.result": "{result} · +{points} gold",
-  "round.feedback.crowd": "{share}% right",
 
   // `count` picks the plural form. `total` is the same number written for display.
   "round.crowd.summary": {

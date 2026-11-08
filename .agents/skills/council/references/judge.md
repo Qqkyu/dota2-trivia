@@ -8,6 +8,8 @@ Queue Arcade is a Dota browser game for players waiting for a match. A player ca
 
 Use the current `README.md` and implementation to resolve current-state details. `PRODUCT.md` contains dated facts, not a substitute for observation. Judge the supplied comparison apps only on the pages you can inspect. Explain where their different game loops make a comparison invalid.
 
+The maintainer keeps public crowd counts and the full split in the Room split card. Improve its placement rather than repeating those numbers elsewhere. Parties have no side rail and keep inline shares. Preserve this simplicity decision unless the user explicitly reopens it.
+
 ## Rubric
 
 Score each dimension independently from 0 to 10, with a short evidence-based reason:

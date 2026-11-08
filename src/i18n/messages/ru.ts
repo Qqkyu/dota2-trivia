@@ -10,7 +10,6 @@ export const ru: Messages = {
   },
   "session.nextRoundShort": "Далее",
   "round.feedback.result": "{result} · +{points} золота",
-  "round.feedback.crowd": "{share}% верных",
   "party.chooseRounds": "Выбери типы раундов",
   "session.communityShare": "Все игроки в этом типе раундов: {share}% верных",
   "kind.ability-damage": "урон способности",

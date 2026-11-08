@@ -333,8 +333,6 @@ export function QueueArcade({
               </div>
               <RoundFeedback
                 phase={phase}
-                currentQuestion={currentQuestion}
-                crowd={crowd}
                 roundAward={roundAward}
                 selectedIndex={selectedIndex}
                 roomError={roomError}

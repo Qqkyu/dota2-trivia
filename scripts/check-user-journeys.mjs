@@ -170,12 +170,12 @@ try {
           assert.deepEqual(after, before, "Answer section start moved at reveal");
           const result = await page.evaluate(`(() => {
           const node=document.querySelector('[data-testid="round-result-summary"]'), r=node.getBoundingClientRect();
-          return {text:node.textContent,top:r.top,bottom:r.bottom,height:innerHeight,timer:document.querySelector('[role="timer"]').getAttribute('aria-label'),crowd:document.querySelector('[data-testid="round-crowd-summary"]')?.textContent};
+          return {text:node.textContent,top:r.top,bottom:r.bottom,height:innerHeight,timer:document.querySelector('[role="timer"]').getAttribute('aria-label'),crowdRepeated:!!document.querySelector('[data-testid="round-crowd-summary"],[data-testid="crowd-summary"]')};
         })()`);
           assert.match(result.text, outcome === "correct" ? /\+200 gold/ : /\+0 gold/);
           assert.ok(result.top >= 0 && result.bottom <= result.height, JSON.stringify(result));
           assert.match(result.timer, /until the next round/);
-          if (outcome !== "missed") assert.match(result.crowd, outcome === "correct" ? /100% right/ : /0% right/);
+          assert.equal(result.crowdRepeated, false, "Public split belongs only in the Room split card");
         },
       );
     }

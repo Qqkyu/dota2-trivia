@@ -131,8 +131,8 @@ export function RevealPanel({
           {t(revealCalloutKey(resultCallout))}
         </span>
         {!isValueOrderRound && <p data-testid="reveal-explanation">{currentQuestion.reveal?.explanation}</p>}
-        {/* Keep the shared result with the answer, including when the side rail is offscreen. */}
-        {(partyPlay || crowd.total > 0) && (
+        {/* In the public room the Room split card has these numbers. A party has no side rail. */}
+        {partyPlay && (
           <p className={own.crowdLine} data-testid="crowd-summary" data-total={crowd.total}>
             {crowdSummary(currentQuestion, crowd, t, number)}
           </p>
