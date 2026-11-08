@@ -1,0 +1,7124 @@
+{
+  "checks": 136,
+  "failures": [],
+  "fixtures": [
+    {
+      "kind": "mana-cost",
+      "sourceQuestionId": "mana:tinker_march_of_the_machines:2"
+    },
+    {
+      "kind": "shopkeeper-build-result",
+      "sourceQuestionId": "shopkeeper-build:boots_of_bearing"
+    },
+    {
+      "kind": "spell-owner",
+      "sourceQuestionId": "ability-owner:nyx_assassin_burrow"
+    },
+    {
+      "kind": "fogged-hero",
+      "sourceQuestionId": "fogged-hero:npc_dota_hero_faceless_void"
+    },
+    {
+      "kind": "soundcheck-ability-single",
+      "sourceQuestionId": "soundcheck-ability:zuus_thundergods_wrath"
+    },
+    {
+      "kind": "flashback-year",
+      "sourceQuestionId": "flashback:ti13-year"
+    }
+  ],
+  "results": [
+    {
+      "label": "390x844-home",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "lobby",
+      "width": 390,
+      "availableWidth": 380,
+      "scrollWidth": 380,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "390x844-party",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "lobby",
+      "width": 390,
+      "availableWidth": 390,
+      "scrollWidth": 380,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "390x844-party-create",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "lobby",
+      "width": 390,
+      "availableWidth": 380,
+      "scrollWidth": 380,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "390x844-profile",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "width": 390,
+      "availableWidth": 380,
+      "scrollWidth": 380,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "390x844-privacy",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "width": 390,
+      "availableWidth": 380,
+      "scrollWidth": 380,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "390x844-calibration",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "width": 390,
+      "availableWidth": 380,
+      "scrollWidth": 380,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "390x844-ops",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "width": 390,
+      "availableWidth": 390,
+      "scrollWidth": 380,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "390x844-party100",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "lobby",
+      "width": 390,
+      "availableWidth": 390,
+      "scrollWidth": 380,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "390x844-party-play100",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "answering",
+      "width": 390,
+      "availableWidth": 380,
+      "scrollWidth": 380,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "390x844-mana-cost-answering",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "answering",
+      "width": 390,
+      "availableWidth": 380,
+      "scrollWidth": 380,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "390x844-mana-cost-reveal",
+      "clippedOrderLabels": [],
+      "hasExplanation": true,
+      "clippedExplanation": false,
+      "phase": "reveal",
+      "width": 390,
+      "availableWidth": 380,
+      "scrollWidth": 380,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "390x844-shopkeeper-build-result-answering",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "answering",
+      "width": 390,
+      "availableWidth": 380,
+      "scrollWidth": 380,
+      "targets": [
+        {
+          "name": "basics",
+          "x": 29,
+          "y": 353.359375,
+          "width": 162.5,
+          "height": 44,
+          "right": 191.5,
+          "bottom": 397.359375
+        },
+        {
+          "name": "upgrades",
+          "x": 191.5,
+          "y": 353.359375,
+          "width": 162.5,
+          "height": 44,
+          "right": 354,
+          "bottom": 397.359375
+        },
+        {
+          "name": "Magic Wand, 460 gold",
+          "x": 34,
+          "y": 487.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 531.359375
+        },
+        {
+          "name": "Bracer, 505 gold",
+          "x": 94.390625,
+          "y": 487.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 531.359375
+        },
+        {
+          "name": "Wraith Band, 505 gold",
+          "x": 154.796875,
+          "y": 487.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 531.359375
+        },
+        {
+          "name": "Null Talisman, 505 gold",
+          "x": 215.1875,
+          "y": 487.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 531.359375
+        },
+        {
+          "name": "Power Treads, 1,400 gold",
+          "x": 275.59375,
+          "y": 487.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 531.359375
+        },
+        {
+          "name": "Soul Ring, 805 gold",
+          "x": 34,
+          "y": 536.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 580.359375
+        },
+        {
+          "name": "Orb of Corrosion, 1,050 gold",
+          "x": 94.390625,
+          "y": 536.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 580.359375
+        },
+        {
+          "name": "Falcon Blade, 1,125 gold",
+          "x": 154.796875,
+          "y": 536.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 580.359375
+        },
+        {
+          "name": "Phase Boots, 1,450 gold",
+          "x": 215.1875,
+          "y": 536.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 580.359375
+        },
+        {
+          "name": "Perseverance, 1,400 gold",
+          "x": 275.59375,
+          "y": 536.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 580.359375
+        },
+        {
+          "name": "Mask of Madness, 1,900 gold",
+          "x": 34,
+          "y": 585.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 629.359375
+        },
+        {
+          "name": "Oblivion Staff, 1,625 gold",
+          "x": 94.390625,
+          "y": 585.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 629.359375
+        },
+        {
+          "name": "Boots of Travel, 2,500 gold",
+          "x": 154.796875,
+          "y": 585.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 629.359375
+        },
+        {
+          "name": "Hand of Midas, 2,200 gold",
+          "x": 215.1875,
+          "y": 585.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 629.359375
+        },
+        {
+          "name": "Moon Shard, 4,000 gold",
+          "x": 275.59375,
+          "y": 585.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 629.359375
+        },
+        {
+          "name": "Soul Booster, 3,000 gold",
+          "x": 34,
+          "y": 634.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 678.359375
+        },
+        {
+          "name": "Ring of Basilius, 425 gold",
+          "x": 34,
+          "y": 720.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 764.359375
+        },
+        {
+          "name": "Headdress, 425 gold",
+          "x": 94.390625,
+          "y": 720.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 764.359375
+        },
+        {
+          "name": "Urn of Shadows, 825 gold",
+          "x": 154.796875,
+          "y": 720.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 764.359375
+        },
+        {
+          "name": "Tranquil Boots, 900 gold",
+          "x": 215.1875,
+          "y": 720.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 764.359375
+        },
+        {
+          "name": "Arcane Boots, 1,500 gold",
+          "x": 275.59375,
+          "y": 720.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 764.359375
+        },
+        {
+          "name": "Mekansm, 1,775 gold",
+          "x": 34,
+          "y": 769.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 813.359375
+        },
+        {
+          "name": "Essence Distiller, 1,775 gold",
+          "x": 94.390625,
+          "y": 769.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 813.359375
+        },
+        {
+          "name": "Drum of Endurance, 1,625 gold",
+          "x": 154.796875,
+          "y": 769.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 813.359375
+        },
+        {
+          "name": "Pavise, 1,350 gold",
+          "x": 215.1875,
+          "y": 769.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 813.359375
+        },
+        {
+          "name": "Guardian Greaves, 4,450 gold",
+          "x": 275.59375,
+          "y": 769.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 813.359375
+        },
+        {
+          "name": "Spirit Vessel, 2,725 gold",
+          "x": 34,
+          "y": 818.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 862.359375
+        },
+        {
+          "name": "Boots of Bearing, 4,225 gold",
+          "x": 94.390625,
+          "y": 818.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 862.359375
+        },
+        {
+          "name": "Solar Crest, 2,575 gold",
+          "x": 154.796875,
+          "y": 818.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 862.359375
+        },
+        {
+          "name": "Glimmer Cape, 2,150 gold",
+          "x": 215.1875,
+          "y": 818.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 862.359375
+        },
+        {
+          "name": "Holy Locket, 2,250 gold",
+          "x": 275.59375,
+          "y": 818.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 862.359375
+        },
+        {
+          "name": "Pipe of Insight, 3,725 gold",
+          "x": 34,
+          "y": 867.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 911.359375
+        },
+        {
+          "name": "Veil of Discord, 1,700 gold",
+          "x": 34,
+          "y": 953.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 997.359375
+        },
+        {
+          "name": "Rod of Atos, 2,250 gold",
+          "x": 94.390625,
+          "y": 953.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 997.359375
+        },
+        {
+          "name": "Eul's Scepter of Divinity, 2,600 gold",
+          "x": 154.796875,
+          "y": 953.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 997.359375
+        },
+        {
+          "name": "Phylactery, 2,600 gold",
+          "x": 215.1875,
+          "y": 953.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 997.359375
+        },
+        {
+          "name": "Bloodstone, 4,700 gold",
+          "x": 275.59375,
+          "y": 953.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 997.359375
+        },
+        {
+          "name": "Gleipnir, 4,650 gold",
+          "x": 34,
+          "y": 1002.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 1046.359375
+        },
+        {
+          "name": "Wind Waker, 6,800 gold",
+          "x": 94.390625,
+          "y": 1002.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 1046.359375
+        },
+        {
+          "name": "Khanda, 5,600 gold",
+          "x": 154.796875,
+          "y": 1002.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 1046.359375
+        },
+        {
+          "name": "Force Staff, 2,200 gold",
+          "x": 215.1875,
+          "y": 1002.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 1046.359375
+        },
+        {
+          "name": "Aether Lens, 2,275 gold",
+          "x": 275.59375,
+          "y": 1002.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 1046.359375
+        },
+        {
+          "name": "Meteor Hammer, 2,850 gold",
+          "x": 34,
+          "y": 1051.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 1095.359375
+        },
+        {
+          "name": "Dagon, 3,000 gold",
+          "x": 94.390625,
+          "y": 1051.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 1095.359375
+        },
+        {
+          "name": "Aghanim's Scepter, 4,200 gold",
+          "x": 154.796875,
+          "y": 1051.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 1095.359375
+        },
+        {
+          "name": "Crella's Crozier, 4,800 gold",
+          "x": 215.1875,
+          "y": 1051.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 1095.359375
+        },
+        {
+          "name": "Octarine Core, 5,100 gold",
+          "x": 275.59375,
+          "y": 1051.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 1095.359375
+        },
+        {
+          "name": "Orchid Malevolence, 3,275 gold",
+          "x": 34,
+          "y": 1100.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 1144.359375
+        },
+        {
+          "name": "Refresher Orb, 5,000 gold",
+          "x": 94.390625,
+          "y": 1100.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 1144.359375
+        },
+        {
+          "name": "Ethereal Blade, 5,200 gold",
+          "x": 154.796875,
+          "y": 1100.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 1144.359375
+        },
+        {
+          "name": "Scythe of Vyse, 5,200 gold",
+          "x": 215.1875,
+          "y": 1100.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 1144.359375
+        },
+        {
+          "name": "Bloodthorn, 6,400 gold",
+          "x": 275.59375,
+          "y": 1100.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 1144.359375
+        },
+        {
+          "name": "Buckler, 425 gold",
+          "x": 34,
+          "y": 1186.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 1230.359375
+        },
+        {
+          "name": "Vanguard, 1,700 gold",
+          "x": 94.390625,
+          "y": 1186.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 1230.359375
+        },
+        {
+          "name": "Blade Mail, 2,400 gold",
+          "x": 154.796875,
+          "y": 1186.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 1230.359375
+        },
+        {
+          "name": "Helm of the Dominator, 2,550 gold",
+          "x": 215.1875,
+          "y": 1186.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 1230.359375
+        },
+        {
+          "name": "Vladmir's Offering, 2,200 gold",
+          "x": 275.59375,
+          "y": 1186.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 1230.359375
+        },
+        {
+          "name": "Crimson Guard, 3,725 gold",
+          "x": 34,
+          "y": 1235.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 1279.359375
+        },
+        {
+          "name": "Armlet of Mordiggian, 2,500 gold",
+          "x": 94.390625,
+          "y": 1235.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 1279.359375
+        },
+        {
+          "name": "Helm of the Overlord, 5,650 gold",
+          "x": 154.796875,
+          "y": 1235.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 1279.359375
+        },
+        {
+          "name": "Consecrated Wraps, 2,600 gold",
+          "x": 215.1875,
+          "y": 1235.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 1279.359375
+        },
+        {
+          "name": "Aeon Disk, 3,000 gold",
+          "x": 275.59375,
+          "y": 1235.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 1279.359375
+        },
+        {
+          "name": "Lotus Orb, 3,850 gold",
+          "x": 34,
+          "y": 1284.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 1328.359375
+        },
+        {
+          "name": "Black King Bar, 4,050 gold",
+          "x": 94.390625,
+          "y": 1284.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 1328.359375
+        },
+        {
+          "name": "Shiva's Guard, 4,500 gold",
+          "x": 154.796875,
+          "y": 1284.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 1328.359375
+        },
+        {
+          "name": "Linken's Sphere, 4,800 gold",
+          "x": 215.1875,
+          "y": 1284.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 1328.359375
+        },
+        {
+          "name": "Assault Cuirass, 5,125 gold",
+          "x": 275.59375,
+          "y": 1284.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 1328.359375
+        },
+        {
+          "name": "Heart of Tarrasque, 5,300 gold",
+          "x": 34,
+          "y": 1333.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 1377.359375
+        },
+        {
+          "name": "Crystalys, 2,000 gold",
+          "x": 34,
+          "y": 1419.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 1463.359375
+        },
+        {
+          "name": "Mage Slayer, 3,100 gold",
+          "x": 94.390625,
+          "y": 1419.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 1463.359375
+        },
+        {
+          "name": "Heaven's Halberd, 3,300 gold",
+          "x": 154.796875,
+          "y": 1419.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 1463.359375
+        },
+        {
+          "name": "Desolator, 3,500 gold",
+          "x": 215.1875,
+          "y": 1419.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 1463.359375
+        },
+        {
+          "name": "Revenant's Brooch, 3,300 gold",
+          "x": 275.59375,
+          "y": 1419.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 1463.359375
+        },
+        {
+          "name": "Skull Basher, 2,875 gold",
+          "x": 34,
+          "y": 1468.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 1512.359375
+        },
+        {
+          "name": "Maelstrom, 2,950 gold",
+          "x": 94.390625,
+          "y": 1468.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 1512.359375
+        },
+        {
+          "name": "Shadow Blade, 3,250 gold",
+          "x": 154.796875,
+          "y": 1468.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 1512.359375
+        },
+        {
+          "name": "Daedalus, 5,200 gold",
+          "x": 215.1875,
+          "y": 1468.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 1512.359375
+        },
+        {
+          "name": "Abyssal Blade, 6,250 gold",
+          "x": 275.59375,
+          "y": 1468.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 1512.359375
+        },
+        {
+          "name": "Mjollnir, 5,500 gold",
+          "x": 34,
+          "y": 1517.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 1561.359375
+        },
+        {
+          "name": "Silver Edge, 5,700 gold",
+          "x": 94.390625,
+          "y": 1517.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 1561.359375
+        },
+        {
+          "name": "Battle Fury, 3,900 gold",
+          "x": 154.796875,
+          "y": 1517.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 1561.359375
+        },
+        {
+          "name": "Nullifier, 4,350 gold",
+          "x": 215.1875,
+          "y": 1517.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 1561.359375
+        },
+        {
+          "name": "Manta Style, 4,650 gold",
+          "x": 275.59375,
+          "y": 1517.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 1561.359375
+        },
+        {
+          "name": "Radiance, 4,700 gold",
+          "x": 34,
+          "y": 1566.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 1610.359375
+        },
+        {
+          "name": "Divine Rapier, 5,600 gold",
+          "x": 94.390625,
+          "y": 1566.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 1610.359375
+        },
+        {
+          "name": "Monkey King Bar, 5,000 gold",
+          "x": 154.796875,
+          "y": 1566.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 1610.359375
+        },
+        {
+          "name": "Butterfly, 5,450 gold",
+          "x": 215.1875,
+          "y": 1566.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 1610.359375
+        },
+        {
+          "name": "Satanic, 5,050 gold",
+          "x": 275.59375,
+          "y": 1566.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 1610.359375
+        },
+        {
+          "name": "Sange, 2,100 gold",
+          "x": 34,
+          "y": 1652.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 1696.359375
+        },
+        {
+          "name": "Yasha, 2,100 gold",
+          "x": 94.390625,
+          "y": 1652.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 1696.359375
+        },
+        {
+          "name": "Kaya, 2,100 gold",
+          "x": 154.796875,
+          "y": 1652.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 1696.359375
+        },
+        {
+          "name": "Dragon Lance, 2,000 gold",
+          "x": 215.1875,
+          "y": 1652.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 1696.359375
+        },
+        {
+          "name": "Kaya and Sange, 4,200 gold",
+          "x": 275.59375,
+          "y": 1652.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 1696.359375
+        },
+        {
+          "name": "Sange and Yasha, 4,200 gold",
+          "x": 34,
+          "y": 1701.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 1745.359375
+        },
+        {
+          "name": "Yasha and Kaya, 4,200 gold",
+          "x": 94.390625,
+          "y": 1701.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 1745.359375
+        },
+        {
+          "name": "Hurricane Pike, 4,550 gold",
+          "x": 154.796875,
+          "y": 1701.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 1745.359375
+        },
+        {
+          "name": "Echo Sabre, 2,700 gold",
+          "x": 215.1875,
+          "y": 1701.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 1745.359375
+        },
+        {
+          "name": "Diffusal Blade, 2,500 gold",
+          "x": 275.59375,
+          "y": 1701.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 1745.359375
+        },
+        {
+          "name": "Witch Blade, 2,775 gold",
+          "x": 34,
+          "y": 1750.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 1794.359375
+        },
+        {
+          "name": "Specialist's Array, 2,550 gold",
+          "x": 94.390625,
+          "y": 1750.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 1794.359375
+        },
+        {
+          "name": "Harpoon, 4,700 gold",
+          "x": 154.796875,
+          "y": 1750.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 1794.359375
+        },
+        {
+          "name": "Disperser, 6,100 gold",
+          "x": 215.1875,
+          "y": 1750.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 1794.359375
+        },
+        {
+          "name": "Parasma, 5,975 gold",
+          "x": 275.59375,
+          "y": 1750.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 1794.359375
+        },
+        {
+          "name": "Hydra's Breath, 5,900 gold",
+          "x": 34,
+          "y": 1799.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 92.078125,
+          "bottom": 1843.359375
+        },
+        {
+          "name": "Overwhelming Blink, 6,800 gold",
+          "x": 94.390625,
+          "y": 1799.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 152.46875,
+          "bottom": 1843.359375
+        },
+        {
+          "name": "Swift Blink, 6,800 gold",
+          "x": 154.796875,
+          "y": 1799.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 212.875,
+          "bottom": 1843.359375
+        },
+        {
+          "name": "Arcane Blink, 6,800 gold",
+          "x": 215.1875,
+          "y": 1799.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 273.265625,
+          "bottom": 1843.359375
+        },
+        {
+          "name": "Eye of Skadi, 5,900 gold",
+          "x": 275.59375,
+          "y": 1799.359375,
+          "width": 58.078125,
+          "height": 44,
+          "right": 333.671875,
+          "bottom": 1843.359375
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "label": "390x844-shopkeeper-build-result-reveal",
+      "clippedOrderLabels": [],
+      "hasExplanation": true,
+      "clippedExplanation": false,
+      "phase": "reveal",
+      "width": 390,
+      "availableWidth": 380,
+      "scrollWidth": 380,
+      "targets": [
+        {
+          "name": "basics",
+          "x": 29,
+          "y": 353.359375,
+          "width": 162.5,
+          "height": 44,
+          "right": 191.5,
+          "bottom": 397.359375
+        },
+        {
+          "name": "upgrades",
+          "x": 191.5,
+          "y": 353.359375,
+          "width": 162.5,
+          "height": 44,
+          "right": 354,
+          "bottom": 397.359375
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "label": "390x844-spell-owner-answering",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "answering",
+      "width": 390,
+      "availableWidth": 380,
+      "scrollWidth": 380,
+      "targets": [
+        {
+          "name": "Alchemist",
+          "x": 24,
+          "y": 573.96875,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 622.625
+        },
+        {
+          "name": "Axe",
+          "x": 77.65625,
+          "y": 573.96875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 622.640625
+        },
+        {
+          "name": "Bristleback",
+          "x": 131.328125,
+          "y": 573.96875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 622.640625
+        },
+        {
+          "name": "Centaur Warrunner",
+          "x": 185,
+          "y": 573.96875,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 622.625
+        },
+        {
+          "name": "Chaos Knight",
+          "x": 238.65625,
+          "y": 573.96875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 622.640625
+        },
+        {
+          "name": "Clockwerk",
+          "x": 292.328125,
+          "y": 573.96875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 622.640625
+        },
+        {
+          "name": "Dawnbreaker",
+          "x": 24,
+          "y": 627.640625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 676.296875
+        },
+        {
+          "name": "Doom",
+          "x": 77.65625,
+          "y": 627.640625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 676.3125
+        },
+        {
+          "name": "Dragon Knight",
+          "x": 131.328125,
+          "y": 627.640625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 676.3125
+        },
+        {
+          "name": "Earth Spirit",
+          "x": 185,
+          "y": 627.640625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 676.296875
+        },
+        {
+          "name": "Earthshaker",
+          "x": 238.65625,
+          "y": 627.640625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 676.3125
+        },
+        {
+          "name": "Elder Titan",
+          "x": 292.328125,
+          "y": 627.640625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 676.3125
+        },
+        {
+          "name": "Huskar",
+          "x": 24,
+          "y": 681.3125,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 729.96875
+        },
+        {
+          "name": "Kunkka",
+          "x": 77.65625,
+          "y": 681.3125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 729.984375
+        },
+        {
+          "name": "Largo",
+          "x": 131.328125,
+          "y": 681.3125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 729.984375
+        },
+        {
+          "name": "Legion Commander",
+          "x": 185,
+          "y": 681.3125,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 729.96875
+        },
+        {
+          "name": "Lifestealer",
+          "x": 238.65625,
+          "y": 681.3125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 729.984375
+        },
+        {
+          "name": "Lycan",
+          "x": 292.328125,
+          "y": 681.3125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 729.984375
+        },
+        {
+          "name": "Mars",
+          "x": 24,
+          "y": 734.984375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 783.640625
+        },
+        {
+          "name": "Night Stalker",
+          "x": 77.65625,
+          "y": 734.984375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 783.65625
+        },
+        {
+          "name": "Ogre Magi",
+          "x": 131.328125,
+          "y": 734.984375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 783.65625
+        },
+        {
+          "name": "Omniknight",
+          "x": 185,
+          "y": 734.984375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 783.640625
+        },
+        {
+          "name": "Phoenix",
+          "x": 238.65625,
+          "y": 734.984375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 783.65625
+        },
+        {
+          "name": "Primal Beast",
+          "x": 292.328125,
+          "y": 734.984375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 783.65625
+        },
+        {
+          "name": "Pudge",
+          "x": 24,
+          "y": 788.65625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 837.3125
+        },
+        {
+          "name": "Slardar",
+          "x": 77.65625,
+          "y": 788.65625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 837.328125
+        },
+        {
+          "name": "Spirit Breaker",
+          "x": 131.328125,
+          "y": 788.65625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 837.328125
+        },
+        {
+          "name": "Sven",
+          "x": 185,
+          "y": 788.65625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 837.3125
+        },
+        {
+          "name": "Tidehunter",
+          "x": 238.65625,
+          "y": 788.65625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 837.328125
+        },
+        {
+          "name": "Timbersaw",
+          "x": 292.328125,
+          "y": 788.65625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 837.328125
+        },
+        {
+          "name": "Tiny",
+          "x": 24,
+          "y": 842.328125,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 890.984375
+        },
+        {
+          "name": "Treant Protector",
+          "x": 77.65625,
+          "y": 842.328125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 891
+        },
+        {
+          "name": "Tusk",
+          "x": 131.328125,
+          "y": 842.328125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 891
+        },
+        {
+          "name": "Underlord",
+          "x": 185,
+          "y": 842.328125,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 890.984375
+        },
+        {
+          "name": "Undying",
+          "x": 238.65625,
+          "y": 842.328125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 891
+        },
+        {
+          "name": "Wraith King",
+          "x": 292.328125,
+          "y": 842.328125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 891
+        },
+        {
+          "name": "Anti-Mage",
+          "x": 24,
+          "y": 922,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 970.65625
+        },
+        {
+          "name": "Bloodseeker",
+          "x": 77.65625,
+          "y": 922,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 970.671875
+        },
+        {
+          "name": "Bounty Hunter",
+          "x": 131.328125,
+          "y": 922,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 970.671875
+        },
+        {
+          "name": "Broodmother",
+          "x": 185,
+          "y": 922,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 970.65625
+        },
+        {
+          "name": "Clinkz",
+          "x": 238.65625,
+          "y": 922,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 970.671875
+        },
+        {
+          "name": "Drow Ranger",
+          "x": 292.328125,
+          "y": 922,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 970.671875
+        },
+        {
+          "name": "Ember Spirit",
+          "x": 24,
+          "y": 975.671875,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1024.328125
+        },
+        {
+          "name": "Faceless Void",
+          "x": 77.65625,
+          "y": 975.671875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1024.34375
+        },
+        {
+          "name": "Gyrocopter",
+          "x": 131.328125,
+          "y": 975.671875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1024.34375
+        },
+        {
+          "name": "Hoodwink",
+          "x": 185,
+          "y": 975.671875,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1024.328125
+        },
+        {
+          "name": "Juggernaut",
+          "x": 238.65625,
+          "y": 975.671875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1024.34375
+        },
+        {
+          "name": "Kez",
+          "x": 292.328125,
+          "y": 975.671875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1024.34375
+        },
+        {
+          "name": "Lone Druid",
+          "x": 24,
+          "y": 1029.34375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1078
+        },
+        {
+          "name": "Luna",
+          "x": 77.65625,
+          "y": 1029.34375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1078.015625
+        },
+        {
+          "name": "Medusa",
+          "x": 131.328125,
+          "y": 1029.34375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1078.015625
+        },
+        {
+          "name": "Meepo",
+          "x": 185,
+          "y": 1029.34375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1078
+        },
+        {
+          "name": "Mirana",
+          "x": 238.65625,
+          "y": 1029.34375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1078.015625
+        },
+        {
+          "name": "Monkey King",
+          "x": 292.328125,
+          "y": 1029.34375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1078.015625
+        },
+        {
+          "name": "Morphling",
+          "x": 24,
+          "y": 1083.015625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1131.671875
+        },
+        {
+          "name": "Naga Siren",
+          "x": 77.65625,
+          "y": 1083.015625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1131.6875
+        },
+        {
+          "name": "Phantom Assassin",
+          "x": 131.328125,
+          "y": 1083.015625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1131.6875
+        },
+        {
+          "name": "Phantom Lancer",
+          "x": 185,
+          "y": 1083.015625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1131.671875
+        },
+        {
+          "name": "Razor",
+          "x": 238.65625,
+          "y": 1083.015625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1131.6875
+        },
+        {
+          "name": "Riki",
+          "x": 292.328125,
+          "y": 1083.015625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1131.6875
+        },
+        {
+          "name": "Shadow Fiend",
+          "x": 24,
+          "y": 1136.6875,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1185.34375
+        },
+        {
+          "name": "Slark",
+          "x": 77.65625,
+          "y": 1136.6875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1185.359375
+        },
+        {
+          "name": "Sniper",
+          "x": 131.328125,
+          "y": 1136.6875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1185.359375
+        },
+        {
+          "name": "Spectre",
+          "x": 185,
+          "y": 1136.6875,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1185.34375
+        },
+        {
+          "name": "Templar Assassin",
+          "x": 238.65625,
+          "y": 1136.6875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1185.359375
+        },
+        {
+          "name": "Terrorblade",
+          "x": 292.328125,
+          "y": 1136.6875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1185.359375
+        },
+        {
+          "name": "Troll Warlord",
+          "x": 24,
+          "y": 1190.359375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1239.015625
+        },
+        {
+          "name": "Ursa",
+          "x": 77.65625,
+          "y": 1190.359375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1239.03125
+        },
+        {
+          "name": "Vengeful Spirit",
+          "x": 131.328125,
+          "y": 1190.359375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1239.03125
+        },
+        {
+          "name": "Viper",
+          "x": 185,
+          "y": 1190.359375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1239.015625
+        },
+        {
+          "name": "Weaver",
+          "x": 238.65625,
+          "y": 1190.359375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1239.03125
+        },
+        {
+          "name": "Ancient Apparition",
+          "x": 24,
+          "y": 1270.03125,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1318.6875
+        },
+        {
+          "name": "Chen",
+          "x": 77.65625,
+          "y": 1270.03125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1318.703125
+        },
+        {
+          "name": "Crystal Maiden",
+          "x": 131.328125,
+          "y": 1270.03125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1318.703125
+        },
+        {
+          "name": "Dark Seer",
+          "x": 185,
+          "y": 1270.03125,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1318.6875
+        },
+        {
+          "name": "Dark Willow",
+          "x": 238.65625,
+          "y": 1270.03125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1318.703125
+        },
+        {
+          "name": "Disruptor",
+          "x": 292.328125,
+          "y": 1270.03125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1318.703125
+        },
+        {
+          "name": "Enchantress",
+          "x": 24,
+          "y": 1323.703125,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1372.359375
+        },
+        {
+          "name": "Grimstroke",
+          "x": 77.65625,
+          "y": 1323.703125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1372.375
+        },
+        {
+          "name": "Invoker",
+          "x": 131.328125,
+          "y": 1323.703125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1372.375
+        },
+        {
+          "name": "Jakiro",
+          "x": 185,
+          "y": 1323.703125,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1372.359375
+        },
+        {
+          "name": "Keeper of the Light",
+          "x": 238.65625,
+          "y": 1323.703125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1372.375
+        },
+        {
+          "name": "Leshrac",
+          "x": 292.328125,
+          "y": 1323.703125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1372.375
+        },
+        {
+          "name": "Lich",
+          "x": 24,
+          "y": 1377.375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1426.03125
+        },
+        {
+          "name": "Lina",
+          "x": 77.65625,
+          "y": 1377.375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1426.046875
+        },
+        {
+          "name": "Lion",
+          "x": 131.328125,
+          "y": 1377.375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1426.046875
+        },
+        {
+          "name": "Muerta",
+          "x": 185,
+          "y": 1377.375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1426.03125
+        },
+        {
+          "name": "Necrophos",
+          "x": 238.65625,
+          "y": 1377.375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1426.046875
+        },
+        {
+          "name": "Oracle",
+          "x": 292.328125,
+          "y": 1377.375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1426.046875
+        },
+        {
+          "name": "Outworld Destroyer",
+          "x": 24,
+          "y": 1431.046875,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1479.703125
+        },
+        {
+          "name": "Puck",
+          "x": 77.65625,
+          "y": 1431.046875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1479.71875
+        },
+        {
+          "name": "Pugna",
+          "x": 131.328125,
+          "y": 1431.046875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1479.71875
+        },
+        {
+          "name": "Queen of Pain",
+          "x": 185,
+          "y": 1431.046875,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1479.703125
+        },
+        {
+          "name": "Ringmaster",
+          "x": 238.65625,
+          "y": 1431.046875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1479.71875
+        },
+        {
+          "name": "Rubick",
+          "x": 292.328125,
+          "y": 1431.046875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1479.71875
+        },
+        {
+          "name": "Shadow Demon",
+          "x": 24,
+          "y": 1484.71875,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1533.375
+        },
+        {
+          "name": "Shadow Shaman",
+          "x": 77.65625,
+          "y": 1484.71875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1533.390625
+        },
+        {
+          "name": "Silencer",
+          "x": 131.328125,
+          "y": 1484.71875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1533.390625
+        },
+        {
+          "name": "Skywrath Mage",
+          "x": 185,
+          "y": 1484.71875,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1533.375
+        },
+        {
+          "name": "Storm Spirit",
+          "x": 238.65625,
+          "y": 1484.71875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1533.390625
+        },
+        {
+          "name": "Tinker",
+          "x": 292.328125,
+          "y": 1484.71875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1533.390625
+        },
+        {
+          "name": "Warlock",
+          "x": 24,
+          "y": 1538.390625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1587.046875
+        },
+        {
+          "name": "Winter Wyvern",
+          "x": 77.65625,
+          "y": 1538.390625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1587.0625
+        },
+        {
+          "name": "Witch Doctor",
+          "x": 131.328125,
+          "y": 1538.390625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1587.0625
+        },
+        {
+          "name": "Zeus",
+          "x": 185,
+          "y": 1538.390625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1587.046875
+        },
+        {
+          "name": "Abaddon",
+          "x": 24,
+          "y": 1618.0625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1666.71875
+        },
+        {
+          "name": "Arc Warden",
+          "x": 77.65625,
+          "y": 1618.0625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1666.734375
+        },
+        {
+          "name": "Bane",
+          "x": 131.328125,
+          "y": 1618.0625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1666.734375
+        },
+        {
+          "name": "Batrider",
+          "x": 185,
+          "y": 1618.0625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1666.71875
+        },
+        {
+          "name": "Beastmaster",
+          "x": 238.65625,
+          "y": 1618.0625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1666.734375
+        },
+        {
+          "name": "Brewmaster",
+          "x": 292.328125,
+          "y": 1618.0625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1666.734375
+        },
+        {
+          "name": "Dazzle",
+          "x": 24,
+          "y": 1671.734375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1720.390625
+        },
+        {
+          "name": "Death Prophet",
+          "x": 77.65625,
+          "y": 1671.734375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1720.40625
+        },
+        {
+          "name": "Enigma",
+          "x": 131.328125,
+          "y": 1671.734375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1720.40625
+        },
+        {
+          "name": "Io",
+          "x": 185,
+          "y": 1671.734375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1720.390625
+        },
+        {
+          "name": "Magnus",
+          "x": 238.65625,
+          "y": 1671.734375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1720.40625
+        },
+        {
+          "name": "Marci",
+          "x": 292.328125,
+          "y": 1671.734375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1720.40625
+        },
+        {
+          "name": "Nature's Prophet",
+          "x": 24,
+          "y": 1725.40625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1774.0625
+        },
+        {
+          "name": "Nyx Assassin",
+          "x": 77.65625,
+          "y": 1725.40625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1774.078125
+        },
+        {
+          "name": "Pangolier",
+          "x": 131.328125,
+          "y": 1725.40625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1774.078125
+        },
+        {
+          "name": "Sand King",
+          "x": 185,
+          "y": 1725.40625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1774.0625
+        },
+        {
+          "name": "Snapfire",
+          "x": 238.65625,
+          "y": 1725.40625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1774.078125
+        },
+        {
+          "name": "Techies",
+          "x": 292.328125,
+          "y": 1725.40625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1774.078125
+        },
+        {
+          "name": "Venomancer",
+          "x": 24,
+          "y": 1779.078125,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1827.734375
+        },
+        {
+          "name": "Visage",
+          "x": 77.65625,
+          "y": 1779.078125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1827.75
+        },
+        {
+          "name": "Void Spirit",
+          "x": 131.328125,
+          "y": 1779.078125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1827.75
+        },
+        {
+          "name": "Windranger",
+          "x": 185,
+          "y": 1779.078125,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1827.734375
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "label": "390x844-spell-owner-reveal",
+      "clippedOrderLabels": [],
+      "hasExplanation": true,
+      "clippedExplanation": false,
+      "phase": "reveal",
+      "width": 390,
+      "availableWidth": 380,
+      "scrollWidth": 380,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "390x844-fogged-hero-answering",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "answering",
+      "width": 390,
+      "availableWidth": 380,
+      "scrollWidth": 380,
+      "targets": [
+        {
+          "name": "Alchemist",
+          "x": 24,
+          "y": 464.25,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 512.90625
+        },
+        {
+          "name": "Axe",
+          "x": 77.65625,
+          "y": 464.25,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 512.921875
+        },
+        {
+          "name": "Bristleback",
+          "x": 131.328125,
+          "y": 464.25,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 512.921875
+        },
+        {
+          "name": "Centaur Warrunner",
+          "x": 185,
+          "y": 464.25,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 512.90625
+        },
+        {
+          "name": "Chaos Knight",
+          "x": 238.65625,
+          "y": 464.25,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 512.921875
+        },
+        {
+          "name": "Clockwerk",
+          "x": 292.328125,
+          "y": 464.25,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 512.921875
+        },
+        {
+          "name": "Dawnbreaker",
+          "x": 24,
+          "y": 517.921875,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 566.578125
+        },
+        {
+          "name": "Doom",
+          "x": 77.65625,
+          "y": 517.921875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 566.59375
+        },
+        {
+          "name": "Dragon Knight",
+          "x": 131.328125,
+          "y": 517.921875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 566.59375
+        },
+        {
+          "name": "Earth Spirit",
+          "x": 185,
+          "y": 517.921875,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 566.578125
+        },
+        {
+          "name": "Earthshaker",
+          "x": 238.65625,
+          "y": 517.921875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 566.59375
+        },
+        {
+          "name": "Elder Titan",
+          "x": 292.328125,
+          "y": 517.921875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 566.59375
+        },
+        {
+          "name": "Huskar",
+          "x": 24,
+          "y": 571.59375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 620.25
+        },
+        {
+          "name": "Kunkka",
+          "x": 77.65625,
+          "y": 571.59375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 620.265625
+        },
+        {
+          "name": "Largo",
+          "x": 131.328125,
+          "y": 571.59375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 620.265625
+        },
+        {
+          "name": "Legion Commander",
+          "x": 185,
+          "y": 571.59375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 620.25
+        },
+        {
+          "name": "Lifestealer",
+          "x": 238.65625,
+          "y": 571.59375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 620.265625
+        },
+        {
+          "name": "Lycan",
+          "x": 292.328125,
+          "y": 571.59375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 620.265625
+        },
+        {
+          "name": "Mars",
+          "x": 24,
+          "y": 625.265625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 673.921875
+        },
+        {
+          "name": "Night Stalker",
+          "x": 77.65625,
+          "y": 625.265625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 673.9375
+        },
+        {
+          "name": "Ogre Magi",
+          "x": 131.328125,
+          "y": 625.265625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 673.9375
+        },
+        {
+          "name": "Omniknight",
+          "x": 185,
+          "y": 625.265625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 673.921875
+        },
+        {
+          "name": "Phoenix",
+          "x": 238.65625,
+          "y": 625.265625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 673.9375
+        },
+        {
+          "name": "Primal Beast",
+          "x": 292.328125,
+          "y": 625.265625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 673.9375
+        },
+        {
+          "name": "Pudge",
+          "x": 24,
+          "y": 678.9375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 727.59375
+        },
+        {
+          "name": "Slardar",
+          "x": 77.65625,
+          "y": 678.9375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 727.609375
+        },
+        {
+          "name": "Spirit Breaker",
+          "x": 131.328125,
+          "y": 678.9375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 727.609375
+        },
+        {
+          "name": "Sven",
+          "x": 185,
+          "y": 678.9375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 727.59375
+        },
+        {
+          "name": "Tidehunter",
+          "x": 238.65625,
+          "y": 678.9375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 727.609375
+        },
+        {
+          "name": "Timbersaw",
+          "x": 292.328125,
+          "y": 678.9375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 727.609375
+        },
+        {
+          "name": "Tiny",
+          "x": 24,
+          "y": 732.609375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 781.265625
+        },
+        {
+          "name": "Treant Protector",
+          "x": 77.65625,
+          "y": 732.609375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 781.28125
+        },
+        {
+          "name": "Tusk",
+          "x": 131.328125,
+          "y": 732.609375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 781.28125
+        },
+        {
+          "name": "Underlord",
+          "x": 185,
+          "y": 732.609375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 781.265625
+        },
+        {
+          "name": "Undying",
+          "x": 238.65625,
+          "y": 732.609375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 781.28125
+        },
+        {
+          "name": "Wraith King",
+          "x": 292.328125,
+          "y": 732.609375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 781.28125
+        },
+        {
+          "name": "Anti-Mage",
+          "x": 24,
+          "y": 812.28125,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 860.9375
+        },
+        {
+          "name": "Bloodseeker",
+          "x": 77.65625,
+          "y": 812.28125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 860.953125
+        },
+        {
+          "name": "Bounty Hunter",
+          "x": 131.328125,
+          "y": 812.28125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 860.953125
+        },
+        {
+          "name": "Broodmother",
+          "x": 185,
+          "y": 812.28125,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 860.9375
+        },
+        {
+          "name": "Clinkz",
+          "x": 238.65625,
+          "y": 812.28125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 860.953125
+        },
+        {
+          "name": "Drow Ranger",
+          "x": 292.328125,
+          "y": 812.28125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 860.953125
+        },
+        {
+          "name": "Ember Spirit",
+          "x": 24,
+          "y": 865.953125,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 914.609375
+        },
+        {
+          "name": "Faceless Void",
+          "x": 77.65625,
+          "y": 865.953125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 914.625
+        },
+        {
+          "name": "Gyrocopter",
+          "x": 131.328125,
+          "y": 865.953125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 914.625
+        },
+        {
+          "name": "Hoodwink",
+          "x": 185,
+          "y": 865.953125,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 914.609375
+        },
+        {
+          "name": "Juggernaut",
+          "x": 238.65625,
+          "y": 865.953125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 914.625
+        },
+        {
+          "name": "Kez",
+          "x": 292.328125,
+          "y": 865.953125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 914.625
+        },
+        {
+          "name": "Lone Druid",
+          "x": 24,
+          "y": 919.625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 968.28125
+        },
+        {
+          "name": "Luna",
+          "x": 77.65625,
+          "y": 919.625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 968.296875
+        },
+        {
+          "name": "Medusa",
+          "x": 131.328125,
+          "y": 919.625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 968.296875
+        },
+        {
+          "name": "Meepo",
+          "x": 185,
+          "y": 919.625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 968.28125
+        },
+        {
+          "name": "Mirana",
+          "x": 238.65625,
+          "y": 919.625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 968.296875
+        },
+        {
+          "name": "Monkey King",
+          "x": 292.328125,
+          "y": 919.625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 968.296875
+        },
+        {
+          "name": "Morphling",
+          "x": 24,
+          "y": 973.296875,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1021.953125
+        },
+        {
+          "name": "Naga Siren",
+          "x": 77.65625,
+          "y": 973.296875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1021.96875
+        },
+        {
+          "name": "Phantom Assassin",
+          "x": 131.328125,
+          "y": 973.296875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1021.96875
+        },
+        {
+          "name": "Phantom Lancer",
+          "x": 185,
+          "y": 973.296875,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1021.953125
+        },
+        {
+          "name": "Razor",
+          "x": 238.65625,
+          "y": 973.296875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1021.96875
+        },
+        {
+          "name": "Riki",
+          "x": 292.328125,
+          "y": 973.296875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1021.96875
+        },
+        {
+          "name": "Shadow Fiend",
+          "x": 24,
+          "y": 1026.96875,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1075.625
+        },
+        {
+          "name": "Slark",
+          "x": 77.65625,
+          "y": 1026.96875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1075.640625
+        },
+        {
+          "name": "Sniper",
+          "x": 131.328125,
+          "y": 1026.96875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1075.640625
+        },
+        {
+          "name": "Spectre",
+          "x": 185,
+          "y": 1026.96875,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1075.625
+        },
+        {
+          "name": "Templar Assassin",
+          "x": 238.65625,
+          "y": 1026.96875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1075.640625
+        },
+        {
+          "name": "Terrorblade",
+          "x": 292.328125,
+          "y": 1026.96875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1075.640625
+        },
+        {
+          "name": "Troll Warlord",
+          "x": 24,
+          "y": 1080.640625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1129.296875
+        },
+        {
+          "name": "Ursa",
+          "x": 77.65625,
+          "y": 1080.640625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1129.3125
+        },
+        {
+          "name": "Vengeful Spirit",
+          "x": 131.328125,
+          "y": 1080.640625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1129.3125
+        },
+        {
+          "name": "Viper",
+          "x": 185,
+          "y": 1080.640625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1129.296875
+        },
+        {
+          "name": "Weaver",
+          "x": 238.65625,
+          "y": 1080.640625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1129.3125
+        },
+        {
+          "name": "Ancient Apparition",
+          "x": 24,
+          "y": 1160.3125,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1208.96875
+        },
+        {
+          "name": "Chen",
+          "x": 77.65625,
+          "y": 1160.3125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1208.984375
+        },
+        {
+          "name": "Crystal Maiden",
+          "x": 131.328125,
+          "y": 1160.3125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1208.984375
+        },
+        {
+          "name": "Dark Seer",
+          "x": 185,
+          "y": 1160.3125,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1208.96875
+        },
+        {
+          "name": "Dark Willow",
+          "x": 238.65625,
+          "y": 1160.3125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1208.984375
+        },
+        {
+          "name": "Disruptor",
+          "x": 292.328125,
+          "y": 1160.3125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1208.984375
+        },
+        {
+          "name": "Enchantress",
+          "x": 24,
+          "y": 1213.984375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1262.640625
+        },
+        {
+          "name": "Grimstroke",
+          "x": 77.65625,
+          "y": 1213.984375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1262.65625
+        },
+        {
+          "name": "Invoker",
+          "x": 131.328125,
+          "y": 1213.984375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1262.65625
+        },
+        {
+          "name": "Jakiro",
+          "x": 185,
+          "y": 1213.984375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1262.640625
+        },
+        {
+          "name": "Keeper of the Light",
+          "x": 238.65625,
+          "y": 1213.984375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1262.65625
+        },
+        {
+          "name": "Leshrac",
+          "x": 292.328125,
+          "y": 1213.984375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1262.65625
+        },
+        {
+          "name": "Lich",
+          "x": 24,
+          "y": 1267.65625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1316.3125
+        },
+        {
+          "name": "Lina",
+          "x": 77.65625,
+          "y": 1267.65625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1316.328125
+        },
+        {
+          "name": "Lion",
+          "x": 131.328125,
+          "y": 1267.65625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1316.328125
+        },
+        {
+          "name": "Muerta",
+          "x": 185,
+          "y": 1267.65625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1316.3125
+        },
+        {
+          "name": "Necrophos",
+          "x": 238.65625,
+          "y": 1267.65625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1316.328125
+        },
+        {
+          "name": "Oracle",
+          "x": 292.328125,
+          "y": 1267.65625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1316.328125
+        },
+        {
+          "name": "Outworld Destroyer",
+          "x": 24,
+          "y": 1321.328125,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1369.984375
+        },
+        {
+          "name": "Puck",
+          "x": 77.65625,
+          "y": 1321.328125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1370
+        },
+        {
+          "name": "Pugna",
+          "x": 131.328125,
+          "y": 1321.328125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1370
+        },
+        {
+          "name": "Queen of Pain",
+          "x": 185,
+          "y": 1321.328125,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1369.984375
+        },
+        {
+          "name": "Ringmaster",
+          "x": 238.65625,
+          "y": 1321.328125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1370
+        },
+        {
+          "name": "Rubick",
+          "x": 292.328125,
+          "y": 1321.328125,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1370
+        },
+        {
+          "name": "Shadow Demon",
+          "x": 24,
+          "y": 1375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1423.65625
+        },
+        {
+          "name": "Shadow Shaman",
+          "x": 77.65625,
+          "y": 1375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1423.671875
+        },
+        {
+          "name": "Silencer",
+          "x": 131.328125,
+          "y": 1375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1423.671875
+        },
+        {
+          "name": "Skywrath Mage",
+          "x": 185,
+          "y": 1375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1423.65625
+        },
+        {
+          "name": "Storm Spirit",
+          "x": 238.65625,
+          "y": 1375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1423.671875
+        },
+        {
+          "name": "Tinker",
+          "x": 292.328125,
+          "y": 1375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1423.671875
+        },
+        {
+          "name": "Warlock",
+          "x": 24,
+          "y": 1428.671875,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1477.328125
+        },
+        {
+          "name": "Winter Wyvern",
+          "x": 77.65625,
+          "y": 1428.671875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1477.34375
+        },
+        {
+          "name": "Witch Doctor",
+          "x": 131.328125,
+          "y": 1428.671875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1477.34375
+        },
+        {
+          "name": "Zeus",
+          "x": 185,
+          "y": 1428.671875,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1477.328125
+        },
+        {
+          "name": "Abaddon",
+          "x": 24,
+          "y": 1508.34375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1557
+        },
+        {
+          "name": "Arc Warden",
+          "x": 77.65625,
+          "y": 1508.34375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1557.015625
+        },
+        {
+          "name": "Bane",
+          "x": 131.328125,
+          "y": 1508.34375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1557.015625
+        },
+        {
+          "name": "Batrider",
+          "x": 185,
+          "y": 1508.34375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1557
+        },
+        {
+          "name": "Beastmaster",
+          "x": 238.65625,
+          "y": 1508.34375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1557.015625
+        },
+        {
+          "name": "Brewmaster",
+          "x": 292.328125,
+          "y": 1508.34375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1557.015625
+        },
+        {
+          "name": "Dazzle",
+          "x": 24,
+          "y": 1562.015625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1610.671875
+        },
+        {
+          "name": "Death Prophet",
+          "x": 77.65625,
+          "y": 1562.015625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1610.6875
+        },
+        {
+          "name": "Enigma",
+          "x": 131.328125,
+          "y": 1562.015625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1610.6875
+        },
+        {
+          "name": "Io",
+          "x": 185,
+          "y": 1562.015625,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1610.671875
+        },
+        {
+          "name": "Magnus",
+          "x": 238.65625,
+          "y": 1562.015625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1610.6875
+        },
+        {
+          "name": "Marci",
+          "x": 292.328125,
+          "y": 1562.015625,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1610.6875
+        },
+        {
+          "name": "Nature's Prophet",
+          "x": 24,
+          "y": 1615.6875,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1664.34375
+        },
+        {
+          "name": "Nyx Assassin",
+          "x": 77.65625,
+          "y": 1615.6875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1664.359375
+        },
+        {
+          "name": "Pangolier",
+          "x": 131.328125,
+          "y": 1615.6875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1664.359375
+        },
+        {
+          "name": "Sand King",
+          "x": 185,
+          "y": 1615.6875,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1664.34375
+        },
+        {
+          "name": "Snapfire",
+          "x": 238.65625,
+          "y": 1615.6875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 287.328125,
+          "bottom": 1664.359375
+        },
+        {
+          "name": "Techies",
+          "x": 292.328125,
+          "y": 1615.6875,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 341,
+          "bottom": 1664.359375
+        },
+        {
+          "name": "Venomancer",
+          "x": 24,
+          "y": 1669.359375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 72.65625,
+          "bottom": 1718.015625
+        },
+        {
+          "name": "Visage",
+          "x": 77.65625,
+          "y": 1669.359375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 126.328125,
+          "bottom": 1718.03125
+        },
+        {
+          "name": "Void Spirit",
+          "x": 131.328125,
+          "y": 1669.359375,
+          "width": 48.671875,
+          "height": 48.671875,
+          "right": 180,
+          "bottom": 1718.03125
+        },
+        {
+          "name": "Windranger",
+          "x": 185,
+          "y": 1669.359375,
+          "width": 48.65625,
+          "height": 48.65625,
+          "right": 233.65625,
+          "bottom": 1718.015625
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "label": "390x844-fogged-hero-reveal",
+      "clippedOrderLabels": [],
+      "hasExplanation": true,
+      "clippedExplanation": false,
+      "phase": "reveal",
+      "width": 390,
+      "availableWidth": 380,
+      "scrollWidth": 380,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "390x844-soundcheck-ability-single-answering",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "answering",
+      "width": 390,
+      "availableWidth": 380,
+      "scrollWidth": 380,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "390x844-soundcheck-ability-single-reveal",
+      "clippedOrderLabels": [],
+      "hasExplanation": true,
+      "clippedExplanation": false,
+      "phase": "reveal",
+      "width": 390,
+      "availableWidth": 380,
+      "scrollWidth": 380,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "390x844-flashback-year-answering",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "answering",
+      "width": 390,
+      "availableWidth": 380,
+      "scrollWidth": 380,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "390x844-flashback-year-reveal",
+      "clippedOrderLabels": [],
+      "hasExplanation": true,
+      "clippedExplanation": false,
+      "phase": "reveal",
+      "width": 390,
+      "availableWidth": 380,
+      "scrollWidth": 380,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-home",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "lobby",
+      "width": 1280,
+      "availableWidth": 1270,
+      "scrollWidth": 1270,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-party",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "lobby",
+      "width": 1280,
+      "availableWidth": 1280,
+      "scrollWidth": 1270,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-party-create",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "lobby",
+      "width": 1280,
+      "availableWidth": 1270,
+      "scrollWidth": 1270,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-profile",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "width": 1280,
+      "availableWidth": 1270,
+      "scrollWidth": 1270,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-privacy",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "width": 1280,
+      "availableWidth": 1270,
+      "scrollWidth": 1270,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-calibration",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "width": 1280,
+      "availableWidth": 1270,
+      "scrollWidth": 1270,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-ops",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "width": 1280,
+      "availableWidth": 1280,
+      "scrollWidth": 1270,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-party100",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "lobby",
+      "width": 1280,
+      "availableWidth": 1280,
+      "scrollWidth": 1270,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-party-play100",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "answering",
+      "width": 1280,
+      "availableWidth": 1270,
+      "scrollWidth": 1270,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-mana-cost-answering",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "answering",
+      "width": 1280,
+      "availableWidth": 1270,
+      "scrollWidth": 1270,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-mana-cost-reveal",
+      "clippedOrderLabels": [],
+      "hasExplanation": true,
+      "clippedExplanation": false,
+      "phase": "reveal",
+      "width": 1280,
+      "availableWidth": 1270,
+      "scrollWidth": 1270,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-shopkeeper-build-result-answering",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "answering",
+      "width": 1280,
+      "availableWidth": 1270,
+      "scrollWidth": 1270,
+      "targets": [
+        {
+          "name": "basics",
+          "x": 65,
+          "y": 402,
+          "width": 88,
+          "height": 36,
+          "right": 153,
+          "bottom": 438
+        },
+        {
+          "name": "upgrades",
+          "x": 153,
+          "y": 402,
+          "width": 88,
+          "height": 36,
+          "right": 241,
+          "bottom": 438
+        },
+        {
+          "name": "Magic Wand, 460 gold",
+          "x": 70,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 104.3125,
+          "bottom": 508
+        },
+        {
+          "name": "Bracer, 505 gold",
+          "x": 99.78125,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 134.09375,
+          "bottom": 508
+        },
+        {
+          "name": "Wraith Band, 505 gold",
+          "x": 129.578125,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 163.890625,
+          "bottom": 508
+        },
+        {
+          "name": "Null Talisman, 505 gold",
+          "x": 159.359375,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 193.671875,
+          "bottom": 508
+        },
+        {
+          "name": "Power Treads, 1,400 gold",
+          "x": 70,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 104.3125,
+          "bottom": 537
+        },
+        {
+          "name": "Soul Ring, 805 gold",
+          "x": 99.78125,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 134.09375,
+          "bottom": 537
+        },
+        {
+          "name": "Orb of Corrosion, 1,050 gold",
+          "x": 129.578125,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 163.890625,
+          "bottom": 537
+        },
+        {
+          "name": "Falcon Blade, 1,125 gold",
+          "x": 159.359375,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 193.671875,
+          "bottom": 537
+        },
+        {
+          "name": "Phase Boots, 1,450 gold",
+          "x": 70,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 104.3125,
+          "bottom": 566
+        },
+        {
+          "name": "Perseverance, 1,400 gold",
+          "x": 99.78125,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 134.09375,
+          "bottom": 566
+        },
+        {
+          "name": "Mask of Madness, 1,900 gold",
+          "x": 129.578125,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 163.890625,
+          "bottom": 566
+        },
+        {
+          "name": "Oblivion Staff, 1,625 gold",
+          "x": 159.359375,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 193.671875,
+          "bottom": 566
+        },
+        {
+          "name": "Boots of Travel, 2,500 gold",
+          "x": 70,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 104.3125,
+          "bottom": 595
+        },
+        {
+          "name": "Hand of Midas, 2,200 gold",
+          "x": 99.78125,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 134.09375,
+          "bottom": 595
+        },
+        {
+          "name": "Moon Shard, 4,000 gold",
+          "x": 129.578125,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 163.890625,
+          "bottom": 595
+        },
+        {
+          "name": "Soul Booster, 3,000 gold",
+          "x": 159.359375,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 193.671875,
+          "bottom": 595
+        },
+        {
+          "name": "Ring of Basilius, 425 gold",
+          "x": 207.15625,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 241.46875,
+          "bottom": 508
+        },
+        {
+          "name": "Headdress, 425 gold",
+          "x": 236.9375,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 271.25,
+          "bottom": 508
+        },
+        {
+          "name": "Urn of Shadows, 825 gold",
+          "x": 266.734375,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 301.046875,
+          "bottom": 508
+        },
+        {
+          "name": "Tranquil Boots, 900 gold",
+          "x": 296.53125,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 330.84375,
+          "bottom": 508
+        },
+        {
+          "name": "Arcane Boots, 1,500 gold",
+          "x": 207.15625,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 241.46875,
+          "bottom": 537
+        },
+        {
+          "name": "Mekansm, 1,775 gold",
+          "x": 236.9375,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 271.25,
+          "bottom": 537
+        },
+        {
+          "name": "Essence Distiller, 1,775 gold",
+          "x": 266.734375,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 301.046875,
+          "bottom": 537
+        },
+        {
+          "name": "Drum of Endurance, 1,625 gold",
+          "x": 296.53125,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 330.84375,
+          "bottom": 537
+        },
+        {
+          "name": "Pavise, 1,350 gold",
+          "x": 207.15625,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 241.46875,
+          "bottom": 566
+        },
+        {
+          "name": "Guardian Greaves, 4,450 gold",
+          "x": 236.9375,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 271.25,
+          "bottom": 566
+        },
+        {
+          "name": "Spirit Vessel, 2,725 gold",
+          "x": 266.734375,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 301.046875,
+          "bottom": 566
+        },
+        {
+          "name": "Boots of Bearing, 4,225 gold",
+          "x": 296.53125,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 330.84375,
+          "bottom": 566
+        },
+        {
+          "name": "Solar Crest, 2,575 gold",
+          "x": 207.15625,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 241.46875,
+          "bottom": 595
+        },
+        {
+          "name": "Glimmer Cape, 2,150 gold",
+          "x": 236.9375,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 271.25,
+          "bottom": 595
+        },
+        {
+          "name": "Holy Locket, 2,250 gold",
+          "x": 266.734375,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 301.046875,
+          "bottom": 595
+        },
+        {
+          "name": "Pipe of Insight, 3,725 gold",
+          "x": 296.53125,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 330.84375,
+          "bottom": 595
+        },
+        {
+          "name": "Veil of Discord, 1,700 gold",
+          "x": 344.328125,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 378.640625,
+          "bottom": 508
+        },
+        {
+          "name": "Rod of Atos, 2,250 gold",
+          "x": 374.109375,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 408.421875,
+          "bottom": 508
+        },
+        {
+          "name": "Eul's Scepter of Divinity, 2,600 gold",
+          "x": 403.90625,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 438.21875,
+          "bottom": 508
+        },
+        {
+          "name": "Phylactery, 2,600 gold",
+          "x": 433.703125,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 468.015625,
+          "bottom": 508
+        },
+        {
+          "name": "Bloodstone, 4,700 gold",
+          "x": 344.328125,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 378.640625,
+          "bottom": 537
+        },
+        {
+          "name": "Gleipnir, 4,650 gold",
+          "x": 374.109375,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 408.421875,
+          "bottom": 537
+        },
+        {
+          "name": "Wind Waker, 6,800 gold",
+          "x": 403.90625,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 438.21875,
+          "bottom": 537
+        },
+        {
+          "name": "Khanda, 5,600 gold",
+          "x": 433.703125,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 468.015625,
+          "bottom": 537
+        },
+        {
+          "name": "Force Staff, 2,200 gold",
+          "x": 344.328125,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 378.640625,
+          "bottom": 566
+        },
+        {
+          "name": "Aether Lens, 2,275 gold",
+          "x": 374.109375,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 408.421875,
+          "bottom": 566
+        },
+        {
+          "name": "Meteor Hammer, 2,850 gold",
+          "x": 403.90625,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 438.21875,
+          "bottom": 566
+        },
+        {
+          "name": "Dagon, 3,000 gold",
+          "x": 433.703125,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 468.015625,
+          "bottom": 566
+        },
+        {
+          "name": "Aghanim's Scepter, 4,200 gold",
+          "x": 344.328125,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 378.640625,
+          "bottom": 595
+        },
+        {
+          "name": "Crella's Crozier, 4,800 gold",
+          "x": 374.109375,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 408.421875,
+          "bottom": 595
+        },
+        {
+          "name": "Octarine Core, 5,100 gold",
+          "x": 403.90625,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 438.21875,
+          "bottom": 595
+        },
+        {
+          "name": "Orchid Malevolence, 3,275 gold",
+          "x": 433.703125,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 468.015625,
+          "bottom": 595
+        },
+        {
+          "name": "Refresher Orb, 5,000 gold",
+          "x": 344.328125,
+          "y": 598,
+          "width": 34.3125,
+          "height": 26,
+          "right": 378.640625,
+          "bottom": 624
+        },
+        {
+          "name": "Ethereal Blade, 5,200 gold",
+          "x": 374.109375,
+          "y": 598,
+          "width": 34.3125,
+          "height": 26,
+          "right": 408.421875,
+          "bottom": 624
+        },
+        {
+          "name": "Scythe of Vyse, 5,200 gold",
+          "x": 403.90625,
+          "y": 598,
+          "width": 34.3125,
+          "height": 26,
+          "right": 438.21875,
+          "bottom": 624
+        },
+        {
+          "name": "Bloodthorn, 6,400 gold",
+          "x": 433.703125,
+          "y": 598,
+          "width": 34.3125,
+          "height": 26,
+          "right": 468.015625,
+          "bottom": 624
+        },
+        {
+          "name": "Buckler, 425 gold",
+          "x": 481.5,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 515.8125,
+          "bottom": 508
+        },
+        {
+          "name": "Vanguard, 1,700 gold",
+          "x": 511.28125,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 545.59375,
+          "bottom": 508
+        },
+        {
+          "name": "Blade Mail, 2,400 gold",
+          "x": 541.078125,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 575.390625,
+          "bottom": 508
+        },
+        {
+          "name": "Helm of the Dominator, 2,550 gold",
+          "x": 570.859375,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 605.171875,
+          "bottom": 508
+        },
+        {
+          "name": "Vladmir's Offering, 2,200 gold",
+          "x": 481.5,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 515.8125,
+          "bottom": 537
+        },
+        {
+          "name": "Crimson Guard, 3,725 gold",
+          "x": 511.28125,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 545.59375,
+          "bottom": 537
+        },
+        {
+          "name": "Armlet of Mordiggian, 2,500 gold",
+          "x": 541.078125,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 575.390625,
+          "bottom": 537
+        },
+        {
+          "name": "Helm of the Overlord, 5,650 gold",
+          "x": 570.859375,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 605.171875,
+          "bottom": 537
+        },
+        {
+          "name": "Consecrated Wraps, 2,600 gold",
+          "x": 481.5,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 515.8125,
+          "bottom": 566
+        },
+        {
+          "name": "Aeon Disk, 3,000 gold",
+          "x": 511.28125,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 545.59375,
+          "bottom": 566
+        },
+        {
+          "name": "Lotus Orb, 3,850 gold",
+          "x": 541.078125,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 575.390625,
+          "bottom": 566
+        },
+        {
+          "name": "Black King Bar, 4,050 gold",
+          "x": 570.859375,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 605.171875,
+          "bottom": 566
+        },
+        {
+          "name": "Shiva's Guard, 4,500 gold",
+          "x": 481.5,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 515.8125,
+          "bottom": 595
+        },
+        {
+          "name": "Linken's Sphere, 4,800 gold",
+          "x": 511.28125,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 545.59375,
+          "bottom": 595
+        },
+        {
+          "name": "Assault Cuirass, 5,125 gold",
+          "x": 541.078125,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 575.390625,
+          "bottom": 595
+        },
+        {
+          "name": "Heart of Tarrasque, 5,300 gold",
+          "x": 570.859375,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 605.171875,
+          "bottom": 595
+        },
+        {
+          "name": "Crystalys, 2,000 gold",
+          "x": 618.65625,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 652.96875,
+          "bottom": 508
+        },
+        {
+          "name": "Mage Slayer, 3,100 gold",
+          "x": 648.4375,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 682.75,
+          "bottom": 508
+        },
+        {
+          "name": "Heaven's Halberd, 3,300 gold",
+          "x": 678.234375,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 712.546875,
+          "bottom": 508
+        },
+        {
+          "name": "Desolator, 3,500 gold",
+          "x": 708.03125,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 742.34375,
+          "bottom": 508
+        },
+        {
+          "name": "Revenant's Brooch, 3,300 gold",
+          "x": 618.65625,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 652.96875,
+          "bottom": 537
+        },
+        {
+          "name": "Skull Basher, 2,875 gold",
+          "x": 648.4375,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 682.75,
+          "bottom": 537
+        },
+        {
+          "name": "Maelstrom, 2,950 gold",
+          "x": 678.234375,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 712.546875,
+          "bottom": 537
+        },
+        {
+          "name": "Shadow Blade, 3,250 gold",
+          "x": 708.03125,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 742.34375,
+          "bottom": 537
+        },
+        {
+          "name": "Daedalus, 5,200 gold",
+          "x": 618.65625,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 652.96875,
+          "bottom": 566
+        },
+        {
+          "name": "Abyssal Blade, 6,250 gold",
+          "x": 648.4375,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 682.75,
+          "bottom": 566
+        },
+        {
+          "name": "Mjollnir, 5,500 gold",
+          "x": 678.234375,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 712.546875,
+          "bottom": 566
+        },
+        {
+          "name": "Silver Edge, 5,700 gold",
+          "x": 708.03125,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 742.34375,
+          "bottom": 566
+        },
+        {
+          "name": "Battle Fury, 3,900 gold",
+          "x": 618.65625,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 652.96875,
+          "bottom": 595
+        },
+        {
+          "name": "Nullifier, 4,350 gold",
+          "x": 648.4375,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 682.75,
+          "bottom": 595
+        },
+        {
+          "name": "Manta Style, 4,650 gold",
+          "x": 678.234375,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 712.546875,
+          "bottom": 595
+        },
+        {
+          "name": "Radiance, 4,700 gold",
+          "x": 708.03125,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 742.34375,
+          "bottom": 595
+        },
+        {
+          "name": "Divine Rapier, 5,600 gold",
+          "x": 618.65625,
+          "y": 598,
+          "width": 34.3125,
+          "height": 26,
+          "right": 652.96875,
+          "bottom": 624
+        },
+        {
+          "name": "Monkey King Bar, 5,000 gold",
+          "x": 648.4375,
+          "y": 598,
+          "width": 34.3125,
+          "height": 26,
+          "right": 682.75,
+          "bottom": 624
+        },
+        {
+          "name": "Butterfly, 5,450 gold",
+          "x": 678.234375,
+          "y": 598,
+          "width": 34.3125,
+          "height": 26,
+          "right": 712.546875,
+          "bottom": 624
+        },
+        {
+          "name": "Satanic, 5,050 gold",
+          "x": 708.03125,
+          "y": 598,
+          "width": 34.3125,
+          "height": 26,
+          "right": 742.34375,
+          "bottom": 624
+        },
+        {
+          "name": "Sange, 2,100 gold",
+          "x": 755.828125,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 790.140625,
+          "bottom": 508
+        },
+        {
+          "name": "Yasha, 2,100 gold",
+          "x": 785.609375,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 819.921875,
+          "bottom": 508
+        },
+        {
+          "name": "Kaya, 2,100 gold",
+          "x": 815.40625,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 849.71875,
+          "bottom": 508
+        },
+        {
+          "name": "Dragon Lance, 2,000 gold",
+          "x": 845.203125,
+          "y": 482,
+          "width": 34.3125,
+          "height": 26,
+          "right": 879.515625,
+          "bottom": 508
+        },
+        {
+          "name": "Kaya and Sange, 4,200 gold",
+          "x": 755.828125,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 790.140625,
+          "bottom": 537
+        },
+        {
+          "name": "Sange and Yasha, 4,200 gold",
+          "x": 785.609375,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 819.921875,
+          "bottom": 537
+        },
+        {
+          "name": "Yasha and Kaya, 4,200 gold",
+          "x": 815.40625,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 849.71875,
+          "bottom": 537
+        },
+        {
+          "name": "Hurricane Pike, 4,550 gold",
+          "x": 845.203125,
+          "y": 511,
+          "width": 34.3125,
+          "height": 26,
+          "right": 879.515625,
+          "bottom": 537
+        },
+        {
+          "name": "Echo Sabre, 2,700 gold",
+          "x": 755.828125,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 790.140625,
+          "bottom": 566
+        },
+        {
+          "name": "Diffusal Blade, 2,500 gold",
+          "x": 785.609375,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 819.921875,
+          "bottom": 566
+        },
+        {
+          "name": "Witch Blade, 2,775 gold",
+          "x": 815.40625,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 849.71875,
+          "bottom": 566
+        },
+        {
+          "name": "Specialist's Array, 2,550 gold",
+          "x": 845.203125,
+          "y": 540,
+          "width": 34.3125,
+          "height": 26,
+          "right": 879.515625,
+          "bottom": 566
+        },
+        {
+          "name": "Harpoon, 4,700 gold",
+          "x": 755.828125,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 790.140625,
+          "bottom": 595
+        },
+        {
+          "name": "Disperser, 6,100 gold",
+          "x": 785.609375,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 819.921875,
+          "bottom": 595
+        },
+        {
+          "name": "Parasma, 5,975 gold",
+          "x": 815.40625,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 849.71875,
+          "bottom": 595
+        },
+        {
+          "name": "Hydra's Breath, 5,900 gold",
+          "x": 845.203125,
+          "y": 569,
+          "width": 34.3125,
+          "height": 26,
+          "right": 879.515625,
+          "bottom": 595
+        },
+        {
+          "name": "Overwhelming Blink, 6,800 gold",
+          "x": 755.828125,
+          "y": 598,
+          "width": 34.3125,
+          "height": 26,
+          "right": 790.140625,
+          "bottom": 624
+        },
+        {
+          "name": "Swift Blink, 6,800 gold",
+          "x": 785.609375,
+          "y": 598,
+          "width": 34.3125,
+          "height": 26,
+          "right": 819.921875,
+          "bottom": 624
+        },
+        {
+          "name": "Arcane Blink, 6,800 gold",
+          "x": 815.40625,
+          "y": 598,
+          "width": 34.3125,
+          "height": 26,
+          "right": 849.71875,
+          "bottom": 624
+        },
+        {
+          "name": "Eye of Skadi, 5,900 gold",
+          "x": 845.203125,
+          "y": 598,
+          "width": 34.3125,
+          "height": 26,
+          "right": 879.515625,
+          "bottom": 624
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-shopkeeper-build-result-reveal",
+      "clippedOrderLabels": [],
+      "hasExplanation": true,
+      "clippedExplanation": false,
+      "phase": "reveal",
+      "width": 1280,
+      "availableWidth": 1270,
+      "scrollWidth": 1270,
+      "targets": [
+        {
+          "name": "basics",
+          "x": 65,
+          "y": 402,
+          "width": 88,
+          "height": 36,
+          "right": 153,
+          "bottom": 438
+        },
+        {
+          "name": "upgrades",
+          "x": 153,
+          "y": 402,
+          "width": 88,
+          "height": 36,
+          "right": 241,
+          "bottom": 438
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-spell-owner-answering",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "answering",
+      "width": 1280,
+      "availableWidth": 1270,
+      "scrollWidth": 1270,
+      "targets": [
+        {
+          "name": "Alchemist",
+          "x": 64,
+          "y": 511,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 97.578125,
+          "bottom": 542.96875
+        },
+        {
+          "name": "Axe",
+          "x": 100.578125,
+          "y": 511,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 134.171875,
+          "bottom": 542.984375
+        },
+        {
+          "name": "Bristleback",
+          "x": 137.171875,
+          "y": 511,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 170.765625,
+          "bottom": 542.984375
+        },
+        {
+          "name": "Centaur Warrunner",
+          "x": 173.765625,
+          "y": 511,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 207.359375,
+          "bottom": 542.984375
+        },
+        {
+          "name": "Chaos Knight",
+          "x": 210.359375,
+          "y": 511,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 243.953125,
+          "bottom": 542.984375
+        },
+        {
+          "name": "Clockwerk",
+          "x": 246.953125,
+          "y": 511,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 280.53125,
+          "bottom": 542.96875
+        },
+        {
+          "name": "Dawnbreaker",
+          "x": 283.53125,
+          "y": 511,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 317.125,
+          "bottom": 542.984375
+        },
+        {
+          "name": "Doom",
+          "x": 320.125,
+          "y": 511,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 353.71875,
+          "bottom": 542.984375
+        },
+        {
+          "name": "Dragon Knight",
+          "x": 356.71875,
+          "y": 511,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 390.3125,
+          "bottom": 542.984375
+        },
+        {
+          "name": "Earth Spirit",
+          "x": 393.3125,
+          "y": 511,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 426.90625,
+          "bottom": 542.984375
+        },
+        {
+          "name": "Earthshaker",
+          "x": 429.90625,
+          "y": 511,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 463.5,
+          "bottom": 542.984375
+        },
+        {
+          "name": "Elder Titan",
+          "x": 64,
+          "y": 545.984375,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 97.578125,
+          "bottom": 577.953125
+        },
+        {
+          "name": "Huskar",
+          "x": 100.578125,
+          "y": 545.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 134.171875,
+          "bottom": 577.96875
+        },
+        {
+          "name": "Kunkka",
+          "x": 137.171875,
+          "y": 545.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 170.765625,
+          "bottom": 577.96875
+        },
+        {
+          "name": "Largo",
+          "x": 173.765625,
+          "y": 545.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 207.359375,
+          "bottom": 577.96875
+        },
+        {
+          "name": "Legion Commander",
+          "x": 210.359375,
+          "y": 545.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 243.953125,
+          "bottom": 577.96875
+        },
+        {
+          "name": "Lifestealer",
+          "x": 246.953125,
+          "y": 545.984375,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 280.53125,
+          "bottom": 577.953125
+        },
+        {
+          "name": "Lycan",
+          "x": 283.53125,
+          "y": 545.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 317.125,
+          "bottom": 577.96875
+        },
+        {
+          "name": "Mars",
+          "x": 320.125,
+          "y": 545.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 353.71875,
+          "bottom": 577.96875
+        },
+        {
+          "name": "Night Stalker",
+          "x": 356.71875,
+          "y": 545.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 390.3125,
+          "bottom": 577.96875
+        },
+        {
+          "name": "Ogre Magi",
+          "x": 393.3125,
+          "y": 545.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 426.90625,
+          "bottom": 577.96875
+        },
+        {
+          "name": "Omniknight",
+          "x": 429.90625,
+          "y": 545.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 463.5,
+          "bottom": 577.96875
+        },
+        {
+          "name": "Phoenix",
+          "x": 64,
+          "y": 580.96875,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 97.578125,
+          "bottom": 612.9375
+        },
+        {
+          "name": "Primal Beast",
+          "x": 100.578125,
+          "y": 580.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 134.171875,
+          "bottom": 612.953125
+        },
+        {
+          "name": "Pudge",
+          "x": 137.171875,
+          "y": 580.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 170.765625,
+          "bottom": 612.953125
+        },
+        {
+          "name": "Slardar",
+          "x": 173.765625,
+          "y": 580.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 207.359375,
+          "bottom": 612.953125
+        },
+        {
+          "name": "Spirit Breaker",
+          "x": 210.359375,
+          "y": 580.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 243.953125,
+          "bottom": 612.953125
+        },
+        {
+          "name": "Sven",
+          "x": 246.953125,
+          "y": 580.96875,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 280.53125,
+          "bottom": 612.9375
+        },
+        {
+          "name": "Tidehunter",
+          "x": 283.53125,
+          "y": 580.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 317.125,
+          "bottom": 612.953125
+        },
+        {
+          "name": "Timbersaw",
+          "x": 320.125,
+          "y": 580.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 353.71875,
+          "bottom": 612.953125
+        },
+        {
+          "name": "Tiny",
+          "x": 356.71875,
+          "y": 580.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 390.3125,
+          "bottom": 612.953125
+        },
+        {
+          "name": "Treant Protector",
+          "x": 393.3125,
+          "y": 580.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 426.90625,
+          "bottom": 612.953125
+        },
+        {
+          "name": "Tusk",
+          "x": 429.90625,
+          "y": 580.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 463.5,
+          "bottom": 612.953125
+        },
+        {
+          "name": "Underlord",
+          "x": 64,
+          "y": 615.953125,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 97.578125,
+          "bottom": 647.921875
+        },
+        {
+          "name": "Undying",
+          "x": 100.578125,
+          "y": 615.953125,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 134.171875,
+          "bottom": 647.9375
+        },
+        {
+          "name": "Wraith King",
+          "x": 137.171875,
+          "y": 615.953125,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 170.765625,
+          "bottom": 647.9375
+        },
+        {
+          "name": "Anti-Mage",
+          "x": 478.5,
+          "y": 511,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 512.078125,
+          "bottom": 542.96875
+        },
+        {
+          "name": "Bloodseeker",
+          "x": 515.078125,
+          "y": 511,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 548.671875,
+          "bottom": 542.984375
+        },
+        {
+          "name": "Bounty Hunter",
+          "x": 551.671875,
+          "y": 511,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 585.265625,
+          "bottom": 542.984375
+        },
+        {
+          "name": "Broodmother",
+          "x": 588.265625,
+          "y": 511,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 621.859375,
+          "bottom": 542.984375
+        },
+        {
+          "name": "Clinkz",
+          "x": 624.859375,
+          "y": 511,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 658.453125,
+          "bottom": 542.984375
+        },
+        {
+          "name": "Drow Ranger",
+          "x": 661.453125,
+          "y": 511,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 695.03125,
+          "bottom": 542.96875
+        },
+        {
+          "name": "Ember Spirit",
+          "x": 698.03125,
+          "y": 511,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 731.625,
+          "bottom": 542.984375
+        },
+        {
+          "name": "Faceless Void",
+          "x": 734.625,
+          "y": 511,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 768.21875,
+          "bottom": 542.984375
+        },
+        {
+          "name": "Gyrocopter",
+          "x": 771.21875,
+          "y": 511,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 804.8125,
+          "bottom": 542.984375
+        },
+        {
+          "name": "Hoodwink",
+          "x": 807.8125,
+          "y": 511,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 841.40625,
+          "bottom": 542.984375
+        },
+        {
+          "name": "Juggernaut",
+          "x": 844.40625,
+          "y": 511,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 878,
+          "bottom": 542.984375
+        },
+        {
+          "name": "Kez",
+          "x": 478.5,
+          "y": 545.984375,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 512.078125,
+          "bottom": 577.953125
+        },
+        {
+          "name": "Lone Druid",
+          "x": 515.078125,
+          "y": 545.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 548.671875,
+          "bottom": 577.96875
+        },
+        {
+          "name": "Luna",
+          "x": 551.671875,
+          "y": 545.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 585.265625,
+          "bottom": 577.96875
+        },
+        {
+          "name": "Medusa",
+          "x": 588.265625,
+          "y": 545.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 621.859375,
+          "bottom": 577.96875
+        },
+        {
+          "name": "Meepo",
+          "x": 624.859375,
+          "y": 545.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 658.453125,
+          "bottom": 577.96875
+        },
+        {
+          "name": "Mirana",
+          "x": 661.453125,
+          "y": 545.984375,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 695.03125,
+          "bottom": 577.953125
+        },
+        {
+          "name": "Monkey King",
+          "x": 698.03125,
+          "y": 545.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 731.625,
+          "bottom": 577.96875
+        },
+        {
+          "name": "Morphling",
+          "x": 734.625,
+          "y": 545.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 768.21875,
+          "bottom": 577.96875
+        },
+        {
+          "name": "Naga Siren",
+          "x": 771.21875,
+          "y": 545.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 804.8125,
+          "bottom": 577.96875
+        },
+        {
+          "name": "Phantom Assassin",
+          "x": 807.8125,
+          "y": 545.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 841.40625,
+          "bottom": 577.96875
+        },
+        {
+          "name": "Phantom Lancer",
+          "x": 844.40625,
+          "y": 545.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 878,
+          "bottom": 577.96875
+        },
+        {
+          "name": "Razor",
+          "x": 478.5,
+          "y": 580.96875,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 512.078125,
+          "bottom": 612.9375
+        },
+        {
+          "name": "Riki",
+          "x": 515.078125,
+          "y": 580.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 548.671875,
+          "bottom": 612.953125
+        },
+        {
+          "name": "Shadow Fiend",
+          "x": 551.671875,
+          "y": 580.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 585.265625,
+          "bottom": 612.953125
+        },
+        {
+          "name": "Slark",
+          "x": 588.265625,
+          "y": 580.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 621.859375,
+          "bottom": 612.953125
+        },
+        {
+          "name": "Sniper",
+          "x": 624.859375,
+          "y": 580.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 658.453125,
+          "bottom": 612.953125
+        },
+        {
+          "name": "Spectre",
+          "x": 661.453125,
+          "y": 580.96875,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 695.03125,
+          "bottom": 612.9375
+        },
+        {
+          "name": "Templar Assassin",
+          "x": 698.03125,
+          "y": 580.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 731.625,
+          "bottom": 612.953125
+        },
+        {
+          "name": "Terrorblade",
+          "x": 734.625,
+          "y": 580.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 768.21875,
+          "bottom": 612.953125
+        },
+        {
+          "name": "Troll Warlord",
+          "x": 771.21875,
+          "y": 580.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 804.8125,
+          "bottom": 612.953125
+        },
+        {
+          "name": "Ursa",
+          "x": 807.8125,
+          "y": 580.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 841.40625,
+          "bottom": 612.953125
+        },
+        {
+          "name": "Vengeful Spirit",
+          "x": 844.40625,
+          "y": 580.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 878,
+          "bottom": 612.953125
+        },
+        {
+          "name": "Viper",
+          "x": 478.5,
+          "y": 615.953125,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 512.078125,
+          "bottom": 647.921875
+        },
+        {
+          "name": "Weaver",
+          "x": 515.078125,
+          "y": 615.953125,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 548.671875,
+          "bottom": 647.9375
+        },
+        {
+          "name": "Ancient Apparition",
+          "x": 64,
+          "y": 678.9375,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 97.578125,
+          "bottom": 710.90625
+        },
+        {
+          "name": "Chen",
+          "x": 100.578125,
+          "y": 678.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 134.171875,
+          "bottom": 710.921875
+        },
+        {
+          "name": "Crystal Maiden",
+          "x": 137.171875,
+          "y": 678.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 170.765625,
+          "bottom": 710.921875
+        },
+        {
+          "name": "Dark Seer",
+          "x": 173.765625,
+          "y": 678.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 207.359375,
+          "bottom": 710.921875
+        },
+        {
+          "name": "Dark Willow",
+          "x": 210.359375,
+          "y": 678.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 243.953125,
+          "bottom": 710.921875
+        },
+        {
+          "name": "Disruptor",
+          "x": 246.953125,
+          "y": 678.9375,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 280.53125,
+          "bottom": 710.90625
+        },
+        {
+          "name": "Enchantress",
+          "x": 283.53125,
+          "y": 678.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 317.125,
+          "bottom": 710.921875
+        },
+        {
+          "name": "Grimstroke",
+          "x": 320.125,
+          "y": 678.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 353.71875,
+          "bottom": 710.921875
+        },
+        {
+          "name": "Invoker",
+          "x": 356.71875,
+          "y": 678.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 390.3125,
+          "bottom": 710.921875
+        },
+        {
+          "name": "Jakiro",
+          "x": 393.3125,
+          "y": 678.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 426.90625,
+          "bottom": 710.921875
+        },
+        {
+          "name": "Keeper of the Light",
+          "x": 429.90625,
+          "y": 678.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 463.5,
+          "bottom": 710.921875
+        },
+        {
+          "name": "Leshrac",
+          "x": 64,
+          "y": 713.921875,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 97.578125,
+          "bottom": 745.890625
+        },
+        {
+          "name": "Lich",
+          "x": 100.578125,
+          "y": 713.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 134.171875,
+          "bottom": 745.90625
+        },
+        {
+          "name": "Lina",
+          "x": 137.171875,
+          "y": 713.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 170.765625,
+          "bottom": 745.90625
+        },
+        {
+          "name": "Lion",
+          "x": 173.765625,
+          "y": 713.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 207.359375,
+          "bottom": 745.90625
+        },
+        {
+          "name": "Muerta",
+          "x": 210.359375,
+          "y": 713.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 243.953125,
+          "bottom": 745.90625
+        },
+        {
+          "name": "Necrophos",
+          "x": 246.953125,
+          "y": 713.921875,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 280.53125,
+          "bottom": 745.890625
+        },
+        {
+          "name": "Oracle",
+          "x": 283.53125,
+          "y": 713.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 317.125,
+          "bottom": 745.90625
+        },
+        {
+          "name": "Outworld Destroyer",
+          "x": 320.125,
+          "y": 713.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 353.71875,
+          "bottom": 745.90625
+        },
+        {
+          "name": "Puck",
+          "x": 356.71875,
+          "y": 713.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 390.3125,
+          "bottom": 745.90625
+        },
+        {
+          "name": "Pugna",
+          "x": 393.3125,
+          "y": 713.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 426.90625,
+          "bottom": 745.90625
+        },
+        {
+          "name": "Queen of Pain",
+          "x": 429.90625,
+          "y": 713.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 463.5,
+          "bottom": 745.90625
+        },
+        {
+          "name": "Ringmaster",
+          "x": 64,
+          "y": 748.90625,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 97.578125,
+          "bottom": 780.875
+        },
+        {
+          "name": "Rubick",
+          "x": 100.578125,
+          "y": 748.90625,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 134.171875,
+          "bottom": 780.890625
+        },
+        {
+          "name": "Shadow Demon",
+          "x": 137.171875,
+          "y": 748.90625,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 170.765625,
+          "bottom": 780.890625
+        },
+        {
+          "name": "Shadow Shaman",
+          "x": 173.765625,
+          "y": 748.90625,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 207.359375,
+          "bottom": 780.890625
+        },
+        {
+          "name": "Silencer",
+          "x": 210.359375,
+          "y": 748.90625,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 243.953125,
+          "bottom": 780.890625
+        },
+        {
+          "name": "Skywrath Mage",
+          "x": 246.953125,
+          "y": 748.90625,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 280.53125,
+          "bottom": 780.875
+        },
+        {
+          "name": "Storm Spirit",
+          "x": 283.53125,
+          "y": 748.90625,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 317.125,
+          "bottom": 780.890625
+        },
+        {
+          "name": "Tinker",
+          "x": 320.125,
+          "y": 748.90625,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 353.71875,
+          "bottom": 780.890625
+        },
+        {
+          "name": "Warlock",
+          "x": 356.71875,
+          "y": 748.90625,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 390.3125,
+          "bottom": 780.890625
+        },
+        {
+          "name": "Winter Wyvern",
+          "x": 393.3125,
+          "y": 748.90625,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 426.90625,
+          "bottom": 780.890625
+        },
+        {
+          "name": "Witch Doctor",
+          "x": 429.90625,
+          "y": 748.90625,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 463.5,
+          "bottom": 780.890625
+        },
+        {
+          "name": "Zeus",
+          "x": 64,
+          "y": 783.890625,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 97.578125,
+          "bottom": 815.859375
+        },
+        {
+          "name": "Abaddon",
+          "x": 478.5,
+          "y": 678.9375,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 512.078125,
+          "bottom": 710.90625
+        },
+        {
+          "name": "Arc Warden",
+          "x": 515.078125,
+          "y": 678.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 548.671875,
+          "bottom": 710.921875
+        },
+        {
+          "name": "Bane",
+          "x": 551.671875,
+          "y": 678.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 585.265625,
+          "bottom": 710.921875
+        },
+        {
+          "name": "Batrider",
+          "x": 588.265625,
+          "y": 678.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 621.859375,
+          "bottom": 710.921875
+        },
+        {
+          "name": "Beastmaster",
+          "x": 624.859375,
+          "y": 678.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 658.453125,
+          "bottom": 710.921875
+        },
+        {
+          "name": "Brewmaster",
+          "x": 661.453125,
+          "y": 678.9375,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 695.03125,
+          "bottom": 710.90625
+        },
+        {
+          "name": "Dazzle",
+          "x": 698.03125,
+          "y": 678.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 731.625,
+          "bottom": 710.921875
+        },
+        {
+          "name": "Death Prophet",
+          "x": 734.625,
+          "y": 678.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 768.21875,
+          "bottom": 710.921875
+        },
+        {
+          "name": "Enigma",
+          "x": 771.21875,
+          "y": 678.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 804.8125,
+          "bottom": 710.921875
+        },
+        {
+          "name": "Io",
+          "x": 807.8125,
+          "y": 678.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 841.40625,
+          "bottom": 710.921875
+        },
+        {
+          "name": "Magnus",
+          "x": 844.40625,
+          "y": 678.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 878,
+          "bottom": 710.921875
+        },
+        {
+          "name": "Marci",
+          "x": 478.5,
+          "y": 713.921875,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 512.078125,
+          "bottom": 745.890625
+        },
+        {
+          "name": "Nature's Prophet",
+          "x": 515.078125,
+          "y": 713.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 548.671875,
+          "bottom": 745.90625
+        },
+        {
+          "name": "Nyx Assassin",
+          "x": 551.671875,
+          "y": 713.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 585.265625,
+          "bottom": 745.90625
+        },
+        {
+          "name": "Pangolier",
+          "x": 588.265625,
+          "y": 713.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 621.859375,
+          "bottom": 745.90625
+        },
+        {
+          "name": "Sand King",
+          "x": 624.859375,
+          "y": 713.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 658.453125,
+          "bottom": 745.90625
+        },
+        {
+          "name": "Snapfire",
+          "x": 661.453125,
+          "y": 713.921875,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 695.03125,
+          "bottom": 745.890625
+        },
+        {
+          "name": "Techies",
+          "x": 698.03125,
+          "y": 713.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 731.625,
+          "bottom": 745.90625
+        },
+        {
+          "name": "Venomancer",
+          "x": 734.625,
+          "y": 713.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 768.21875,
+          "bottom": 745.90625
+        },
+        {
+          "name": "Visage",
+          "x": 771.21875,
+          "y": 713.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 804.8125,
+          "bottom": 745.90625
+        },
+        {
+          "name": "Void Spirit",
+          "x": 807.8125,
+          "y": 713.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 841.40625,
+          "bottom": 745.90625
+        },
+        {
+          "name": "Windranger",
+          "x": 844.40625,
+          "y": 713.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 878,
+          "bottom": 745.90625
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-spell-owner-reveal",
+      "clippedOrderLabels": [],
+      "hasExplanation": true,
+      "clippedExplanation": false,
+      "phase": "reveal",
+      "width": 1280,
+      "availableWidth": 1270,
+      "scrollWidth": 1270,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-fogged-hero-answering",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "answering",
+      "width": 1280,
+      "availableWidth": 1270,
+      "scrollWidth": 1270,
+      "targets": [
+        {
+          "name": "Alchemist",
+          "x": 64,
+          "y": 467,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 97.578125,
+          "bottom": 498.96875
+        },
+        {
+          "name": "Axe",
+          "x": 100.578125,
+          "y": 467,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 134.171875,
+          "bottom": 498.984375
+        },
+        {
+          "name": "Bristleback",
+          "x": 137.171875,
+          "y": 467,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 170.765625,
+          "bottom": 498.984375
+        },
+        {
+          "name": "Centaur Warrunner",
+          "x": 173.765625,
+          "y": 467,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 207.359375,
+          "bottom": 498.984375
+        },
+        {
+          "name": "Chaos Knight",
+          "x": 210.359375,
+          "y": 467,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 243.953125,
+          "bottom": 498.984375
+        },
+        {
+          "name": "Clockwerk",
+          "x": 246.953125,
+          "y": 467,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 280.53125,
+          "bottom": 498.96875
+        },
+        {
+          "name": "Dawnbreaker",
+          "x": 283.53125,
+          "y": 467,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 317.125,
+          "bottom": 498.984375
+        },
+        {
+          "name": "Doom",
+          "x": 320.125,
+          "y": 467,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 353.71875,
+          "bottom": 498.984375
+        },
+        {
+          "name": "Dragon Knight",
+          "x": 356.71875,
+          "y": 467,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 390.3125,
+          "bottom": 498.984375
+        },
+        {
+          "name": "Earth Spirit",
+          "x": 393.3125,
+          "y": 467,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 426.90625,
+          "bottom": 498.984375
+        },
+        {
+          "name": "Earthshaker",
+          "x": 429.90625,
+          "y": 467,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 463.5,
+          "bottom": 498.984375
+        },
+        {
+          "name": "Elder Titan",
+          "x": 64,
+          "y": 501.984375,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 97.578125,
+          "bottom": 533.953125
+        },
+        {
+          "name": "Huskar",
+          "x": 100.578125,
+          "y": 501.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 134.171875,
+          "bottom": 533.96875
+        },
+        {
+          "name": "Kunkka",
+          "x": 137.171875,
+          "y": 501.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 170.765625,
+          "bottom": 533.96875
+        },
+        {
+          "name": "Largo",
+          "x": 173.765625,
+          "y": 501.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 207.359375,
+          "bottom": 533.96875
+        },
+        {
+          "name": "Legion Commander",
+          "x": 210.359375,
+          "y": 501.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 243.953125,
+          "bottom": 533.96875
+        },
+        {
+          "name": "Lifestealer",
+          "x": 246.953125,
+          "y": 501.984375,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 280.53125,
+          "bottom": 533.953125
+        },
+        {
+          "name": "Lycan",
+          "x": 283.53125,
+          "y": 501.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 317.125,
+          "bottom": 533.96875
+        },
+        {
+          "name": "Mars",
+          "x": 320.125,
+          "y": 501.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 353.71875,
+          "bottom": 533.96875
+        },
+        {
+          "name": "Night Stalker",
+          "x": 356.71875,
+          "y": 501.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 390.3125,
+          "bottom": 533.96875
+        },
+        {
+          "name": "Ogre Magi",
+          "x": 393.3125,
+          "y": 501.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 426.90625,
+          "bottom": 533.96875
+        },
+        {
+          "name": "Omniknight",
+          "x": 429.90625,
+          "y": 501.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 463.5,
+          "bottom": 533.96875
+        },
+        {
+          "name": "Phoenix",
+          "x": 64,
+          "y": 536.96875,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 97.578125,
+          "bottom": 568.9375
+        },
+        {
+          "name": "Primal Beast",
+          "x": 100.578125,
+          "y": 536.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 134.171875,
+          "bottom": 568.953125
+        },
+        {
+          "name": "Pudge",
+          "x": 137.171875,
+          "y": 536.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 170.765625,
+          "bottom": 568.953125
+        },
+        {
+          "name": "Slardar",
+          "x": 173.765625,
+          "y": 536.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 207.359375,
+          "bottom": 568.953125
+        },
+        {
+          "name": "Spirit Breaker",
+          "x": 210.359375,
+          "y": 536.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 243.953125,
+          "bottom": 568.953125
+        },
+        {
+          "name": "Sven",
+          "x": 246.953125,
+          "y": 536.96875,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 280.53125,
+          "bottom": 568.9375
+        },
+        {
+          "name": "Tidehunter",
+          "x": 283.53125,
+          "y": 536.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 317.125,
+          "bottom": 568.953125
+        },
+        {
+          "name": "Timbersaw",
+          "x": 320.125,
+          "y": 536.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 353.71875,
+          "bottom": 568.953125
+        },
+        {
+          "name": "Tiny",
+          "x": 356.71875,
+          "y": 536.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 390.3125,
+          "bottom": 568.953125
+        },
+        {
+          "name": "Treant Protector",
+          "x": 393.3125,
+          "y": 536.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 426.90625,
+          "bottom": 568.953125
+        },
+        {
+          "name": "Tusk",
+          "x": 429.90625,
+          "y": 536.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 463.5,
+          "bottom": 568.953125
+        },
+        {
+          "name": "Underlord",
+          "x": 64,
+          "y": 571.953125,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 97.578125,
+          "bottom": 603.921875
+        },
+        {
+          "name": "Undying",
+          "x": 100.578125,
+          "y": 571.953125,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 134.171875,
+          "bottom": 603.9375
+        },
+        {
+          "name": "Wraith King",
+          "x": 137.171875,
+          "y": 571.953125,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 170.765625,
+          "bottom": 603.9375
+        },
+        {
+          "name": "Anti-Mage",
+          "x": 478.5,
+          "y": 467,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 512.078125,
+          "bottom": 498.96875
+        },
+        {
+          "name": "Bloodseeker",
+          "x": 515.078125,
+          "y": 467,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 548.671875,
+          "bottom": 498.984375
+        },
+        {
+          "name": "Bounty Hunter",
+          "x": 551.671875,
+          "y": 467,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 585.265625,
+          "bottom": 498.984375
+        },
+        {
+          "name": "Broodmother",
+          "x": 588.265625,
+          "y": 467,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 621.859375,
+          "bottom": 498.984375
+        },
+        {
+          "name": "Clinkz",
+          "x": 624.859375,
+          "y": 467,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 658.453125,
+          "bottom": 498.984375
+        },
+        {
+          "name": "Drow Ranger",
+          "x": 661.453125,
+          "y": 467,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 695.03125,
+          "bottom": 498.96875
+        },
+        {
+          "name": "Ember Spirit",
+          "x": 698.03125,
+          "y": 467,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 731.625,
+          "bottom": 498.984375
+        },
+        {
+          "name": "Faceless Void",
+          "x": 734.625,
+          "y": 467,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 768.21875,
+          "bottom": 498.984375
+        },
+        {
+          "name": "Gyrocopter",
+          "x": 771.21875,
+          "y": 467,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 804.8125,
+          "bottom": 498.984375
+        },
+        {
+          "name": "Hoodwink",
+          "x": 807.8125,
+          "y": 467,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 841.40625,
+          "bottom": 498.984375
+        },
+        {
+          "name": "Juggernaut",
+          "x": 844.40625,
+          "y": 467,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 878,
+          "bottom": 498.984375
+        },
+        {
+          "name": "Kez",
+          "x": 478.5,
+          "y": 501.984375,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 512.078125,
+          "bottom": 533.953125
+        },
+        {
+          "name": "Lone Druid",
+          "x": 515.078125,
+          "y": 501.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 548.671875,
+          "bottom": 533.96875
+        },
+        {
+          "name": "Luna",
+          "x": 551.671875,
+          "y": 501.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 585.265625,
+          "bottom": 533.96875
+        },
+        {
+          "name": "Medusa",
+          "x": 588.265625,
+          "y": 501.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 621.859375,
+          "bottom": 533.96875
+        },
+        {
+          "name": "Meepo",
+          "x": 624.859375,
+          "y": 501.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 658.453125,
+          "bottom": 533.96875
+        },
+        {
+          "name": "Mirana",
+          "x": 661.453125,
+          "y": 501.984375,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 695.03125,
+          "bottom": 533.953125
+        },
+        {
+          "name": "Monkey King",
+          "x": 698.03125,
+          "y": 501.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 731.625,
+          "bottom": 533.96875
+        },
+        {
+          "name": "Morphling",
+          "x": 734.625,
+          "y": 501.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 768.21875,
+          "bottom": 533.96875
+        },
+        {
+          "name": "Naga Siren",
+          "x": 771.21875,
+          "y": 501.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 804.8125,
+          "bottom": 533.96875
+        },
+        {
+          "name": "Phantom Assassin",
+          "x": 807.8125,
+          "y": 501.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 841.40625,
+          "bottom": 533.96875
+        },
+        {
+          "name": "Phantom Lancer",
+          "x": 844.40625,
+          "y": 501.984375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 878,
+          "bottom": 533.96875
+        },
+        {
+          "name": "Razor",
+          "x": 478.5,
+          "y": 536.96875,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 512.078125,
+          "bottom": 568.9375
+        },
+        {
+          "name": "Riki",
+          "x": 515.078125,
+          "y": 536.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 548.671875,
+          "bottom": 568.953125
+        },
+        {
+          "name": "Shadow Fiend",
+          "x": 551.671875,
+          "y": 536.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 585.265625,
+          "bottom": 568.953125
+        },
+        {
+          "name": "Slark",
+          "x": 588.265625,
+          "y": 536.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 621.859375,
+          "bottom": 568.953125
+        },
+        {
+          "name": "Sniper",
+          "x": 624.859375,
+          "y": 536.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 658.453125,
+          "bottom": 568.953125
+        },
+        {
+          "name": "Spectre",
+          "x": 661.453125,
+          "y": 536.96875,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 695.03125,
+          "bottom": 568.9375
+        },
+        {
+          "name": "Templar Assassin",
+          "x": 698.03125,
+          "y": 536.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 731.625,
+          "bottom": 568.953125
+        },
+        {
+          "name": "Terrorblade",
+          "x": 734.625,
+          "y": 536.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 768.21875,
+          "bottom": 568.953125
+        },
+        {
+          "name": "Troll Warlord",
+          "x": 771.21875,
+          "y": 536.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 804.8125,
+          "bottom": 568.953125
+        },
+        {
+          "name": "Ursa",
+          "x": 807.8125,
+          "y": 536.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 841.40625,
+          "bottom": 568.953125
+        },
+        {
+          "name": "Vengeful Spirit",
+          "x": 844.40625,
+          "y": 536.96875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 878,
+          "bottom": 568.953125
+        },
+        {
+          "name": "Viper",
+          "x": 478.5,
+          "y": 571.953125,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 512.078125,
+          "bottom": 603.921875
+        },
+        {
+          "name": "Weaver",
+          "x": 515.078125,
+          "y": 571.953125,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 548.671875,
+          "bottom": 603.9375
+        },
+        {
+          "name": "Ancient Apparition",
+          "x": 64,
+          "y": 634.9375,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 97.578125,
+          "bottom": 666.90625
+        },
+        {
+          "name": "Chen",
+          "x": 100.578125,
+          "y": 634.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 134.171875,
+          "bottom": 666.921875
+        },
+        {
+          "name": "Crystal Maiden",
+          "x": 137.171875,
+          "y": 634.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 170.765625,
+          "bottom": 666.921875
+        },
+        {
+          "name": "Dark Seer",
+          "x": 173.765625,
+          "y": 634.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 207.359375,
+          "bottom": 666.921875
+        },
+        {
+          "name": "Dark Willow",
+          "x": 210.359375,
+          "y": 634.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 243.953125,
+          "bottom": 666.921875
+        },
+        {
+          "name": "Disruptor",
+          "x": 246.953125,
+          "y": 634.9375,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 280.53125,
+          "bottom": 666.90625
+        },
+        {
+          "name": "Enchantress",
+          "x": 283.53125,
+          "y": 634.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 317.125,
+          "bottom": 666.921875
+        },
+        {
+          "name": "Grimstroke",
+          "x": 320.125,
+          "y": 634.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 353.71875,
+          "bottom": 666.921875
+        },
+        {
+          "name": "Invoker",
+          "x": 356.71875,
+          "y": 634.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 390.3125,
+          "bottom": 666.921875
+        },
+        {
+          "name": "Jakiro",
+          "x": 393.3125,
+          "y": 634.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 426.90625,
+          "bottom": 666.921875
+        },
+        {
+          "name": "Keeper of the Light",
+          "x": 429.90625,
+          "y": 634.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 463.5,
+          "bottom": 666.921875
+        },
+        {
+          "name": "Leshrac",
+          "x": 64,
+          "y": 669.921875,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 97.578125,
+          "bottom": 701.890625
+        },
+        {
+          "name": "Lich",
+          "x": 100.578125,
+          "y": 669.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 134.171875,
+          "bottom": 701.90625
+        },
+        {
+          "name": "Lina",
+          "x": 137.171875,
+          "y": 669.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 170.765625,
+          "bottom": 701.90625
+        },
+        {
+          "name": "Lion",
+          "x": 173.765625,
+          "y": 669.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 207.359375,
+          "bottom": 701.90625
+        },
+        {
+          "name": "Muerta",
+          "x": 210.359375,
+          "y": 669.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 243.953125,
+          "bottom": 701.90625
+        },
+        {
+          "name": "Necrophos",
+          "x": 246.953125,
+          "y": 669.921875,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 280.53125,
+          "bottom": 701.890625
+        },
+        {
+          "name": "Oracle",
+          "x": 283.53125,
+          "y": 669.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 317.125,
+          "bottom": 701.90625
+        },
+        {
+          "name": "Outworld Destroyer",
+          "x": 320.125,
+          "y": 669.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 353.71875,
+          "bottom": 701.90625
+        },
+        {
+          "name": "Puck",
+          "x": 356.71875,
+          "y": 669.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 390.3125,
+          "bottom": 701.90625
+        },
+        {
+          "name": "Pugna",
+          "x": 393.3125,
+          "y": 669.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 426.90625,
+          "bottom": 701.90625
+        },
+        {
+          "name": "Queen of Pain",
+          "x": 429.90625,
+          "y": 669.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 463.5,
+          "bottom": 701.90625
+        },
+        {
+          "name": "Ringmaster",
+          "x": 64,
+          "y": 704.90625,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 97.578125,
+          "bottom": 736.875
+        },
+        {
+          "name": "Rubick",
+          "x": 100.578125,
+          "y": 704.90625,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 134.171875,
+          "bottom": 736.890625
+        },
+        {
+          "name": "Shadow Demon",
+          "x": 137.171875,
+          "y": 704.90625,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 170.765625,
+          "bottom": 736.890625
+        },
+        {
+          "name": "Shadow Shaman",
+          "x": 173.765625,
+          "y": 704.90625,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 207.359375,
+          "bottom": 736.890625
+        },
+        {
+          "name": "Silencer",
+          "x": 210.359375,
+          "y": 704.90625,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 243.953125,
+          "bottom": 736.890625
+        },
+        {
+          "name": "Skywrath Mage",
+          "x": 246.953125,
+          "y": 704.90625,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 280.53125,
+          "bottom": 736.875
+        },
+        {
+          "name": "Storm Spirit",
+          "x": 283.53125,
+          "y": 704.90625,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 317.125,
+          "bottom": 736.890625
+        },
+        {
+          "name": "Tinker",
+          "x": 320.125,
+          "y": 704.90625,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 353.71875,
+          "bottom": 736.890625
+        },
+        {
+          "name": "Warlock",
+          "x": 356.71875,
+          "y": 704.90625,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 390.3125,
+          "bottom": 736.890625
+        },
+        {
+          "name": "Winter Wyvern",
+          "x": 393.3125,
+          "y": 704.90625,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 426.90625,
+          "bottom": 736.890625
+        },
+        {
+          "name": "Witch Doctor",
+          "x": 429.90625,
+          "y": 704.90625,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 463.5,
+          "bottom": 736.890625
+        },
+        {
+          "name": "Zeus",
+          "x": 64,
+          "y": 739.890625,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 97.578125,
+          "bottom": 771.859375
+        },
+        {
+          "name": "Abaddon",
+          "x": 478.5,
+          "y": 634.9375,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 512.078125,
+          "bottom": 666.90625
+        },
+        {
+          "name": "Arc Warden",
+          "x": 515.078125,
+          "y": 634.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 548.671875,
+          "bottom": 666.921875
+        },
+        {
+          "name": "Bane",
+          "x": 551.671875,
+          "y": 634.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 585.265625,
+          "bottom": 666.921875
+        },
+        {
+          "name": "Batrider",
+          "x": 588.265625,
+          "y": 634.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 621.859375,
+          "bottom": 666.921875
+        },
+        {
+          "name": "Beastmaster",
+          "x": 624.859375,
+          "y": 634.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 658.453125,
+          "bottom": 666.921875
+        },
+        {
+          "name": "Brewmaster",
+          "x": 661.453125,
+          "y": 634.9375,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 695.03125,
+          "bottom": 666.90625
+        },
+        {
+          "name": "Dazzle",
+          "x": 698.03125,
+          "y": 634.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 731.625,
+          "bottom": 666.921875
+        },
+        {
+          "name": "Death Prophet",
+          "x": 734.625,
+          "y": 634.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 768.21875,
+          "bottom": 666.921875
+        },
+        {
+          "name": "Enigma",
+          "x": 771.21875,
+          "y": 634.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 804.8125,
+          "bottom": 666.921875
+        },
+        {
+          "name": "Io",
+          "x": 807.8125,
+          "y": 634.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 841.40625,
+          "bottom": 666.921875
+        },
+        {
+          "name": "Magnus",
+          "x": 844.40625,
+          "y": 634.9375,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 878,
+          "bottom": 666.921875
+        },
+        {
+          "name": "Marci",
+          "x": 478.5,
+          "y": 669.921875,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 512.078125,
+          "bottom": 701.890625
+        },
+        {
+          "name": "Nature's Prophet",
+          "x": 515.078125,
+          "y": 669.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 548.671875,
+          "bottom": 701.90625
+        },
+        {
+          "name": "Nyx Assassin",
+          "x": 551.671875,
+          "y": 669.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 585.265625,
+          "bottom": 701.90625
+        },
+        {
+          "name": "Pangolier",
+          "x": 588.265625,
+          "y": 669.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 621.859375,
+          "bottom": 701.90625
+        },
+        {
+          "name": "Sand King",
+          "x": 624.859375,
+          "y": 669.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 658.453125,
+          "bottom": 701.90625
+        },
+        {
+          "name": "Snapfire",
+          "x": 661.453125,
+          "y": 669.921875,
+          "width": 33.578125,
+          "height": 31.96875,
+          "right": 695.03125,
+          "bottom": 701.890625
+        },
+        {
+          "name": "Techies",
+          "x": 698.03125,
+          "y": 669.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 731.625,
+          "bottom": 701.90625
+        },
+        {
+          "name": "Venomancer",
+          "x": 734.625,
+          "y": 669.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 768.21875,
+          "bottom": 701.90625
+        },
+        {
+          "name": "Visage",
+          "x": 771.21875,
+          "y": 669.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 804.8125,
+          "bottom": 701.90625
+        },
+        {
+          "name": "Void Spirit",
+          "x": 807.8125,
+          "y": 669.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 841.40625,
+          "bottom": 701.90625
+        },
+        {
+          "name": "Windranger",
+          "x": 844.40625,
+          "y": 669.921875,
+          "width": 33.59375,
+          "height": 31.984375,
+          "right": 878,
+          "bottom": 701.90625
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-fogged-hero-reveal",
+      "clippedOrderLabels": [],
+      "hasExplanation": true,
+      "clippedExplanation": false,
+      "phase": "reveal",
+      "width": 1280,
+      "availableWidth": 1270,
+      "scrollWidth": 1270,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-soundcheck-ability-single-answering",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "answering",
+      "width": 1280,
+      "availableWidth": 1270,
+      "scrollWidth": 1270,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-soundcheck-ability-single-reveal",
+      "clippedOrderLabels": [],
+      "hasExplanation": true,
+      "clippedExplanation": false,
+      "phase": "reveal",
+      "width": 1280,
+      "availableWidth": 1270,
+      "scrollWidth": 1270,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-flashback-year-answering",
+      "clippedOrderLabels": [],
+      "hasExplanation": false,
+      "clippedExplanation": null,
+      "phase": "answering",
+      "width": 1280,
+      "availableWidth": 1270,
+      "scrollWidth": 1270,
+      "targets": [],
+      "clippedText": []
+    },
+    {
+      "label": "1280x640-flashback-year-reveal",
+      "clippedOrderLabels": [],
+      "hasExplanation": true,
+      "clippedExplanation": false,
+      "phase": "reveal",
+      "width": 1280,
+      "availableWidth": 1270,
+      "scrollWidth": 1270,
+      "targets": [],
+      "clippedText": []
+    }
+  ]
+}
