@@ -35,6 +35,8 @@
 
 html {
   min-width: 0;
+  /* A page that grows past the window at the reveal would show a scrollbar and shift sideways. */
+  scrollbar-gutter: stable;
   background: #090b0c;
   line-height: 1.5;
   -webkit-text-size-adjust: 100%;
