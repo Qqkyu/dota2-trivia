@@ -82,6 +82,8 @@ export function QueueArcade({
     roundAward,
     score,
     streak,
+    shop,
+    buyShopItem,
     account,
     roomError,
     voteError,
@@ -418,8 +420,10 @@ export function QueueArcade({
             selectedIndex={selectedIndex}
             selectedAnswerKey={selectedAnswerKey}
             crowd={crowd}
-            score={score}
             streak={streak}
+            shop={shop}
+            buyShopItem={buyShopItem}
+            activeRoundId={activeRoundId}
             roomError={roomError}
             activePlayers={activePlayers}
             currentGame={currentGame}

@@ -55,6 +55,69 @@
   color: #e2b558;
 }
 
+/* One item per row, so a full name like "Double Damage" always fits. */
+.shop {
+  display: grid;
+  gap: 8px;
+}
+
+.shop button {
+  display: grid;
+  height: 38px;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+  grid-template-columns: 15px minmax(0, 1fr) auto;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  background: var(--surface-soft);
+  color: #d9d6cd;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 560;
+  text-align: left;
+}
+
+.shop button:hover:not(:disabled) {
+  border-color: rgba(226, 181, 88, 0.55);
+}
+
+.shop button:focus-visible {
+  outline: 2px solid #e2b558;
+  outline-offset: 2px;
+}
+
+.shop button:disabled {
+  cursor: default;
+}
+
+.shop button:disabled[data-state="idle"] {
+  opacity: 0.45;
+}
+
+.shop button[data-state="active"],
+.shop button[data-state="outcome"] {
+  border-color: rgba(226, 181, 88, 0.55);
+}
+
+.shop svg {
+  width: 15px;
+  height: 15px;
+  color: #e2b558;
+}
+
+.shop span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shop small {
+  color: #e2b558;
+  font-family: "Geist Mono Cyrillic", var(--font-geist-mono), monospace;
+  font-size: 12px;
+}
+
 .progressCard,
 .crowdCard {
   padding: 15px;

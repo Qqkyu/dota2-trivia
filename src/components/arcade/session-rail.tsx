@@ -1,6 +1,7 @@
-import { Check, Flame, Gauge, Radio, Users, X } from "lucide-react";
+import { Check, Flame, Gauge, Radio, Shield, Users, X, Zap } from "lucide-react";
 import { useLocale } from "@/i18n/provider";
 import { ROUND_GAME_LABEL_KEYS } from "@/lib/arcade-games.mjs";
+import { canBuyShopItem, SHOP_ITEMS } from "@/lib/gold-shop.mjs";
 import type { PublicArcadeQuestion } from "@/lib/public-question";
 import clsx from "clsx";
 import { isPublicKeyedAnswerQuestion } from "@/lib/public-question";
@@ -20,8 +21,10 @@ type SessionRailProps = { currentQuestion: PublicArcadeQuestion } & Pick<
   | "selectedIndex"
   | "selectedAnswerKey"
   | "crowd"
-  | "score"
   | "streak"
+  | "shop"
+  | "buyShopItem"
+  | "activeRoundId"
   | "roomError"
   | "activePlayers"
 > &
@@ -34,8 +37,10 @@ export function SessionRail({
   selectedIndex,
   selectedAnswerKey,
   crowd,
-  score,
   streak,
+  shop,
+  buyShopItem,
+  activeRoundId,
   roomError,
   activePlayers,
   currentGame,
@@ -53,7 +58,7 @@ export function SessionRail({
       <div className={own.scoreGrid} data-testid="score-grid">
         <div>
           <span>{t("session.gold")}</span>
-          <strong>{number(score)}</strong>
+          <strong>{number(shop.balance)}</strong>
           <Gauge />
         </div>
         <div>
@@ -61,6 +66,42 @@ export function SessionRail({
           <strong>{streak}</strong>
           <Flame />
         </div>
+      </div>
+
+      {/* Always rendered with the same size, so nothing moves between phases. */}
+      <div className={own.shop} role="group" aria-label={t("shop.region")} data-testid="gold-shop">
+        {(["aegis", "rune"] as const).map((item) => {
+          const atReveal = phase === "reveal";
+          const outcome =
+            item === "aegis"
+              ? atReveal && shop.aegisUsedOn === activeRoundId
+                ? t("shop.saved")
+                : null
+              : atReveal && shop.runeSettled?.roundId === activeRoundId
+                ? shop.runeSettled.won
+                  ? t("shop.won", { gold: number(SHOP_ITEMS.rune.payout) })
+                  : t("shop.lost", { gold: number(SHOP_ITEMS.rune.price) })
+                : null;
+          const active = item === "aegis" ? shop.aegisReady : shop.runeActive;
+          const name = t(item === "aegis" ? "shop.aegis" : "shop.rune");
+          const hint = t(item === "aegis" ? "shop.aegisHint" : "shop.runeHint");
+          return (
+            <button
+              key={item}
+              type="button"
+              data-testid={`shop-${item}`}
+              data-state={outcome ? "outcome" : active ? "active" : "idle"}
+              title={hint}
+              aria-label={`${name}. ${hint}`}
+              disabled={!activeRoundId || !canBuyShopItem(shop, item)}
+              onClick={() => buyShopItem(item, activeRoundId)}
+            >
+              {item === "aegis" ? <Shield aria-hidden="true" /> : <Zap aria-hidden="true" />}
+              <span>{name}</span>
+              <small>{outcome ?? (active ? t("shop.active") : number(SHOP_ITEMS[item].price))}</small>
+            </button>
+          );
+        })}
       </div>
 
       <div className={own.roomCard} data-testid="room-card" data-phase={phase}>

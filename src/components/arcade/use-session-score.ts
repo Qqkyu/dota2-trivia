@@ -13,7 +13,13 @@ import { updateGuestLifetimeStorage } from "@/lib/guest-lifetime-storage.mjs";
 import { playerIdentityKey } from "@/lib/player-identity";
 import { reconcileSessionResult, sessionResultTotals, type SessionRoundResult } from "@/lib/session-results";
 import { type PublicArcadeQuestion } from "@/lib/public-question";
+import { canBuyShopItem, goldShopState, roundNumberFromId, SHOP_ITEMS } from "@/lib/gold-shop.mjs";
 import { STORAGE_KEY, type RoundRecord } from "./shared";
+
+export type ShopItem = keyof typeof SHOP_ITEMS;
+type ShopPurchase = { item: ShopItem; round: number };
+export type GoldShop = ReturnType<typeof goldShopState>;
+const EMPTY_SHOP: GoldShop = goldShopState([], []);
 
 import type { usePlayerSettings } from "./use-player-settings";
 
@@ -39,6 +45,36 @@ export function useSessionScore({
   const [history, setHistory] = useState<RoundRecord[]>([]);
 
   const sessionResultsRef = useRef<SessionRoundResult[]>([]);
+
+  const purchasesRef = useRef<ShopPurchase[]>([]);
+
+  const [shop, setShop] = useState<GoldShop>(EMPTY_SHOP);
+
+  /** The shop is derived from the results and purchases, so a late result settles the same way. */
+  const refreshShop = useCallback((records: SessionRoundResult[]) => {
+    const next = goldShopState(records, purchasesRef.current);
+    setShop(next);
+    setStreak(next.streak);
+    return next;
+  }, []);
+
+  const buyShopItem = useCallback(
+    (item: ShopItem, currentRoundId: string) => {
+      const current = roundNumberFromId(currentRoundId);
+      if (current === null) return false;
+      const state = goldShopState(sessionResultsRef.current, purchasesRef.current);
+      if (!canBuyShopItem(state, item)) return false;
+      purchasesRef.current = [...purchasesRef.current, { item, round: current + 1 }];
+      refreshShop(sessionResultsRef.current);
+      return true;
+    },
+    [refreshShop],
+  );
+
+  const resetShop = useCallback(() => {
+    purchasesRef.current = [];
+    setShop(EMPTY_SHOP);
+  }, []);
 
   const runSavedRef = useRef(false);
 
@@ -74,7 +110,7 @@ export function useSessionScore({
       scoreRef.current = nextScore;
       setScore(nextScore);
       setCorrectCount(totals.correctCount);
-      setStreak(totals.streak);
+      refreshShop(records);
       setHistory(
         records.filter((record): record is SessionRoundResult & RoundRecord => Boolean(record.category && record.game)),
       );
@@ -104,7 +140,7 @@ export function useSessionScore({
       }
       return true;
     },
-    [],
+    [refreshShop],
   );
 
   return {
@@ -120,5 +156,8 @@ export function useSessionScore({
     sessionResultsRef,
     runSavedRef,
     creditRound,
+    shop,
+    buyShopItem,
+    resetShop,
   };
 }

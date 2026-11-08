@@ -1,6 +1,6 @@
 # Gold shop
 
-Status: direction approved by the maintainer on 2026-11-07. Nothing is built. The simplicity pass comes first.
+Status: first version built on 2026-11-08 (Aegis and the Double Damage rune), browser only. Prices are first guesses.
 
 ## Goal
 
