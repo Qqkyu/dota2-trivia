@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-11-07T19:16:01.586Z",
-  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Opus 5.5 on 2026-11-07 after two checks followed the new text (facts unchanged)",
+  "reviewedAt": "2026-11-08T08:20:44.300Z",
+  "reviewedBy": "Codex audit team, 2026-10-10; re-recorded by Claude Opus 5.5 on 2026-11-08 after the layout check gained the gold shop flow (facts unchanged)",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
     "patch": "7.41f",
@@ -35,7 +35,7 @@
     "scripts/check-hero-search.mjs": "cc949e9aabf6489c4f46fa34d0b08ae27981738c372e77bbd5e6eb2296e23f44",
     "scripts/check-ingress-proof.mjs": "49e49deeffdcaca8448fad91420d9fcb60d1307afd6b0ae54cc45cfa4d892948",
     "scripts/check-ingress-trust.mjs": "e9f34483045feea92dbcc405ce91d3ec1700061ca06cdb3f1c563aaecc55cd35",
-    "scripts/check-layout.mjs": "ddc17177e9c9a5f7befdf8a5cc4e99c3ae592ff6056f24d922d75d19e9f3f07b",
+    "scripts/check-layout.mjs": "1911ec30ba9fc1ec49443ec7cbb79eb7db8acfd4b294812b87ee35f451d80b23",
     "scripts/check-native-feedback-sounds.mjs": "b1fdc6ffd1654256bf8a9287ff297bb98a0e1aff6d8d3041a87ce8322755a9c9",
     "scripts/check-pages.mjs": "e8248ebcbdeba23055b6a8f221411a4eb7187eb36a8db6db95e7bcb834b0a185",
     "scripts/check-party-api.mjs": "16743860ab8446779d410b713347840a752dc7e5dc2d05626a6e85cfcd719f9f",

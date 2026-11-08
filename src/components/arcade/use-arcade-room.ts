@@ -312,6 +312,9 @@ export function useArcadeRoom({
     sessionResultsRef,
     runSavedRef,
     creditRound,
+    shop,
+    buyShopItem,
+    resetShop,
   } = useSessionScore({ playerIdentityRef, alphaSessionIdRef, setLifetimeStats });
 
   const adoptPlayerIdentity = useCallback(
@@ -335,6 +338,7 @@ export function useArcadeRoom({
         setScore(0);
         setCorrectCount(0);
         setStreak(0);
+        resetShop();
         setHistory([]);
         setRoundAward(null);
         roundIndexRef.current = 0;
@@ -767,6 +771,7 @@ export function useArcadeRoom({
         scoreRef.current = 0;
         setScore(0);
         setStreak(0);
+        resetShop();
         setCorrectCount(0);
         setHistory([]);
         setEntryWaitDeadline(null);
@@ -1157,6 +1162,8 @@ export function useArcadeRoom({
     roundAward,
     score,
     streak,
+    shop,
+    buyShopItem,
     correctCount,
     history,
     deadline,

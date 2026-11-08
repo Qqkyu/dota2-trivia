@@ -183,6 +183,15 @@ const fixtures = {
       "flashback",
     ),
   },
+  "shop-bet": {
+    id: "layout:round:900002",
+    game: "quote-hunt",
+    waitFor: '[data-testid="hero-picker"]',
+    question: publicize(
+      pick(generated, (q) => q.kind === "hero-quote", "hero-quote"),
+      "quote-hunt",
+    ),
+  },
   "flashback-order": {
     game: "flashback",
     waitFor: '[data-testid="flashback-order-board"]',
@@ -224,7 +233,24 @@ const classicRevealRaw = pick(generated, (q) => q.kind === "item-cost", "item-co
 const quoteRevealRaw = pick(generated, (q) => q.kind === "hero-quote", "hero-quote");
 const quoteReveal = revealQuestion(quoteRevealRaw, "quote-hunt");
 
+const shopQuestion = (id) => ({ ...revealQuestion(quoteRevealRaw, "quote-hunt"), id });
+
 const revealFixtures = {
+  "shop-earn": {
+    id: "layout:round:900001",
+    game: "quote-hunt",
+    question: shopQuestion("layout:round:900001"),
+    vote: quoteReveal.reveal.correctAnswerKey,
+    points: 500,
+    keyCounts: [{ answerKey: quoteReveal.reveal.correctAnswerKey, count: 1 }],
+  },
+  "shop-miss": {
+    id: "layout:round:900003",
+    game: "quote-hunt",
+    question: shopQuestion("layout:round:900003"),
+    vote: "npc_dota_hero_axe",
+    keyCounts: [{ answerKey: "npc_dota_hero_axe", count: 1 }],
+  },
   classic: {
     game: "trivia",
     question: revealQuestion(classicRevealRaw, "trivia"),
@@ -769,7 +795,7 @@ try {
           }
           const revealFixture = revealFixtures[state.revealKind];
           if (revealFixture) {
-            const revealId = "layout-reveal-" + state.revealKind;
+            const revealId = revealFixture.id ?? "layout-reveal-" + state.revealKind;
             const total = revealFixture.counts
               ? revealFixture.counts.reduce((sum, count) => sum + count, 0)
               : revealFixture.keyCounts.reduce((sum, entry) => sum + entry.count, 0);
@@ -788,7 +814,7 @@ try {
             payload.question = { ...revealFixture.question, id: revealId, game: revealFixture.game };
             payload.playerVote = {
               answerIndex: 0,
-              ...(revealFixture.counts ? {} : { answerKey: revealFixture.keyCounts[0].answerKey }),
+              ...(revealFixture.counts ? {} : { answerKey: revealFixture.vote ?? revealFixture.keyCounts[0].answerKey }),
               submittedAt: now - 2_000
             };
             payload.playerReport = null;
@@ -797,7 +823,7 @@ try {
               total,
               positions: [],
               keyCounts: revealFixture.keyCounts,
-              scoreSummary: { correctCount: 1, average: 120, best: 200, playerPoints: 0 }
+              scoreSummary: { correctCount: 1, average: 120, best: 200, playerPoints: revealFixture.points ?? 0 }
             };
             return new Response(JSON.stringify(payload), {
               status: 200,
@@ -806,7 +832,7 @@ try {
           }
           const fixture = fixtures[state.kind];
           if (!fixture) return response;
-          const roundId = "layout-" + state.kind;
+          const roundId = fixture.id ?? "layout-" + state.kind;
           payload.serverNow = now;
           payload.round = {
             ...payload.round,
@@ -980,6 +1006,65 @@ try {
     if (issues.length) failures.push(`${viewportName}/reveal-${kind}: ${issues.join("; ")}`);
   }
 
+  /** Earn gold, buy both items in the next round, miss the one after: Aegis keeps the streak, the bet is lost. */
+  async function checkShop() {
+    // Runs inside a round, after the reveal checks: a player who joins mid-round waits for the next one.
+    const shopState = `(() => {
+      const shop = document.querySelector('[data-testid="gold-shop"]')?.getBoundingClientRect();
+      const item = (id) => document.querySelector('[data-testid="shop-' + id + '"]');
+      return {
+        gold: document.querySelector('[data-testid="score-grid"] strong')?.textContent,
+        streak: document.querySelectorAll('[data-testid="score-grid"] strong')[1]?.textContent,
+        box: shop ? [Math.round(shop.top), Math.round(shop.height)] : null,
+        aegis: [item("aegis")?.dataset.state, item("aegis")?.disabled, item("aegis")?.querySelector("small")?.textContent],
+        rune: [item("rune")?.dataset.state, item("rune")?.disabled, item("rune")?.querySelector("small")?.textContent],
+      };
+    })()`;
+    const showReveal = async (kind) => {
+      await page.evaluate(`(() => {
+        window.__queueArcadeLayout.revealKind = ${JSON.stringify(kind)};
+        window.dispatchEvent(new Event("focus"));
+        return true;
+      })()`);
+      await page.waitFor(
+        `document.querySelector("main")?.dataset.phase === "reveal" && document.querySelector("main")?.dataset.roundId === ${JSON.stringify(revealFixtures[kind].id)}`,
+        16_000,
+      );
+      await delay(500);
+      return page.evaluate(shopState);
+    };
+    const issues = [];
+    const earned = await showReveal("shop-earn");
+    if (earned.gold !== "500" || earned.aegis[1] || earned.rune[1])
+      issues.push("after earning 500: " + JSON.stringify(earned));
+    await page.evaluate(`(() => {
+      window.__queueArcadeLayout.revealKind = null;
+      window.__queueArcadeLayout.kind = "shop-bet";
+      window.dispatchEvent(new Event("focus"));
+      return true;
+    })()`);
+    await page.waitFor(
+      `document.querySelector("main")?.dataset.phase === "answering" && document.querySelector("main")?.dataset.roundId === ${JSON.stringify(fixtures["shop-bet"].id)}`,
+      16_000,
+    );
+    await page.evaluate(`document.querySelector('[data-testid="shop-rune"]').click()`);
+    await page.evaluate(`document.querySelector('[data-testid="shop-aegis"]').click()`);
+    await delay(300);
+    const bought = await page.evaluate(shopState);
+    if (bought.gold !== "0" || bought.aegis[0] !== "active" || bought.rune[0] !== "active") {
+      issues.push("after buying both: " + JSON.stringify(bought));
+    }
+    const missed = await showReveal("shop-miss");
+    if (missed.gold !== "0" || missed.streak !== "1" || missed.aegis[0] !== "outcome" || missed.rune[2] !== "−200") {
+      issues.push("after a miss: " + JSON.stringify(missed));
+    }
+    if (JSON.stringify(missed.box) !== JSON.stringify(earned.box)) issues.push("the shop moved between phases");
+    await screenshot("desktop-shop");
+    if (issues.length) failures.push(`shop: ${issues.join("; ")}`);
+    else
+      console.log(`Shop ok: earned ${earned.gold}, bought both, a miss kept streak ${missed.streak} and lost the bet.`);
+  }
+
   for (const viewport of VIEWPORTS) {
     await setViewport(viewport);
     await go(appUrl);
@@ -1044,19 +1129,22 @@ try {
     await inspectPlay("spell-link", viewport.name);
 
     for (const kind of Object.keys(fixtures)) {
-      if (kind === "spell-link") continue;
+      if (kind === "spell-link" || fixtures[kind].id) continue;
       await showFixture(kind);
       await inspectPlay(kind, viewport.name);
     }
 
-    for (const kind of Object.keys(revealFixtures)) await inspectReveal(kind, viewport.name);
+    for (const kind of Object.keys(revealFixtures)) {
+      if (!revealFixtures[kind].id) await inspectReveal(kind, viewport.name);
+    }
+    if (viewport.name === "desktop") await checkShop();
   }
 
   if (failures.length) {
     throw new Error(`Layout failed:\\n- ${failures.join("\\n- ")}`);
   }
   console.log(
-    `Layout ok: ${Object.keys(fixtures).length} play formats at ${VIEWPORTS.map((view) => view.width).join(" and ")}px.`,
+    `Layout ok: ${Object.values(fixtures).filter((fixture) => !fixture.id).length} play formats at ${VIEWPORTS.map((view) => view.width).join(" and ")}px.`,
   );
 } finally {
   await cleanup();
