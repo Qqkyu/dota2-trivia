@@ -213,7 +213,7 @@ try {
     const layout = await page.evaluate(`(() => {
       const setup = document.querySelector('[data-testid="private-room-setup"]');
       const create = document.querySelector('[data-testid="private-room-create"]');
-      const games = document.querySelector('[aria-label="Games"]');
+      const games = document.querySelector('[role="group"][aria-labelledby="party-round-types"]');
       const main = document.querySelector("main");
       if (!setup || !create || !games || !main) return { missing: true };
       const createBox = create.getBoundingClientRect();

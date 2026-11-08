@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-11-08T13:52:59.714Z",
+  "reviewedAt": "2026-11-08T14:01:48.473Z",
   "reviewedBy": "GPT-6.1 Sol, 2026-11-08, narrow council evidence and journey checks; prior factual review retained",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
@@ -14,7 +14,7 @@
   },
   "evidence": {
     "path": "docs/audits/2026-11-08/council/content-review.md",
-    "sha256": "f1a058c00ddeed37ffd41b66575ae931912faf26562d783cc8a2a7bcdb93526e"
+    "sha256": "9c64112e638b825db6595d2709366af0421bbe646c8e700cf7c1e1fed2e21a08"
   },
   "scope": "Committed catalog and content scripts. Original upstream downloads are not pinned by this record.",
   "files": {
@@ -39,7 +39,7 @@
     "scripts/check-native-feedback-sounds.mjs": "b1fdc6ffd1654256bf8a9287ff297bb98a0e1aff6d8d3041a87ce8322755a9c9",
     "scripts/check-pages.mjs": "e8248ebcbdeba23055b6a8f221411a4eb7187eb36a8db6db95e7bcb834b0a185",
     "scripts/check-party-api.mjs": "16743860ab8446779d410b713347840a752dc7e5dc2d05626a6e85cfcd719f9f",
-    "scripts/check-party-crowd.mjs": "55ad7f0364e0e043ace4378d89b5064088359d716a267654dc65dfb41180524f",
+    "scripts/check-party-crowd.mjs": "a36fbe22aa6ec9629dcec0888c29ee3be64258212f3ff29cdb2194293ab73a4d",
     "scripts/check-party-ended.mjs": "53a329d24d01f8cef64b4f31401cde2aa8e273bb8e9614803f2ae7fe967d0a83",
     "scripts/check-party-lobby.mjs": "2e2fc77e0d18dd42dc218da48fd77f4dd6bc9c0f688aea8538b84f5b1fe06c34",
     "scripts/check-party-nicks.mjs": "b93407244821f95823e62eb787ffecb9d60617f87a885318970d610a867942b0",
