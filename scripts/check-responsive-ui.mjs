@@ -9,6 +9,8 @@ import { publicQuestionForRound } from "../src/lib/public-question.mjs";
 
 const appUrl = (process.env.APP_URL ?? "http://localhost:3000").replace(/\/$/, "");
 const evidence = process.env.RESPONSIVE_SCREENSHOTS;
+// Visual reviews need real artwork; ordinary layout checks keep all API traffic blocked.
+const loadArtwork = Boolean(evidence) && process.env.RESPONSIVE_ARTWORK === "1";
 const viewports = [
   [320, 568],
   [360, 640],
@@ -122,6 +124,13 @@ async function check(name, run) {
 }
 async function inspect(page, label, width) {
   await delay(80);
+  if (loadArtwork) {
+    await page.evaluate(`Promise.all([...document.images].map(image => image.complete ? Promise.resolve() : new Promise(resolve => {
+      image.addEventListener('load', resolve, {once:true});
+      image.addEventListener('error', resolve, {once:true});
+      setTimeout(resolve, 5000);
+    })))`);
+  }
   const geometry = await page.evaluate(`(() => {
     const rect = element => { const r = element.getBoundingClientRect(); return { x:r.x, y:r.y, width:r.width, height:r.height, right:r.right, bottom:r.bottom }; };
     const targets = [...document.querySelectorAll('[data-testid="hero-picker"] button, [data-testid="shopkeeper-store"] button')].filter(element => !element.disabled && element.getClientRects().length).map(element => ({ name:element.getAttribute('aria-label') || element.textContent, ...rect(element) }));
@@ -249,6 +258,7 @@ async function reachable(page, selector, label) {
 }
 try {
   const { page } = await browser.newPage();
+  if (loadArtwork) await page.send("Network.setBlockedURLs", { urls: [] });
   // A crashed or stalled renderer must fail the check instead of leaving CI open.
   for (const method of ["send", "evaluate", "waitFor"]) {
     const original = page[method].bind(page);
@@ -287,7 +297,8 @@ try {
         const round={id:gate?'responsive-gate':'responsive-'+fixture.kind,number:state.index+1,game:fixture.game,phase,startedAt:now-1000,answerDeadline:phase==='reveal'?now-100:now+60000,revealDeadline:gate?now+50:now+65000,answerDuration:15000};
         return json({serverNow:now,room:{id:'responsive-room',gameId:'dota2',contentVersion:'responsive',mode:'mixed',filter:'Mixed'},round,questionRevision:round.id+':'+phase,question:gate?null:fixture[phase],presence:{activePlayers:100},crowd:{counts:[0,0,0,0],total:0,keyCounts:[],scoreSummary:null},playerVote:null,playerReport:null,previousResults:[]});
       }
-      if(url.pathname.startsWith('/api/'))return json({ok:true});
+       if(${loadArtwork} && ['/api/art','/api/round-image'].includes(url.pathname))return original(input,init);
+       if(url.pathname.startsWith('/api/'))return json({ok:true});
       return original(input,init);
     };
   })();`,
