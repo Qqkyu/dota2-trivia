@@ -19,7 +19,8 @@ import {
   SHOPKEEPER_RECIPE_IMAGE,
   type ShopkeeperCatalogItem,
 } from "@/lib/shopkeeper-catalog";
-import type { GamePhase } from "./shared";
+import { keyedAnswerLabel, type GamePhase } from "./shared";
+import { CrowdSplitBar } from "./crowd-split";
 import { ShopkeeperPick, ShopkeeperRecipePick } from "./shopkeeper-parts";
 import styles from "../queue-arcade.module.css";
 import own from "./shopkeeper-store.module.css";
@@ -84,7 +85,6 @@ export function ShopkeeperStore({
     queryRef.current = query;
   }, [query]);
   const normalizedQuery = query.trim().toLocaleLowerCase("en-US");
-  const countByItem = new Map(crowd.keyCounts.map((entry) => [entry.answerKey, entry.count]));
   const searchItems = searchShopItems(query);
   const groups = normalizedQuery
     ? [{ key: "search", label: t("round.shop.found", { count: searchItems.length }), section, items: searchItems }]
@@ -245,79 +245,84 @@ export function ShopkeeperStore({
     <>
       <div
         ref={storeRef}
-        className={styles.shopkeeperStore}
+        className={clsx(styles.shopkeeperStore, phase === "reveal" && own.compactReveal)}
         data-testid="shopkeeper-store"
         data-phase={phase}
         data-answer-mode={question.answerMode}
         data-locked={selectedKey ? "true" : "false"}
       >
-        <div className={own.shopkeeperStoreToolbar}>
-          <div className={styles.shopkeeperStoreTabs} role="group" aria-label={t("round.shop.sectionAria")}>
-            {(["basics", "upgrades"] as const).map((tab) => (
-              <button
-                key={tab}
-                type="button"
-                aria-pressed={section === tab}
-                data-testid={`shopkeeper-tab-${tab}`}
-                onClick={() => {
-                  setTooltip(null);
-                  setSection(tab);
-                }}
-              >
-                {t(tab === "basics" ? "round.shop.tab.basics" : "round.shop.tab.upgrades")}
-              </button>
-            ))}
-          </div>
-          <label className={own.shopSearchBox} data-focused={normalizedQuery ? "true" : "false"}>
-            <Search aria-hidden="true" />
-            <input
-              ref={searchInputRef}
-              data-testid="shopkeeper-search-field"
-              aria-label={t("round.shop.searchAria")}
-              type="text"
-              value={query}
-              placeholder={t("round.shop.searchPlaceholder")}
-              autoComplete="off"
-              spellCheck={false}
-              disabled={phase !== "answering" || selectedKey !== null}
-              onChange={(event) => {
-                setTooltip(null);
-                setQuery(event.target.value);
-              }}
-              onKeyDown={(event) => {
-                if (!shouldHandleAnswerShortcut(event.nativeEvent, { allowedInput: event.currentTarget })) return;
-                if (event.key === "Enter" && pickSingleMatch()) {
-                  event.preventDefault();
-                  return;
-                }
-                if (event.key === "Escape") {
-                  event.preventDefault();
-                  setQuery("");
-                  setTooltip(null);
-                }
-              }}
-            />
-          </label>
-        </div>
-        <div
-          className={styles.quickSearch}
-          data-testid="shopkeeper-search"
-          data-query={query}
-          data-active="false"
-          aria-live="polite"
-        >
-          {query}
-        </div>
+        {phase !== "reveal" && (
+          <>
+            <div className={own.shopkeeperStoreToolbar}>
+              <div className={styles.shopkeeperStoreTabs} role="group" aria-label={t("round.shop.sectionAria")}>
+                {(["basics", "upgrades"] as const).map((tab) => (
+                  <button
+                    key={tab}
+                    type="button"
+                    aria-pressed={section === tab}
+                    data-testid={`shopkeeper-tab-${tab}`}
+                    onClick={() => {
+                      setTooltip(null);
+                      setSection(tab);
+                    }}
+                  >
+                    {t(tab === "basics" ? "round.shop.tab.basics" : "round.shop.tab.upgrades")}
+                  </button>
+                ))}
+              </div>
+              <label className={own.shopSearchBox} data-focused={normalizedQuery ? "true" : "false"}>
+                <Search aria-hidden="true" />
+                <input
+                  ref={searchInputRef}
+                  data-testid="shopkeeper-search-field"
+                  aria-label={t("round.shop.searchAria")}
+                  title={t("round.shop.searchAria")}
+                  type="text"
+                  value={query}
+                  placeholder={t("round.shop.searchPlaceholder")}
+                  autoComplete="off"
+                  spellCheck={false}
+                  disabled={phase !== "answering" || selectedKey !== null}
+                  onChange={(event) => {
+                    setTooltip(null);
+                    setQuery(event.target.value);
+                  }}
+                  onKeyDown={(event) => {
+                    if (!shouldHandleAnswerShortcut(event.nativeEvent, { allowedInput: event.currentTarget })) return;
+                    if (event.key === "Enter" && pickSingleMatch()) {
+                      event.preventDefault();
+                      return;
+                    }
+                    if (event.key === "Escape") {
+                      event.preventDefault();
+                      setQuery("");
+                      setTooltip(null);
+                    }
+                  }}
+                />
+              </label>
+            </div>
+            <div
+              className={styles.quickSearch}
+              data-testid="shopkeeper-search"
+              data-query={query}
+              data-active="false"
+              aria-live="polite"
+            >
+              {query}
+            </div>
 
-        <div
-          className="sr-only"
-          data-testid="shopkeeper-selection-status"
-          role="status"
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          {selectionAnnouncement}
-        </div>
+            <div
+              className="sr-only"
+              data-testid="shopkeeper-selection-status"
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              {selectionAnnouncement}
+            </div>
+          </>
+        )}
 
         {recipeBuilder && phase === "answering" && (
           <div
@@ -375,12 +380,19 @@ export function ShopkeeperStore({
               disabled={selectedKey !== null || activeRecipeKeys.length !== recipeSize}
             >
               <Check aria-hidden="true" />
-              {selectedKey ? t("round.shop.locked") : t("round.shop.build")}
+              <span className={own.buildFaces}>
+                <span data-show={!selectedKey} aria-hidden={Boolean(selectedKey)}>
+                  {t("round.shop.build")}
+                </span>
+                <span data-show={Boolean(selectedKey)} aria-hidden={!selectedKey}>
+                  {t("round.shop.locked")}
+                </span>
+              </span>
             </button>
           </div>
         )}
 
-        {phase === "reveal" && recipeBuilder ? (
+        {phase === "reveal" && recipeBuilder && (
           <div className={own.shopkeeperRecipeReveal} data-testid="shopkeeper-open-reveal">
             <ShopkeeperRecipePick itemKeys={submittedRecipeKeys} label={t("round.shop.yourItems")} />
             <ArrowRight aria-hidden="true" />
@@ -390,7 +402,77 @@ export function ShopkeeperStore({
               recipeIncluded={recipeIncluded}
             />
           </div>
-        ) : phase === "reveal" ? (
+        )}
+
+        {phase !== "reveal" && (
+          <div
+            className={clsx(styles.shopkeeperGroups, normalizedQuery && styles.shopkeeperSearchResults)}
+            data-testid="shopkeeper-groups"
+            data-shop-section={section}
+            data-searching={normalizedQuery ? "true" : "false"}
+            data-item-count={
+              normalizedQuery ? searchItems.length : groups.reduce((count, group) => count + group.items.length, 0)
+            }
+            onScroll={() => setTooltip(null)}
+          >
+            {normalizedQuery && searchItems.length === 0 ? (
+              <p className={own.shopkeeperNoResults}>{t("round.shop.noMatch", { query: query.trim() })}</p>
+            ) : (
+              groups.map((group) => (
+                <section key={group.key} className={styles.shopkeeperGroup} aria-label={group.label}>
+                  <h3>{group.label}</h3>
+                  <div>
+                    {group.items.map((item) => {
+                      const selectedCount = recipeBuilder
+                        ? activeRecipeKeys.filter((itemKey) => itemKey === item.key).length
+                        : selectedKey === item.key
+                          ? 1
+                          : 0;
+                      const isSelected = selectedCount > 0;
+
+                      return (
+                        <button
+                          key={item.key}
+                          type="button"
+                          data-testid="shopkeeper-store-item"
+                          data-item-key={item.key}
+                          data-state={isSelected ? "selected" : "idle"}
+                          data-pick-count={selectedCount}
+                          onClick={(event) =>
+                            recipeBuilder ? addRecipeItem(item.key, event.detail === 0) : chooseItem(item.key)
+                          }
+                          onPointerEnter={(event) => showItemTooltip(item, event.currentTarget)}
+                          onPointerLeave={() => setTooltip(null)}
+                          onFocus={(event) => showItemTooltip(item, event.currentTarget)}
+                          onBlur={() => setTooltip(null)}
+                          disabled={
+                            phase !== "answering" ||
+                            selectedKey !== null ||
+                            (recipeBuilder && activeRecipeKeys.length >= recipeSize)
+                          }
+                          aria-label={t("round.shop.itemAria", { name: item.name, gold: number(item.cost) })}
+                          aria-describedby={tooltip?.item.key === item.key ? "shopkeeper-item-tooltip" : undefined}
+                          aria-pressed={isSelected}
+                        >
+                          <Image
+                            src={firstPartyArtSrc(item.image)}
+                            alt=""
+                            fill
+                            sizes="48px"
+                            loading="eager"
+                            unoptimized
+                          />
+                          {recipeBuilder && selectedCount > 0 ? <i>×{selectedCount}</i> : null}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </section>
+              ))
+            )}
+          </div>
+        )}
+        {phase === "reveal" && !recipeBuilder && (
           <div className={own.shopkeeperRevealPicks} data-testid="shopkeeper-open-reveal">
             <ShopkeeperPick item={selectedItem} label={t("round.shop.yourPick")} />
             <ArrowRight aria-hidden="true" />
@@ -405,95 +487,43 @@ export function ShopkeeperStore({
               }
             />
           </div>
-        ) : null}
-
-        <div
-          className={clsx(styles.shopkeeperGroups, normalizedQuery && styles.shopkeeperSearchResults)}
-          data-testid="shopkeeper-groups"
-          data-shop-section={section}
-          data-searching={normalizedQuery ? "true" : "false"}
-          data-item-count={
-            normalizedQuery ? searchItems.length : groups.reduce((count, group) => count + group.items.length, 0)
-          }
-          onScroll={() => setTooltip(null)}
-        >
-          {normalizedQuery && searchItems.length === 0 ? (
-            <p className={own.shopkeeperNoResults}>{t("round.shop.noMatch", { query: query.trim() })}</p>
-          ) : (
-            groups.map((group) => (
-              <section key={group.key} className={styles.shopkeeperGroup} aria-label={group.label}>
-                <h3>{group.label}</h3>
-                <div>
-                  {group.items.map((item) => {
-                    const selectedCount = recipeBuilder
-                      ? activeRecipeKeys.filter((itemKey) => itemKey === item.key).length
-                      : selectedKey === item.key
-                        ? 1
-                        : 0;
-                    const correctCount = recipeBuilder
-                      ? correctRecipeKeys.filter((itemKey) => itemKey === item.key).length
-                      : targetKey === item.key
-                        ? 1
-                        : 0;
-                    const isSelected = selectedCount > 0;
-                    const isCorrect = phase === "reveal" && correctCount > 0;
-                    const count = countByItem.get(item.key) ?? 0;
-                    const percentage = crowd.total ? Math.round((count / crowd.total) * 100) : 0;
-                    const state = isCorrect
-                      ? "correct"
-                      : phase === "reveal" && isSelected
-                        ? "wrong"
-                        : isSelected
-                          ? "selected"
-                          : "idle";
-
-                    return (
-                      <button
-                        key={item.key}
-                        type="button"
-                        data-testid="shopkeeper-store-item"
-                        data-item-key={item.key}
-                        data-state={state}
-                        data-pick-count={selectedCount}
-                        onClick={(event) =>
-                          recipeBuilder ? addRecipeItem(item.key, event.detail === 0) : chooseItem(item.key)
-                        }
-                        onPointerEnter={(event) => showItemTooltip(item, event.currentTarget)}
-                        onPointerLeave={() => setTooltip(null)}
-                        onFocus={(event) => showItemTooltip(item, event.currentTarget)}
-                        onBlur={() => setTooltip(null)}
-                        disabled={
-                          phase !== "answering" ||
-                          selectedKey !== null ||
-                          (recipeBuilder && activeRecipeKeys.length >= recipeSize)
-                        }
-                        aria-label={t("round.shop.itemAria", { name: item.name, gold: number(item.cost) })}
-                        aria-describedby={tooltip?.item.key === item.key ? "shopkeeper-item-tooltip" : undefined}
-                        aria-pressed={isSelected}
-                      >
-                        <Image
-                          src={firstPartyArtSrc(item.image)}
-                          alt=""
-                          fill
-                          sizes="48px"
-                          loading="eager"
-                          unoptimized
-                        />
-                        {recipeBuilder && selectedCount > 0 ? (
-                          <i>×{selectedCount}</i>
-                        ) : showShares && phase === "reveal" && count > 0 ? (
-                          <i>{percentage}%</i>
-                        ) : null}
-                      </button>
-                    );
-                  })}
-                </div>
-              </section>
-            ))
-          )}
-        </div>
+        )}
+        {phase === "reveal" && showShares && crowd.keyCounts.some((entry) => entry.count > 0) && (
+          <div
+            className={own.partyShares}
+            data-testid="shopkeeper-party-picks"
+            role="group"
+            aria-label={t("session.roomSplit")}
+          >
+            {crowd.keyCounts
+              .filter((entry) => entry.count > 0)
+              .map(({ answerKey, count }) => {
+                const item = SHOPKEEPER_CATALOG_BY_KEY.get(answerKey);
+                return (
+                  <CrowdSplitBar
+                    key={answerKey}
+                    marker={
+                      <Image
+                        src={firstPartyArtSrc(item?.image ?? SHOPKEEPER_RECIPE_IMAGE)}
+                        alt=""
+                        width={34}
+                        height={26}
+                        unoptimized
+                      />
+                    }
+                    label={keyedAnswerLabel(answerKey, t("round.split.unknownPick"), question)}
+                    count={count}
+                    total={crowd.total}
+                    correct={answerKey === targetKey}
+                    selected={answerKey === selectedKey}
+                  />
+                );
+              })}
+          </div>
+        )}
       </div>
       {tooltip &&
+        phase === "answering" &&
         typeof document !== "undefined" &&
         createPortal(
           <div

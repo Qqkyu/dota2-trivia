@@ -31,6 +31,18 @@
   font-size: 11px;
 }
 
+.lockFaces {
+  display: grid;
+}
+
+.lockFaces > span {
+  grid-area: 1 / 1;
+}
+
+.lockFaces > span[data-show="false"] {
+  visibility: hidden;
+}
+
 .flashbackOrderBoard {
   display: grid;
   gap: 12px;

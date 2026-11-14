@@ -947,8 +947,8 @@ try {
 
   /** A wrong pick leads the table, so every row has to name its answer from the round's own cards. */
   async function inspectReveal(kind, viewportName) {
-    const { roomCardHeight, timerLeft } = await page.evaluate(`({
-      roomCardHeight: document.querySelector('[data-testid="room-card"]')?.getBoundingClientRect().height ?? 0,
+    const { shopTop, timerLeft } = await page.evaluate(`({
+      shopTop: document.querySelector('[data-testid="gold-shop"]')?.getBoundingClientRect().top ?? 0,
       timerLeft: document.querySelector('[role="timer"]')?.getBoundingClientRect().left ?? 0,
     })`);
     await page.evaluate(`(() => {
@@ -995,8 +995,18 @@ try {
       if (document.querySelector('[data-testid="room-card-answers"]')?.textContent.trim()) {
         issues.push("the Room card repeats the count");
       }
-      if (Math.abs((document.querySelector('[data-testid="room-card"]')?.getBoundingClientRect().height ?? 0) - ${roomCardHeight}) > 1) {
-        issues.push("the Room card changes height at the reveal");
+      const split = document.querySelector('[data-testid="crowd-card"]');
+      if (document.querySelectorAll('[data-testid="crowd-card"]').length !== 1) issues.push("the public split has multiple homes");
+      if (document.querySelector('[data-testid="room-card"]')) issues.push("the old presence card remains beside the reveal split");
+      const shop = document.querySelector('[data-testid="gold-shop"]')?.getBoundingClientRect();
+      if (window.innerWidth > 920) {
+        if (shop && Math.abs(shop.top - ${shopTop}) > 1) issues.push("interactive shop controls move at reveal");
+        const summary = document.querySelector('[data-testid="crowd-score-summary"]')?.getBoundingClientRect();
+        if (summary && summary.bottom > window.innerHeight + 1) issues.push("crowd score summary is below the desktop fold");
+      } else if (split) {
+        const score = document.querySelector('[data-testid="score-grid"]')?.getBoundingClientRect();
+        const box = split.getBoundingClientRect();
+        if ((score && box.top > score.top + 1) || (shop && box.top > shop.top + 1)) issues.push("the narrow split follows lower-priority controls");
       }
       const timer = document.querySelector('[role="timer"]')?.getBoundingClientRect();
       if (timer && Math.abs(timer.left - ${timerLeft}) > 1) issues.push("the clock moves at the reveal");

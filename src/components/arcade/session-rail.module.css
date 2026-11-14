@@ -123,7 +123,7 @@
   padding: 15px;
 }
 
-/* Fixed height in both phases: nothing below it moves at reveal. */
+/* Presence stays stable while answers arrive; the split takes this slot at reveal. */
 .roomCard {
   display: grid;
   min-height: 92px;
@@ -286,16 +286,16 @@
   display: grid;
   min-width: 0;
   gap: 3px;
+  grid-template-rows: 1fr auto;
 }
 
 .crowdScoreSummary small {
-  overflow: hidden;
   color: var(--faint);
   font-size: 10px;
   letter-spacing: 0.06em;
-  text-overflow: ellipsis;
   text-transform: uppercase;
-  white-space: nowrap;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .crowdScoreSummary strong {
@@ -311,6 +311,15 @@
 
 @media (max-width: 920px) {
   .scoreGrid {
+    order: 0;
+    align-self: start;
+  }
+
+  .shop {
+    order: 1;
+  }
+
+  .roomCard {
     order: 2;
   }
 
@@ -319,7 +328,8 @@
   }
 
   .crowdCard {
-    order: 4;
+    order: -1;
+    grid-column: 1 / -1;
   }
 }
 

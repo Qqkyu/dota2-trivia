@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { ArrowLeft, Check, Copy, MessageSquare, Pencil, Users } from "lucide-react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { ArrowLeft, Check, ChevronDown, Copy, MessageSquare, Pencil, Users } from "lucide-react";
 import clsx from "clsx";
 import { useLocale } from "@/i18n/provider";
 import type { MessageKey } from "@/i18n/types";
@@ -219,6 +219,52 @@ function persistPartyName(value: string) {
   const storage = safeBrowserStorage("local");
   if (value.trim()) storage.setItem(PARTY_NAME_KEY, value);
   else storage.removeItem(PARTY_NAME_KEY);
+}
+
+function PlayerListFrame({ children, count }: { children: ReactNode; count: number }) {
+  const { t } = useLocale();
+  const listRef = useRef<HTMLDivElement | null>(null);
+  const [moreBelow, setMoreBelow] = useState(false);
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+    const measure = () => setMoreBelow(list.scrollHeight - list.scrollTop > list.clientHeight + 1);
+    const observer = new ResizeObserver(measure);
+    observer.observe(list);
+    if (list.firstElementChild) observer.observe(list.firstElementChild);
+    list.addEventListener("scroll", measure, { passive: true });
+    return () => {
+      observer.disconnect();
+      list.removeEventListener("scroll", measure);
+    };
+  }, []);
+  return (
+    <>
+      <p className={styles.sectionLabel} data-testid="private-room-players-label">
+        <Users />
+        {t("party.players")}
+        {moreBelow && (
+          <span className={styles.playersMore} data-testid="private-room-more-players" aria-hidden="true">
+            {t("party.morePlayersBelow")}
+            <ChevronDown />
+          </span>
+        )}
+        <span data-testid="private-room-player-count">
+          {count}/{PRIVATE_ROOM_PLAYER_MAX}
+        </span>
+      </p>
+      <div
+        ref={listRef}
+        className={styles.playersScroll}
+        data-testid="private-room-players-scroll"
+        tabIndex={0}
+        role="region"
+        aria-label={t("party.players")}
+      >
+        {children}
+      </div>
+    </>
+  );
 }
 
 export function PrivateRoomPanel({
@@ -918,14 +964,7 @@ export function PrivateRoomPanel({
             </button>
           </header>
           <div className={styles.playersBlock}>
-            <p className={styles.sectionLabel}>
-              <Users />
-              {t("party.players")}
-              <span data-testid="private-room-player-count">
-                {roster.length}/{PRIVATE_ROOM_PLAYER_MAX}
-              </span>
-            </p>
-            <div className={styles.playersScroll} data-testid="private-room-players-scroll">
+            <PlayerListFrame count={roster.length}>
               <ul className={styles.players} data-testid="private-room-players">
                 {roster.map((player, index) => (
                   <li
@@ -983,7 +1022,7 @@ export function PrivateRoomPanel({
                   </li>
                 ))}
               </ul>
-            </div>
+            </PlayerListFrame>
           </div>
           <div className={styles.startSlot}>
             {room.isHost ? (
@@ -1129,56 +1168,58 @@ export function PrivateRoomPanel({
       <h1 className={styles.setupTitle}>{t("party.setup.create")}</h1>
       {back}
       <form
-        className={styles.enter}
+        className={styles.createForm}
         onSubmit={(event) => {
           event.preventDefault();
           void createRoom();
         }}
       >
-        {codeField}
-        <button
-          type="submit"
-          className={styles.dashButton}
-          data-testid="private-room-create"
-          aria-busy={busy === "create"}
-          disabled={busy !== null}
+        <div className={styles.enter}>{codeField}</div>
+        <h2 className={styles.gamesHeading} id="party-round-types">
+          {t("party.chooseRounds")}
+        </h2>
+        <div
+          className={clsx(formatPreviewCardStyles.cardGrid, styles.games)}
+          role="group"
+          aria-labelledby="party-round-types"
+          data-invalid={errorField === "games" ? "true" : undefined}
         >
-          <span className={styles.enterFace} data-show={busy === "create" ? "false" : "true"}>
-            {t("party.create")}
-          </span>
-          <span className={styles.enterFace} data-show={busy === "create" ? "true" : "false"}>
-            {t("party.creating")}
-          </span>
-        </button>
-        {setupError}
+          {gameOptions.map((game) => {
+            const on = selected.includes(game.id);
+            return (
+              <FormatPreviewCard
+                key={game.id}
+                as="button"
+                type="button"
+                game={game.id}
+                label={game.label}
+                preview={game.preview}
+                className={styles.gameCard}
+                aria-pressed={on}
+                data-on={on ? "true" : "false"}
+                onClick={() => toggleGame(game.id)}
+              />
+            );
+          })}
+        </div>
+        <div className={styles.createAction}>
+          {setupError}
+          <button
+            type="submit"
+            className={styles.dashButton}
+            data-testid="private-room-create"
+            aria-busy={busy === "create"}
+            disabled={busy !== null}
+          >
+            <span className={styles.enterFace} data-show={busy === "create" ? "false" : "true"}>
+              {t("party.create")}
+            </span>
+            <span className={styles.enterFace} data-show={busy === "create" ? "true" : "false"}>
+              {t("party.creating")}
+            </span>
+          </button>
+        </div>
       </form>
-      <h2 className={styles.gamesHeading} id="party-round-types">
-        {t("party.chooseRounds")}
-      </h2>
-      <div
-        className={clsx(formatPreviewCardStyles.cardGrid, styles.games)}
-        role="group"
-        aria-labelledby="party-round-types"
-        data-invalid={errorField === "games" ? "true" : undefined}
-      >
-        {gameOptions.map((game) => {
-          const on = selected.includes(game.id);
-          return (
-            <FormatPreviewCard
-              key={game.id}
-              as="button"
-              type="button"
-              game={game.id}
-              label={game.label}
-              preview={game.preview}
-              className={styles.gameCard}
-              aria-pressed={on}
-              data-on={on ? "true" : "false"}
-              onClick={() => toggleGame(game.id)}
-            />
-          );
-        })}
-      </div>
     </section>
   );
 }

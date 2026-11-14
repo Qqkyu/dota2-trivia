@@ -22,19 +22,21 @@ export function EntryWait({ roomError, entryWaitRemaining }: EntryWaitProps) {
     >
       <h1 className="sr-only">{t("wait.heading")}</h1>
       <div className={styles.entryWaitContent}>
-        <strong data-testid="entry-wait-timer">
-          00:{String(Math.ceil(entryWaitRemaining / 1_000)).padStart(2, "0")}
+        <strong data-testid="entry-wait-timer" aria-hidden={roomError ? true : undefined}>
+          {roomError ? "--:--" : `00:${String(Math.ceil(entryWaitRemaining / 1_000)).padStart(2, "0")}`}
         </strong>
         <p className={own.entryWaitHint} data-testid="entry-wait-hint">
-          {t("wait.hint")}
+          {t(roomError ? "wait.reconnecting" : "wait.hint")}
         </p>
+        <div className={own.statusSlot} role="status" aria-live="polite" aria-atomic="true">
+          {roomError && (
+            <span className={clsx(own.entryWaitStatus, own.entryWaitStatusError)}>
+              <Signal aria-hidden="true" />
+              {roomError}
+            </span>
+          )}
+        </div>
         <EntryWaitLessons />
-        {roomError && (
-          <span className={clsx(own.entryWaitStatus, own.entryWaitStatusError)} aria-live="polite">
-            <Signal />
-            {roomError}
-          </span>
-        )}
       </div>
     </section>
   );

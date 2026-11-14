@@ -37,12 +37,19 @@ export function RoundFeedback({
           {roomError}
         </span>
       ) : phase === "reveal" ? (
-        <span data-testid="round-result-summary">
-          {t("round.feedback.result", {
-            result: t(revealCalloutKey(resultCallout)),
-            points: number(roundAward?.points ?? 0),
-          })}
-        </span>
+        <>
+          <span data-testid="round-result-summary">
+            {t("round.feedback.result", {
+              result: t(revealCalloutKey(resultCallout)),
+              points: number(roundAward?.points ?? 0),
+            })}
+          </span>
+          {roundAward?.majorityBonus && (
+            <span className={own.bonus} data-testid="round-crowd-bonus">
+              {t("round.reveal.crowdBreaker")}
+            </span>
+          )}
+        </>
       ) : (
         <span>
           {selectedIndex !== null

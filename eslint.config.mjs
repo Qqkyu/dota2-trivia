@@ -15,6 +15,7 @@ const config = defineConfig([
     "out/**",
     "build/**",
     "coverage/**",
+    ".local/**",
     "next-env.d.ts",
     "src/data/*.generated.json",
   ]),

@@ -287,6 +287,8 @@ export function QueueArcade({
               currentGame === "order-up" && styles.valueOrderStage,
               currentGame === "flashback" && styles.flashbackStage,
             )}
+            data-game={currentGame}
+            data-phase={phase}
           >
             <div className={styles.timerTrack} aria-hidden="true">
               <span style={{ transform: `scaleX(${Math.max(0, Math.min(1, timerRatio))})` }} />
@@ -370,6 +372,22 @@ export function QueueArcade({
               aghanimItem={aghanimItem}
             />
 
+            {phase === "answering" && (
+              <AnswerHelper
+                currentQuestion={currentQuestion}
+                selectedIndex={selectedIndex}
+                currentGame={currentGame}
+                isRecipeBuilderRound={isRecipeBuilderRound}
+                isOpenShopRound={isOpenShopRound}
+                isHeroPickerRound={isHeroPickerRound}
+                isValueOrderRound={isValueOrderRound}
+                isFlashbackOrderRound={isFlashbackOrderRound}
+                isFlashbackYearRound={isFlashbackYearRound}
+                isSoundcheckRound={isSoundcheckRound}
+                isSoundSequence={isSoundSequence}
+              />
+            )}
+
             <fieldset
               className={styles.answerFieldset}
               aria-label={t("round.answers.aria")}
@@ -397,22 +415,7 @@ export function QueueArcade({
               />
             </fieldset>
 
-            {phase === "answering" ? (
-              <AnswerHelper
-                currentQuestion={currentQuestion}
-                selectedIndex={selectedIndex}
-                currentGame={currentGame}
-                isRecipeBuilderRound={isRecipeBuilderRound}
-                isOpenShopRound={isOpenShopRound}
-                isHeroPickerRound={isHeroPickerRound}
-                isValueOrderRound={isValueOrderRound}
-                isFlashbackOrderRound={isFlashbackOrderRound}
-                isFlashbackYearRound={isFlashbackYearRound}
-                isSoundcheckRound={isSoundcheckRound}
-                isSoundSequence={isSoundSequence}
-                liveAward={liveAward}
-              />
-            ) : (
+            {phase === "reveal" && (
               <RevealPanel
                 currentQuestion={currentQuestion}
                 roundAward={roundAward}
@@ -431,23 +434,25 @@ export function QueueArcade({
             )}
           </div>
 
-          <SessionRail
-            phase={phase}
-            currentQuestion={currentQuestion}
-            roundIndex={roundIndex}
-            selectedIndex={selectedIndex}
-            selectedAnswerKey={selectedAnswerKey}
-            crowd={crowd}
-            streak={streak}
-            shop={shop}
-            buyShopItem={buyShopItem}
-            activeRoundId={activeRoundId}
-            roomError={roomError}
-            activePlayers={activePlayers}
-            currentGame={currentGame}
-            recentHistory={recentHistory}
-            recentHistoryStart={recentHistoryStart}
-          />
+          {!activePrivateCode && (
+            <SessionRail
+              phase={phase}
+              currentQuestion={currentQuestion}
+              roundIndex={roundIndex}
+              selectedIndex={selectedIndex}
+              selectedAnswerKey={selectedAnswerKey}
+              crowd={crowd}
+              streak={streak}
+              shop={shop}
+              buyShopItem={buyShopItem}
+              activeRoundId={activeRoundId}
+              roomError={roomError}
+              activePlayers={activePlayers}
+              currentGame={currentGame}
+              recentHistory={recentHistory}
+              recentHistoryStart={recentHistoryStart}
+            />
+          )}
         </section>
       )}
 

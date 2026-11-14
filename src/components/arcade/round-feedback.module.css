@@ -15,6 +15,11 @@
   color: var(--green);
 }
 
+.bonus {
+  color: var(--gold);
+  font-weight: 600;
+}
+
 .feedback[data-error="true"] {
   color: #f0b1a5;
 }

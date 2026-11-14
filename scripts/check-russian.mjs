@@ -15,33 +15,15 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { LIVE_ROUND_GAMES } from "../src/lib/arcade-games.mjs";
 import { stopChrome } from "./lib/stop-chrome.mjs";
+import { createRussianCopyInspector } from "./lib/russian-copy.mjs";
 
 const appUrl = (process.env.APP_URL ?? "http://localhost:3000").replace(/\/$/, "");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const json = { "Content-Type": "application/json", Origin: new URL(appUrl).origin };
 
 const units = JSON.parse(readFileSync("src/data/i18n/ru.units.json", "utf8"));
-const NAME_PATTERN = new RegExp(
-  [...units.names]
-    .sort((a, b) => b.length - a.length)
-    .map((name) => name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
-    .join("|"),
-  "gi",
-);
-
-// English words that only appear in sentences. A name can hold one, so names go first.
-const ENGLISH = /\b(?:the|and|with|which|what|this|that|your|from|before|after|hero|heroes|item|round|answer)\b/i;
+const englishLeft = createRussianCopyInspector(units.names);
 const RAW_KEY = /\b(?:round|lobby|wait|session|party|profile|privacy|calibration|shell|meta)\.[a-z]+[A-Za-z.]*/;
-
-function englishLeft(text) {
-  // Some labels are uppercase by CSS, so names are compared without case.
-  const rest = text.replace(NAME_PATTERN, " ");
-  return rest
-    .split("\n")
-    .map((line) => line.trim())
-    .filter((line) => ENGLISH.test(line) && !/[а-яё]{3}/i.test(line))
-    .filter((line) => !/^(?:The International|The Underhollow|The Play|Queue Arcade|Dota 2)/.test(line));
-}
 
 function freePort() {
   return new Promise((resolve, reject) => {

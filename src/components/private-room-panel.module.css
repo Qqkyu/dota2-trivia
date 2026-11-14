@@ -365,7 +365,7 @@
   text-transform: uppercase;
 }
 
-.sectionLabel span {
+.sectionLabel > [data-testid="private-room-player-count"] {
   margin-left: auto;
   color: #c4a46a;
 }
@@ -377,6 +377,7 @@
 }
 
 .playersBlock {
+  position: relative;
   display: flex;
   min-height: 144px;
   flex: 1 1 0%;
@@ -390,6 +391,32 @@
   overflow: auto;
   overscroll-behavior: contain;
   border: 1px solid #292e2d;
+}
+
+.playersMore {
+  position: absolute;
+  top: 0;
+  right: 64px;
+  left: 90px;
+  display: flex;
+  height: 14px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #d5ded7;
+  font-family: "Geist Cyrillic", var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 14px;
+  text-transform: none;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.playersMore svg {
+  width: 14px;
+  height: 14px;
 }
 
 .players {
@@ -819,7 +846,7 @@
 
 @media (max-width: 480px) {
   .view {
-    width: min(100% - 16px, 100%);
+    width: calc(100% - 32px);
     padding: 16px 0 32px;
   }
 }
@@ -904,12 +931,21 @@
 
   .lobby .playersScroll {
     flex: none;
-    height: 146px;
+    height: clamp(146px, calc(100svh - 544px), 420px);
     min-height: 96px;
   }
 }
 
 @media (max-width: 680px) {
+  .waitView .lobby {
+    gap: 12px;
+  }
+
+  .waitView .lobby .chatLog {
+    height: 48px;
+    max-height: 48px;
+  }
+
   .back,
   .chatToggle,
   .dashButton,
@@ -931,8 +967,8 @@
 }
 
 .setupTitle {
-  width: min(100%, 420px);
-  margin: 48px auto 0;
+  width: 100%;
+  margin: 24px 0 0;
   color: #f1f0ea;
   font-size: clamp(32px, 4vw, 48px);
   font-weight: 510;
@@ -942,10 +978,30 @@
 
 .chooseDoors {
   width: min(100%, 420px);
-  margin-top: 12px;
+  margin: 12px 0 0;
+}
+
+.view[data-path="choose"],
+.joinView {
+  width: min(100% - 48px, 520px);
+}
+
+.joinView .enter {
+  width: 100%;
+  margin: 24px 0 0;
 }
 
 @media (max-width: 680px) {
+  .view,
+  .view[data-path="choose"],
+  .joinView {
+    width: calc(100% - 32px);
+  }
+
+  .waitView {
+    padding-bottom: 12px;
+  }
+
   .setupTitle {
     margin-top: 24px;
   }
@@ -953,6 +1009,7 @@
 
 .gameCard {
   position: relative;
+  scroll-margin-block: 110px;
 }
 
 .gameCard::after {
@@ -995,5 +1052,52 @@
 
   .gameCard:focus-visible {
     outline-color: Highlight;
+  }
+}
+.createForm {
+  display: grid;
+  min-width: 0;
+  gap: 18px;
+}
+
+.createAction {
+  position: fixed;
+  z-index: 5;
+  bottom: 0;
+  left: 50%;
+  display: flex;
+  width: min(100% - 48px, 1120px);
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  background: #101516;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  transform: translateX(-50%);
+}
+
+.createAction > button {
+  width: min(100%, 320px);
+  flex-shrink: 0;
+}
+
+.view:has(.createAction) {
+  padding-bottom: 112px;
+}
+
+.createAction .error {
+  margin: 0;
+}
+
+@media (max-width: 680px) {
+  .createAction {
+    width: calc(100% - 32px);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .createAction > button {
+    width: 100%;
   }
 }

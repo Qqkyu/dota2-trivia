@@ -129,28 +129,30 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
     const spell = LIVE_QUESTION_COPY["spell-link"];
     return (
       <div className={clsx(arcade.questionBlock, arcade.spellQuestion, arcade.heroPickerQuestion)}>
-        <div className={arcade.spellArtwork}>
-          <div className={clsx(arcade.artwork, arcade.spellLockedArtwork)}>
-            <div className={arcade.artGlow} />
-            <WandSparkles />
-            <span className={arcade.artCorner} />
+        <div className={arcade.clueHeading}>
+          <div className={arcade.spellArtwork}>
+            <div className={clsx(arcade.artwork, arcade.spellLockedArtwork)}>
+              <div className={arcade.artGlow} />
+              <WandSparkles />
+              <span className={arcade.artCorner} />
+            </div>
+          </div>
+          <div className={arcade.questionCopy}>
+            <h2>{t(spell.prompt)}</h2>
           </div>
         </div>
-        <div className={arcade.questionCopy}>
-          <h2>{t(spell.prompt)}</h2>
-          <div className={arcade.clueList}>
-            <div className={arcade.clueUnlocked}>
-              <strong>01</strong>
-              <span>{preview?.hint ?? t("preview.abilityDescription")}</span>
-            </div>
-            <div className={arcade.clueLocked}>
-              <strong>02</strong>
-              <span>{t(spell.clueTwo)}</span>
-            </div>
-            <div className={arcade.clueLocked}>
-              <strong>03</strong>
-              <span>{t(spell.clueThree)}</span>
-            </div>
+        <div className={clsx(arcade.clueList, look.cluePreview)}>
+          <div className={arcade.clueUnlocked}>
+            <strong>01</strong>
+            <span>{preview?.hint ?? t("preview.abilityDescription")}</span>
+          </div>
+          <div className={arcade.clueLocked}>
+            <strong>02</strong>
+            <span>{t(spell.clueTwo)}</span>
+          </div>
+          <div className={arcade.clueLocked}>
+            <strong>03</strong>
+            <span>{t(spell.clueThree)}</span>
           </div>
         </div>
       </div>
@@ -164,29 +166,31 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
         className={clsx(arcade.questionBlock, arcade.aghanimQuestion, arcade.heroPickerQuestion)}
         data-aghanim-stage={1}
       >
-        <div className={arcade.aghanimArtwork}>
-          {preview?.image?.src ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img className={look.aghanimArt} src={firstPartyArtSrc(preview.image.src)} alt="" />
-          ) : (
-            <Gem aria-hidden="true" />
-          )}
+        <div className={arcade.clueHeading}>
+          <div className={arcade.aghanimArtwork}>
+            {preview?.image?.src ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img className={look.aghanimArt} src={firstPartyArtSrc(preview.image.src)} alt="" />
+            ) : (
+              <Gem aria-hidden="true" />
+            )}
+          </div>
+          <div className={arcade.questionCopy}>
+            <h2>{preview?.prompt}</h2>
+          </div>
         </div>
-        <div className={arcade.questionCopy}>
-          <h2>{preview?.prompt}</h2>
-          <div className={clsx(arcade.clueList, arcade.aghanimClues)}>
-            <div className={arcade.clueUnlocked}>
-              <strong>01</strong>
-              <span>{preview?.effect ?? preview?.prompt}</span>
-            </div>
-            <div className={arcade.clueLocked}>
-              <strong>02</strong>
-              <span>{t(lab.clueTwo, { seconds: 10 })}</span>
-            </div>
-            <div className={arcade.clueLocked}>
-              <strong>03</strong>
-              <span>{t(lab.clueThree, { seconds: 5 })}</span>
-            </div>
+        <div className={clsx(arcade.clueList, arcade.aghanimClues, look.cluePreview)}>
+          <div className={arcade.clueUnlocked}>
+            <strong>01</strong>
+            <span>{preview?.effect ?? preview?.prompt}</span>
+          </div>
+          <div className={arcade.clueLocked}>
+            <strong>02</strong>
+            <span>{t(lab.clueTwo, { seconds: 10 })}</span>
+          </div>
+          <div className={arcade.clueLocked}>
+            <strong>03</strong>
+            <span>{t(lab.clueThree, { seconds: 5 })}</span>
           </div>
         </div>
       </div>

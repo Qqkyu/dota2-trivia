@@ -7,7 +7,6 @@ import type { Translate } from "@/i18n/translator";
 import { REPORT_REASON_LABEL_KEYS, REPORT_REASONS } from "@/lib/calibration";
 import { crowdSummaryLine } from "@/lib/crowd-summary.mjs";
 import { revealCalloutKey } from "@/lib/dota-flavor.mjs";
-import { HERO_PICKER_BY_KEY, heroPickerPortraitSrc } from "@/lib/hero-picker";
 import { SHOPKEEPER_CATALOG_BY_KEY } from "@/lib/shopkeeper-catalog";
 import { valueOrderKeysFromAnswerKey } from "@/lib/value-order.mjs";
 import styles from "../queue-arcade.module.css";
@@ -77,18 +76,16 @@ function crowdSummary(
   );
 }
 
-/** The answer as a picture: the question's own mark, else the correct hero or item from a grid pick. */
+/** Named picker results carry their own art. Keep distinct reveal media here. */
 function revealMedia(question: PublicArcadeQuestion) {
   const media = question.reveal?.media;
   if (media && media.kind !== "photo") {
     return { src: media.src, alt: media.alt, caption: media.caption ?? null, testid: "flashback-reveal-media" };
   }
+  if (question.answerMode === "item-grid") return null;
   if (!isPublicKeyedAnswerQuestion(question)) return null;
   const correctKey = question.reveal?.correctAnswerKey;
   if (!correctKey) return null;
-  const hero = HERO_PICKER_BY_KEY.get(correctKey);
-  if (hero)
-    return { src: heroPickerPortraitSrc(hero.image), alt: hero.name, caption: null, testid: "keyed-reveal-media" };
   const item = SHOPKEEPER_CATALOG_BY_KEY.get(correctKey);
   if (item) return { src: item.image, alt: item.name, caption: item.name, testid: "keyed-reveal-media" };
   return null;
@@ -173,15 +170,16 @@ export function RevealPanel({
         </div>
       </div>
       <div className={styles.pointsAward} data-award={roundAward?.correct ? "scored" : "none"}>
-        <small>
-          {roundAward?.majorityBonus
-            ? t("round.reveal.crowdBreaker")
-            : roundAward?.correct
-              ? roundAward.cluePenalty
-                ? t("round.reveal.speedHints", { speed: roundAward.speedBonus, penalty: roundAward.cluePenalty })
-                : t("round.reveal.speed", { speed: roundAward.speedBonus })
-              : "\u00a0"}
-        </small>
+        {roundAward?.correct && (
+          <small>
+            {roundAward.cluePenalty
+              ? t("round.reveal.speedHints", {
+                  speed: roundAward.speedBonus * (roundAward.majorityBonus ? 2 : 1),
+                  penalty: roundAward.cluePenalty * (roundAward.majorityBonus ? 2 : 1),
+                })
+              : t("round.reveal.speed", { speed: roundAward.speedBonus * (roundAward.majorityBonus ? 2 : 1) })}
+          </small>
+        )}
         <strong>+{roundAward?.points ?? 0}</strong>
         <span>{t("round.reveal.gold")}</span>
       </div>

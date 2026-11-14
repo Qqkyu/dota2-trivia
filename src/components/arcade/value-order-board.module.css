@@ -246,6 +246,83 @@
   .valueOrderSequenceCard {
     min-height: 68px;
   }
+
+  .valueOrderBoard {
+    gap: 10px;
+  }
+
+  .valueOrderSlots {
+    gap: 6px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .valueOrderSlots > span {
+    height: 44px;
+    gap: 4px;
+    grid-template-columns: 18px minmax(0, 1fr);
+    padding: 5px;
+  }
+
+  .valueOrderSlots img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .valueOrderSlots > span[data-card-kind="item"] img {
+    height: 18px;
+  }
+
+  .valueOrderSlots strong {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .valueOrderCards {
+    gap: 8px;
+  }
+
+  .valueOrderCards button {
+    min-height: 84px;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 10px 8px;
+  }
+
+  .valueOrderCards button > img,
+  .valueOrderCards button[data-card-kind="item"] > img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .valueOrderCards button[data-card-kind="item"] > img {
+    height: 27px;
+  }
+
+  .valueOrderCards button > span {
+    flex: 1;
+    justify-items: start;
+    gap: 4px;
+  }
+
+  .valueOrderCards button strong {
+    overflow: visible;
+    font-size: 13px;
+    line-height: 1.3;
+    text-align: left;
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+
+  .valueOrderCards button small {
+    font-size: 10px;
+    line-height: 1.35;
+    letter-spacing: 0;
+    text-transform: none;
+  }
 }
 
 .valueOrderSequenceCard {
@@ -285,4 +362,10 @@
   .valueOrderSequence > div {
     grid-template-columns: minmax(0, 1fr);
   }
+}
+.lockHint {
+  margin: 0;
+  color: #b9c2cd;
+  font-size: 13px;
+  line-height: 1.45;
 }

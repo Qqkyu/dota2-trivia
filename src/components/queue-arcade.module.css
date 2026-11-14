@@ -946,6 +946,54 @@
   min-height: 234px;
 }
 
+.questionBlock.spellQuestion.heroPickerQuestion,
+.questionBlock.aghanimQuestion.heroPickerQuestion {
+  display: block;
+  height: auto;
+  min-height: 0;
+  padding: 20px 28px 16px;
+}
+
+.clueHeading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.clueHeading .spellArtwork .artwork,
+.clueHeading .aghanimArtwork {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 auto;
+}
+
+.clueHeading .spellArtwork {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+}
+
+.clueHeading .aghanimArtwork {
+  margin: 0;
+}
+
+.clueHeading .aghanimArtwork > img {
+  padding: 6px;
+}
+
+.questionBlock .clueHeading .questionCopy {
+  width: auto;
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+.clueHeading .questionCopy h2 {
+  margin: 0;
+  font-size: clamp(22px, 2.2vw, 28px);
+}
+
 .heroPicker {
   position: relative;
   margin: 0 28px 10px;
@@ -1082,7 +1130,7 @@
     transform 120ms ease;
 }
 
-.heroPickerGroup button > img {
+.heroPickerGroup button img {
   object-fit: cover;
   object-position: center 18%;
 }
@@ -1136,7 +1184,7 @@
     0 0 17px rgba(121, 207, 153, 0.25);
 }
 
-.heroPickerGroup button[data-state="correct"] > img {
+.heroPickerGroup button[data-state="correct"] img {
   filter: brightness(1.15) saturate(1.08);
 }
 
@@ -2052,7 +2100,8 @@
 
 .quoteHints > span {
   display: grid;
-  min-height: 35px;
+  height: 64px;
+  min-height: 64px;
   align-items: center;
   gap: 8px;
   grid-template-columns: 20px minmax(0, 1fr);
@@ -2061,7 +2110,7 @@
   background: rgba(222, 164, 96, 0.045);
   color: #d8c1a6;
   font:
-    10px "Geist Mono Cyrillic",
+    12px "Geist Mono Cyrillic",
     var(--font-geist-mono),
     monospace;
 }
@@ -2075,11 +2124,11 @@
 .quoteHints > span[data-state="locked"] {
   border-color: rgba(255, 255, 255, 0.065);
   background: rgba(255, 255, 255, 0.012);
-  color: #3f4644;
+  color: #b7c2c8;
 }
 
 .quoteHints > span[data-state="locked"] > b {
-  color: #404542;
+  color: #879b9c;
 }
 
 .answers {
@@ -2087,6 +2136,151 @@
   gap: 10px;
   padding: 6px 28px 20px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Past choices use a shorter layout; timed answering controls do not change. */
+@media (max-width: 680px) {
+  .gameStage[data-game="trivia"][data-phase="reveal"] .roundHeader {
+    position: sticky;
+    z-index: 6;
+    top: 0;
+    background: #0d1112;
+  }
+
+  .gameStage[data-game="trivia"][data-phase="reveal"] > .questionBlock {
+    display: flex;
+    height: auto;
+    min-height: 0;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 12px;
+  }
+
+  .gameStage[data-game="trivia"][data-phase="reveal"] .questionBlock .artwork,
+  .gameStage[data-game="trivia"][data-phase="reveal"] .questionGlyph {
+    width: 56px;
+    height: 56px;
+    flex: 0 0 56px;
+  }
+
+  .gameStage[data-game="trivia"][data-phase="reveal"] .questionCopy {
+    width: auto;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .gameStage[data-game="trivia"][data-phase="reveal"] .questionCopy h2 {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  .gameStage[data-game="trivia"][data-phase="reveal"] .questionCopy > p {
+    font-size: 13px;
+  }
+
+  .gameStage[data-game="trivia"][data-phase="reveal"] .answers {
+    gap: 8px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 6px 12px 12px;
+  }
+
+  .gameStage[data-game="trivia"][data-phase="reveal"] .answer {
+    display: grid;
+    min-height: 60px;
+    align-content: start;
+    gap: 4px 8px;
+    grid-template-columns: 24px minmax(0, 1fr);
+    padding: 10px;
+  }
+
+  .gameStage[data-game="trivia"][data-phase="reveal"] .answerKey {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
+
+  .gameStage[data-game="trivia"][data-phase="reveal"] .answerText {
+    min-width: 0;
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 16px;
+  }
+
+  .gameStage[data-game="trivia"][data-phase="reveal"] .answerResult {
+    grid-column: 2 / -1;
+    grid-row: 2;
+    justify-self: start;
+  }
+
+  .gameStage[data-game="trivia"][data-phase="reveal"] .visualAnswer {
+    grid-template-columns: 24px 28px minmax(0, 1fr);
+  }
+
+  .gameStage[data-game="trivia"][data-phase="reveal"] .visualAnswer .answerArtwork {
+    width: 28px;
+    height: 28px;
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .gameStage[data-game="trivia"][data-phase="reveal"] .visualAnswer .answerText {
+    grid-column: 3;
+  }
+
+  .shell:not([data-party-play="true"]) .gameStage[data-game="trivia"][data-phase="reveal"] .answer {
+    grid-template-columns: 24px minmax(0, 1fr) 16px;
+  }
+
+  .shell:not([data-party-play="true"]) .gameStage[data-game="trivia"][data-phase="reveal"] .answerResult {
+    grid-column: 3;
+    grid-row: 1;
+    align-self: start;
+  }
+
+  .shell:not([data-party-play="true"]) .gameStage[data-game="trivia"][data-phase="reveal"] .visualAnswer {
+    grid-template-columns: 24px 28px minmax(0, 1fr) 16px;
+  }
+
+  .shell:not([data-party-play="true"]) .gameStage[data-game="trivia"][data-phase="reveal"] .visualAnswer .answerResult {
+    grid-column: 4;
+  }
+
+  .gameStage[data-phase="reveal"] > .shopkeeperQuestion[data-shopkeeper-format="real-recipe"] {
+    height: auto;
+    min-height: 0;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 12px;
+  }
+
+  .gameStage[data-phase="reveal"] .recipeTarget {
+    width: 56px;
+    height: 56px;
+    flex: 0 0 56px;
+  }
+
+  .gameStage[data-phase="reveal"] .recipeTarget .artwork {
+    width: 56px;
+    height: 56px;
+  }
+
+  .gameStage[data-phase="reveal"] .recipeTarget > span {
+    display: none;
+  }
+
+  .gameStage[data-phase="reveal"] .recipeTarget + .questionCopy {
+    width: auto;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .gameStage[data-phase="reveal"] .recipeTarget + .questionCopy h2 {
+    margin: 0;
+    font-size: 22px;
+    line-height: 1.3;
+  }
 }
 
 .answer {
@@ -2297,20 +2491,22 @@
 
 .answerHelper {
   display: flex;
-  min-height: 50px;
+  min-height: 24px;
   align-items: center;
   gap: 9px;
-  margin: 0 28px 25px;
-  padding: 8px 13px;
-  border: 1px solid rgba(255, 255, 255, 0.055);
-  background: rgba(0, 0, 0, 0.13);
-  color: #8d9391;
-  font-size: 12px;
+  margin: 0 28px 12px;
+  padding: 0;
+  color: #b7c2c8;
+  font-size: 13px;
 }
 
 .answerHelper > svg {
   width: 14px;
   flex: 0 0 auto;
+}
+
+.answerHelper[data-locked="true"] {
+  visibility: hidden;
 }
 
 .revealPanel {
@@ -2521,6 +2717,184 @@
 @media (max-width: 960px) {
   .shell[data-party-play="true"] {
     overflow: auto;
+  }
+}
+
+/* The primary clue owns the width; later slots retain their size through unlocks. */
+.spellQuestion .clueList,
+.aghanimQuestion .clueList {
+  width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto auto;
+  margin: 0;
+  gap: 8px;
+}
+
+.spellQuestion .clueList > div,
+.aghanimQuestion .clueList > div {
+  height: 64px;
+  min-height: 64px;
+  padding: 10px;
+}
+
+.spellQuestion .clueList > div:first-child,
+.aghanimQuestion .clueList > div:first-child {
+  height: auto;
+  min-height: 0;
+  grid-column: 1 / -1;
+  grid-row: auto;
+}
+
+.spellQuestion .clueList span,
+.aghanimQuestion .clueList span {
+  display: block;
+  height: auto;
+  overflow: visible;
+  color: #b7c2c8;
+  font-size: 13px;
+  line-height: 1.4;
+  -webkit-line-clamp: unset;
+}
+
+.spellQuestion .clueList > div:first-child span,
+.spellQuestion .clueList > div:first-child[data-density="dense"] span,
+.aghanimQuestion .clueList > div:first-child span {
+  color: #c2cdd2;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.spellQuestion .clueList .clueLocked,
+.aghanimQuestion .clueList .clueLocked {
+  opacity: 0.82;
+}
+
+@media (max-width: 680px) {
+  .questionBlock.spellQuestion.heroPickerQuestion,
+  .questionBlock.aghanimQuestion.heroPickerQuestion {
+    display: block;
+    padding: 16px 12px;
+  }
+
+  .spellQuestion .clueList > div:not(:first-child),
+  .aghanimQuestion .clueList > div:not(:first-child) {
+    height: 80px;
+    min-height: 80px;
+  }
+
+  .gameLayout .valueOrderQuestion {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 12px 12px;
+  }
+
+  .gameLayout .valueOrderGlyph {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 auto;
+  }
+
+  .gameLayout .valueOrderGlyph svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .gameLayout .valueOrderQuestion .questionCopy {
+    width: auto;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .gameLayout .valueOrderQuestion .questionCopy h2 {
+    font-size: 22px;
+    line-height: 1.3;
+    margin: 0;
+  }
+}
+
+@media (max-width: 360px) {
+  .spellQuestion .clueList > div:not(:first-child),
+  .aghanimQuestion .clueList > div:not(:first-child) {
+    height: 96px;
+    min-height: 96px;
+  }
+}
+
+/* All four practice answers fit inside the shared lesson stage. */
+.entryWait .entryWaitChoiceBoard .questionBlock {
+  height: auto;
+  min-height: 0;
+  flex-direction: row;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px 12px;
+}
+
+.entryWait .entryWaitChoiceBoard .artwork {
+  width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+}
+
+.entryWait .entryWaitChoiceBoard .questionCopy {
+  width: auto;
+  min-width: 0;
+  flex: 1;
+}
+
+.entryWait .entryWaitChoiceBoard .questionCopy h2 {
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.entryWait .entryWaitChoiceBoard .answers {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 680px) {
+  .entryWait .entryWaitChoiceBoard .questionBlock {
+    gap: 8px;
+    padding: 12px 10px;
+  }
+
+  .entryWait .entryWaitChoiceBoard .artwork {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+  }
+
+  .entryWait .entryWaitChoiceBoard .questionCopy h2 {
+    font-size: 18px;
+  }
+
+  .entryWait .entryWaitChoiceBoard .answer {
+    display: grid;
+    min-height: 92px;
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .entryWait .entryWaitChoiceBoard .answerKey {
+    width: 24px;
+    height: 24px;
+    flex-basis: 24px;
+    font-size: 12px;
+  }
+
+  .entryWait .entryWaitChoiceBoard .answerText {
+    min-width: 0;
+    overflow: visible;
+    font-size: 14px;
+    line-height: 1.35;
+    overflow-wrap: break-word;
+  }
+
+  .entryWait .entryWaitChoiceBoard .roundHeader > div:first-child > span:last-child,
+  .entryWait .entryWaitChoiceBoard .roundHeader > div:first-child > i:last-of-type {
+    display: none;
   }
 }
 

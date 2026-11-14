@@ -74,7 +74,8 @@ function attachCdp(webSocketDebuggerUrl, onEvent = () => undefined) {
       if (await evaluate(`Boolean(${expression})`).catch(() => false)) return Date.now();
       await delay(100);
     }
-    throw new Error(`Timed out waiting for: ${expression}`);
+    const state = await evaluate(STATE).catch(() => null);
+    throw new Error(`Timed out waiting for: ${expression}\nLast party state: ${JSON.stringify(state)}`);
   }
   return { socket, ready, send, evaluate, waitFor };
 }

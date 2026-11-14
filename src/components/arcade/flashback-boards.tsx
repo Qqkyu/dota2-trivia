@@ -111,7 +111,14 @@ export function FlashbackYearBoard({
             }}
           >
             <Check aria-hidden="true" />
-            {lockedYear !== null ? t("round.flashback.locked") : t("round.flashback.lock")}
+            <span className={own.lockFaces}>
+              <span data-show={lockedYear === null} aria-hidden={lockedYear !== null}>
+                {t("round.flashback.lock")}
+              </span>
+              <span data-show={lockedYear !== null} aria-hidden={lockedYear === null}>
+                {t("round.flashback.locked")}
+              </span>
+            </span>
           </button>
         </>
       ) : null}

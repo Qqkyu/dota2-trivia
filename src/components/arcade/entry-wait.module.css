@@ -23,3 +23,7 @@
 .entryWaitStatusError svg {
   color: var(--red-bright);
 }
+.statusSlot {
+  min-height: 24px;
+  margin-top: 10px;
+}

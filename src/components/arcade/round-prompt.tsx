@@ -151,47 +151,49 @@ export function RoundPrompt({
       className={clsx(styles.questionBlock, styles.spellQuestion, styles.heroPickerQuestion)}
       data-testid="round-prompt"
     >
-      <div className={styles.spellArtwork}>
-        {clueStage >= 3 ? (
-          <QuestionArtwork question={currentQuestion} testId="spell-ability-artwork" />
-        ) : (
-          <div
-            className={clsx(styles.artwork, styles.spellLockedArtwork)}
-            role="img"
-            data-testid="spell-artwork-locked"
-            aria-label={t("round.prompt.spell.iconLockedAria", { count: finalClueAt })}
-          >
-            <div className={styles.artGlow} />
-            <WandSparkles />
-            <span className={styles.artCorner} />
-          </div>
-        )}
+      <div className={styles.clueHeading}>
+        <div className={styles.spellArtwork}>
+          {clueStage >= 3 ? (
+            <QuestionArtwork question={currentQuestion} testId="spell-ability-artwork" />
+          ) : (
+            <div
+              className={clsx(styles.artwork, styles.spellLockedArtwork)}
+              role="img"
+              data-testid="spell-artwork-locked"
+              aria-label={t("round.prompt.spell.iconLockedAria", { count: finalClueAt })}
+            >
+              <div className={styles.artGlow} />
+              <WandSparkles />
+              <span className={styles.artCorner} />
+            </div>
+          )}
+        </div>
+        <div className={styles.questionCopy}>
+          <h2>{t("round.prompt.spell.prompt")}</h2>
+        </div>
       </div>
-      <div className={styles.questionCopy}>
-        <h2>{t("round.prompt.spell.prompt")}</h2>
-        <div className={styles.clueList} data-testid="spell-clue-list">
-          <div
-            className={styles.clueUnlocked}
-            data-testid="spell-clue-1"
-            data-density={spellHint.length > 320 ? "dense" : "normal"}
-          >
-            <strong>01</strong>
-            <span data-testid="spell-clue-description">{spellHint}</span>
-          </div>
-          <div className={clueStage >= 2 ? styles.clueUnlocked : styles.clueLocked} data-testid="spell-clue-2">
-            <strong>02</strong>
-            <span>
-              {clueStage >= 2 ? currentQuestion.eyebrow : t("round.prompt.spell.nameUnlocks", { seconds: firstClueAt })}
-            </span>
-          </div>
-          <div className={clueStage >= 3 ? styles.clueUnlocked : styles.clueLocked} data-testid="spell-clue-3">
-            <strong>03</strong>
-            <span>
-              {clueStage >= 3
-                ? t("round.prompt.spell.iconRevealed")
-                : t("round.prompt.spell.iconUnlocks", { seconds: finalClueAt })}
-            </span>
-          </div>
+      <div className={styles.clueList} data-testid="spell-clue-list">
+        <div
+          className={styles.clueUnlocked}
+          data-testid="spell-clue-1"
+          data-density={spellHint.length > 320 ? "dense" : "normal"}
+        >
+          <strong>01</strong>
+          <span data-testid="spell-clue-description">{spellHint}</span>
+        </div>
+        <div className={clueStage >= 2 ? styles.clueUnlocked : styles.clueLocked} data-testid="spell-clue-2">
+          <strong>02</strong>
+          <span>
+            {clueStage >= 2 ? currentQuestion.eyebrow : t("round.prompt.spell.nameUnlocks", { seconds: firstClueAt })}
+          </span>
+        </div>
+        <div className={clueStage >= 3 ? styles.clueUnlocked : styles.clueLocked} data-testid="spell-clue-3">
+          <strong>03</strong>
+          <span>
+            {clueStage >= 3
+              ? t("round.prompt.spell.iconRevealed")
+              : t("round.prompt.spell.iconUnlocks", { seconds: finalClueAt })}
+          </span>
         </div>
       </div>
     </div>
@@ -201,47 +203,49 @@ export function RoundPrompt({
       data-testid="round-prompt"
       data-aghanim-stage={clueStage}
     >
-      <div className={styles.aghanimArtwork} data-testid="aghanim-artwork">
-        {aghanimItem ? (
-          <Image
-            src={firstPartyArtSrc(aghanimItem.image)}
-            alt={aghanimUpgradeLabel ?? t("round.prompt.aghanim.fallbackAlt")}
-            fill
-            sizes="128px"
-            unoptimized
-          />
-        ) : (
-          <Gem aria-hidden="true" />
-        )}
+      <div className={styles.clueHeading}>
+        <div className={styles.aghanimArtwork} data-testid="aghanim-artwork">
+          {aghanimItem ? (
+            <Image
+              src={firstPartyArtSrc(aghanimItem.image)}
+              alt={aghanimUpgradeLabel ?? t("round.prompt.aghanim.fallbackAlt")}
+              fill
+              sizes="128px"
+              unoptimized
+            />
+          ) : (
+            <Gem aria-hidden="true" />
+          )}
+        </div>
+        <div className={styles.questionCopy}>
+          <h2>{currentQuestion.prompt}</h2>
+        </div>
       </div>
-      <div className={styles.questionCopy}>
-        <h2>{currentQuestion.prompt}</h2>
-        <div className={clsx(styles.clueList, styles.aghanimClues)}>
-          <div className={styles.clueUnlocked} data-testid="aghanim-clue-1">
-            <strong>01</strong>
-            <span>{currentQuestion.aghanim?.effect}</span>
-          </div>
-          <div className={clueStage >= 2 ? styles.clueUnlocked : styles.clueLocked} data-testid="aghanim-clue-2">
-            <strong>02</strong>
-            <span>
-              {clueStage >= 2 && aghanimUpgradeLabel
-                ? t(
-                    currentQuestion.aghanim?.upgradeMode === "new"
-                      ? "round.prompt.aghanim.newAbility"
-                      : "round.prompt.aghanim.existingAbility",
-                    { upgrade: aghanimUpgradeLabel },
-                  )
-                : t("round.prompt.aghanim.details", { seconds: firstClueAt })}
-            </span>
-          </div>
-          <div className={clueStage >= 3 ? styles.clueUnlocked : styles.clueLocked} data-testid="aghanim-clue-3">
-            <strong>03</strong>
-            <span>
-              {clueStage >= 3
-                ? currentQuestion.aghanim?.abilityName
-                : t("round.prompt.aghanim.abilityName", { seconds: finalClueAt })}
-            </span>
-          </div>
+      <div className={clsx(styles.clueList, styles.aghanimClues)}>
+        <div className={styles.clueUnlocked} data-testid="aghanim-clue-1">
+          <strong>01</strong>
+          <span>{currentQuestion.aghanim?.effect}</span>
+        </div>
+        <div className={clueStage >= 2 ? styles.clueUnlocked : styles.clueLocked} data-testid="aghanim-clue-2">
+          <strong>02</strong>
+          <span>
+            {clueStage >= 2 && aghanimUpgradeLabel
+              ? t(
+                  currentQuestion.aghanim?.upgradeMode === "new"
+                    ? "round.prompt.aghanim.newAbility"
+                    : "round.prompt.aghanim.existingAbility",
+                  { upgrade: aghanimUpgradeLabel },
+                )
+              : t("round.prompt.aghanim.details", { seconds: firstClueAt })}
+          </span>
+        </div>
+        <div className={clueStage >= 3 ? styles.clueUnlocked : styles.clueLocked} data-testid="aghanim-clue-3">
+          <strong>03</strong>
+          <span>
+            {clueStage >= 3
+              ? currentQuestion.aghanim?.abilityName
+              : t("round.prompt.aghanim.abilityName", { seconds: finalClueAt })}
+          </span>
         </div>
       </div>
     </div>
@@ -419,7 +423,7 @@ export function RoundPrompt({
             return (
               <span key={index} data-testid={`quote-hint-${index + 1}`} data-state={hint ? "revealed" : "locked"}>
                 <b>{String(index + 1).padStart(2, "0")}</b>
-                {hint ?? "?"}
+                {hint ?? t("round.prompt.quote.unlocks", { seconds: index === 0 ? firstClueAt : finalClueAt })}
               </span>
             );
           })}

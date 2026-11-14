@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 
-import { writeFile } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { basename, join } from "node:path";
 
 const debuggingUrl = process.env.CHROME_DEBUG_URL ?? "http://127.0.0.1:9222";
 const appUrl = process.env.APP_URL ?? "http://localhost:3000";
+const screenshotRoot = process.env.FLASHBACK_SCREENSHOTS ?? tmpdir();
 
 const newestHeroes = {
   family: "order",
@@ -183,7 +186,21 @@ async function screenshot(path) {
     fromSurface: true,
     captureBeyondViewport: false,
   });
-  await writeFile(path, Buffer.from(result.data, "base64"));
+  await mkdir(screenshotRoot, { recursive: true });
+  await writeFile(join(screenshotRoot, basename(path)), Buffer.from(result.data, "base64"));
+}
+
+async function yearLockAccessibleName() {
+  const object = await send("Runtime.evaluate", {
+    expression: `document.querySelector('[data-testid="flashback-year-lock"]')`,
+  });
+  const objectId = object.result.objectId;
+  try {
+    const tree = await send("Accessibility.getPartialAXTree", { objectId, fetchRelatives: false });
+    return tree.nodes.find((node) => node.role?.value === "button")?.name?.value;
+  } finally {
+    await send("Runtime.releaseObject", { objectId });
+  }
 }
 
 await send("Page.enable");
@@ -412,8 +429,9 @@ await evaluate(`(() => {
 const yearAfterSlide = await evaluate(`({
   locked: document.querySelector('[data-testid="flashback-year-board"]')?.dataset.locked,
   readout: document.querySelector('[data-testid="flashback-year-readout"]')?.textContent,
-  lockLabel: document.querySelector('[data-testid="flashback-year-lock"]')?.textContent?.trim(),
+  lockLabel: document.querySelector('[data-testid="flashback-year-lock"]')?.innerText?.trim(),
 })`);
+yearAfterSlide.lockAccessibleName = await yearLockAccessibleName();
 await evaluate(`(() => {
   document.querySelector('[data-testid="flashback-year-lock"]')?.click();
   if (window.__flashbackVisual) window.__flashbackVisual.locked = true;
@@ -429,10 +447,11 @@ const yearAfterPick = await evaluate(`(() => {
     readout: document.querySelector('[data-testid="flashback-year-readout"]')?.textContent,
     value: slider?.value,
     height: Math.round(board?.getBoundingClientRect().height ?? 0),
-    lockLabel: document.querySelector('[data-testid="flashback-year-lock"]')?.textContent?.trim(),
+    lockLabel: document.querySelector('[data-testid="flashback-year-lock"]')?.innerText?.trim(),
     lockDisabled: document.querySelector('[data-testid="flashback-year-lock"]')?.disabled,
   };
 })()`);
+yearAfterPick.lockAccessibleName = await yearLockAccessibleName();
 await screenshot("/tmp/flashback-year-answering.png");
 
 await apply("year", "reveal");
@@ -591,19 +610,27 @@ if (yearBefore.answers !== 0 || !yearBefore.helper || !yearBefore.lock || yearBe
   failures.push("year slider still uses A-D answers or a Lock year button");
 }
 if (yearBefore.height < 186) failures.push(`year board short ${yearBefore.height}`);
-if (yearAfterSlide.locked === "true" || yearAfterSlide.lockLabel !== "Lock") {
+if (yearAfterSlide.locked === "true" || yearAfterSlide.lockLabel?.toLowerCase() !== "lock") {
   failures.push(`year slider locked on release (${yearAfterSlide.locked}, ${yearAfterSlide.lockLabel})`);
 }
 if (
   yearAfterPick.locked !== "true" ||
   yearAfterPick.readout !== "2011" ||
   yearAfterPick.value !== "2011" ||
-  yearAfterPick.lockLabel !== "Locked" ||
+  yearAfterPick.lockLabel?.toLowerCase() !== "locked" ||
   !yearAfterPick.lockDisabled
 ) {
   failures.push(`year pick ${yearAfterPick.readout} locked ${yearAfterPick.locked} button ${yearAfterPick.lockLabel}`);
 }
 if (yearAfterPick.height !== yearBefore.height) failures.push("year board jumped after pick");
+if (
+  yearAfterSlide.lockAccessibleName?.toLowerCase() !== "lock" ||
+  yearAfterPick.lockAccessibleName?.toLowerCase() !== "locked"
+) {
+  failures.push(
+    `year action accessible names: ${yearAfterSlide.lockAccessibleName}, ${yearAfterPick.lockAccessibleName}`,
+  );
+}
 if (yearReveal.correctYear !== "2011" || yearReveal.readout !== "2011" || !yearReveal.panelVisible) {
   failures.push("year reveal did not keep 2011");
 }

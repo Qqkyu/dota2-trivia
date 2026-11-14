@@ -136,6 +136,9 @@ export function ValueOrderBoard({
       data-phase="answering"
       data-locked={selectedKey ? "true" : "false"}
     >
+      <p className={own.lockHint} data-testid="answer-helper">
+        {t("round.helper.order")}
+      </p>
       <div className={own.valueOrderSlots} role="group" aria-label={t("round.order.yours")}>
         {Array.from({ length: 4 }, (_, index) => {
           const key = activeKeys[index];

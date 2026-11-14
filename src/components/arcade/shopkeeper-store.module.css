@@ -96,6 +96,18 @@
   background: rgba(0, 0, 0, 0.14);
 }
 
+.buildFaces {
+  display: grid;
+}
+
+.buildFaces > span {
+  grid-area: 1 / 1;
+}
+
+.buildFaces > span[data-show="false"] {
+  visibility: hidden;
+}
+
 .shopkeeperRecipeReveal > svg {
   width: 15px;
   flex: 0 0 auto;
@@ -159,7 +171,64 @@
   color: #777d77;
 }
 
+.compactReveal .shopkeeperRevealPicks,
+.compactReveal .shopkeeperRecipeReveal {
+  display: grid;
+  align-items: start;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) 16px minmax(0, 1fr);
+  padding: 12px;
+}
+
+.compactReveal [data-testid="shopkeeper-open-reveal"] > svg {
+  align-self: center;
+}
+
+.compactReveal [data-testid="shopkeeper-open-reveal"] > span {
+  width: 100%;
+  min-width: 0;
+}
+
+.compactReveal [data-testid="shopkeeper-recipe-included"] {
+  width: 76px;
+}
+
+.compactReveal [data-testid="shopkeeper-open-reveal"] small {
+  color: #a7aea4;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.compactReveal [data-testid="shopkeeper-open-reveal"] strong {
+  display: block;
+  overflow: visible;
+  font-size: 14px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  -webkit-line-clamp: unset;
+}
+
+.partyShares {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+}
+
+.partyShares [data-testid="crowd-split-row"] strong {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+}
+
 @media (max-width: 680px) {
+  .compactReveal .shopkeeperRecipeReveal {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .compactReveal .shopkeeperRecipeReveal > svg {
+    display: none;
+  }
+
   .shopkeeperStoreToolbar {
     align-items: stretch;
     flex-direction: column;

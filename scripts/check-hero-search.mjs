@@ -7,7 +7,7 @@
 
 import { spawn } from "node:child_process";
 import { randomUUID } from "node:crypto";
-import { mkdtemp, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, writeFile } from "node:fs/promises";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -146,6 +146,7 @@ async function typeText(text) {
 const pickerState = `(() => {
   const picker = document.querySelector('[data-testid="hero-picker"]');
   const heroes = [...document.querySelectorAll('[data-testid="hero-picker-hero"]')];
+  const rect=node=>{const r=node.getBoundingClientRect();return {top:r.top,left:r.left,width:r.width,height:r.height};};
   return {
     locked: picker?.dataset.locked,
     searching: picker?.dataset.searching,
@@ -157,6 +158,15 @@ const pickerState = `(() => {
     height: Math.round(picker?.getBoundingClientRect().height ?? 0),
     top: Math.round(picker?.getBoundingClientRect().top ?? 0),
     phase: document.querySelector("main")?.dataset.phase,
+    rosterCount:heroes.length,
+    enabledControls:picker?.querySelectorAll('button:not(:disabled),input:not(:disabled)').length,
+    searchPresent:!!picker?.querySelector('[data-testid="hero-search-input"]'),
+    controls:Object.fromEntries(['hero-search-input','hero-picker-status','hero-picker-board'].flatMap(id=>{
+      const node=picker?.querySelector('[data-testid="'+id+'"]');return node?[[id,rect(node)]]:[];
+    })),
+    cards:heroes.map(hero=>({key:hero.dataset.heroKey,state:hero.dataset.state,
+      label:hero.getAttribute('aria-label'),name:hero.querySelector(':scope > strong')?.textContent??null,
+      share:hero.querySelector(':scope > i')?.textContent??null,disabled:hero.matches(':disabled')})),
   };
 })()`;
 
@@ -168,6 +178,7 @@ async function shot(name) {
 
 const hostId = `hero-search-host-${randomUUID()}`;
 try {
+  if (process.env.SHOT_DIR) await mkdir(process.env.SHOT_DIR, { recursive: true });
   const version = await waitJson(`http://127.0.0.1:${port}/json/version`);
   browser = attachCdp(version.webSocketDebuggerUrl);
   await browser.ready;
@@ -196,6 +207,7 @@ try {
     40_000,
   );
   await delay(300);
+  await page.evaluate("document.fonts.ready.then(()=>true)");
   const idle = await page.evaluate(pickerState);
   if (!/^\d+ heroes$/i.test(idle.status)) {
     throw new Error(`Hero status line did not show the hero count: ${JSON.stringify(idle)}`);
@@ -229,9 +241,18 @@ try {
     throw new Error(`Enter did not pick Anti-Mage: ${JSON.stringify(picked)}`);
   }
   if (picked.status !== "Locked: Anti-Mage") throw new Error(`Lock status is wrong: ${JSON.stringify(picked)}`);
+  if (picked.rosterCount !== idle.rosterCount || picked.rosterCount <= 100 || picked.enabledControls !== 0) {
+    throw new Error(`Lock must retain the full disabled roster: ${JSON.stringify(picked)}`);
+  }
+  for (const [control, before] of Object.entries(idle.controls)) {
+    const after = picked.controls[control];
+    if (!after || Object.keys(before).some((edge) => Math.abs(after[edge] - before[edge]) > 1)) {
+      throw new Error(`Answering-to-locked ${control} moved: ${JSON.stringify({ before, after })}`);
+    }
+  }
   await shot("hero-locked.png");
 
-  // Reveal names the correct hero beside the grid without moving the grid.
+  // Reveal replaces the inactive roster with named selected/correct cards.
   await page.waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 25_000);
   await delay(400);
   const reveal = await page.evaluate(pickerState);
@@ -242,12 +263,30 @@ try {
   if (reveal.correctName !== "Anti-Mage" && !reveal.status.endsWith("You picked Anti-Mage")) {
     throw new Error(`Reveal did not name the wrong pick: ${JSON.stringify(reveal)}`);
   }
-  if (reveal.height !== picked.height || reveal.top !== picked.top) {
-    throw new Error(`Hero grid moved on reveal: ${JSON.stringify({ picked, reveal })}`);
+  const expectedKeys = new Set([picked.selected, reveal.cards.find((card) => card.state === "correct")?.key]);
+  if (reveal.rosterCount !== expectedKeys.size || reveal.cards.some((card) => !expectedKeys.has(card.key))) {
+    throw new Error(`Reveal retained inactive heroes: ${JSON.stringify(reveal)}`);
   }
-  console.log(
-    `Validated hero grid search and reveal: Enter picks the only match, reveal names ${reveal.correctName} in place.`,
-  );
+  if (reveal.height >= picked.height || reveal.searchPresent || reveal.enabledControls !== 0) {
+    throw new Error(`Reveal must be compact with no enabled answer controls: ${JSON.stringify({ picked, reveal })}`);
+  }
+  if (reveal.cards.some((card) => !card.disabled || !card.name || card.name !== card.label)) {
+    throw new Error(`Reveal cards must have visible hero names: ${JSON.stringify(reveal)}`);
+  }
+  const chosen = reveal.cards.find((card) => card.key === picked.selected);
+  if (chosen?.state !== (chosen?.label === reveal.correctName ? "correct" : "wrong") || chosen?.share !== "100%") {
+    throw new Error(`Party reveal lost the chosen result or share: ${JSON.stringify(reveal)}`);
+  }
+  if (process.env.SHOT_DIR) {
+    await writeFile(
+      join(process.env.SHOT_DIR, "hero-search.json"),
+      JSON.stringify({ idle, many, single, picked, reveal }, null, 2) + "\n",
+    );
+  }
+  console.log(`Validated hero search, stable locked controls, and compact party reveal naming ${reveal.correctName}.`);
+} catch (error) {
+  if (page) await shot("hero-search-failure.png").catch(() => undefined);
+  throw error;
 } finally {
   await cleanup();
 }

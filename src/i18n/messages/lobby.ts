@@ -135,6 +135,7 @@ export const lobby = {
   // Wait before the first full round. `{field}` is the name of the shop search field.
   "wait.heading": "Waiting for the next round",
   "wait.hint": "Until the next round",
+  "wait.reconnecting": "Waiting to reconnect",
   "wait.tipLabel": "Hint",
   "wait.tip.keys": "Press A–D to answer",
   "wait.tip.heroes": "Start typing to filter heroes",

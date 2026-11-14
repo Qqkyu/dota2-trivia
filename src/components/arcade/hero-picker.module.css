@@ -162,3 +162,76 @@ button[data-state="wrong"] > .heroPickerVerdict {
     padding-inline: 6px;
   }
 }
+.heroPortrait {
+  position: absolute;
+  inset: 0;
+}
+
+.compactReveal .heroPickerStatus {
+  height: auto;
+  min-height: 32px;
+  flex-wrap: wrap;
+  padding-block: 8px;
+  white-space: normal;
+}
+
+.compactReveal .heroPickerBoard {
+  display: flex;
+  height: auto;
+  flex-wrap: wrap;
+  gap: 8px;
+  overflow: visible;
+  padding: 10px;
+  scrollbar-gutter: auto;
+}
+
+.compactReveal section {
+  display: contents;
+}
+
+.compactReveal section h3 {
+  display: none;
+}
+
+.compactReveal section > div {
+  display: contents;
+}
+
+.compactReveal section button {
+  display: flex;
+  width: auto;
+  min-width: 0;
+  max-width: 100%;
+  height: auto;
+  min-height: 58px;
+  aspect-ratio: auto;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 28px 7px 7px;
+}
+
+.compactReveal .heroPortrait {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+}
+
+.revealHeroName {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 550;
+  line-height: 1.35;
+  text-align: left;
+}
+
+.compactReveal section button > i {
+  position: static;
+  align-self: center;
+  margin-left: 4px;
+}
+
+.compactReveal[data-phase="reveal"] section button[data-state="idle"] {
+  opacity: 1;
+  filter: none;
+}

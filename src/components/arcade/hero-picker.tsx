@@ -70,7 +70,7 @@ export function HeroPicker({
   /** A party has no Room split card, so the shares go on the grid. */
   showShares: boolean;
   onChoose: (heroKey: string) => void;
-  /** At reveal: the verdict and the gold, so the payoff shows above the grid without moving it. */
+  /** At reveal: the verdict and gold beside the correct hero. */
   resultCallout?: Parameters<typeof revealCalloutKey>[0] | null;
   roundAward?: RoundAward | null;
 }) {
@@ -167,57 +167,61 @@ export function HeroPicker({
   return (
     <div
       ref={pickerRef}
-      className={styles.heroPicker}
+      className={phase === "reveal" ? `${styles.heroPicker} ${own.compactReveal}` : styles.heroPicker}
       data-testid="hero-picker"
       data-phase={phase}
       data-locked={selectedKey ? "true" : "false"}
-      data-searching={normalizedQuery ? "true" : "false"}
+      data-searching={phase === "answering" && normalizedQuery ? "true" : "false"}
       style={{ "--hero-grid-columns": HERO_PICKER_CATALOG.columns } as CSSProperties}
     >
-      <div
-        className={styles.quickSearch}
-        data-testid="hero-search"
-        data-query={query}
-        data-active={searchFlash ? "true" : "false"}
-        aria-live="polite"
-      >
-        {query}
-      </div>
-      <label className={own.heroSearchField}>
-        <Search aria-hidden="true" />
-        <input
-          className={own.heroSearchInput}
-          data-testid="hero-search-input"
-          aria-label={t("round.heroPicker.filterAria")}
-          type="search"
-          enterKeyHint="go"
-          autoComplete="off"
-          spellCheck={false}
-          placeholder={t("round.heroPicker.placeholder")}
-          value={query}
-          disabled={phase !== "answering" || selectedKey !== null}
-          onChange={(event) => {
-            queryRef.current = event.currentTarget.value;
-            setQuery(event.currentTarget.value);
-            flashSearch(Boolean(event.currentTarget.value.trim()));
-          }}
-          onKeyDown={(event) => {
-            if (!shouldHandleAnswerShortcut(event.nativeEvent, { allowedInput: event.currentTarget })) return;
-            if (event.key === "Escape") {
-              event.preventDefault();
-              queryRef.current = "";
-              setQuery("");
-              flashSearch(false);
-            } else if (event.key === "Enter") {
-              event.preventDefault();
-              const matches = searchHeroes(event.currentTarget.value);
-              if (matches.length === 1) chooseHero(matches[0].key);
-            }
-          }}
-        />
-      </label>
-      {/* Fixed-height status line: the filter count while answering, the lock,
-          then the correct hero's name on reveal. Nothing below it moves. */}
+      {phase !== "reveal" && (
+        <>
+          <div
+            className={styles.quickSearch}
+            data-testid="hero-search"
+            data-query={query}
+            data-active={searchFlash ? "true" : "false"}
+            aria-live="polite"
+          >
+            {query}
+          </div>
+          <label className={own.heroSearchField}>
+            <Search aria-hidden="true" />
+            <input
+              className={own.heroSearchInput}
+              data-testid="hero-search-input"
+              aria-label={t("round.heroPicker.filterAria")}
+              title={t("round.heroPicker.filterAria")}
+              type="search"
+              enterKeyHint="go"
+              autoComplete="off"
+              spellCheck={false}
+              placeholder={t("round.heroPicker.placeholder")}
+              value={query}
+              disabled={phase !== "answering" || selectedKey !== null}
+              onChange={(event) => {
+                queryRef.current = event.currentTarget.value;
+                setQuery(event.currentTarget.value);
+                flashSearch(Boolean(event.currentTarget.value.trim()));
+              }}
+              onKeyDown={(event) => {
+                if (!shouldHandleAnswerShortcut(event.nativeEvent, { allowedInput: event.currentTarget })) return;
+                if (event.key === "Escape") {
+                  event.preventDefault();
+                  queryRef.current = "";
+                  setQuery("");
+                  flashSearch(false);
+                } else if (event.key === "Enter") {
+                  event.preventDefault();
+                  const matches = searchHeroes(event.currentTarget.value);
+                  if (matches.length === 1) chooseHero(matches[0].key);
+                }
+              }}
+            />
+          </label>
+        </>
+      )}
+      {/* Answering and locked controls keep their positions. Reveal names the result. */}
       <p
         className={own.heroPickerStatus}
         data-testid="hero-picker-status"
@@ -254,66 +258,79 @@ export function HeroPicker({
         )}
       </p>
       <div className={own.heroPickerBoard} data-testid="hero-picker-board">
-        {HERO_PICKER_CATALOG.groups.map((group) => (
-          <section
-            key={group.key}
-            className={styles.heroPickerGroup}
-            data-attribute={group.key}
-            data-hero-count={group.heroes.length}
-            aria-label={t(HERO_GROUP_ARIA_KEYS[group.key])}
-          >
-            <h3>
-              <Image
-                src={firstPartyArtSrc(HERO_ATTRIBUTE_ICONS[group.key])}
-                alt=""
-                width={18}
-                height={18}
-                unoptimized
-              />
-              {t(HERO_GROUP_LABEL_KEYS[group.key])}
-            </h3>
-            <div>
-              {group.heroes.map((hero) => {
-                const isSearchMatch = heroMatches(hero);
-                const isSelected = selectedKey === hero.key;
-                const isCorrect = phase === "reveal" && targetKey === hero.key;
-                const count = countByHero.get(hero.key) ?? 0;
-                const percentage = crowd.total ? Math.round((count / crowd.total) * 100) : 0;
-                const state = isCorrect
-                  ? "correct"
-                  : phase === "reveal" && isSelected
-                    ? "wrong"
-                    : isSelected
-                      ? "selected"
-                      : "idle";
+        {HERO_PICKER_CATALOG.groups.map((group) => {
+          const heroes = group.heroes.filter(
+            (hero) =>
+              phase !== "reveal" ||
+              hero.key === targetKey ||
+              hero.key === selectedKey ||
+              (showShares && (countByHero.get(hero.key) ?? 0) > 0),
+          );
+          if (!heroes.length) return null;
+          return (
+            <section
+              key={group.key}
+              className={styles.heroPickerGroup}
+              data-attribute={group.key}
+              data-hero-count={heroes.length}
+              aria-label={t(HERO_GROUP_ARIA_KEYS[group.key])}
+            >
+              <h3>
+                <Image
+                  src={firstPartyArtSrc(HERO_ATTRIBUTE_ICONS[group.key])}
+                  alt=""
+                  width={18}
+                  height={18}
+                  unoptimized
+                />
+                {t(HERO_GROUP_LABEL_KEYS[group.key])}
+              </h3>
+              <div>
+                {heroes.map((hero) => {
+                  const isSearchMatch = heroMatches(hero);
+                  const isSelected = selectedKey === hero.key;
+                  const isCorrect = phase === "reveal" && targetKey === hero.key;
+                  const count = countByHero.get(hero.key) ?? 0;
+                  const percentage = crowd.total ? Math.round((count / crowd.total) * 100) : 0;
+                  const state = isCorrect
+                    ? "correct"
+                    : phase === "reveal" && isSelected
+                      ? "wrong"
+                      : isSelected
+                        ? "selected"
+                        : "idle";
 
-                return (
-                  <button
-                    key={hero.key}
-                    type="button"
-                    data-testid="hero-picker-hero"
-                    data-hero-key={hero.key}
-                    data-state={state}
-                    data-search-match={isSearchMatch ? "true" : "false"}
-                    title={hero.name}
-                    aria-label={hero.name}
-                    aria-pressed={isSelected}
-                    disabled={phase !== "answering" || selectedKey !== null}
-                    onClick={() => chooseHero(hero.key)}
-                  >
-                    <HeroPickerPortrait hero={hero} />
-                    {showShares && phase === "reveal" && count > 0 && <i>{percentage}%</i>}
-                    {phase === "reveal" && (isCorrect || isSelected) && (
-                      <span className={own.heroPickerVerdict} aria-hidden="true">
-                        {isCorrect ? <Check /> : <X />}
+                  return (
+                    <button
+                      key={hero.key}
+                      type="button"
+                      data-testid="hero-picker-hero"
+                      data-hero-key={hero.key}
+                      data-state={state}
+                      data-search-match={isSearchMatch ? "true" : "false"}
+                      title={hero.name}
+                      aria-label={hero.name}
+                      aria-pressed={isSelected}
+                      disabled={phase !== "answering" || selectedKey !== null}
+                      onClick={() => chooseHero(hero.key)}
+                    >
+                      <span className={own.heroPortrait}>
+                        <HeroPickerPortrait hero={hero} />
                       </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </section>
-        ))}
+                      {phase === "reveal" && <strong className={own.revealHeroName}>{hero.name}</strong>}
+                      {showShares && phase === "reveal" && count > 0 && <i>{percentage}%</i>}
+                      {phase === "reveal" && (isCorrect || isSelected) && (
+                        <span className={own.heroPickerVerdict} aria-hidden="true">
+                          {isCorrect ? <Check /> : <X />}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
+          );
+        })}
       </div>
     </div>
   );

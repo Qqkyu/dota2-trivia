@@ -30,6 +30,52 @@ type SessionRailProps = { currentQuestion: PublicArcadeQuestion } & Pick<
 > &
   Pick<ReturnType<typeof deriveRoundView>, "currentGame" | "recentHistory" | "recentHistoryStart">;
 
+function RoomSplitCard({
+  currentQuestion,
+  crowd,
+  selectedIndex,
+  selectedAnswerKey,
+}: Pick<SessionRailProps, "currentQuestion" | "crowd" | "selectedIndex" | "selectedAnswerKey">) {
+  const { t, number } = useLocale();
+  return (
+    <div className={own.crowdCard} data-testid="crowd-card" data-phase="reveal">
+      <div className={own.cardTitle}>
+        <span>
+          <Radio />
+          {t("session.roomSplit")}
+        </span>
+      </div>
+      <strong>{t("session.answerTotal", { count: crowd.total, answers: number(crowd.total) })}</strong>
+      {isPublicKeyedAnswerQuestion(currentQuestion) ? (
+        <KeyedCrowdSplit question={currentQuestion} crowd={crowd} selectedKey={selectedAnswerKey} />
+      ) : (
+        <ChoiceCrowdSplit question={currentQuestion} crowd={crowd} selectedIndex={selectedIndex} />
+      )}
+      {crowd.scoreSummary && (
+        <div className={own.crowdScoreSummary} data-testid="crowd-score-summary">
+          <span>
+            <small>{t("session.you")}</small>
+            <strong>{crowd.scoreSummary.playerPoints === null ? "—" : `+${crowd.scoreSummary.playerPoints}`}</strong>
+          </span>
+          <span>
+            <small>{t("session.correctAverage")}</small>
+            <strong>{crowd.scoreSummary.average === null ? "—" : `+${crowd.scoreSummary.average}`}</strong>
+          </span>
+          <span>
+            <small>{t("session.best")}</small>
+            <strong>{crowd.scoreSummary.best === null ? "—" : `+${crowd.scoreSummary.best}`}</strong>
+          </span>
+        </div>
+      )}
+      {crowd.community && (
+        <p className={own.crowdCommunity} data-testid="crowd-community">
+          {t("session.communityShare", { share: crowd.community.share })}
+        </p>
+      )}
+    </div>
+  );
+}
+
 export function SessionRail({
   phase,
   currentQuestion,
@@ -50,9 +96,10 @@ export function SessionRail({
   const { t, number } = useLocale();
   const answered = number(crowd.total);
   // The same shape for a room of one as for a full room; no "only you" copy.
-  // Only while answering: at the reveal the Room split card has the count. The blank line holds the card's height.
+  // Populated reveals use this same rail position for the single Room split card.
   const roomLine =
     phase === "answering" ? t("session.lockedSoFar", { count: crowd.total, answers: answered }) : "\u00a0";
+  const showSplit = phase === "reveal" && crowd.total > 0;
   return (
     <div className={styles.sideRail} role="region" aria-label={t("session.region")}>
       <div className={own.scoreGrid} data-testid="score-grid">
@@ -104,21 +151,30 @@ export function SessionRail({
         })}
       </div>
 
-      <div className={own.roomCard} data-testid="room-card" data-phase={phase}>
-        <div className={own.cardTitle}>
-          <span>
-            <Users />
-            {t("session.room")}
-          </span>
-          <span className={own.livePill}>{t(phase === "answering" ? "session.live" : "session.final")}</span>
+      {showSplit ? (
+        <RoomSplitCard
+          currentQuestion={currentQuestion}
+          crowd={crowd}
+          selectedIndex={selectedIndex}
+          selectedAnswerKey={selectedAnswerKey}
+        />
+      ) : (
+        <div className={own.roomCard} data-testid="room-card" data-phase={phase}>
+          <div className={own.cardTitle}>
+            <span>
+              <Users />
+              {t("session.room")}
+            </span>
+            <span className={own.livePill}>{t(phase === "answering" ? "session.live" : "session.final")}</span>
+          </div>
+          <strong data-testid="room-card-players">
+            {activePlayers > 0
+              ? t("roomStatus.playing", { count: activePlayers, players: number(activePlayers) })
+              : t("roomStatus.open")}
+          </strong>
+          <p data-testid="room-card-answers">{roomLine}</p>
         </div>
-        <strong data-testid="room-card-players">
-          {activePlayers > 0
-            ? t("roomStatus.playing", { count: activePlayers, players: number(activePlayers) })
-            : t("roomStatus.open")}
-        </strong>
-        <p data-testid="room-card-answers">{roomLine}</p>
-      </div>
+      )}
 
       <div className={own.progressCard}>
         <div className={own.cardTitle}>
@@ -160,46 +216,6 @@ export function SessionRail({
           })}
         </div>
       </div>
-
-      {phase === "reveal" && crowd.total > 0 && (
-        <div className={own.crowdCard} data-testid="crowd-card" data-phase={phase}>
-          <div className={own.cardTitle}>
-            <span>
-              <Radio />
-              {t("session.roomSplit")}
-            </span>
-          </div>
-          <strong>{t("session.answerTotal", { count: crowd.total, answers: answered })}</strong>
-          {isPublicKeyedAnswerQuestion(currentQuestion) ? (
-            <KeyedCrowdSplit question={currentQuestion} crowd={crowd} selectedKey={selectedAnswerKey} />
-          ) : (
-            <ChoiceCrowdSplit question={currentQuestion} crowd={crowd} selectedIndex={selectedIndex} />
-          )}
-          {crowd.scoreSummary && (
-            <div className={own.crowdScoreSummary} data-testid="crowd-score-summary">
-              <span>
-                <small>{t("session.you")}</small>
-                <strong>
-                  {crowd.scoreSummary.playerPoints === null ? "—" : `+${crowd.scoreSummary.playerPoints}`}
-                </strong>
-              </span>
-              <span>
-                <small>{t("session.correctAverage")}</small>
-                <strong>{crowd.scoreSummary.average === null ? "—" : `+${crowd.scoreSummary.average}`}</strong>
-              </span>
-              <span>
-                <small>{t("session.best")}</small>
-                <strong>{crowd.scoreSummary.best === null ? "—" : `+${crowd.scoreSummary.best}`}</strong>
-              </span>
-            </div>
-          )}
-          {crowd.community && (
-            <p className={own.crowdCommunity} data-testid="crowd-community">
-              {t("session.communityShare", { share: crowd.community.share })}
-            </p>
-          )}
-        </div>
-      )}
     </div>
   );
 }

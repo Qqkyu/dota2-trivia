@@ -22,6 +22,7 @@ export const pages = {
   "party.codeNew": "Choose a party code",
   "party.copyLink": "Copy link",
   "party.players": "Players",
+  "party.morePlayersBelow": "More players below",
   "party.name.placeholder": "Your name",
   "party.start": "Start",
   "party.waiting.named": "Waiting for {name} to start",

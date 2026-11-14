@@ -14,6 +14,8 @@ import { stopChrome } from "./lib/stop-chrome.mjs";
 
 const appUrl = process.env.APP_URL ?? "http://localhost:3000";
 const requests = firstPartyRequests(appUrl);
+const partyEvents = [];
+const partyRequestUrls = new Map();
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function freePort() {
@@ -74,7 +76,17 @@ function attachCdp(webSocketDebuggerUrl, onEvent = () => undefined) {
       if (await evaluate(expression)) return;
       await delay(150);
     }
-    throw new Error(`Timed out waiting for: ${expression}`);
+    const state = await evaluate(`(() => {
+      const create=document.querySelector('[data-testid="private-room-create"]');
+      return {url:location.pathname+location.search,path:document.querySelector('[data-testid="private-room-setup"]')?.dataset.path,
+        code:document.querySelector('[data-testid="private-room-join-code"]')?.value,
+        error:document.querySelector('[data-testid="private-room-error"]')?.textContent?.trim(),
+        selected:document.querySelectorAll('[data-on="true"]').length,
+        busy:create?.getAttribute('aria-busy'),disabled:create?.disabled,lastClick:window.__partyPreviewLastClick};
+    })()`).catch(() => null);
+    throw new Error(
+      `Timed out waiting for: ${expression}\nLast party state: ${JSON.stringify({ state, network: partyEvents.slice(-8) })}`,
+    );
   }
   return {
     socket,
@@ -141,7 +153,30 @@ try {
   const created = await browser.send("Target.createTarget", { url: "about:blank" });
   const listed = await fetch(`http://127.0.0.1:${port}/json/list`).then((response) => response.json());
   const target = listed.find((entry) => entry.id === created.targetId);
-  page = attachCdp(target.webSocketDebuggerUrl, requests.onEvent);
+  page = attachCdp(target.webSocketDebuggerUrl, (event) => {
+    requests.onEvent(event);
+    const request = event.params?.request,
+      response = event.params?.response;
+    const url = request?.url ?? response?.url ?? partyRequestUrls.get(event.params?.requestId) ?? "";
+    if (event.method === "Network.requestWillBeSent" && url.includes("/api/private-rooms"))
+      partyRequestUrls.set(event.params.requestId, url);
+    if (
+      url.includes("/api/private-rooms") &&
+      ["Network.requestWillBeSent", "Network.responseReceived", "Network.loadingFailed"].includes(event.method)
+    ) {
+      partyEvents.push({
+        event: event.method,
+        url,
+        method: request?.method,
+        status: response?.status,
+        error: event.params?.errorText,
+        canceled: event.params?.canceled,
+        blocked: event.params?.blockedReason,
+        cors: event.params?.corsErrorStatus,
+      });
+      if (partyEvents.length > 32) partyEvents.shift();
+    }
+  });
   await page.ready;
   await page.send("Page.enable");
   await page.send("Runtime.enable");
@@ -153,7 +188,7 @@ try {
     `(() => { const stage = document.querySelector('[data-testid^="format-preview-stage-"]'); return Boolean(stage) && stage.getBoundingClientRect().height > 0; })()`,
   );
   const profileShots = await page.send("Page.captureScreenshot", { format: "png" });
-  await writeFile("/tmp/profile-previews.png", Buffer.from(profileShots.data, "base64"));
+  await writeFile(join(tmpdir(), "profile-previews.png"), Buffer.from(profileShots.data, "base64"));
   const profileStages = await page.evaluate(MEASURE_STAGES);
   const profileHeight = profileStages[0]?.h;
   if (!profileHeight) throw new Error("Profile has no format preview stages.");
@@ -224,7 +259,7 @@ try {
   }
   await delay(400);
   const shots = await page.send("Page.captureScreenshot", { format: "png" });
-  await writeFile("/tmp/party-previews.png", Buffer.from(shots.data, "base64"));
+  await writeFile(join(tmpdir(), "party-previews.png"), Buffer.from(shots.data, "base64"));
   const partyStages = await page.evaluate(MEASURE_STAGES);
   if (!partyStages.length) throw new Error("Party setup rendered no format preview stages.");
   const profileWidth = profileStages[0]?.w;
@@ -289,8 +324,11 @@ try {
         const enterBox = await page.evaluate(`(() => {
           const node = document.querySelector('[data-testid="private-room-create"]');
           if (!node) return null;
-          const rect = node.getBoundingClientRect();
-          return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
+               const rect = node.getBoundingClientRect();
+               window.__partyPreviewLastClick={code:document.querySelector('[data-testid="private-room-join-code"]')?.value,
+                 selected:document.querySelectorAll('[data-on="true"]').length,disabled:node.disabled,
+                 hit:document.elementFromPoint(rect.x+rect.width/2,rect.y+rect.height/2)?.closest('button')?.dataset.testid};
+               return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
         })()`);
         await page.send("Input.dispatchMouseEvent", {
           type: "mousePressed",
@@ -341,7 +379,10 @@ try {
             const box = await page.evaluate(`(() => {
               const node = document.querySelector('[data-testid="private-room-create"]');
               if (!node) return null;
-              const rect = node.getBoundingClientRect();
+               const rect = node.getBoundingClientRect();
+               window.__partyPreviewLastClick={code:document.querySelector('[data-testid="private-room-join-code"]')?.value,
+                 selected:document.querySelectorAll('[data-on="true"]').length,disabled:node.disabled,
+                 hit:document.elementFromPoint(rect.x+rect.width/2,rect.y+rect.height/2)?.closest('button')?.dataset.testid};
               return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
             })()`);
             if (!box) throw new Error("Create is missing.");
@@ -419,7 +460,7 @@ try {
               await delay(80);
               const chatHidden = await page.evaluate(`!document.querySelector('[data-testid="private-room-chat"]')`);
               const waitShots = await page.send("Page.captureScreenshot", { format: "png" });
-              await writeFile("/tmp/party-wait.png", Buffer.from(waitShots.data, "base64"));
+              await writeFile(join(tmpdir(), "party-wait.png"), Buffer.from(waitShots.data, "base64"));
               const entered = await page.evaluate(`(() => {
             const rows = [...document.querySelectorAll('[data-testid="private-room-players"] li')];
             const first = rows[0];

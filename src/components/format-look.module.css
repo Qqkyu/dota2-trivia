@@ -51,6 +51,14 @@
   object-fit: contain;
 }
 
+/* These are decorative excerpts, not the live question's complete clues. */
+.frame .stage .cluePreview > div:first-child span {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 @media (max-width: 820px) {
   .frame {
     height: 188px;
