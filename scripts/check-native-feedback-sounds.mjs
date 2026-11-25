@@ -6,8 +6,16 @@ import { fileURLToPath } from "node:url";
 import { publicQuestionForRound } from "../src/lib/public-question.mjs";
 import { DOTA_FEEDBACK_SOUNDS } from "../src/lib/feedback-sounds.mjs";
 import { click, delay, soundBrowser } from "./lib/feedback-browser.mjs";
+import { runNativeAudioInContainer } from "./lib/native-audio-container.mjs";
 import { installSoundFixtures } from "./lib/feedback-sound-probe.mjs";
 import { nativeAudioOutput, sampleEnergy, subtractWaveform, wavChannels } from "./lib/native-audio-output.mjs";
+
+// macOS Chrome plays through Core Audio, which the recorder cannot capture in isolation.
+if (process.platform === "darwin") {
+  process.exit(
+    await runNativeAudioInContainer(process.argv.slice(2), { appUrl: process.env.APP_URL ?? "http://localhost:3000" }),
+  );
+}
 
 const fault = process.argv.find((arg) => arg.startsWith("--fault="))?.split("=")[1] ?? "";
 if (!fault && !process.argv.includes("--skip-controls")) {

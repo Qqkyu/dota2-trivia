@@ -65,7 +65,7 @@ pnpm dev
 
 Open http://localhost:3000. Without `DATABASE_URL`, answers go to a local JSON file.
 
-`pnpm test` runs the unit tests. `pnpm check` runs the full gate, including browser checks, and needs Chrome, ffmpeg and PulseAudio.
+`pnpm test` runs the unit tests. `pnpm check` runs the full gate, including browser checks, and needs Chrome, ffmpeg and PulseAudio (on macOS, a Docker engine instead of PulseAudio).
 
 More detail:
 

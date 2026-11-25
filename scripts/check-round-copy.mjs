@@ -8,6 +8,7 @@
  */
 
 import { spawn } from "node:child_process";
+import { CHROME_BINARY } from "./lib/chrome-binary.mjs";
 import { firstPartyRequests } from "./lib/first-party-requests.mjs";
 import { randomUUID } from "node:crypto";
 import { mkdtemp } from "node:fs/promises";
@@ -109,7 +110,7 @@ async function post(path, body) {
 const port = await freePort();
 const userDataDir = await mkdtemp(join(tmpdir(), "queue-arcade-copy-"));
 const chrome = spawn(
-  "google-chrome",
+  CHROME_BINARY,
   [
     "--headless=new",
     "--mute-audio",

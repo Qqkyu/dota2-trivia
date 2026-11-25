@@ -10,6 +10,7 @@ import { mkdtemp } from "node:fs/promises";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { CHROME_BINARY } from "./lib/chrome-binary.mjs";
 import { stopChrome } from "./lib/stop-chrome.mjs";
 
 const appUrl = process.env.APP_URL ?? "http://localhost:3000";
@@ -89,7 +90,7 @@ function attachCdp(webSocketDebuggerUrl) {
 const port = await freePort();
 const userDataDir = await mkdtemp(join(tmpdir(), "queue-arcade-shop-"));
 const chrome = spawn(
-  "google-chrome",
+  CHROME_BINARY,
   [
     "--headless=new",
     "--mute-audio",

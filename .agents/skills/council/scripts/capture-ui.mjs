@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import path from "node:path";
+import { CHROME_BINARY } from "../../../../scripts/lib/chrome-binary.mjs";
 import { publicQuestionForRound } from "../../../../src/lib/public-question.mjs";
 
 const require = createRequire(path.join(process.cwd(), "package.json"));
@@ -94,7 +95,7 @@ const scenes = [
   { name: "fog-locked", route: "/play", kind: "fog", phase: "answering", outcome: "correct", locked: true },
 ];
 const browser = await chromium.launch({
-  executablePath: process.env.CHROME_BIN ?? "/usr/bin/google-chrome",
+  executablePath: CHROME_BINARY,
   headless: true,
 });
 const records = [];

@@ -10,6 +10,7 @@ import { mkdtemp } from "node:fs/promises";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { CHROME_BINARY } from "./lib/chrome-binary.mjs";
 import { stopChrome } from "./lib/stop-chrome.mjs";
 
 const appUrl = (process.env.APP_URL ?? "http://localhost:3000").replace(/\/$/, "");
@@ -105,7 +106,7 @@ const STATE = `(() => {
 const port = await freePort();
 const userDataDir = await mkdtemp(join(tmpdir(), "queue-arcade-ended-"));
 const chrome = spawn(
-  "google-chrome",
+  CHROME_BINARY,
   [
     "--headless=new",
     "--mute-audio",
@@ -179,7 +180,8 @@ try {
   });
   if (waitParty.status !== 200) throw new Error(`waiting room: could not create the party (${waitParty.status}).`);
   await page.send("Page.navigate", { url: `${appUrl}/play?room=${waitCode}` });
-  await page.waitFor(`document.querySelector('[data-testid="private-room-wait"]')`, 20_000);
+  // The bare section shows while the tab still joins; its lobby shows once the tab is in the party.
+  await page.waitFor(`document.querySelector('[data-testid="private-room-wait"] > div')`, 20_000);
   const waitMs = await expectEnded("waiting room", waitCode, hostId, []);
 
   // 2. Mid-game, with a second player.
