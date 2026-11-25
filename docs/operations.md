@@ -113,8 +113,8 @@ Sources: [Render Blueprints](https://render.com/docs/blueprint-spec),
 
 `pnpm check` validates the reviewed content snapshot, data, unit tests, lint, types,
 production build, private-data bundle boundary, and browser flows. It includes both native
-PulseAudio output and Web Audio sound checks. Install Chrome, ffmpeg, `pulseaudio`, and
-`pulseaudio-utils` on the test host. Native audio is recorded through a private null sink;
+PulseAudio output and Web Audio sound checks. Install Chrome and ffmpeg on the test host,
+plus `pulseaudio` and `pulseaudio-utils` on Linux or a Docker engine on macOS. Native audio is recorded through a private null sink;
 no speaker output is needed. Set `TEST_DATABASE_URL` to a disposable Postgres database to
 include database migration and account-store regression tests.
 

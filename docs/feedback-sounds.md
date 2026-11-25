@@ -118,12 +118,20 @@ pnpm check:sounds
 ```
 
 `APP_URL` and `CHROME_BIN` can select another app URL or Chrome binary. The native
-check requires Linux, PulseAudio (`pulseaudio` and `parec`), and Chrome. It starts
-its own temporary audio server and records a null sink; it does not use speakers
-or change the user's audio server. An unpacked PulseAudio package tree can be
-supplied with `SOUND_PULSE_ROOT`. On this workspace it is already installed at
-`~/.cache/queue-arcade/sound-tools`, which the check finds by default. Missing
-recorder tools fail the check instead of skipping native verification.
+check records with PulseAudio (`pulseaudio` and `parec`). It starts its own temporary
+audio server and records a null sink; it does not use speakers or change the user's
+audio server. Missing recorder tools fail the check instead of skipping native
+verification.
+
+On Linux the check runs directly. An unpacked PulseAudio package tree can be supplied
+with `SOUND_PULSE_ROOT`, or placed in `~/.cache/queue-arcade/sound-tools`.
+
+On macOS, Chrome plays through Core Audio, so the same check runs in a Linux container
+with Google Chrome and PulseAudio (`scripts/native-audio/`). It needs a running Docker
+engine, for example `colima start`, and fails without one. The first run builds the
+image. A new month or a changed Dockerfile builds it again, so Chrome stays current.
+The container sees only `scripts`, `src` and `public`, read-only, and reaches the app
+on the same `127.0.0.1` address. `CHROME_BIN` has no effect there.
 
 The native check covers cold first picks in separate browser profiles, first
 Shopkeeper picks while `hasFocus()` is still false, individual wrong results, two

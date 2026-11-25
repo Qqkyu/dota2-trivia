@@ -229,8 +229,18 @@ elimination, non-active item sets, unaudited sequence clips, and ordered pairs t
 
 ## Checks
 
+Development and the full gate run on macOS. Install the tools once, and start Colima before `pnpm check`:
+
+```bash
+brew install ffmpeg postgresql@17 colima docker docker-buildx
+pnpm exec playwright install chromium firefox webkit
+colima start --vm-type vz --cpu 6 --memory 8
+```
+
+Use Node 22 (`.nvmrc`). The checks start the installed Google Chrome; `CHROME_BIN` selects another binary. `pnpm test` skips the PostgreSQL tests unless `TEST_DATABASE_URL` and `LAUNCH_DATABASE_TEST_URL` name a disposable PostgreSQL 17 database with password login, as in `.github/workflows/ci.yml`. Put `/opt/homebrew/opt/postgresql@17/bin` in `PG_BIN_DIR`.
+
 With `pnpm dev` running, use `pnpm check:sounds` for feedback sound changes. It opens its own muted Chrome,
-uses real mouse and keyboard input, and checks both native PulseAudio output and decoded Web Audio samples. Install Chrome, ffmpeg, `pulseaudio`, and `pulseaudio-utils` on the test host. It covers
+uses real mouse and keyboard input, and checks both native PulseAudio output and decoded Web Audio samples. Install Chrome and ffmpeg on the test host, plus `pulseaudio` and `pulseaudio-utils` on Linux or a Docker engine on macOS. It covers
 Shopkeeper recipe steps, all four Shopkeeper question types, Fogged Vision, Spell Link, four-choice trivia,
 Order Up, and Flashback ordering. It also tests closely timed picks/results, hidden tabs, and mute.
 Before the real checks, it proves that forced silence and cut-off clips fail even when `play()` succeeds.

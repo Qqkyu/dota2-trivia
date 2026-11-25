@@ -9,6 +9,7 @@ import { mkdtemp } from "node:fs/promises";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { CHROME_BINARY } from "./lib/chrome-binary.mjs";
 import { stopChrome } from "./lib/stop-chrome.mjs";
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -42,7 +43,7 @@ async function waitJson(url, timeout = 15_000) {
 const port = await freePort();
 const userDataDir = await mkdtemp(join(tmpdir(), "queue-arcade-flashback-"));
 const chrome = spawn(
-  "google-chrome",
+  CHROME_BINARY,
   [
     "--headless=new",
     "--mute-audio",

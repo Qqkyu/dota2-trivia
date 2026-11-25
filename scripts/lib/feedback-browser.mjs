@@ -3,6 +3,8 @@ import { mkdtemp, rm } from "node:fs/promises";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { CHROME_BINARY } from "./chrome-binary.mjs";
+
 export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function freePort() {
@@ -106,7 +108,7 @@ export async function soundBrowser({ muteAudio = true, env = process.env } = {})
   const port = await freePort();
   const userDataDir = await mkdtemp(join(tmpdir(), "queue-arcade-sounds-"));
   const chrome = spawn(
-    process.env.CHROME_BIN ?? "google-chrome",
+    CHROME_BINARY,
     [
       "--headless=new",
       ...(muteAudio ? ["--mute-audio"] : []),

@@ -11,6 +11,7 @@ import { mkdtemp } from "node:fs/promises";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { CHROME_BINARY } from "./lib/chrome-binary.mjs";
 import { PRIVATE_ROOM_PLAYER_MAX } from "../src/lib/private-rooms.mjs";
 import { stopChrome } from "./lib/stop-chrome.mjs";
 
@@ -100,7 +101,7 @@ const VIEWPORTS = [
 const port = await freePort();
 const userDataDir = await mkdtemp(join(tmpdir(), "queue-arcade-crowd-"));
 const chrome = spawn(
-  "google-chrome",
+  CHROME_BINARY,
   [
     "--headless=new",
     "--mute-audio",

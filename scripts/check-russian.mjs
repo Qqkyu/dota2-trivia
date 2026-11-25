@@ -13,6 +13,7 @@ import { mkdtemp } from "node:fs/promises";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { CHROME_BINARY } from "./lib/chrome-binary.mjs";
 import { LIVE_ROUND_GAMES } from "../src/lib/arcade-games.mjs";
 import { stopChrome } from "./lib/stop-chrome.mjs";
 import { createRussianCopyInspector } from "./lib/russian-copy.mjs";
@@ -101,7 +102,7 @@ const post = async (path, body) => {
 const port = await freePort();
 const userDataDir = await mkdtemp(join(tmpdir(), "queue-arcade-russian-"));
 const chrome = spawn(
-  "google-chrome",
+  CHROME_BINARY,
   [
     "--headless=new",
     "--mute-audio",

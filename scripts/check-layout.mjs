@@ -10,6 +10,7 @@ import { mkdtemp, readFile, writeFile } from "node:fs/promises";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import path from "node:path";
+import { CHROME_BINARY } from "./lib/chrome-binary.mjs";
 import { flashbackYearAnswerKey } from "../src/lib/flashback.mjs";
 import { publicQuestionForRound } from "../src/lib/public-question.mjs";
 import { valueOrderAnswerKey } from "../src/lib/value-order.mjs";
@@ -678,7 +679,7 @@ const INSPECT_SOURCE = `(() => {
 const port = await freePort();
 const userDataDir = await mkdtemp(path.join(tmpdir(), "queue-arcade-layout-"));
 const chrome = spawn(
-  "google-chrome",
+  CHROME_BINARY,
   [
     "--headless=new",
     ...(process.env.CHECK_LOCALE ? [`--accept-lang=${process.env.CHECK_LOCALE}`] : []),
