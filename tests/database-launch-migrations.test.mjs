@@ -293,7 +293,9 @@ describe.skipIf(!adminUrl)("launch database migration and runtime privileges", (
     await account.updateSteamUser(user.id, { ...identity, displayName: "Updated launch test" });
     await account.deleteAccountData(user.id);
     expect(await account.getUserBySession("launch-token", now)).toBeNull();
-    expect(await runtime`SELECT * FROM queue_arcade_alpha_sessions`).toHaveLength(0);
+    // Visits are never linked to an account, so deletion leaves an anonymous row for the 30-day cleanup.
+    const visits = await runtime`SELECT user_id FROM queue_arcade_alpha_sessions`;
+    expect(visits.map((visit) => visit.user_id)).toEqual([null]);
     const denied = [
       "CREATE TABLE forbidden (id integer)",
       "CREATE TEMP TABLE forbidden_temp (id integer)",
