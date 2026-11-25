@@ -2954,6 +2954,7 @@ try {
       deviceScaleFactor: 1,
       mobile: true,
     });
+    await delay(100);
     await tap(page, '[aria-label="Undo last card"]');
     assert.equal(
       await page.evaluate(`document.querySelectorAll('[data-testid="value-order-card"][data-selected="true"]').length`),
