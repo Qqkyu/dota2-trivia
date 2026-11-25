@@ -309,7 +309,9 @@ try {
     await delay(40);
   }
   await clickTestId("private-room-create");
-  await delay(250);
+  await page
+    .waitFor(`Boolean(document.querySelector('[data-testid="private-room-error"]')?.textContent?.trim())`, 5_000)
+    .catch(() => undefined);
   const gamesError = await page.evaluate(
     `document.querySelector('[data-testid="private-room-error"]')?.textContent?.trim() ?? ""`,
   );

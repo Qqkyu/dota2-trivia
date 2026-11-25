@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-11-25T19:27:39.935Z",
+  "reviewedAt": "2026-11-25T19:54:56.587Z",
   "reviewedBy": "Claude Opus 5.5, 2026-11-25, browser checker and macOS gate changes; prior factual review retained",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
@@ -14,7 +14,7 @@
   },
   "evidence": {
     "path": "docs/audits/2026-11-25/mac-gate-review.md",
-    "sha256": "c58fded446a02c7351408aefd02c4956cd18f03ff207d4055650bd0965a24841"
+    "sha256": "a5dc68c7bbd2eb22c7e7e3dff731126f9bf65aab2c60ac114ffc736cda77c376"
   },
   "scope": "Committed catalog and content scripts. Original upstream downloads are not pinned by this record.",
   "files": {
@@ -41,7 +41,7 @@
     "scripts/check-party-api.mjs": "16743860ab8446779d410b713347840a752dc7e5dc2d05626a6e85cfcd719f9f",
     "scripts/check-party-crowd.mjs": "3ce418b80c8e33c0e2f483151c16d1316d08104aff46bb0161f2aac335ec80a9",
     "scripts/check-party-ended.mjs": "6070ea208958c34dc5b53a295539195ae87d3ee8554d5d8015b551bb65c5b16b",
-    "scripts/check-party-lobby.mjs": "5ff60ff5527f1ae1e4962cb0e049252ffead1f3dc9a58f97d3c4110d6655d0d1",
+    "scripts/check-party-lobby.mjs": "6b401067c22e7e34c054e5ecef8a5eb84edeb4910150dbfa348281aa3b7669b1",
     "scripts/check-party-nicks.mjs": "545e37846479c19bd1c5821ca867cef3e15e87dda3f585c71985943abc6b65d3",
     "scripts/check-party-previews.mjs": "90ae5e46806805650defd56d5e442e19dd4914e6a79bef7133372d733b7afc79",
     "scripts/check-production-config.mjs": "3100c5b1a64a63c0859a13e9ec7c21cb6cda86f074d459c232007f16ccaab093",
