@@ -8,8 +8,10 @@
  * votes, sessions, and reports are local test data and never reach storage.
  * Reflow modes use the CSS viewport and device scale for 200% and 400% zoom.
  */
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { execFileSync } from "node:child_process";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
+import { tmpdir } from "node:os";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { publicQuestionForRound } from "../src/lib/public-question.mjs";
@@ -102,7 +104,15 @@ const fixtures = choices.map(([name, game, dataset, kind]) => {
   if (!raw) throw new Error(`Missing fixture ${name}: ${kind}`);
   return { name, game, raw };
 });
+// Safari's Tab key skips buttons on a Mac; Option+Tab reaches every control.
+const tabKey = engine === "webkit" && process.platform === "darwin" ? "Alt+Tab" : "Tab";
+// macOS 27 denies a terminal's Firefox the shared app-data folder, so it gets its own home folder.
+const firefoxHome =
+  engine === "firefox" && process.platform === "darwin"
+    ? await mkdtemp(path.join(tmpdir(), "queue-arcade-firefox-"))
+    : null;
 const browser = await playwright[engine].launch({
+  env: firefoxHome ? { ...process.env, CFFIXED_USER_HOME: firefoxHome } : process.env,
   executablePath: process.env.BROWSER_EXECUTABLE || undefined,
   headless: true,
   args: engine === "chromium" ? ["--no-sandbox", "--disable-dev-shm-usage"] : [],
@@ -429,7 +439,11 @@ try {
         if (pathname === "/party") {
           await session.page.getByTestId("private-room-choose-create").click();
           await inspectPainting(session.page, "party", mode);
-          await session.page.getByRole("group", { name: "Games", exact: true }).getByRole("button").first().click();
+          await session.page
+            .getByRole("group", { name: "Choose round types", exact: true })
+            .getByRole("button")
+            .first()
+            .click();
           results.pages.push(await inspect(session.page, `${mode}-party-unchecked`, session.errors, mode));
         }
         await session.context.close();
@@ -464,7 +478,7 @@ try {
       const { page, state } = session;
       const sequence = [];
       for (let index = 0; index < 14; index += 1) {
-        await page.keyboard.press("Tab");
+        await page.keyboard.press(tabKey);
         sequence.push(await focusState(page));
       }
       const keyboard = { name, tabSequence: sequence };
@@ -497,12 +511,12 @@ try {
         await page.getByTestId("report-question").waitFor({ timeout: 10000 });
         await page.getByTestId("report-question").focus();
         await page.keyboard.press("Enter");
-        await page.keyboard.press("Tab");
+        await page.keyboard.press(tabKey);
         keyboard.report = { openedFocus: await focusState(page) };
         if (keyboardMode.startsWith("forced")) {
           const menu = page.getByRole("group", { name: "Why are you reporting this question?" });
           const first = await menu.screenshot({ path: path.join(outputDir, `${runName}-report-focus-first.png`) });
-          await page.keyboard.press("Tab");
+          await page.keyboard.press(tabKey);
           const second = await menu.screenshot({ path: path.join(outputDir, `${runName}-report-focus-second.png`) });
           keyboard.report.focusPaintChanged = !first.equals(second);
           if (!keyboard.report.focusPaintChanged) results.failures.push("report: forced-color focus is invisible");
@@ -588,6 +602,11 @@ try {
 } finally {
   await save();
   await browser.close();
+  if (firefoxHome) {
+    // macOS adds a rule against deletion to the standard folders it makes there.
+    execFileSync("chmod", ["-R", "-N", firefoxHome]);
+    await rm(firefoxHome, { recursive: true, force: true, maxRetries: 10, retryDelay: 200 });
+  }
 }
 results.completed = true;
 results.completedAt = new Date().toISOString();

@@ -186,7 +186,7 @@ export async function checkControlPainting({ page, kind, mode, outputDir, runNam
     return result;
   }
 
-  const groupName = kind === "party" ? "Games" : kind === "shop" ? "Shop section" : "Calibration filter";
+  const groupName = kind === "party" ? "Choose round types" : kind === "shop" ? "Shop section" : "Calibration filter";
   const group = page.getByRole("group", { name: groupName, exact: true });
   const buttons = group.getByRole("button");
   const first = buttons.first();

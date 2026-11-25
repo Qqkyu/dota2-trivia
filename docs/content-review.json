@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-11-25T18:43:28.585Z",
-  "reviewedBy": "Claude Opus 5.5",
+  "reviewedAt": "2026-11-25T19:27:39.935Z",
+  "reviewedBy": "Claude Opus 5.5, 2026-11-25, browser checker and macOS gate changes; prior factual review retained",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
     "patch": "7.41f",
@@ -14,7 +14,7 @@
   },
   "evidence": {
     "path": "docs/audits/2026-11-25/mac-gate-review.md",
-    "sha256": "82e9a96af67cbc3a57d6f1c7a9c656aa8cbbe459b1fe1ff718e0ee4a735402e4"
+    "sha256": "c58fded446a02c7351408aefd02c4956cd18f03ff207d4055650bd0965a24841"
   },
   "scope": "Committed catalog and content scripts. Original upstream downloads are not pinned by this record.",
   "files": {
@@ -24,7 +24,7 @@
     "scripts/backfill-spell-hints.mjs": "e8dbb84d76e17554c4d4ec88caf209081a73ea110042479a5178b8e51747c69f",
     "scripts/backup-db.mjs": "e5dbf3d0067127db0fa301c7ac7613b333dd2ca6407a828153b25bd98ffc0e11",
     "scripts/build-question-locale.mjs": "87e4af3cc3390bfdb994e5b8579fd81ac8393a2e9f464fcd202e5810bf429614",
-    "scripts/check-accessibility.mjs": "72dee694777e5fb7d561c238e78f2748a0a2c46388bf51d559b973292dc95668",
+    "scripts/check-accessibility.mjs": "f1e938a8111db0c83dd38dfbf020168eec538a93715acd83e21af130d88ff73b",
     "scripts/check-capacity.mjs": "7b4536dcbbe14f11a4e578100cb35f680401363ca6caf8f88fc176018cb198e8",
     "scripts/check-cold-media.mjs": "039047277c25afdbd02f69025513b19faad305d37f23e4062809a83f0d1b7ff3",
     "scripts/check-container.mjs": "3526bbbe9b22361e559d22202612126a660f439a29bbf036befab84648908128",
@@ -59,7 +59,7 @@
     "scripts/check-steam-provider.mjs": "aa5ff9e3fc524a262d160cdd9b19c5d8af2cf6614e00002bf00cbd28a91c2ec6",
     "scripts/check-ui-recovery.mjs": "7c4e338544045b0368b7719e9c55b7e5312559089de0c7555c88235c1f351e38",
     "scripts/check-ui.mjs": "028195a36d0d81c4a039a59462d47403a9eb02683193a893d9b65698eee115da",
-    "scripts/check-user-journeys.mjs": "03f06b6b56c76db5d4157cccd2a50e82b0234ba6a3fb15a37f9941a4ae4c103d",
+    "scripts/check-user-journeys.mjs": "366f742a66196a6157893f4b0e6059c3e5bfb68902316af2dcfab3c886701762",
     "scripts/cleanup-db.mjs": "630a6ced2494226ac0aa8e9a220b7cafc99df2a600a576b65d8e172aa57b9720",
     "scripts/client-audit-requirement.mjs": "b235efb3298cdcf0f354509b856e45393dd6a6760c56810b5234414628d4b35d",
     "scripts/client-constant-audit.mjs": "315352b8b2690308955c70a04d967b11e0640fbc3498ad97d852ed955e09b1b7",
@@ -83,7 +83,7 @@
     "scripts/lib/feedback-browser.mjs": "5f193b7f9e997d9a2fba29ed10e954acf0e2bd9ec0af8277983aeda80aae9e38",
     "scripts/lib/feedback-sound-probe.mjs": "78223939c4929e86c64f9e6b3270768a0b814c0d811a9045d10b03be14436188",
     "scripts/lib/first-party-requests.mjs": "733ede4e85e5bc96ead242ec2110514f2ea6394630b56a3a14fb841885f69085",
-    "scripts/lib/forced-color-checks.mjs": "0b9ef695d3e1f1be74640f2409c5bb1832487a1952d9cf3af33ea6faea02eabb",
+    "scripts/lib/forced-color-checks.mjs": "f47a6623d80cf0d1f3fdcc44d66463c09588f68d6af4cd9fc5ff7ce1144952fb",
     "scripts/lib/health-readiness.mjs": "f255a0c66fd073c6c4d234a6e18e639bd903c95024e1c3824632d8ee106f36f5",
     "scripts/lib/journey-browser.mjs": "57e32ff048834906114be9cc1d8dafb17e30dbee61b2b2ee496e1d4bf44ca61d",
     "scripts/lib/native-audio-container.mjs": "04d620e30f0533caeacdfa3ef914c57fccef0206621cc47a1762a337f87b6275",
