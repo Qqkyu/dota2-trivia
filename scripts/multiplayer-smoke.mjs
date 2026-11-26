@@ -548,7 +548,26 @@ try {
     throw new Error("The vote API did not apply its per-player production guardrail.");
   }
 
-  const calibrationResponse = await fetch(`${appUrl}/api/calibration?gameId=dota2`, { cache: "no-store" });
+  // Public readers share one calibration snapshot for 30 seconds, and the server rebuilds it only
+  // early in a reveal (getSharedCalibrationSnapshot). Read in the first reveal after any snapshot
+  // from before the reports has expired, so a server that served calibration earlier still passes.
+  async function publicCalibrationAfterReports() {
+    let snapshot = await readRoom(secondPlayer);
+    const reportsStoredAt = snapshot.serverNow;
+    for (let attempt = 0; attempt < 5; attempt += 1) {
+      const revealStart = snapshot.round.answerDeadline;
+      const readAt = Math.max(revealStart + 1_000, reportsStoredAt + 30_000 + 250);
+      if (readAt <= revealStart + 4_000) {
+        await delay(Math.max(0, readAt - snapshot.serverNow));
+        return fetch(`${appUrl}/api/calibration?gameId=dota2`, { cache: "no-store" });
+      }
+      await delay(Math.max(250, snapshot.round.revealDeadline - snapshot.serverNow + 200));
+      snapshot = await readRoom(secondPlayer);
+    }
+    throw new Error("Could not reach a reveal that rebuilds the public calibration snapshot.");
+  }
+
+  const calibrationResponse = await publicCalibrationAfterReports();
   const calibration = await calibrationResponse.json();
   const calibratedQuestion = calibration.records?.find(
     (record) => record.questionRevision === privateCalibrationRevision,
