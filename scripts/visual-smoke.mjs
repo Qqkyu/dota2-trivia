@@ -410,8 +410,8 @@ async function runAghanimLayoutStress() {
       ).length,
       firstClueVisible: Boolean(document.querySelector('[data-testid="aghanim-clue-1"] strong')),
       laterCluesLocked:
-        document.querySelector('[data-testid="aghanim-clue-2"] span')?.textContent === "Upgrade details" &&
-        document.querySelector('[data-testid="aghanim-clue-3"] span')?.textContent === "Ability name",
+        /^Upgrade details at \\d+s$/.test(document.querySelector('[data-testid="aghanim-clue-2"] span')?.textContent ?? "") &&
+        /^Ability name at \\d+s$/.test(document.querySelector('[data-testid="aghanim-clue-3"] span')?.textContent ?? ""),
       artworkVisible: Boolean(artwork?.getBoundingClientRect().width),
       heroItems: document.querySelectorAll('[data-testid="hero-picker-hero"]').length,
       pickerGap: pickerBounds && promptBounds ? pickerBounds.top - promptBounds.bottom : -1,
@@ -776,10 +776,10 @@ await navigate(`${appUrl}/privacy`);
 const privacy = await evaluate(`({
   title: document.title,
   heading: document.querySelector("h1")?.innerText,
-  optionalSteam: document.body.innerText.includes("Connecting Steam is optional"),
-  deletion: document.body.innerText.includes("Delete profile"),
-  diagnostics: document.body.innerText.includes("Error text, stack traces, URL queries, and player identifiers are not sent"),
-  alphaAnalytics: document.body.innerText.includes("Alpha visit summaries expire after 30 days"),
+  optionalSteam: document.body.innerText.includes("You can play without an account."),
+  deletion: document.body.innerText.includes("Signed-in players can delete their profile"),
+  diagnostics: document.body.innerText.includes("It does not send error text, stack traces, URL queries or any ID."),
+  alphaAnalytics: document.body.innerText.includes("it deletes these records after 30 days"),
   retiredSessionRating: !document.body.innerText.includes("session rating"),
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
@@ -1374,7 +1374,7 @@ if (
   lobby.roundFamilies !== 10 ||
   !lobby.roundMix?.includes("Classic Trivia") ||
   !lobby.roundMix?.includes("Flashback") ||
-  !lobby.copy?.toLowerCase().includes("ten games") ||
+  !lobby.copy?.toLowerCase().includes("ten round types") ||
   lobby.copy?.toLowerCase().includes("choose your side quest") ||
   !lobby.muted ||
   lobby.volume !== "45"
@@ -1584,6 +1584,7 @@ if (
 if (revealCopyGuard.copyGuard !== "allowed" || revealCopyGuard.blocked) {
   failures.push("Question copy stayed blocked after the answer clock stopped.");
 }
+// The public room shows the split only in the Room split card, so the answers carry no percentages.
 if (
   !reveal.result ||
   !reveal.crowdSplit.visible ||
@@ -1594,9 +1595,9 @@ if (
   (answering.openShop
     ? answering.recipeBuilder
       ? !reveal.openShopReveal || !reveal.recipeReveal || reveal.shopPercentages !== 0
-      : !reveal.openShopReveal || reveal.shopPercentages < 1 || reveal.recipeReveal
+      : !reveal.openShopReveal || reveal.shopPercentages !== 0 || reveal.recipeReveal
     : answering.heroPicker
-      ? reveal.heroPercentages < 1 || reveal.heroCorrect !== 1 || reveal.openShopReveal
+      ? reveal.heroPercentages !== 0 || reveal.heroCorrect !== 1 || reveal.openShopReveal
       : answering.valueOrder
         ? reveal.orderSequences < 1 || reveal.orderValueLabels !== 4 || reveal.openShopReveal
         : answering.flashbackOrder
@@ -1612,7 +1613,7 @@ if (
               reveal.flashbackYearSlider ||
               reveal.flashbackYear.lock ||
               reveal.openShopReveal
-            : reveal.percentages !== 4 || reveal.openShopReveal) ||
+            : reveal.percentages !== 0 || reveal.openShopReveal) ||
   reveal.reportReasons !== 4 ||
   reveal.audioPrewarmRequests < 1 ||
   !sameBounds ||
@@ -1665,7 +1666,7 @@ for (const [label, result, expectedTotal] of [
     !result.cardInsideViewport ||
     result.clipped ||
     result.horizontalOverflow ||
-    result.catalogResults !== result.catalogVisible ||
+    (label !== "order" && result.catalogResults !== 0) ||
     (label === "order" &&
       (result.orderSequences !== 2 ||
         result.orderValueLabels !== 4 ||
