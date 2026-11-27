@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-11-27T20:06:43.277Z",
+  "reviewedAt": "2026-11-27T20:09:28.693Z",
   "reviewedBy": "Claude Opus 5.5, 2026-11-27, Queue Daily check scripts; prior factual review retained",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
@@ -14,7 +14,7 @@
   },
   "evidence": {
     "path": "docs/audits/2026-11-27/daily-review.md",
-    "sha256": "fc026db1fcffe5f2284dfa076855d918a6b0dbc516ecf57b28e93d0bec2a4ae1"
+    "sha256": "d7d3db74d2194a917268dcf00b6d9852ed12b6dd80455fefc166f9394b15c43e"
   },
   "scope": "Committed catalog and content scripts. Original upstream downloads are not pinned by this record.",
   "files": {
@@ -44,13 +44,13 @@
     "scripts/check-party-ended.mjs": "6070ea208958c34dc5b53a295539195ae87d3ee8554d5d8015b551bb65c5b16b",
     "scripts/check-party-lobby.mjs": "6b401067c22e7e34c054e5ecef8a5eb84edeb4910150dbfa348281aa3b7669b1",
     "scripts/check-party-nicks.mjs": "545e37846479c19bd1c5821ca867cef3e15e87dda3f585c71985943abc6b65d3",
-    "scripts/check-party-previews.mjs": "90ae5e46806805650defd56d5e442e19dd4914e6a79bef7133372d733b7afc79",
+    "scripts/check-party-previews.mjs": "26cb9cc2466188e4f55dd80afafb2df67e61cdb787270db1668c5c011d7520c5",
     "scripts/check-production-config.mjs": "3100c5b1a64a63c0859a13e9ec7c21cb6cda86f074d459c232007f16ccaab093",
     "scripts/check-public-play.mjs": "2c3293948f2f773917e2bdd5ed32396beafc27e82b43c433e6c77f9e7432550d",
     "scripts/check-rate-limit-live.mjs": "82de8cbe9c6530172ed6e199798d42f9566dcd90dbdfa3d1acc9bb58ed27a62f",
     "scripts/check-render-snapshot.mjs": "4f03f4ed618fd4a02d65d937c70b5376cae930352e18ac06706278e2ab5a50ab",
     "scripts/check-reports-api.mjs": "a3e1b9bd7393b36cb989640a1e23053d08697e0bea4c0f23271c1d36442b5cf2",
-    "scripts/check-responsive-ui.mjs": "5b7f8317e37b13e17803b75fdee9423f476480df91a8c86d94f7fd920cf9eef4",
+    "scripts/check-responsive-ui.mjs": "10091c4cacdb5596fa3f53fe24444488e7364394fcf37cd55911196620345c9e",
     "scripts/check-round-accessibility.mjs": "65a98a1aa7e9d13f3d1bbd51013de3b475f9f5b086d4fb6383cff8f336b78125",
     "scripts/check-round-copy.mjs": "1da9680060dcf43a644121702ec7d06513ffb19741b3db5faecf58cf634d7f65",
     "scripts/check-russian.mjs": "f06be46285530662c8944c61b175d9bf3cec8be04ccadfdc5aecdc700f7e0642",
