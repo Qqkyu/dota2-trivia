@@ -198,7 +198,8 @@ try {
   await page.waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`);
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-open"]'))`);
   const box = await page.evaluate(`(() => {
-    const play = document.querySelector('[data-testid="start-arcade"]');
+    // The daily is the lobby's main plaque; Party and the public room are the small buttons.
+    const play = document.querySelector('[data-testid="daily-start"]');
     const party = document.querySelector('[data-testid="private-room-open"]');
     if (!play || !party) return null;
     const playBox = play.getBoundingClientRect();
@@ -217,10 +218,10 @@ try {
   })()`);
   if (!box || box.w < 2) throw new Error("Party is not clickable.");
   if (box.playTransform !== "uppercase" || box.partyTransform !== "uppercase") {
-    throw new Error(`Play or Party is not uppercase (${JSON.stringify(box)}).`);
+    throw new Error(`The daily or Party is not uppercase (${JSON.stringify(box)}).`);
   }
   if (box.h >= box.playH) {
-    throw new Error(`Party should be a small Valve button, not a Play plaque (${JSON.stringify(box)}).`);
+    throw new Error(`Party should be a small Valve button, not the main plaque (${JSON.stringify(box)}).`);
   }
   await page.send("Input.dispatchMouseEvent", {
     type: "mousePressed",

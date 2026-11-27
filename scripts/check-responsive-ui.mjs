@@ -311,16 +311,16 @@ try {
       deviceScaleFactor: size === "960x540" ? 2 : 1,
       mobile: false,
     });
-    for (const path of ["/", "/party", "/profile", "/privacy", "/calibration", "/ops"]) {
+    for (const path of ["/", "/daily", "/party", "/profile", "/privacy", "/calibration", "/ops"]) {
       await page.send("Page.navigate", { url: appUrl + path });
       await page.waitFor(`document.readyState === 'complete' && !!document.querySelector('main')`);
       await inspect(page, `${size}-${path.slice(1) || "home"}`, width);
       if (path === "/" && width <= 390)
-        await check(`${size} Play is visible without scrolling`, async () => {
+        await check(`${size} the daily is visible without scrolling`, async () => {
           const bottom = await page.evaluate(
-            `document.querySelector('[data-testid="start-arcade"]').getBoundingClientRect().bottom`,
+            `document.querySelector('[data-testid="daily-start"]').getBoundingClientRect().bottom`,
           );
-          assert.ok(bottom <= height, `Play ends at ${bottom}px, below the ${height}px viewport`);
+          assert.ok(bottom <= height, `The daily button ends at ${bottom}px, below the ${height}px viewport`);
         });
       if (path === "/calibration" && width === 320)
         await check("Phone calibration pages can be changed above the results", async () => {
