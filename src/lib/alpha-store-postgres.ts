@@ -211,3 +211,32 @@ export async function getAlphaSummary(now = Date.now()): Promise<ReturnType<type
     }),
   };
 }
+
+/** Add one to each counter for this daily. */
+export async function recordDailyCounts(day: number, metrics: string[]) {
+  await ensureSchema();
+  if (!metrics.length) return;
+  await databaseTransaction(async (sql) => {
+    for (const metric of metrics) {
+      await sql`
+        INSERT INTO queue_arcade_daily_counts (day, metric, count)
+        VALUES (${day}, ${metric}, 1)
+        ON CONFLICT (day, metric) DO UPDATE SET count = queue_arcade_daily_counts.count + 1
+      `;
+    }
+  });
+}
+
+export async function getDailyCounts(
+  firstDay: number,
+  lastDay: number,
+): Promise<Record<number, Record<string, number>>> {
+  await ensureSchema();
+  const rows = await configuredPostgres()<Array<{ day: number; metric: string; count: Numeric }>>`
+    SELECT day, metric, count FROM queue_arcade_daily_counts
+    WHERE day BETWEEN ${firstDay} AND ${lastDay}
+  `;
+  const counts: Record<number, Record<string, number>> = {};
+  for (const row of rows) (counts[row.day] ??= {})[row.metric] = Number(row.count);
+  return counts;
+}

@@ -18,6 +18,7 @@ import { clueStageAt } from "@/lib/scoring.mjs";
 import { parsePublicRoomSettings } from "@/lib/public-rooms";
 import { logServerError } from "@/lib/server-diagnostics";
 import type { TriviaQuestion } from "@/lib/trivia";
+import { dailyMediaRound } from "@/lib/daily-deck";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -132,14 +133,37 @@ export async function GET(request: NextRequest) {
   const denied = await privateMediaAccessResponse(request, roundId);
   if (denied) return denied;
 
-  const live = liveRoundForRoundId(roundId);
-  if (!live) return NextResponse.json({ error: "That round is no longer active." }, { status: 409 });
-  const { room, round } = live;
-  if (round.id !== roundId) {
-    return NextResponse.json({ error: "That round is no longer active." }, { status: 409 });
+  // A daily round has no clock: the player's opened clue sets the cut.
+  const daily = dailyMediaRound(roundId, searchParams.get("stage"));
+  let question: TriviaQuestion | undefined;
+  let round: {
+    id: string;
+    game: string;
+    phase: "answering" | "reveal";
+    answerDeadline: number;
+    answerDuration: number;
+  };
+  if (daily) {
+    question = daily.question;
+    // Stage 3 plays the whole clip, as a reveal does.
+    round = {
+      id: roundId,
+      game: daily.game,
+      phase: daily.stage < 3 ? "answering" : "reveal",
+      answerDeadline: 0,
+      answerDuration: 1,
+    };
+  } else {
+    const live = liveRoundForRoundId(roundId);
+    if (!live) return NextResponse.json({ error: "That round is no longer active." }, { status: 409 });
+    const { room } = live;
+    round = live.round;
+    if (round.id !== roundId) {
+      return NextResponse.json({ error: "That round is no longer active." }, { status: 409 });
+    }
+    const questionId = live.round.questionId;
+    question = GAME_CATALOGS[room.gameId].questions.find((candidate) => candidate.id === questionId);
   }
-
-  const question = GAME_CATALOGS[room.gameId].questions.find((candidate) => candidate.id === round.questionId);
   const sources = audioSources(question);
   const source = sources[clip];
   if (!source) return NextResponse.json({ error: "Audio clip not found." }, { status: 404 });
@@ -156,8 +180,9 @@ export async function GET(request: NextRequest) {
     const startSeconds = timing?.startSeconds ?? 0;
     if (round.phase === "answering") {
       const remaining = Math.max(0, round.answerDeadline - Date.now());
-      const stage =
-        round.game === "soundcheck"
+      const stage = daily
+        ? daily.stage
+        : round.game === "soundcheck"
           ? soundcheckRevealStage(remaining, round.answerDuration)
           : round.game === "echo-hunt"
             ? echoHuntRevealStage(remaining, round.answerDuration)

@@ -32,6 +32,8 @@ export interface StoredAlphaSession {
 interface AlphaFileState {
   version: 1;
   sessions: Record<string, StoredAlphaSession>;
+  /** Daily counters by daily number. Counts only; see daily.mjs. */
+  daily?: Record<string, Record<string, number>>;
 }
 
 interface RuntimeAlphaStore {
@@ -88,6 +90,16 @@ function isStoredAlphaSession(value: unknown): value is StoredAlphaSession {
   );
 }
 
+function isDailyCountState(value: unknown): value is Record<string, Record<string, number>> {
+  if (!value || typeof value !== "object") return false;
+  return Object.values(value).every(
+    (counts) =>
+      Boolean(counts) &&
+      typeof counts === "object" &&
+      Object.values(counts as object).every((count) => Number.isInteger(count) && count >= 0),
+  );
+}
+
 async function loadState(): Promise<AlphaFileState> {
   try {
     const raw = await readFile(/* turbopackIgnore: true */ runtime.filePath, "utf8");
@@ -99,6 +111,7 @@ async function loadState(): Promise<AlphaFileState> {
     }
     return {
       version: 1,
+      ...(isDailyCountState(candidate.daily) ? { daily: candidate.daily } : {}),
       sessions: Object.fromEntries(
         Object.entries(candidate.sessions).filter((entry): entry is [string, StoredAlphaSession] =>
           isStoredAlphaSession(entry[1]),
@@ -298,4 +311,29 @@ export async function getAlphaSessionsSince(since: number): Promise<StoredAlphaS
 export async function deleteAlphaVisitor(voterId: string) {
   if (usesPostgres()) return (await postgresStore()).deleteAlphaVisitor(voterId);
   return fileDeleteVisitor(voterId);
+}
+
+/** Add one to each counter for this daily. */
+export async function recordDailyCounts(day: number, metrics: string[]) {
+  if (usesPostgres()) return (await postgresStore()).recordDailyCounts(day, metrics);
+  await mutate((state) => {
+    const counts = ((state.daily ??= {})[String(day)] ??= {});
+    for (const metric of metrics) counts[metric] = (counts[metric] ?? 0) + 1;
+  });
+}
+
+/** Counters for each daily from `firstDay` to `lastDay`, inclusive. */
+export async function getDailyCounts(
+  firstDay: number,
+  lastDay: number,
+): Promise<Record<number, Record<string, number>>> {
+  if (usesPostgres()) return (await postgresStore()).getDailyCounts(firstDay, lastDay);
+  await runtime.writeQueue;
+  const state = await stateForRuntime();
+  const counts: Record<number, Record<string, number>> = {};
+  for (let day = firstDay; day <= lastDay; day += 1) {
+    const stored = state.daily?.[String(day)];
+    if (stored) counts[day] = { ...stored };
+  }
+  return counts;
 }

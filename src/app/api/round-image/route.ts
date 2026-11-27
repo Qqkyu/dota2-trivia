@@ -8,6 +8,7 @@ import { parsePublicRoomSettings } from "@/lib/public-rooms";
 import { logServerError } from "@/lib/server-diagnostics";
 import { cachedRoundImage } from "@/lib/round-image-cache.mjs";
 import { MediaBusyError, waitForMedia } from "@/lib/media-work.mjs";
+import { dailyMediaRound } from "@/lib/daily-deck";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -23,7 +24,7 @@ function liveRoundForRoundId(roundId: string) {
   return { room: live.room, round: live.round };
 }
 
-function fogStage(round: { answerDeadline: number; answerDuration: number }, now: number) {
+function fogStage(round: { answerDeadline: number; answerDuration: number }, now: number): 1 | 2 | 3 {
   const remaining = Math.max(0, round.answerDeadline - now);
   if (remaining <= round.answerDuration / 3) return 3;
   if (remaining <= (round.answerDuration * 2) / 3) return 2;
@@ -42,19 +43,29 @@ export async function GET(request: NextRequest) {
   const denied = await privateMediaAccessResponse(request, roundId);
   if (denied) return denied;
 
-  const live = liveRoundForRoundId(roundId);
-  if (!live) return NextResponse.json({ error: "That round is no longer active." }, { status: 409 });
-  const { room, round } = live;
-  if (round.id !== roundId || round.game !== "fogged-vision" || round.phase !== "answering") {
-    return NextResponse.json({ error: "That round is no longer active." }, { status: 409 });
+  let source: string | undefined;
+  let stage: 1 | 2 | 3;
+  const daily = dailyMediaRound(roundId, searchParams.get("stage"));
+  if (daily) {
+    if (daily.game !== "fogged-vision") {
+      return NextResponse.json({ error: "That round is no longer active." }, { status: 409 });
+    }
+    source = daily.question.image?.src;
+    stage = daily.stage;
+  } else {
+    const live = liveRoundForRoundId(roundId);
+    if (!live) return NextResponse.json({ error: "That round is no longer active." }, { status: 409 });
+    const { room, round } = live;
+    if (round.id !== roundId || round.game !== "fogged-vision" || round.phase !== "answering") {
+      return NextResponse.json({ error: "That round is no longer active." }, { status: 409 });
+    }
+    const question = GAME_CATALOGS[room.gameId].questions.find((candidate) => candidate.id === round.questionId);
+    source = question?.image?.src;
+    stage = fogStage(round, Date.now());
   }
-
-  const question = GAME_CATALOGS[room.gameId].questions.find((candidate) => candidate.id === round.questionId);
-  const source = question?.image?.src;
   if (!source) return NextResponse.json({ error: "Round image not found." }, { status: 404 });
 
   try {
-    const stage = fogStage(round, Date.now());
     const cached = await waitForMedia(cachedRoundImage(source, stage), request.signal);
     return new NextResponse(new Uint8Array(cached.bytes), {
       status: 200,

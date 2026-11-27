@@ -197,9 +197,23 @@ async function addRevealTimeAndAlphaOwnership(sql) {
   `;
 }
 
+/** @param {import("postgres").TransactionSql} sql */
+async function addDailyCounts(sql) {
+  // Counts only, per daily number: no visit, player or answer is stored with them.
+  await sql`
+    CREATE TABLE queue_arcade_daily_counts (
+      day INTEGER NOT NULL CHECK (day >= 1),
+      metric TEXT NOT NULL CHECK (char_length(metric) <= 40),
+      count BIGINT NOT NULL DEFAULT 0,
+      PRIMARY KEY (day, metric)
+    )
+  `;
+}
+
 const migrations = [
   { version: 1, name: "initial-schema", apply: createInitialSchema },
   { version: 2, name: "result-reveal-and-alpha-ownership", apply: addRevealTimeAndAlphaOwnership },
+  { version: 3, name: "daily-counts", apply: addDailyCounts },
 ];
 
 export const DATABASE_SCHEMA_VERSION = migrations.at(-1).version;

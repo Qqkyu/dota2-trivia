@@ -68,6 +68,8 @@ const STAGED_CLUE_GAMES = ["spell-link", "quote-hunt", "aghanim-lab", "fogged-vi
 
 function timedClueStage(round, now) {
   if (round.phase === "reveal") return 3;
+  // A daily round has no clock: the player opens each clue.
+  if (round.clueStage === 1 || round.clueStage === 2 || round.clueStage === 3) return round.clueStage;
   const remaining = Math.max(0, round.answerDeadline - now);
   if (round.game === "soundcheck") return soundcheckRevealStage(remaining, round.answerDuration);
   if (round.game === "echo-hunt") return echoHuntRevealStage(remaining, round.answerDuration);

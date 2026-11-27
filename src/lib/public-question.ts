@@ -106,6 +106,8 @@ interface PublicQuestionRound {
   game: RoundGame;
   answerDeadline: number;
   answerDuration: number;
+  /** Set for a daily round, where the player opens each clue instead of a clock. */
+  clueStage?: 1 | 2 | 3;
 }
 
 export function publicQuestionForRound(
