@@ -594,6 +594,7 @@ const lobby = await evaluate(`(() => {
     title: document.title,
     heading: document.querySelector("h1")?.innerText,
     startButtons: document.querySelectorAll('[data-testid="start-arcade"]').length,
+    dailyLink: document.querySelector('[data-testid="daily-start"]')?.getAttribute("href") ?? null,
     shareButtons: document.querySelectorAll('[data-testid="share-arcade"]').length,
     canonical: document.querySelector('link[rel="canonical"]')?.href,
     openGraphImage: document.querySelector('meta[property="og:image"]')?.content,
@@ -1337,7 +1338,8 @@ const mobile = await evaluate(`({
   roundFamilies: document.querySelectorAll("[data-round-family]").length,
   steamButtons: document.querySelectorAll('[data-testid="steam-sign-in"]').length,
   accountSlotWidth: document.querySelector('[data-testid="account-action-slot"]')?.getBoundingClientRect().width,
-  startButtonWidth: document.querySelector('[data-testid="start-arcade"]')?.getBoundingClientRect().width,
+  // The daily is the lobby's main action; on a phone it shares the account slot's width.
+  startButtonWidth: document.querySelector('[data-testid="daily-start"]')?.getBoundingClientRect().width,
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
 await screenshot("/tmp/queue-arcade-mobile.png");
@@ -1364,6 +1366,7 @@ if (!lobby.title.includes("Queue Arcade") || !lobby.heading?.toLowerCase().inclu
 }
 if (
   lobby.startButtons !== 1 ||
+  lobby.dailyLink !== "/daily" ||
   defaultVolume !== "70" ||
   migratedVolume !== "70" ||
   !migratedMuted ||
