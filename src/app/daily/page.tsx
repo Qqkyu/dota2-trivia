@@ -14,7 +14,9 @@ export default function DailyPage() {
   const siteUrl = (process.env.ARCADE_APP_URL?.trim() || "https://queuearcade.com").replace(/\/$/, "");
   return (
     <SiteChrome>
-      <DailyArcade siteUrl={siteUrl} />
+      <main>
+        <DailyArcade siteUrl={siteUrl} />
+      </main>
     </SiteChrome>
   );
 }

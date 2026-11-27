@@ -6,5 +6,6 @@ This review covers the scripts that changed for Queue Daily (issue #71). The pat
 - `scripts/check-ui.mjs` runs `check-daily.mjs` after `check-public-play.mjs`. No retry rule changed.
 - `scripts/check-party-previews.mjs` compares the Party button with the daily button, which is now the lobby's main plaque, instead of the public room's button. The rule is unchanged: Party stays a small button.
 - `scripts/check-responsive-ui.mjs` checks that the daily button, the lobby's main action, is visible without scrolling on phones, and it also inspects `/daily` at every size.
+- `scripts/visual-smoke.mjs`, which is outside the gate, checks that the lobby links the daily, and on a phone it compares the daily button's width with the account slot's.
 
 Ability cooldown, mana and damage values are not used as estimates, because one number does not say which level it is for.
