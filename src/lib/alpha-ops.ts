@@ -1,5 +1,6 @@
 import { ALPHA_SESSION_RETENTION_DAYS, summarizeAlphaSessions } from "@/lib/alpha-analytics.mjs";
-import { getAlphaSummary } from "@/lib/alpha-store";
+import { getAlphaSummary, getDailyCounts } from "@/lib/alpha-store";
+import { DAILY_MAX_POINTS, openDailyNumbers } from "@/lib/daily.mjs";
 import { PUBLIC_ARCADE_MODE, PUBLIC_ROUND_FORMATS, roundFormatForQuestion } from "@/lib/arcade-games.mjs";
 import { getCalibrationSnapshot } from "@/lib/calibration-data";
 import { DEFAULT_GAME_ID } from "@/lib/game-catalogs";
@@ -35,12 +36,65 @@ export interface AlphaFormatHealth {
   signal: AlphaFormatSignal;
 }
 
+export interface DailyDayFigures {
+  day: number;
+  starts: number;
+  finishes: number;
+  /** Finishers who also finished the day before, as their browser reported it. */
+  backFromYesterday: number;
+  /** backFromYesterday as a share of the day before's finishers. Null without a day before. */
+  nextDayReturn: number | null;
+  averageScore: number | null;
+}
+
+export interface DailyFigures {
+  days: DailyDayFigures[];
+  /** Next-day return over the whole window: returns divided by the day-before finishes. */
+  nextDayReturn: number | null;
+}
+
+/** The owner judges the daily over four weeks after the launch post. */
+export const DAILY_OPS_WINDOW_DAYS = 28;
+
+export function summarizeDailyFigures(
+  counts: Record<number, Record<string, number>>,
+  firstDay: number,
+  lastDay: number,
+) {
+  const days: DailyDayFigures[] = [];
+  let returns = 0;
+  let previousFinishes = 0;
+  for (let day = lastDay; day >= firstDay; day -= 1) {
+    const today = counts[day] ?? {};
+    const yesterday = counts[day - 1];
+    const finishes = today.finish ?? 0;
+    const backFromYesterday = today["finish:yesterday"] ?? 0;
+    let scored = 0;
+    for (let score = 0; score <= DAILY_MAX_POINTS; score += 1) scored += score * (today[`score:${score}`] ?? 0);
+    const yesterdayFinishes = yesterday?.finish ?? 0;
+    if (day > firstDay && yesterdayFinishes) {
+      returns += backFromYesterday;
+      previousFinishes += yesterdayFinishes;
+    }
+    days.push({
+      day,
+      starts: today.start ?? 0,
+      finishes,
+      backFromYesterday,
+      nextDayReturn: yesterdayFinishes ? backFromYesterday / yesterdayFinishes : null,
+      averageScore: finishes ? scored / finishes : null,
+    });
+  }
+  return { days, nextDayReturn: previousFinishes ? returns / previousFinishes : null } satisfies DailyFigures;
+}
+
 export interface AlphaOpsSnapshot {
   generatedAt: number;
   retentionDays: number;
   activePlayers: number;
   sessions: ReturnType<typeof summarizeAlphaSessions>;
   formats: AlphaFormatHealth[];
+  daily: DailyFigures;
 }
 
 function formatSignal(answers: number, accuracy: number, reports: number, reportRate: number): AlphaFormatSignal {
@@ -82,11 +136,15 @@ export async function getAlphaOpsSnapshot(now = Date.now()): Promise<AlphaOpsSna
   });
 
   const room = publicRoomFor({ gameId: DEFAULT_GAME_ID, mode: PUBLIC_ARCADE_MODE, filter: "Mixed" });
+  const lastDay = openDailyNumbers(now).latest;
+  const firstDay = Math.max(1, lastDay - DAILY_OPS_WINDOW_DAYS + 1);
+  const dailyCounts = await getDailyCounts(Math.max(1, firstDay - 1), lastDay);
   return {
     generatedAt: now,
     retentionDays: ALPHA_SESSION_RETENTION_DAYS,
     activePlayers: getRoomPresence(room.id, now),
     sessions,
     formats,
+    daily: summarizeDailyFigures(dailyCounts, firstDay, lastDay),
   };
 }

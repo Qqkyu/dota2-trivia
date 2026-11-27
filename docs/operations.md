@@ -198,6 +198,16 @@ can verify the ledger without DDL privileges. The application pool defaults to f
 connections, with query and lock timeouts. Include the pool, cleanup jobs, migration job,
 and administration in the database connection budget.
 
+Migration 3 (`daily-counts`, November 2026) adds `queue_arcade_daily_counts` for Queue
+Daily. Production must take a verified backup, run `pnpm db:migrate` with the migration role,
+then `pnpm db:grant-runtime`, before the release that contains it starts. A running server
+checked the schema when it started, so the old release keeps serving during the migration;
+only a restart of the old release would fail. The new release
+refuses to start on schema version 2, and the previous release refuses version 3, because
+it rejects a migration it does not know. To roll back the app, restore the backup taken
+before the migration, or drop `queue_arcade_daily_counts` and its ledger row with the
+migration role.
+
 For the checked backup and restore commands, exact snapshot comparisons, and role grants,
 follow [database recovery](database-recovery.md). These operator commands ignore inherited
 `PG*` connection settings and use their explicit database URL. Render operator commands

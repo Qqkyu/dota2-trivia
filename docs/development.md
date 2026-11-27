@@ -11,6 +11,7 @@ Current state: [launch status](launch-status.md). The October 2026 audit is summ
 The playable MVP includes:
 
 - endless, instantly interruptible arcade sessions with automatic round transitions;
+- Queue Daily at `/daily`, first in the lobby: six rounds a day with no clock, clues the player opens, a share text and a day streak;
 - canonical `/` lobby and `/play` session URLs with direct loading plus browser Back and Forward support;
 - one shared public room of 15-second rounds, without mode, category, or player-facing difficulty queues;
 - 1,517 live prompts for Dota patch 7.41f, including all 127 enabled heroes in Fogged Vision, 102 Shopkeeper rounds, 96 Soundcheck rounds, 84 Aghanim's Lab upgrades, 80 tie-free Order Up rounds, and 191 sourced Flashback prompts;
@@ -285,6 +286,18 @@ Forward, legacy-mode redirect, ten compact round identities, synchronized answer
 full-catalog 127-hero and 182-item result stress cases plus all 24 possible four-card orders,
 the three-stage Aghanim's Lab hero-picker layout, no-shift question-report popover, the optional session summary, the 70% fresh-install volume default, mobile lobby, mobile calibration layout, overflow, and saves screenshots
 under `/tmp`.
+
+## Queue Daily
+
+`/daily` serves six rounds a day in a fixed order: Fogged Vision, Soundcheck, Echo Hunt, Quote Hunt, Flashback and Estimate. Everyone on the same local date gets the same set, as in Wordle. Daily #1 is 27 November 2026 (`src/lib/daily.mjs`).
+
+- **Selection.** Each slot walks through its own order of the catalog, one question a day, so a question repeats only after its whole pool is used. The order is an HMAC of the question ID with the deck seed secret, so tomorrow's set cannot be computed from the public catalog (`src/lib/daily-deck.ts`). Estimate subjects come from the audited Order Up values for item prices, hero movement speed and attack range.
+- **Clues and scoring.** There is no clock. In the first four rounds the player opens clue 2 and clue 3; a right answer scores 3, 2 or 1 by the clue it came after. Flashback years and estimates score by closeness. A wrong answer scores 0. The player answers each round once.
+- **What the browser sees.** `/api/daily/round` serves a round at the opened stage through the same allow-list serializer as the live room, with an opaque `dota2:daily:<day>:<slot>` ID. The image and audio routes serve daily media at the requested stage. `/api/daily/answer` checks the answer on the server and only then returns the answer and explanation. A request may ask only for dailies open somewhere on Earth (UTC−12 to UTC+14).
+- **Browser storage.** Progress for the last three days and the day streak live in `queue-arcade:daily:v1`.
+- **Figures.** The server stores counts per day only (`queue_arcade_daily_counts`, migration 3, or the `daily` field of the alpha file store): rounds started, points per round, final scores, streak lengths and finishers who also finished the day before, as the browser reports it. Visits stay unlinked. `/ops` shows next-day return over 28 days.
+
+`pnpm check:ui` runs `scripts/check-daily.mjs`, which plays a whole daily in headless Chrome and checks clue costs, reveals, the share text, the streak, a reload and phone width.
 
 ## Crowd architecture
 

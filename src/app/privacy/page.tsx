@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export const dynamic = "force-dynamic";
 
 const CONTACT = "contact@queuearcade.com";
-const UPDATED: Record<string, string> = { en: "7 November 2026", ru: "7 ноября 2026" };
+const UPDATED: Record<string, string> = { en: "27 November 2026", ru: "27 ноября 2026" };
 /** ARCADE_DATA_COUNTRIES is English; a Russian sentence needs the prepositional case. */
 const RUSSIAN_COUNTRIES: Record<string, string> = { Germany: "Германии" };
 
@@ -49,6 +49,7 @@ export default async function PrivacyPage() {
           <ul>
             <li>{t("privacy.browser.id")}</li>
             <li>{t("privacy.browser.score")}</li>
+            <li>{t("privacy.browser.daily")}</li>
             <li>{t("privacy.browser.settings")}</li>
             <li>{t("privacy.browser.language")}</li>
             <li>
@@ -66,6 +67,7 @@ export default async function PrivacyPage() {
           <ul>
             <li>{t("privacy.server.answers")}</li>
             <li>{t("privacy.server.visits")}</li>
+            <li>{t("privacy.server.daily")}</li>
             <li>{t("privacy.server.reports")}</li>
             <li>{t("privacy.server.party")}</li>
             <li>{t("privacy.server.crashes")}</li>

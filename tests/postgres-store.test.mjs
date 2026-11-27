@@ -83,6 +83,22 @@ describe.skipIf(!databaseUrl)("PostgreSQL store transactions", () => {
     }
   });
 
+  it("keeps daily figures as counts per day and nothing else", async () => {
+    await alpha.recordDailyCounts(4, ["start", "slot:0:3"]);
+    await alpha.recordDailyCounts(4, ["slot:0:3", "finish", "finish:yesterday"]);
+    await alpha.recordDailyCounts(5, ["start"]);
+    expect(await alpha.getDailyCounts(4, 5)).toEqual({
+      4: { start: 1, "slot:0:3": 2, finish: 1, "finish:yesterday": 1 },
+      5: { start: 1 },
+    });
+    const columns = await sql`
+      SELECT column_name FROM information_schema.columns
+      WHERE table_schema = ${schema} AND table_name = 'queue_arcade_daily_counts'
+      ORDER BY column_name
+    `;
+    expect(columns.map((row) => row.column_name)).toEqual(["count", "day", "metric"]);
+  });
+
   it("rolls back the vote, profile, and calibration if analytics persistence fails", async () => {
     const now = Date.now();
     const user = await account.upsertSteamUser({ ...identity, authenticatedAt: now });

@@ -78,9 +78,9 @@ describe.skipIf(!databaseUrl)("PostgreSQL schema and cleanup", () => {
         }),
       ),
     );
-    expect(results.flatMap(({ stdout }) => JSON.parse(stdout))).toEqual([1, 2]);
+    expect(results.flatMap(({ stdout }) => JSON.parse(stdout))).toEqual([1, 2, 3]);
     const versions = await sql`SELECT version FROM queue_arcade_schema_migrations ORDER BY version`;
-    expect(versions.map((row) => row.version)).toEqual([1, 2]);
+    expect(versions.map((row) => row.version)).toEqual([1, 2, 3]);
     expect(await migrateDatabase(sql)).toEqual([]);
   }, 40_000);
 
@@ -116,7 +116,7 @@ describe.skipIf(!databaseUrl)("PostgreSQL schema and cleanup", () => {
     await sql`
       INSERT INTO queue_arcade_alpha_sessions VALUES ('legacy-session', 'legacy-visitor', 1, 2, NULL, 1, 1)
     `;
-    expect(await migrateDatabase(sql)).toEqual([1, 2]);
+    expect(await migrateDatabase(sql)).toEqual([1, 2, 3]);
     const [result] = await sql`SELECT correct, reveal_at FROM queue_arcade_player_rounds`;
     expect(result).toEqual({ correct: true, reveal_at: "0" });
     const [session] = await sql`SELECT rounds_answered, user_id FROM queue_arcade_alpha_sessions`;
@@ -250,9 +250,9 @@ describe.skipIf(!databaseUrl)("PostgreSQL schema and cleanup", () => {
     url.searchParams.set("search_path", schema);
     const env = { ...process.env, DATABASE_URL: url.href };
     const migrated = await execute(process.execPath, ["scripts/migrate-db.mjs"], { env });
-    expect(JSON.parse(migrated.stdout)).toEqual({ ok: true, applied: [1, 2], version: 2 });
+    expect(JSON.parse(migrated.stdout)).toEqual({ ok: true, applied: [1, 2, 3], version: 3 });
     const repeated = await execute(process.execPath, ["scripts/migrate-db.mjs"], { env });
-    expect(JSON.parse(repeated.stdout)).toEqual({ ok: true, applied: [], version: 2 });
+    expect(JSON.parse(repeated.stdout)).toEqual({ ok: true, applied: [], version: 3 });
     const preview = await execute(process.execPath, ["scripts/cleanup-db.mjs", "--dry-run"], { env });
     expect(JSON.parse(preview.stdout)).toEqual({
       ok: true,
@@ -336,7 +336,7 @@ describe.skipIf(!databaseUrl)("PostgreSQL schema and cleanup", () => {
       )
     `;
     await sql`INSERT INTO queue_arcade_schema_migrations (version, name) VALUES (1, 'initial-schema')`;
-    await expect(ensureDatabaseSchema(sql)).rejects.toThrow("Database migrations 2 are pending.");
+    await expect(ensureDatabaseSchema(sql)).rejects.toThrow("Database migrations 2, 3 are pending.");
     expect(await sql`SELECT version FROM queue_arcade_schema_migrations`).toEqual([{ version: 1 }]);
     expect(await sql`SELECT tablename FROM pg_tables WHERE schemaname = ${schema}`).toHaveLength(1);
   });

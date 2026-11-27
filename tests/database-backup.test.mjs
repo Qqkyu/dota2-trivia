@@ -162,7 +162,7 @@ describe.skipIf(!databaseUrl)("PostgreSQL snapshot backup and isolated restore",
       await Promise.all(writers);
     }
     expect(committed).toBeGreaterThan(initial);
-    expect(backup.tables).toBe(13);
+    expect(backup.tables).toBe(14);
     expect((await stat(outputDirectory)).mode & 0o777).toBe(0o700);
     expect((await stat(path.join(outputDirectory, "backup.dump"))).mode & 0o777).toBe(0o600);
     const { manifest } = await readBackup(outputDirectory);

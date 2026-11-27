@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-11-26T08:10:43.356Z",
-  "reviewedBy": "Claude Opus 5.5, 2026-11-26, visual and multiplayer smoke expectations; prior factual review retained",
+  "reviewedAt": "2026-11-27T20:06:43.277Z",
+  "reviewedBy": "Claude Opus 5.5, 2026-11-27, Queue Daily check scripts; prior factual review retained",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
     "patch": "7.41f",
@@ -13,8 +13,8 @@
     "patchTimestamp": 1789455600
   },
   "evidence": {
-    "path": "docs/audits/2026-11-26/stale-smoke-review.md",
-    "sha256": "98aba34b3965b28c089c7d473a4b64e784caf9c59b8ac85be23b3bfee8fe1c90"
+    "path": "docs/audits/2026-11-27/daily-review.md",
+    "sha256": "fc026db1fcffe5f2284dfa076855d918a6b0dbc516ecf57b28e93d0bec2a4ae1"
   },
   "scope": "Committed catalog and content scripts. Original upstream downloads are not pinned by this record.",
   "files": {
@@ -28,6 +28,7 @@
     "scripts/check-capacity.mjs": "7b4536dcbbe14f11a4e578100cb35f680401363ca6caf8f88fc176018cb198e8",
     "scripts/check-cold-media.mjs": "039047277c25afdbd02f69025513b19faad305d37f23e4062809a83f0d1b7ff3",
     "scripts/check-container.mjs": "3526bbbe9b22361e559d22202612126a660f439a29bbf036befab84648908128",
+    "scripts/check-daily.mjs": "f8856d2eca7f5202f66db0dfba9692790a2d4ac9ba8e99592369eff411c88a98",
     "scripts/check-deploy-handoff.mjs": "c27f1daf528d85d6fc70ad6393f71487a1713f182eecd2ac9c7e08887c54a1b0",
     "scripts/check-feedback-sounds.mjs": "3521b145864e3ba5529a704e7bae3a375db37a05afad0dd8f42385b9f718eb04",
     "scripts/check-flashback-ui.mjs": "b533a82e6d56ad090b4f4a636633053d6b8c511e847dbc2db72b0d26b066eaf5",
@@ -58,7 +59,7 @@
     "scripts/check-shop-search.mjs": "8c31ecc469e4b171f080f09526aa5fee81870de8c2ee4b196093c98818c2486a",
     "scripts/check-steam-provider.mjs": "aa5ff9e3fc524a262d160cdd9b19c5d8af2cf6614e00002bf00cbd28a91c2ec6",
     "scripts/check-ui-recovery.mjs": "7c4e338544045b0368b7719e9c55b7e5312559089de0c7555c88235c1f351e38",
-    "scripts/check-ui.mjs": "028195a36d0d81c4a039a59462d47403a9eb02683193a893d9b65698eee115da",
+    "scripts/check-ui.mjs": "e07ca371f650f69b1bcd137b05fc3fa61ded3342dcc48862852e0a0e666951ad",
     "scripts/check-user-journeys.mjs": "366f742a66196a6157893f4b0e6059c3e5bfb68902316af2dcfab3c886701762",
     "scripts/cleanup-db.mjs": "630a6ced2494226ac0aa8e9a220b7cafc99df2a600a576b65d8e172aa57b9720",
     "scripts/client-audit-requirement.mjs": "b235efb3298cdcf0f354509b856e45393dd6a6760c56810b5234414628d4b35d",

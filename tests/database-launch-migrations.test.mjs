@@ -140,11 +140,11 @@ describe.skipIf(!adminUrl)("launch database migration and runtime privileges", (
 
   it("serializes eight real migration CLI processes under a separate owner role", async () => {
     const results = await Promise.all(Array.from({ length: 8 }, () => migrate()));
-    expect(results.flatMap((result) => result.applied).sort()).toEqual([1, 2]);
+    expect(results.flatMap((result) => result.applied).sort()).toEqual([1, 2, 3]);
     const tables = await admin`SELECT tablename, tableowner FROM pg_tables WHERE schemaname = ${schema}`;
-    expect(tables.length).toBe(13);
+    expect(tables.length).toBe(14);
     expect(tables.every((table) => table.tableowner === migrationRole)).toBe(true);
-    expect(await migrate()).toMatchObject({ ok: true, applied: [], version: 2 });
+    expect(await migrate()).toMatchObject({ ok: true, applied: [], version: 3 });
   }, 30_000);
 
   it("runs migration, grant and cleanup commands at the explicit destination despite hostile PG settings", async () => {
@@ -165,7 +165,7 @@ describe.skipIf(!adminUrl)("launch database migration and runtime privileges", (
       DATABASE_URL: connection(migrationUrl, null, null, schema),
     }).done;
     expect(migrated.code, migrated.stderr).toBe(0);
-    expect(JSON.parse(migrated.stdout)).toMatchObject({ ok: true, applied: [1, 2] });
+    expect(JSON.parse(migrated.stdout)).toMatchObject({ ok: true, applied: [1, 2, 3] });
     const granted = await worker("scripts/grant-runtime-db.mjs", {
       ...hostile,
       DATABASE_URL: connection(adminUrl),
@@ -173,10 +173,11 @@ describe.skipIf(!adminUrl)("launch database migration and runtime privileges", (
       ARCADE_DATABASE_SCHEMA: schema,
     }).done;
     expect(granted.code, granted.stderr).toBe(0);
-    expect(JSON.parse(granted.stdout)).toMatchObject({ ok: true, tables: 13 });
+    expect(JSON.parse(granted.stdout)).toMatchObject({ ok: true, tables: 14 });
     expect(await runtime`SELECT version FROM queue_arcade_schema_migrations ORDER BY version`).toEqual([
       { version: 1 },
       { version: 2 },
+      { version: 3 },
     ]);
     const cleaned = await worker("scripts/cleanup-db.mjs", {
       ...hostile,
@@ -218,7 +219,7 @@ describe.skipIf(!adminUrl)("launch database migration and runtime privileges", (
     } finally {
       await admin`REVOKE ${admin(migrationRole)} FROM ${admin(runtimeRole)}`;
     }
-    expect(await grant()).toMatchObject({ ok: true, tables: 13 });
+    expect(await grant()).toMatchObject({ ok: true, tables: 14 });
   });
 
   it("uses real account, vote and analytics stores with CRUD while denying all schema changes", async () => {
@@ -228,7 +229,7 @@ describe.skipIf(!adminUrl)("launch database migration and runtime privileges", (
     await admin`GRANT CREATE ON SCHEMA ${admin(schema)} TO ${admin(runtimeRole)}`;
     await admin`GRANT UPDATE (name), INSERT (version, name) ON ${admin(schema)}.queue_arcade_schema_migrations TO ${admin(runtimeRole)}`;
     await admin`GRANT UPDATE (name) ON ${admin(schema)}.queue_arcade_schema_migrations TO PUBLIC`;
-    expect(await grant()).toMatchObject({ ok: true, tables: 13, ledger: "SELECT" });
+    expect(await grant()).toMatchObject({ ok: true, tables: 14, ledger: "SELECT" });
     await ensureDatabaseSchema(runtime);
     const load = sourceStores();
     const account = load("account-store"),
@@ -397,10 +398,11 @@ describe.skipIf(!adminUrl)("launch database migration and runtime privileges", (
       expect(await migrator`SELECT rounds_answered, correct_answers FROM queue_arcade_alpha_sessions`).toEqual([
         { rounds_answered: "1", correct_answers: "1" },
       ]);
-      expect(await migrate()).toMatchObject({ ok: true, applied: [1, 2] });
+      expect(await migrate()).toMatchObject({ ok: true, applied: [1, 2, 3] });
       expect(await migrator`SELECT version FROM queue_arcade_schema_migrations ORDER BY version`).toEqual([
         { version: 1 },
         { version: 2 },
+        { version: 3 },
       ]);
     },
     30_000,

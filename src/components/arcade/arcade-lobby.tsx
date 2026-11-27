@@ -12,6 +12,7 @@ import { PARTY_ARCADE_PATH } from "@/lib/arcade-navigation.mjs";
 import { LinkStatusLabel } from "../link-status-label";
 import { SteamAvatar } from "../steam-avatar";
 import { SteamSignIn } from "../steam-sign-in";
+import { DailyLobbyLink } from "../daily/daily-lobby-link";
 import styles from "../queue-arcade.module.css";
 import own from "./arcade-lobby.module.css";
 import { ModeIcon } from "./mode-icon";
@@ -151,40 +152,43 @@ export function ArcadeLobby({
         </p>
 
         <div className={own.lobbyActions}>
-          <button
-            type="button"
-            data-testid="start-arcade"
-            className={own.primaryButton}
-            onClick={() => {
-              privateCodeRef.current = "";
-              setPartyOpen(false);
-              setPrivateWaiting(false);
-              void startRun(true, "");
-            }}
-            disabled={phase === "waiting"}
-          >
-            {phase === "waiting" ? t("lobby.joining") : t("lobby.play")}
-          </button>
-          <a
-            href={PARTY_ARCADE_PATH}
-            className={own.lobbyFriends}
-            data-testid="private-room-open"
-            onClick={(event) => {
-              if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-              event.preventDefault();
-              returnToLobby("none");
-              privateCodeRef.current = "";
-              setActivePrivateCode("");
-              setPartyInviteCode("");
-              setPrivateWaiting(false);
-              setPartyOpen(true);
-              if (window.location.pathname !== PARTY_ARCADE_PATH) {
-                window.history.pushState({ queueArcadeView: "party" }, "", withAudioDebug(PARTY_ARCADE_PATH));
-              }
-            }}
-          >
-            {t("lobby.party")}
-          </a>
+          <DailyLobbyLink className={own.primaryButton} />
+          <div className={own.lobbyRooms}>
+            <button
+              type="button"
+              data-testid="start-arcade"
+              className={own.lobbyFriends}
+              onClick={() => {
+                privateCodeRef.current = "";
+                setPartyOpen(false);
+                setPrivateWaiting(false);
+                void startRun(true, "");
+              }}
+              disabled={phase === "waiting"}
+            >
+              {phase === "waiting" ? t("lobby.joining") : t("lobby.live.publicRoom")}
+            </button>
+            <a
+              href={PARTY_ARCADE_PATH}
+              className={own.lobbyFriends}
+              data-testid="private-room-open"
+              onClick={(event) => {
+                if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                event.preventDefault();
+                returnToLobby("none");
+                privateCodeRef.current = "";
+                setActivePrivateCode("");
+                setPartyInviteCode("");
+                setPrivateWaiting(false);
+                setPartyOpen(true);
+                if (window.location.pathname !== PARTY_ARCADE_PATH) {
+                  window.history.pushState({ queueArcadeView: "party" }, "", withAudioDebug(PARTY_ARCADE_PATH));
+                }
+              }}
+            >
+              {t("lobby.party")}
+            </a>
+          </div>
           <div className={own.accountActionSlot} data-testid="account-action-slot">
             {account === null ? (
               <span className={own.accountLoading} aria-hidden="true" />
