@@ -189,6 +189,41 @@ export default async function OpsPage() {
         </div>
       </section>
 
+      <section className={styles.formatPanel} data-testid="ops-daily">
+        <header>
+          <div>
+            <span>Queue Daily</span>
+            <small>Next-day return over 28 days: finishers who also finished the day before</small>
+          </div>
+          <strong data-testid="ops-daily-return">
+            {snapshot.daily.nextDayReturn === null ? "—" : `${Math.round(snapshot.daily.nextDayReturn * 100)}%`}
+          </strong>
+        </header>
+        <div className={styles.formatTable} role="table" aria-label="Queue Daily by day" tabIndex={0}>
+          <div className={styles.formatHeader} role="row">
+            <span role="columnheader">Daily</span>
+            <span role="columnheader">Started</span>
+            <span role="columnheader">Finished</span>
+            <span role="columnheader">Back next day</span>
+            <span role="columnheader">Average score</span>
+          </div>
+          {snapshot.daily.days
+            .filter((day) => day.starts || day.finishes)
+            .map((day) => (
+              <div className={styles.formatRow} key={day.day} role="row">
+                <strong role="cell">#{day.day}</strong>
+                <span role="cell">{day.starts.toLocaleString("en-US")}</span>
+                <span role="cell">{day.finishes.toLocaleString("en-US")}</span>
+                <span role="cell">
+                  {day.backFromYesterday}{" "}
+                  <small>{day.nextDayReturn === null ? "" : `· ${Math.round(day.nextDayReturn * 100)}%`}</small>
+                </span>
+                <em role="cell">{day.averageScore === null ? "—" : `${day.averageScore.toFixed(1)} / 18`}</em>
+              </div>
+            ))}
+        </div>
+      </section>
+
       <footer>
         <ShieldCheck /> Session rows contain salted hashes and small aggregates only, then expire after{" "}
         {snapshot.retentionDays}

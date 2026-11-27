@@ -241,6 +241,7 @@ export const pages = {
   "privacy.browser.title": "What stays in your browser",
   "privacy.browser.id": "a random player ID, so your answer counts once and you keep your seat in a party;",
   "privacy.browser.score": "your guest score, streak and lifetime statistics;",
+  "privacy.browser.daily": "your Queue Daily progress for the last three days and your day streak;",
   "privacy.browser.settings":
     "your volume and mute settings, your party name, an unsent chat message and a few flags for sound playback;",
   "privacy.browser.language": "your language choice, if you make one: the cookie queue_arcade_lang, for 1 year;",
@@ -253,6 +254,8 @@ export const pages = {
     "Your answers, with a salted hash of your player ID instead of the ID itself. The server deletes single answers after two hours. Totals per question, such as how many players picked each answer, stay without any ID, so wrong or unfair questions can be found and fixed.",
   "privacy.server.visits":
     'Visit counts. Each visit gets a random ID that your browser does not keep. The server counts visits, rounds and correct answers to see which rounds work. It does not link visits to each other or to you, and it deletes these records after 30 days. The "playing now" number lives only in server memory for 45 seconds.',
+  "privacy.server.daily":
+    "Queue Daily counts. When you answer a daily round or finish a daily, the server adds one to counts for that day: rounds started, points per round, final scores, streak lengths, and how many finishers also finished the day before. Your browser says whether you did; the server stores no ID or answer with the counts.",
   "privacy.server.reports":
     "Question reports, with a salted hash of your player ID, so one player's report counts once. The server deletes that hash after 90 days and keeps only the number of reports.",
   "privacy.server.party": "Party names and chat stay in server memory only and are gone when the party ends.",

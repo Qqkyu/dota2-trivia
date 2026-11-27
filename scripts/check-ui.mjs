@@ -126,6 +126,7 @@ try {
     "check-party-nicks.mjs",
     "check-party-crowd.mjs",
     "check-public-play.mjs",
+    "check-daily.mjs",
     "check-reports-api.mjs",
     "check-party-api.mjs",
     "check-party-ended.mjs",

@@ -1,3 +1,4 @@
+import { daily } from "./daily";
 import { lobby } from "./lobby";
 import { pages } from "./pages";
 import { round } from "./round";
@@ -53,4 +54,5 @@ export const en = {
   ...round,
   ...lobby,
   ...pages,
+  ...daily,
 } as const;

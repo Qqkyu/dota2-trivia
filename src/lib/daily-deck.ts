@@ -27,9 +27,9 @@ import { localizeQuestion } from "@/lib/question-locale";
 import { firstPartyArtTree } from "@/lib/steam-art.mjs";
 import type { RoundGame, TriviaQuestion } from "@/lib/trivia";
 import type { Locale } from "@/i18n/types";
+import type { DailyAnswer, DailyEstimate, DailyGame, DailyRoundPayload, EstimateFamily } from "@/lib/daily-types";
 
-type DailyGame = (typeof DAILY_SLOTS)[number];
-type EstimateFamily = keyof typeof DAILY_ESTIMATE_FAMILIES;
+export type { DailyAnswer, DailyEstimate, DailyRoundPayload } from "@/lib/daily-types";
 
 interface EstimateSubject {
   id: string;
@@ -38,30 +38,6 @@ interface EstimateSubject {
   key: string;
   value: number;
   label: string;
-}
-
-export interface DailyEstimate {
-  family: EstimateFamily;
-  unit: string;
-  subject: { name: string; context?: string; image: string; kind: string };
-  slider: { min: number; max: number; step: number };
-  reveal: { value: number; label: string } | null;
-}
-
-export interface DailyRoundPayload {
-  day: number;
-  slot: number;
-  game: DailyGame;
-  stage: 1 | 2 | 3;
-  maxStage: 1 | 3;
-  question?: PublicArcadeQuestion;
-  estimate?: DailyEstimate;
-}
-
-export interface DailyAnswer {
-  answerIndex?: number;
-  answerKey?: string;
-  value?: number;
 }
 
 const SLOT_MATCHERS: Record<Exclude<DailyGame, "estimate">, (question: TriviaQuestion) => boolean> = {

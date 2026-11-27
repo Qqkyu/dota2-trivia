@@ -30,8 +30,7 @@ Secondary audiences:
 
 Queue Arcade is an unofficial browser arcade for the gap between Find Match and Accept.
 Dota 2 is its first content pack. It began as a recreation of Valve's Queue Trivia, which
-shipped with The International 2017 Battle Pass and disappeared with that event model after
-2022.
+shipped with The International 2017 Battle Pass and disappeared with that event model after 2022.
 
 Success over the next year, as stated by the maintainer:
 
@@ -48,6 +47,12 @@ The claim: the old drop-in queue loop, which no neighbouring project runs. One s
 room, 15-second rounds, a global answer reveal, speed and streak scoring, and double points
 when you are right while most of the crowd is wrong. Ten round formats rotate inside that one
 room, and each one stays short enough to abandon the moment a match appears.
+
+Since 27 November 2026 the lobby leads with Queue Daily (`/daily`): six rounds a day, the
+same for everyone on the same date, with no clock. The player opens each clue and each clue
+costs a point. The day ends with a spoiler-free share text, a day streak and today's figures.
+The maintainer chose it as one more try before deciding whether to keep the project: four
+weeks after the launch post, they judge it on next-day return (`/ops`).
 
 Neighbours serve different loops: Dotadle is a daily hero guess, Dota2Quiz recreates
 Shopkeeper item modes, Dota 2 IQ trains itemization and awareness, Rift Oracle is an offline
@@ -168,16 +173,19 @@ Undecided product facts:
 
 ## Product Principles
 
-1. Leave at any second. A round never asks for more than 15 seconds, and leaving costs
-   nothing. Nothing in the product may make a player hesitate to press Accept.
-2. One room, one clock. Everyone sees the same question, deadline, and reveal. The server
-   owns timing and answers; the browser only renders what the current phase allows.
+1. Leave at any second. A live round never asks for more than 15 seconds, the daily has no
+   clock, and leaving costs nothing. Nothing in the product may make a player hesitate to
+   press Accept.
+2. One room, one clock. Everyone sees the same question, deadline, and reveal. The daily is
+   one set for everyone each day. The server owns timing and answers; the browser only
+   renders what the current phase or opened clue allows.
 3. The crowd is the payoff. The per-round split and the majority-wrong bonus are the reason
-   to answer, so every format must end in a shared reveal.
+   to answer, so every live format must end in a shared reveal. The daily ends with today's
+   figures: how many scored each round and how the player compares.
 4. Only audited, current game facts. Every prompt traces to the patch-stamped client or a
    dated source, and content that cannot be verified is cut rather than shipped.
-5. Return visits before reach. Prove the public loop on `/ops` before adding packs or
-   rankings.
+5. Return visits before reach. Prove the daily's next-day return on `/ops` before adding
+   packs or rankings.
 
 ## Accessibility & Inclusion
 

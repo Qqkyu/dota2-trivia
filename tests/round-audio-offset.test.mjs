@@ -25,7 +25,7 @@ function loadRoute(dependencies) {
   return loaded.exports;
 }
 
-function fixture({ offset = 0.6, game = "soundcheck", phase = "answering" } = {}) {
+function fixture({ offset = 0.6, game = "soundcheck", phase = "answering", daily = null } = {}) {
   const wav = Buffer.alloc(44 + 2_000);
   wav.write("RIFF", 0);
   wav.writeUInt32LE(wav.length - 8, 4);
@@ -80,9 +80,13 @@ function fixture({ offset = 0.6, game = "soundcheck", phase = "answering" } = {}
     "@/lib/scoring.mjs": { clueStageAt: () => 1 },
     "@/lib/public-rooms": { parsePublicRoomSettings: () => ({ gameId: "dota2" }) },
     "@/lib/server-diagnostics": { logServerError: () => {} },
+    "@/lib/daily-deck": {
+      dailyMediaRound: (roundId, stage) =>
+        daily && roundId === daily.roundId ? { ...daily, question, stage: Number(stage ?? 3) } : null,
+    },
   });
   const request = (extra = "", headers = {}) =>
-    new Request(`http://test/api/round-audio?roundId=${round.id}${extra}`, { headers });
+    new Request(`http://test/api/round-audio?roundId=${daily?.roundId ?? round.id}${extra}`, { headers });
   return { ...route, request, round, cut, warm, original };
 }
 
@@ -126,6 +130,21 @@ describe("trusted Soundcheck audio offset", () => {
     const test = fixture({ offset: 1, phase: "reveal" });
     expect((await test.GET(test.request())).status).toBe(502);
     expect((await test.HEAD(test.request())).status).toBe(502);
+  });
+
+  it("cuts a daily clip by the clue the player opened, not by a clock", async () => {
+    vi.spyOn(Date, "now").mockReturnValue(1_000);
+    const daily = { roundId: "dota2:daily:3:1", day: 3, slot: 1, game: "soundcheck" };
+    for (const stage of [1, 2]) {
+      const test = fixture({ daily });
+      const response = await test.GET(test.request(`&stage=${stage}`));
+      expect(response.status).toBe(200);
+      const bytes = Buffer.from(await response.arrayBuffer());
+      expect(bytes.readUInt32LE(40)).toBe(Math.ceil(soundcheck.soundcheckCutDuration(0.4, stage) * 1_000) * 2);
+    }
+    const full = fixture({ daily });
+    const response = await full.GET(full.request("&stage=3"));
+    expect(Buffer.from(await response.arrayBuffer()).readUInt32LE(40)).toBe(800);
   });
 
   it("does not reuse a cut at a different start offset", async () => {

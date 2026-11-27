@@ -144,3 +144,20 @@ describe("daily counters", () => {
     expect(summarizeDailyCounts({}, 3)).toMatchObject({ players: 0, averageTotal: null, beatShare: null });
   });
 });
+
+describe("daily figures for /ops", async () => {
+  const { summarizeDailyFigures } = await import("../src/lib/alpha-ops");
+  it("divides next-day finishers by the day before's finishers", () => {
+    const counts = {
+      1: { start: 12, finish: 10, "score:9": 10 },
+      2: { start: 8, finish: 6, "finish:yesterday": 3, "score:12": 6 },
+      3: { start: 4, finish: 4, "finish:yesterday": 3 },
+    };
+    const figures = summarizeDailyFigures(counts, 1, 3);
+    expect(figures.days.map((day) => day.day)).toEqual([3, 2, 1]);
+    expect(figures.days[1]).toMatchObject({ starts: 8, finishes: 6, backFromYesterday: 3, nextDayReturn: 0.3 });
+    expect(figures.days[1].averageScore).toBe(12);
+    expect(figures.days[2].nextDayReturn).toBeNull();
+    expect(figures.nextDayReturn).toBe(6 / 16);
+  });
+});
