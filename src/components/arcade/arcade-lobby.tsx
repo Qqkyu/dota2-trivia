@@ -159,6 +159,8 @@ export function ArcadeLobby({
               data-testid="start-arcade"
               className={own.lobbyFriends}
               onClick={() => {
+                // The button sits below the daily; the room screen starts at the top.
+                window.scrollTo({ top: 0, left: 0, behavior: "instant" });
                 privateCodeRef.current = "";
                 setPartyOpen(false);
                 setPrivateWaiting(false);
@@ -175,6 +177,7 @@ export function ArcadeLobby({
               onClick={(event) => {
                 if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
                 event.preventDefault();
+                window.scrollTo({ top: 0, left: 0, behavior: "instant" });
                 returnToLobby("none");
                 privateCodeRef.current = "";
                 setActivePrivateCode("");
