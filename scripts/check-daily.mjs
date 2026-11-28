@@ -169,7 +169,8 @@ async function answerCurrent(game) {
   else if (mode === "order") {
     for (let index = 0; index < 4; index += 1) {
       await page.evaluate(
-        `document.querySelectorAll('[data-testid="flashback-order-card"]:not([disabled])')[0]?.click()`,
+        // A second click on a placed card takes it back, so pick the next unplaced card.
+        `document.querySelector('[data-testid="flashback-order-card"][data-selected="false"]:not([disabled])')?.click()`,
       );
       await delay(120);
     }
